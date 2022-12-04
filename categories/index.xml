@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Categories - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/</link>
+        <description>Categories - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 03 Mar 2020 10:29:41 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>Documentation</title>
+    <link>http://example.org/categories/documentation/</link>
+    <pubDate>Tue, 03 Mar 2020 10:29:41 &#43;0800</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/categories/documentation/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>
