@@ -2,13 +2,13 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://example.org/posts/202212/</loc><lastmod>2022-12-11T23:43:47&#43;08:00</lastmod></url><url>
-            <loc>http://example.org/posts/</loc><lastmod>2022-12-11T23:43:47&#43;08:00</lastmod></url><url>
-            <loc>http://example.org/</loc><lastmod>2022-12-11T23:43:47&#43;08:00</lastmod></url><url>
-            <loc>http://example.org/about/</loc><lastmod>2019-08-02T11:04:49&#43;08:00</lastmod></url><url>
-            <loc>http://example.org/categories/</loc></url><url>
-            <loc>http://example.org/categories/documentation/</loc></url><url>
-            <loc>http://example.org/tags/</loc></url><url>
-            <loc>http://example.org/tags/content/</loc></url><url>
-            <loc>http://example.org/tags/installation/</loc></url><url>
-            <loc>http://example.org/tags/configuration/</loc></url></urlset>
+            <loc>http://oweqian.xyz/posts/202212/</loc><lastmod>2022-12-11T23:43:47&#43;08:00</lastmod></url><url>
+            <loc>http://oweqian.xyz/posts/</loc><lastmod>2022-12-11T23:43:47&#43;08:00</lastmod></url><url>
+            <loc>http://oweqian.xyz/</loc><lastmod>2022-12-11T23:43:47&#43;08:00</lastmod></url><url>
+            <loc>http://oweqian.xyz/about/</loc><lastmod>2019-08-02T11:04:49&#43;08:00</lastmod></url><url>
+            <loc>http://oweqian.xyz/categories/</loc></url><url>
+            <loc>http://oweqian.xyz/categories/documentation/</loc></url><url>
+            <loc>http://oweqian.xyz/tags/</loc></url><url>
+            <loc>http://oweqian.xyz/tags/content/</loc></url><url>
+            <loc>http://oweqian.xyz/tags/installation/</loc></url><url>
+            <loc>http://oweqian.xyz/tags/configuration/</loc></url></urlset>
