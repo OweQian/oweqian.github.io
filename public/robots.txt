@@ -61,4 +61,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: http://oweqian.xyz/en/sitemap.xml
+Sitemap: http://oweqian.github.io/en/sitemap.xml
