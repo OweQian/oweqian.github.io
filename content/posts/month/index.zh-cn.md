@@ -79,7 +79,7 @@ date: 2022-12-11T23:43:47+08:00
 <img src="/images/202212/img_13.png" alt="" width="220" height="200"/>
 
 ## 2022/12/18
-和饼干一起晒☀️，给饼干铺上新毛毯，在地上爬着就不会🥶了。  
+和饼干一起晒☀️，地上铺上新毯子，🐱在地上趴着就不会🥶了。  
 
 <img src="/images/202212/img_14.png" alt="" width="230" />
 <img src="/images/202212/img_15.png" alt="" width="230" />
