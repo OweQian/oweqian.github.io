@@ -4,7 +4,15 @@
         <link>http://oweqian.github.io/</link>
         <description>Hugo theme - LoveIt</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 11 Dec 2022 23:43:47 &#43;0800</lastBuildDate>
             <atom:link href="http://oweqian.github.io/index.xml" rel="self" type="application/rss+xml" />
-        </channel>
+        <item>
+    <title>2022/12</title>
+    <link>http://oweqian.github.io/month/</link>
+    <pubDate>Sun, 11 Dec 2022 23:43:47 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.github.io/month/</guid>
+    <description><![CDATA[2022/12/01 钱都起床了，你还不起。 &mdash;风吹半夏 2022/12/02 坚持每周中强度运动150分钟/高强度运动70分钟，可以获得一个漂亮的大海马体。 2022/12/03 人可以平庸，]]></description>
+</item>
+</channel>
 </rss>
