@@ -1,7 +1,6 @@
 ---
 title: "2022/12"
 date: 2022-12-11T23:43:47+08:00
-draft: true
 ---
 
 ## 2022/12/01
@@ -16,22 +15,22 @@ draft: true
 ## 2022/12/04
 《财阀家的小儿子》
 
-![](/images/202212/img.png)
+<img src="/images/202212/img.png" alt="" width="400" />
 
 ## 2022/12/05
 这支球队就像一个平凡努力的普通人的一生。他不是最强最出彩的，但你想赢他也不容易，因为他有强大的定力和拼劲，打不倒压不垮，还能绝处逢生。
 
-![](/images/202212/img_7.png)
+<img src="/images/202212/img_7.png" alt="" width="400" />
 
 ## 2022/12/06
 《财阀家的小儿子》
 
-![](/images/202212/img_1.png)
+<img src="/images/202212/img_1.png" alt="" width="400" />
 
 ## 2022/12/07
 《财阀家的小儿子》
 
-![](/images/202212/img_2.png)
+<img src="/images/202212/img_2.png" alt="" width="400" />
 
 ## 2022/12/08
 公司有人🐑了。。。
@@ -39,7 +38,7 @@ draft: true
 ## 2022/12/09
 神🐱压中了🇭🇷
 
-![](/images/202212/img_3.png)
+<img src="/images/202212/img_3.png" alt="" width="400" />
 
 ## 2022/12/10
 公司后端写的烂接口，一个都不能用，就混吧
@@ -51,9 +50,37 @@ draft: true
 ``` 
 小红猪里裂开的都是💰啊。。
 
-![](/images/202212/img_4.png)
-![](/images/202212/img_5.png)
-![](/images/202212/img_6.png)
+<img src="/images/202212/img_4.png" alt="" width="230" />
+<img src="/images/202212/img_5.png" alt="" width="230" />
+<img src="/images/202212/img_6.png" alt="" width="230" />
 
 ## 2022/12/12
-旁边同事🐑了，瑟瑟发抖的一天。
+🥶🥶🥶  
+
+## 2022/12/13
+<img src="/images/202212/img_8.png" alt="" width="230" />
+<img src="/images/202212/img_10.png" alt="" width="230" />
+<img src="/images/202212/img_9.png" alt="" width="230" />
+
+## 2022/12/14
+入手新框架Island.js  
+🚴🏻10公里
+
+## 2022/12/15
+发烧中...  
+<img src="/images/202212/img_13.png" alt="" width="220" height="200"/>
+
+## 2022/12/16
+发烧中...  
+<img src="/images/202212/img_13.png" alt="" width="220" height="200"/>
+
+## 2022/12/17
+发烧中...  
+<img src="/images/202212/img_13.png" alt="" width="220" height="200"/>
+
+## 2022/12/18
+和饼干一起晒☀️，给饼干铺上新毛毯，在地上爬着就不会🥶了。  
+
+<img src="/images/202212/img_14.png" alt="" width="230" />
+<img src="/images/202212/img_15.png" alt="" width="230" />
+<img src="/images/202212/img_16.png" alt="" width="230" />
