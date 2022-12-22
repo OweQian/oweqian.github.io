@@ -569,8 +569,8 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         # You can refer to the official documentation of giscus to use the following configuration.
         # 你可以参考官方文档来使用下列配置
         enable = false
-        repo = ""
-        repoId = ""
+        repo = "OweQian/oweqian.github.io"
+        repoId = "R_kgDOIjhAhA"
         category = "Announcements"
         categoryId = ""
         # automatically adapt the current theme i18n configuration when empty
