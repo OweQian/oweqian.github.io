@@ -2,48 +2,48 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://oweqian.github.io/en/about/</loc><lastmod>2022-12-04T22:45:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+            <loc>http://oweqian.xyz/en/about/</loc><lastmod>2022-12-04T22:45:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://oweqian.github.io/about/"
+                        href="http://oweqian.xyz/about/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://oweqian.github.io/en/about/"
+                    href="http://oweqian.xyz/en/about/"
                     /></url><url>
-            <loc>http://oweqian.github.io/en/categories/</loc><lastmod>2022-12-04T22:45:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+            <loc>http://oweqian.xyz/en/categories/</loc><lastmod>2022-12-04T22:45:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://oweqian.github.io/categories/"
+                        href="http://oweqian.xyz/categories/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://oweqian.github.io/en/categories/"
+                    href="http://oweqian.xyz/en/categories/"
                     /></url><url>
-            <loc>http://oweqian.github.io/en/categories/documentation/</loc><lastmod>2022-12-04T22:45:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+            <loc>http://oweqian.xyz/en/categories/documentation/</loc><lastmod>2022-12-04T22:45:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://oweqian.github.io/categories/documentation/"
+                        href="http://oweqian.xyz/categories/documentation/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://oweqian.github.io/en/categories/documentation/"
+                    href="http://oweqian.xyz/en/categories/documentation/"
                     /></url><url>
-            <loc>http://oweqian.github.io/en/</loc><lastmod>2022-12-04T22:45:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+            <loc>http://oweqian.xyz/en/</loc><lastmod>2022-12-04T22:45:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://oweqian.github.io/"
+                        href="http://oweqian.xyz/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://oweqian.github.io/en/"
+                    href="http://oweqian.xyz/en/"
                     /></url><url>
-            <loc>http://oweqian.github.io/en/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>http://oweqian.xyz/en/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://oweqian.github.io/tags/"
+                        href="http://oweqian.xyz/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://oweqian.github.io/en/tags/"
+                    href="http://oweqian.xyz/en/tags/"
                     /></url></urlset>

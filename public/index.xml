@@ -1,25 +1,25 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>OweQian</title>
-        <link>http://oweqian.github.io/</link>
+        <link>http://oweqian.xyz/</link>
         <description>Hugo theme - LoveIt</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
             <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 18 Dec 2022 23:01:38 &#43;0800</lastBuildDate>
-            <atom:link href="http://oweqian.github.io/index.xml" rel="self" type="application/rss+xml" />
+            <atom:link href="http://oweqian.xyz/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Island.js初探</title>
-    <link>http://oweqian.github.io/island/</link>
+    <link>http://oweqian.xyz/island/</link>
     <pubDate>Sun, 18 Dec 2022 23:01:38 &#43;0800</pubDate>
     <author>OweQian</author>
-    <guid>http://oweqian.github.io/island/</guid>
+    <guid>http://oweqian.xyz/island/</guid>
     <description><![CDATA[本系列基于神三元(抖音前端架构组)的小册《基于Vite的SSG框架开发实战》而总结的学习笔记。 Islands 架构是业界比较新的一个 SSR 架构趋势，相比于传统]]></description>
 </item>
 <item>
     <title>2022/12</title>
-    <link>http://oweqian.github.io/month/</link>
+    <link>http://oweqian.xyz/month/</link>
     <pubDate>Sun, 11 Dec 2022 23:43:47 &#43;0800</pubDate>
     <author>OweQian</author>
-    <guid>http://oweqian.github.io/month/</guid>
+    <guid>http://oweqian.xyz/month/</guid>
     <description><![CDATA[2022/12/01 钱都起床了，你还不起。 &mdash;风吹半夏 2022/12/02 坚持每周中强度运动150分钟/高强度运动70分钟，可以获得一个漂亮的大海马体。 2022/12/03 人可以平庸，]]></description>
 </item>
 </channel>

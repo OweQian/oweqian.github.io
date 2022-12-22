@@ -1,10 +1,10 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>OweQian</title>
-        <link>http://oweqian.github.io/en/</link>
+        <link>http://oweqian.xyz/en/</link>
         <description>Hugo theme - LoveIt</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
             <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-            <atom:link href="http://oweqian.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+            <atom:link href="http://oweqian.xyz/en/index.xml" rel="self" type="application/rss+xml" />
         </channel>
 </rss>
