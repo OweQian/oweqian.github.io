@@ -4,9 +4,17 @@
         <link>http://oweqian.xyz/</link>
         <description>Hugo theme - LoveIt</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 18 Dec 2022 23:01:38 &#43;0800</lastBuildDate>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 27 Dec 2022 20:01:38 &#43;0800</lastBuildDate>
             <atom:link href="http://oweqian.xyz/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>&lt;白鹿原&gt;-什么样的人会成为命运赢家？</title>
+    <link>http://oweqian.xyz/day1/</link>
+    <pubDate>Tue, 27 Dec 2022 20:01:38 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.xyz/day1/</guid>
+    <description><![CDATA[关于本书 《白鹿原》是一部渭河平原五十年变迁的雄奇史诗，一轴中国农村斑斓多次、触目惊心的长幅画卷。作者以陕西关中平原上素有&quot;仁义村&]]></description>
+</item>
+<item>
     <title>Island.js初探</title>
     <link>http://oweqian.xyz/island/</link>
     <pubDate>Sun, 18 Dec 2022 23:01:38 &#43;0800</pubDate>
