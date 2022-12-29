@@ -15,22 +15,22 @@ categories: ["王的乱语"]
 人可以平庸，但不能踩着人往上，也不能通过贬低和否定他人，来实现自己的价值。
 
 ## 2022/12/04
-《财阀家的小儿子》
+《财阀家的小儿子》  
 
 <img src="/images/202212/img.png" alt="" width="400" />
 
 ## 2022/12/05
-这支球队就像一个平凡努力的普通人的一生。他不是最强最出彩的，但你想赢他也不容易，因为他有强大的定力和拼劲，打不倒压不垮，还能绝处逢生。
+这支球队就像一个平凡努力的普通人的一生。他不是最强最出彩的，但你想赢他也不容易，因为他有强大的定力和拼劲，打不倒压不垮，还能绝处逢生。  
 
 <img src="/images/202212/img_7.png" alt="" width="400" />
 
 ## 2022/12/06
-《财阀家的小儿子》
+《财阀家的小儿子》  
 
 <img src="/images/202212/img_1.png" alt="" width="400" />
 
 ## 2022/12/07
-《财阀家的小儿子》
+《财阀家的小儿子》  
 
 <img src="/images/202212/img_2.png" alt="" width="400" />
 
@@ -38,19 +38,19 @@ categories: ["王的乱语"]
 公司有人🐑了。。。
 
 ## 2022/12/09
-神🐱压中了🇭🇷
+神🐱压中了🇭🇷  
 
 <img src="/images/202212/img_3.png" alt="" width="400" />
 
 ## 2022/12/10
-公司后端写的烂接口，一个都不能用，就混吧
+公司后端写的烂接口，一个都不能用，就混吧  
 
 ## 2022/12/11
 《纸房子·第二季》
 ```
 “纸房子是人民的！” 
 ``` 
-小红猪里裂开的都是💰啊。。
+小红猪里裂开的都是💰啊。。  
 
 <img src="/images/202212/img_4.png" alt="" width="230" />
 <img src="/images/202212/img_5.png" alt="" width="230" />
@@ -70,14 +70,17 @@ categories: ["王的乱语"]
 
 ## 2022/12/15
 发烧中...  
+
 <img src="/images/202212/img_13.png" alt="" width="220" height="200"/>
 
 ## 2022/12/16
 发烧中...  
+
 <img src="/images/202212/img_13.png" alt="" width="220" height="200"/>
 
 ## 2022/12/17
 发烧中...  
+
 <img src="/images/202212/img_13.png" alt="" width="220" height="200"/>
 
 ## 2022/12/18
@@ -89,6 +92,7 @@ categories: ["王的乱语"]
 
 ## 2022/12/19
 🔥起来吧  
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/uNyOVLKWtlY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 2022/12/20
@@ -103,7 +107,7 @@ categories: ["王的乱语"]
 感谢瑞幸咖啡和同事的草莓糖，味觉和嗅觉回来了😄  
 
 ## 2022/12/23
-熬夜看完了《星期三》，喜欢这种坏女孩。  
+熬夜看完了《星期三》，喜欢这种 bad girl。  
 
 <img src="/images/202212/img_18.png" alt="" width="300" />  
 
@@ -114,7 +118,19 @@ categories: ["王的乱语"]
 Merry Christmas
 
 ## 2022/12/26
-给IoTSharp做一个新的官网，新年新面貌。
+这本书很有意思。  
+
+<img src="/images/202212/img_19.png" alt="" width="300" />   
 
 ## 2022/12/27
-强迫自己养成一些日常习惯。
+IoTSharp官网新鲜出炉。  
+
+<img src="/images/202212/img_20.png" alt="" width="600" />
+
+## 2022/12/28
+少年去游荡，中年想掘藏，老年做和尚。  
+
+## 2022/12/29  
+烤无双，很好吃呦😄  
+
+<img src="/images/202212/img_21.png" alt="" width="300" />
