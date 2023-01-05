@@ -414,7 +414,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         enable = true
         repo = "OweQian/oweqian.github.io"
         repoId = "R_kgDOIjhAhA"
-        category = "Announcements"
+        category = "General"
         categoryId = "DIC_kwDOIjhAhM4CTN5c"
         # automatically adapt the current theme i18n configuration when empty
         # 为空时自动适配当前主题 i18n 配置
