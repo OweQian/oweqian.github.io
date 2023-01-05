@@ -1,4 +1,4 @@
-# 2022/12
+# 2022/12-王的乱语
 
 
 ## 2022/12/01
@@ -89,7 +89,7 @@
 ## 2022/12/19
 🔥起来吧  
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/uNyOVLKWtlY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="600" height="315" src="https://www.youtube.com/embed/uNyOVLKWtlY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 2022/12/20
 <img src="/images/202212/img_17.png" alt="" width="300" />  
@@ -97,7 +97,7 @@
 ## 2022/12/21
 分享最近很火的一段僵尸舞，来自《星期三》  
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/AE2bY2gOBhk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="600" height="315" src="https://www.youtube.com/embed/AE2bY2gOBhk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 2022/12/22
 感谢瑞幸咖啡和同事的草莓糖，味觉和嗅觉回来了😄  
