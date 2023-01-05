@@ -415,16 +415,16 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         repo = "OweQian/oweqian.github.io"
         repoId = "R_kgDOIjhAhA"
         category = "Announcements"
-        categoryId = ""
+        categoryId = "DIC_kwDOIjhAhM4CTN5c"
         # automatically adapt the current theme i18n configuration when empty
         # 为空时自动适配当前主题 i18n 配置
-        lang = ""
+        lang = "zh-CN"
         mapping = "pathname"
         reactionsEnabled = "1"
         emitMetadata = "0"
-        inputPosition = "bottom"
+        inputPosition = "top"
         lazyLoading = false
-        lightTheme = "light"
+        lightTheme = "dark"
         darkTheme = "dark"
     # Third-party library config
     # 第三方库配置
