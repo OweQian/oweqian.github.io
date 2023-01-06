@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>瞎折腾 - 分类 - OweQian</title>
+        <link>http://oweqian.xyz/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/</link>
+        <description>瞎折腾 - 分类 - OweQian</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 06 Jan 2023 23:46:20 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/" rel="self" type="application/rss+xml" /><item>
+    <title>围棋入门与提高</title>
+    <link>http://oweqian.xyz/go/</link>
+    <pubDate>Fri, 06 Jan 2023 23:46:20 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.xyz/go/</guid>
+    <description><![CDATA[听说围棋是一种&quot;头脑体操&quot;，能有效预防老年痴呆，希望能解救下我这不太聪明的脑壳。]]></description>
+</item>
+</channel>
+</rss>
