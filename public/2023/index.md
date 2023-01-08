@@ -29,4 +29,14 @@
 
 <img src="/images/202301/img_3.png" alt="" width="400" />  
 
+### 01-07  
+不好好看文档系列😭。。包子都吃完了，才看到要按照顺序吃，可惜肚子吃不下了，不然再来一笼。
+好想知道如果这样吃，会不会让灵魂得到升华🤔。
+
+<img src="/images/202301/img_4.png" alt="" width="400" />  
+
+### 01-08  
+在飞机上看了《一条狗的使命2》，哭得稀里哗啦的😭，多希望我的饼干🐱也可以一直历经生死轮回找到我并陪伴着我，直到陪我走到生命的终点。
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/om_3WjZVDNA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
