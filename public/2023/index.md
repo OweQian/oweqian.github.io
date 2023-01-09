@@ -40,3 +40,10 @@
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/om_3WjZVDNA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+### 01-09  
+犹豫了很久很久，终于下定决心入手 AJ 扣碎篮板😍。  
+
+钱不花就是一张纸，花了才是钱😳。  
+
+<img src="/images/202301/img_5.png" alt="" width="400" />  
+
