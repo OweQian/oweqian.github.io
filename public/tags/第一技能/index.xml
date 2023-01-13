@@ -1,0 +1,32 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>第一技能 - 标签 - OweQian</title>
+        <link>http://oweqian.xyz/tags/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/</link>
+        <description>第一技能 - 标签 - OweQian</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 13 Jan 2023 17:11:17 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/tags/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/" rel="self" type="application/rss+xml" /><item>
+    <title>Taro React 小程序项目实战</title>
+    <link>http://oweqian.xyz/taro/</link>
+    <pubDate>Fri, 13 Jan 2023 17:11:17 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.xyz/taro/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>NestJS 网关系统项目实战</title>
+    <link>http://oweqian.xyz/nest/</link>
+    <pubDate>Fri, 13 Jan 2023 17:11:07 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.xyz/nest/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>NextJS SSR 官网项目实战</title>
+    <link>http://oweqian.xyz/next/</link>
+    <pubDate>Fri, 13 Jan 2023 17:10:47 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.xyz/next/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

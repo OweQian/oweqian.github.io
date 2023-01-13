@@ -1,10 +1,10 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>所有文章 - OweQian</title>
-        <link>http://oweqian.xyz/posts/</link>
-        <description>所有文章 | OweQian</description>
+        <title>连载 - 标签 - OweQian</title>
+        <link>http://oweqian.xyz/tags/%E8%BF%9E%E8%BD%BD/</link>
+        <description>连载 - 标签 - OweQian</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 13 Jan 2023 17:18:47 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 13 Jan 2023 17:18:47 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/tags/%E8%BF%9E%E8%BD%BD/" rel="self" type="application/rss+xml" /><item>
     <title>Q的乱语-2023年</title>
     <link>http://oweqian.xyz/2023/</link>
     <pubDate>Fri, 13 Jan 2023 17:18:47 &#43;0800</pubDate>
@@ -59,14 +59,6 @@
     <author>OweQian</author>
     <guid>http://oweqian.xyz/draw/</guid>
     <description><![CDATA[001 窗台上的🐱 1 下辈子做一只猫，翘着尾巴云游天下，跟狗打架。 002 🐳与☁️ 1 热爱漫无边际，生活自有分寸。 003 露营⛺️ 1 一起去露营吧，揽星河入怀，拥山]]></description>
-</item>
-<item>
-    <title>Q的乱语-2022年</title>
-    <link>http://oweqian.xyz/2022/</link>
-    <pubDate>Sun, 11 Dec 2022 23:43:47 &#43;0800</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/2022/</guid>
-    <description><![CDATA[2022-12 12-01 钱都起床了，你还不起。 12-02 坚持每周中强度运动150分钟/高强度运动70分钟，可以获得一个漂亮的大海马体。 12-03 人可以平庸，但不能踩着人往上，也]]></description>
 </item>
 </channel>
 </rss>
