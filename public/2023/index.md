@@ -89,3 +89,14 @@
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/NtuplEYZcrM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
 
+### 01-19    
+* 彩妆的尽头是裸妆  
+* 烫发的尽头是黑长直  
+* 美甲的尽头是肉粉色  
+* 医美的尽头是养生  
+* 消费主义的尽头是断舍离  
+* 道理的尽头是大道至简  
+* 骄傲的尽头是允许自己做自己，允许别人做别人  
+* 万事的尽头是尽人事听天命  
+* 人生的尽头是一个人面对孤独  
+

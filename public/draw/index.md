@@ -17,11 +17,19 @@
 
 <img src="/images/draw/img_1.png" alt="" width="500" />  
 
-## 003 露营⛺️ 
+## 003 露营⛺️   
 
 ```
 一起去露营吧，揽星河入怀，拥山野而眠。  
 ```
 
 <img src="/images/draw/img_2.png" alt="" width="500" />  
+
+## 004 福🐰贺春  
+
+```
+新年快乐。
+```
+
+<img src="/images/draw/img_3.png" alt="" width="500" />     
 

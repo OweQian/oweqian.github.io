@@ -1,6 +1,6 @@
 ---
 title: "100张油画棒画计划"
-date: 2023-01-01T19:43:47+08:00
+date: 2023-01-19T16:00:47+08:00
 tags: ["连载", "乱涂乱画"]
 categories: ["乱涂乱画"]
 ---
@@ -21,10 +21,18 @@ categories: ["乱涂乱画"]
 
 <img src="/images/draw/img_1.png" alt="" width="500" />  
 
-## 003 露营⛺️ 
+## 003 露营⛺️   
 
 ```
 一起去露营吧，揽星河入怀，拥山野而眠。  
 ```
 
 <img src="/images/draw/img_2.png" alt="" width="500" />  
+
+## 004 福🐰贺春  
+
+```
+新年快乐。
+```
+
+<img src="/images/draw/img_3.png" alt="" width="500" />     
