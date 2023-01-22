@@ -9,7 +9,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/c-/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-01-22T17:50:47+08:00" />
-<meta property="article:modified_time" content="2023-01-22T17:50:47+08:00" /><meta property="og:site_name" content="OweQian" />
+<meta property="article:modified_time" content="2023-01-22T18:16:01+08:00" /><meta property="og:site_name" content="OweQian" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://oweqian.xyz/logo.png"/>
@@ -35,8 +35,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "连载, 第一技能","wordcount":  338 ,
-        "url": "http:\/\/oweqian.xyz\/c-\/","datePublished": "2023-01-22T17:50:47+08:00","dateModified": "2023-01-22T17:50:47+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "连载, 第一技能","wordcount":  667 ,
+        "url": "http:\/\/oweqian.xyz\/c-\/","datePublished": "2023-01-22T17:50:47+08:00","dateModified": "2023-01-22T18:16:01+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -114,8 +114,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">C++ 必知必会</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-22">2023-01-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 338 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-22">2023-01-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 667 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -130,6 +130,7 @@
         <li><a href="#环境配置">环境配置</a></li>
       </ul>
     </li>
+    <li><a href="#包含目录和依赖项">包含目录和依赖项</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>项目地址： <a href="https://github.com/OweQian/learningC-" target="_blank" rel="noopener noreffer ">learningC-</a></p>
@@ -289,11 +290,46 @@
 </div><p>至此，C++ 环境配置完成。</p>
 <p>运行项目，输出结果：</p>
 <img src="/images/c++/img_2.png" alt="" width="500" />  
-</div><div class="post-footer" id="post-footer">
+<h2 id="包含目录和依赖项">包含目录和依赖项</h2>
+<p>在 C++ 程序中包含两种文件：头文件 (.h) 和源码文件 (.cpp)，一个业务单元 (比如 a.h 和 a.cpp)，头文件负责定义类型、方法和变量，源码文件则负责实现类型、方法和为变量赋值。</p>
+<p>源码文件为了实现头文件中定义的内容，需要通过如下方式引入头文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#include &#34;a.h&#34;  
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>想在 a 业务单元中引入 b 业务单元定义的内容，也需要通过 include 方式引入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#include &#34;bHeaderFilePath/b.h&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以在 a.h 中引入 b 的头文件，也可以在 a.cpp 中引入 b 的头文件。</p>
+<p>如果是在 a.h 中引入了 b 的头文件，则 a.h 和 a.cpp 都可以使用 b 的头文件中定义的内容。</p>
+<p>如果只在 a.cpp 中引入了 b 的头文件，则只能在 a.cpp 中使用 b 的头文件中定义的内容。</p>
+<p>如果引入操作系统 SDK 提供的头文件或标准库提供的头文件，则不用写明头文件的相对路径，但需要用尖括号包裹。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#include &lt;iostream&gt; //这个头文件没有.h扩展名
+</span></span><span class="line"><span class="cl">#include &lt;windows.h&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2023-01-22</span>
+                <span>更新于 2023-01-22&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/0abc907f16842e255cb632d9b384dad1696dec2b" target="_blank" title="commit by qian wang(1510106069@qq.com) 0abc907f16842e255cb632d9b384dad1696dec2b: update">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>0abc907</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
