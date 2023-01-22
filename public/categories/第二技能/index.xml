@@ -4,13 +4,13 @@
         <link>http://oweqian.xyz/categories/%E7%AC%AC%E4%BA%8C%E6%8A%80%E8%83%BD/</link>
         <description>第二技能 - 分类 - OweQian</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 13 Jan 2023 17:16:59 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/categories/%E7%AC%AC%E4%BA%8C%E6%8A%80%E8%83%BD/" rel="self" type="application/rss+xml" /><item>
-    <title>物联网基础知识储备笔记</title>
-    <link>http://oweqian.xyz/iot/</link>
-    <pubDate>Fri, 13 Jan 2023 17:16:59 &#43;0800</pubDate>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 22 Jan 2023 17:50:47 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/categories/%E7%AC%AC%E4%BA%8C%E6%8A%80%E8%83%BD/" rel="self" type="application/rss+xml" /><item>
+    <title>C&#43;&#43; 前端开发菜鸡必知必会</title>
+    <link>http://oweqian.xyz/c-/</link>
+    <pubDate>Sun, 22 Jan 2023 17:50:47 &#43;0800</pubDate>
     <author>OweQian</author>
-    <guid>http://oweqian.xyz/iot/</guid>
-    <description><![CDATA[]]></description>
+    <guid>http://oweqian.xyz/c-/</guid>
+    <description><![CDATA[项目地址： learningC- VSCode C++ 环境配置 VSCode 下载 官网下载 Visual Studio Code 扩展包安装 C/C++ CodeLLDB 环境配置 新建 main.cpp 文件，输入以下代码： 1 2 3 4 5 6 #include &lt;iostream&gt; int main() { std::cout &lt;&lt; &#34;hello world&#34; &lt;&lt; std::endl; char c = std::getchar(); return 0; }]]></description>
 </item>
 </channel>
 </rss>

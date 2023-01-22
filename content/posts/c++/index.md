@@ -1,11 +1,11 @@
 ---
-title: "C++ 必知必会"
+title: "C++ 前端开发菜鸡必知必会"
 date: 2023-01-22T17:50:47+08:00
-tags: ["连载", "第一技能"]
-categories: ["第一技能"]
+tags: ["连载", "第二技能"]
+categories: ["第二技能"]
 ---
 
-项目地址： [learningC-](https://github.com/OweQian/learningC-)
+项目地址： [learningC-](https://github.com/OweQian/learningC-)  
 
 ## VSCode C++ 环境配置
 

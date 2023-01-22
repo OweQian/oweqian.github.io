@@ -4,10 +4,18 @@
         <link>http://oweqian.xyz/</link>
         <description>Hugo theme - LoveIt</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 22 Jan 2023 17:50:47 &#43;0800</lastBuildDate>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 22 Jan 2023 20:15:47 &#43;0800</lastBuildDate>
             <atom:link href="http://oweqian.xyz/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>C&#43;&#43; 必知必会</title>
+    <title>Electron &#43; Vue3 桌面应用开发实战</title>
+    <link>http://oweqian.xyz/electron/</link>
+    <pubDate>Sun, 22 Jan 2023 20:15:47 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.xyz/electron/</guid>
+    <description><![CDATA[项目地址： ElectronVue3 构建开发环境 按如下步骤搭建开发环境： 创建项目 首先通过命令行创建一个 Vue 项目： 1 npm create vite@latest electron -- --template vue-ts 安装 electron 依赖： 1 npm i electron -D 调整 package.json 文件： 1 2]]></description>
+</item>
+<item>
+    <title>C&#43;&#43; 前端开发菜鸡必知必会</title>
     <link>http://oweqian.xyz/c-/</link>
     <pubDate>Sun, 22 Jan 2023 17:50:47 &#43;0800</pubDate>
     <author>OweQian</author>
@@ -37,22 +45,6 @@
     <author>OweQian</author>
     <guid>http://oweqian.xyz/draw/</guid>
     <description><![CDATA[001 窗台上的🐱 1 下辈子做一只猫，翘着尾巴云游天下，跟狗打架。 002 🐳与☁️ 1 热爱漫无边际，生活自有分寸。 003 露营⛺️ 1 一起去露营吧，揽星河入怀，拥山]]></description>
-</item>
-<item>
-    <title>物联网基础知识储备笔记</title>
-    <link>http://oweqian.xyz/iot/</link>
-    <pubDate>Fri, 13 Jan 2023 17:16:59 &#43;0800</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/iot/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>NextJS SSR 官网项目实战</title>
-    <link>http://oweqian.xyz/next/</link>
-    <pubDate>Fri, 13 Jan 2023 17:10:47 &#43;0800</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/next/</guid>
-    <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Q的乱语-2022年</title>

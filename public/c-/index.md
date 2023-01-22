@@ -1,7 +1,7 @@
-# C++ 必知必会
+# C++ 前端开发菜鸡必知必会
 
 
-项目地址： [learningC-](https://github.com/OweQian/learningC-)
+项目地址： [learningC-](https://github.com/OweQian/learningC-)  
 
 ## VSCode C++ 环境配置
 
