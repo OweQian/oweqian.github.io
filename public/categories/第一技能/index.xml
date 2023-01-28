@@ -4,10 +4,10 @@
         <link>http://oweqian.xyz/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/</link>
         <description>第一技能 - 分类 - OweQian</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 22 Jan 2023 20:15:47 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 28 Jan 2023 23:15:47 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/" rel="self" type="application/rss+xml" /><item>
     <title>Electron &#43; Vue3 桌面应用开发实战</title>
     <link>http://oweqian.xyz/electron/</link>
-    <pubDate>Sun, 22 Jan 2023 20:15:47 &#43;0800</pubDate>
+    <pubDate>Sat, 28 Jan 2023 23:15:47 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/electron/</guid>
     <description><![CDATA[项目地址： ElectronVue3 构建开发环境 按如下步骤搭建开发环境： 创建项目 首先通过命令行创建一个 Vue 项目： 1 npm create vite@latest electron -- --template vue-ts 安装 electron 依赖： 1 npm i electron -D 调整 package.json 文件： 1 2]]></description>

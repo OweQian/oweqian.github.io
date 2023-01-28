@@ -173,7 +173,7 @@ export default defineConfig({
 
 <img src="/images/electron/img_1.png" alt="" width="500" />  
 
-### 渲染进程集成内置模块
+### 渲染进程集成内置模块  
 
 现在主进程内可以自由的使用 Electron 和 Node.js 的内置模块了，但渲染进程还不行。  
 
@@ -291,4 +291,223 @@ onMounted(() => {
 开发者调试工具将会输出如下内容：  
 
 <img src="/images/electron/img_2.png" alt="" width="500" />  
+
+## 构建生产环境   
+
+制作一个 Vite 插件。通过这个新的插件生成安装包，有了安装包就可以把应用分发给用户了。   
+
+<img src="/images/electron/img_3.png" alt="" width="500" />  
+
+### 编译结束钩子函数  
+
+vite.config.ts 增加一个新的配置：  
+
+```typescript
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import { devPlugin, getReplacer } from './plugins/devPlugin';
+import { buildPlugin } from './plugins/buildPlugin';
+import optimizer from 'vite-plugin-optimizer';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      plugins: [buildPlugin()],
+    },
+  },
+  plugins: [optimizer(getReplacer()), devPlugin(), vue()],
+})
+```
+
+### 制作应用安装包   
+
+vite 编译完成之后，也就是执行 npm run build 指令，将在项目dist目录内会生成一系列的文件（如下图所示），此时 closeBundle 钩子被调用，在这个钩子中把上述生成的文件打包成一个应用程序安装包。  
+
+<img src="/images/electron/img_4.png" alt="" width="300" />  
+
+```typescript
+import path from 'path';
+import fs from 'fs';
+
+class BuildObj {
+  // 编译主进程代码
+  buildMain() {
+    require('esbuild').buildSync({
+      entryPoints: ['./src/main/mainEntry.ts'],
+      bundle: true,
+      platform: 'node',
+      minify: true,
+      outfile: './dist/mainEntry.js',
+      external: ['electron'],
+    });
+  }
+  // 为生产环境准备package.json
+  preparePackageJson() {
+    let pkgJsonPath = path.join(process.cwd(), 'package.json');
+    let localPkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf-8'));
+    let electronConfig = localPkgJson.devDependencies.electron.replace('^', '');
+    localPkgJson.main = 'mainEntry.js';
+    delete localPkgJson['scripts'];
+    delete localPkgJson['devDependencies'];
+    localPkgJson.devDependencies = {
+      electron: electronConfig,
+    };
+    let tarJsonPath = path.join(process.cwd(), 'dist', 'package.json');
+    fs.writeFileSync(tarJsonPath, JSON.stringify(localPkgJson));
+    fs.mkdirSync(path.join(process.cwd(), 'dist/node_modules'));
+  }
+  // 使用electron-builder制成安装包
+  buildInstaller() {
+    let options = {
+      config: {
+        directories: {
+          output: path.join(process.cwd(), 'release'),
+          app: path.join(process.cwd(), 'dist'),
+        },
+        files: ['**'],
+        extends: null,
+        productName: 'Electron',
+        appId: 'com.xxx.desktop',
+        asar: true,
+        nsis: {
+          oneClick: true,
+          perMachine: true,
+          allowToChangeInstallationDirectory: false,
+          createDesktopShortcut: true,
+          createStartMenuShortcut: true,
+          shortcutName: 'ElectronDesktop',
+        },
+        publish: [{
+          provider: 'generic',
+          url: 'http://localhost:5500/',
+        }],
+      },
+      project: process.cwd(),
+    };
+    return require('electron-builder').build(options);
+  }
+}
+export let buildPlugin = () => {
+  return {
+    name: 'build-plugin',
+    closeBundle: () => {
+      let buildObj = new BuildObj();
+      buildObj?.buildMain();
+      buildObj?.preparePackageJson();
+      buildObj?.buildInstaller();
+    }
+  }
+}
+```
+
+这个对象通过三个方法提供了三个功能：  
+
+* buildMain。由于 ite 在编译之前会清空 dist 目录，所以在之前生成的 mainEntry.js 文件也被删除了，此处通过 buildMain 方法再次编译主进程代码。不过由于此处是在为生产环境编译代码，所以增加了minify: true 配置，生成压缩后的代码。  
+* preparePackageJson。用户安装产品后，在启动应用程序时，实际上是通过 Electron 启动一个 Node.js 的项目，所以要为这个项目准备一个 package.json 文件，这个文件是以当前项目的 package.json 文件为蓝本制作而成的。里面注明了主进程的入口文件，移除了一些对最终用户没用的配置节。  
+* buildInstaller。这个方法负责调用 electron-builder（npm install electron-builder -D 安装 electron-builder 库） 提供的 API 以生成安装包。最终生成的安装包被放置在 release 目录下，这是通过 config.directories.output 指定的。静态文件所在目录是通过 config.directories.app 配置项指定。其他配置项，请自行查阅官网文档。  
+
+生成 package.json 文件之后，还创建了一个 node_modules 目录。此举是为了阻止 electron-builder 的一些默认行为（目前来说它会阻止 electron-builder 创建一些没用的目录或文件）。
+
+这段脚本还明确指定了 Electron 的版本号，如果 Electron 的版本号前面有"^"符号的话，需把它删掉。这是 electron-builder 的一个 Bug，这个 bug 导致 electron-builder 无法识别带 ^ 或 ~ 符号的版本号。  
+
+做好这些配置之后，执行 npm run build 就可以制作安装包了，最终生成的安装文件会被放置到 release 目录下。   
+
+### 主进程生产环境加载本地文件  
+
+虽然成功制作了安装包，而且这个安装包可以正确安装应用程序，但是这个应用程序无法正常启动，这是因为应用程序的主进程还在通过 process.argv[2] 加载首页。显然用户通过安装包安装的应用程序没有这个参数。
+
+接下来就要让应用程序在没有这个参数的时候，也能加载静态页面。  
+
+新建 src\main\CustomScheme.ts： 
+
+```typescript
+import { protocol } from 'electron';
+import path from 'path';
+import fs from 'fs';
+
+// 为自定义app协议提供特权
+let schemeConfig = {
+  standard: true,
+  supportFetchAPI: true,
+  bypassCSP: true,
+  corsEnabled: true,
+  stream: true,
+};
+
+protocol.registerSchemesAsPrivileged([{
+  scheme: 'app',
+  privileges: schemeConfig,
+}]);
+
+export class CustomScheme {
+  // 根据文件扩展名获取mime-type
+  private static getMimeType(extension: string) {
+    let mineType = '';
+    switch (extension) {
+      case '.js':
+        mineType = 'text/javascript';
+      break;
+      case '.html':
+        mineType = 'text/html';
+      break;
+      case '.css':
+        mineType = 'text/css';
+      break;
+      case '.svg':
+        mineType = 'image/svg+xml';
+      break;
+      case '.json':
+        mineType = 'application/json';
+      break;
+    }
+    return mineType;
+  };
+  // 注册自定义app协议
+  static registerScheme() {
+    protocol.registerStreamProtocol('app', (request, callback) => {
+      let pathName = new URL(request.url).pathname;
+      let extension = path.extname(pathName).toLowerCase();
+      if (extension === '') {
+        pathName = 'index.html';
+        extension = '.html';
+      }
+      let tarFile = path.join(__dirname, pathName);
+      callback({
+        statusCode: 200,
+        headers: {
+          'content-type': this.getMimeType(extension),
+        },
+        data: fs.createReadStream(tarFile),
+      })
+    });
+  };
+}
+```
+
+在主进程 app ready 前，通过 protocol 对象的 registerSchemesAsPrivileged 方法为名为 app 的 scheme 注册了特权（可以使用 FetchAPI、绕过内容安全策略等）。  
+
+在 app ready 之后，通过 protocol 对象的 registerStreamProtocol 方法为名为 app 的 scheme 注册了一个回调函数。当加载类似 app://index.html 这样的路径时，这个回调函数将被执行。  
+
+这个函数有两个传入参数 request 和 callback，通过 request.url 获取到请求的文件路径，通过 callback 做出响应。
+
+给出响应时，要指定响应的 statusCode 和 content-type，这个 content-type 是通过文件的扩展名得到的。这里通过 getMimeType 方法确定了文件的 content-type。  
+
+响应的 data 属性为目标文件的可读数据流，当你的静态文件比较大时，不必读出整个文件再给出响应。
+
+接下来在 src\main\mainEntry.ts 中使用这段代码：  
+
+```typescript
+import {CustomScheme} from './customScheme';
+
+if (process.argv[2]) {
+    mainWindow.loadURL(process.argv[2]);
+  } else {
+    CustomScheme.registerScheme();
+    mainWindow.loadURL('app"//index.html');
+  }
+```
+
+这样当存在指定的命令行参数时，就认为是开发环境，使用命令行参数加载页面，当不存在命令行参数时，就认为是生产环境，通过 app:// scheme 加载页面。  
+
 
