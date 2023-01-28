@@ -127,3 +127,9 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/BWf-eARnf6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>   
 
+### 01-27    
+在🚄上读《解忧杂货店》，要是世界上真的有一家这样的店就好了。     
+
+### 01-28    
+上班第一天，😴。   
+
