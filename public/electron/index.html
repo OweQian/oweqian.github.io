@@ -8,7 +8,7 @@
 <meta property="og:description" content="项目地址： ElectronVue3 构建开发环境 按如下步骤搭建开发环境： 创建项目 首先通过命令行创建一个 Vue 项目： 1 npm create vite@latest electron -- --template vue-ts 安装 electron 依赖： 1 npm i electron -D 调整 package.json 文件： 1 2" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/electron/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-01-28T23:15:47+08:00" />
+<meta property="article:published_time" content="2023-01-31T23:58:47+08:00" />
 <meta property="article:modified_time" content="2023-01-28T23:24:02+08:00" /><meta property="og:site_name" content="OweQian" />
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +19,7 @@
 <meta name="application-name" content="OweQian">
 <meta name="apple-mobile-web-app-title" content="OweQian"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/electron/" /><link rel="prev" href="http://oweqian.xyz/c-/" /><link rel="next" href="http://oweqian.xyz/books/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/electron/" /><link rel="prev" href="http://oweqian.xyz/2023/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -35,8 +35,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "连载, 第一技能","wordcount":  4144 ,
-        "url": "http:\/\/oweqian.xyz\/electron\/","datePublished": "2023-01-28T23:15:47+08:00","dateModified": "2023-01-28T23:24:02+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "连载, 第一技能","wordcount":  6196 ,
+        "url": "http:\/\/oweqian.xyz\/electron\/","datePublished": "2023-01-31T23:58:47+08:00","dateModified": "2023-01-28T23:24:02+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -114,8 +114,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Electron + Vue3 桌面应用开发实战</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-28">2023-01-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4144 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-31">2023-01-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6196 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -139,6 +139,10 @@
         <li><a href="#主进程生产环境加载本地文件">主进程生产环境加载本地文件</a></li>
       </ul>
     </li>
+    <li><a href="#设计工程项目结构">设计工程项目结构</a></li>
+    <li><a href="#引入-vue-router">引入 vue-router</a></li>
+    <li><a href="#菜单组件及跳转">菜单组件及跳转</a></li>
+    <li><a href="#引入字体图标">引入字体图标</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>项目地址： <a href="https://github.com/OweQian/ElectronVue3" target="_blank" rel="noopener noreffer ">ElectronVue3</a></p>
@@ -917,6 +921,443 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样当存在指定的命令行参数时，就认为是开发环境，使用命令行参数加载页面，当不存在命令行参数时，就认为是生产环境，通过 app:// scheme 加载页面。</p>
+<h2 id="设计工程项目结构">设计工程项目结构</h2>
+<p>在继续引入新的模块或组件之前，先调整一下工程的结构：</p>
+<img src="/images/electron/img_5.png" alt="" width="300" />  
+<ul>
+<li>dist 目录是打包过程的临时产物放置目录。</li>
+<li>plugins 目录放置开发环境 vite 插件和打包 vite 插件。</li>
+<li>release 目录放置最终生成的安装包。</li>
+<li>resource 目录放置一些外部资源，比如应用程序图标、第三方类库等。</li>
+<li>src/common 目录放置主进程和渲染进程都会用到的公共代码，比如日期格式化的工具类、数据库访问工具类等，主进程和渲染进程的代码都有可能使用这些类。</li>
+<li>src/main 目录放置主进程的代码。</li>
+<li>src/model 目录放置应用程序的模型文件，比如消息类、会话类、用户设置类等，主进程和渲染进程的代码都有可能使用这些类。</li>
+<li>src/renderer 目录放置渲染进程的代码。</li>
+<li>src/renderer/assets 放置字体图标、公共样式、图片等文件。</li>
+<li>src/renderer/components 放置公共组件，比如标题栏组件、菜单组件等。</li>
+<li>src/renderer/store 目录存放 Vue 项目的数据状态组件，用于在不同的 Vue 组件中共享数据。</li>
+<li>src/renderer/router 目录存放 Vue 项目的路由配置信息。</li>
+<li>src/renderer/indow 目录存放不同窗口的入口组件，这些组件是通过 vue-router 导航的，这个目录下的子目录存放对应窗口的子组件。</li>
+<li>src/renderer/App.vue 是渲染进程的入口组件，这个组件内只有一个用于导航到不同的窗口。</li>
+<li>src/renderer/main.ts 是渲染进程的入口脚本。</li>
+<li>index.html 是渲染进程的入口页面。</li>
+<li>vite.config.ts 是 vite 的配置文件。</li>
+</ul>
+<p>调整好工程结构后，要修改一下 index.html 的代码才能让这些调整生效。实际上就是修改一下渲染进程入口脚本的引入路径:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;module&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/src/renderer/main.ts&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="引入-vue-router">引入 vue-router</h2>
+<p>安装 vue-router 模块：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">npm install vue-router@4 -D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装完成后，为 src/renderer/router/index.ts 添加如下代码逻辑：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="o">*</span> <span class="kr">as</span> <span class="nx">VueRouter</span> <span class="kr">from</span> <span class="s1">&#39;vue-router&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 路由规则数组
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">redirect</span><span class="o">:</span> <span class="s1">&#39;/WindowMain/Chat&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/WindowMain&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../window/WindowMain.vue&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">children</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;Chat&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../window/WindowMain/Chat.vue&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;Contact&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../window/WindowMain/Contact.vue&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;Collection&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../window/WindowMain/Collection.vue&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},]</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/WindowSetting&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../window/WindowSetting.vue&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;AccountSetting&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../window/WindowSetting/AccountSetting.vue&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/WindowUserInfo&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../window/WindowUserInfo.vue&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">}]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kd">let</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">VueRouter</span><span class="p">.</span><span class="nx">createRouter</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">history</span>: <span class="kt">VueRouter.createWebHistory</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">routes</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这段代码导出了一个 router 对象，这个 router 对象是基于 WebHistory 模式创建路由的，也就是说页面路径看起来是这样的：http://127.0.0.1:5173/WindowMain/PageChat（开发环境），app://index.html/WindowMain/PageChat（生产环境）。</p>
+<p>上述代码中 routes 数组里的内容就是导航的具体配置，在这些配置中使用 import 方法动态引入 Vue 组件，vite 在处理这种动态引入的组件时，会把对应的组件编译到独立的源码文件中，类似 WindowUserInfo.689249b8.js 和 WindowSetting.6354f6d6.js，这种编译策略可以帮助控制最终编译产物的大小，避免应用启动时就加载一个庞大的 JavaScript 文件。</p>
+<p>在应用启动时请求的路径是：&rdquo;/&quot;，这个路径被重定向到&quot;/WindowMain/Chat&quot;，也就是说 WindowMain 组件和 Chat 组件是首页组件（这是在第一个导航配置对象中设置的）。</p>
+<p>上述代码完成后，需要在 main.ts 中使用它，代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s1">&#39;./style.css&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">router</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;./router&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">App</span> <span class="kr">from</span> <span class="s1">&#39;./App.vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">createApp</span><span class="p">(</span><span class="nx">App</span><span class="p">).</span><span class="nx">use</span><span class="p">(</span><span class="nx">router</span><span class="p">).</span><span class="nx">mount</span><span class="p">(</span><span class="s1">&#39;#app&#39;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>接下来把 App.vue 的代码修改成如下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">router-view</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>应用启动时，第一个窗口（主窗口）就会加载 src\renderer\window\WindowMain.vue 组件的代码。</p>
+<p>当在主窗口内打开别的子窗口时（弹出一个子窗口），只要加载类似这样的路径/WindowUserInfo，就可以让子窗口加载 src\renderer\Window\WindowUserInfo.vue 这个组件。</p>
+<h2 id="菜单组件及跳转">菜单组件及跳转</h2>
+<p>在 src\renderer\components 目录下新建 BarLeft.vue 的组件，这是整个应用的侧边栏组件，里面放置应用程序的菜单：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;BarLeft&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;userIcon&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;../assets/avatar.jpg&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;menu&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">router-link</span> <span class="nt">v-for</span><span class="s">=&#34;item in mainWindowRoutes&#34; :to=&#34;item.path&#34; :class=&#34;[&#39;menuItem&#39;, {&#39;selected&#39;: item.isSelected}]&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;i :class=&#34;[&#39;icon&#39;, item.isSelected ? item.iconSelected : item.icon]&#34;&gt;&lt;/i&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;/router-link&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;div class=&#34;setting&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;div class=&#34;menuItem&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;i class=&#34;icon icon-setting&#34; /&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">  &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;/template&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;script setup lang=&#34;ts&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">import { ref, watch } from &#39;vue&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">import { useRoute } from &#39;vue-router&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">let mainWindowRoutes = ref([
+</span></span></span><span class="line"><span class="cl"><span class="s">  { path: &#39;/WindowMain/Chat&#39;, isSelected: true, icon: &#39;icon-chat&#39;, iconSelected: &#39;icon-chat&#39; },
+</span></span></span><span class="line"><span class="cl"><span class="s">  { path: &#39;/WindowMain/Contact&#39;, isSelected: false, icon: &#39;icon-tongxunlu1&#39;, iconSelected: &#39;icon-tongxunlu&#39; },
+</span></span></span><span class="line"><span class="cl"><span class="s">  { path: &#39;/WindowMain/Collection&#39;, isSelected: false, icon: &#39;icon-shoucang1&#39;, iconSelected: &#39;icon-shoucang&#39; },
+</span></span></span><span class="line"><span class="cl"><span class="s">])
+</span></span></span><span class="line"><span class="cl"><span class="s">let route = useRoute();
+</span></span></span><span class="line"><span class="cl"><span class="s">watch(
+</span></span></span><span class="line"><span class="cl"><span class="s">    () =&gt; route,
+</span></span></span><span class="line"><span class="cl"><span class="s">    () =&gt; mainWindowRoutes.value.forEach(v =&gt; v.isSelected = v.path === route.fullPath),
+</span></span></span><span class="line"><span class="cl"><span class="s">    {
+</span></span></span><span class="line"><span class="cl"><span class="s">      immediate: true,
+</span></span></span><span class="line"><span class="cl"><span class="s">      deep: true,
+</span></span></span><span class="line"><span class="cl"><span class="s">    })
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;/script&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;style scoped lang=&#34;scss&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="na">.BarLeft</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">width</span><span class="o">:</span> <span class="na">54px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">height</span><span class="o">:</span> <span class="na">100</span><span class="err">%;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">display</span><span class="o">:</span> <span class="na">flex</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">flex</span><span class="nt">-direction</span><span class="o">:</span> <span class="na">column</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">background</span><span class="o">:</span> <span class="na">rgb</span><span class="err">(</span><span class="na">46</span><span class="err">,</span> <span class="na">46</span><span class="err">,</span> <span class="na">46</span><span class="err">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">-webkit-app-region</span><span class="o">:</span> <span class="na">drag</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="na">.userIcon</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">height</span><span class="o">:</span> <span class="na">84px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding</span><span class="nt">-top</span><span class="o">:</span> <span class="na">36px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">box</span><span class="nt">-sizing</span><span class="o">:</span> <span class="na">border</span><span class="nt">-box</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">img</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">width</span><span class="o">:</span> <span class="na">34px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">height</span><span class="o">:</span> <span class="na">34px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">margin</span><span class="nt">-left</span><span class="o">:</span> <span class="na">10px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="na">.menu</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">flex</span><span class="o">:</span> <span class="na">1</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="na">.menuItem</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">height</span><span class="o">:</span> <span class="na">44px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">line</span><span class="nt">-height</span><span class="o">:</span> <span class="na">44px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">text</span><span class="nt">-align</span><span class="o">:</span> <span class="na">center</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding</span><span class="nt">-left</span><span class="o">:</span> <span class="na">12px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding</span><span class="nt">-right</span><span class="o">:</span> <span class="na">12px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">display</span><span class="o">:</span> <span class="na">block</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">text</span><span class="nt">-decoration</span><span class="o">:</span> <span class="na">none</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">color</span><span class="o">:</span> <span class="na">rgb</span><span class="err">(</span><span class="na">126</span><span class="err">,</span> <span class="na">126</span><span class="err">,</span> <span class="na">126</span><span class="err">);</span>
+</span></span><span class="line"><span class="cl">  <span class="na">cursor</span><span class="o">:</span> <span class="na">pointer</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">-webkit-app-region</span><span class="o">:</span> <span class="na">no</span><span class="nt">-drag</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">i</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">font</span><span class="nt">-size</span><span class="o">:</span> <span class="na">22px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="err">&amp;</span><span class="o">:</span><span class="na">hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">color</span><span class="o">:</span> <span class="na">rgb</span><span class="err">(</span><span class="na">141</span><span class="err">,</span> <span class="na">141</span><span class="err">,</span> <span class="na">141</span><span class="err">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="na">.selected</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">color</span><span class="o">:</span> <span class="na">rgb</span><span class="err">(</span><span class="na">7</span><span class="err">,</span> <span class="na">193</span><span class="err">,</span> <span class="na">96</span><span class="err">);</span>
+</span></span><span class="line"><span class="cl">  <span class="err">&amp;</span><span class="o">:</span><span class="na">hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">color</span><span class="o">:</span> <span class="na">rgb</span><span class="err">(</span><span class="na">7</span><span class="err">,</span> <span class="na">193</span><span class="err">,</span> <span class="na">96</span><span class="err">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="na">.setting</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">margin</span><span class="nt">-bottom</span><span class="o">:</span> <span class="na">5px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>样式为 menu 的 div 用于存放主窗口的菜单，通过 mainWindowRoutes 数组里的数据来渲染菜单。</li>
+<li>router-link 组件会被渲染成 a 标签，当用户点击菜单时，主窗口的二级路由发生跳转（src\renderer\window\WindowMain.vue）。</li>
+<li>通过 watch 方法监控路由跳转的行为，当路由跳转后，遍历 mainWindowRoutes 数组内的对象，取消以前选中的菜单，选中新的菜单。</li>
+<li>由于 mainWindowRoutes 是一个 Ref 对象，所以菜单被选中或取消选中之后，相应的菜单样式（和菜单内的字体图标）也会跟着变化。</li>
+</ul>
+<p>在 WindowMain.vue 中添加如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ipcRenderer</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;electron&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">onMounted</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;vue&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">BarLeft</span> <span class="nx">from</span> <span class="s2">&#34;../components/BarLeft.vue&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">onMounted</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">ipcRenderer</span><span class="p">.</span><span class="nx">invoke</span><span class="p">(</span><span class="s2">&#34;showWindow&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">BarLeft</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;pageBox&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">router-view</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;scss&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">pageBox</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">border</span><span class="o">-</span><span class="nx">top</span><span class="o">:</span> <span class="mi">1</span><span class="nx">px</span> <span class="nx">solid</span> <span class="err">#</span><span class="nx">e6e6e6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">box</span><span class="o">-</span><span class="nx">sizing</span><span class="o">:</span> <span class="nx">border</span><span class="o">-</span><span class="nx">box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">margin</span><span class="o">-</span><span class="nx">top</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="引入字体图标">引入字体图标</h2>
+<p>在 <a href="https://www.iconfont.cn/" target="_blank" rel="noopener noreffer ">www.iconfont.cn/</a> 获得字体图标，Electron 使用 Chromium 核心，一般情况下只使用 iconfont.css 和 iconfont.ttf 这两个文件。把这两个文件放到 src/renderer/assets/icon 下，在 main.ts 导入一下 iconfont.css 就可以全局使用字体图标了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s1">&#39;./style.css&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;./assets/icon/iconfont.css&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">router</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;./router&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">App</span> <span class="kr">from</span> <span class="s1">&#39;./App.vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">createApp</span><span class="p">(</span><span class="nx">App</span><span class="p">).</span><span class="nx">use</span><span class="p">(</span><span class="nx">router</span><span class="p">).</span><span class="nx">mount</span><span class="p">(</span><span class="s1">&#39;#app&#39;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;icon icon-chat&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果 iconfont.ttf 足够小，那么 vite 会把它转义成 base64 编码的字符串，直接嵌入到样式文件中来达到少请求数量的目的，开发者可以通过在 vite.config.ts 中增加 build.assetsInlineLimit 配置（值设置为 0 即可）来关闭 vite 的这个行为。</p>
+<p>运行项目：</p>
+<img src="/images/electron/img_6.png" alt="" width="500" />  
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -941,8 +1382,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/c-/" class="prev" rel="prev" title="C&#43;&#43; 前端开发菜鸡必知必会"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>C++ 前端开发菜鸡必知必会</a>
-            <a href="/books/" class="next" rel="next" title="50本读书计划-2023年">50本读书计划-2023年<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/2023/" class="prev" rel="prev" title="Q的乱语-2023年"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Q的乱语-2023年</a></div>
 </div>
 <div id="comments"><div id="giscus" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.

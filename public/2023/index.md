@@ -138,3 +138,6 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 ### 01-30   
 一本书，可以折射一个小世界，也可以成为一部分人的朋友。   
 
+### 01-31   
+被公司的 UI 折磨惨了😭。  
+

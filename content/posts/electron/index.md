@@ -1,6 +1,6 @@
 ---
 title: "Electron + Vue3 桌面应用开发实战"
-date: 2023-01-28T23:15:47+08:00
+date: 2023-01-31T23:58:47+08:00
 tags: ["连载", "第一技能"]
 categories: ["第一技能"]
 ---
@@ -514,3 +514,262 @@ if (process.argv[2]) {
 
 这样当存在指定的命令行参数时，就认为是开发环境，使用命令行参数加载页面，当不存在命令行参数时，就认为是生产环境，通过 app:// scheme 加载页面。  
 
+## 设计工程项目结构   
+
+在继续引入新的模块或组件之前，先调整一下工程的结构：  
+
+<img src="/images/electron/img_5.png" alt="" width="300" />  
+
+* dist 目录是打包过程的临时产物放置目录。
+* plugins 目录放置开发环境 vite 插件和打包 vite 插件。
+* release 目录放置最终生成的安装包。
+* resource 目录放置一些外部资源，比如应用程序图标、第三方类库等。
+* src/common 目录放置主进程和渲染进程都会用到的公共代码，比如日期格式化的工具类、数据库访问工具类等，主进程和渲染进程的代码都有可能使用这些类。
+* src/main 目录放置主进程的代码。
+* src/model 目录放置应用程序的模型文件，比如消息类、会话类、用户设置类等，主进程和渲染进程的代码都有可能使用这些类。
+* src/renderer 目录放置渲染进程的代码。
+* src/renderer/assets 放置字体图标、公共样式、图片等文件。
+* src/renderer/components 放置公共组件，比如标题栏组件、菜单组件等。
+* src/renderer/store 目录存放 Vue 项目的数据状态组件，用于在不同的 Vue 组件中共享数据。
+* src/renderer/router 目录存放 Vue 项目的路由配置信息。
+* src/renderer/indow 目录存放不同窗口的入口组件，这些组件是通过 vue-router 导航的，这个目录下的子目录存放对应窗口的子组件。
+* src/renderer/App.vue 是渲染进程的入口组件，这个组件内只有一个用于导航到不同的窗口。
+* src/renderer/main.ts 是渲染进程的入口脚本。
+* index.html 是渲染进程的入口页面。
+* vite.config.ts 是 vite 的配置文件。
+
+调整好工程结构后，要修改一下 index.html 的代码才能让这些调整生效。实际上就是修改一下渲染进程入口脚本的引入路径:  
+
+```html
+<script type="module" src="/src/renderer/main.ts"></script>
+```
+
+## 引入 vue-router  
+安装 vue-router 模块：  
+
+```shell
+npm install vue-router@4 -D
+```
+
+安装完成后，为 src/renderer/router/index.ts 添加如下代码逻辑：  
+
+```typescript
+import * as VueRouter from 'vue-router';
+
+// 路由规则数组
+const routes = [{
+  path: '/',
+  redirect: '/WindowMain/Chat',
+}, {
+  path: '/WindowMain',
+  component: () => import('../window/WindowMain.vue'),
+  children: [{
+    path: 'Chat',
+    component: () => import('../window/WindowMain/Chat.vue'),
+  }, {
+    path: 'Contact',
+    component: () => import('../window/WindowMain/Contact.vue'),
+  }, {
+    path: 'Collection',
+    component: () => import('../window/WindowMain/Collection.vue'),
+  },]
+}, {
+  path: '/WindowSetting',
+  component: () => import('../window/WindowSetting.vue'),
+  children: [
+    {
+      path: 'AccountSetting',
+      component: () => import('../window/WindowSetting/AccountSetting.vue'),
+    }
+  ]
+}, {
+  path: '/WindowUserInfo',
+  component: () => import('../window/WindowUserInfo.vue'),
+}]
+
+export let router = VueRouter.createRouter({
+  history: VueRouter.createWebHistory(),
+  routes,
+});
+```
+
+这段代码导出了一个 router 对象，这个 router 对象是基于 WebHistory 模式创建路由的，也就是说页面路径看起来是这样的：http://127.0.0.1:5173/WindowMain/PageChat（开发环境），app://index.html/WindowMain/PageChat（生产环境）。   
+
+上述代码中 routes 数组里的内容就是导航的具体配置，在这些配置中使用 import 方法动态引入 Vue 组件，vite 在处理这种动态引入的组件时，会把对应的组件编译到独立的源码文件中，类似 WindowUserInfo.689249b8.js 和 WindowSetting.6354f6d6.js，这种编译策略可以帮助控制最终编译产物的大小，避免应用启动时就加载一个庞大的 JavaScript 文件。  
+
+在应用启动时请求的路径是："/"，这个路径被重定向到"/WindowMain/Chat"，也就是说 WindowMain 组件和 Chat 组件是首页组件（这是在第一个导航配置对象中设置的）。  
+
+上述代码完成后，需要在 main.ts 中使用它，代码如下：  
+
+```typescript
+import { createApp } from 'vue';
+import './style.css';
+import { router } from './router';
+import App from './App.vue';
+
+createApp(App).use(router).mount('#app');
+```
+
+接下来把 App.vue 的代码修改成如下内容：  
+
+```vue
+<template>
+  <router-view />
+</template>
+```
+
+应用启动时，第一个窗口（主窗口）就会加载 src\renderer\window\WindowMain.vue 组件的代码。  
+
+当在主窗口内打开别的子窗口时（弹出一个子窗口），只要加载类似这样的路径/WindowUserInfo，就可以让子窗口加载 src\renderer\Window\WindowUserInfo.vue 这个组件。  
+
+## 菜单组件及跳转  
+
+在 src\renderer\components 目录下新建 BarLeft.vue 的组件，这是整个应用的侧边栏组件，里面放置应用程序的菜单：  
+
+```vue
+<template>
+  <div class="BarLeft">
+    <div class="userIcon">
+      <img src="../assets/avatar.jpg" alt="">
+    </div>
+    <div class="menu">
+      <router-link v-for="item in mainWindowRoutes" :to="item.path" :class="['menuItem', {'selected': item.isSelected}]">
+        <i :class="['icon', item.isSelected ? item.iconSelected : item.icon]"></i>
+      </router-link>
+    </div>
+    <div class="setting">
+      <div class="menuItem">
+        <i class="icon icon-setting" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+let mainWindowRoutes = ref([
+  { path: '/WindowMain/Chat', isSelected: true, icon: 'icon-chat', iconSelected: 'icon-chat' },
+  { path: '/WindowMain/Contact', isSelected: false, icon: 'icon-tongxunlu1', iconSelected: 'icon-tongxunlu' },
+  { path: '/WindowMain/Collection', isSelected: false, icon: 'icon-shoucang1', iconSelected: 'icon-shoucang' },
+])
+let route = useRoute();
+watch(
+    () => route,
+    () => mainWindowRoutes.value.forEach(v => v.isSelected = v.path === route.fullPath),
+    {
+      immediate: true,
+      deep: true,
+    })
+</script>
+
+<style scoped lang="scss">
+.BarLeft {
+  width: 54px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgb(46, 46, 46);
+  -webkit-app-region: drag;
+}
+.userIcon {
+  height: 84px;
+  padding-top: 36px;
+  box-sizing: border-box;
+  img {
+    width: 34px;
+    height: 34px;
+    margin-left: 10px;
+  }
+}
+.menu {
+  flex: 1;
+}
+.menuItem {
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  padding-left: 12px;
+  padding-right: 12px;
+  display: block;
+  text-decoration: none;
+  color: rgb(126, 126, 126);
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+  i {
+    font-size: 22px;
+  }
+  &:hover {
+    color: rgb(141, 141, 141);
+  }
+}
+.selected {
+  color: rgb(7, 193, 96);
+  &:hover {
+    color: rgb(7, 193, 96);
+  }
+}
+.setting {
+  margin-bottom: 5px;
+}
+</style>
+```
+
+* 样式为 menu 的 div 用于存放主窗口的菜单，通过 mainWindowRoutes 数组里的数据来渲染菜单。  
+* router-link 组件会被渲染成 a 标签，当用户点击菜单时，主窗口的二级路由发生跳转（src\renderer\window\WindowMain.vue）。  
+* 通过 watch 方法监控路由跳转的行为，当路由跳转后，遍历 mainWindowRoutes 数组内的对象，取消以前选中的菜单，选中新的菜单。  
+* 由于 mainWindowRoutes 是一个 Ref 对象，所以菜单被选中或取消选中之后，相应的菜单样式（和菜单内的字体图标）也会跟着变化。
+
+在 WindowMain.vue 中添加如下代码：  
+
+```vue
+<script setup lang="ts">
+import { ipcRenderer } from "electron";
+import { onMounted } from "vue";
+import BarLeft from "../components/BarLeft.vue";
+onMounted(() => {
+  ipcRenderer.invoke("showWindow");
+});
+</script>
+
+<template>
+  <BarLeft />
+  <div class="pageBox">
+    <router-view />
+  </div>
+</template>
+
+<style scoped lang="scss">
+.pageBox {
+  flex: 1;
+  height: 100%;
+  border-top: 1px solid #e6e6e6;
+  box-sizing: border-box;
+  display: flex;
+  margin-top: -1px;
+}
+</style>
+```
+## 引入字体图标  
+
+在 www.iconfont.cn/ 获得字体图标，Electron 使用 Chromium 核心，一般情况下只使用 iconfont.css 和 iconfont.ttf 这两个文件。把这两个文件放到 src/renderer/assets/icon 下，在 main.ts 导入一下 iconfont.css 就可以全局使用字体图标了。  
+
+```typescript
+import { createApp } from 'vue';
+import './style.css';
+import "./assets/icon/iconfont.css";
+import { router } from './router';
+import App from './App.vue';
+
+createApp(App).use(router).mount('#app');
+```
+
+```vue
+<i class="icon icon-chat"></i>
+```
+
+如果 iconfont.ttf 足够小，那么 vite 会把它转义成 base64 编码的字符串，直接嵌入到样式文件中来达到少请求数量的目的，开发者可以通过在 vite.config.ts 中增加 build.assetsInlineLimit 配置（值设置为 0 即可）来关闭 vite 的这个行为。  
+
+运行项目：   
+
+<img src="/images/electron/img_6.png" alt="" width="500" />  
