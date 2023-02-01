@@ -8,7 +8,7 @@
 <meta property="og:description" content="项目地址： ElectronVue3 构建开发环境 按如下步骤搭建开发环境： 创建项目 首先通过命令行创建一个 Vue 项目： 1 npm create vite@latest electron -- --template vue-ts 安装 electron 依赖： 1 npm i electron -D 调整 package.json 文件： 1 2" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/electron/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-01-31T23:58:47+08:00" />
+<meta property="article:published_time" content="2023-02-01T18:16:47+08:00" />
 <meta property="article:modified_time" content="2023-02-01T00:42:36+08:00" /><meta property="og:site_name" content="OweQian" />
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +19,7 @@
 <meta name="application-name" content="OweQian">
 <meta name="apple-mobile-web-app-title" content="OweQian"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/electron/" /><link rel="prev" href="http://oweqian.xyz/blog/" /><link rel="next" href="http://oweqian.xyz/2023/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/electron/" /><link rel="prev" href="http://oweqian.xyz/2023/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -35,8 +35,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "连载, 第一技能","wordcount":  6196 ,
-        "url": "http:\/\/oweqian.xyz\/electron\/","datePublished": "2023-01-31T23:58:47+08:00","dateModified": "2023-02-01T00:42:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "连载, 第一技能","wordcount":  10862 ,
+        "url": "http:\/\/oweqian.xyz\/electron\/","datePublished": "2023-02-01T18:16:47+08:00","dateModified": "2023-02-01T00:42:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -114,8 +114,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Electron + Vue3 桌面应用开发实战</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-31">2023-01-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6196 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-01">2023-02-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 10862 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 22 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -143,6 +143,25 @@
     <li><a href="#引入-vue-router">引入 vue-router</a></li>
     <li><a href="#菜单组件及跳转">菜单组件及跳转</a></li>
     <li><a href="#引入字体图标">引入字体图标</a></li>
+    <li><a href="#管控应用窗口">管控应用窗口</a>
+      <ul>
+        <li><a href="#主窗口显示时机">主窗口显示时机</a></li>
+        <li><a href="#自定义窗口标题栏">自定义窗口标题栏</a></li>
+        <li><a href="#窗口加载过慢解决方案">窗口加载过慢解决方案</a>
+          <ul>
+            <li><a href="#窗口池解决方案">窗口池解决方案</a></li>
+            <li><a href="#windowopen-解决方案">window.open 解决方案</a>
+              <ul>
+                <li><a href="#子窗口的标题栏消息">子窗口的标题栏消息</a></li>
+                <li><a href="#动态设置子窗口的配置">动态设置子窗口的配置</a></li>
+                <li><a href="#封装子窗口加载成功的事件">封装子窗口加载成功的事件</a></li>
+                <li><a href="#父子窗口互相通信">父子窗口互相通信</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>项目地址： <a href="https://github.com/OweQian/ElectronVue3" target="_blank" rel="noopener noreffer ">ElectronVue3</a></p>
@@ -1358,6 +1377,686 @@
 </div><p>如果 iconfont.ttf 足够小，那么 vite 会把它转义成 base64 编码的字符串，直接嵌入到样式文件中来达到少请求数量的目的，开发者可以通过在 vite.config.ts 中增加 build.assetsInlineLimit 配置（值设置为 0 即可）来关闭 vite 的这个行为。</p>
 <p>运行项目：</p>
 <img src="/images/electron/img_6.png" alt="" width="500" />  
+<h2 id="管控应用窗口">管控应用窗口</h2>
+<p>如何管控应用内的窗口，比如：什么时候显示窗口、如何通过自定义窗口标题栏来管控单个窗口等内容。</p>
+<h3 id="主窗口显示时机">主窗口显示时机</h3>
+<p>在第一个窗口初始化的瞬间，会有一个黑窗口闪现一下，如下图所示：</p>
+<img src="/images/electron/img_7.png" alt="" width="500" />  
+<p>按照 Electron 官网的建议，窗口一开始应该是隐藏的，在 ready-to-show 事件触发后再显示窗口，如下代码所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">const { BrowserWindow } = require(&#34;electron&#34;);
+</span></span><span class="line"><span class="cl">const win = new BrowserWindow({ show: false });
+</span></span><span class="line"><span class="cl">win.once(&#34;ready-to-show&#34;, () =&gt; {
+</span></span><span class="line"><span class="cl">win.show();
+</span></span><span class="line"><span class="cl">});
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但这个事件的触发太早了，因为 Vue 项目的 HTML 加载之后，JavaScript 脚本还需要做很多事情才能把组件渲染出来。况且开发者可能还会在 Vue 组件初始化的早期做很多额外的工作，所以显示窗口不能依赖 ready-to-show 事件，必须手动控制。</p>
+<p>主窗口对象 mainWindow 初始化时，把配置属性 show 设置为 false，就可以让主窗口初始化成功后处于隐藏状态。</p>
+<p>接下来再在合适的时机让渲染进程控制主窗口显示出来即可。这里在 WindowMain.vue 组件渲染完成之后来完成这项工作，如下代码所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ipcRenderer</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;electron&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">onMounted</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;vue&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">onMounted</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">ipcRenderer</span><span class="p">.</span><span class="nx">invoke</span><span class="p">(</span><span class="s2">&#34;showWindow&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="自定义窗口标题栏">自定义窗口标题栏</h3>
+<p>在 src/renderer/components 下新建 BarTop.vue，这是窗口标题栏组件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;topBar&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;winTitle&#34;</span><span class="p">&gt;{{</span> <span class="nx">title</span> <span class="p">}}}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;winTool&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="nt">@click</span><span class="s">=&#34;minimizeMainWindow&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;icon icon-minimize&#34;</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="nt">v-if</span><span class="s">=&#34;isMaximized&#34; @click=&#34;unmaximizeMainWindow&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;i class=&#34;icon icon-restore&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;div v-else @click=&#34;maxmizeMainWin&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;i class=&#34;icon icon-maximize&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;div @click=&#34;closeWindow&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;icon icon-close&#34;</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span> <span class="na">setup</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;scss&#34;</span> <span class="na">scoped</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">topBar</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">25</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">line</span><span class="o">-</span><span class="nx">height</span><span class="o">:</span> <span class="mi">25</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="nx">webkit</span><span class="o">-</span><span class="nx">app</span><span class="o">-</span><span class="nx">region</span><span class="o">:</span> <span class="nx">drag</span><span class="p">;</span> <span class="cm">/* 可拖拽区域 */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">winTitle</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">padding</span><span class="o">-</span><span class="nx">left</span><span class="o">:</span> <span class="mi">12</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">font</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="mi">14</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">color</span><span class="o">:</span> <span class="err">#</span><span class="mi">888</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">winTool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="nx">webkit</span><span class="o">-</span><span class="nx">app</span><span class="o">-</span><span class="nx">region</span><span class="o">:</span> <span class="nx">no</span><span class="o">-</span><span class="nx">drag</span><span class="p">;</span> <span class="cm">/* 可拖拽区域内的不可拖拽区域 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">winTool</span> <span class="nx">div</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">34</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">text</span><span class="o">-</span><span class="nx">align</span><span class="o">:</span> <span class="nx">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">color</span><span class="o">:</span> <span class="err">#</span><span class="mi">999</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">cursor</span><span class="o">:</span> <span class="nx">pointer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">line</span><span class="o">-</span><span class="nx">height</span><span class="o">:</span> <span class="mi">25</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">winTool</span> <span class="p">.</span><span class="nx">icon</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">font</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="mi">10</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">color</span><span class="o">:</span> <span class="err">#</span><span class="mi">666666</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span> <span class="nx">bold</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">winTool</span> <span class="nx">div</span><span class="o">:</span><span class="nx">hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">background</span><span class="o">:</span> <span class="err">#</span><span class="nx">efefef</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">winTool</span> <span class="nx">div</span><span class="o">:</span><span class="nx">last</span><span class="o">-</span><span class="nx">child</span><span class="o">:</span><span class="nx">hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">background</span><span class="o">:</span> <span class="err">#</span><span class="nx">ff7875</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">winTool</span> <span class="nx">div</span><span class="o">:</span><span class="nx">last</span><span class="o">-</span><span class="nx">child</span><span class="o">:</span><span class="nx">hover</span> <span class="nx">i</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">color</span><span class="o">:</span> <span class="err">#</span><span class="nx">fff</span> <span class="o">!</span><span class="nx">important</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>要自定义一个窗口的标题栏必须把窗口默认的标题栏取消掉才行。只需要在初始化 mainWindow 对象时（主进程里的逻辑），把窗口配置对象的 frame 属性设置为 false 就可以使这个窗口成为无边框窗口了。</p>
+</li>
+<li>
+<p>窗口标题是通过 props 数据传递给标题栏组件的，也就是说标题栏的标题是由其父组件来确定的。</p>
+</li>
+<li>
+<p>标题栏中可拖拽区域是通过样式 -webkit-app-region: drag 定义的，鼠标在这个样式定义的组件上拖拽可以移动窗口，双击可以放大或者还原窗口，如果这个组件内有子组件不希望拥有该能力，可以通过 -webkit-app-region: no-drag; 来取消此能力。</p>
+</li>
+<li>
+<p>最大化、最小化、还原、关闭窗口等按钮的点击事件，都是通过 ipcRenderer.invoke 方法来调用主进程 CommonWindowEvent 类提供的消息管道来实现对应的功能的。</p>
+</li>
+<li>
+<p>由于窗口最大化（或还原）不一定是通过点击最大化按钮（或还原按钮）触发的，有可能是通过双击标题栏可拖拽区域触发的，所以这里只能通过 ipcRenderer.on 来监听窗口的最大化或还原事件，以此来改变对应的最大化或还原按钮的显隐状态。不能在按钮点击事件中来完成这项工作。windowMaximized 消息和 windowUnmaximized 消息也是由主进程的 CommonWindowEvent 类发来的。</p>
+</li>
+<li>
+<p>由于多个二级路由页面会引用 BarTop.vue，为了避免在切换路由的时候，反复通过 ipcRenderer.on 注册消息监听器，所以在组件的 onUnmounted 事件内注销了消息监听器，避免事件泄漏。</p>
+</li>
+</ul>
+<p>src/main/CommonWindowEvent.ts 的代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserWindow</span><span class="p">,</span> <span class="nx">ipcMain</span><span class="p">,</span> <span class="nx">app</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;electron&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 主进程公共消息处理逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">CommonWindowEvent</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">private</span> <span class="kr">static</span> <span class="nx">getWin</span><span class="p">(</span><span class="nx">event</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">BrowserWindow</span><span class="p">.</span><span class="nx">fromWebContents</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">public</span> <span class="kr">static</span> <span class="nx">listen() {</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ipcMain</span><span class="p">.</span><span class="nx">handle</span><span class="p">(</span><span class="s1">&#39;minimizeWindow&#39;</span><span class="p">,</span> <span class="nx">e</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">getWin</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">minimize</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">ipcMain</span><span class="p">.</span><span class="nx">handle</span><span class="p">(</span><span class="s1">&#39;maxmizeWindow&#39;</span><span class="p">,</span> <span class="nx">e</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">getWin</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">maximize</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">ipcMain</span><span class="p">.</span><span class="nx">handle</span><span class="p">(</span><span class="s1">&#39;unmaximizeWindow&#39;</span><span class="p">,</span> <span class="nx">e</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">getWin</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">unmaximize</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">ipcMain</span><span class="p">.</span><span class="nx">handle</span><span class="p">(</span><span class="s1">&#39;hideWindow&#39;</span><span class="p">,</span> <span class="nx">e</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">getWin</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">ipcMain</span><span class="p">.</span><span class="nx">handle</span><span class="p">(</span><span class="s1">&#39;showWindow&#39;</span><span class="p">,</span> <span class="nx">e</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">getWin</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">ipcMain</span><span class="p">.</span><span class="nx">handle</span><span class="p">(</span><span class="s1">&#39;closeWindow&#39;</span><span class="p">,</span> <span class="nx">e</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">getWin</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">ipcMain</span><span class="p">.</span><span class="nx">handle</span><span class="p">(</span><span class="s1">&#39;resizable&#39;</span><span class="p">,</span> <span class="nx">e</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">getWin</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">isResizable</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">ipcMain</span><span class="p">.</span><span class="nx">handle</span><span class="p">(</span><span class="s1">&#39;getPath&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">app</span><span class="p">.</span><span class="nx">getPath</span><span class="p">(</span><span class="nx">name</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 主进程公共事件处理逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">public</span> <span class="kr">static</span> <span class="nx">regWinEvent</span><span class="p">(</span><span class="nx">win</span>: <span class="kt">BrowserWindow</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">win</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;maximize&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">win</span><span class="p">.</span><span class="nx">webContents</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;windowMaximized&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">win</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;unmaximize&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">win</span><span class="p">.</span><span class="nx">webContents</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;windowUnmaximized&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>在 listen 方法内部注册了一系列消息管道，方便渲染进程控制主进程的一些行为，标题栏组件的窗口的最大化、最小化、还原等功能都是在这里实现的。在 app ready 之后调用 CommonWindowEvent.listen(); 这个方法即可注册这些消息管道。</li>
+<li>regWinEvent 方法负责为窗口对象注册事件，当窗口最大化或还原后，这些事件的处理函数负责把消息发送给渲染进程。标题栏的对应按钮的图标也会发生相应的变化，同样也是在 app ready 之后调用 CommonWindowEvent.regWinEvent(mainWindow); 这个方法即可。</li>
+</ul>
+<p>在 src/main/mainEntry.ts 下添加如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">app</span><span class="p">,</span> <span class="nx">BrowserWindow</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;electron&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">CustomScheme</span><span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./customScheme&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">CommonWindowEvent</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./CommonWindowEvent&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ELECTRON_DISABLE_SECURITY_WARNINGS</span> <span class="o">=</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">mainWindow</span>: <span class="kt">BrowserWindow</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 调用 CommonWindowEvent.regWinEvent(win);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">app</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;browser-window-created&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">win</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">CommonWindowEvent</span><span class="p">.</span><span class="nx">regWinEvent</span><span class="p">(</span><span class="nx">win</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">whenReady</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">webPreferences</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">nodeIntegration</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">webSecurity</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">allowRunningInsecureContent</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">contextIsolation</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">webviewTag</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">spellcheck</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">disableHtmlFullscreenWindowResize</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mainWindow</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BrowserWindow</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mainWindow</span><span class="p">.</span><span class="nx">webContents</span><span class="p">.</span><span class="nx">openDevTools</span><span class="p">({</span><span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;undocked&#39;</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">mainWindow</span><span class="p">.</span><span class="nx">loadURL</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">CustomScheme</span><span class="p">.</span><span class="nx">registerScheme</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">mainWindow</span><span class="p">.</span><span class="nx">loadURL</span><span class="p">(</span><span class="s1">&#39;app&#34;//index.html&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 调用 CommonWindowEvent.listen();
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">CommonWindowEvent</span><span class="p">.</span><span class="nx">listen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="窗口加载过慢解决方案">窗口加载过慢解决方案</h3>
+<p>Electron 创建一个 BrowserWindow 对象，并让它成功渲染一个页面是非常耗时的，在一个普通配置的电脑上，这大概需要 2~5 秒左右的时间（少量用户反馈没这个问题）。</p>
+<h4 id="窗口池解决方案">窗口池解决方案</h4>
+<p>提前准备 1 个或多个隐藏的窗口，让它们加载一个骨架屏页面，放到一个数组里，当应用程序需要打开一个新窗口时，就从这个数组里取出一个窗口，执行页内跳转，从骨架屏页面跳转到业务页面，然后再把这个窗口显示出来。这就消费掉了一个窗口。</p>
+<p>当应用程序消费掉一个窗口之后，马上再创建一个新的加载了骨架屏页面的窗口放入数组，保证有足够的待命隐藏窗口。</p>
+<p>当用户关闭某个加载了业务页面的窗口时，就把它从数组中删除掉。避免数组里存在无用的窗口。</p>
+<p>这个方案之所以行之有效是因为在没有使用窗口时就提前准备好了窗口，等真正需要使用窗口时，仅仅是完成了一次页面跳转的工作，这个跳转工作可以在很短的时间内就完成。所以给用户的感知就是打开子窗口特别快。</p>
+<p>webview 和 BrowserView 创建慢的问题也可以使用类似的方案解决。</p>
+<p>然而这个方案有以下三个缺点。</p>
+<ul>
+<li>无法优化整个应用的第一个窗口。</li>
+<li>系统内部始终会有 1 到 2 个隐藏窗口处于待命状态，这无形中增加了用户的内存消耗。</li>
+<li>虽然这个方案看上去逻辑比较简单，但要控制好所有的细节（比如，窗口间的通信、界面代码如何控制窗口的外观、如何实现模态子窗口等）还是非常繁琐的。</li>
+</ul>
+<h4 id="windowopen-解决方案">window.open 解决方案</h4>
+<p>Electron 允许使用 window.open 的方式打开一个子窗口，通过这种方式打开的子窗口不会创建新的进程，效率非常高，可以在几百毫秒内就为用户呈现窗口内容。</p>
+<p>但对于一些复杂的需求却需要额外的处理才能满足需求，比如：系统设置子窗口，当用户完成某一项设置之后，要通知父窗口做出相应的改变。这是常见的父子窗口通信的需求。</p>
+<p>首先需要为主窗口的 webContents 注册 setWindowOpenHandler 方法。</p>
+<p>在 src/main/CommonWindowEvent.ts 中添加如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="nx">mainWindow</span><span class="p">.</span><span class="nx">webContents</span><span class="p">.</span><span class="nx">setWindowOpenHandler</span><span class="p">((</span><span class="nx">param</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span> <span class="nx">action</span><span class="o">:</span> <span class="s2">&#34;allow&#34;</span><span class="p">,</span> <span class="nx">overrideBrowserWindowOptions</span>: <span class="kt">yourWindowConfig</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 setWindowOpenHandler 方法的回调函数返回一个对象，这个对象中 action: &ldquo;allow&rdquo; 代表允许窗口打开，如果你想阻止窗口打开，那么只要返回 {action: &ldquo;deny&rdquo;} 即可。</p>
+<p>返回对象的 overrideBrowserWindowOptions 属性的值是被打开的新窗口的配置对象。</p>
+<p>在渲染进程中打开子窗口的代码如下所示:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">window.open(`/WindowSetting/AccountSetting`);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>window.open 打开新窗口之所以速度非常快，是因为用这种方式创建的新窗口不会创建新的进程。这也就意味着一个窗口崩溃会拖累其他窗口跟着崩溃（主窗口不受影响）。</p>
+<p>使用 window.open 打开的新窗口还有一个问题，这类窗口在关闭之后虽然会释放掉大部分内存，但有一小部分内存无法释放（无论你打开多少个子窗口，全部关闭之后总会有那么固定的一小块内存无法释放），这与窗口池方案的内存损耗相当。</p>
+<p>接下来介绍如何使用这个方案控制子窗口。</p>
+<h5 id="子窗口的标题栏消息">子窗口的标题栏消息</h5>
+<p>自定义主窗口的标题栏 BarTop.vue，标题栏组件需要监听主进程发来的 windowMaximized 消息和 windowUnmaximized 消息，子窗口当然也希望复用这个组件，然而子窗口的窗口对象是在 Electron 内部创建的，不是开发者创建的，没有子窗口的窗口对象，该如何使用 regWinEvent 方法为子窗口注册最大化和还原事件呢？</p>
+<p>这就需要用到 app 对象的 browser-window-created 事件，代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="c1">// src/main/mainEntry.ts
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">app</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;browser-window-created&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">win</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nx">CommonWindowEvent</span><span class="p">.</span><span class="nx">regWinEvent</span><span class="p">(</span><span class="nx">win</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>每当有一个窗口被创建成功后，这个事件就会被触发，主窗口和使用 window.open 创建的子窗口都一样，这个事件的第二个参数就是窗口对象。</p>
+<h5 id="动态设置子窗口的配置">动态设置子窗口的配置</h5>
+<p>虽然可以在渲染进程中用 window.open 方法打开一个子窗口，但这个子窗口的配置信息目前还是在主进程中设置的（overrideBrowserWindowOptions），大部分时候要根据渲染进程的要求来改变子窗口的配置，所以最好的办法是由渲染进程来设置这些配置信息。</p>
+<p>在 CommonWindowEvent 类的 regWinEvent 方法增加一段逻辑，代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="c1">// 注册打开子窗口的回调函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// @ts-ignore
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">win</span><span class="p">.</span><span class="nx">webContents</span><span class="p">.</span><span class="nx">setWindowOpenHandler</span><span class="p">((</span><span class="nx">param</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 基础窗口配置对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kd">let</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">frame</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">show</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">parent</span>: <span class="kt">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">webPreferences</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">nodeIntegration</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">webSecurity</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">allowRunningInsecureContent</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">contextIsolation</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">webviewTag</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">spellcheck</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">disableHtmlFullscreenWindowResize</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">nativeWindowOpen</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">};</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 开发者自定义窗口配置对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kd">let</span> <span class="nx">features</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">param</span><span class="p">.</span><span class="nx">features</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">p</span> <span class="k">in</span> <span class="nx">features</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">p</span> <span class="o">===</span> <span class="s2">&#34;webPreferences&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">p2</span> <span class="k">in</span> <span class="nx">features</span><span class="p">.</span><span class="nx">webPreferences</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//@ts-ignore
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">config</span><span class="p">.</span><span class="nx">webPreferences</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span> <span class="o">=</span> <span class="nx">features</span><span class="p">.</span><span class="nx">webPreferences</span><span class="p">[</span><span class="nx">p2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">//@ts-ignore
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="nx">config</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">=</span> <span class="nx">features</span><span class="p">[</span><span class="nx">p</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// @ts-ignore
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">config</span><span class="p">[</span><span class="s2">&#34;modal&#34;</span><span class="p">]</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="nx">config</span><span class="p">.</span><span class="nx">parent</span> <span class="o">=</span> <span class="nx">win</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 允许打开窗口，并传递窗口配置对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="p">{</span><span class="nx">action</span><span class="o">:</span> <span class="s2">&#34;allow&#34;</span><span class="p">,</span> <span class="nx">overrideBrowserWindowOptions</span>: <span class="kt">config</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>config 对象和主窗口的 config 对象基本上是一样的，所以最好把它抽象出来。</p>
+<p>param 参数的 features 属性是由渲染进程传过来的，是一个字符串，这里把它当作一个 JSON 字符串使用，这个字符串里包含着渲染进程提供的窗口配置项，这些配置项与 config 对象提供的基础配置项结合，最终形成了子窗口的配置项。</p>
+<p>如果配置项中 modal 属性的值为 true 的话，说明渲染进程希望子窗口为一个模态窗口，这时要为子窗口提供父窗口配置项：parent，这个配置项的值就是当前窗口。</p>
+<p>之所以把这段逻辑放置在 CommonWindowEvent 类的 regWinEvent 方法中，就是希望更方便地为应用内的所有窗口提供这项能力，如果不希望这么做，也可以把这段逻辑放置在一个独立的方法中。</p>
+<p>在 src/renderer/components/BarLeft.vue 中添加如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">openSettingWindow</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">modal</span>: <span class="kt">true</span><span class="p">,</span> <span class="nx">width</span>: <span class="kt">2002</span><span class="p">,</span> <span class="nx">webPreferences</span><span class="o">:</span> <span class="p">{</span> <span class="nx">webviewTag</span>: <span class="kt">false</span> <span class="p">}</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="sb">`/WindowSetting/AccountSetting`</span><span class="p">,</span> <span class="s2">&#34;_blank&#34;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">config</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>window.open 方法的第三个参数官方定义为一个逗号分割的 key-value 列表，但这里把它变成了一个 JSON 字符串，这样做主要是为了方便地控制子窗口的配置对象。</p>
+<p>使用 window.open 打开新窗口速度非常快，所以这里直接让新窗口显示出来了 config.show = true。如果你需要在新窗口初始化时完成复杂耗时的业务逻辑，那么你也应该手动控制新窗口的显示时机。</p>
+<h5 id="封装子窗口加载成功的事件">封装子窗口加载成功的事件</h5>
+<p>现在遇到了一个问题：不知道子窗口何时加载成功了，注意这里不能单纯地使用 window 对象的 onload 事件或者 document 对象的 DOMContentLoaded 事件来判断子窗口是否加载成功了。因为这个时候你的业务代码（比如从数据库异步读取数据的逻辑）可能尚未执行完成。</p>
+<p>所以，要自己封装一个事件，在业务代码真正执行完成时，手动发射这个事件，告知主窗口：“现在子窗口已经加载成功啦，你可以给我发送消息了！”</p>
+<p>在封装这个事件前，先来把 window.open 打开子窗口的逻辑封装到一个 Promise 对象中，如下代码所示：</p>
+<p>src/renderer/common/Dialog.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">createDialog</span> <span class="o">=</span> <span class="p">(</span><span class="nx">url</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">config</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">Window</span><span class="p">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">windowProxy</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="s1">&#39;_blank&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">config</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">readyHandler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">let</span> <span class="nx">msg</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">msg</span><span class="p">[</span><span class="s1">&#39;msgName&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;__dialogReady&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nx">readyHandler</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">resolve</span><span class="p">(</span><span class="nx">windowProxy</span> <span class="kr">as</span> <span class="nx">Window</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nx">readyHandler</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当渲染进程的某个组件需要打开子窗口时，可以使用 Dialog.ts 提供的 createDialog 方法。</p>
+<p>在这段代码中，把 window.open 的逻辑封装到一个 Promise 对象中，通过 window.open 打开子窗口后，当前窗口马上监听 message 事件，子窗口有消息发送给当前窗口时，这个事件将被触发。</p>
+<p>在message事件的处理函数中完成了下面三个工作:</p>
+<ul>
+<li>e.data 里存放着具体的消息内容，把它格式化成一个 JSON 对象。</li>
+<li>如果这个 JSON 对象的 msgName 属性为 __dialogReady 字符串，就成功 resolve。</li>
+<li>Promise 对象成功 resolve 之前要移除掉 message 事件的监听函数，避免内存泄漏（如果不这么做，用户每打开一个子窗口，就会注册一次message事件）。</li>
+</ul>
+<p>window.open方法返回的是目标窗口的引用，可以使用这个引用对象向目标窗口发送消息，或执行其他相关操作。</p>
+<p>Dialog.ts 并非只导出了 createDialog 这么一个方法，它还导出了 dialogReady 方法，代码如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">dialogReady</span> <span class="o">=</span> <span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">msg</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">msgName</span><span class="o">:</span>  <span class="s1">&#39;__dialogReady&#39;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">window</span><span class="p">.</span><span class="nx">opener</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个方法是为子窗口服务的，当子窗口完成了必要的业务逻辑之后，就可以执行这个方法，通知父窗口自己已经加载成功。</p>
+<p>这个方法通过 window.opener 对象的 postMessage 方法向父窗口发送了一个消息，这个消息的内容是一个 JSON 对象，这个 JSON 对象的msgName属性为 __dialogReady 字符串。</p>
+<p>父窗口收到子窗口发来的这个消息后，将触发 message 事件，也就会执行在 createDialog 方法中撰写的逻辑了。</p>
+<h5 id="父子窗口互相通信">父子窗口互相通信</h5>
+<p>使用 createDialog 方法返回的对象向子窗口发送消息，想要接收子窗口发来的消息，只要监听 window 对象的 message 事件即可，代码如下所示：</p>
+<p>src/renderer/components/BarLeft.vue</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">openSettingWindow</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span><span class="nx">modal</span>: <span class="kt">false</span><span class="p">,</span> <span class="nx">width</span>: <span class="kt">2002</span><span class="p">,</span> <span class="nx">webPreferences</span><span class="o">:</span> <span class="p">{</span><span class="nx">webviewTag</span>: <span class="kt">false</span><span class="p">}};</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">createDialog</span><span class="p">(</span><span class="s1">&#39;/WindowSetting/AccountSetting&#39;</span><span class="p">,</span> <span class="nx">config</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">msg</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">msgName</span><span class="o">:</span> <span class="s2">&#34;hello&#34;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&#34;msg from your parent&#34;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;message&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">dialog</span><span class="o">?</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>子窗口发送消息给父窗口的代码如下所示：</p>
+<p>src/renderer/window/WindowSetting.vue</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">onMounted</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;vue&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">dialogReady</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;../common/Dialog&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">onMounted</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ready&#34;</span><span class="p">,</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;message&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">opener</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">({</span> <span class="nx">msgName</span><span class="o">:</span> <span class="s2">&#34;hello&#34;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&#34;I am your son.&#34;</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">dialogReady</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>相对于使用 ipcRender 和 ipcMain 的方式完成窗口间通信来说，使用这种方式完成跨窗口通信有以下几项优势：</p>
+<ul>
+<li>消息传递与接收效率都非常高，均为毫秒级。</li>
+<li>开发更加简单，代码逻辑清晰，无需跨进程中转消息。</li>
+</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -1382,8 +2081,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/blog/" class="prev" rel="prev" title="由亲身经历的房屋出租纠纷引发的思考..."><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>由亲身经历的房屋出租纠纷引发的思考...</a>
-            <a href="/2023/" class="next" rel="next" title="Q的乱语-2023年">Q的乱语-2023年<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/2023/" class="prev" rel="prev" title="Q的乱语-2023年"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Q的乱语-2023年</a></div>
 </div>
 <div id="comments"><div id="giscus" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.

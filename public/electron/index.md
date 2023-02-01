@@ -770,3 +770,455 @@ createApp(App).use(router).mount('#app');
 
 <img src="/images/electron/img_6.png" alt="" width="500" />  
 
+## 管控应用窗口  
+
+如何管控应用内的窗口，比如：什么时候显示窗口、如何通过自定义窗口标题栏来管控单个窗口等内容。  
+
+### 主窗口显示时机   
+
+在第一个窗口初始化的瞬间，会有一个黑窗口闪现一下，如下图所示：  
+
+<img src="/images/electron/img_7.png" alt="" width="500" />  
+
+按照 Electron 官网的建议，窗口一开始应该是隐藏的，在 ready-to-show 事件触发后再显示窗口，如下代码所示：
+
+```
+const { BrowserWindow } = require("electron");
+const win = new BrowserWindow({ show: false });
+win.once("ready-to-show", () => {
+win.show();
+});
+```
+
+但这个事件的触发太早了，因为 Vue 项目的 HTML 加载之后，JavaScript 脚本还需要做很多事情才能把组件渲染出来。况且开发者可能还会在 Vue 组件初始化的早期做很多额外的工作，所以显示窗口不能依赖 ready-to-show 事件，必须手动控制。  
+
+主窗口对象 mainWindow 初始化时，把配置属性 show 设置为 false，就可以让主窗口初始化成功后处于隐藏状态。  
+
+接下来再在合适的时机让渲染进程控制主窗口显示出来即可。这里在 WindowMain.vue 组件渲染完成之后来完成这项工作，如下代码所示：  
+
+```vue
+import { ipcRenderer } from "electron";
+import { onMounted } from "vue";
+onMounted(() => {
+  ipcRenderer.invoke("showWindow");
+});
+```
+
+### 自定义窗口标题栏  
+
+在 src/renderer/components 下新建 BarTop.vue，这是窗口标题栏组件：   
+
+```vue
+<template>
+  <div class="topBar">
+    <div class="winTitle">{{ title }}}</div>
+    <div class="winTool">
+      <div @click="minimizeMainWindow">
+        <i class="icon icon-minimize"/>
+      </div>
+      <div v-if="isMaximized" @click="unmaximizeMainWindow">
+        <i class="icon icon-restore"/>
+      </div>
+      <div v-else @click="maxmizeMainWin">
+        <i class="icon icon-maximize"/>
+      </div>
+      <div @click="closeWindow">
+        <i class="icon icon-close"/>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+</script>
+
+<style lang="scss" scoped>
+.topBar {
+  display: flex;
+  height: 25px;
+  line-height: 25px;
+  -webkit-app-region: drag; /* 可拖拽区域 */
+  width: 100%;
+}
+
+.winTitle {
+  flex: 1;
+  padding-left: 12px;
+  font-size: 14px;
+  color: #888;
+}
+
+.winTool {
+  height: 100%;
+  display: flex;
+  -webkit-app-region: no-drag; /* 可拖拽区域内的不可拖拽区域 */
+}
+
+.winTool div {
+  height: 100%;
+  width: 34px;
+  text-align: center;
+  color: #999;
+  cursor: pointer;
+  line-height: 25px;
+}
+
+.winTool .icon {
+  font-size: 10px;
+  color: #666666;
+  font-weight: bold;
+}
+
+.winTool div:hover {
+  background: #efefef;
+}
+
+.winTool div:last-child:hover {
+  background: #ff7875;
+}
+
+.winTool div:last-child:hover i {
+  color: #fff !important;
+}
+</style>
+```
+
+* 要自定义一个窗口的标题栏必须把窗口默认的标题栏取消掉才行。只需要在初始化 mainWindow 对象时（主进程里的逻辑），把窗口配置对象的 frame 属性设置为 false 就可以使这个窗口成为无边框窗口了。
+
+* 窗口标题是通过 props 数据传递给标题栏组件的，也就是说标题栏的标题是由其父组件来确定的。
+
+* 标题栏中可拖拽区域是通过样式 -webkit-app-region: drag 定义的，鼠标在这个样式定义的组件上拖拽可以移动窗口，双击可以放大或者还原窗口，如果这个组件内有子组件不希望拥有该能力，可以通过 -webkit-app-region: no-drag; 来取消此能力。
+
+* 最大化、最小化、还原、关闭窗口等按钮的点击事件，都是通过 ipcRenderer.invoke 方法来调用主进程 CommonWindowEvent 类提供的消息管道来实现对应的功能的。
+
+* 由于窗口最大化（或还原）不一定是通过点击最大化按钮（或还原按钮）触发的，有可能是通过双击标题栏可拖拽区域触发的，所以这里只能通过 ipcRenderer.on 来监听窗口的最大化或还原事件，以此来改变对应的最大化或还原按钮的显隐状态。不能在按钮点击事件中来完成这项工作。windowMaximized 消息和 windowUnmaximized 消息也是由主进程的 CommonWindowEvent 类发来的。
+
+* 由于多个二级路由页面会引用 BarTop.vue，为了避免在切换路由的时候，反复通过 ipcRenderer.on 注册消息监听器，所以在组件的 onUnmounted 事件内注销了消息监听器，避免事件泄漏。  
+
+src/main/CommonWindowEvent.ts 的代码如下：   
+
+```ts
+import { BrowserWindow, ipcMain, app } from 'electron';
+
+// 主进程公共消息处理逻辑
+export class CommonWindowEvent {
+  private static getWin(event: any) {
+    return BrowserWindow.fromWebContents(event.sender);
+  }
+  public static listen() {
+    ipcMain.handle('minimizeWindow', e => {
+      this.getWin(e)?.minimize();
+    });
+
+    ipcMain.handle('maxmizeWindow', e => {
+      this.getWin(e)?.maximize();
+    });
+
+    ipcMain.handle('unmaximizeWindow', e => {
+      this.getWin(e)?.unmaximize();
+    });
+
+    ipcMain.handle('hideWindow', e => {
+      this.getWin(e)?.hide();
+    });
+
+    ipcMain.handle('showWindow', e => {
+      this.getWin(e)?.show();
+    });
+
+    ipcMain.handle('closeWindow', e => {
+      this.getWin(e)?.close();
+    });
+
+    ipcMain.handle('resizable', e => this.getWin(e)?.isResizable());
+
+    ipcMain.handle('getPath', (e, name) => app.getPath(name));
+  }
+
+  // 主进程公共事件处理逻辑
+  public static regWinEvent(win: BrowserWindow) {
+    win.on('maximize', () => {
+      win.webContents.send('windowMaximized');
+    });
+    win.on('unmaximize', () => {
+      win.webContents.send('windowUnmaximized');
+    })
+  }
+}
+```
+
+* 在 listen 方法内部注册了一系列消息管道，方便渲染进程控制主进程的一些行为，标题栏组件的窗口的最大化、最小化、还原等功能都是在这里实现的。在 app ready 之后调用 CommonWindowEvent.listen(); 这个方法即可注册这些消息管道。
+* regWinEvent 方法负责为窗口对象注册事件，当窗口最大化或还原后，这些事件的处理函数负责把消息发送给渲染进程。标题栏的对应按钮的图标也会发生相应的变化，同样也是在 app ready 之后调用 CommonWindowEvent.regWinEvent(mainWindow); 这个方法即可。  
+
+在 src/main/mainEntry.ts 下添加如下代码：  
+
+```ts
+import {app, BrowserWindow} from 'electron';
+import {CustomScheme} from "./customScheme";
+import { CommonWindowEvent } from "./CommonWindowEvent";
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
+let mainWindow: BrowserWindow;
+// 调用 CommonWindowEvent.regWinEvent(win);
+app.on("browser-window-created", (e, win) => {
+  CommonWindowEvent.regWinEvent(win);
+});
+app.whenReady().then(() => {
+  let config = {
+    webPreferences: {
+      nodeIntegration: true,
+      webSecurity: false,
+      allowRunningInsecureContent: true,
+      contextIsolation: false,
+      webviewTag: true,
+      spellcheck: false,
+      disableHtmlFullscreenWindowResize: true,
+    },
+  };
+  mainWindow = new BrowserWindow(config);
+  mainWindow.webContents.openDevTools({mode: 'undocked'});
+  if (process.argv[2]) {
+    mainWindow.loadURL(process.argv[2]);
+  } else {
+    CustomScheme.registerScheme();
+    mainWindow.loadURL('app"//index.html');
+  }
+  // 调用 CommonWindowEvent.listen();
+  CommonWindowEvent.listen();
+});
+```
+
+### 窗口加载过慢解决方案  
+
+Electron 创建一个 BrowserWindow 对象，并让它成功渲染一个页面是非常耗时的，在一个普通配置的电脑上，这大概需要 2~5 秒左右的时间（少量用户反馈没这个问题）。  
+
+#### 窗口池解决方案   
+
+提前准备 1 个或多个隐藏的窗口，让它们加载一个骨架屏页面，放到一个数组里，当应用程序需要打开一个新窗口时，就从这个数组里取出一个窗口，执行页内跳转，从骨架屏页面跳转到业务页面，然后再把这个窗口显示出来。这就消费掉了一个窗口。  
+
+当应用程序消费掉一个窗口之后，马上再创建一个新的加载了骨架屏页面的窗口放入数组，保证有足够的待命隐藏窗口。  
+
+当用户关闭某个加载了业务页面的窗口时，就把它从数组中删除掉。避免数组里存在无用的窗口。  
+
+这个方案之所以行之有效是因为在没有使用窗口时就提前准备好了窗口，等真正需要使用窗口时，仅仅是完成了一次页面跳转的工作，这个跳转工作可以在很短的时间内就完成。所以给用户的感知就是打开子窗口特别快。  
+
+webview 和 BrowserView 创建慢的问题也可以使用类似的方案解决。  
+
+然而这个方案有以下三个缺点。
+
+* 无法优化整个应用的第一个窗口。
+* 系统内部始终会有 1 到 2 个隐藏窗口处于待命状态，这无形中增加了用户的内存消耗。
+* 虽然这个方案看上去逻辑比较简单，但要控制好所有的细节（比如，窗口间的通信、界面代码如何控制窗口的外观、如何实现模态子窗口等）还是非常繁琐的。
+
+#### window.open 解决方案   
+
+Electron 允许使用 window.open 的方式打开一个子窗口，通过这种方式打开的子窗口不会创建新的进程，效率非常高，可以在几百毫秒内就为用户呈现窗口内容。  
+
+但对于一些复杂的需求却需要额外的处理才能满足需求，比如：系统设置子窗口，当用户完成某一项设置之后，要通知父窗口做出相应的改变。这是常见的父子窗口通信的需求。   
+
+首先需要为主窗口的 webContents 注册 setWindowOpenHandler 方法。  
+
+在 src/main/CommonWindowEvent.ts 中添加如下代码：  
+
+```ts
+mainWindow.webContents.setWindowOpenHandler((param) => {
+  return { action: "allow", overrideBrowserWindowOptions: yourWindowConfig };
+});
+```
+
+使用 setWindowOpenHandler 方法的回调函数返回一个对象，这个对象中 action: "allow" 代表允许窗口打开，如果你想阻止窗口打开，那么只要返回 {action: "deny"} 即可。  
+
+返回对象的 overrideBrowserWindowOptions 属性的值是被打开的新窗口的配置对象。  
+
+在渲染进程中打开子窗口的代码如下所示:  
+
+```
+window.open(`/WindowSetting/AccountSetting`);
+```
+
+window.open 打开新窗口之所以速度非常快，是因为用这种方式创建的新窗口不会创建新的进程。这也就意味着一个窗口崩溃会拖累其他窗口跟着崩溃（主窗口不受影响）。  
+
+使用 window.open 打开的新窗口还有一个问题，这类窗口在关闭之后虽然会释放掉大部分内存，但有一小部分内存无法释放（无论你打开多少个子窗口，全部关闭之后总会有那么固定的一小块内存无法释放），这与窗口池方案的内存损耗相当。   
+
+接下来介绍如何使用这个方案控制子窗口。  
+
+##### 子窗口的标题栏消息  
+
+自定义主窗口的标题栏 BarTop.vue，标题栏组件需要监听主进程发来的 windowMaximized 消息和 windowUnmaximized 消息，子窗口当然也希望复用这个组件，然而子窗口的窗口对象是在 Electron 内部创建的，不是开发者创建的，没有子窗口的窗口对象，该如何使用 regWinEvent 方法为子窗口注册最大化和还原事件呢？  
+
+这就需要用到 app 对象的 browser-window-created 事件，代码如下：
+
+```ts
+// src/main/mainEntry.ts
+app.on("browser-window-created", (e, win) => {
+CommonWindowEvent.regWinEvent(win);
+});
+```
+
+每当有一个窗口被创建成功后，这个事件就会被触发，主窗口和使用 window.open 创建的子窗口都一样，这个事件的第二个参数就是窗口对象。  
+
+##### 动态设置子窗口的配置  
+
+虽然可以在渲染进程中用 window.open 方法打开一个子窗口，但这个子窗口的配置信息目前还是在主进程中设置的（overrideBrowserWindowOptions），大部分时候要根据渲染进程的要求来改变子窗口的配置，所以最好的办法是由渲染进程来设置这些配置信息。  
+
+在 CommonWindowEvent 类的 regWinEvent 方法增加一段逻辑，代码如下： 
+
+```ts
+// 注册打开子窗口的回调函数
+    // @ts-ignore
+    win.webContents.setWindowOpenHandler((param) => {
+      // 基础窗口配置对象
+      let config = {
+        frame: false,
+        show: true,
+        parent: null,
+        webPreferences: {
+          nodeIntegration: true,
+          webSecurity: false,
+          allowRunningInsecureContent: true,
+          contextIsolation: false,
+          webviewTag: true,
+          spellcheck: false,
+          disableHtmlFullscreenWindowResize: true,
+          nativeWindowOpen: true,
+        },
+      };
+      // 开发者自定义窗口配置对象
+      let features = JSON.parse(param.features);
+      for (let p in features) {
+        if (p === "webPreferences") {
+          for (let p2 in features.webPreferences) {
+            //@ts-ignore
+            config.webPreferences[p2] = features.webPreferences[p2];
+          }
+        } else {
+          //@ts-ignore
+          config[p] = features[p];
+        }
+      }
+      // @ts-ignore
+      if (config["modal"] === true) config.parent = win;
+      // 允许打开窗口，并传递窗口配置对象
+      return {action: "allow", overrideBrowserWindowOptions: config};
+    });
+```
+
+config 对象和主窗口的 config 对象基本上是一样的，所以最好把它抽象出来。  
+
+param 参数的 features 属性是由渲染进程传过来的，是一个字符串，这里把它当作一个 JSON 字符串使用，这个字符串里包含着渲染进程提供的窗口配置项，这些配置项与 config 对象提供的基础配置项结合，最终形成了子窗口的配置项。  
+
+如果配置项中 modal 属性的值为 true 的话，说明渲染进程希望子窗口为一个模态窗口，这时要为子窗口提供父窗口配置项：parent，这个配置项的值就是当前窗口。  
+
+之所以把这段逻辑放置在 CommonWindowEvent 类的 regWinEvent 方法中，就是希望更方便地为应用内的所有窗口提供这项能力，如果不希望这么做，也可以把这段逻辑放置在一个独立的方法中。  
+
+在 src/renderer/components/BarLeft.vue 中添加如下代码：  
+
+```ts
+const openSettingWindow = () => {
+  const config = { modal: true, width: 2002, webPreferences: { webviewTag: false } };
+  window.open(`/WindowSetting/AccountSetting`, "_blank", JSON.stringify(config));
+};
+```
+
+window.open 方法的第三个参数官方定义为一个逗号分割的 key-value 列表，但这里把它变成了一个 JSON 字符串，这样做主要是为了方便地控制子窗口的配置对象。  
+
+使用 window.open 打开新窗口速度非常快，所以这里直接让新窗口显示出来了 config.show = true。如果你需要在新窗口初始化时完成复杂耗时的业务逻辑，那么你也应该手动控制新窗口的显示时机。  
+
+##### 封装子窗口加载成功的事件  
+
+现在遇到了一个问题：不知道子窗口何时加载成功了，注意这里不能单纯地使用 window 对象的 onload 事件或者 document 对象的 DOMContentLoaded 事件来判断子窗口是否加载成功了。因为这个时候你的业务代码（比如从数据库异步读取数据的逻辑）可能尚未执行完成。  
+
+所以，要自己封装一个事件，在业务代码真正执行完成时，手动发射这个事件，告知主窗口：“现在子窗口已经加载成功啦，你可以给我发送消息了！”  
+
+在封装这个事件前，先来把 window.open 打开子窗口的逻辑封装到一个 Promise 对象中，如下代码所示：  
+
+src/renderer/common/Dialog.ts  
+
+```ts
+export const createDialog = (url: string, config: any): Promise<Window> => {
+  return new Promise((resolve, reject) => {
+    const windowProxy = window.open(url, '_blank', JSON.stringify(config));
+    const readyHandler = (e: any) => {
+      let msg = e.data;
+      if (msg['msgName'] === '__dialogReady') {
+        window.removeEventListener('message', readyHandler);
+        resolve(windowProxy as Window);
+      }
+    };
+    window.addEventListener('message', readyHandler);
+  })
+};
+```
+
+当渲染进程的某个组件需要打开子窗口时，可以使用 Dialog.ts 提供的 createDialog 方法。  
+
+在这段代码中，把 window.open 的逻辑封装到一个 Promise 对象中，通过 window.open 打开子窗口后，当前窗口马上监听 message 事件，子窗口有消息发送给当前窗口时，这个事件将被触发。  
+
+在message事件的处理函数中完成了下面三个工作:  
+
+* e.data 里存放着具体的消息内容，把它格式化成一个 JSON 对象。  
+* 如果这个 JSON 对象的 msgName 属性为 __dialogReady 字符串，就成功 resolve。  
+* Promise 对象成功 resolve 之前要移除掉 message 事件的监听函数，避免内存泄漏（如果不这么做，用户每打开一个子窗口，就会注册一次message事件）。  
+
+window.open方法返回的是目标窗口的引用，可以使用这个引用对象向目标窗口发送消息，或执行其他相关操作。  
+
+Dialog.ts 并非只导出了 createDialog 这么一个方法，它还导出了 dialogReady 方法，代码如下所示：  
+
+```ts
+export const dialogReady = (): void => {
+  const msg = { msgName:  '__dialogReady' };
+  window.opener.postMessage(msg);
+};
+```
+
+这个方法是为子窗口服务的，当子窗口完成了必要的业务逻辑之后，就可以执行这个方法，通知父窗口自己已经加载成功。  
+
+这个方法通过 window.opener 对象的 postMessage 方法向父窗口发送了一个消息，这个消息的内容是一个 JSON 对象，这个 JSON 对象的msgName属性为 __dialogReady 字符串。  
+
+父窗口收到子窗口发来的这个消息后，将触发 message 事件，也就会执行在 createDialog 方法中撰写的逻辑了。  
+
+##### 父子窗口互相通信  
+
+使用 createDialog 方法返回的对象向子窗口发送消息，想要接收子窗口发来的消息，只要监听 window 对象的 message 事件即可，代码如下所示： 
+
+src/renderer/components/BarLeft.vue  
+
+```ts
+const openSettingWindow = async () => {
+  const config = {modal: false, width: 2002, webPreferences: {webviewTag: false}};
+  const dialog = await createDialog('/WindowSetting/AccountSetting', config);
+  const msg = { msgName: "hello", value: "msg from your parent" };
+  window.addEventListener("message", (e) => {
+  console.log(e.data);
+  });
+  dialog?.postMessage(msg);
+};
+```
+
+子窗口发送消息给父窗口的代码如下所示：
+
+src/renderer/window/WindowSetting.vue  
+
+```ts
+import { onMounted } from "vue";
+import { dialogReady } from "../common/Dialog";
+onMounted(() => {
+  console.log("ready", Date.now());
+  window.addEventListener("message", (e) => {
+    console.log(e.data);
+    window.opener.postMessage({ msgName: "hello", value: "I am your son." });
+  });
+  dialogReady();
+});
+```
+
+相对于使用 ipcRender 和 ipcMain 的方式完成窗口间通信来说，使用这种方式完成跨窗口通信有以下几项优势：  
+
+* 消息传递与接收效率都非常高，均为毫秒级。  
+* 开发更加简单，代码逻辑清晰，无需跨进程中转消息。  
+
+
+
+
+
+
+
