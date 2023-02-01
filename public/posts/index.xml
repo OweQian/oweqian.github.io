@@ -4,7 +4,15 @@
         <link>http://oweqian.xyz/posts/</link>
         <description>所有文章 | OweQian</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 01 Feb 2023 18:16:47 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 02 Feb 2023 00:30:38 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>50本读书计划-2023年</title>
+    <link>http://oweqian.xyz/books/</link>
+    <pubDate>Thu, 02 Feb 2023 00:30:38 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.xyz/books/</guid>
+    <description><![CDATA[001 长期主义 002 解忧杂货店 003 生活蒙太奇]]></description>
+</item>
+<item>
     <title>Electron &#43; Vue3 桌面应用开发实战</title>
     <link>http://oweqian.xyz/electron/</link>
     <pubDate>Wed, 01 Feb 2023 18:16:47 &#43;0800</pubDate>
@@ -27,14 +35,6 @@
     <author>OweQian</author>
     <guid>http://oweqian.xyz/blog/</guid>
     <description><![CDATA[简述一下事情的起因，因为工作变动，没有太多时间找房子，在贝壳找房上紧急租到了套一公寓，和中介公司签订了半年的租房合同，签订合同前，凭借着自己]]></description>
-</item>
-<item>
-    <title>50本读书计划-2023年</title>
-    <link>http://oweqian.xyz/books/</link>
-    <pubDate>Mon, 30 Jan 2023 10:01:38 &#43;0800</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/books/</guid>
-    <description><![CDATA[001 解忧杂货店 &ldquo;如果把来找我咨询的人比喻成迷途的羔羊，通常他们手上都有地图，却没有去看，或是不知道自己目前的位置。但我相信你不属于]]></description>
 </item>
 <item>
     <title>C&#43;&#43; 前端开发菜鸡必知必会</title>

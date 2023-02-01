@@ -1,18 +1,19 @@
 ---
 title: "50本读书计划-2023年"
-date: 2023-01-30T10:01:38+08:00
+date: 2023-02-02T00:30:38+08:00
 tags: ["连载", "读书"]
 categories: ["读书"]
 ---
 
-## 001 解忧杂货店  
+## 001 长期主义  
 
-<img src="/images/books/img.png" alt="" width="400" />  
+<iframe width="600" height="315" src="https://www.youtube.com/embed/d0lJ8wx3vag" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-"如果把来找我咨询的人比喻成迷途的羔羊，通常他们手上都有地图，却没有去看，或是不知道自己目前的位置。但我相信你不属于这两种情况。你的地图是一张白纸，所以即使想决定目的地，也不知道路在哪里。地图是一张白纸，这当然很伤脑筋。任何人都会不知所措。可是换个角度来看，正因为是一张白纸，才可以随心所欲地描绘地图。一切全在你自己。对你来说，一切都是自由的，在你面前是无限的可能。这可是很棒的事啊。我衷心祈祷你可以相信自己，无悔地燃烧自己的人生。 --浪矢杂货店"
+## 002 解忧杂货店  
 
-## 002 生活蒙太奇   
+<iframe width="600" height="315" src="https://www.youtube.com/embed/REPPWttrOk4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-<img src="/images/books/img_1.png" alt="" width="400" />  
+## 003 生活蒙太奇   
 
-"那些平淡无奇的日子：晒在午后三点的阳光下，雨天一个人读书，抬头遇见初雪…"   
+<img src="/images/books/img_2.png" alt="" width="400" />  
+
