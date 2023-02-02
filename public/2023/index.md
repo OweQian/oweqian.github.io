@@ -6,6 +6,11 @@
 ### 02-01
 <iframe width="600" height="315" src="https://www.youtube.com/embed/fn4JAuCfHQA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+### 02-02   
+DAMN COOL!!!  第一季看完，第二季安排上。  
+
+<img src="/images/202301/img_9.png" alt="" width="400" />
+
 ## 2023-01
 
 ### 01-01  
