@@ -1,6 +1,6 @@
 ---
 title: "Electron + Vue3 桌面应用开发实战"
-date: 2023-02-01T18:16:47+08:00
+date: 2023-02-02T19:00:47+08:00
 tags: ["连载", "第一技能"]
 categories: ["第一技能"]
 ---
@@ -1220,8 +1220,572 @@ onMounted(() => {
 * 消息传递与接收效率都非常高，均为毫秒级。  
 * 开发更加简单，代码逻辑清晰，无需跨进程中转消息。  
 
+## Pinia 管理应用状态  
 
+相比 Vuex，Pinia 的优势主要是：  
 
+* 没有 mutations，相应的工作都在 actions 中完成，actions 直接支持异步函数。  
+* 完美支持 TypeScript，Vuex 在这方面做得不是很好。  
+* 对开发工具支持友好，，Pinia 对调试工具（vue-devtools）也支持友好。  
+* 不需要再使用名称空间来控制 store，也不需要再考虑 store 的嵌套问题。  
+* 性能优于 Vuex。  
 
+### 安装 Pinia  
 
+```shell
+npm i pinia -D
+```  
 
+修改渲染进程入口文件，加载 Pinia 插件：
+
+src/renderer/main.ts  
+
+```ts
+import {createApp} from 'vue';
+import {router} from './router';
+import { createPinia } from "pinia";
+import App from './App.vue';
+import './style.css';
+import "./assets/icon/iconfont.css";
+
+createApp(App).use(createPinia()).use(router).mount('#app');
+```
+
+### 创建 Store  
+
+在 src/renderer/store 目录下新建 index.ts，创建第一个 Store 程序，代码如下： 
+
+```ts
+import { defineStore } from 'pinia';
+import { Ref, ref } from 'vue';
+import { ModelChat } from '../../model/ModelChat';
+
+// mock data
+const prepareData = () => {
+  let result = [];
+  for (let i = 0; i < 10; i++) {
+    let model = new ModelChat();
+    model.fromName = '聊天对象' + i;
+    model.sendTime = '昨天';
+    model.lastMsg = '这是此会话的最后一条消息' + i;
+    model.avatar = 'https://pic3.zhimg.com/v2-306cd8f07a20cba46873209739c6395d_im.jpg?source=32738c0c';
+    result.push(model);
+  }
+  return result;
+};
+
+export const useChatStore = defineStore('chat', () => {
+  let data: Ref<ModelChat[]> = ref(prepareData());
+  const selectItem = (item: ModelChat) => {
+    if (item.isSelected) return;
+    data.value.forEach((v) => (v.isSelected = false));
+    item.isSelected = true;
+  };
+  return { data, selectItem };
+});
+```
+
+通过 export 暴露 useChatStore 方法，这个方法通过 Pinia 的 defineStore 方法创建，在 Vue 业务组件中执行这个函数实例才会得到真正的 Store。  
+
+使用 defineStore(name, callback) 的形式创建 Store，这种形式的 Store 叫作 Setup Stores。Pinia 还提供了另一种形式的 Store ：Option Stores，具体可以参阅 Pinia 的官方文档。   
+
+这个 Store 的状态数据存储在：data 属性中，这是一个被 Ref 对象包裹着的数组，数组里的内容是通过 prepareData 方法模拟的（模拟了十个聊天会话对象）。  
+
+这个 Store 还提供了一个 actions 方法：selectItem，这个方法用于选中某个具体的聊天会话。  
+
+### 数据模型  Model
+
+聊天会话的数据模型是在 src/model 目录下定义的，因为应用的主进程和渲染进程都可能会用到数据模型，所以把它放置在 renderer 和 main 的同级目录下。  
+
+新建 src/model/ModelChat.ts，如下所示：   
+
+```ts
+import { ModalBase } from './ModalBase';
+
+export class ModelChat extends ModalBase {
+  fromName?: string;
+  sendTime?: string | number;
+  isSelected = false;
+  lastMsg?: string;
+  avatar?: string;
+  // 0 单聊，1 群聊，2 公众号，3 文件传输助手
+  chatType?: number;
+}
+```
+
+模型主要用于描述对象携带的信息，由于所有的模型都会拥有一些共同的字段，所以把这些字段放置在模型的基类 ModelBase 中。  
+
+新建 src/model/ModelBase.ts，如下所示：   
+
+```ts
+import crypto from 'crypto';
+
+export class ModalBase {
+  id: string;
+  constructor() {
+    this.id = crypto.randomUUID();
+  }
+}
+```
+
+暂时只提供了一个公共字段：id，凡继承于 ModelBase 的子类都将拥有这个字段，而且这个字段是随模型实例化的时候自动创建的。  
+
+只有 new ModelXXXX 时才会创建这个字段，let model = obj as ModelXXXX 时不会创建这个字段。  
+
+使用 Node.js crypto 模块的 randomUUID 方法来生成每个聊天会话的 ID。   
+
+### 使用 Store  
+
+首先把模型中模拟的 10 个聊天会话显示在界面上，代码如下所示：  
+
+src/renderer/window/WindowMain/chat/components/ChatBoard.vue   
+
+```vue
+<template>
+  <div class="ChatList">
+    <ChatSearch />
+    <div class="ListBox">
+      <ChatItem :data="item" v-for="item in store.data" :key="item.id" />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import ChatItem from './ChatItem.vue';
+import ChatSearch from './ChatSearch.vue';
+import { onMounted } from 'vue';
+import { useChatStore } from '../../../../store/useChatStore';
+
+const store = useChatStore();
+
+onMounted(() => {
+  store.selectItem(store.data[6]);
+});
+</script>
+
+<style scoped lang="scss">
+.ChatList {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+.ListBox {
+  background: rgb(230, 229, 229);
+  background-image: linear-gradient(to bottom right, rgb(235, 234, 233), rgb(240, 240, 240));
+  flex: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  border-right: 1px solid rgb(214, 214, 214);
+}
+</style>
+```
+
+通过 Vue 的 v-for 指令渲染了一个自定义组件列表（ChatItem）。  
+
+store 对象是通过 useChatStore 方法获取的，useChatStore 方法就是前面介绍的 useChatStore.ts 导出的方法。得到 store 对象之后，可以直接使用 store.data 获取 Store 对象里的数据。
+
+在当前组件 ChatBoard 渲染完成后，调用了 store 对象的 selectItem 方法，选中了第 7 个会话。  
+
+具体每一个聊天会话对象是通过自定义组件的 data 属性传递到组件内部的。  
+
+ChatItem 自定义组件的代码如下所示：  
+
+src/renderer/window/WindowMain/chat/components/ChatItem.vue  
+
+```vue
+<template>
+  <div @click="itemClick(data)" :class="['ChatItem', { 'ChatItemSelected': data.isSelected}]">
+    <div class="avatar">
+      <img :src="data.avatar" alt="" />
+    </div>
+    <div class="ChatInfo">
+      <div class="row">
+        <div class="FromName">{{ data.fromName }}</div>
+        <div class="TimeName">{{ data.sendTime }}</div>
+      </div>
+      <div class="row">
+        <div class="LastMsg">{{ data.lastMsg }}</div>
+        <div class="subscribe" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ModelChat } from '../../../../../model/ModelChat';
+import { useChatStore } from '../../../../store/useChatStore';
+defineProps<{data: ModelChat}>();
+const store = useChatStore();
+const itemClick = (item: ModelChat) => {
+  store.selectItem(item);
+};
+</script>
+
+<style scoped lang="scss">
+.ChatItem {
+  display: flex;
+  height: 66px;
+  box-sizing: border-box;
+  cursor: pointer;
+  &:hover {
+    background: rgb(221, 219, 218);
+  }
+}
+.ChatItemSelected {
+  background: rgb(196, 196, 196);
+  &:hover {
+    background: rgb(196, 196, 196);
+  }
+}
+.avatar {
+  width: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 46px;
+    height: 46px;
+  }
+}
+.ChatInfo {
+  flex: 1;
+  height: 66px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.row {
+  box-sizing: border-box;
+  height: 28px;
+  line-height: 28px;
+  display: flex;
+}
+.FromName {
+  flex: 1;
+}
+.TimeName {
+  color: rgb(153, 153, 153);
+  padding-right: 12px;
+  font-size: 12px;
+}
+.LastMsg {
+  color: rgb(153, 153, 153);
+  flex: 1;
+  font-size: 12px;
+}
+</style>
+```
+
+使用 defineProps 方法接收父组件传来的数据。  
+
+聊天会话对象里的数据在这个自定义组件中被展开，渲染给用户。  
+
+当用户点击这个自定义组件的时候，程序执行了 Store 对象的 selectItem 方法，这个方法负责选中用户点击的组件，改变了用户点击组件的样式，同时还取消了原来选中的组件。   
+
+### 订阅 Store   
+
+无论是用户点击 ChatItem 组件选中一个聊天会话，还是 ChatBoard 渲染完成后选中一个聊天会话，都应该通知其他组件，选中的聊天会话变更了。  
+
+在 MessageBoard 组件中演示这个功能，代码如下所示：   
+
+src/renderer/window/WindowMain/chat/components/MessageBoard.vue  
+
+```vue
+<template>
+  <div class="MessageBord">
+    <BarTop />
+    <div class="MessageList">{{ logInfo }}</div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
+import BarTop from '../../../../components/BarTop.vue';
+import { useChatStore } from '../../../../store/useChatStore';
+let store = useChatStore();
+let logInfo = ref("");
+let curId = "";
+//订阅Store内数据的变化
+store.$subscribe((mutations, state) => {
+  let item = state.data.find((v) => v.isSelected);
+  let id = item?.id as string;
+  if (id != curId) {
+    logInfo.value = `现在应该加载ID为${item?.id}的聊天记录`;
+    curId = id;
+  }
+});
+</script>
+
+<style scoped lang="scss">
+.MessageBord {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.MessageList {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgb(245, 245, 245);
+}
+</style>
+```
+
+使用 store 对象的 $subscribe 方法订阅了数据变更事件，无论什么时候 store 内的数据发生了变化，都会执行 $subscribe 方法提供的回调函数。  
+
+在订阅回调中，验证选中的会话是否发生了变化（有可能是当前 store 其他数据对象的变化触发了订阅回调），如果是，那么就给出提示。  
+
+订阅回调函数有两个参数 ，第一个是 mutations 参数，这个参数的 events 属性携带着变更前的值和变更后的值，但这个属性只有在开发环境下存在，生产环境下不存在。订阅的第二个参数是 state，这个参数包含 store 中的数据。  
+
+以这种方式更新 store 里的数据，不利于复用数据更新的逻辑，改用可以复用数据更新逻辑的方案。  
+
+<img src="/images/electron/img_8.png" alt="" width="500" />  
+
+### 互访 Store   
+
+新建一个模型类，代码如下所示：  
+
+src/model/ModelMessage.ts  
+
+```ts
+import { ModalBase } from './ModalBase';
+
+export class ModelMessage extends ModalBase {
+  createTime?: number;
+  receiveTime?: number;
+  messageContent?: string;
+  chatId?: string;
+  fromName?: string;
+  avatar?: string;
+  // 是否为传入消息
+  isInMsg?: boolean;
+}
+```
+
+创建 useMessageStore，用于管理消息的状态数据，代码如下：  
+
+src/renderer/store/useMessageStore.ts  
+
+```ts
+import { ModelChat } from '../../model/ModelChat';
+import { ModelMessage } from '../../model/ModelMessage';
+import { defineStore } from 'pinia';
+import { ref, Ref } from 'vue';
+
+export const useMessageStore = defineStore('message', () => {
+  let data: Ref<ModelMessage[]> = ref([]);
+  const msg1 = `醉里挑灯看剑，梦回吹角连营。八百里分麾下灸，五十弦翻塞外声。沙场秋点兵。马作的卢飞快，弓如霹雳弦惊。了却君王天下事，嬴得生前身后名。可怜白发生`;
+  const msg2 = `怒发冲冠，凭栏处，潇潇雨歇。抬望眼，仰天长啸，壮怀激烈。 三十功名尘与土，八千里路云和月。莫等闲，白了少年头，空悲切！ 靖康耻，犹未雪；臣子恨，何时灭?驾长车，踏破贺兰山缺！ 壮志饥餐胡虏肉，笑谈渴饮匈奴血。待从头，收拾旧山河，朝天阙！`;
+  const initData = (chat: ModelChat) => {
+    let result = [];
+    for (let i = 0; i < 10; i++) {
+      let model = new ModelMessage();
+      model.createTime = Date.now();
+      model.isInMsg = i % 2 === 0;
+      model.messageContent = model.isInMsg ? msg1 : msg2;
+      model.fromName = model.isInMsg ? chat.fromName : "我";
+      model.avatar = chat.avatar;
+      model.chatId = chat.id;
+      result.push(model);
+    }
+    data.value = result;
+  };
+  return { data, initData };
+});
+```
+
+消息数据是模拟出来的，这里模拟了 10 条消息，预期用户切换会话的时候，执行 initData 方法，初始化当前会话的消息。  
+
+修改一下 MessageBoard 组件的的代码，如下所示：  
+
+src/renderer/window/WindowMain/chat/components/MessageBoard.vue  
+
+```vue
+<template>
+  <div class="MessageBord">
+    <BarTop />
+    <div class="MessageList">
+      <MessageItem :data="item" v-for="item in messageStore.data" :key="item.id"></MessageItem>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import BarTop from '../../../../components/BarTop.vue';
+import { ModelChat } from '../../../../../model/ModelChat';
+import { useMessageStore } from '../../../../store/useMessageStore';
+import { useChatStore } from '../../../../store/useChatStore';
+import MessageItem from './MessageItem.vue';
+
+const chatStore = useChatStore();
+const messageStore = useMessageStore();
+
+let curId = '';
+
+chatStore.$subscribe((mutations, state) => {
+  const item = state.data.find(v => v.isSelected) as ModelChat;
+  if (item?.id !== curId) {
+    messageStore.initData(item);
+    curId = item?.id;
+  }
+})
+</script>
+
+<style scoped lang="scss">
+.MessageBord {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.MessageList {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgb(245, 245, 245);
+}
+</style>
+```
+
+当选中的聊天会话切换时，执行 messageStore 对象的 initData 方法，这样就初始化了 messageStore 内部的状态数据。  
+
+MessageItem 是新创建的一个 Vue 组件，这个组件用于显示一条消息的具体信息。代码如下所示：  
+
+src/renderer/window/WindowMain/chat/components/MessageItem.vue   
+
+```vue
+<template>
+  <template v-if="data.isInMsg">
+    <div class="MessageItem left">
+      <div class="avatar">
+        <img :src="data.avatar" alt="" />
+      </div>
+      <div class="MessageBox">
+        <div class="FromName">{{ data.fromName }}</div>
+        <div class="MsgContent">{{ data.messageContent }}</div>
+      </div>
+    </div>
+  </template>
+  <template v-else>
+    <div class="MessageItem right">
+      <div class="MessageBox">
+        <div class="MessageContent">{{ data.messageContent }}</div>
+      </div>
+      <div class="avatar">
+        <img :src="data.avatar" alt="" />
+      </div>
+    </div>
+  </template>
+</template>
+
+<script setup lang="ts">
+import { ModelMessage } from '../../../../../model/ModelMessage';
+defineProps<{ data: ModelMessage }>();
+</script>
+
+<style lang="scss" scoped>
+.MessageItem {
+  display: flex;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  position: relative;
+}
+.left {
+  padding-right: 30%;
+  &::after {
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 6px solid #fff;
+    position: absolute;
+    left: 60px;
+    top: 38px;
+    content: "";
+  }
+}
+.right {
+  padding-left: 30%;
+  &::after {
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid rgb(149, 236, 105);
+    position: absolute;
+    right: 60px;
+    top: 18px;
+    content: "";
+  }
+  .MessageContent {
+    background: rgb(149, 236, 105) !important;
+  }
+}
+.avatar {
+  width: 66px;
+  text-align: center;
+  img {
+    width: 46px;
+    height: 46px;
+  }
+}
+.MessageBox {
+  flex: 1;
+}
+.FromName {
+  color: rgb(178, 178, 178);
+  margin-bottom: 6px;
+}
+.MessageContent {
+  background: #fff;
+  border-radius: 3px;
+  padding: 8px;
+  line-height: 22px;
+}
+</style>
+```
+
+在切换选中的聊天会话时，直接初始化 messageStore 里的数据，就完全不需要在 MessageBord 组件里订阅 chatStore 的数据变更了。  
+
+pinia 是支持这种操作的，现在修改一下useChatStore的代码，如下所示：  
+
+```ts
+import { defineStore } from 'pinia';
+import { Ref, ref } from 'vue';
+import { ModelChat } from '../../model/ModelChat';
+import { useMessageStore } from './useMessageStore';
+
+// mock data
+const prepareData = () => {
+  let result = [];
+  for (let i = 0; i < 10; i++) {
+    let model = new ModelChat();
+    model.fromName = '聊天对象' + i;
+    model.sendTime = '昨天';
+    model.lastMsg = '这是此会话的最后一条消息' + i;
+    model.avatar = 'https://pic3.zhimg.com/v2-306cd8f07a20cba46873209739c6395d_im.jpg?source=32738c0c';
+    result.push(model);
+  }
+  return result;
+};
+
+export const useChatStore = defineStore('chat', () => {
+  let data: Ref<ModelChat[]> = ref(prepareData());
+  const selectItem = (item: ModelChat) => {
+    if (item.isSelected) return;
+    data.value.forEach((v) => (v.isSelected = false));
+    item.isSelected = true;
+    const messageStore = useMessageStore();
+    messageStore.initData(item);
+  };
+  return { data, selectItem };
+});
+```
+
+在 selectItem 方法内使用 messageStore 提供的方法。   
+
+<img src="/images/electron/img_9.png" alt="" width="500" />  

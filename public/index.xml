@@ -4,23 +4,23 @@
         <link>http://oweqian.xyz/</link>
         <description>Hugo theme - LoveIt</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 02 Feb 2023 00:30:38 &#43;0800</lastBuildDate>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 02 Feb 2023 19:00:47 &#43;0800</lastBuildDate>
             <atom:link href="http://oweqian.xyz/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Electron &#43; Vue3 桌面应用开发实战</title>
+    <link>http://oweqian.xyz/electron/</link>
+    <pubDate>Thu, 02 Feb 2023 19:00:47 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.xyz/electron/</guid>
+    <description><![CDATA[项目地址： ElectronVue3 构建开发环境 按如下步骤搭建开发环境： 创建项目 首先通过命令行创建一个 Vue 项目： 1 npm create vite@latest electron -- --template vue-ts 安装 electron 依赖： 1 npm i electron -D 调整 package.json 文件： 1 2]]></description>
+</item>
+<item>
     <title>50本读书计划-2023年</title>
     <link>http://oweqian.xyz/books/</link>
     <pubDate>Thu, 02 Feb 2023 00:30:38 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/books/</guid>
     <description><![CDATA[001 长期主义 002 解忧杂货店 003 生活蒙太奇]]></description>
-</item>
-<item>
-    <title>Electron &#43; Vue3 桌面应用开发实战</title>
-    <link>http://oweqian.xyz/electron/</link>
-    <pubDate>Wed, 01 Feb 2023 18:16:47 &#43;0800</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/electron/</guid>
-    <description><![CDATA[项目地址： ElectronVue3 构建开发环境 按如下步骤搭建开发环境： 创建项目 首先通过命令行创建一个 Vue 项目： 1 npm create vite@latest electron -- --template vue-ts 安装 electron 依赖： 1 npm i electron -D 调整 package.json 文件： 1 2]]></description>
 </item>
 <item>
     <title>Q的乱语-2023年</title>

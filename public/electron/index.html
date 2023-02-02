@@ -8,7 +8,7 @@
 <meta property="og:description" content="项目地址： ElectronVue3 构建开发环境 按如下步骤搭建开发环境： 创建项目 首先通过命令行创建一个 Vue 项目： 1 npm create vite@latest electron -- --template vue-ts 安装 electron 依赖： 1 npm i electron -D 调整 package.json 文件： 1 2" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/electron/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-02-01T18:16:47+08:00" />
+<meta property="article:published_time" content="2023-02-02T19:00:47+08:00" />
 <meta property="article:modified_time" content="2023-02-01T19:35:36+08:00" /><meta property="og:site_name" content="OweQian" />
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +19,7 @@
 <meta name="application-name" content="OweQian">
 <meta name="apple-mobile-web-app-title" content="OweQian"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/electron/" /><link rel="prev" href="http://oweqian.xyz/2023/" /><link rel="next" href="http://oweqian.xyz/books/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/electron/" /><link rel="prev" href="http://oweqian.xyz/books/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -35,8 +35,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "连载, 第一技能","wordcount":  10862 ,
-        "url": "http:\/\/oweqian.xyz\/electron\/","datePublished": "2023-02-01T18:16:47+08:00","dateModified": "2023-02-01T19:35:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "连载, 第一技能","wordcount":  14446 ,
+        "url": "http:\/\/oweqian.xyz\/electron\/","datePublished": "2023-02-02T19:00:47+08:00","dateModified": "2023-02-01T19:35:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -114,8 +114,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Electron + Vue3 桌面应用开发实战</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-01">2023-02-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 10862 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 22 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-02">2023-02-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 14446 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 29 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -160,6 +160,16 @@
             </li>
           </ul>
         </li>
+      </ul>
+    </li>
+    <li><a href="#pinia-管理应用状态">Pinia 管理应用状态</a>
+      <ul>
+        <li><a href="#安装-pinia">安装 Pinia</a></li>
+        <li><a href="#创建-store">创建 Store</a></li>
+        <li><a href="#数据模型--model">数据模型  Model</a></li>
+        <li><a href="#使用-store">使用 Store</a></li>
+        <li><a href="#订阅-store">订阅 Store</a></li>
+        <li><a href="#互访-store">互访 Store</a></li>
       </ul>
     </li>
   </ul>
@@ -2057,6 +2067,976 @@
 <li>消息传递与接收效率都非常高，均为毫秒级。</li>
 <li>开发更加简单，代码逻辑清晰，无需跨进程中转消息。</li>
 </ul>
+<h2 id="pinia-管理应用状态">Pinia 管理应用状态</h2>
+<p>相比 Vuex，Pinia 的优势主要是：</p>
+<ul>
+<li>没有 mutations，相应的工作都在 actions 中完成，actions 直接支持异步函数。</li>
+<li>完美支持 TypeScript，Vuex 在这方面做得不是很好。</li>
+<li>对开发工具支持友好，，Pinia 对调试工具（vue-devtools）也支持友好。</li>
+<li>不需要再使用名称空间来控制 store，也不需要再考虑 store 的嵌套问题。</li>
+<li>性能优于 Vuex。</li>
+</ul>
+<h3 id="安装-pinia">安装 Pinia</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">npm i pinia -D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改渲染进程入口文件，加载 Pinia 插件：</p>
+<p>src/renderer/main.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">createApp</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">router</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;./router&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createPinia</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;pinia&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">App</span> <span class="kr">from</span> <span class="s1">&#39;./App.vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s1">&#39;./style.css&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;./assets/icon/iconfont.css&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">createApp</span><span class="p">(</span><span class="nx">App</span><span class="p">).</span><span class="nx">use</span><span class="p">(</span><span class="nx">createPinia</span><span class="p">()).</span><span class="nx">use</span><span class="p">(</span><span class="nx">router</span><span class="p">).</span><span class="nx">mount</span><span class="p">(</span><span class="s1">&#39;#app&#39;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="创建-store">创建 Store</h3>
+<p>在 src/renderer/store 目录下新建 index.ts，创建第一个 Store 程序，代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">defineStore</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;pinia&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Ref</span><span class="p">,</span> <span class="nx">ref</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ModelChat</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../../model/ModelChat&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// mock data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">prepareData</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ModelChat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">model</span><span class="p">.</span><span class="nx">fromName</span> <span class="o">=</span> <span class="s1">&#39;聊天对象&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">model</span><span class="p">.</span><span class="nx">sendTime</span> <span class="o">=</span> <span class="s1">&#39;昨天&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">model</span><span class="p">.</span><span class="nx">lastMsg</span> <span class="o">=</span> <span class="s1">&#39;这是此会话的最后一条消息&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">model</span><span class="p">.</span><span class="nx">avatar</span> <span class="o">=</span> <span class="s1">&#39;https://pic3.zhimg.com/v2-306cd8f07a20cba46873209739c6395d_im.jpg?source=32738c0c&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">useChatStore</span> <span class="o">=</span> <span class="nx">defineStore</span><span class="p">(</span><span class="s1">&#39;chat&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">data</span>: <span class="kt">Ref</span><span class="p">&lt;</span><span class="nt">ModelChat</span><span class="err">[]</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="nx">prepareData</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">selectItem</span> <span class="o">=</span> <span class="p">(</span><span class="nx">item</span>: <span class="kt">ModelChat</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">isSelected</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">v</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">v</span><span class="p">.</span><span class="nx">isSelected</span> <span class="o">=</span> <span class="kc">false</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">item</span><span class="p">.</span><span class="nx">isSelected</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">selectItem</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过 export 暴露 useChatStore 方法，这个方法通过 Pinia 的 defineStore 方法创建，在 Vue 业务组件中执行这个函数实例才会得到真正的 Store。</p>
+<p>使用 defineStore(name, callback) 的形式创建 Store，这种形式的 Store 叫作 Setup Stores。Pinia 还提供了另一种形式的 Store ：Option Stores，具体可以参阅 Pinia 的官方文档。</p>
+<p>这个 Store 的状态数据存储在：data 属性中，这是一个被 Ref 对象包裹着的数组，数组里的内容是通过 prepareData 方法模拟的（模拟了十个聊天会话对象）。</p>
+<p>这个 Store 还提供了一个 actions 方法：selectItem，这个方法用于选中某个具体的聊天会话。</p>
+<h3 id="数据模型--model">数据模型  Model</h3>
+<p>聊天会话的数据模型是在 src/model 目录下定义的，因为应用的主进程和渲染进程都可能会用到数据模型，所以把它放置在 renderer 和 main 的同级目录下。</p>
+<p>新建 src/model/ModelChat.ts，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ModalBase</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;./ModalBase&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">ModelChat</span> <span class="kr">extends</span> <span class="nx">ModalBase</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fromName?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">sendTime?</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">isSelected</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">lastMsg?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">avatar?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 0 单聊，1 群聊，2 公众号，3 文件传输助手
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">chatType?</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>模型主要用于描述对象携带的信息，由于所有的模型都会拥有一些共同的字段，所以把这些字段放置在模型的基类 ModelBase 中。</p>
+<p>新建 src/model/ModelBase.ts，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">crypto</span> <span class="kr">from</span> <span class="s1">&#39;crypto&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">ModalBase</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">id</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">randomUUID</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>暂时只提供了一个公共字段：id，凡继承于 ModelBase 的子类都将拥有这个字段，而且这个字段是随模型实例化的时候自动创建的。</p>
+<p>只有 new ModelXXXX 时才会创建这个字段，let model = obj as ModelXXXX 时不会创建这个字段。</p>
+<p>使用 Node.js crypto 模块的 randomUUID 方法来生成每个聊天会话的 ID。</p>
+<h3 id="使用-store">使用 Store</h3>
+<p>首先把模型中模拟的 10 个聊天会话显示在界面上，代码如下所示：</p>
+<p>src/renderer/window/WindowMain/chat/components/ChatBoard.vue</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;ChatList&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">ChatSearch</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;ListBox&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">ChatItem</span> <span class="nt">:data</span><span class="s">=&#34;item&#34;</span> <span class="nt">v-for</span><span class="s">=&#34;item in store.data&#34; :key=&#34;item.id&#34; /&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">  &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;/template&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;script setup lang=&#34;ts&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">import ChatItem from &#39;./ChatItem.vue&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">import ChatSearch from &#39;./ChatSearch.vue&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">import { onMounted } from &#39;vue&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">import { useChatStore } from &#39;../../../../store/useChatStore&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">const store = useChatStore();
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">onMounted(() =&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="s">  store.selectItem(store.data[6]);
+</span></span></span><span class="line"><span class="cl"><span class="s">});
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;/script&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;style scoped lang=&#34;scss&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="na">.ChatList</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">width</span><span class="o">:</span> <span class="na">250px</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">display</span><span class="o">:</span> <span class="na">flex</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">flex</span><span class="nt">-direction</span><span class="o">:</span> <span class="na">column</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">height</span><span class="o">:</span> <span class="na">100</span><span class="err">%;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">box</span><span class="nt">-sizing</span><span class="o">:</span> <span class="na">border</span><span class="nt">-box</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="na">.ListBox</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">background</span><span class="o">:</span> <span class="na">rgb</span><span class="err">(</span><span class="na">230</span><span class="err">,</span> <span class="na">229</span><span class="err">,</span> <span class="na">229</span><span class="err">);</span>
+</span></span><span class="line"><span class="cl">  <span class="na">background</span><span class="nt">-image</span><span class="o">:</span> <span class="na">linear</span><span class="nt">-gradient</span><span class="err">(</span><span class="na">to</span> <span class="na">bottom</span> <span class="na">right</span><span class="err">,</span> <span class="na">rgb</span><span class="err">(</span><span class="na">235</span><span class="err">,</span> <span class="na">234</span><span class="err">,</span> <span class="na">233</span><span class="err">),</span> <span class="na">rgb</span><span class="err">(</span><span class="na">240</span><span class="err">,</span> <span class="na">240</span><span class="err">,</span> <span class="na">240</span><span class="err">));</span>
+</span></span><span class="line"><span class="cl">  <span class="na">flex</span><span class="o">:</span> <span class="na">1</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">overflow</span><span class="nt">-y</span><span class="o">:</span> <span class="na">auto</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">box</span><span class="nt">-sizing</span><span class="o">:</span> <span class="na">border</span><span class="nt">-box</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="na">border</span><span class="nt">-right</span><span class="o">:</span> <span class="na">1px</span> <span class="na">solid</span> <span class="na">rgb</span><span class="err">(</span><span class="na">214</span><span class="err">,</span> <span class="na">214</span><span class="err">,</span> <span class="na">214</span><span class="err">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过 Vue 的 v-for 指令渲染了一个自定义组件列表（ChatItem）。</p>
+<p>store 对象是通过 useChatStore 方法获取的，useChatStore 方法就是前面介绍的 useChatStore.ts 导出的方法。得到 store 对象之后，可以直接使用 store.data 获取 Store 对象里的数据。</p>
+<p>在当前组件 ChatBoard 渲染完成后，调用了 store 对象的 selectItem 方法，选中了第 7 个会话。</p>
+<p>具体每一个聊天会话对象是通过自定义组件的 data 属性传递到组件内部的。</p>
+<p>ChatItem 自定义组件的代码如下所示：</p>
+<p>src/renderer/window/WindowMain/chat/components/ChatItem.vue</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="nt">@click</span><span class="s">=&#34;itemClick(data)&#34;</span> <span class="o">:</span><span class="na">class</span><span class="o">=</span><span class="s">&#34;[&#39;ChatItem&#39;, { &#39;ChatItemSelected&#39;: data.isSelected}]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;avatar&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">img</span> <span class="nt">:src</span><span class="s">=&#34;data.avatar&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;ChatInfo&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;row&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;FromName&#34;</span><span class="p">&gt;{{</span> <span class="nx">data</span><span class="p">.</span><span class="nx">fromName</span> <span class="p">}}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;TimeName&#34;</span><span class="p">&gt;{{</span> <span class="nx">data</span><span class="p">.</span><span class="nx">sendTime</span> <span class="p">}}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;row&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;LastMsg&#34;</span><span class="p">&gt;{{</span> <span class="nx">data</span><span class="p">.</span><span class="nx">lastMsg</span> <span class="p">}}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;subscribe&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span> <span class="na">setup</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ModelChat</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../../../../../model/ModelChat&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useChatStore</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../../../../store/useChatStore&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">defineProps</span><span class="o">&lt;</span><span class="p">{</span><span class="nx">data</span><span class="o">:</span> <span class="nx">ModelChat</span><span class="p">}</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">useChatStore</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">itemClick</span> <span class="o">=</span> <span class="p">(</span><span class="nx">item</span><span class="o">:</span> <span class="nx">ModelChat</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">store</span><span class="p">.</span><span class="nx">selectItem</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;scss&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">ChatItem</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">66</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">box</span><span class="o">-</span><span class="nx">sizing</span><span class="o">:</span> <span class="nx">border</span><span class="o">-</span><span class="nx">box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">cursor</span><span class="o">:</span> <span class="nx">pointer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&amp;:</span><span class="nx">hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">background</span><span class="o">:</span> <span class="nx">rgb</span><span class="p">(</span><span class="mi">221</span><span class="p">,</span> <span class="mi">219</span><span class="p">,</span> <span class="mi">218</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">ChatItemSelected</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">background</span><span class="o">:</span> <span class="nx">rgb</span><span class="p">(</span><span class="mi">196</span><span class="p">,</span> <span class="mi">196</span><span class="p">,</span> <span class="mi">196</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&amp;:</span><span class="nx">hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">background</span><span class="o">:</span> <span class="nx">rgb</span><span class="p">(</span><span class="mi">196</span><span class="p">,</span> <span class="mi">196</span><span class="p">,</span> <span class="mi">196</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">avatar</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">66</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">align</span><span class="o">-</span><span class="nx">items</span><span class="o">:</span> <span class="nx">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">justify</span><span class="o">-</span><span class="nx">content</span><span class="o">:</span> <span class="nx">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">img</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">width</span><span class="o">:</span> <span class="mi">46</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">height</span><span class="o">:</span> <span class="mi">46</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">ChatInfo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">66</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">flex</span><span class="o">-</span><span class="nx">direction</span><span class="o">:</span> <span class="nx">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">justify</span><span class="o">-</span><span class="nx">content</span><span class="o">:</span> <span class="nx">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">row</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">box</span><span class="o">-</span><span class="nx">sizing</span><span class="o">:</span> <span class="nx">border</span><span class="o">-</span><span class="nx">box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">28</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">line</span><span class="o">-</span><span class="nx">height</span><span class="o">:</span> <span class="mi">28</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">FromName</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">TimeName</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">color</span><span class="o">:</span> <span class="nx">rgb</span><span class="p">(</span><span class="mi">153</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">153</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">padding</span><span class="o">-</span><span class="nx">right</span><span class="o">:</span> <span class="mi">12</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">font</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="mi">12</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">LastMsg</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">color</span><span class="o">:</span> <span class="nx">rgb</span><span class="p">(</span><span class="mi">153</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">153</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">font</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="mi">12</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 defineProps 方法接收父组件传来的数据。</p>
+<p>聊天会话对象里的数据在这个自定义组件中被展开，渲染给用户。</p>
+<p>当用户点击这个自定义组件的时候，程序执行了 Store 对象的 selectItem 方法，这个方法负责选中用户点击的组件，改变了用户点击组件的样式，同时还取消了原来选中的组件。</p>
+<h3 id="订阅-store">订阅 Store</h3>
+<p>无论是用户点击 ChatItem 组件选中一个聊天会话，还是 ChatBoard 渲染完成后选中一个聊天会话，都应该通知其他组件，选中的聊天会话变更了。</p>
+<p>在 MessageBoard 组件中演示这个功能，代码如下所示：</p>
+<p>src/renderer/window/WindowMain/chat/components/MessageBoard.vue</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;MessageBord&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">BarTop</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;MessageList&#34;</span><span class="p">&gt;{{</span> <span class="nx">logInfo</span> <span class="p">}}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span> <span class="na">setup</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ref</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">BarTop</span> <span class="nx">from</span> <span class="s1">&#39;../../../../components/BarTop.vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useChatStore</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../../../../store/useChatStore&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">useChatStore</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">logInfo</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">curId</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//订阅Store内数据的变化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">store</span><span class="p">.</span><span class="nx">$subscribe</span><span class="p">((</span><span class="nx">mutations</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">find</span><span class="p">((</span><span class="nx">v</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">v</span><span class="p">.</span><span class="nx">isSelected</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">item</span><span class="o">?</span><span class="p">.</span><span class="nx">id</span> <span class="nx">as</span> <span class="nx">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">id</span> <span class="o">!=</span> <span class="nx">curId</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">logInfo</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="sb">`现在应该加载ID为</span><span class="si">${</span><span class="nx">item</span><span class="o">?</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb">的聊天记录`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">curId</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;scss&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">MessageBord</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">flex</span><span class="o">-</span><span class="nx">direction</span><span class="o">:</span> <span class="nx">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">MessageList</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">overflow</span><span class="o">-</span><span class="nx">y</span><span class="o">:</span> <span class="nx">auto</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">overflow</span><span class="o">-</span><span class="nx">x</span><span class="o">:</span> <span class="nx">hidden</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">background</span><span class="o">:</span> <span class="nx">rgb</span><span class="p">(</span><span class="mi">245</span><span class="p">,</span> <span class="mi">245</span><span class="p">,</span> <span class="mi">245</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 store 对象的 $subscribe 方法订阅了数据变更事件，无论什么时候 store 内的数据发生了变化，都会执行 $subscribe 方法提供的回调函数。</p>
+<p>在订阅回调中，验证选中的会话是否发生了变化（有可能是当前 store 其他数据对象的变化触发了订阅回调），如果是，那么就给出提示。</p>
+<p>订阅回调函数有两个参数 ，第一个是 mutations 参数，这个参数的 events 属性携带着变更前的值和变更后的值，但这个属性只有在开发环境下存在，生产环境下不存在。订阅的第二个参数是 state，这个参数包含 store 中的数据。</p>
+<p>以这种方式更新 store 里的数据，不利于复用数据更新的逻辑，改用可以复用数据更新逻辑的方案。</p>
+<img src="/images/electron/img_8.png" alt="" width="500" />  
+<h3 id="互访-store">互访 Store</h3>
+<p>新建一个模型类，代码如下所示：</p>
+<p>src/model/ModelMessage.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ModalBase</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;./ModalBase&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">ModelMessage</span> <span class="kr">extends</span> <span class="nx">ModalBase</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">createTime?</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">receiveTime?</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">messageContent?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">chatId?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fromName?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">avatar?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 是否为传入消息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">isInMsg?</span>: <span class="kt">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建 useMessageStore，用于管理消息的状态数据，代码如下：</p>
+<p>src/renderer/store/useMessageStore.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ModelChat</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../../model/ModelChat&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ModelMessage</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../../model/ModelMessage&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">defineStore</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;pinia&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ref</span><span class="p">,</span> <span class="nx">Ref</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">useMessageStore</span> <span class="o">=</span> <span class="nx">defineStore</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">data</span>: <span class="kt">Ref</span><span class="p">&lt;</span><span class="nt">ModelMessage</span><span class="err">[]</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">([]);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">msg1</span> <span class="o">=</span> <span class="sb">`醉里挑灯看剑，梦回吹角连营。八百里分麾下灸，五十弦翻塞外声。沙场秋点兵。马作的卢飞快，弓如霹雳弦惊。了却君王天下事，嬴得生前身后名。可怜白发生`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">msg2</span> <span class="o">=</span> <span class="sb">`怒发冲冠，凭栏处，潇潇雨歇。抬望眼，仰天长啸，壮怀激烈。 三十功名尘与土，八千里路云和月。莫等闲，白了少年头，空悲切！ 靖康耻，犹未雪；臣子恨，何时灭?驾长车，踏破贺兰山缺！ 壮志饥餐胡虏肉，笑谈渴饮匈奴血。待从头，收拾旧山河，朝天阙！`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">initData</span> <span class="o">=</span> <span class="p">(</span><span class="nx">chat</span>: <span class="kt">ModelChat</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">let</span> <span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ModelMessage</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">model</span><span class="p">.</span><span class="nx">createTime</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">model</span><span class="p">.</span><span class="nx">isInMsg</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">===</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">model</span><span class="p">.</span><span class="nx">messageContent</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">isInMsg</span> <span class="o">?</span> <span class="nx">msg1</span> : <span class="kt">msg2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">model</span><span class="p">.</span><span class="nx">fromName</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">isInMsg</span> <span class="o">?</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">fromName</span> <span class="o">:</span> <span class="s2">&#34;我&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">model</span><span class="p">.</span><span class="nx">avatar</span> <span class="o">=</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">avatar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">model</span><span class="p">.</span><span class="nx">chatId</span> <span class="o">=</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">initData</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>消息数据是模拟出来的，这里模拟了 10 条消息，预期用户切换会话的时候，执行 initData 方法，初始化当前会话的消息。</p>
+<p>修改一下 MessageBoard 组件的的代码，如下所示：</p>
+<p>src/renderer/window/WindowMain/chat/components/MessageBoard.vue</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;MessageBord&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">BarTop</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;MessageList&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">MessageItem</span> <span class="nt">:data</span><span class="s">=&#34;item&#34;</span> <span class="nt">v-for</span><span class="s">=&#34;item in messageStore.data&#34; :key=&#34;item.id&#34;&gt;&lt;/MessageItem&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">  &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;/template&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;script lang=&#34;ts&#34; setup&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">import BarTop from &#39;../../../../components/BarTop.vue&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">import { ModelChat } from &#39;../../../../../model/ModelChat&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">import { useMessageStore } from &#39;../../../../store/useMessageStore&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">import { useChatStore } from &#39;../../../../store/useChatStore&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">import MessageItem from &#39;./MessageItem.vue&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">const chatStore = useChatStore();
+</span></span></span><span class="line"><span class="cl"><span class="s">const messageStore = useMessageStore();
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">let curId = &#39;&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">chatStore.$subscribe((mutations, state) =&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="s">  const item = state.data.find(v =&gt; v.isSelected) as ModelChat;
+</span></span></span><span class="line"><span class="cl"><span class="s">  if (item?.id !== curId) {
+</span></span></span><span class="line"><span class="cl"><span class="s">    messageStore.initData(item);
+</span></span></span><span class="line"><span class="cl"><span class="s">    curId = item?.id;
+</span></span></span><span class="line"><span class="cl"><span class="s">  }
+</span></span></span><span class="line"><span class="cl"><span class="s">})
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;/script&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;style scoped lang=&#34;scss&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="na">.MessageBord</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">height</span><span class="o">:</span> <span class="na">100</span><span class="err">%;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">display</span><span class="o">:</span> <span class="na">flex</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">flex</span><span class="o">:</span> <span class="na">1</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">flex</span><span class="nt">-direction</span><span class="o">:</span> <span class="na">column</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="na">.MessageList</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">flex</span><span class="o">:</span> <span class="na">1</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">overflow</span><span class="nt">-y</span><span class="o">:</span> <span class="na">auto</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">overflow</span><span class="nt">-x</span><span class="o">:</span> <span class="na">hidden</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">background</span><span class="o">:</span> <span class="na">rgb</span><span class="err">(</span><span class="na">245</span><span class="err">,</span> <span class="na">245</span><span class="err">,</span> <span class="na">245</span><span class="err">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当选中的聊天会话切换时，执行 messageStore 对象的 initData 方法，这样就初始化了 messageStore 内部的状态数据。</p>
+<p>MessageItem 是新创建的一个 Vue 组件，这个组件用于显示一条消息的具体信息。代码如下所示：</p>
+<p>src/renderer/window/WindowMain/chat/components/MessageItem.vue</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">template</span> <span class="nt">v-if</span><span class="s">=&#34;data.isInMsg&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;MessageItem left&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;avatar&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">img</span> <span class="nt">:src</span><span class="s">=&#34;data.avatar&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;MessageBox&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;FromName&#34;</span><span class="p">&gt;{{</span> <span class="nx">data</span><span class="p">.</span><span class="nx">fromName</span> <span class="p">}}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;MsgContent&#34;</span><span class="p">&gt;{{</span> <span class="nx">data</span><span class="p">.</span><span class="nx">messageContent</span> <span class="p">}}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">template</span> <span class="nt">v-else</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;MessageItem right&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;MessageBox&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;MessageContent&#34;</span><span class="p">&gt;{{</span> <span class="nx">data</span><span class="p">.</span><span class="nx">messageContent</span> <span class="p">}}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;avatar&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">img</span> <span class="nt">:src</span><span class="s">=&#34;data.avatar&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ModelMessage</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../../../../../model/ModelMessage&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">defineProps</span><span class="o">&lt;</span><span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">ModelMessage</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;scss&#34;</span> <span class="na">scoped</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">MessageItem</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">padding</span><span class="o">-</span><span class="nx">top</span><span class="o">:</span> <span class="mi">8</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">padding</span><span class="o">-</span><span class="nx">bottom</span><span class="o">:</span> <span class="mi">8</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">position</span><span class="o">:</span> <span class="nx">relative</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">left</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">padding</span><span class="o">-</span><span class="nx">right</span><span class="o">:</span> <span class="mi">30</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&amp;::</span><span class="nx">after</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">width</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">height</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">border</span><span class="o">-</span><span class="nx">top</span><span class="o">:</span> <span class="mi">6</span><span class="nx">px</span> <span class="nx">solid</span> <span class="nx">transparent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">border</span><span class="o">-</span><span class="nx">bottom</span><span class="o">:</span> <span class="mi">6</span><span class="nx">px</span> <span class="nx">solid</span> <span class="nx">transparent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">border</span><span class="o">-</span><span class="nx">right</span><span class="o">:</span> <span class="mi">6</span><span class="nx">px</span> <span class="nx">solid</span> <span class="err">#</span><span class="nx">fff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">position</span><span class="o">:</span> <span class="nx">absolute</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">left</span><span class="o">:</span> <span class="mi">60</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">top</span><span class="o">:</span> <span class="mi">38</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">content</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">right</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">padding</span><span class="o">-</span><span class="nx">left</span><span class="o">:</span> <span class="mi">30</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&amp;::</span><span class="nx">after</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">width</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">height</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">border</span><span class="o">-</span><span class="nx">top</span><span class="o">:</span> <span class="mi">6</span><span class="nx">px</span> <span class="nx">solid</span> <span class="nx">transparent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">border</span><span class="o">-</span><span class="nx">bottom</span><span class="o">:</span> <span class="mi">6</span><span class="nx">px</span> <span class="nx">solid</span> <span class="nx">transparent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">border</span><span class="o">-</span><span class="nx">left</span><span class="o">:</span> <span class="mi">6</span><span class="nx">px</span> <span class="nx">solid</span> <span class="nx">rgb</span><span class="p">(</span><span class="mi">149</span><span class="p">,</span> <span class="mi">236</span><span class="p">,</span> <span class="mi">105</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">position</span><span class="o">:</span> <span class="nx">absolute</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">right</span><span class="o">:</span> <span class="mi">60</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">top</span><span class="o">:</span> <span class="mi">18</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">content</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">MessageContent</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">background</span><span class="o">:</span> <span class="nx">rgb</span><span class="p">(</span><span class="mi">149</span><span class="p">,</span> <span class="mi">236</span><span class="p">,</span> <span class="mi">105</span><span class="p">)</span> <span class="o">!</span><span class="nx">important</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">avatar</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">66</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">text</span><span class="o">-</span><span class="nx">align</span><span class="o">:</span> <span class="nx">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">img</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">width</span><span class="o">:</span> <span class="mi">46</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">height</span><span class="o">:</span> <span class="mi">46</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">MessageBox</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">FromName</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">color</span><span class="o">:</span> <span class="nx">rgb</span><span class="p">(</span><span class="mi">178</span><span class="p">,</span> <span class="mi">178</span><span class="p">,</span> <span class="mi">178</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">margin</span><span class="o">-</span><span class="nx">bottom</span><span class="o">:</span> <span class="mi">6</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">MessageContent</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">background</span><span class="o">:</span> <span class="err">#</span><span class="nx">fff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">border</span><span class="o">-</span><span class="nx">radius</span><span class="o">:</span> <span class="mi">3</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">padding</span><span class="o">:</span> <span class="mi">8</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">line</span><span class="o">-</span><span class="nx">height</span><span class="o">:</span> <span class="mi">22</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在切换选中的聊天会话时，直接初始化 messageStore 里的数据，就完全不需要在 MessageBord 组件里订阅 chatStore 的数据变更了。</p>
+<p>pinia 是支持这种操作的，现在修改一下useChatStore的代码，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">defineStore</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;pinia&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Ref</span><span class="p">,</span> <span class="nx">ref</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ModelChat</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../../model/ModelChat&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useMessageStore</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;./useMessageStore&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// mock data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">prepareData</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ModelChat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">model</span><span class="p">.</span><span class="nx">fromName</span> <span class="o">=</span> <span class="s1">&#39;聊天对象&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">model</span><span class="p">.</span><span class="nx">sendTime</span> <span class="o">=</span> <span class="s1">&#39;昨天&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">model</span><span class="p">.</span><span class="nx">lastMsg</span> <span class="o">=</span> <span class="s1">&#39;这是此会话的最后一条消息&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">model</span><span class="p">.</span><span class="nx">avatar</span> <span class="o">=</span> <span class="s1">&#39;https://pic3.zhimg.com/v2-306cd8f07a20cba46873209739c6395d_im.jpg?source=32738c0c&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">useChatStore</span> <span class="o">=</span> <span class="nx">defineStore</span><span class="p">(</span><span class="s1">&#39;chat&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">data</span>: <span class="kt">Ref</span><span class="p">&lt;</span><span class="nt">ModelChat</span><span class="err">[]</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="nx">prepareData</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">selectItem</span> <span class="o">=</span> <span class="p">(</span><span class="nx">item</span>: <span class="kt">ModelChat</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">isSelected</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">v</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">v</span><span class="p">.</span><span class="nx">isSelected</span> <span class="o">=</span> <span class="kc">false</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">item</span><span class="p">.</span><span class="nx">isSelected</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">messageStore</span> <span class="o">=</span> <span class="nx">useMessageStore</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">messageStore</span><span class="p">.</span><span class="nx">initData</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">selectItem</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 selectItem 方法内使用 messageStore 提供的方法。</p>
+<img src="/images/electron/img_9.png" alt="" width="500" />  
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -2081,8 +3061,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/2023/" class="prev" rel="prev" title="Q的乱语-2023年"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Q的乱语-2023年</a>
-            <a href="/books/" class="next" rel="next" title="50本读书计划-2023年">50本读书计划-2023年<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/books/" class="prev" rel="prev" title="50本读书计划-2023年"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>50本读书计划-2023年</a></div>
 </div>
 <div id="comments"><div id="giscus" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
