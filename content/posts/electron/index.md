@@ -1,6 +1,6 @@
 ---
-title: "Electron + Vue3 桌面应用开发实战"
-date: 2023-02-02T19:00:47+08:00
+title: "基于 Electron + Vue3 的桌面应用开发实战"
+date: 2023-02-03T17:48:47+08:00
 tags: ["连载", "第一技能"]
 categories: ["第一技能"]
 ---
@@ -1789,3 +1789,432 @@ export const useChatStore = defineStore('chat', () => {
 在 selectItem 方法内使用 messageStore 提供的方法。   
 
 <img src="/images/electron/img_9.png" alt="" width="500" />  
+
+## 客户端数据库  
+
+如何把应用内的业务数据持久化到用户本地磁盘上。  
+
+对于简单的数据类型来说，可以直接把它们存储在 localStorage 中，这些数据是持久化在用户磁盘上的，不会因为用户重启应用或者重装应用而丢失。  
+
+对于稍微复杂的数据类型来说，有两个选择，其一是把这类数据存储在 IndexedDB 中，与 localStorage 类似，这也是谷歌浏览器核心提供的数据持久化工具，它以 JSON 对象的方式存储数据，数据较多时，复杂的条件查询效率不佳。   
+
+第二个选择就是把数据存储在 SQLite 中，这是一个关系型数据库，天生对复杂条件查询支持良好。   
+
+### 安装 SQLite   
+
+```shell
+npm install better-sqlite3 -D  
+```
+
+这个模块安装完成后，大概率是无法使用这个模块的，可能会碰到如下报错信息：  
+
+```shell
+Error: The module '...node_modules\better-sqlite3\build\Release\better_sqlite3.node'
+was compiled against a different Node.js version using
+NODE_MODULE_VERSION $XYZ. This version of Node.js requires
+NODE_MODULE_VERSION $ABC. Please try re-compiling or re-installing
+the module (for instance, using `npm rebuild` or `npm install`).
+```
+
+这是因为 Electron 内置的 Node.js 的版本可能与你编译原生模块使用的 Node.js 的版本不同导致的。   
+
+建议开发者使用 Electron 团队提供的 electron-rebuild 工具来完成此工作，因为 electron-rebuild 会确定 Electron 的版本号、Electron 内置的 Node.js 的版本号、以及 Node.js 使用的 ABI 的版本号，并根据这些版本号下载不同的头文件和类库。  
+
+安装 electron-rebuild：   
+
+```shell
+npm install electron-rebuild -D
+```
+
+在 package.json 中增加如下配置节（scripts配置节）： 
+
+```
+"rebuild": "electron-rebuild -f -w better-sqlite3"
+```
+
+在工程根目录下执行如下指令：  
+
+```shell
+npm run rebuild
+```
+
+当你的工程下出现了这个文件 node_modules/better-sqlite3/build/Release/better_sqlite3.node，才证明 better_sqlite3 模块编译成功了，如果上述指令没有帮你完成这项工作，你可以把指令配置到 node_modules/better-sqlite3 模块内部再执行一次，一般就可以编译成功了（如下图所示）。  
+
+<img src="/images/electron/img_10.png" alt="" width="500" />  
+
+这样就为 Electron 重新编译了一遍 better-sqlite3，现在就可以在 Electron 应用内使用 better-sqlite3 提供的 API 了。  
+
+在应用中试试如下代码（渲染进程和主进程均可，甚至在渲染进程的开发者调试工具中也没问题），看是不是可以正确创建 SQLite 的数据库。  
+
+```
+const Database = require("better-sqlite3");
+const db = new Database("db.db", { verbose: console.log, nativeBinding: "./node_modules/better-sqlite3/build/Release/better_sqlite3.node" });
+```
+
+不出意外的话，工程根目录下将会创建一个名为 db.db 的 SQLite 数据库文件，说明 better-sqlite3 库已经生效了。  
+
+### 压缩安装包体积  
+
+better-sqlite3 是一个原生模块，原生模块是无法被 vite 编译到 JavaScript 的，那为什么还要把它安装成开发依赖呢？  
+
+把 better-sqlite3 安装成开发依赖，在功能上没有任何问题，electron-builder 在制作安装包时，会自动为安装包附加这个依赖（better-sqlite3 这个库自己的依赖也会被正确附加到安装包内）。  
+
+但electron-builder 会把很多无用的文件（很多编译原生模块时的中间产物）也附加到安装包内。无形中增加了安装包的体积（大概 10M），如下图所示：  
+
+<img src="/images/electron/img_11.png" alt="" width="500" />  
+
+在 plugins/buildPlugin.ts 中增加一个方法：   
+
+```ts
+async prepareSqlite() {
+    // 拷贝 better-sqlite3
+    const srcDir = path.join(process.cwd(), 'node_modules/better-sqlite3');
+    const destDir = path.join(process.cwd(), 'dist', 'node_modules/better-sqlite3');
+    fs.ensureDirSync(destDir);
+    fs.copySync(srcDir, destDir, {
+      filter: (src, dest) => {
+        if (src.endsWith('better-sqlite3') || src.endsWith('build') || src.endsWith('Release') || src.endsWith('better_sqlite3.node')) {
+          return true;
+        } else return src.includes('node_modules\\better-sqlite3\\lib');
+      }
+    });
+    let pkgJson = '{"name": "better-sqlite3","main": "lib/index.js"}';
+    let pkgJsonPath = path.join(process.cwd(), 'dist', 'node_modules/better-sqlite3/package.json');
+    fs.writeFileSync(pkgJsonPath, pkgJson);
+    // 制作bindings模块
+    const bindingPath = path.join(process.cwd(), 'dist', 'node_modules/bindings/index.js');
+    fs.ensureDirSync(bindingPath);
+    const bindingsContent = `module.exports = () => {
+      let addonPath = require("path").join(__dirname, '../better-sqlite3/build/Release/better_sqlite3.node');
+      return require(addonPath);
+    };`;
+    fs.writeFileSync(bindingPath, bindingsContent);
+    pkgJson = '{"name": "bindings","main": "index.js"}';
+    pkgJsonPath = path.join(process.cwd(), 'dist', 'node_modules/bindings/package.json');
+    fs.writeFileSync(pkgJsonPath, pkgJson);
+  }
+```
+
+这段代码主要做了两个工作：  
+
+* 把开发环境的 node_modules/better-sqlite3 目录下有用的文件拷贝到 dist/node_modules/better-sqlite3 目录下，并为这个模块自制了一个简单的 package.json。  
+* 完全自己制作了一个 bindings 模块，把这个模块放置在 dist/node_modules/bindings 目录下。  
+* closeBundle 钩子函数中调用这个方法：buildObj.prepareSqlite()。  
+
+这里 bindings 模块是 better-sqlite3 模块依赖的一个模块，它的作用仅仅是确定原生模块文件 better_sqlite3.node 的路径。  
+
+接下来再修改一下 BuildObj的preparePackageJson 方法，在生成 package.json 文件之前，为其附加两个生产依赖，代码如下：  
+
+```ts
+localPkgJson.dependencies['better-sqlite3'] = '*';
+localPkgJson.dependencies['bindings'] = '*';
+```
+
+有了这两个配置，electron-builder 就不会自动安装这些模块了。  
+
+完成这些工作后，在 closeBundle 钩子函数中调用这个方法： buildObj.prepareSqlite()，再打包看看，安装包的体积是否变小了呢？  
+
+### 安装 Knex.js  
+
+成功引入 better-sqlite3 并且压缩了 better-sqlite3 模块在安装包的体积后，面临着另一个问题需要解决。  
+
+使用 better-sqlite3 读写数据库中的数据时，要书写 SQL 语句，这种语句是专门为数据库准备的指令，下面是为 sqlite 数据库建表和在对应表中完成增删改查的 SQL 语句：  
+
+```
+create table admin(username text,age integer);
+insert into admin values('allen',18);
+select * from admin;
+update admin set username='allen001',age=88 where username='allen' and age=18;
+delete from admin where username='allen001';
+```
+
+使用 Knex.js 可以来完成对应的操作，Knex.js 允许使用 JavaScript 代码来操作数据库里的数据和表结构，它会把 JavaScript 代码转义成具体的 SQL 语句，再把 SQL 语句交给数据库处理，可以把它理解为一种 SQL Builder。  
+
+```shell
+npm install knex -D
+```
+
+打包之前编译这个库，代码如下所示：  
+
+plugins/buildPlugin.ts  
+
+```ts
+prepareKnex() {
+    let pkgJsonPath = path.join(process.cwd(), 'dist', 'node_modules/knex');
+    fs.ensureDirSync(pkgJsonPath);
+    require('esbuild').buildSync({
+      entryPoints: ['./node_modules/knex/knex.js'],
+      bundle: true,
+      platform: 'node',
+      format: 'cjs',
+      minify: true,
+      outfile: './dist/node_modules/knex/index.js',
+      external: ['oracledb', 'pg-query-stream', 'pg', 'sqlite3', 'tedious', 'mysql', 'mysql2', 'better-sqlite3'],
+    });
+    let pkgJson = `{"name": "bindings","main": "index.js"}`;
+    pkgJsonPath = path.join(process.cwd(), 'dist', 'node_modules/knex/package.json');
+    fs.writeFileSync(pkgJsonPath, pkgJson);
+  }
+```
+
+相对于压缩 better-sqlite3 的体积来说，压缩 Knex.js 包的体积就简单多了，仅仅是通过 esbuild 工具编译了一下这个包的代码就完成了工作。  
+
+这段代码有以下几点需要注意。
+
+* 配置项 external 是为了避免编译过程中 esbuild 去寻找这些模块而导致编译失败，也就是说 Knex.js 中这样的代码会保持原样输出到编译产物中： require('better-sqlite3')。  
+* package.json 增加一个生产依赖：localPkgJson.dependencies['knex'] = '*';，以避免 electron-builder 安装 Knex.js 模块。  
+* closeBundle 钩子函数中调用这个方法：buildObj.prepareKnex()。  
+
+### 访问数据库  
+
+新建数据库 db，数据库中有两张表 Message 和 Chat，截图是 Chat 表的列：  
+
+<img src="/images/electron/img_12.png" alt="" width="500" />  
+
+数据库设计好之后，创建一个数据库访问类，由于主进程的逻辑和渲染进程的逻辑都有可能会访问数据库，所以把数据库访问类放置在 src/common 目录下，方便两个进程的逻辑代码使用这个类，代码如下：  
+
+src/common/db.ts  
+
+```ts
+import knex, { Knex} from 'knex';
+import fs from 'fs';
+import path from 'path';
+
+let dbInstance: Knex;
+
+// @ts-ignore
+if (!dbInstance) {
+  let dbPath = process.env.APPDATA || `${process.env.HOME}${process.platform === 'darwin' ? '/Library/Preferences' : '/.local/share'}`;
+  dbPath = path.join(dbPath, 'Electron');
+  const dbIsExist = fs.existsSync(dbPath);
+  if (!dbIsExist) {
+    console.log(process.execPath)
+    const resourceDbPath = path.join(process.execPath, '../resources/db.db');
+    fs.copyFileSync(resourceDbPath, dbPath);
+  }
+  dbInstance = knex({
+    client: 'better-sqlite3',
+    connection: { filename: dbPath },
+    useNullAsDefault: true,
+  })
+}
+
+export let db = dbInstance;
+```
+
+导出一个数据库访问对象，只有第一次引入这个数据库访问对象的时候才会执行此对象的初始化逻辑，无论在多少个组件中引入这个数据库访问对象，它只会被初始化一次，但这个约束只局限在一个进程内，也就是说对于整个应用而言，主进程有一个 db 实例，渲染进程也有一个 db 实例，两个实例是完全不同的。   
+
+由于渲染进程内的数据库访问对象和主进程内的数据库访问对象不是同一个对象，所以会有并发写入数据的问题，需要控制好你的业务逻辑，避免两个进程在同一时间写入相同的业务数据。  
+
+SQLite 不支持并发写入数据，两个或两个以上的写入操作同时执行时，只有一个写操作可以成功执行，其他写操作会失败。并发读取数据没有问题。  
+
+第一次初始化数据库链接对象时，会检查 MacintoshHD/用户/[yourOsUserName]/资源库/ApplicationSupport/[yourAppName]/db.db 文件是否存在，如果不存在，就从应用程序安装目录 MacintoshHD/用户/[yourOsUserName]/资源库/ApplicationSupport/[yourAppName]/resources/db.db 拷贝一份到该路径下，所以要提前把数据库设计好，基础数据也要初始化好，制作安装包的时候，把数据库文件打包到安装包里。    
+
+通过为 plugins/buildPlugin.ts 增加配置来把数据库文件打包到安装包内的，其中关键的配置代码如下所示：  
+
+```ts
+// buildInstaller 方法内 option.config 的一个属性
+extraResources: [{ from: `./src/common/db.db`, to: `./` }]
+```
+
+extraResources 可以让开发者为安装包指定额外的资源文件，electron-builder 打包应用时会把这些资源文件附加到安装包内，当用户安装应用程序时，这些资源会释放在安装目录的 resources/子目录下。   
+
+为什么要把数据库文件拷贝再访问，不直接访问安装目录下的数据库文件呢？  
+
+因为当用户升级应用程序时安装目录下的文件都会被删除，因为可能会在数据库中放置很多用户数据，这样的话每次升级应用用户这些数据就都没了。  
+
+假定数据库是整个应用的核心组件，没有它，数据库应用程序无法正常运行，所以初始化数据库的逻辑都是同步操作（fs.copyFileSync），注意这类以 Sync 结尾的方法都是同步操作，它们是会阻塞 JavaScript 的执行线程的，也就是说在它们执行过程中，其他任何操作都会处于阻塞状态。  
+
+在应用程序开发调试阶段，开发者可以先把设计好的数据库文件放置在目标路径 MacintoshHD/用户/[yourOsUserName]/资源库/ApplicationSupport/[yourAppName] 下。   
+
+db.ts 文件导出的是一个 Knex 类型的对象，初始化这个对象时，传入一个配置对象，配置对象的 client 属性代表着使用什么模块访问数据库，这里要求 Knex 使用 better-sqlite3 访问数据库，Knex 支持很多数据库，比如 MySql、Oracle、SqlServer 等，都有对应的数据库访问模块。  
+
+由于 SQLite 是一个客户端数据库，所以只要把数据库的本地路径告知 Knex 即可，这个属性是通过配置对象的 connection 属性提供的。配置对象的 useNullAsDefault 属性告知 Knex 把开发者未明确提供的数据配置为 Null。  
+
+接下来尝试使用这个数据库访问对象把 Chat 表的数据检索出来，代码如下所示：
+
+src/renderer/main.ts
+
+```ts
+import { db } from "../common/db";
+db("Chat")
+.first()
+.then((obj) => {
+console.log(obj);
+});
+```
+
+首先创建一个数据库连接对象 db，接着使用这个对象读取 Chat 表里的第一行记录，数据读取成功后把这行数据打印到控制台。   
+
+### 数据库基本操作  
+
+#### 增加数据  
+
+增加一条数据：   
+
+src/renderer/window/WindowMain/Contact.vue  
+
+```ts
+const insertData = async () => {
+  let model = new ModelChat();
+  model.fromName = "聊天对象";
+  model.sendTime = Date.now();
+  model.lastMsg = "这是此会话的最后一条消息";
+  model.avatar = `https://pic3.zhimg.com/v2-306cd8f07a20cba46873209739c6395d_im.jpg?source=32738c0c`;
+  await db("Chat").insert(model);
+};
+```
+
+如果要在同一张表中增加多行数据，那么可以直接把一个数组提交给数据库：  
+
+```ts
+const insertMultiData = async () => {
+  let result = [];
+  for (let i = 0; i < 10; i++) {
+    let model = new ModelChat();
+    model.fromName = "聊天对象" + i;
+    model.sendTime = Date.now();
+    model.lastMsg = "这是此会话的最后一条消息" + i;
+    model.avatar = `https://pic3.zhimg.com/v2-306cd8f07a20cba46873209739c6395d_im.jpg?source=32738c0c`;
+    result.push(model);
+  }
+  result[5].isSelected = true;
+  await db("Chat").insert(result);
+};
+```
+
+#### 查询数据  
+
+```ts
+const selectData = async () => {
+  let data = await db("Chat").where({ id: `256d6532-fcfe-4b81-a3f8-ee940f2de3e3` }).first();
+  console.log(data);
+};
+```
+
+#### 修改数据  
+
+```ts
+const updateData = async () => {
+  let data = await db("Chat").update({ fromName: "三岛由纪夫", lastMsg: "就在刀刃猛然刺入腹部的瞬间，一轮红日在眼睑背面粲然升了上来。" }).where({ id: `256d6532-fcfe-4b81-a3f8-ee940f2de3e3` });
+  console.log(data);
+};
+```
+需要使用 where 方法确定更新范围，不然整个表的数据都将被修改 (数据库操作返回的值 data 为受影响的行数)  。
+
+#### 删除数据   
+
+```ts
+let deleteData = async () => {
+  let data = await db("Chat").where({ id: `256d6532-fcfe-4b81-a3f8-ee940f2de3e3` }).delete();
+  console.log(data);
+};
+```
+
+需要使用 where 方法确定删除范围，不然整个表的数据都将被删除（数据库操作返回的值 data 为受影响的行数）。  
+
+#### 事务  
+
+数据库的事务是一个操作序列，包含了一组数据库操作指令。  
+
+事务把这组指令作为一个整体向数据库提交操作请求，这一组数据库命令要么都执行，要么都不执行，是一个不可分割的工作逻辑单元。  
+
+```ts
+const transaction = async () => {
+  try {
+    await db.transaction(async (trx) => {
+      let chat = new ModelChat();
+      chat.fromName = "聊天对象aaa";
+      chat.sendTime = Date.now();
+      chat.lastMsg = "这是此会话的最后一条消息";
+      chat.avatar = `https://pic3.zhimg.com/v2-306cd8f07a20cba46873209739c6395d_im.jpg?source=32738c0c`;
+      await trx("Chat").insert(chat);
+      // throw "throw a error";
+      let message = new ModelMessage();
+      message.fromName = "聊天对象";
+      message.chatId = chat.id;
+      message.createTime = Date.now();
+      message.isInMsg = true;
+      message.messageContent = "这是我发给你的消息";
+      message.receiveTime = Date.now();
+      message.avatar = `https://pic3.zhimg.com/v2-306cd8f07a20cba46873209739c6395d_im.jpg?source=32738c0c`;
+      await trx("Message").insert(message);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+把两个插入操作封装到了一个事务中，两个插入操作要么都成功执行，要么一个也不执行，可以把 throw "throw a error" 语句取消注释，观察一下数据库的数据更新情况。  
+
+db.transaction 方法的回调函数中 trx 就是 Knex 封装的数据库事务对象。   
+
+#### 分页查询  
+
+分页从数据库中获取数据。  
+
+```ts
+import { ref, Ref } from 'vue';
+
+// 当前是第几页
+let currentPageIndex: Ref<number> = ref(0);
+// 每页数据行数
+let rowCountPerPage: Ref<number> = ref(6);
+// 总页数
+let pageCount: Ref<number> = ref(-1);
+
+// 获取某一页数据
+const getOnePageData = async () => {
+  let data = await db('Chat')
+    .orderBy('sendTime', 'desc')
+    .offset(currentPageIndex.value * rowCountPerPage.value)
+    .limit(rowCountPerPage.value);
+  console.log(data);
+}
+
+// 获取第一页数据
+const getFirstPage = async () => {
+  if (pageCount.value === -1) {
+    // @ts-ignore
+    let { count } = await db('Chat').count('id as count').first();
+    count = count as number;
+    pageCount.value = count / rowCountPerPage.value as number;
+  }
+  currentPageIndex.value = 0;
+  await getOnePageData();
+}
+
+// 获取下一页数据
+const getNextPage = async () => {
+  currentPageIndex.value = currentPageIndex.value + 1 >= pageCount.value ? Math.ceil(pageCount.value) - 1 : currentPageIndex.value + 1;
+  await getOnePageData();
+}
+
+// 获取上一页数据
+const getPrevPage = async () => {
+  currentPageIndex.value = currentPageIndex.value - 1 < 0 ? 0 : currentPageIndex.value - 1;
+  await getOnePageData();
+}
+
+// 获取最后一页数据
+const getLastPage = async () => {
+  currentPageIndex.value = Math.ceil(pageCount.value) - 1;
+  await getOnePageData();
+}
+```
+
+* 获取第一页数据时，初始化总页数和当前页码数，总页数是通过数据库中的总行数除以每页行数得到的，这个值有可能包含小数部分。当前页码数是从零开始的整数。第一页时，它的值为 0。  
+
+* 获取下一页数据时，判断当前页码数是不是到达了最后一页，如果没有，那么就把当前页码数加 1，考虑到总页数存在小数的可能，所以最后一页的当前页码数应为：Math.ceil(pageCount) - 1。Math.ceil() 函数返回大于或等于一个给定数字的最小整数。 Math.ceil(6.11) 的结果为 7，Math.ceil(6) 的结果为 6。  
+
+* 获取上一页数据时，判断当前页码数是不是小于 0，如果是，就把当前页码数置为 0，如果不是就把当前页码数减一。  
+
+* 获取最后一页数据时，把当前页码数置为 Math.ceil(pageCount) - 1 即可。  
+
+* 每次获取数据都调用 getOnePageData 方法。这个方法中需要注意 offset 和 limit 方法的使用，offset 方法是跳过 n 行的意思，limit 方法是确保返回的结果中不多于 n 行的意思。当最后一页数据不足 rowCountPerPage（值为 6）时，就返回数据库表中剩余的所有数据。  
+
+* 分页获取数据最好提供明确的排序规则：注意 orderBy 的使用。  
+
+* 在实际的桌面应用中一般不会要求用户点击上一页、下一页等按钮分页获取数据，大部分情况都是根据滚动条滚动时的触底或触顶事件来触发数据获取的逻辑，从数据库中读取数据的逻辑还是大同小异的，都是一页一页读取的。   
+
