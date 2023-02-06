@@ -7,9 +7,9 @@
 <iframe width="600" height="315" src="https://www.youtube.com/embed/fn4JAuCfHQA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### 02-02   
-DAMN COOL!!!  第一季看完，第二季安排上。  
+Damn cool!!!  
 
-<img src="/images/202301/img_9.png" alt="" width="400" />  
+<img src="/images/202301/img_10.png" alt="" width="300" />  
 
 ### 02-03    
 node.js 还是挺有意思的。   
@@ -21,6 +21,11 @@ node.js 还是挺有意思的。
 😜 轻断食前的最后一顿大餐。  
 
 <img src="/images/202301/img_11.jpeg" alt="" width="400" />  
+
+### 02-06   
+He deserved it.   
+
+<img src="/images/202301/img_11.png" alt="" width="300" />  
 
 ## 2023-01
 

@@ -2514,7 +2514,7 @@ console.log(paths);
 node test.js
 ```
 
-看看你复制的文件路径是不是已经打印到控制台上了呢？
+看看你复制的文件路径是不是已经打印到控制台上了呢？   
 
 上面编译出的原生模块不一定能在 Electron 应用中正常工作。这是因为 Electron 内置的 Node.js 的版本可能与你编译原生模块使用的 Node.js 的版本不同。如果在 Electron 工程内使用原生模块时，碰到如下错误：    
 
@@ -2528,10 +2528,11 @@ the module (for instance, using `npm rebuild` or `npm install`).
 
 则说明你使用的原生模块与 Electron 的 ABI 不匹配，此时就要针对 Electron 内置的 ABI 来编译你的原生模块。  
 
-使用方法与编译 SQLite 原生模块时相同，如下指令所示：
+使用方法与编译 SQLite 原生模块时相同，如下指令所示：   
 
 ```shell
 electron-rebuild -f -m ./src/native
 ```
 
-现在编译出的原生模块就可以在 Electron 工程下正常使用了。
+现在编译出的原生模块就可以在 Electron 工程下正常使用了。   
+
