@@ -2646,7 +2646,7 @@ Skip checkForUpdatesAndNotify because application is not packed
 
 验证通过后 Electron 则使用 Node.js 的 child-process 模块启动这个新的安装文件，以完成应用程序升级工作。   
 
-### 增量更新   
+### 增量升级  
 
 一般情况下会使用 asar 文件存储应用的业务逻辑代码，所以增量升级只要考虑更新这个文件即可。    
 
