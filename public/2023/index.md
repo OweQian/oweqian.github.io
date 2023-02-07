@@ -27,6 +27,13 @@ He deserved it.
 
 <img src="/images/202301/img_11.png" alt="" width="300" />  
 
+### 02-07   
+
+🎉🎉🎉!!!   
+新技能 √，完成了 Electron + Vue3 的相关学习。  
+[Github Profile](https://github.com/OweQian) 换了新的样子。  
+🤔 搞点什么奖励下自己呢？   
+
 ## 2023-01
 
 ### 01-01  
