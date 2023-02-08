@@ -25,13 +25,21 @@ categories: ["Soul Dance"]
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/Q1gYuFKIQa0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+## DeJ Loaf - No Fear
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/ny4SFoeAAaM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Odyssey - Together 2014 Version
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/5W9dfb5-CMc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Chago Williams · Wilson Ramos - Im Going
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/2FUgHal8ULY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## DJ Pablo - One B-Boy  
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/uNyOVLKWtlY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-## Odyssey - Together 2014 Version  
-
-<iframe width="600" height="315" src="https://www.youtube.com/embed/5W9dfb5-CMc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Lady Gaga - Bloody Mary
 
@@ -40,3 +48,7 @@ categories: ["Soul Dance"]
 ## Thelma Houston - If You Feel It
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/6BHB5r2pia0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## 赵雷 - 我记得
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/g8jihjmrvqU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
