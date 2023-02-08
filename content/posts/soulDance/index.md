@@ -29,9 +29,25 @@ categories: ["Soul Dance"]
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/ny4SFoeAAaM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+## HONNE - no song without you 
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/WXOlNBDVt0o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Blxst - Chosen
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/kUhHdASVjGs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Dan + Shay, Justin Bieber - 10,000 Hours
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/Y2E71oe0aSM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Odyssey - Together 2014 Version
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/5W9dfb5-CMc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Tamia - Officially Missing You 
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/HeK1zQFJtXE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Chago Williams · Wilson Ramos - Im Going
 
@@ -52,3 +68,11 @@ categories: ["Soul Dance"]
 ## 赵雷 - 我记得
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/g8jihjmrvqU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## 叶斯淳 - 我曾遇到一束光
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/K3bpPovnCuE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## 郭顶 -水星记  
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/ENKFTmJxBaY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
