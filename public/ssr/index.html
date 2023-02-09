@@ -8,7 +8,7 @@
 <meta property="og:description" content="项目地址： SSR 搭建 Client 项目 项目初始化 先对项目进行初始化，Nextjs 提供了脚手架来帮助初始化项目，执行下面的命令： 1 npx create-next-app@latest --typescript next.config.js 是构建配置，底层是基" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/ssr/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-02-08T12:00:47+08:00" />
+<meta property="article:published_time" content="2023-02-09T16:00:47+08:00" />
 <meta property="article:modified_time" content="2023-02-08T17:43:59+08:00" /><meta property="og:site_name" content="OweQian" />
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +19,7 @@
 <meta name="application-name" content="OweQian">
 <meta name="apple-mobile-web-app-title" content="OweQian"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/ssr/" /><link rel="prev" href="http://oweqian.xyz/souldance/" /><link rel="next" href="http://oweqian.xyz/month/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/ssr/" /><link rel="prev" href="http://oweqian.xyz/month/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -35,8 +35,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "第一技能","wordcount":  4640 ,
-        "url": "http:\/\/oweqian.xyz\/ssr\/","datePublished": "2023-02-08T12:00:47+08:00","dateModified": "2023-02-08T17:43:59+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "第一技能","wordcount":  8893 ,
+        "url": "http:\/\/oweqian.xyz\/ssr\/","datePublished": "2023-02-09T16:00:47+08:00","dateModified": "2023-02-08T17:43:59+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -114,8 +114,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">基于 Nextjs + Strapi 的官网开发实战</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-08">2023-02-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4640 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-09">2023-02-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 8893 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 18 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -147,6 +147,29 @@
         <li><a href="#数据注入">数据注入</a></li>
         <li><a href="#路由匹配">路由匹配</a></li>
         <li><a href="#header-修改">header 修改</a></li>
+      </ul>
+    </li>
+    <li><a href="#搭建-server-项目">搭建 server 项目</a>
+      <ul>
+        <li><a href="#项目初始化-1">项目初始化</a></li>
+        <li><a href="#数据可视化配置">数据可视化配置</a>
+          <ul>
+            <li><a href="#结构体定义">结构体定义</a></li>
+            <li><a href="#结构体数据写入">结构体数据写入</a></li>
+            <li><a href="#权限配置及上线">权限配置及上线</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#bff-数据流转">BFF 数据流转</a>
+      <ul>
+        <li><a href="#cms-接口优化">CMS 接口优化</a>
+          <ul>
+            <li><a href="#自定义返回">自定义返回</a></li>
+            <li><a href="#增加跨域限制">增加跨域限制</a></li>
+          </ul>
+        </li>
+        <li><a href="#bff-接口定义">BFF 接口定义</a></li>
       </ul>
     </li>
   </ul>
@@ -1791,6 +1814,695 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><img src="/images/ssr/img_5.png" alt="" width="500" />  
+<h2 id="搭建-server-项目">搭建 server 项目</h2>
+<p>这里推荐使用 Strapi，这是一个开源无头的 CMS 配置 Api。基于 Strapi ，可以快速针对业务场景搭建一套对应的 CMS，包括增删改查和联表等较复杂场景，都可以通过可视化的配置实现。</p>
+<p>对于自定义较高的场景，它也暴露了相关的参数进行自定义，可以使用较少的开发量去实现特殊场景。</p>
+<h3 id="项目初始化-1">项目初始化</h3>
+<p>执行 Strapi 提供的脚手架命令来初始化项目:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">npx create-strapi-app server --quickstart
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>它会在当前目录生成名为 server 的项目，并且会自动运行并打开一个登录页，按照指示配置一下账号密码，然后登录。</p>
+<img src="/images/ssr/img_6.png" alt="" width="500" />  
+<h3 id="数据可视化配置">数据可视化配置</h3>
+<h4 id="结构体定义">结构体定义</h4>
+<p>完成登录后，进入到 Strapi 的管理页面。</p>
+<img src="/images/ssr/img_7.png" alt="" width="500" />  
+<ul>
+<li>content manager 是 Api 的数据</li>
+<li>content-type builder 是 Api 的结构体</li>
+</ul>
+<p>以上一章节 layout 下的静态数据举例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="nx">footerData</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Demo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">linkList</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;技术栈&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">list</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">label</span><span class="o">:</span> <span class="s2">&#34;react&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">label</span><span class="o">:</span> <span class="s2">&#34;typescript&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">label</span><span class="o">:</span> <span class="s2">&#34;ssr&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">label</span><span class="o">:</span> <span class="s2">&#34;nodejs&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;了解更多&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">list</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">label</span><span class="o">:</span> <span class="s2">&#34;掘金&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">link</span><span class="o">:</span> <span class="s2">&#34;https://juejin.cn&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">label</span><span class="o">:</span> <span class="s2">&#34;知乎&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">link</span><span class="o">:</span> <span class="s2">&#34;https://www.zhihu.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">label</span><span class="o">:</span> <span class="s2">&#34;csdn&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;联系我&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">list</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">label</span><span class="o">:</span> <span class="s2">&#34;微信&#34;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s2">&#34;QQ&#34;</span> <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span> 
+</span></span><span class="line"><span class="cl">  <span class="nx">qrCode</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">image</span>: <span class="kt">Code</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">text</span><span class="o">:</span> <span class="s2">&#34;王小白学前端&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">copyRight</span><span class="o">:</span> <span class="s2">&#34;Copyright © 2023 xxx. 保留所有权利&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">  <span class="nx">siteNumber</span><span class="o">:</span> <span class="s2">&#34;冀ICP备XXXXXXXX号-X&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">publicNumber</span><span class="o">:</span> <span class="s2">&#34;冀公网安备 xxxxxxxxxxxxxx号&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>针对这样一个结构体，应该如何去定义 Api 呢？</p>
+<p>切到 content-type builder，点击 create new collection type，创建一个新的结构体：</p>
+<img src="/images/ssr/img_8.png" alt="" width="500" />  
+<p>填完 display name 后，对应的单数和复数 id 会自动生成，就是右边的两项，name 填需要的结构体就可以。</p>
+<img src="/images/ssr/img_9.png" alt="" width="500" />  
+<p>然后为结构体创建一些字段，常见的类型包括文本、boolean 值、富文本，这些这里都有，以 title 举例，因为是一个字符串，所以点 text。</p>
+<img src="/images/ssr/img_10.png" alt="" width="500" />  
+<img src="/images/ssr/img_11.png" alt="" width="500" />  
+<p>直接用短文本就好，然后高级配置选必填和唯一。</p>
+<p>对应的字段就加好了，对于别的部分，用相同的方式加进来就可以。</p>
+<img src="/images/ssr/img_13.png" alt="" width="500" />  
+<p>稍微特殊一些的字段是 linkList，可以看到它其实是一个对象数组，先把 footData 的关系按照思维导图梳理一下。</p>
+<img src="/images/ssr/img_30.png" alt="" width="500" />  
+<p>按照数据结构发现，footerData 和 linkList 是一对多的关系，而 linklist 中又包含多个 link，也是一对多的关系。</p>
+<p>所以要描述这部分字段，只有 layout 一个结构体是不够的，需要创建 linkList 和 link，然后给它们之间来建立对应的关系。</p>
+<p>确定了思路，按照上面的方法来创建 linklist 和 link 的结构体。</p>
+<img src="/images/ssr/img_12.png" alt="" width="500" />  
+<p>linklist 和 link 的关系应该怎么建立呢？在 linklist 结构体中，点新建字段。</p>
+<img src="/images/ssr/img_14.png" alt="" width="500" />  
+<p>点击 relation 属性，这个属性用来联立结构体之间的数据库关系。</p>
+<img src="/images/ssr/img_15.png" alt="" width="500" />  
+<p>点完成，可以发现加上了。</p>
+<img src="/images/ssr/img_16.png" alt="" width="500" />  
+<p>接下来，按照上面的原理配置完所有的结构体即可。</p>
+<img src="/images/ssr/img_17.png" alt="" width="500" />  
+<h4 id="结构体数据写入">结构体数据写入</h4>
+<p>定义完结构体后，需要为结构体加入一些数据，通常在开发完后，运营相关的同学配置，就只要进行这一步就可以了，别的部分就不需要再调整了，点击 content manager。</p>
+<p>数据的配置需要按照从子到父的原则，因为 layout 有相关的字段依赖于 linklist，linklist 又依赖于 link，所以只有 link 配置完以后，才可以进行 linklist 和 layout 的配置，这里以 link 和 linklist 举例。</p>
+<p>切到 link 的部分，点击 create new entry，可以进到下面的页面，输入完内容以后，进行保存，这里保存有两个按钮，一个是 save，一个是 publish，如果点击 publish 会生效到实际 cdn，这里先点击 publish，实际场景下运营配置的时候可以点 save，在 review 没问题后再发布即可。</p>
+<img src="/images/ssr/img_18.png" alt="" width="500" />  
+<p>配置完大致是这样的：</p>
+<img src="/images/ssr/img_19.png" alt="" width="500" />  
+<p>然后配置 linklist 的部分，同样是点 create new entry。</p>
+<img src="/images/ssr/img_20.png" alt="" width="500" />  
+<p>除了基本的字段，右侧还会有对应关联的字段，勾选需要的就可以关联上了。</p>
+<img src="/images/ssr/img_21.png" alt="" width="500" />  
+<p>最后配置 layout 的部分。</p>
+<img src="/images/ssr/img_22.png" alt="" width="500" />  
+<h4 id="权限配置及上线">权限配置及上线</h4>
+<p>点击 settings -&gt; Roles，这里是权限配置的部分，包含作者权限和公共权限，因为需要所有的人可以看到接口，所以点 public 右侧的 🖊（如果有特别需求的同学，可以点击 add new role 新增权限角色，再进行后续的步骤。</p>
+<img src="/images/ssr/img_23.png" alt="" width="500" />  
+<p>可以看到之前定义的结构体，左侧对应结构体支持的类型，右侧对应结构体接口的指向 Api 路由。因为要给对应的接口配置全查和单查的能力，所以勾选上 find 和 findOne。</p>
+<img src="/images/ssr/img_24.png" alt="" width="500" />  
+<p>layout 依赖于 link 和 link-list，所以 link 和 link-list 的结构体也需勾选上 find 和 findOne。</p>
+<p>访问 http://localhost:1337/api/layouts：</p>
+<img src="/images/ssr/img_25.png" alt="" width="500" />  
+<p>你会发现好像只有基础字段，联表的 linklist 和 link 去哪里了？</p>
+<p>这是因为 Strapi 默认是不会填充联表关系的，可以在路由后加 populate=*，这个入参的意义是为所有的关系填充一级关系。</p>
+<img src="/images/ssr/img_26.png" alt="" width="500" />  
+<p>推荐使用 strapi-plugin-populate-deep，这是基于 Strapi 的一个深度插件，切到项目目录下的终端安装一下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">npm install strapi-plugin-populate-deep --save
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启，访问 http://localhost:1337/api/layouts?populate=deep。</p>
+<img src="/images/ssr/img_26.png" alt="" width="500" />  
+<p>deep 参数的含义为使用默认的最大深度填充请求，即 5 层，如果 5 层不满足需求，需要更多，入参的调整也很方便，比如针对 10 层的场景，只需要传递入参 populate=deep,10就可以。</p>
+<h2 id="bff-数据流转">BFF 数据流转</h2>
+<p>通过访问 http://localhost:1337/api/layouts?populate=deep 可以拿到需要的数据。</p>
+<img src="/images/ssr/img_27.png" alt="" width="500" />  
+<p>不过这样的数据是有一些乱的，有几个可以优化的点：</p>
+<ul>
+<li>请求参数 populate=deep 是每次请求都需要带上的，因为需要所有深度的数据。</li>
+<li>最终需要的是 data 中的数据，layout 只有一个，不需要分页相关的部分（meta）。</li>
+<li>针对每个结构体，Strapi 为它们套上了 attributes 和 id，这个是不利于调用的，因为没有覆盖对应 ts 类型，会增加很多不必要的调试成本。</li>
+<li>每个结构体都加上了 createdAt、 publishedAt、updatedAt 三个字段，实际上是不需要这些字段的，随着接口层级的增加，过多不被使用的字段会增加接口的复杂度和可维护性。</li>
+</ul>
+<h3 id="cms-接口优化">CMS 接口优化</h3>
+<h4 id="自定义返回">自定义返回</h4>
+<p>在 src/api/* 的目录下，存放着结构体接口的定义，其中 controllers 存放着接口的控制器，每当客户端请求路由时，操作都会执行业务逻辑代码并发回响应，可以在其中重写 api 的相关方法（find、findOne、 update 等）。</p>
+<p>以 layout 为例，首先为 layout 接口加上默认的 populate=deep 参数，这样每次请求的时候就不用再加了。</p>
+<p>src/api/layout/controllers/layout.js</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">createCoreController</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;@strapi/strapi&#34;</span><span class="p">).</span><span class="nx">factories</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">createCoreController</span><span class="p">(</span><span class="s2">&#34;api::layout.layout&#34;</span><span class="p">,</span> <span class="p">({</span> <span class="nx">strapi</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="nx">find</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ctx</span><span class="p">.</span><span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">...</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">query</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">populate</span><span class="o">:</span> <span class="s2">&#34;deep&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span> <span class="p">}</span> <span class="o">=</span> <span class="kr">await</span> <span class="kr">super</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>访问 http://localhost:1337/api/layouts，可以看到不需要加 populate 参数就可以拿到联表的数据了。</p>
+<img src="/images/ssr/img_28.png" alt="" width="500" />  
+<p>然后针对上面提到的 attributes、id 和时间相关的字段定义两个深度遍历的函数来对应去除。</p>
+<p>新建 src/utils/index.js</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 移除对象中自动创建的时间字段
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param obj
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">removeTime</span> <span class="o">=</span> <span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">createdAt</span><span class="p">,</span> <span class="nx">publishedAt</span><span class="p">,</span> <span class="nx">updatedAt</span><span class="p">,</span> <span class="p">...</span><span class="nx">params</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span> <span class="o">||</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyNames</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">params</span><span class="p">[</span><span class="nx">item</span><span class="p">]</span> <span class="o">===</span> <span class="s2">&#34;object&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">params</span><span class="p">[</span><span class="nx">item</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">params</span><span class="p">[</span><span class="nx">item</span><span class="p">]</span> <span class="o">=</span> <span class="nx">params</span><span class="p">[</span><span class="nx">item</span><span class="p">].</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="nx">removeTime</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">params</span><span class="p">[</span><span class="nx">item</span><span class="p">]</span> <span class="o">=</span> <span class="nx">removeTime</span><span class="p">(</span><span class="nx">params</span><span class="p">[</span><span class="nx">item</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">params</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 移除属性和id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {*} obj
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">removeAttrsAndId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">attributes</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="p">...</span><span class="nx">params</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span> <span class="o">||</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">newObj</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">attributes</span><span class="p">,</span> <span class="p">...</span><span class="nx">params</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyNames</span><span class="p">(</span><span class="nx">newObj</span><span class="p">).</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">newObj</span><span class="p">[</span><span class="nx">item</span><span class="p">]</span> <span class="o">===</span> <span class="s2">&#34;object&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">newObj</span><span class="p">[</span><span class="nx">item</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">newObj</span><span class="p">[</span><span class="nx">item</span><span class="p">]</span> <span class="o">=</span> <span class="nx">newObj</span><span class="p">[</span><span class="nx">item</span><span class="p">].</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="nx">removeAttrsAndId</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">newObj</span><span class="p">[</span><span class="nx">item</span><span class="p">]</span> <span class="o">=</span> <span class="nx">removeAttrsAndId</span><span class="p">(</span><span class="nx">newObj</span><span class="p">[</span><span class="nx">item</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">newObj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">removeTime</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">removeAttrsAndId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后对 layout 的 find 函数返回的数据调用进行处理。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * layout controller
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">removeTime</span><span class="p">,</span> <span class="nx">removeAttrsAndId</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../../../utils/index&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">createCoreController</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@strapi/strapi&#39;</span><span class="p">).</span><span class="nx">factories</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">createCoreController</span><span class="p">(</span><span class="s1">&#39;api::layout.layout&#39;</span><span class="p">,</span> <span class="p">({</span> <span class="nx">strapi</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="nx">find</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ctx</span><span class="p">.</span><span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">...</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">query</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">populate</span><span class="o">:</span> <span class="s1">&#39;deep&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span> <span class="p">}</span> <span class="o">=</span> <span class="kr">await</span> <span class="kr">super</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">removeAttrsAndId</span><span class="p">(</span><span class="nx">removeTime</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]));</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再访问 http://localhost:1337/api/layouts，可以只包含了需要的数据。</p>
+<img src="/images/ssr/img_29.png" alt="" width="500" />  
+<h4 id="增加跨域限制">增加跨域限制</h4>
+<p>Strapi 的接口默认不做跨域限制，这样所有的域名都可以调用，安全性是存在问题的。</p>
+<p>在 config/middlewares.js 中加上跨域的限制。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;strapi::errors&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;strapi::security&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;strapi::cors&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">config</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">enabled</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">headers</span><span class="o">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">origin</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;http://localhost:3000&#39;</span><span class="p">,</span> <span class="s1">&#39;http://localhost:1337&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;strapi::poweredBy&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;strapi::logger&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;strapi::query&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;strapi::body&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;strapi::session&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;strapi::favicon&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;strapi::public&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="bff-接口定义">BFF 接口定义</h3>
+<p>接口配置好以后还不能直接在页面中调用，需要配置一层 BFF 层，即服务于前端的数据层。</p>
+<p>因为通常配置的数据是站在结构体的角度的，并不一定可以由前端调用，往往还需要复杂的数据处理。</p>
+<p>为了提高数据层的复用程度，增加 BFF 层，将接口包一层，进行相关处理后，前端页面只调用定义的 BFF 层接口，不直接与配置的接口产生交互。</p>
+<p>在定义接口前，先来了解一下 Nextjs 接口的路由是怎么配置的?</p>
+<p>与静态页面类似，Nextjs 接口也采用文件约定式路由的方式进行配置，可以分为预定义路由、动态路由和全捕获路由，如下面的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// ./pages/api/home/test.js =&gt; api/home/test 预定义路由
+</span></span><span class="line"><span class="cl">// ./pages/api/home/[testId].js =&gt; api/home/test, api/home/1, api/home/23 动态路由
+</span></span><span class="line"><span class="cl">// ./pages/api/home/[...testId].js =&gt; api/home/test, api/home/test/12 全捕获路由
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果一个相同的路由，比如 api/home/test，按照优先级来匹配三者，会按照预定义路由 &gt; 动态路由 &gt; 全捕获路由的顺序来匹配。</p>
+<p>预定义路由是精准匹配，后两者只是模糊匹配，虽然也满足匹配场景，但是只是作为兜底，优先会以预定义路由为准。</p>
+<p>下面来开发 BFF 层，首先定义一个接口层 pages/api/layout.ts。</p>
+<p>因为会经常用到本地域名 和 CMS 域名，所以拿一个变量来存储它们，后续根据环境区分也很方便。</p>
+<p>utils/index.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">LOCALDOMAIN</span> <span class="o">=</span> <span class="s1">&#39;http://127.0.0.1:3000&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">CMSDOMAIN</span> <span class="o">=</span> <span class="s1">&#39;http://127.0.0.1:1337&#39;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装 axios 和 lodash。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">npm i axios 
+</span></span><span class="line"><span class="cl">npm i lodash
+</span></span><span class="line"><span class="cl">npm i --save-dev @types/lodash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用过 Express 的人应该知道中间件的概念，Express 是基于路由和中间件的框架，通过链式调用的方式来对接口进行一些统一的处理。</p>
+<p>开源社区有开发提供了 next-connect 的依赖来补全这部分的能力，先来安装一下依赖。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">npm install next-connect
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>pages/api/layout.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">axios</span> <span class="kr">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">nextConnect</span> <span class="kr">from</span> <span class="s1">&#39;next-connect&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="p">{</span> <span class="nx">NextApiRequest</span><span class="p">,</span> <span class="nx">NextApiResponse</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;next&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ILayoutProps</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@/components/layout&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">CMSDOMAIN</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@/utils&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">isEmpty</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;lodash&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">getLayoutData</span> <span class="o">=</span> <span class="nx">nextConnect</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// .use(any middleware)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">.</span><span class="kr">get</span><span class="p">((</span><span class="nx">req</span>: <span class="kt">NextApiRequest</span><span class="p">,</span> <span class="nx">res</span>: <span class="kt">NextApiResponse</span><span class="p">&lt;</span><span class="nt">ILayoutProps</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">axios</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">CMSDOMAIN</span><span class="si">}</span><span class="sb">/api/layouts`</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">copy_right</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">link_lists</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">public_number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">qr_code</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">qr_code_image</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">site_number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="o">=</span> <span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">res</span><span class="o">?</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">navbarData</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">footerData</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">linkList</span>: <span class="kt">link_lists?.data?.map</span><span class="p">((</span><span class="nx">item</span>: <span class="kt">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">title</span>: <span class="kt">item.title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">list</span>: <span class="kt">item?.links?.data?.map</span><span class="p">((</span><span class="nx">_item</span>: <span class="kt">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="nx">label</span>: <span class="kt">_item.label</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="nx">link</span>: <span class="kt">isEmpty</span><span class="p">(</span><span class="nx">_item</span><span class="p">.</span><span class="nx">link</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="nx">_item</span><span class="p">.</span><span class="nx">link</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">};</span>
+</span></span><span class="line"><span class="cl">              <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">            <span class="p">};</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">qrCode</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">image</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">CMSDOMAIN</span><span class="si">}${</span><span class="nx">qr_code_image</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">text</span>: <span class="kt">qr_code</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">copyRight</span>: <span class="kt">copy_right</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">siteNumber</span>: <span class="kt">site_number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">publicNumber</span>: <span class="kt">public_number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">getLayoutData</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>NextApiResponse 类型是 Nextjs 提供的 response 类型，它提供了一个泛型，来作为整个接口和后续请求的返回，可以把需要的数据类型作为泛型传进去，保证整体代码有 ts 的 lint。</li>
+<li>返回数据用的是 json，针对数据的响应，Nextjs 提供下面的响应 Api，可以根据自己的需求选用不同的响应 Api。</li>
+</ul>
+<p>res.status(code) - 设置状态码的功能。code 必须是有效的 HTTP 状态码。<br>
+res.json(body) - 发送 JSON 响应。body 必须是可序列化的对象。<br>
+res.send(body) - 发送 HTTP 响应。body 可以是 a string，an object 或 a Buffer。
+res.redirect([status,] path) - 重定向到指定的路径或 URL。status 必须是有效的 HTTP 状态码。如果未指定，status 默认为 “307” “临时重定向”。<br>
+res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。urlPath 必须是一个 string。</p>
+<p>改造 layout 部分的数据注入，换用接口数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="p">{</span> <span class="nx">AppProps</span><span class="p">,</span> <span class="nx">AppContext</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;next/app&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">App</span> <span class="kr">from</span> <span class="s1">&#39;next/app&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Head</span> <span class="kr">from</span> <span class="s1">&#39;next/head&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">axios</span> <span class="kr">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">LOCALDOMAIN</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@/utils&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="p">{</span> <span class="nx">ILayoutProps</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@/components/layout&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Layout</span> <span class="kr">from</span> <span class="s1">&#39;@/components/layout&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s1">&#39;@/styles/globals.css&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">MyApp</span> <span class="o">=</span> <span class="p">(</span><span class="nx">data</span>: <span class="kt">AppProps</span> <span class="o">&amp;</span> <span class="nx">ILayoutProps</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Component</span><span class="p">,</span> <span class="nx">pageProps</span><span class="p">,</span> <span class="nx">navbarData</span><span class="p">,</span> <span class="nx">footerData</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">Head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span><span class="nx">A</span> <span class="nx">Demo</span> <span class="k">for</span> <span class="err">官网开发实战</span><span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">meta</span>
+</span></span><span class="line"><span class="cl">          <span class="na">name</span><span class="o">=</span><span class="s">&#34;description&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">content</span><span class="o">=</span><span class="s">&#34;A Demo for 官网开发实战&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;icon&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/favicon.ico&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">Head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">Layout</span> <span class="na">navbarData</span><span class="o">=</span><span class="p">{</span><span class="nx">navbarData</span><span class="p">}</span> <span class="na">footerData</span><span class="o">=</span><span class="p">{</span><span class="nx">footerData</span><span class="p">}&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">Component</span> <span class="p">{</span><span class="na">...pageProps</span><span class="p">}</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">Layout</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">MyApp</span><span class="p">.</span><span class="nx">getInitialProps</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">context</span>: <span class="kt">AppContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">pageProps</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">App</span><span class="p">.</span><span class="nx">getInitialProps</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">LOCALDOMAIN</span><span class="si">}</span><span class="sb">/api/layout`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span><span class="nx">pageProps</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span><span class="nx">data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">MyApp</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>访问 http://localhost:3000。</p>
+<img src="/images/ssr/img_31.png" alt="" width="500" />  
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -1815,8 +2527,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/souldance/" class="prev" rel="prev" title="你需要一首 BGM，来撑起你的内心戏"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>你需要一首 BGM，来撑起你的内心戏</a>
-            <a href="/month/" class="next" rel="next" title="蠢 Q 碎碎念">蠢 Q 碎碎念<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/month/" class="prev" rel="prev" title="蠢 Q 碎碎念"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>蠢 Q 碎碎念</a></div>
 </div>
 <div id="comments"><div id="giscus" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
