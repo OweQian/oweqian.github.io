@@ -1423,3 +1423,919 @@ export default MyApp;
 
 <img src="/images/ssr/img_31.png" alt="" width="500" />  
 
+## 主题化实现方案   
+
+以 [抖音前端技术官网](https://douyinfe.com/) 为例，它的官网有包含默认的样式：
+
+<img src="/images/ssr/img_32.png" alt="" width="500" />  
+
+也有暗黑色调的展示：  
+
+<img src="/images/ssr/img_33.png" alt="" width="500" />  
+
+### 基础色调变量抽离  
+
+主题化功能对 DOM 的结构变化不大，基本是针对色调进行切换。  
+
+顺着这个思路，如果定义两套变量，是不是就完成了对两套主题的配置？根据不同的主题，在 html 标签上来固定两个属性来区分，方案就确定了。  
+
+在全局样式中定义两套之前使用到的色调，包括字体和背景等颜色，把之前定义的组件样式抽出来放在这里就可以，保证所有的色调都通过变量的方式来引用。   
+
+styles/global.css  
+
+```css
+html[data-theme="dark"] {
+  --primary-color: #ffffff;
+  --primary-background-color: rgba(14, 14, 14, 1);
+  --footer-background-color: rgba(36, 36, 36, 1);
+  --navbar-background-color: rgba(0, 0, 0, 0.5);
+  --secondary-color: rgba(255, 255, 255, 0.5);
+  --link-color: #34a8eb;
+}
+
+html[data-theme="light"] {
+  --primary-color: #333333;
+  --primary-background-color: rgba(255, 255, 255, 1);
+  --footer-background-color: #f4f5f5;
+  --navbar-background-color: rgba(255, 255, 255, 0.5);
+  --secondary-color: #666666;
+  --link-color: #0070f3;
+}
+```
+
+接下来就是把这些定义的变量去替换原来样式中给的固定色值。  
+
+components/footer/index.module.scss  
+
+```scss
+.footer {
+  padding: 70px 145px;
+  background-color: var(--footer-background-color);
+  .topArea {
+    display: flex;
+    justify-content: space-between;
+
+    .footerTitle {
+      font-weight: 500;
+      font-size: 36px;
+      line-height: 36px;
+      color: var(--primary-color);
+      margin: 0;
+    }
+
+    .linkListArea {
+      display: flex;
+      .linkArea {
+        display: flex;
+        flex-direction: column;
+        margin-left: 160px;
+        .title {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 20px;
+          color: var(--primary-color);
+          margin-bottom: 40px;
+        }
+
+        .links {
+          display: flex;
+          flex-direction: column;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+
+          .link {
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-bottom: 24px;
+          }
+
+          .disabled {
+            color: var(--secondary-color);
+            cursor: not-allowed;
+            margin-bottom: 24px;
+          }
+        }
+      }
+    }
+  }
+
+  .bottomArea {
+    display: flex;
+    justify-content: space-between;
+    .codeArea {
+      display: flex;
+      flex-direction: column;
+      .text {
+        color: var(--secondary-color);
+      }
+    }
+    .numArea {
+      color: var(--secondary-color);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+
+      span {
+        margin-bottom: 12px;
+      }
+
+      .publicLogo {
+        display: flex;
+
+        .logo {
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+}
+```
+
+components/layout/index.module.scss  
+
+```scss
+.layout {
+  background-color: var(--primary-background-color);
+  .main {
+    min-height: calc(100vh - 560px);
+  }
+}
+```
+
+components/navbar/index.module.scss  
+
+```scss
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--navbar-background-color);
+  backdrop-filter: blur(8px);
+  width: 100%;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding: 20px 32px;
+  z-index: 100;
+  .logoIcon {
+    width: 4.375rem;
+    height: 1.25rem;
+    background-image: var(--navbar-icon);
+    background-size: 4.375rem 1.25rem;
+    background-repeat: no-repeat;
+  }
+  .themeIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+    background-image: var(--theme-icon);
+    background-size: 1.25rem 1.25rem;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+}
+```
+
+### 图片主题化配置
+
+对于图片的主题化，有两种方式，一种是针对一般固定不变的图片，采用同样定义的方式。  
+
+styles/global.css  
+
+```css
+html[data-theme="dark"] {
+  --primary-color: #ffffff;
+  --primary-background-color: rgba(14, 14, 14, 1);
+  --footer-background-color: rgba(36, 36, 36, 1);
+  --navbar-background-color: rgba(0, 0, 0, 0.5);
+  --secondary-color: rgba(255, 255, 255, 0.5);
+  --link-color: #34a8eb;
+  --navbar-icon: url('../public/logo_dark.png');
+  --theme-icon: url('../public/theme_dark.png');
+}
+
+html[data-theme="light"] {
+  --primary-color: #333333;
+  --primary-background-color: rgba(255, 255, 255, 1);
+  --footer-background-color: #f4f5f5;
+  --navbar-background-color: rgba(255, 255, 255, 0.5);
+  --secondary-color: #666666;
+  --link-color: #0070f3;
+  --navbar-icon: url('../public/logo_light.png');
+  --theme-icon: url('../public/theme_light.png');
+}
+```
+
+另一种是配置的图片，可能会频繁变化，这种只需要在 Strapi 中再加一个字段存不同主题的图片，然后在页面逻辑中根据不同的主题去切换就可以。  
+
+### 主题数据注入  
+
+针对当前的主题，肯定有个地方需要进行缓存，应该使用哪种客户端缓存机制呢？   
+
+主题化功能往往是因为用户更喜欢这种色调，用 localStorage 要更合适，因为相比 sessionStorage 只能保存当前会话的特点，localStorage 可以长期保留，除非用户主动清除，保证下一次访问时也可以保证是之前的主题。  
+
+那么应该怎么去注入这个缓存呢，如果随心所欲地去进行缓存注入操作，那页面中可能会分散各种缓存的逻辑，不符合单一职责原则，也不利于统一的维护和相关事件的绑定，所以需要在一处地方聚集主题相关的逻辑，然后再分别注入给每个页面对应的编辑方法。  
+
+这里需要用到 React 的 useContext，它具有接受上下文，并将上下文进行注入的能力。   
+
+新建 constants/enum  
+
+```ts
+export enum Themes {
+  light = 'light',
+  dark = 'dark',
+}
+```
+
+新建 stores/theme.tsx  
+
+```tsx
+import {createContext, FC, useEffect, useState} from 'react';
+import {Themes} from '@/constants/enum';
+
+interface IThemeContextProps {
+  theme: Themes;
+  setTheme: (theme: Themes) => void;
+}
+
+interface IThemeContextProviderProps {
+  children: JSX.Element;
+}
+
+export const ThemeContext = createContext<IThemeContextProps>({} as IThemeContextProps);
+
+const ThemeContextProvider: FC<IThemeContextProviderProps> = ({children}) => {
+  const [theme, setTheme] = useState<Themes>(Themes.light);
+  useEffect(() =>  {
+    const item = localStorage.getItem('theme') as Themes || Themes.light;
+    setTheme(item);
+    document.getElementsByTagName('html')[0].dataset.theme = item;
+  }, []);
+  return (
+    <ThemeContext.Provider value={{
+      theme,
+      setTheme: (currentTheme) => {
+        setTheme(currentTheme);
+        localStorage.setItem('theme', currentTheme);
+        document.getElementsByTagName('html')[0].dataset.theme = currentTheme;
+      }
+    }}>
+      {children}
+    </ThemeContext.Provider>
+  )
+}
+
+export default ThemeContextProvider;
+```
+
+ThemeContext 是暴露出的变量，在全局注入后，每个路由页面都可以通过它来获取定义的 theme 和 setTheme 进行相关的业务操作。   
+
+ThemeContextProvider 则是注入器，用于给需要的 DOM 进行上下文的注入。  
+
+在全局页面注入 context。  
+
+pages/_app.tsx  
+
+```tsx
+import type { AppProps, AppContext } from 'next/app';
+import App from 'next/app';
+import Head from 'next/head';
+import axios from 'axios';
+import ThemeContextProvider from '@/stores/theme';
+import { LOCALDOMAIN } from '@/utils';
+import type { ILayoutProps } from '@/components/layout';
+import Layout from '@/components/layout';
+import '@/styles/globals.css'
+
+const MyApp = (data: AppProps & ILayoutProps) => {
+  const {
+    Component, pageProps, navbarData, footerData
+  } = data;
+  return (
+    <div>
+      <Head>
+        <title>A Demo for 官网开发实战</title>
+        <meta
+          name="description"
+          content="A Demo for 官网开发实战"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <ThemeContextProvider>
+        <Layout navbarData={navbarData} footerData={footerData}>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeContextProvider>
+    </div>
+
+  )
+}
+
+MyApp.getInitialProps = async (context: AppContext) => {
+  const pageProps = await App.getInitialProps(context);
+  const { data = {} } = await axios.get(`${LOCALDOMAIN}/api/layout`)
+  return {
+    ...pageProps,
+    ...data,
+  }
+}
+export default MyApp;
+```
+
+在 navbar 加一个主题化切换的入口。  
+
+components/navbar/index.tsx  
+
+```tsx
+import {FC, useContext} from 'react';
+import {ThemeContext} from '@/stores/theme';
+import {Themes} from '@/constants/enum';
+import styles from './index.module.scss';
+
+export interface INavBarProps {}
+
+const NavBar: FC<INavBarProps> = ({}) => {
+  const { setTheme } = useContext(ThemeContext);
+  return (
+    <div className={styles.navBar}>
+      <a href="http://localhost:3000/">
+        <div className={styles.logoIcon} />
+      </a>
+      <div className={styles.themeIcon} onClick={(): void => {
+        setTheme(localStorage.getItem('theme') === Themes.light ? Themes.dark : Themes.light);
+      }}/>
+    </div>
+  )
+}
+
+export default NavBar;
+```
+
+components/navbar/index.module.scss  
+
+```scss
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--navbar-background-color);
+  backdrop-filter: blur(8px);
+  width: 100%;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding: 20px 32px;
+  z-index: 100;
+  .logoIcon {
+    width: 4.375rem;
+    height: 1.25rem;
+    background-image: var(--navbar-icon);
+    background-size: 4.375rem 1.25rem;
+    background-repeat: no-repeat;
+  }
+  .themeIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+    background-image: var(--theme-icon);
+    background-size: 1.25rem 1.25rem;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+}
+```
+
+启动项目，可以看到已经可以实现主题化的功能了。  
+
+<img src="/images/ssr/img_34.png" alt="" width="500" />  
+
+<img src="/images/ssr/img_35.png" alt="" width="500" />  
+
+### 多进程场景下主题同步
+
+浏览器是多进程的，每个开启的页面都对应到一个进程，这样可以有效地避免页面之间的数据共享及一个报错页面带崩所有页面的情况。  
+
+如果用户开了多个页面来访问站点，其中一个页面的主题切换，另一个页面是感知不到的，这样一个浏览器下会有多个主题的页面，对用户体验上来说是不太好的。   
+
+出于追求极致考虑，优化一下这个问题，其实也很简单，只需要监听浏览器的缓存修改事件，然后再次执行初始化的操作就好了。  
+
+stores/theme.tsx  
+
+```tsx
+import {createContext, FC, useEffect, useState} from 'react';
+import {Themes} from '@/constants/enum';
+
+interface IThemeContextProps {
+  theme: Themes;
+  setTheme: (theme: Themes) => void;
+}
+
+interface IThemeContextProviderProps {
+  children: JSX.Element;
+}
+
+export const ThemeContext = createContext<IThemeContextProps>({} as IThemeContextProps);
+
+const ThemeContextProvider: FC<IThemeContextProviderProps> = ({children}) => {
+  const [theme, setTheme] = useState<Themes>(Themes.light);
+  useEffect(() =>  {
+    debugger
+    const checkTheme = () => {
+      const item = localStorage.getItem('theme') as Themes || Themes.light;
+      setTheme(item);
+      document.getElementsByTagName('html')[0].dataset.theme = item;
+    }
+    // 初始化先执行一遍
+    checkTheme();
+    // 监听浏览器缓存事件
+    window.addEventListener('storage', checkTheme);
+    return (): void => {
+      // 解绑
+      window.removeEventListener('storage', checkTheme);
+    }
+  }, []);
+  return (
+    <ThemeContext.Provider value={{
+      theme,
+      setTheme: (currentTheme) => {
+        setTheme(currentTheme);
+        localStorage.setItem('theme', currentTheme);
+        document.getElementsByTagName('html')[0].dataset.theme = currentTheme;
+      }
+    }}>
+      {children}
+    </ThemeContext.Provider>
+  )
+}
+
+export default ThemeContextProvider;
+
+```
+
+现在尝试打开两个页面，修改其中一个，发现另一个也会同步更新为一样的主题了。   
+
+### 闪烁场景优化
+
+还有一个小问题，因为在服务器端是获取不到当前的主题的，通过 useEffect 钩子来获取主题进行样式的渲染，这样其实会有一个主题切换的过程，在低网速或是快速切换场景下会有比较明显的闪烁，可以在钩子处设置断点查看（当前缓存是黑色主题）。   
+
+<img src="/images/ssr/img_36.png" alt="" width="500" />  
+
+可以看到走到钩子的时候，是还没办法进行对应主题样式渲染的，应该怎么解决这个问题呢？  
+
+只需要在 HTML 中引入对应的 script，确保可以在交互之前进行主题的初始化就行了。  
+
+Nextjs 有提供这个能力，修改 _document.tsx，然后引入对应的内部脚本。  
+
+```tsx
+import { Html, Head, Main, NextScript } from 'next/document'
+import Script from 'next/script';
+
+export default function Document() {
+  return (
+    <Html lang="en">
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+        <Script id="theme-script" strategy="beforeInteractive">
+          {
+            `const item = localStorage.getItem('theme') || 'light';
+             localStorage.setItem('theme', item);
+             document.getElementsByTagName('html')[0].dataset.theme = item;
+            `
+          }
+        </Script>
+      </body>
+    </Html>
+  )
+}
+```
+
+id 是用于 Nextjs 检索，beforeInteractive 表明这个脚本的执行策略是在交互之前，会被默认放到 head 中。  
+
+现在再来试试效果，发现走到钩子的时候已经可以正常去初始化了。   
+
+<img src="/images/ssr/img_37.png" alt="" width="500" />  
+
+## 帧动画实现方案  
+
+以 [抖音前端技术官网](https://douyinfe.com/) 的首页加载动画为例，看看这个动画下究竟发生了什么？   
+
+首先打开控制台的 network，使用 performance 来录制首页加载的过程，为了能更清晰查看，适当降低 CPU 的性能，调整为 4 x slowdown。   
+
+<img src="/images/ssr/img_38.png" alt="" width="500" />  
+
+点击控制台左上角的 ⚪，然后刷新页面，可以得到下面的逐帧列表：  
+
+<img src="/images/ssr/img_39.png" alt="" width="500" />  
+
+从下面的加载图中可以判断出，这个动画总的执行时长为 1.36 s，然后上面的列表中有具体页面加载过程的帧动画变化图，通过按帧查看，可以大概看出这个动画的执行顺序是这样的。  
+
+<img src="/images/ssr/img_40.png" alt="" width="500" />  
+
+按照从小序列到大序列的顺序，每个元素分别执行了从下往上的平移操作，以及一个透明度从 0 到 1 的过程，加上上面看到每个动画的时长分析都是 1.3s，所以只是对每个元素推迟了不同的动画平移时间，但是它们享有相同的动画时长，针对这个场景应该怎么去实现呢？   
+
+<img src="/images/ssr/img_41.png" alt="" width="500" />  
+
+针对现在的首页，把 dom 元素简单拆分为 8 个区域，总动画时长定成 1s，其中 1s 的时间可以分为 9 个时间帧，每个区域从对应序列的时间帧开始执行相同的动画效果，最后把所有的帧连起来就是一个完整的帧动画。   
+
+定义对应的样式进行绑定，以 fadeInDown1 举例，@keyframes 指向动画的逐帧状态，其中 0% 和 11 % 都是一样的内容，这时候区域处于 y 轴 40px 的位置，然后末尾状态是无区域状态和 1 透明度，这个动画的效果会使得动画从整体时间的 11% 开始执行，到 100 % 完成最终的变化。  
+
+这个 11% 是从哪里来的呢？上面提到为每个动画延迟一个帧频率执行，8 个区域，共 9 帧，所以 1 帧的占比为 11% 的总动画时长，每个动画的起始时间（第二个状态值）都比上一个高出 1 帧的比例，这样就可以将整体帧动画串联起来了。  
+
+styles/Home.module.scss  
+
+```scss
+.withAnimation {
+  .title {
+    animation: fadeInDown1 1s;
+  }
+
+  .description {
+    animation: fadeInDown2 1s;
+  }
+
+  .card:nth-of-type(1) {
+    animation: fadeInDown3 1s;
+  }
+
+  .card:nth-of-type(2) {
+    animation: fadeInDown4 1s;
+  }
+
+  .card:nth-of-type(3) {
+    animation: fadeInDown5 1s;
+  }
+
+  .card:nth-of-type(4) {
+    animation: fadeInDown6 1s;
+  }
+
+  .card:nth-of-type(5) {
+    animation: fadeInDown7 1s;
+  }
+
+  .card:nth-of-type(6) {
+    animation: fadeInDown8 1s;
+  }
+}
+
+@keyframes fadeInDown1 {
+  0% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  11% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown2 {
+  0% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  22% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown3 {
+  0% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  33% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown4 {
+  0% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  44% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown5 {
+  0% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  55% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown6 {
+  0% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  66% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown7 {
+  0% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  77% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown8 {
+  0% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  88% {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+```
+
+改造首页 (index.tsx) Dom 类，专门定义一个动画类来存放动画相关的样式，避免对基础样式造成污染。  
+
+```tsx
+import {useRef} from 'react';
+import type { NextPage } from 'next';
+import classNames from 'classnames';
+import styles from '@/styles/Home.module.scss';
+
+interface IHomeProps {
+  title: string;
+  description: string;
+  list: {
+    label: string;
+    info: string;
+    link: string;
+  }[];
+}
+
+const Home: NextPage<IHomeProps> = ({
+  title, description, list
+}) => {
+  const mainRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div className={styles.container}>
+      <main className={classNames([styles.main, styles.withAnimation])} ref={mainRef}>
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.description}>{description}</p>
+        <div className={styles.grid}>
+          {
+            list?.map((item, index) => {
+              return (
+                <div key={index} className={styles.card} onClick={(): void => {
+                  window.open(
+                    item?.link,
+                    "blank",
+                    "noopener=yes,noreferrer=yes"
+                  );
+                }}>
+                  <h2>{item?.label}</h2>
+                  <p>{item?.info}</p>
+                </div>
+              )
+            })
+          }
+        </div>
+      </main>
+    </div>
+  )
+}
+
+Home.getInitialProps = (context) => {
+  return {
+    title: "Hello SSR!",
+    description: "A Demo for 官网开发实战",
+    list: [
+      {
+        label: "文章1",
+        info: "A test for article1",
+        link: "http://localhost:3000/article/1",
+      },
+      {
+        label: "文章2",
+        info: "A test for article2",
+        link: "http://localhost:3000/article/2",
+      },
+      {
+        label: "文章3",
+        info: "A test for article3",
+        link: "http://localhost:3000/article/3",
+      },
+      {
+        label: "文章4",
+        info: "A test for article4",
+        link: "http://localhost:3000/article/4",
+      },
+      {
+        label: "文章5",
+        info: "A test for article5",
+        link: "http://localhost:3000/article/5",
+      },
+      {
+        label: "文章6",
+        info: "A test for article6",
+        link: "http://localhost:3000/article/6",
+      },
+    ],
+  };
+
+}
+
+export default Home;
+```
+
+然后查看一下效果。   
+
+<iframe width="600" height="315" src="/images/ssr/b.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+###  主动触发动画重新播放  
+
+在切换主题时，希望能再执行一次加载动画，可以通过 requestAnimationFrame 来实现，它会返回一个回调，强制浏览器在重绘前调用指定的函数来进行动画的更新。  
+
+使用这个来改造一下首页，加一个 useEffect 的钩子。  
+
+```tsx
+import {useRef, useContext, useEffect} from 'react';
+import type { NextPage } from 'next';
+import classNames from 'classnames';
+import { ThemeContext } from '@/stores/theme';
+import styles from '@/styles/Home.module.scss';
+
+interface IHomeProps {
+  title: string;
+  description: string;
+  list: {
+    label: string;
+    info: string;
+    link: string;
+  }[];
+}
+
+const Home: NextPage<IHomeProps> = ({
+  title, description, list
+}) => {
+  const mainRef = useRef<HTMLDivElement>(null);
+  const { theme } = useContext(ThemeContext);
+  useEffect(() => {
+    mainRef.current?.classList.remove(styles.withAnimation);
+    window.requestAnimationFrame(() => {
+      mainRef.current?.classList.add(styles.withAnimation);
+    });
+  }, [theme]);
+
+  return (
+    <div className={styles.container}>
+      <main className={classNames([styles.main, styles.withAnimation])} ref={mainRef}>
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.description}>{description}</p>
+        <div className={styles.grid}>
+          {
+            list?.map((item, index) => {
+              return (
+                <div key={index} className={styles.card} onClick={(): void => {
+                  window.open(
+                    item?.link,
+                    "blank",
+                    "noopener=yes,noreferrer=yes"
+                  );
+                }}>
+                  <h2>{item?.label}</h2>
+                  <p>{item?.info}</p>
+                </div>
+              )
+            })
+          }
+        </div>
+      </main>
+    </div>
+  )
+}
+
+Home.getInitialProps = (context) => {
+  return {
+    title: "Hello SSR!",
+    description: "A Demo for 官网开发实战",
+    list: [
+      {
+        label: "文章1",
+        info: "A test for article1",
+        link: "http://localhost:3000/article/1",
+      },
+      {
+        label: "文章2",
+        info: "A test for article2",
+        link: "http://localhost:3000/article/2",
+      },
+      {
+        label: "文章3",
+        info: "A test for article3",
+        link: "http://localhost:3000/article/3",
+      },
+      {
+        label: "文章4",
+        info: "A test for article4",
+        link: "http://localhost:3000/article/4",
+      },
+      {
+        label: "文章5",
+        info: "A test for article5",
+        link: "http://localhost:3000/article/5",
+      },
+      {
+        label: "文章6",
+        info: "A test for article6",
+        link: "http://localhost:3000/article/6",
+      },
+    ],
+  };
+
+}
+
+export default Home;
+```
+
+在每次 theme 发生变化的时候，主动移除对应的动画类，再通过 requestAnimationFrame 对动画类进重新绑定，达到主动触发动画刷新的效果，现在来看一下最终成品。   
+
+<iframe width="600" height="315" src="/images/ssr/a.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
+
+
+
