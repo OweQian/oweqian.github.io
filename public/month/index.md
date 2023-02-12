@@ -48,7 +48,12 @@ He deserved it.
 
 #### 02-10   
 
-Nacos？ 🤔
+Nacos？ 🤔  
+
+#### 02-11  
+大半年没做饭，心血来潮想整个小炒肉，咸哭了😭。。。。
+
+<img src="/images/202301/img_13.jpeg" alt="" width="300" />  
 
 ### 2023-01
 

@@ -1,11 +1,19 @@
 ---
 title: "一个人的绘画馆：蠢 Q 的油画棒画成长之旅"
-date: 2023-01-19T16:00:47+08:00
+date: 2023-02-12T12:00:47+08:00
 tags: ["画画"]
 categories: ["画画"]
 ---
 
 ## 2023年
+
+### 仰望🌃  
+
+```
+我们仰望着同一片星空，你可能在失神，而我努力在星空中寻找你的模样。   
+```   
+
+<img src="/images/draw/img_4.jpeg" alt="" width="300" />  
 
 ### 窗台上的 🐱  
 
@@ -13,7 +21,7 @@ categories: ["画画"]
 下辈子做一只猫，翘着尾巴云游天下，跟狗打架。
 ```   
 
-<img src="/images/draw/img.png" alt="" width="500" />  
+<img src="/images/draw/img.png" alt="" width="300" />  
 
 ### 🐳 与 ☁️    
 
@@ -21,7 +29,7 @@ categories: ["画画"]
 热爱漫无边际，生活自有分寸。  
 ```
 
-<img src="/images/draw/img_1.png" alt="" width="500" />  
+<img src="/images/draw/img_1.png" alt="" width="300" />  
 
 ### 露营 ⛺️   
 
@@ -29,7 +37,7 @@ categories: ["画画"]
 一起去露营吧，揽星河入怀，拥山野而眠。  
 ```
 
-<img src="/images/draw/img_2.png" alt="" width="500" />  
+<img src="/images/draw/img_2.png" alt="" width="300" />  
 
 ### 福 🐰 贺春  
 
@@ -37,4 +45,4 @@ categories: ["画画"]
 新年快乐。
 ```
 
-<img src="/images/draw/img_3.png" alt="" width="500" />     
+<img src="/images/draw/img_3.png" alt="" width="300" />     
