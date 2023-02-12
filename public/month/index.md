@@ -55,6 +55,12 @@ Nacos？ 🤔
 
 <img src="/images/202301/img_13.jpeg" alt="" width="300" />  
 
+#### 02-12  
+
+"When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he’s not appreciated or respected or even loved. He simply bears up and he does it. Because he’s a man."  🤯  
+
+<img src="/images/202301/img_13.png" alt="" width="300" />  
+
 ### 2023-01
 
 #### 01-01  

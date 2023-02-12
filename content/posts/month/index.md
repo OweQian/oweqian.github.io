@@ -1,6 +1,6 @@
 ---
 title: "蠢 Q 碎碎念"
-date: 2023-02-12T13:00:47+08:00
+date: 2023-02-12T23:00:47+08:00
 tags: ["碎碎念"]
 categories: ["碎碎念"]
 ---
@@ -58,6 +58,12 @@ Nacos？ 🤔
 大半年没做饭，心血来潮想整个小炒肉，咸哭了😭。。。。
 
 <img src="/images/202301/img_13.jpeg" alt="" width="300" />  
+
+#### 02-12  
+
+"When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he’s not appreciated or respected or even loved. He simply bears up and he does it. Because he’s a man."  🤯  
+
+<img src="/images/202301/img_13.png" alt="" width="300" />  
 
 ### 2023-01
 
