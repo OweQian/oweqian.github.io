@@ -1,6 +1,6 @@
 ---
 title: "你需要一首 BGM，来撑起你的内心戏"
-date: 2023-02-08T9:00:47+08:00
+date: 2023-02-14T10:00:47+08:00
 tags: ["Soul Dance"]
 categories: ["Soul Dance"]
 ---
@@ -16,6 +16,18 @@ categories: ["Soul Dance"]
 ## Daft Punk - Giorgio by Moroder 📌 
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/zhl-Cs1-sG4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Michael Jackson - Heal The World (Official Video)  
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/BWf-eARnf6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## We Are The World 25 For Haiti - Official Video  
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/Glny4jSciVI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Parcels ~ Overnight (Official Audio)  
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/BTdBc2Ba8ts" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Jovan - That Kind Of Love  
 
