@@ -7,7 +7,7 @@
 
 按如下步骤搭建开发环境：  
 
-<img src="/images/electron/img.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img.png" alt="" width="700" />  
 
 ### 创建项目  
 
@@ -171,7 +171,7 @@ export default defineConfig({
 
 执行命令 npm run dev:  
 
-<img src="/images/electron/img_1.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_1.png" alt="" width="700" />  
 
 ### 渲染进程集成内置模块  
 
@@ -290,13 +290,13 @@ onMounted(() => {
 
 开发者调试工具将会输出如下内容：  
 
-<img src="/images/electron/img_2.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_2.png" alt="" width="700" />  
 
 ## 构建生产环境   
 
 制作一个 Vite 插件。通过这个新的插件生成安装包，有了安装包就可以把应用分发给用户了。   
 
-<img src="/images/electron/img_3.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_3.png" alt="" width="700" />  
 
 ### 编译结束钩子函数  
 
@@ -324,7 +324,7 @@ export default defineConfig({
 
 vite 编译完成之后，也就是执行 npm run build 指令，将在项目dist目录内会生成一系列的文件（如下图所示），此时 closeBundle 钩子被调用，在这个钩子中把上述生成的文件打包成一个应用程序安装包。  
 
-<img src="/images/electron/img_4.png" alt="" width="300" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_4.png" alt="" width="300" />  
 
 ```typescript
 import path from 'path';
@@ -514,7 +514,7 @@ if (process.argv[2]) {
 
 在继续引入新的模块或组件之前，先调整一下工程的结构：  
 
-<img src="/images/electron/img_5.png" alt="" width="300" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_5.png" alt="" width="300" />  
 
 * dist 目录是打包过程的临时产物放置目录。
 * plugins 目录放置开发环境 vite 插件和打包 vite 插件。
@@ -768,7 +768,7 @@ createApp(App).use(router).mount('#app');
 
 运行项目：   
 
-<img src="/images/electron/img_6.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_6.png" alt="" width="700" />  
 
 ## 管控应用窗口  
 
@@ -778,7 +778,7 @@ createApp(App).use(router).mount('#app');
 
 在第一个窗口初始化的瞬间，会有一个黑窗口闪现一下，如下图所示：  
 
-<img src="/images/electron/img_7.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_7.png" alt="" width="700" />  
 
 按照 Electron 官网的建议，窗口一开始应该是隐藏的，在 ready-to-show 事件触发后再显示窗口，如下代码所示：
 
@@ -1539,7 +1539,7 @@ store.$subscribe((mutations, state) => {
 
 以这种方式更新 store 里的数据，不利于复用数据更新的逻辑，改用可以复用数据更新逻辑的方案。  
 
-<img src="/images/electron/img_8.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_8.png" alt="" width="700" />  
 
 ### 互访 Store   
 
@@ -1784,7 +1784,7 @@ export const useChatStore = defineStore('chat', () => {
 
 在 selectItem 方法内使用 messageStore 提供的方法。   
 
-<img src="/images/electron/img_9.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_9.png" alt="" width="700" />  
 
 ## 客户端数据库  
 
@@ -1836,7 +1836,7 @@ npm run rebuild
 
 当你的工程下出现了这个文件 node_modules/better-sqlite3/build/Release/better_sqlite3.node，才证明 better_sqlite3 模块编译成功了，如果上述指令没有帮你完成这项工作，你可以把指令配置到 node_modules/better-sqlite3 模块内部再执行一次，一般就可以编译成功了（如下图所示）。  
 
-<img src="/images/electron/img_10.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_10.png" alt="" width="700" />  
 
 这样就为 Electron 重新编译了一遍 better-sqlite3，现在就可以在 Electron 应用内使用 better-sqlite3 提供的 API 了。  
 
@@ -1857,7 +1857,7 @@ better-sqlite3 是一个原生模块，原生模块是无法被 vite 编译到 J
 
 但electron-builder 会把很多无用的文件（很多编译原生模块时的中间产物）也附加到安装包内。无形中增加了安装包的体积（大概 10M），如下图所示：  
 
-<img src="/images/electron/img_11.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_11.png" alt="" width="700" />  
 
 在 plugins/buildPlugin.ts 中增加一个方法：   
 
@@ -1965,7 +1965,7 @@ prepareKnex() {
 
 新建数据库 db，数据库中有两张表 Message 和 Chat，截图是 Chat 表的列：  
 
-<img src="/images/electron/img_12.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_12.png" alt="" width="700" />  
 
 数据库设计好之后，创建一个数据库访问类，由于主进程的逻辑和渲染进程的逻辑都有可能会访问数据库，所以把数据库访问类放置在 src/common 目录下，方便两个进程的逻辑代码使用这个类，代码如下：  
 
@@ -2493,7 +2493,7 @@ node-gyp build
 
 如果在命令行环境中看到彩色的 gyp info ok 这行信息，说明原生模块已经编译成功了，它被放置在 build/Release/addon.node 路径下。   
 
-<img src="/images/electron/img_13.png" alt="" width="500" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_13.png" alt="" width="700" />   
 
 接下来写一段 JavaScript 代码，测试一下这个原生模块。  
 
@@ -2674,7 +2674,7 @@ mainLogic.start();
 
 按照这个逻辑，就可以每次升级只升级 asar 文件，而不必升级整个应用了。   
 
-<img src="/images/electron/img_14.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_14.png" alt="" width="700" />  
 
 红色模块的逻辑是用户完成的，蓝色模块的逻辑都是在 mainEntry.js 中实现的，绿色模块的逻辑是在 mainLogic.js 文件中实现的。   
 
@@ -2819,11 +2819,11 @@ devtoolsFrontendUrl.replace(/^\/devtools/, "devtools://devtools/bundled");
 
 把转换后的地址放入谷歌浏览器中，将得到如下图所示结果，可以试着在对应的源文件中下一个断点试试看。   
 
-<img src="/images/electron/img_16.png" alt="" width="500" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_16.png" alt="" width="700" />   
 
 如果目标应用的源码是压缩过的，可以尝试点击调试器右下角的 {} 按钮美化代码，查看美化后的代码，这样就可以更方便地下断点调试了。    
 
-<img src="/images/electron/img_17.png" alt="" width="500" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_17.png" alt="" width="700" />   
 
 通过这种方法只能调试市面上一部分基于 Electron 开发的应用，并不是所有的基于 Electron 开发的应用都能使用这种方法调试。  
 
@@ -3102,5 +3102,5 @@ new Promise((resolve, reject) => {
 
 🤪 今天不学习，明天变垃圾。
 
-<img src="/images/electron/img_15.png" alt="" width="500" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/electron/img_15.png" alt="" width="700" />   
 

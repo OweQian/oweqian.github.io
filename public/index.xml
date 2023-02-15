@@ -62,13 +62,5 @@
     <guid>http://oweqian.xyz/blog/</guid>
     <description><![CDATA[2023 由房屋租赁纠纷引发的思考 简述一下事情的起因，因为工作变动，没有太多时间找房子，在贝壳找房上紧急租到了套一公寓，和中介公司签订了半年的租房合]]></description>
 </item>
-<item>
-    <title>C&#43;&#43; 前端开发菜鸡必知必会</title>
-    <link>http://oweqian.xyz/c-/</link>
-    <pubDate>Sun, 22 Jan 2023 17:50:47 &#43;0800</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/c-/</guid>
-    <description><![CDATA[项目地址： learningC- VSCode C++ 环境配置 VSCode 下载 官网下载 Visual Studio Code 扩展包安装 C/C++ CodeLLDB 环境配置 新建 main.cpp 文件，输入以下代码： 1 2 3 4 5 6 #include &lt;iostream&gt; int main() { std::cout &lt;&lt; &#34;hello world&#34; &lt;&lt; std::endl; char c = std::getchar(); return 0; }]]></description>
-</item>
 </channel>
 </rss>

@@ -11,10 +11,10 @@ categories: ["谈人生"]
 
 简述一下事情的起因，因为工作变动，没有太多时间找房子，在贝壳找房上紧急租到了套一公寓，和中介公司签订了半年的租房合同，签订合同前，凭借着自己那点可怜的人生经验觉得合同好像没什么问题，就痛快地签了。   
 
-<img src="/images/blog/img.png" alt="" width="500" />  
-<img src="/images/blog/img_2.png" alt="" width="500" />  
-<img src="/images/blog/img_1.png" alt="" width="500" />  
-<img src="/images/blog/img_3.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_2.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_1.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_3.png" alt="" width="500" />  
 
 (注：合同的甲方写的是房东的名字，涉及个人隐私部分打码)。  
 
@@ -26,11 +26,11 @@ categories: ["谈人生"]
 
 和房东沟通：  
 
-<img src="/images/blog/img_8.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_8.png" alt="" width="500" />  
 
 和中介沟通：  
 
-<img src="/images/blog/img_5.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_5.png" alt="" width="500" />  
 
 房东让找中介，中介选择沉默，最后这件事情不了了之，没办法，自己装个宽带吧。。。害。  
 
@@ -38,17 +38,17 @@ categories: ["谈人生"]
 
 和房东沟通：
 
-<img src="/images/blog/img_4.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_4.png" alt="" width="500" />  
 
 和中介沟通：
 
-<img src="/images/blog/img_6.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_6.png" alt="" width="500" />  
 
 中间还给房东打了电话，房东说自己是70岁+的退休国家干部，已经实现了财务自由，言语中透露出浓浓地官僚资本主义，所以不在乎房子租不租的出去，只是怕麻烦，喊我如果想继续住下去，就每个月只按时给她房租，其余的事情全部自己来解决。   
 
 最后这件事情，肯定是自己掏钱把锁修好了。自己可能还是太年轻吧，言语中充满了愤愤不平和对当今这个社会的失望。冷静下来之后，研究了下租房合同、他们的交接协议、以及这段时间和他们的沟通记录：   
 
-<img src="/images/blog/img_9.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_9.png" alt="" width="500" />  
 
 首先：甲乙（甲：房东，乙：中介公司）双方于1月15日进行房子交割协议，中介公司将押金和15日之后的房租交给了房东，是不是就说明这个房子和中介公司没有关系了，以后房子的事情都由房东自己来处理（作为房东出租房屋应该有责任要处理房子硬件设施老化维护的问题）。   
 
@@ -56,7 +56,7 @@ categories: ["谈人生"]
 
 附上一篇从网上找到的相关报道，虽然我目前的状况还没有这个人的这么严重...   
 
-<img src="/images/blog/img_10.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_10.png" alt="" width="500" />  
 
 我的朋友，你怎么看待这件事情呢？期待收获您的宝贵经验。  
 

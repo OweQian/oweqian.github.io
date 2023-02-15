@@ -71,11 +71,11 @@ npm run dev
 
 注：如果出现以下错误，请将你的 node 版本升级到 18+。
 
-<img src="/images/ssr/img.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img.png" alt="" width="700" />  
 
 打开 http://localhost:3000 就可以看到一个默认服务器端渲染页面:  
 
-<img src="/images/ssr/img_1.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_1.png" alt="" width="700" />  
 
 ### 代码 Lint  
 
@@ -116,7 +116,7 @@ export const Demo: FC<IProps> = ({}) => {
 }
 ```
 
-<img src="/images/ssr/img_2.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_2.png" alt="" width="700" />  
 
 ### 服务端调试能力  
 
@@ -149,7 +149,7 @@ npm run debugger
 
 重新打开 http://localhost:3000，可以看到一个绿色的 nodejs 的小图标，点开会打开一个新的 network，这个就是服务器端 server 的 network，服务器端执行的相关代码断点可以在上面进行调试。  
 
-<img src="/images/ssr/img_3.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_3.png" alt="" width="700" />  
 
 ## 实现页面链路  
 
@@ -819,7 +819,7 @@ styles/Home.module.scss
 
 访问 http://localhost:3000/:   
 
-<img src="/images/ssr/img_4.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_4.png" alt="" width="700" />  
 
 ### header 修改  
 
@@ -915,7 +915,7 @@ MyApp.getInitialProps = async (context: AppContext) => {
 export default MyApp;
 ```
 
-<img src="/images/ssr/img_5.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_5.png" alt="" width="700" />  
 
 ## 搭建 server 项目  
 
@@ -933,7 +933,7 @@ npx create-strapi-app server --quickstart
 
 它会在当前目录生成名为 server 的项目，并且会自动运行并打开一个登录页，按照指示配置一下账号密码，然后登录。  
 
-<img src="/images/ssr/img_6.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_6.png" alt="" width="700" />  
 
 
 ### 数据可视化配置 
@@ -942,7 +942,7 @@ npx create-strapi-app server --quickstart
 
 完成登录后，进入到 Strapi 的管理页面。  
 
-<img src="/images/ssr/img_7.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_7.png" alt="" width="700" />  
 
 * content manager 是 Api 的数据  
 * content-type builder 是 Api 的结构体  
@@ -1005,27 +1005,27 @@ footerData: {
 
 切到 content-type builder，点击 create new collection type，创建一个新的结构体：  
 
-<img src="/images/ssr/img_8.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_8.png" alt="" width="700" />  
 
 填完 display name 后，对应的单数和复数 id 会自动生成，就是右边的两项，name 填需要的结构体就可以。   
 
-<img src="/images/ssr/img_9.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_9.png" alt="" width="700" />  
 
 然后为结构体创建一些字段，常见的类型包括文本、boolean 值、富文本，这些这里都有，以 title 举例，因为是一个字符串，所以点 text。  
 
-<img src="/images/ssr/img_10.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_10.png" alt="" width="700" />  
 
-<img src="/images/ssr/img_11.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_11.png" alt="" width="700" />  
 
 直接用短文本就好，然后高级配置选必填和唯一。  
 
 对应的字段就加好了，对于别的部分，用相同的方式加进来就可以。  
 
-<img src="/images/ssr/img_13.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_13.png" alt="" width="700" />  
 
 稍微特殊一些的字段是 linkList，可以看到它其实是一个对象数组，先把 footData 的关系按照思维导图梳理一下。
 
-<img src="/images/ssr/img_30.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_30.png" alt="" width="700" />  
 
 按照数据结构发现，footerData 和 linkList 是一对多的关系，而 linklist 中又包含多个 link，也是一对多的关系。  
 
@@ -1033,23 +1033,23 @@ footerData: {
 
 确定了思路，按照上面的方法来创建 linklist 和 link 的结构体。  
 
-<img src="/images/ssr/img_12.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_12.png" alt="" width="700" />  
 
 linklist 和 link 的关系应该怎么建立呢？在 linklist 结构体中，点新建字段。  
 
-<img src="/images/ssr/img_14.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_14.png" alt="" width="700" />  
 
 点击 relation 属性，这个属性用来联立结构体之间的数据库关系。  
 
-<img src="/images/ssr/img_15.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_15.png" alt="" width="700" />  
 
 点完成，可以发现加上了。  
 
-<img src="/images/ssr/img_16.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_16.png" alt="" width="700" />  
 
 接下来，按照上面的原理配置完所有的结构体即可。  
 
-<img src="/images/ssr/img_17.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_17.png" alt="" width="700" />  
 
 #### 结构体数据写入
 
@@ -1059,45 +1059,45 @@ linklist 和 link 的关系应该怎么建立呢？在 linklist 结构体中，�
 
 切到 link 的部分，点击 create new entry，可以进到下面的页面，输入完内容以后，进行保存，这里保存有两个按钮，一个是 save，一个是 publish，如果点击 publish 会生效到实际 cdn，这里先点击 publish，实际场景下运营配置的时候可以点 save，在 review 没问题后再发布即可。  
 
-<img src="/images/ssr/img_18.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_18.png" alt="" width="700" />  
 
 配置完大致是这样的：   
 
-<img src="/images/ssr/img_19.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_19.png" alt="" width="700" />  
 
 然后配置 linklist 的部分，同样是点 create new entry。  
 
-<img src="/images/ssr/img_20.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_20.png" alt="" width="700" />  
 
 除了基本的字段，右侧还会有对应关联的字段，勾选需要的就可以关联上了。  
 
-<img src="/images/ssr/img_21.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_21.png" alt="" width="700" />  
 
 最后配置 layout 的部分。  
 
-<img src="/images/ssr/img_22.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_22.png" alt="" width="700" />  
 
 #### 权限配置及上线  
 
 点击 settings -> Roles，这里是权限配置的部分，包含作者权限和公共权限，因为需要所有的人可以看到接口，所以点 public 右侧的 🖊（如果有特别需求的同学，可以点击 add new role 新增权限角色，再进行后续的步骤。  
 
-<img src="/images/ssr/img_23.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_23.png" alt="" width="700" />  
 
 可以看到之前定义的结构体，左侧对应结构体支持的类型，右侧对应结构体接口的指向 Api 路由。因为要给对应的接口配置全查和单查的能力，所以勾选上 find 和 findOne。  
 
-<img src="/images/ssr/img_24.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_24.png" alt="" width="700" />  
 
 layout 依赖于 link 和 link-list，所以 link 和 link-list 的结构体也需勾选上 find 和 findOne。  
 
 访问 http://localhost:1337/api/layouts：  
 
-<img src="/images/ssr/img_25.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_25.png" alt="" width="700" />  
 
 你会发现好像只有基础字段，联表的 linklist 和 link 去哪里了？  
 
 这是因为 Strapi 默认是不会填充联表关系的，可以在路由后加 populate=*，这个入参的意义是为所有的关系填充一级关系。  
 
-<img src="/images/ssr/img_26.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_26.png" alt="" width="700" />  
 
 推荐使用 strapi-plugin-populate-deep，这是基于 Strapi 的一个深度插件，切到项目目录下的终端安装一下。  
 
@@ -1107,7 +1107,7 @@ npm install strapi-plugin-populate-deep --save
 
 重启，访问 http://localhost:1337/api/layouts?populate=deep。  
 
-<img src="/images/ssr/img_26.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_26.png" alt="" width="700" />  
 
 deep 参数的含义为使用默认的最大深度填充请求，即 5 层，如果 5 层不满足需求，需要更多，入参的调整也很方便，比如针对 10 层的场景，只需要传递入参 populate=deep,10就可以。   
 
@@ -1115,7 +1115,7 @@ deep 参数的含义为使用默认的最大深度填充请求，即 5 层，如
 
 通过访问 http://localhost:1337/api/layouts?populate=deep 可以拿到需要的数据。  
 
-<img src="/images/ssr/img_27.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_27.png" alt="" width="700" />  
 
 不过这样的数据是有一些乱的，有几个可以优化的点：  
 
@@ -1151,7 +1151,7 @@ module.exports = createCoreController("api::layout.layout", ({ strapi }) => ({
 
 访问 http://localhost:1337/api/layouts，可以看到不需要加 populate 参数就可以拿到联表的数据了。  
 
-<img src="/images/ssr/img_28.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_28.png" alt="" width="700" />  
 
 然后针对上面提到的 attributes、id 和时间相关的字段定义两个深度遍历的函数来对应去除。  
 
@@ -1233,7 +1233,7 @@ module.exports = createCoreController('api::layout.layout', ({ strapi }) => ({
 
 再访问 http://localhost:1337/api/layouts，可以只包含了需要的数据。  
 
-<img src="/images/ssr/img_29.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_29.png" alt="" width="700" />  
 
 #### 增加跨域限制
 
@@ -1421,17 +1421,17 @@ export default MyApp;
 
 访问 http://localhost:3000。   
 
-<img src="/images/ssr/img_31.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_31.png" alt="" width="700" />  
 
 ## 主题化实现方案   
 
 以 [抖音前端技术官网](https://douyinfe.com/) 为例，它的官网有包含默认的样式：
 
-<img src="/images/ssr/img_32.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_32.png" alt="" width="700" />  
 
 也有暗黑色调的展示：  
 
-<img src="/images/ssr/img_33.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_33.png" alt="" width="700" />  
 
 ### 基础色调变量抽离  
 
@@ -1811,9 +1811,9 @@ components/navbar/index.module.scss
 
 启动项目，可以看到已经可以实现主题化的功能了。  
 
-<img src="/images/ssr/img_34.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_34.png" alt="" width="700" />  
 
-<img src="/images/ssr/img_35.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_35.png" alt="" width="700" />  
 
 ### 多进程场景下主题同步
 
@@ -1873,7 +1873,6 @@ const ThemeContextProvider: FC<IThemeContextProviderProps> = ({children}) => {
 }
 
 export default ThemeContextProvider;
-
 ```
 
 现在尝试打开两个页面，修改其中一个，发现另一个也会同步更新为一样的主题了。   
@@ -1882,7 +1881,7 @@ export default ThemeContextProvider;
 
 还有一个小问题，因为在服务器端是获取不到当前的主题的，通过 useEffect 钩子来获取主题进行样式的渲染，这样其实会有一个主题切换的过程，在低网速或是快速切换场景下会有比较明显的闪烁，可以在钩子处设置断点查看（当前缓存是黑色主题）。   
 
-<img src="/images/ssr/img_36.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_36.png" alt="" width="700" />  
 
 可以看到走到钩子的时候，是还没办法进行对应主题样式渲染的，应该怎么解决这个问题呢？  
 
@@ -1919,7 +1918,7 @@ id 是用于 Nextjs 检索，beforeInteractive 表明这个脚本的执行策略
 
 现在再来试试效果，发现走到钩子的时候已经可以正常去初始化了。   
 
-<img src="/images/ssr/img_37.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_37.png" alt="" width="700" />  
 
 ## 帧动画实现方案  
 
@@ -1927,19 +1926,19 @@ id 是用于 Nextjs 检索，beforeInteractive 表明这个脚本的执行策略
 
 首先打开控制台的 network，使用 performance 来录制首页加载的过程，为了能更清晰查看，适当降低 CPU 的性能，调整为 4 x slowdown。   
 
-<img src="/images/ssr/img_38.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_38.png" alt="" width="700" />  
 
 点击控制台左上角的 ⚪，然后刷新页面，可以得到下面的逐帧列表：  
 
-<img src="/images/ssr/img_39.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_39.png" alt="" width="700" />  
 
 从下面的加载图中可以判断出，这个动画总的执行时长为 1.36 s，然后上面的列表中有具体页面加载过程的帧动画变化图，通过按帧查看，可以大概看出这个动画的执行顺序是这样的。  
 
-<img src="/images/ssr/img_40.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_40.png" alt="" width="700" />  
 
 按照从小序列到大序列的顺序，每个元素分别执行了从下往上的平移操作，以及一个透明度从 0 到 1 的过程，加上上面看到每个动画的时长分析都是 1.3s，所以只是对每个元素推迟了不同的动画平移时间，但是它们享有相同的动画时长，针对这个场景应该怎么去实现呢？   
 
-<img src="/images/ssr/img_41.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_41.png" alt="" width="700" />  
 
 针对现在的首页，把 dom 元素简单拆分为 8 个区域，总动画时长定成 1s，其中 1s 的时间可以分为 9 个时间帧，每个区域从对应序列的时间帧开始执行相同的动画效果，最后把所有的帧连起来就是一个完整的帧动画。   
 
@@ -2225,7 +2224,7 @@ export default Home;
 
 然后查看一下效果。   
 
-<iframe width="600" height="315" src="/images/ssr/b.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="700" height="315" src="/images/ssr/b.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ###  主动触发动画重新播放  
 
@@ -2335,7 +2334,7 @@ export default Home;
 
 在每次 theme 发生变化的时候，主动移除对应的动画类，再通过 requestAnimationFrame 对动画类进重新绑定，达到主动触发动画刷新的效果，现在来看一下最终成品。   
 
-<iframe width="600" height="315" src="/images/ssr/a.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
+<iframe width="700" height="315" src="/images/ssr/a.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
 
 ## 多媒体适配方案  
 
@@ -2347,9 +2346,9 @@ export default Home;
 
 所以需要对之前的样式进行一下替换，将 px 单位替换为 rem，这个过程可以通过 webstorm 的 [px2rwd-intellij-plugin](https://github.com/sunqian1991/px2rwd-intellij-plugin) 插件来协助完成，可以参照下图安装，默认的的根字体为 16px，根据相关说明扩展配置调整即可。   
 
-<img src="/images/ssr/img_42.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_42.png" alt="" width="700" />  
 
-<img src="/images/ssr/img_43.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_43.png" alt="" width="700" />  
 
 安装完成后，移步到样式问题，输入 16 px，可以看到会有对应 rem 提示，将所有的 px 单位替换即可。  
 
@@ -2557,7 +2556,7 @@ components/footer/index.module.scss
 
 实现效果：   
 
-<iframe width="600" height="315" src="/images/ssr/c.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="700" height="315" src="/images/ssr/c.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### Context 注入设备信息
 
@@ -2700,9 +2699,9 @@ export default NavBar;
 
 实现效果：  
 
-<img src="/images/ssr/img_44.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_44.png" alt="" width="700" />  
 
-<img src="/images/ssr/img_45.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_45.png" alt="" width="700" />  
 
 ### 服务端判定设备信息  
 
@@ -2710,9 +2709,27 @@ export default NavBar;
 
 虽然服务器端拿不到当前访问的客户端页宽等数据，但是客户端在服务器端请求的时候，请求头中有一个 user-agent 请求头，可以用来判断当前的设备是 pc 端还是移动端，通过这个来判断，就可以在 HTML 文本返回前，就拿到实际的设备 DOM。  
 
-<img src="/images/ssr/img_46.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_46.png" alt="" width="700" />  
 
+先来定义一下判断设备的通用方法。  
 
+utils/index.ts 
+
+```ts
+export const getIsMobile = (context: AppContext) => {
+  const { headers = {} } = context.ctx.req || {};
+  return /mobile|android|iphone|ipad|phone/i.test(
+    (headers['user-agent'] || '').toLowerCase()
+  );
+}
+```
+
+然后在入口文件的注入函数里，额外注入一个设备信息，如果是移动端，就给标题加一个“（移动端）”， 如果是 pc 端，就加一个 “（pc 端）”。
+
+pages/_app.tsx  
+
+```tsx
+```
 ## 业务功能实现     
 
 ## 国际化功能方案  

@@ -9,7 +9,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/ssr/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-02-15T09:40:47+08:00" />
-<meta property="article:modified_time" content="2023-02-10T18:35:37+08:00" /><meta property="og:site_name" content="OweQian" />
+<meta property="article:modified_time" content="2023-02-15T12:05:03+08:00" /><meta property="og:site_name" content="OweQian" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://oweqian.xyz/logo.png"/>
@@ -35,8 +35,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "第一技能","wordcount":  15660 ,
-        "url": "http:\/\/oweqian.xyz\/ssr\/","datePublished": "2023-02-15T09:40:47+08:00","dateModified": "2023-02-10T18:35:37+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "第一技能","wordcount":  15774 ,
+        "url": "http:\/\/oweqian.xyz\/ssr\/","datePublished": "2023-02-15T09:40:47+08:00","dateModified": "2023-02-15T12:05:03+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -114,7 +114,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">基于 Nextjs + Strapi 的官网开发实战</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-15">2023-02-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 15660 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-15">2023-02-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 15774 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 32 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -314,9 +314,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>注：如果出现以下错误，请将你的 node 版本升级到 18+。</p>
-<img src="/images/ssr/img.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img.png" alt="" width="700" />  
 <p>打开 http://localhost:3000 就可以看到一个默认服务器端渲染页面:</p>
-<img src="/images/ssr/img_1.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_1.png" alt="" width="700" />  
 <h3 id="代码-lint">代码 Lint</h3>
 <p>Nextjs 内置了开箱的 eslint 能力，不需要自己进行相关配置，可以执行下面的脚本来自动生成对应的 lint。</p>
 <div class="highlight"><div class="chroma">
@@ -371,7 +371,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/images/ssr/img_2.png" alt="" width="500" />  
+</div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_2.png" alt="" width="700" />  
 <h3 id="服务端调试能力">服务端调试能力</h3>
 <p>服务器渲染一个静态页面，请求会在服务端执行，将数据注入到页面中，意味着这部分逻辑并不在客户端执行，所以在服务端执行时，是不能直接用 Chrome 的 network 来调试，它只能调试直接在客户端执行的脚本。</p>
 <p>Nextjs 也有内置相关的调试能力来帮助进行调试，只需要为 dev 命令加一个 &ndash;inspect 的 node option 就行。</p>
@@ -413,7 +413,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>重新打开 http://localhost:3000，可以看到一个绿色的 nodejs 的小图标，点开会打开一个新的 network，这个就是服务器端 server 的 network，服务器端执行的相关代码断点可以在上面进行调试。</p>
-<img src="/images/ssr/img_3.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_3.png" alt="" width="700" />  
 <h2 id="实现页面链路">实现页面链路</h2>
 <p>主体上分为模板页面渲染、路由匹配和 header 修改三个模块，模板页面渲染是页面渲染的主要部分，包含了静态模板的生成和页面数据的注入，最后形成服务端返回的 HTML 文本。</p>
 <h3 id="模板页面渲染">模板页面渲染</h3>
@@ -1654,7 +1654,7 @@
 </div>
 </div><p>使用 window.open 打开新页面来指向上文创建的文章页，noopener=yes,noreferrer=yes 是为了跳转的安全性，这个可以隐藏跳转的 window.opener 与 Document.referrer，在跨站点跳转中，通常加这个参数来保证跳转信息的不泄露。</p>
 <p>访问 http://localhost:3000/:</p>
-<img src="/images/ssr/img_4.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_4.png" alt="" width="700" />  
 <h3 id="header-修改">header 修改</h3>
 <p>Nextjs 提供了用 next/head 暴露出来的标签来修改 header，在 _app.tsx 加一个默认的 title。</p>
 <div class="highlight"><div class="chroma">
@@ -1837,7 +1837,7 @@
 </span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">MyApp</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/images/ssr/img_5.png" alt="" width="500" />  
+</div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_5.png" alt="" width="700" />  
 <h2 id="搭建-server-项目">搭建 server 项目</h2>
 <p>这里推荐使用 Strapi，这是一个开源无头的 CMS 配置 Api。基于 Strapi ，可以快速针对业务场景搭建一套对应的 CMS，包括增删改查和联表等较复杂场景，都可以通过可视化的配置实现。</p>
 <p>对于自定义较高的场景，它也暴露了相关的参数进行自定义，可以使用较少的开发量去实现特殊场景。</p>
@@ -1852,11 +1852,11 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>它会在当前目录生成名为 server 的项目，并且会自动运行并打开一个登录页，按照指示配置一下账号密码，然后登录。</p>
-<img src="/images/ssr/img_6.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_6.png" alt="" width="700" />  
 <h3 id="数据可视化配置">数据可视化配置</h3>
 <h4 id="结构体定义">结构体定义</h4>
 <p>完成登录后，进入到 Strapi 的管理页面。</p>
-<img src="/images/ssr/img_7.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_7.png" alt="" width="700" />  
 <ul>
 <li>content manager 是 Api 的数据</li>
 <li>content-type builder 是 Api 的结构体</li>
@@ -1968,53 +1968,53 @@
 </div>
 </div><p>针对这样一个结构体，应该如何去定义 Api 呢？</p>
 <p>切到 content-type builder，点击 create new collection type，创建一个新的结构体：</p>
-<img src="/images/ssr/img_8.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_8.png" alt="" width="700" />  
 <p>填完 display name 后，对应的单数和复数 id 会自动生成，就是右边的两项，name 填需要的结构体就可以。</p>
-<img src="/images/ssr/img_9.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_9.png" alt="" width="700" />  
 <p>然后为结构体创建一些字段，常见的类型包括文本、boolean 值、富文本，这些这里都有，以 title 举例，因为是一个字符串，所以点 text。</p>
-<img src="/images/ssr/img_10.png" alt="" width="500" />  
-<img src="/images/ssr/img_11.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_10.png" alt="" width="700" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_11.png" alt="" width="700" />  
 <p>直接用短文本就好，然后高级配置选必填和唯一。</p>
 <p>对应的字段就加好了，对于别的部分，用相同的方式加进来就可以。</p>
-<img src="/images/ssr/img_13.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_13.png" alt="" width="700" />  
 <p>稍微特殊一些的字段是 linkList，可以看到它其实是一个对象数组，先把 footData 的关系按照思维导图梳理一下。</p>
-<img src="/images/ssr/img_30.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_30.png" alt="" width="700" />  
 <p>按照数据结构发现，footerData 和 linkList 是一对多的关系，而 linklist 中又包含多个 link，也是一对多的关系。</p>
 <p>所以要描述这部分字段，只有 layout 一个结构体是不够的，需要创建 linkList 和 link，然后给它们之间来建立对应的关系。</p>
 <p>确定了思路，按照上面的方法来创建 linklist 和 link 的结构体。</p>
-<img src="/images/ssr/img_12.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_12.png" alt="" width="700" />  
 <p>linklist 和 link 的关系应该怎么建立呢？在 linklist 结构体中，点新建字段。</p>
-<img src="/images/ssr/img_14.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_14.png" alt="" width="700" />  
 <p>点击 relation 属性，这个属性用来联立结构体之间的数据库关系。</p>
-<img src="/images/ssr/img_15.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_15.png" alt="" width="700" />  
 <p>点完成，可以发现加上了。</p>
-<img src="/images/ssr/img_16.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_16.png" alt="" width="700" />  
 <p>接下来，按照上面的原理配置完所有的结构体即可。</p>
-<img src="/images/ssr/img_17.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_17.png" alt="" width="700" />  
 <h4 id="结构体数据写入">结构体数据写入</h4>
 <p>定义完结构体后，需要为结构体加入一些数据，通常在开发完后，运营相关的同学配置，就只要进行这一步就可以了，别的部分就不需要再调整了，点击 content manager。</p>
 <p>数据的配置需要按照从子到父的原则，因为 layout 有相关的字段依赖于 linklist，linklist 又依赖于 link，所以只有 link 配置完以后，才可以进行 linklist 和 layout 的配置，这里以 link 和 linklist 举例。</p>
 <p>切到 link 的部分，点击 create new entry，可以进到下面的页面，输入完内容以后，进行保存，这里保存有两个按钮，一个是 save，一个是 publish，如果点击 publish 会生效到实际 cdn，这里先点击 publish，实际场景下运营配置的时候可以点 save，在 review 没问题后再发布即可。</p>
-<img src="/images/ssr/img_18.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_18.png" alt="" width="700" />  
 <p>配置完大致是这样的：</p>
-<img src="/images/ssr/img_19.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_19.png" alt="" width="700" />  
 <p>然后配置 linklist 的部分，同样是点 create new entry。</p>
-<img src="/images/ssr/img_20.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_20.png" alt="" width="700" />  
 <p>除了基本的字段，右侧还会有对应关联的字段，勾选需要的就可以关联上了。</p>
-<img src="/images/ssr/img_21.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_21.png" alt="" width="700" />  
 <p>最后配置 layout 的部分。</p>
-<img src="/images/ssr/img_22.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_22.png" alt="" width="700" />  
 <h4 id="权限配置及上线">权限配置及上线</h4>
 <p>点击 settings -&gt; Roles，这里是权限配置的部分，包含作者权限和公共权限，因为需要所有的人可以看到接口，所以点 public 右侧的 🖊（如果有特别需求的同学，可以点击 add new role 新增权限角色，再进行后续的步骤。</p>
-<img src="/images/ssr/img_23.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_23.png" alt="" width="700" />  
 <p>可以看到之前定义的结构体，左侧对应结构体支持的类型，右侧对应结构体接口的指向 Api 路由。因为要给对应的接口配置全查和单查的能力，所以勾选上 find 和 findOne。</p>
-<img src="/images/ssr/img_24.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_24.png" alt="" width="700" />  
 <p>layout 依赖于 link 和 link-list，所以 link 和 link-list 的结构体也需勾选上 find 和 findOne。</p>
 <p>访问 http://localhost:1337/api/layouts：</p>
-<img src="/images/ssr/img_25.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_25.png" alt="" width="700" />  
 <p>你会发现好像只有基础字段，联表的 linklist 和 link 去哪里了？</p>
 <p>这是因为 Strapi 默认是不会填充联表关系的，可以在路由后加 populate=*，这个入参的意义是为所有的关系填充一级关系。</p>
-<img src="/images/ssr/img_26.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_26.png" alt="" width="700" />  
 <p>推荐使用 strapi-plugin-populate-deep，这是基于 Strapi 的一个深度插件，切到项目目录下的终端安装一下。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2025,11 +2025,11 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>重启，访问 http://localhost:1337/api/layouts?populate=deep。</p>
-<img src="/images/ssr/img_26.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_26.png" alt="" width="700" />  
 <p>deep 参数的含义为使用默认的最大深度填充请求，即 5 层，如果 5 层不满足需求，需要更多，入参的调整也很方便，比如针对 10 层的场景，只需要传递入参 populate=deep,10就可以。</p>
 <h2 id="bff-数据流转">BFF 数据流转</h2>
 <p>通过访问 http://localhost:1337/api/layouts?populate=deep 可以拿到需要的数据。</p>
-<img src="/images/ssr/img_27.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_27.png" alt="" width="700" />  
 <p>不过这样的数据是有一些乱的，有几个可以优化的点：</p>
 <ul>
 <li>请求参数 populate=deep 是每次请求都需要带上的，因为需要所有深度的数据。</li>
@@ -2073,7 +2073,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>访问 http://localhost:1337/api/layouts，可以看到不需要加 populate 参数就可以拿到联表的数据了。</p>
-<img src="/images/ssr/img_28.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_28.png" alt="" width="700" />  
 <p>然后针对上面提到的 attributes、id 和时间相关的字段定义两个深度遍历的函数来对应去除。</p>
 <p>新建 src/utils/index.js</p>
 <div class="highlight"><div class="chroma">
@@ -2222,7 +2222,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>再访问 http://localhost:1337/api/layouts，可以只包含了需要的数据。</p>
-<img src="/images/ssr/img_29.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_29.png" alt="" width="700" />  
 <h4 id="增加跨域限制">增加跨域限制</h4>
 <p>Strapi 的接口默认不做跨域限制，这样所有的域名都可以调用，安全性是存在问题的。</p>
 <p>在 config/middlewares.js 中加上跨域的限制。</p>
@@ -2526,12 +2526,12 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>访问 http://localhost:3000。</p>
-<img src="/images/ssr/img_31.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_31.png" alt="" width="700" />  
 <h2 id="主题化实现方案">主题化实现方案</h2>
 <p>以 <a href="https://douyinfe.com/" target="_blank" rel="noopener noreffer ">抖音前端技术官网</a> 为例，它的官网有包含默认的样式：</p>
-<img src="/images/ssr/img_32.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_32.png" alt="" width="700" />  
 <p>也有暗黑色调的展示：</p>
-<img src="/images/ssr/img_33.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_33.png" alt="" width="700" />  
 <h3 id="基础色调变量抽离">基础色调变量抽离</h3>
 <p>主题化功能对 DOM 的结构变化不大，基本是针对色调进行切换。</p>
 <p>顺着这个思路，如果定义两套变量，是不是就完成了对两套主题的配置？根据不同的主题，在 html 标签上来固定两个属性来区分，方案就确定了。</p>
@@ -3204,8 +3204,8 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动项目，可以看到已经可以实现主题化的功能了。</p>
-<img src="/images/ssr/img_34.png" alt="" width="500" />  
-<img src="/images/ssr/img_35.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_34.png" alt="" width="700" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_35.png" alt="" width="700" />  
 <h3 id="多进程场景下主题同步">多进程场景下主题同步</h3>
 <p>浏览器是多进程的，每个开启的页面都对应到一个进程，这样可以有效地避免页面之间的数据共享及一个报错页面带崩所有页面的情况。</p>
 <p>如果用户开了多个页面来访问站点，其中一个页面的主题切换，另一个页面是感知不到的，这样一个浏览器下会有多个主题的页面，对用户体验上来说是不太好的。</p>
@@ -3314,7 +3314,7 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </div><p>现在尝试打开两个页面，修改其中一个，发现另一个也会同步更新为一样的主题了。</p>
 <h3 id="闪烁场景优化">闪烁场景优化</h3>
 <p>还有一个小问题，因为在服务器端是获取不到当前的主题的，通过 useEffect 钩子来获取主题进行样式的渲染，这样其实会有一个主题切换的过程，在低网速或是快速切换场景下会有比较明显的闪烁，可以在钩子处设置断点查看（当前缓存是黑色主题）。</p>
-<img src="/images/ssr/img_36.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_36.png" alt="" width="700" />  
 <p>可以看到走到钩子的时候，是还没办法进行对应主题样式渲染的，应该怎么解决这个问题呢？</p>
 <p>只需要在 HTML 中引入对应的 script，确保可以在交互之前进行主题的初始化就行了。</p>
 <p>Nextjs 有提供这个能力，修改 _document.tsx，然后引入对应的内部脚本。</p>
@@ -3370,17 +3370,17 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </div>
 </div><p>id 是用于 Nextjs 检索，beforeInteractive 表明这个脚本的执行策略是在交互之前，会被默认放到 head 中。</p>
 <p>现在再来试试效果，发现走到钩子的时候已经可以正常去初始化了。</p>
-<img src="/images/ssr/img_37.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_37.png" alt="" width="700" />  
 <h2 id="帧动画实现方案">帧动画实现方案</h2>
 <p>以 <a href="https://douyinfe.com/" target="_blank" rel="noopener noreffer ">抖音前端技术官网</a> 的首页加载动画为例，看看这个动画下究竟发生了什么？</p>
 <p>首先打开控制台的 network，使用 performance 来录制首页加载的过程，为了能更清晰查看，适当降低 CPU 的性能，调整为 4 x slowdown。</p>
-<img src="/images/ssr/img_38.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_38.png" alt="" width="700" />  
 <p>点击控制台左上角的 ⚪，然后刷新页面，可以得到下面的逐帧列表：</p>
-<img src="/images/ssr/img_39.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_39.png" alt="" width="700" />  
 <p>从下面的加载图中可以判断出，这个动画总的执行时长为 1.36 s，然后上面的列表中有具体页面加载过程的帧动画变化图，通过按帧查看，可以大概看出这个动画的执行顺序是这样的。</p>
-<img src="/images/ssr/img_40.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_40.png" alt="" width="700" />  
 <p>按照从小序列到大序列的顺序，每个元素分别执行了从下往上的平移操作，以及一个透明度从 0 到 1 的过程，加上上面看到每个动画的时长分析都是 1.3s，所以只是对每个元素推迟了不同的动画平移时间，但是它们享有相同的动画时长，针对这个场景应该怎么去实现呢？</p>
-<img src="/images/ssr/img_41.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_41.png" alt="" width="700" />  
 <p>针对现在的首页，把 dom 元素简单拆分为 8 个区域，总动画时长定成 1s，其中 1s 的时间可以分为 9 个时间帧，每个区域从对应序列的时间帧开始执行相同的动画效果，最后把所有的帧连起来就是一个完整的帧动画。</p>
 <p>定义对应的样式进行绑定，以 fadeInDown1 举例，@keyframes 指向动画的逐帧状态，其中 0% 和 11 % 都是一样的内容，这时候区域处于 y 轴 40px 的位置，然后末尾状态是无区域状态和 1 透明度，这个动画的效果会使得动画从整体时间的 11% 开始执行，到 100 % 完成最终的变化。</p>
 <p>这个 11% 是从哪里来的呢？上面提到为每个动画延迟一个帧频率执行，8 个区域，共 9 帧，所以 1 帧的占比为 11% 的总动画时长，每个动画的起始时间（第二个状态值）都比上一个高出 1 帧的比例，这样就可以将整体帧动画串联起来了。</p>
@@ -3931,7 +3931,7 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后查看一下效果。</p>
-<iframe width="600" height="315" src="/images/ssr/b.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="700" height="315" src="/images/ssr/b.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 <h3 id="主动触发动画重新播放">主动触发动画重新播放</h3>
 <p>在切换主题时，希望能再执行一次加载动画，可以通过 requestAnimationFrame 来实现，它会返回一个回调，强制浏览器在重绘前调用指定的函数来进行动画的更新。</p>
 <p>使用这个来改造一下首页，加一个 useEffect 的钩子。</p>
@@ -4136,14 +4136,14 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>在每次 theme 发生变化的时候，主动移除对应的动画类，再通过 requestAnimationFrame 对动画类进重新绑定，达到主动触发动画刷新的效果，现在来看一下最终成品。</p>
-<iframe width="600" height="315" src="/images/ssr/a.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
+<iframe width="700" height="315" src="/images/ssr/a.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
 <h2 id="多媒体适配方案">多媒体适配方案</h2>
 <p>之前的页面只绘制了 pc 端的样式，通常官网需要支持 pc、 ipad、 移动端等多种设备的访问，现在需要对多媒体设备的样式进行兼容适配。</p>
 <h3 id="px-转-rem">Px 转 Rem</h3>
 <p>在适配之前，先了解一下 rem 和 px，px 是相对屏幕分辨率的像素单位， rem 是相对 HTML 根元素字体大小而确定的相对单位，对于多媒体的适配，常用 rem 进行开发。</p>
 <p>所以需要对之前的样式进行一下替换，将 px 单位替换为 rem，这个过程可以通过 webstorm 的 <a href="https://github.com/sunqian1991/px2rwd-intellij-plugin" target="_blank" rel="noopener noreffer ">px2rwd-intellij-plugin</a> 插件来协助完成，可以参照下图安装，默认的的根字体为 16px，根据相关说明扩展配置调整即可。</p>
-<img src="/images/ssr/img_42.png" alt="" width="500" />  
-<img src="/images/ssr/img_43.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_42.png" alt="" width="700" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_43.png" alt="" width="700" />  
 <p>安装完成后，移步到样式问题，输入 16 px，可以看到会有对应 rem 提示，将所有的 px 单位替换即可。</p>
 <h3 id="css-多媒体设备适配">CSS 多媒体设备适配</h3>
 <p>通过编写不同的媒体设备样式来进行适配，这种常用于 dom 结构变化不大，可以复用 dom 的基础上，调整样式就能适配的场景。为加强复用，可以定义几个常用的设备场景。</p>
@@ -4532,7 +4532,7 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>实现效果：</p>
-<iframe width="600" height="315" src="/images/ssr/c.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="700" height="315" src="/images/ssr/c.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 <h3 id="context-注入设备信息">Context 注入设备信息</h3>
 <p>对于页面的样式适配，CSS media 已经可以覆盖绝大部分的场景，但小部分的场景仍然无法覆盖，比如在一些媒体设备下，不再采用原本的 dom 结构，换用别的交互形式，就没办法直接用样式覆盖了，而是需要通过在客户端判断当前的设备，选用不同的交互。</p>
 <p>应该怎么在客户端判断当前的设备呢？</p>
@@ -4780,20 +4780,48 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>实现效果：</p>
-<img src="/images/ssr/img_44.png" alt="" width="500" />  
-<img src="/images/ssr/img_45.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_44.png" alt="" width="700" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_45.png" alt="" width="700" />  
 <h3 id="服务端判定设备信息">服务端判定设备信息</h3>
 <p>客户端判定设备存在一个小问题是，因为 HTML 文本的生成是在服务器端生成的，客户端判断设备信息会存在一个初始态到实际设备数据短暂切换的问题，而且如果不同设备展示的内容不同，还有可能会影响到实际的 SEO ，那有没有办法可以在服务器端判断当前的访问设备呢？</p>
 <p>虽然服务器端拿不到当前访问的客户端页宽等数据，但是客户端在服务器端请求的时候，请求头中有一个 user-agent 请求头，可以用来判断当前的设备是 pc 端还是移动端，通过这个来判断，就可以在 HTML 文本返回前，就拿到实际的设备 DOM。</p>
-<img src="/images/ssr/img_46.png" alt="" width="500" />  
-<h2 id="业务功能实现">业务功能实现</h2>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_46.png" alt="" width="700" />  
+<p>先来定义一下判断设备的通用方法。</p>
+<p>utils/index.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">getIsMobile</span> <span class="o">=</span> <span class="p">(</span><span class="nx">context</span>: <span class="kt">AppContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">req</span> <span class="o">||</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="sr">/mobile|android|iphone|ipad|phone/i</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nx">headers</span><span class="p">[</span><span class="s1">&#39;user-agent&#39;</span><span class="p">]</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">toLowerCase</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后在入口文件的注入函数里，额外注入一个设备信息，如果是移动端，就给标题加一个“（移动端）”， 如果是 pc 端，就加一个 “（pc 端）”。</p>
+<p>pages/_app.tsx</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"></code></pre></td></tr></table>
+</div>
+</div><h2 id="业务功能实现">业务功能实现</h2>
 <h2 id="国际化功能方案">国际化功能方案</h2>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2023-02-10&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/e0ed69cd7dbc3e2cb65a161253af78aaf19325d4" target="_blank" title="commit by qian wang(1510106069@qq.com) e0ed69cd7dbc3e2cb65a161253af78aaf19325d4: update">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>e0ed69c</a></span>
+                <span>更新于 2023-02-15&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/7ef014cd13467b78f08f9511c4cfcf7178030a97" target="_blank" title="commit by qian wang(1510106069@qq.com) 7ef014cd13467b78f08f9511c4cfcf7178030a97: feat: 歌单 碎碎念">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>7ef014c</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>

@@ -11,7 +11,7 @@
 #### 02-02   
 Damn cool!!!  
 
-<img src="/images/202301/img_10.png" alt="" width="300" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_10.png" alt="" width="300" />  
 
 #### 02-03    
 node.js 还是挺有意思的。   
@@ -22,12 +22,12 @@ node.js 还是挺有意思的。
 #### 02-05   
 😜 轻断食前的最后一顿大餐。  
 
-<img src="/images/202301/img_11.jpeg" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_11.jpeg" alt="" width="400" />  
 
 #### 02-06   
 He deserved it.   
 
-<img src="/images/202301/img_11.png" alt="" width="300" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_11.png" alt="" width="300" />  
 
 #### 02-07   
 
@@ -44,7 +44,7 @@ He deserved it.
 
 #### 02-09    
 
-<img src="/images/202301/img_12.png" alt="" width="300" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_12.png" alt="" width="300" />  
 
 #### 02-10   
 
@@ -53,18 +53,18 @@ Nacos？ 🤔
 #### 02-11  
 大半年没做饭，心血来潮想整个小炒肉，咸哭了😭。。。。
 
-<img src="/images/202301/img_13.jpeg" alt="" width="300" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_13.jpeg" alt="" width="300" />  
 
 #### 02-12  
 
 "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he’s not appreciated or respected or even loved. He simply bears up and he does it. Because he’s a man."  🤯  
 
-<img src="/images/202301/img_13.png" alt="" width="300" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_13.png" alt="" width="300" />  
 
 #### 02-13   
 
 🤣  
-<img src="/images/202301/img_14.png" alt="" width="500" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_14.png" alt="" width="500" />  
 
 #### 02-14  
 
@@ -86,7 +86,7 @@ ps2:
 
 🥲 有没有富婆愿意收养这个逆子的   
 
-<iframe width="600" height="315" src="/images/202301/cat.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="600" height="315" src="/images/ssr/cat.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### 2023-01
 
@@ -96,7 +96,7 @@ ps2:
 #### 01-02  
 乔妹的演技还是可以，一口气追完了，期待第二季😄  
 
-<img src="/images/202301/img_1.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_1.png" alt="" width="400" />  
 
 #### 01-03  
 
@@ -108,19 +108,19 @@ ps2:
 #### 01-05  
 做前端死路一条，后端也是。  
 
-<img src="/images/202301/img_2.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_2.png" alt="" width="400" />  
 
 #### 01-06  
 或许曾经我们都想自己是齐天大圣，可长大后才发现，其实我们都只是一只努力生存的小猪妖。  
 
-<img src="/images/202301/img_3.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_3.png" alt="" width="400" />  
 
 #### 01-07  
 不好好看文档系列😭。。包子都吃完了，才看到要按照顺序吃，可惜肚子吃不下了，不然再来一笼。  
 
 好想知道如果这样吃，会不会让灵魂得到升华🤔。
 
-<img src="/images/202301/img_4.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_4.png" alt="" width="400" />  
 
 #### 01-08  
 在飞机上看了《一条狗的使命2》，哭得稀里哗啦的😭。  
@@ -142,17 +142,17 @@ ps2:
 
 公司产品总监为了拍老板🐴屁，东西还没做完就着急给老板👁，然后白屏了，🦷都笑掉了。  
 
-<img src="/images/202301/img_7.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_7.png" alt="" width="400" />  
 
 #### 01-11  
 闺蜜失恋了，被迫听了3个小时的她和她前男友的爱情故事🤕。  
 
-<img src="/images/202301/img_6.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_6.png" alt="" width="400" />  
 
 #### 01-12    
 原来妈妈也喜欢听你给她讲在外面遇到的新鲜事儿😊。  
 
-<img src="/images/202301/img.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img.png" alt="" width="400" />  
 
 #### 01-13   
 塔勒布说过："21世纪有三大毒品：海洛因、碳水化合物、每月发一次的工资。"   
@@ -169,7 +169,7 @@ ps2:
 #### 01-17      
 世界上怎么会有IU这么可爱的👧🏻。  
 
-<img src="/images/202301/img_5.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_5.png" alt="" width="400" />  
 
 #### 01-18   
 重温《德鲁纳酒店》，每个人看似理智又冷静，但其实内心也有着最脆弱的一面，没有了依靠时，只能用坚强来掩盖自己的脆弱。  
@@ -189,7 +189,7 @@ ps2:
 #### 01-20    
 🤔发现一个挺有意思的事情，因为要回老家过年，给🐱准备了两个猫砂盆，这家伙竟然自己主动分类了，一个专门用来💧，一个专门用来💩。  
 
-<img src="/images/202301/img_8.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_8.png" alt="" width="400" />  
 
 #### 01-21    
 新年快乐鸭🎆。     
@@ -247,7 +247,7 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 #### 12-05
 这支球队就像一个平凡努力的普通人的一生。他不是最强最出彩的，但你想赢他也不容易，因为他有强大的定力和拼劲，打不倒压不垮，还能绝处逢生。
 
-<img src="/images/202212/img_7.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_7.png" alt="" width="400" />  
 
 #### 12-06
 不到最后一刻，都不算真正结束。
@@ -262,7 +262,7 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 #### 12-09
 神🐱压中了🇭🇷
 
-<img src="/images/202212/img_3.png" alt="" width="400" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_3.png" alt="" width="400" />
 
 #### 12-10
 公司后端写的烂接口，一个都不能用，就混吧
@@ -274,9 +274,9 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 ``` 
 小红猪里裂开的都是💰啊。。
 
-<img src="/images/202212/img_4.png" alt="" width="230" />
-<img src="/images/202212/img_5.png" alt="" width="230" />
-<img src="/images/202212/img_6.png" alt="" width="230" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_4.png" alt="" width="230" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_5.png" alt="" width="230" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_6.png" alt="" width="230" />
 
 #### 12-12
 🥶🥶🥶
@@ -290,24 +290,24 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 #### 12-15
 发烧中。
 
-<img src="/images/202212/img_13.png" alt="" width="220" height="200"/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_13.png" alt="" width="220" height="200"/>
 
 #### 12-16
 发烧中。
 
-<img src="/images/202212/img_13.png" alt="" width="220" height="200"/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_13.png" alt="" width="220" height="200"/>
 
 #### 12-17
 发烧中。
 
-<img src="/images/202212/img_13.png" alt="" width="220" height="200"/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_13.png" alt="" width="220" height="200"/>
 
 #### 12-18
 和饼干一起晒☀️，地上铺上新毯子，🐱在地上趴着就不会🥶了。
 
-<img src="/images/202212/img_14.png" alt="" width="230" />
-<img src="/images/202212/img_15.png" alt="" width="230" />
-<img src="/images/202212/img_16.png" alt="" width="230" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_14.png" alt="" width="230" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_15.png" alt="" width="230" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_16.png" alt="" width="230" />
 
 #### 12-19
 🔥。
@@ -315,7 +315,7 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 <iframe width="600" height="315" src="https://www.youtube.com/embed/uNyOVLKWtlY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 #### 12-20
-<img src="/images/202212/img_17.png" alt="" width="300" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_17.png" alt="" width="300" />  
 
 #### 12-21
 分享最近很火的一段僵尸舞，来自《星期三》
@@ -328,7 +328,7 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 #### 12-23
 熬夜看完了《星期三》，喜欢这种暗黑👧🏻。
 
-<img src="/images/202212/img_18.png" alt="" width="300" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_18.png" alt="" width="300" />  
 
 #### 12-24
 🍎
@@ -339,20 +339,18 @@ Merry Christmas🎄
 #### 12-26
 这本书很有意思。
 
-<img src="/images/202212/img_19.png" alt="" width="300" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_19.png" alt="" width="300" />   
 
 #### 12-27
 IoTSharp官网新鲜出炉。
 
-<img src="/images/202212/img_20.png" alt="" width="600" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_20.png" alt="" width="600" />
 
 #### 12-28
 少年去游荡，中年想掘藏，老年做和尚。
 
 #### 12-29
 烤无双，很好吃呦😄
-
-<img src="/images/202212/img_21.png" alt="" width="300" />
 
 #### 12-30
 和家里人保持联系，他们是这个世界上最爱你的人。
