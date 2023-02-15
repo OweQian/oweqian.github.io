@@ -1,6 +1,6 @@
 ---
 title: "蠢 Q 碎碎念"
-date: 2023-02-14T13:20:47+08:00
+date: 2023-02-15T11:40:47+08:00
 tags: ["碎碎念"]
 categories: ["碎碎念"]
 ---
@@ -85,6 +85,12 @@ ps2:
 有那么一种人真的是挺无语的，就活该找不到工作，自己的事自己都不上心，简历写的稀烂，你不想找工作就不要去麻烦别人给你内推，给你推了，又开始嫌弃这嫌弃那，嫌弃公司，嫌弃工资高不高，嫌弃加不加班，对自己当下所在的公司又怨声怨气，真的是 🤡。你这么 🐂，自己去找吧，大家都挺忙的，多管一分钟都是浪费生命 🤨 (：😠 也骂给我自己听，谨记！。
 
 总结：今天真是 emo 的一天 🤦🏻‍♀️。  
+
+#### 02-15  
+
+🥲 有没有富婆愿意收养这个逆子的   
+
+<iframe width="600" height="315" src="/images/202301/cat.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### 2023-01
 

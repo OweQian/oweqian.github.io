@@ -8,7 +8,7 @@
 <meta property="og:description" content="项目地址： SSR 搭建 Client 项目 项目初始化 先对项目进行初始化，Nextjs 提供了脚手架来帮助初始化项目，执行下面的命令： 1 npx create-next-app@latest --typescript next.config.js 是构建配置，底层是基" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/ssr/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-02-10T17:05:47+08:00" />
+<meta property="article:published_time" content="2023-02-15T09:40:47+08:00" />
 <meta property="article:modified_time" content="2023-02-10T18:35:37+08:00" /><meta property="og:site_name" content="OweQian" />
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +19,7 @@
 <meta name="application-name" content="OweQian">
 <meta name="apple-mobile-web-app-title" content="OweQian"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/ssr/" /><link rel="prev" href="http://oweqian.xyz/electron/" /><link rel="next" href="http://oweqian.xyz/books/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/ssr/" /><link rel="prev" href="http://oweqian.xyz/draw/" /><link rel="next" href="http://oweqian.xyz/month/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -35,8 +35,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "第一技能","wordcount":  13531 ,
-        "url": "http:\/\/oweqian.xyz\/ssr\/","datePublished": "2023-02-10T17:05:47+08:00","dateModified": "2023-02-10T18:35:37+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "第一技能","wordcount":  15660 ,
+        "url": "http:\/\/oweqian.xyz\/ssr\/","datePublished": "2023-02-15T09:40:47+08:00","dateModified": "2023-02-10T18:35:37+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -114,8 +114,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">基于 Nextjs + Strapi 的官网开发实战</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-10">2023-02-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 13531 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 28 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-15">2023-02-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 15660 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 32 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -186,6 +186,16 @@
         <li><a href="#主动触发动画重新播放">主动触发动画重新播放</a></li>
       </ul>
     </li>
+    <li><a href="#多媒体适配方案">多媒体适配方案</a>
+      <ul>
+        <li><a href="#px-转-rem">Px 转 Rem</a></li>
+        <li><a href="#css-多媒体设备适配">CSS 多媒体设备适配</a></li>
+        <li><a href="#context-注入设备信息">Context 注入设备信息</a></li>
+        <li><a href="#服务端判定设备信息">服务端判定设备信息</a></li>
+      </ul>
+    </li>
+    <li><a href="#业务功能实现">业务功能实现</a></li>
+    <li><a href="#国际化功能方案">国际化功能方案</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>项目地址： <a href="https://github.com/OweQian/SSR.git" target="_blank" rel="noopener noreffer ">SSR</a></p>
@@ -4127,6 +4137,657 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </div>
 </div><p>在每次 theme 发生变化的时候，主动移除对应的动画类，再通过 requestAnimationFrame 对动画类进重新绑定，达到主动触发动画刷新的效果，现在来看一下最终成品。</p>
 <iframe width="600" height="315" src="/images/ssr/a.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
+<h2 id="多媒体适配方案">多媒体适配方案</h2>
+<p>之前的页面只绘制了 pc 端的样式，通常官网需要支持 pc、 ipad、 移动端等多种设备的访问，现在需要对多媒体设备的样式进行兼容适配。</p>
+<h3 id="px-转-rem">Px 转 Rem</h3>
+<p>在适配之前，先了解一下 rem 和 px，px 是相对屏幕分辨率的像素单位， rem 是相对 HTML 根元素字体大小而确定的相对单位，对于多媒体的适配，常用 rem 进行开发。</p>
+<p>所以需要对之前的样式进行一下替换，将 px 单位替换为 rem，这个过程可以通过 webstorm 的 <a href="https://github.com/sunqian1991/px2rwd-intellij-plugin" target="_blank" rel="noopener noreffer ">px2rwd-intellij-plugin</a> 插件来协助完成，可以参照下图安装，默认的的根字体为 16px，根据相关说明扩展配置调整即可。</p>
+<img src="/images/ssr/img_42.png" alt="" width="500" />  
+<img src="/images/ssr/img_43.png" alt="" width="500" />  
+<p>安装完成后，移步到样式问题，输入 16 px，可以看到会有对应 rem 提示，将所有的 px 单位替换即可。</p>
+<h3 id="css-多媒体设备适配">CSS 多媒体设备适配</h3>
+<p>通过编写不同的媒体设备样式来进行适配，这种常用于 dom 结构变化不大，可以复用 dom 的基础上，调整样式就能适配的场景。为加强复用，可以定义几个常用的设备场景。</p>
+<p>pages/media.scss</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="c1">// 极小分辨率移动端设备
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">@mixin</span><span class="nf"> media-mini-mobile</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">@media</span> <span class="ni">screen</span> <span class="ow">and</span> <span class="p">(</span><span class="na">max-width</span><span class="o">:</span> <span class="mi">25</span><span class="mf">.875</span><span class="kt">rem</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">@content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 介于极小分辨率和正常分辨率之间的移动端设备
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">@mixin</span><span class="nf"> media-between-mini-and-normal-mobile</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">@media</span> <span class="ni">screen</span> <span class="ow">and</span> <span class="p">(</span><span class="na">min-width</span><span class="o">:</span> <span class="mi">25</span><span class="mf">.876</span><span class="kt">rem</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="na">max-width</span><span class="o">:</span> <span class="mi">47</span><span class="mf">.9375</span><span class="kt">rem</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">@content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 移动端设备
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">@mixin</span><span class="nf"> media-mobile</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">@media</span> <span class="ni">screen</span> <span class="ow">and</span> <span class="p">(</span><span class="na">max-width</span><span class="o">:</span> <span class="mi">47</span><span class="mf">.9375</span><span class="kt">rem</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">@content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ipad
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">@mixin</span><span class="nf"> media-ipad</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">@media</span> <span class="ni">screen</span> <span class="ow">and</span> <span class="p">(</span><span class="na">min-width</span><span class="o">:</span> <span class="mi">47</span><span class="mf">.9375</span><span class="kt">rem</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="na">max-width</span><span class="o">:</span> <span class="mi">75</span><span class="kt">rem</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">@content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在大部分场景，可以直接引入这些定义进行适配。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="k">@include</span><span class="nd"> media-ipad</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以 footer 组件举例，改造一下它之前的样式。</p>
+<p>components/footer/index.module.scss</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="k">@import</span> <span class="s2">&#34;./pages/media.scss&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">.footer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">font-size</span><span class="o">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding</span><span class="o">:</span> <span class="mi">4</span><span class="mf">.375</span><span class="kt">rem</span> <span class="mi">9</span><span class="mf">.0625</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">background-color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">footer-background-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nc">.topArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">justify-content</span><span class="o">:</span> <span class="ni">space-between</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">flex-wrap</span><span class="o">:</span> <span class="ni">wrap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nc">.footerTitle</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">font-weight</span><span class="o">:</span> <span class="mi">500</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">font-size</span><span class="o">:</span> <span class="mi">2</span><span class="mf">.25</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">line-height</span><span class="o">:</span> <span class="mi">2</span><span class="mf">.25</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">primary-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="na">margin</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nc">.linkListArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nc">.linkArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">flex-direction</span><span class="o">:</span> <span class="ni">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">margin-left</span><span class="o">:</span> <span class="mi">10</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">.title</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="na">font-weight</span><span class="o">:</span> <span class="mi">500</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">font-size</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.875</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">line-height</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.25</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">primary-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">2</span><span class="mf">.5</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">word-break</span><span class="o">:</span> <span class="ni">keep-all</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nc">.links</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">flex-direction</span><span class="o">:</span> <span class="ni">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">font-weight</span><span class="o">:</span> <span class="mi">400</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">font-size</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.875</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">line-height</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.25</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">word-break</span><span class="o">:</span> <span class="ni">keep-all</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="nc">.link</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="na">color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">primary-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="na">cursor</span><span class="o">:</span> <span class="ni">pointer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.5</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="nc">.disabled</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="na">color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">secondary-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="na">cursor</span><span class="o">:</span> <span class="ni">not-allowed</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.5</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nc">.linkArea</span><span class="nd">:first-of-type</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">margin-left</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nc">.bottomArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">justify-content</span><span class="o">:</span> <span class="ni">space-between</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">.codeArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">flex-direction</span><span class="o">:</span> <span class="ni">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nc">.text</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">secondary-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">.numArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">secondary-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">flex-direction</span><span class="o">:</span> <span class="ni">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">align-items</span><span class="o">:</span> <span class="ni">flex-end</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">font-weight</span><span class="o">:</span> <span class="mi">400</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">font-size</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.875</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">line-height</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.25</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nt">span</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.75</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nc">.publicLogo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nc">.logo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="na">margin-right</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.25</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">@media</span> <span class="ni">screen</span> <span class="ow">and</span> <span class="p">(</span><span class="na">min-width</span><span class="o">:</span> <span class="mi">48</span><span class="mf">.6875</span><span class="kt">rem</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="na">max-width</span><span class="o">:</span> <span class="mi">54</span><span class="mf">.125</span><span class="kt">rem</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nc">.footer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">.topArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nc">.footerTitle</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.25</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">@media</span> <span class="ni">screen</span> <span class="ow">and</span> <span class="p">(</span><span class="na">max-width</span><span class="o">:</span> <span class="mi">48</span><span class="mf">.6875</span><span class="kt">rem</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nc">.footer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">.topArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">flex-direction</span><span class="o">:</span> <span class="ni">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">align-items</span><span class="o">:</span> <span class="ni">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nc">.footerTitle</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">2</span><span class="mf">.5</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nc">.linkListArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">flex-direction</span><span class="o">:</span> <span class="ni">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">text-align</span><span class="o">:</span> <span class="ni">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">.linkArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="na">margin-left</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nc">.bottomArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">flex-direction</span><span class="o">:</span> <span class="ni">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">align-items</span><span class="o">:</span> <span class="ni">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nc">.codeArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">flex-direction</span><span class="o">:</span> <span class="ni">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">align-items</span><span class="o">:</span> <span class="ni">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nc">.text</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="na">text-align</span><span class="o">:</span> <span class="ni">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">margin</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.25</span><span class="kt">rem</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nc">.numArea</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">align-items</span><span class="o">:</span> <span class="ni">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">text-align</span><span class="o">:</span> <span class="ni">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// @include media-ipad {
+</span></span></span><span class="line"><span class="cl"><span class="c1">// }
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>实现效果：</p>
+<iframe width="600" height="315" src="/images/ssr/c.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h3 id="context-注入设备信息">Context 注入设备信息</h3>
+<p>对于页面的样式适配，CSS media 已经可以覆盖绝大部分的场景，但小部分的场景仍然无法覆盖，比如在一些媒体设备下，不再采用原本的 dom 结构，换用别的交互形式，就没办法直接用样式覆盖了，而是需要通过在客户端判断当前的设备，选用不同的交互。</p>
+<p>应该怎么在客户端判断当前的设备呢？</p>
+<p>可以定义一个 context，用于判断当前的设备，然后注入给每个页面。判断设备的方式其实也很简单，通过页宽来判断就可。</p>
+<p>constants/enum.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">enum</span> <span class="nx">Environment</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">pc</span> <span class="o">=</span> <span class="s1">&#39;pc&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">ipad</span> <span class="o">=</span> <span class="s1">&#39;ipad&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mobile</span> <span class="o">=</span> <span class="s1">&#39;mobile&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">none</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>stores/userAgent.tsx</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span><span class="nx">createContext</span><span class="p">,</span> <span class="nx">FC</span><span class="p">,</span> <span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useState</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">Environment</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@/constants/enum&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">IUserAgentContextProps</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">userAgent</span>: <span class="kt">Environment</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">IUserAgentProps</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">children</span>: <span class="kt">JSX.Element</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">UserAgentContext</span> <span class="o">=</span> <span class="nx">createContext</span><span class="p">&lt;</span><span class="nt">IUserAgentContextProps</span><span class="p">&gt;({}</span> <span class="kr">as</span> <span class="nx">IUserAgentContextProps</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">UserAgentProvider</span>: <span class="kt">FC</span><span class="p">&lt;</span><span class="nt">IUserAgentProps</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">children</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">userAgent</span><span class="p">,</span> <span class="nx">setUserAgent</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">&lt;</span><span class="nt">Environment</span><span class="p">&gt;(</span><span class="nx">Environment</span><span class="p">.</span><span class="nx">none</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 监听本地缓存来同步不同页面间的主题（当前页面无法监听到，直接在顶部栏进行了类的切换)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">checkUserAgent</span> <span class="o">=</span> <span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">width</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">offsetWidth</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">switch</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nx">width</span> <span class="o">&lt;</span> <span class="nx">768</span>:
+</span></span><span class="line"><span class="cl">          <span class="kt">setUserAgent</span><span class="p">(</span><span class="nx">Environment</span><span class="p">.</span><span class="nx">mobile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nx">width</span> <span class="o">&gt;=</span> <span class="mi">768</span> <span class="o">&amp;&amp;</span> <span class="nx">width</span> <span class="o">&lt;</span> <span class="nx">1200</span>:
+</span></span><span class="line"><span class="cl">          <span class="kt">setUserAgent</span><span class="p">(</span><span class="nx">Environment</span><span class="p">.</span><span class="nx">ipad</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nx">width</span> <span class="o">&gt;=</span> <span class="nx">1200</span>:
+</span></span><span class="line"><span class="cl">          <span class="kt">setUserAgent</span><span class="p">(</span><span class="nx">Environment</span><span class="p">.</span><span class="nx">pc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">setUserAgent</span><span class="p">(</span><span class="nx">Environment</span><span class="p">.</span><span class="nx">none</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">checkUserAgent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;resize&#39;</span><span class="p">,</span> <span class="nx">checkUserAgent</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;resize&#39;</span><span class="p">,</span> <span class="nx">checkUserAgent</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[</span><span class="k">typeof</span> <span class="nb">document</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">offsetWidth</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">UserAgentContext.Provider</span> <span class="na">value</span><span class="o">=</span><span class="p">{{</span> <span class="nx">userAgent</span> <span class="p">}}&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span><span class="nx">children</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">UserAgentContext.Provider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">UserAgentProvider</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Environment.none：设置一个空态，为了避免未取到页宽时，错误赋值非当前页面的设备分辨率的值，导致可能会出现分辨率样式的短暂切换造成的视觉冲突。</li>
+<li>typeof document !== &ldquo;undefined&rdquo; &amp;&amp; document.body.offsetWidth： 除钩子方法里（比如 useEffect）以外的逻辑，都是会在服务器端执行的，在服务器端是没有 BOM 的注入的，所以需要对 BOM 的调用进行判空。</li>
+</ul>
+<p>把这个 context 同样注入到入口文件。</p>
+<p>pages/_app.tsx</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ThemeContextProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">UserAgentProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">Layout</span> <span class="na">navbarData</span><span class="o">=</span><span class="p">{</span><span class="nx">navbarData</span><span class="p">}</span> <span class="na">footerData</span><span class="o">=</span><span class="p">{</span><span class="nx">footerData</span><span class="p">}&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">Component</span> <span class="p">{</span><span class="na">...pageProps</span><span class="p">}</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">Layout</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">UserAgentProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ThemeContextProvider</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 navbar 组件简单调用试试。</p>
+<p>components/navbar/index.tsx</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">FC</span><span class="p">,</span> <span class="nx">useContext</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">styles</span> <span class="kr">from</span> <span class="s2">&#34;./index.module.scss&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ThemeContext</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/stores/theme&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">UserAgentContext</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/stores/userAgent&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Themes</span><span class="p">,</span> <span class="nx">Environment</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/constants/enum&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">INavBarProps</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">NavBar</span>: <span class="kt">FC</span><span class="p">&lt;</span><span class="nt">INavBarProps</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">({})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">setTheme</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useContext</span><span class="p">(</span><span class="nx">ThemeContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">userAgent</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useContext</span><span class="p">(</span><span class="nx">UserAgentContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">navBar</span><span class="p">}&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://localhost:3000/&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">logoIcon</span><span class="p">}&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">themeArea</span><span class="p">}&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">userAgent</span> <span class="o">===</span> <span class="nx">Environment</span><span class="p">.</span><span class="nx">pc</span> <span class="o">&amp;&amp;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">span</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">text</span><span class="p">}&gt;</span><span class="err">当前是</span><span class="nx">pc端样式</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">userAgent</span> <span class="o">===</span> <span class="nx">Environment</span><span class="p">.</span><span class="nx">ipad</span> <span class="o">&amp;&amp;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">span</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">text</span><span class="p">}&gt;</span><span class="err">当前是</span><span class="nx">Ipad端样式</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">userAgent</span> <span class="o">===</span> <span class="nx">Environment</span><span class="p">.</span><span class="nx">mobile</span> <span class="o">&amp;&amp;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">span</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">text</span><span class="p">}&gt;</span><span class="err">当前是移动端样式</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span>
+</span></span><span class="line"><span class="cl">          <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">themeIcon</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&#34;theme&#34;</span><span class="p">)</span> <span class="o">===</span> <span class="nx">Themes</span><span class="p">.</span><span class="nx">light</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">setTheme</span><span class="p">(</span><span class="nx">Themes</span><span class="p">.</span><span class="nx">dark</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">setTheme</span><span class="p">(</span><span class="nx">Themes</span><span class="p">.</span><span class="nx">light</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">NavBar</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>实现效果：</p>
+<img src="/images/ssr/img_44.png" alt="" width="500" />  
+<img src="/images/ssr/img_45.png" alt="" width="500" />  
+<h3 id="服务端判定设备信息">服务端判定设备信息</h3>
+<p>客户端判定设备存在一个小问题是，因为 HTML 文本的生成是在服务器端生成的，客户端判断设备信息会存在一个初始态到实际设备数据短暂切换的问题，而且如果不同设备展示的内容不同，还有可能会影响到实际的 SEO ，那有没有办法可以在服务器端判断当前的访问设备呢？</p>
+<p>虽然服务器端拿不到当前访问的客户端页宽等数据，但是客户端在服务器端请求的时候，请求头中有一个 user-agent 请求头，可以用来判断当前的设备是 pc 端还是移动端，通过这个来判断，就可以在 HTML 文本返回前，就拿到实际的设备 DOM。</p>
+<img src="/images/ssr/img_46.png" alt="" width="500" />  
+<h2 id="业务功能实现">业务功能实现</h2>
+<h2 id="国际化功能方案">国际化功能方案</h2>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -4151,8 +4812,8 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
         </section>
     </div>
 
-    <div class="post-nav"><a href="/electron/" class="prev" rel="prev" title="基于 Electron &#43; Vue3 的桌面应用开发实战"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>基于 Electron + Vue3 的桌面应用开发实战</a>
-            <a href="/books/" class="next" rel="next" title="在书的字缝里，总有梦的发生">在书的字缝里，总有梦的发生<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/draw/" class="prev" rel="prev" title="一个人的绘画馆：蠢 Q 的油画棒画成长之旅"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>一个人的绘画馆：蠢 Q 的油画棒画成长之旅</a>
+            <a href="/month/" class="next" rel="next" title="蠢 Q 碎碎念">蠢 Q 碎碎念<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"><div id="giscus" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.

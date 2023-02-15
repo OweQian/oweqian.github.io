@@ -82,6 +82,12 @@ ps2:
 
 总结：今天真是 emo 的一天 🤦🏻‍♀️。  
 
+#### 02-15  
+
+🥲 有没有富婆愿意收养这个逆子的   
+
+<iframe width="600" height="315" src="/images/202301/cat.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ### 2023-01
 
 #### 01-01  

@@ -2337,5 +2337,383 @@ export default Home;
 
 <iframe width="600" height="315" src="/images/ssr/a.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
 
+## 多媒体适配方案  
 
+之前的页面只绘制了 pc 端的样式，通常官网需要支持 pc、 ipad、 移动端等多种设备的访问，现在需要对多媒体设备的样式进行兼容适配。   
+
+### Px 转 Rem  
+
+在适配之前，先了解一下 rem 和 px，px 是相对屏幕分辨率的像素单位， rem 是相对 HTML 根元素字体大小而确定的相对单位，对于多媒体的适配，常用 rem 进行开发。  
+
+所以需要对之前的样式进行一下替换，将 px 单位替换为 rem，这个过程可以通过 webstorm 的 [px2rwd-intellij-plugin](https://github.com/sunqian1991/px2rwd-intellij-plugin) 插件来协助完成，可以参照下图安装，默认的的根字体为 16px，根据相关说明扩展配置调整即可。   
+
+<img src="/images/ssr/img_42.png" alt="" width="500" />  
+
+<img src="/images/ssr/img_43.png" alt="" width="500" />  
+
+安装完成后，移步到样式问题，输入 16 px，可以看到会有对应 rem 提示，将所有的 px 单位替换即可。  
+
+### CSS 多媒体设备适配
+
+通过编写不同的媒体设备样式来进行适配，这种常用于 dom 结构变化不大，可以复用 dom 的基础上，调整样式就能适配的场景。为加强复用，可以定义几个常用的设备场景。  
+
+pages/media.scss  
+
+```scss
+// 极小分辨率移动端设备
+@mixin media-mini-mobile {
+  @media screen and (max-width: 25.875rem) {
+    @content;
+  }
+}
+
+// 介于极小分辨率和正常分辨率之间的移动端设备
+@mixin media-between-mini-and-normal-mobile {
+  @media screen and (min-width: 25.876rem) and (max-width: 47.9375rem) {
+    @content;
+  }
+}
+
+// 移动端设备
+@mixin media-mobile {
+  @media screen and (max-width: 47.9375rem) {
+    @content;
+  }
+}
+
+// ipad
+@mixin media-ipad {
+  @media screen and (min-width: 47.9375rem) and (max-width: 75rem) {
+    @content;
+  }
+}
+```  
+
+在大部分场景，可以直接引入这些定义进行适配。   
+
+```scss
+@include media-ipad {
+// ...
+}
+```
+
+以 footer 组件举例，改造一下它之前的样式。  
+
+components/footer/index.module.scss   
+
+```scss
+@import "./pages/media.scss";
+
+.footer {
+  font-size: 1rem;
+  padding: 4.375rem 9.0625rem;
+  background-color: var(--footer-background-color);
+  .topArea {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .footerTitle {
+      font-weight: 500;
+      font-size: 2.25rem;
+      line-height: 2.25rem;
+      color: var(--primary-color);
+      margin: 0;
+    }
+
+    .linkListArea {
+      display: flex;
+      .linkArea {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10rem;
+        .title {
+          font-weight: 500;
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+          color: var(--primary-color);
+          margin-bottom: 2.5rem;
+          word-break: keep-all;
+        }
+
+        .links {
+          display: flex;
+          flex-direction: column;
+          font-weight: 400;
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+          word-break: keep-all;
+
+          .link {
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+          }
+
+          .disabled {
+            color: var(--secondary-color);
+            cursor: not-allowed;
+            margin-bottom: 1.5rem;
+          }
+        }
+      }
+
+      .linkArea:first-of-type {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .bottomArea {
+    display: flex;
+    justify-content: space-between;
+    .codeArea {
+      display: flex;
+      flex-direction: column;
+      .text {
+        color: var(--secondary-color);
+      }
+    }
+    .numArea {
+      color: var(--secondary-color);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-weight: 400;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+
+      span {
+        margin-bottom: 0.75rem;
+      }
+
+      .publicLogo {
+        display: flex;
+
+        .logo {
+          margin-right: 0.25rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 48.6875rem) and (max-width: 54.125rem) {
+  .footer {
+    .topArea {
+      .footerTitle {
+        margin-bottom: 1.25rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 48.6875rem) {
+  .footer {
+    .topArea {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .footerTitle {
+        margin-bottom: 2.5rem;
+      }
+      .linkListArea {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        .linkArea {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .bottomArea {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .codeArea {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .text {
+          text-align: center;
+          margin: 1.25rem 0;
+        }
+      }
+
+      .numArea {
+        align-items: center;
+        text-align: center;
+      }
+    }
+  }
+}
+
+// @include media-ipad {
+// }
+```
+
+实现效果：   
+
+<iframe width="600" height="315" src="/images/ssr/c.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+### Context 注入设备信息
+
+对于页面的样式适配，CSS media 已经可以覆盖绝大部分的场景，但小部分的场景仍然无法覆盖，比如在一些媒体设备下，不再采用原本的 dom 结构，换用别的交互形式，就没办法直接用样式覆盖了，而是需要通过在客户端判断当前的设备，选用不同的交互。  
+
+应该怎么在客户端判断当前的设备呢？
+
+可以定义一个 context，用于判断当前的设备，然后注入给每个页面。判断设备的方式其实也很简单，通过页宽来判断就可。  
+
+constants/enum.ts  
+
+```ts
+export enum Environment {
+  pc = 'pc',
+  ipad = 'ipad',
+  mobile = 'mobile',
+  none = 'none',
+}
+```
+
+stores/userAgent.tsx  
+
+```tsx
+import React, {createContext, FC, useEffect, useState} from 'react';
+import {Environment} from '@/constants/enum';
+
+interface IUserAgentContextProps {
+  userAgent: Environment;
+}
+
+interface IUserAgentProps {
+  children: JSX.Element;
+}
+
+export const UserAgentContext = createContext<IUserAgentContextProps>({} as IUserAgentContextProps);
+
+const UserAgentProvider: FC<IUserAgentProps> = ({ children }) => {
+  const [userAgent, setUserAgent] = useState<Environment>(Environment.none);
+  // 监听本地缓存来同步不同页面间的主题（当前页面无法监听到，直接在顶部栏进行了类的切换)
+  useEffect(() => {
+    const checkUserAgent = (): void => {
+      const width = document.body.offsetWidth;
+      switch (true) {
+        case width < 768:
+          setUserAgent(Environment.mobile);
+          break;
+        case width >= 768 && width < 1200:
+          setUserAgent(Environment.ipad);
+          break;
+        case width >= 1200:
+          setUserAgent(Environment.pc);
+          break;
+        default:
+          setUserAgent(Environment.none);
+          break;
+      }
+    }
+    checkUserAgent();
+    window.addEventListener('resize', checkUserAgent);
+    return (): void => {
+      window.removeEventListener('resize', checkUserAgent);
+    }
+  }, [typeof document !== 'undefined' && document.body.offsetWidth]);
+
+  return (
+    <UserAgentContext.Provider value={{ userAgent }}>
+      {children}
+    </UserAgentContext.Provider>
+  )
+}
+
+export default UserAgentProvider;
+```
+
+* Environment.none：设置一个空态，为了避免未取到页宽时，错误赋值非当前页面的设备分辨率的值，导致可能会出现分辨率样式的短暂切换造成的视觉冲突。  
+* typeof document !== "undefined" && document.body.offsetWidth： 除钩子方法里（比如 useEffect）以外的逻辑，都是会在服务器端执行的，在服务器端是没有 BOM 的注入的，所以需要对 BOM 的调用进行判空。  
+
+把这个 context 同样注入到入口文件。
+  
+pages/_app.tsx  
+
+```tsx
+<ThemeContextProvider>
+    <UserAgentProvider>
+      <Layout navbarData={navbarData} footerData={footerData}>
+        <Component {...pageProps} />
+      </Layout>
+    </UserAgentProvider>
+</ThemeContextProvider>
+```
+
+在 navbar 组件简单调用试试。  
+
+components/navbar/index.tsx  
+
+```tsx
+import { FC, useContext } from "react";
+import styles from "./index.module.scss";
+import { ThemeContext } from "@/stores/theme";
+import { UserAgentContext } from "@/stores/userAgent";
+import { Themes, Environment } from "@/constants/enum";
+
+export interface INavBarProps {}
+
+const NavBar: FC<INavBarProps> = ({}) => {
+  const { setTheme } = useContext(ThemeContext);
+  const { userAgent } = useContext(UserAgentContext);
+
+  return (
+    <div className={styles.navBar}>
+      <a href="http://localhost:3000/">
+        <div className={styles.logoIcon}></div>
+      </a>
+      <div className={styles.themeArea}>
+        {userAgent === Environment.pc && (
+          <span className={styles.text}>当前是pc端样式</span>
+        )}
+        {userAgent === Environment.ipad && (
+          <span className={styles.text}>当前是Ipad端样式</span>
+        )}
+        {userAgent === Environment.mobile && (
+          <span className={styles.text}>当前是移动端样式</span>
+        )}
+        <div
+          className={styles.themeIcon}
+          onClick={(): void => {
+            if (localStorage.getItem("theme") === Themes.light) {
+              setTheme(Themes.dark);
+            } else {
+              setTheme(Themes.light);
+            }
+          }}
+        ></div>
+      </div>
+    </div>
+  );
+};
+export default NavBar;
+```
+
+实现效果：  
+
+<img src="/images/ssr/img_44.png" alt="" width="500" />  
+
+<img src="/images/ssr/img_45.png" alt="" width="500" />  
+
+### 服务端判定设备信息  
+
+客户端判定设备存在一个小问题是，因为 HTML 文本的生成是在服务器端生成的，客户端判断设备信息会存在一个初始态到实际设备数据短暂切换的问题，而且如果不同设备展示的内容不同，还有可能会影响到实际的 SEO ，那有没有办法可以在服务器端判断当前的访问设备呢？  
+
+虽然服务器端拿不到当前访问的客户端页宽等数据，但是客户端在服务器端请求的时候，请求头中有一个 user-agent 请求头，可以用来判断当前的设备是 pc 端还是移动端，通过这个来判断，就可以在 HTML 文本返回前，就拿到实际的设备 DOM。  
+
+<img src="/images/ssr/img_46.png" alt="" width="500" />  
+
+
+## 业务功能实现     
+
+## 国际化功能方案  
 
