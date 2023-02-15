@@ -917,7 +917,7 @@ export default MyApp;
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_5.png" alt="" width="700" />  
 
-## 搭建 server 项目  
+## 搭建 Server 项目  
 
 这里推荐使用 Strapi，这是一个开源无头的 CMS 配置 Api。基于 Strapi ，可以快速针对业务场景搭建一套对应的 CMS，包括增删改查和联表等较复杂场景，都可以通过可视化的配置实现。   
 
@@ -2729,8 +2729,1370 @@ export const getIsMobile = (context: AppContext) => {
 pages/_app.tsx  
 
 ```tsx
+import type { AppProps, AppContext } from 'next/app';
+import App from 'next/app';
+import Head from 'next/head';
+import axios from 'axios';
+import ThemeContextProvider from '@/stores/theme';
+import UserAgentProvider from '@/stores/userAgent';
+import { LOCALDOMAIN, getIsMobile } from '@/utils';
+import type { ILayoutProps } from '@/components/layout';
+import { appWithTranslation } from 'next-i18next';
+import Layout from '@/components/layout';
+import '@/styles/globals.css'
+
+const MyApp = (data: AppProps & ILayoutProps & { isMobile: boolean }) => {
+  const {
+    Component, pageProps, navbarData, footerData, isMobile
+  } = data;
+  return (
+    <div>
+      <Head>
+        <title>{`A Demo for 官网开发实战 (${
+          isMobile ? "移动端" : "pc端"
+        })`}</title>
+        <meta
+          name="description"
+          content="A Demo for 官网开发实战"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <ThemeContextProvider>
+        <UserAgentProvider>
+          <Layout navbarData={navbarData} footerData={footerData}>
+            <Component {...pageProps} />
+          </Layout>
+        </UserAgentProvider>
+      </ThemeContextProvider>
+    </div>
+  )
+}
+
+MyApp.getInitialProps = async (context: AppContext) => {
+  const pageProps = await App.getInitialProps(context);
+  const { data = {} } = await axios.get(`${LOCALDOMAIN}/api/layout`)
+  return {
+    ...pageProps,
+    ...data,
+    isMobile: getIsMobile(context),
+  }
+}
+export default appWithTranslation(MyApp);
 ```
+
 ## 业务功能实现     
 
+官网作为一个品牌形象的载体，肯定需要大量的文章或信息，来进行文化价值观的传输，文章的内容一多，自然需要为它实现对应的分页。  
+
+### 文章页分页  
+
+#### 样式实现  
+
+分页的组件使用 semi-design (其它UI框架方法类似) 来实现。
+
+```shell
+npm install @douyinfe/semi-ui --save
+```
+
+给首页文章块下面加一个分页。
+
+pages/index.tsx
+
+```tsx
+import { Pagination } from "@douyinfe/semi-ui";
+// ...
+<div className={styles.paginationArea}>
+    <Pagination total={articles?.total} pageSize={6} />
+</div>
+```
+
+Nextjs 希望可以自主导入依赖中的样式，而不是随着依赖直接导入样式，避免对全局样式造成影响。
+
+Semi 的依赖默认是在入口文件统一导入的，针对这种情况，Semi 提供了 semi-next 插件来对入口文件样式进行去除。
+
+```shell
+npm i @douyinfe/semi-next
+```
+
+安装好 semi-next 后，到 nextjs 的配置文件，用 semi-next 包裹一层配置文件，进行默认导入样式的去除。
+
+next.config.js
+
+```js
+/** @type {import('next').NextConfig} */
+const path = require('path');
+const semi = require('@douyinfe/semi-next').default({});
+
+const nextConfig = semi({
+  reactStrictMode: true,
+  swcMinify: true,
+  images: {
+    domains: ['127.0.0.1'],
+  },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname),
+    };
+    return config;
+  }
+});
+
+module.exports = nextConfig
+```
+
+在全局样式中手动导入 Semi 的样式。
+
+styles/global.css
+
+```css
+@import "~@douyinfe/semi-ui/dist/css/semi.min.css";
+```
+
+针对分页组件覆盖一下主题化的样式，样式覆盖是通过 global 样式去做。
+
+styles/Home.module.scss
+
+```scss
+@import "./pages/media.scss";
+
+@mixin initStatus {
+  transform: translate3d(0, 2.5rem, 0);
+  opacity: 0;
+}
+
+@mixin finalStatus {
+  -webkit-transform: none;
+  transform: none;
+  opacity: 1;
+}
+
+.container {
+  padding: 0 2rem;
+  color: var(--primary-color);
+
+  .main {
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .header {
+      background-image: var(--home-background-icon);
+      background-size: 18.75rem 18.75rem;
+      background-repeat: no-repeat;
+      width: 18.75rem;
+      height: 18.75rem;
+    }
+
+    .headerWebp {
+      background-image: var(--home-background-icon-webp);
+    }
+
+    .top {
+      display: flex;
+    }
+
+    .title a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+
+    .title a:hover,
+    .title a:focus,
+    .title a:active {
+      text-decoration: underline;
+    }
+
+    .title {
+      margin: 0;
+      line-height: 1.15;
+      font-size: 4rem;
+    }
+
+    .title,
+    .description {
+      text-align: center;
+    }
+
+    .description {
+      margin: 4rem 0;
+      line-height: 1.5;
+      font-size: 1.5rem;
+    }
+
+    .grid {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      max-width: 62.5rem;
+      transition: 2s;
+      min-height: 36.25rem;
+      .card {
+        margin: 1rem;
+        padding: 1.5rem;
+        text-align: left;
+        color: inherit;
+        text-decoration: none;
+        border: 0.0625rem solid var(--footer-background-color);
+        border-radius: 0.625rem;
+        transition: color 0.15s ease, border-color 0.15s ease;
+        max-width: 18.75rem;
+        cursor: pointer;
+        width: 18.75rem;
+        height: 13.875rem;
+      }
+
+      .card:hover,
+      .card:focus,
+      .card:active {
+        color: var(--link-color);
+        border-color: var(--link-color);
+      }
+
+      .card h2 {
+        margin: 0 0 1rem 0;
+        font-size: 1.5rem;
+      }
+
+      .card p {
+        margin: 0;
+        font-size: 1.25rem;
+        line-height: 1.5;
+      }
+    }
+
+    .paginationArea {
+      width: 62.5rem;
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px 0;
+
+      :global {
+        .semi-page-item {
+          color: var(--primary-color);
+          opacity: 0.7;
+        }
+
+        .semi-page-item:hover {
+          background-color: var(--semi-page-hover-background-color);
+        }
+
+        .semi-page-item-active {
+          color: var(--semi-page-active-color);
+          background-color: var(--semi-page-active-background-color);
+        }
+
+        .semi-page-item-active:hover {
+          color: var(--semi-page-active-color);
+          background-color: var(--semi-page-active-background-color);
+        }
+      }
+    }
+  }
+
+  .withAnimation {
+    .title {
+      animation: fadeInDown1 1s;
+    }
+
+    .description {
+      animation: fadeInDown2 1s;
+    }
+
+    .card:nth-of-type(1) {
+      animation: fadeInDown3 1s;
+    }
+
+    .card:nth-of-type(2) {
+      animation: fadeInDown4 1s;
+    }
+
+    .card:nth-of-type(3) {
+      animation: fadeInDown5 1s;
+    }
+
+    .card:nth-of-type(4) {
+      animation: fadeInDown6 1s;
+    }
+
+    .card:nth-of-type(5) {
+      animation: fadeInDown7 1s;
+    }
+
+    .card:nth-of-type(6) {
+      animation: fadeInDown8 1s;
+    }
+  }
+
+  @keyframes fadeInDown1 {
+    0% {
+      @include initStatus;
+    }
+
+    11% {
+      @include initStatus;
+    }
+
+    100% {
+      @include finalStatus;
+    }
+  }
+
+  @keyframes fadeInDown2 {
+    0% {
+      @include initStatus;
+    }
+
+    22% {
+      @include initStatus;
+    }
+
+    100% {
+      @include finalStatus;
+    }
+  }
+
+  @keyframes fadeInDown3 {
+    0% {
+      @include initStatus;
+    }
+
+    33% {
+      @include initStatus;
+    }
+
+    100% {
+      @include finalStatus;
+    }
+  }
+
+  @keyframes fadeInDown4 {
+    0% {
+      @include initStatus;
+    }
+
+    44% {
+      @include initStatus;
+    }
+
+    100% {
+      @include finalStatus;
+    }
+  }
+
+  @keyframes fadeInDown5 {
+    0% {
+      @include initStatus;
+    }
+
+    55% {
+      @include initStatus;
+    }
+
+    100% {
+      @include finalStatus;
+    }
+  }
+
+  @keyframes fadeInDown6 {
+    0% {
+      @include initStatus;
+    }
+
+    66% {
+      @include initStatus;
+    }
+
+    100% {
+      @include finalStatus;
+    }
+  }
+
+  @keyframes fadeInDown7 {
+    0% {
+      @include initStatus;
+    }
+
+    77% {
+      @include initStatus;
+    }
+
+    100% {
+      @include finalStatus;
+    }
+  }
+
+  @keyframes fadeInDown8 {
+    0% {
+      @include initStatus;
+    }
+
+    88% {
+      @include initStatus;
+    }
+
+    100% {
+      @include finalStatus;
+    }
+  }
+}
+
+@include media-ipad {
+  .container {
+    .main {
+      .grid {
+        width: 95%;
+        margin: auto;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@include media-mobile {
+  .container {
+    .main {
+      .title {
+        font-size: 1.75rem;
+        line-height: 2.4375rem;
+      }
+      .description {
+        font-size: 0.875rem;
+        line-height: 1.5rem;
+        margin: 2rem 0;
+      }
+      .grid {
+        width: 95%;
+        margin: auto;
+        justify-content: center;
+        .card {
+          height: 10rem;
+          h2 {
+            font-size: 1.125rem;
+            line-height: 1.5625rem;
+          }
+          p {
+            font-size: 0.75rem;
+            line-height: 1.625rem;
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+实现效果：
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_47.png" alt="" width="700" />  
+
+#### 接口层实现  
+
+设计三个结构体，ArticleInfo、ArticleIntroduction 和 Home，其中 Home 就是首页那两个基础文案，ArticleIntroduction 是文章相关的简介，link 指向 ArticleInfo 对应元素的 id 即可。  
+
+这里文章内容单独放在 ArticleInfo，之所以这么做，是因为考虑到文章内容往往很多，如果放在 ArticleIntroduction 中进行分页，cdn 拉取的时间随着文章的增多，可能会越来越长。  
+
+启动一下 CMS 的项目，配置对应的结构体，填上数据。  
+
+Home:  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_48.png" alt="" width="700" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_51.png" alt="" width="700" />  
+
+ArticleIntroduction:
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_49.png" alt="" width="700" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_52.png" alt="" width="700" />  
+
+ArticleInfo:
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_50.png" alt="" width="700" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_53.png" alt="" width="700" />  
+
+其中富文本区域的配置需要着重关注一下，其中包含了文本、标题和图片，这个其实和平常用的一些文本编辑器还是很像的，点击 preview mode 处可以看到效果，按照平时写笔记的习惯，用 markdown 语言去配置文章就可以了。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_54.png" alt="" width="700" />  
+
+按照之前的配置，给这些结构体开一下 find、findone 等配置。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_55.png" alt="" width="700" />  
+
+随便开一个模块看看。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_56.png" alt="" width="700" />  
+
+好像有 time 等相关数据，参照上次，把对应用不上的数据清掉。  
+
+home controller 
+
+```js
+'use strict';
+
+/**
+ * home controller
+ */
+const { removeTime, removeAttrsAndId } = require('../../../utils/index');
+const { createCoreController } = require('@strapi/strapi').factories;
+
+module.exports = createCoreController('api::home.home', ({ strapi }) => ({
+  async find(ctx) {
+    ctx.query = {
+      ...ctx.query,
+      populate: 'deep',
+    };
+    const { data } = await super.find(ctx);
+    return removeAttrsAndId(removeTime(data[0]));
+  }
+}));
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_57.png" alt="" width="700" />  
+
+需要对 ArticleIntroduce 做一个分页的操作，Strapi 中针对分页的操作提供了 pagination[page] 和 pagination[pageSize] 两个参数，类似下面的效果。  
+
+```
+/api/articles?pagination[page]=1&pagination[pageSize]=10 // 按10个/页分页，返回第一页的数据
+```
+
+这两个参数太长了，定义两个自己的参数，pageNo, pageSize，然后在它的基础上魔改一下就可以，具体代码如下：  
+
+article-introduction controller  
+
+```js
+"use strict";
+const { removeTime, removeAttrsAndId } = require("../../../utils/index.js");
+
+/**
+ *  article-introduction controller
+ */
+
+const { createCoreController } = require("@strapi/strapi").factories;
+
+module.exports = createCoreController("api::article-introduction.article-introduction", ({ strapi }) => ({
+    async find(ctx) {
+      const { pageNo, pageSize, ...params } = ctx.query;
+      if (pageNo && pageSize) {
+        ctx.query = {
+          ...params,
+          "pagination[page]": Number(pageNo),
+          "pagination[pageSize]": Number(pageSize),
+        };
+      }
+      const { data, meta } = await super.find(ctx);
+      return { data: removeAttrsAndId(removeTime(data)), meta };
+    },
+  })
+);
+
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_58.png" alt="" width="700" />  
+
+article-info controller  
+
+```js
+"use strict";
+const { removeTime, removeAttrsAndId } = require("../../../utils/index.js");
+
+/**
+ *  article-info controller
+ */
+
+const { createCoreController } = require("@strapi/strapi").factories;
+
+module.exports = createCoreController("api::article-info.article-info", ({ strapi }) => ({
+    async find(ctx) {
+      const { data, meta } = await super.find(ctx);
+      return { data: removeAttrsAndId(removeTime(data)), meta };
+    },
+    async findOne(ctx) {
+      const { data, meta } = await super.findOne(ctx);
+      return removeAttrsAndId(removeTime(data));
+    },
+  })
+);
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_59.png" alt="" width="700" />  
+
+接下来开始编写 BFF 层的代码，三个结构体分别对应三个接口层。   
+
+pages/api/home.ts  
+
+```ts
+import axios from 'axios';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import nextConnect from 'next-connect';
+import { CMSDOMAIN } from '@/utils';
+
+export interface IHomeProps {
+  title: string;
+  description: string;
+}
+
+const getHomeData = nextConnect()
+  .get((req: NextApiRequest, res: NextApiResponse<IHomeProps>) => {
+    axios.get(`${CMSDOMAIN}/api/homes`).then(result => {
+      const { title, description } = result.data || {};
+      res.status(200).json({
+        title,
+        description,
+      })
+    })
+  })
+
+export default getHomeData;
+```
+
+接下来是文章简介的接口，它可以接受分页的两个入参进行对应的分页。  
+
+pages/api/articleIntroduction.ts   
+
+```ts
+import axios from 'axios';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import nextConnect from 'next-connect';
+import { CMSDOMAIN } from '@/utils';
+
+export interface IArticleIntroduction {
+  label: string;
+  info: string;
+  articleId: number;
+}
+
+export interface IArticleIntroductionProps {
+  list: IArticleIntroduction[];
+  total: number;
+}
+
+const ArticleIntroductionData = nextConnect()
+  .post((req: NextApiRequest, res: NextApiResponse<IArticleIntroductionProps>) => {
+    const { pageNo, pageSize } = req.body;
+    axios.get(`${CMSDOMAIN}/api/article-introductions`, {
+      params: {
+        pageNo,
+        pageSize,
+      }
+    }).then(result => {
+      const { data, meta } = result.data || {};
+      res.status(200).json({
+        list: Object.values(data),
+        total: meta.pagination.total,
+      })
+    })
+  })
+
+export default ArticleIntroductionData;
+
+```
+
+list 需要用 Object.values 包一层 data，因为针对没有 relation 的多个元素，Strapi 是通过 object 类型返回，所以需要处理一层转成需要的数组格式。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_60.png" alt="" width="700" />  
+
+最后一个接口是文章详情接口，接口包含一个 id 的入参，可以支持对数据进行单查，直接调用 Strapi 的 findOne 接口实现就好。  
+
+pages/api/articleInfo.ts  
+
+```ts
+import axios from 'axios';
+import nextConnect from 'next-connect';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { CMSDOMAIN } from '@/utils';
+import { IArticleProps } from '@/pages/article/[articleId]';
+
+const getArticleInfoData = nextConnect()
+  .get((req: NextApiRequest, res: NextApiResponse<IArticleProps>) => {
+    const { articleId } = req.query;
+    axios.get(`${CMSDOMAIN}/api/article-infos/${articleId}`).then(result => {
+      const data = result.data || {};
+      res.status(200).json(data);
+    })
+  })
+
+export default getArticleInfoData;
+```
+
+到这里 BFF 层就定义好了，接下来改造一下首页，接入一下接口替换原先的静态数据。  
+
+pages/index.tsx  
+
+```tsx
+// ...
+Home.getInitialProps = async (context) => {
+  const { data: homeData } = await axios.get(`${LOCALDOMAIN}/api/home`);
+  const { data: articleData } = await axios.post(
+    `${LOCALDOMAIN}/api/articleIntro`,
+    {
+      pageNo: 1,
+      pageSize: 6,
+    }
+  );
+
+  return {
+    title: homeData.title,
+    description: homeData.description,
+    articles: {
+      list: articleData.list.map((item: IArticleIntro) => {
+        return {
+          label: item.label,
+          info: item.info,
+          link: `${LOCALDOMAIN}/article/${item.articleId}`,
+        };
+      }),
+      total: articleData.total,
+    },
+  };
+};
+```
+
+然后看看效果，数据已经注入进去了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_61.png" alt="" width="700" />  
+
+把客户端的分页事件绑定一下。  
+
+pages/index.tsx   
+
+```tsx
+import {useContext, useEffect, useRef, useState} from 'react';
+import axios from 'axios';
+import type {NextPage} from 'next';
+import {Pagination} from '@douyinfe/semi-ui';
+import classNames from 'classnames';
+import {ThemeContext} from '@/stores/theme';
+import styles from '@/styles/Home.module.scss';
+import {LOCALDOMAIN} from "@/utils";
+import {IArticleIntroduction} from "@/pages/api/articleIntroduction";
+
+interface IHomeProps {
+  title: string;
+  description: string;
+  articles: {
+    list: {
+      label: string;
+      info: string;
+      link: string;
+    }[];
+    total: number;
+  };
+}
+
+const Home: NextPage<IHomeProps> = ({ title, description, articles }) => {
+  const [content, setContent] = useState(articles);
+  const mainRef = useRef<HTMLDivElement>(null);
+  const { theme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    mainRef.current?.classList.remove(styles.withAnimation);
+    window.requestAnimationFrame(() => {
+      mainRef.current?.classList.add(styles.withAnimation);
+    });
+  }, [theme]);
+
+  return (
+    <div className={styles.container}>
+      <main
+        className={classNames([styles.main, styles.withAnimation])}
+        ref={mainRef}
+      >
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.description}>{description}</p>
+        <div className={styles.grid}>
+          {content?.list?.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className={styles.card}
+                onClick={(): void => {
+                  window.open(
+                    item.link,
+                    "blank",
+                    "noopener=yes,noreferrer=yes"
+                  );
+                }}
+              >
+                <h2>{item.label}</h2>
+                <p>{item.info}</p>
+              </div>
+            );
+          })}
+          <div className={styles.paginationArea}>
+            <Pagination
+              total={content?.total}
+              pageSize={6}
+              onPageChange={(pageNo) => {
+                axios
+                  .post(`${LOCALDOMAIN}/api/articleIntro`, {
+                    pageNo,
+                    pageSize: 6,
+                  })
+                  .then(({ data }) => {
+                    setContent({
+                      list: data.list.map((item: IArticleIntro) => {
+                        return {
+                          label: item.label,
+                          info: item.info,
+                          link: `${LOCALDOMAIN}/article/${item.articleId}`,
+                        };
+                      }),
+                      total: data.total,
+                    });
+                  });
+              }}
+            />
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+/// ...
+````
+
+接下来给对应的文章页面绑定一下接口数据。  
+
+pages/article/[articleId].tsx  
+ 
+```tsx
+Article.getInitialProps = async (context) => {
+  const { articleId } = context.query;
+  const { data } = await axios.get(`${LOCALDOMAIN}/api/articleInfo`, {
+    params: {
+      articleId,
+    }
+  })
+  return data;
+}
+
+export default Article;
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_62.png" alt="" width="700" />  
+
+这里有个问题需要注意下，内容是 Markdown，Markdown 转 HTML 可以使用 showdown，这是一个免费的开源转换 markdown 为 HTML 的库，安装依赖。  
+
+```shell
+npm install showdown --save
+```
+
+然后对页面的 content 进行一下转换。  
+
+```tsx
+import React from 'react';
+import axios from 'axios';
+import type { NextPage } from 'next';
+import {LOCALDOMAIN} from '@/utils';
+import styles from './index.module.scss';
+
+const showdown = require('showdown');
+
+export interface IArticleProps {
+  title: string;
+  author: string;
+  description: string;
+  createTime: string;
+  content: string;
+}
+
+const Article: NextPage<IArticleProps> = ({ title, author, description, createTime, content }) => {
+  const converter = new showdown.Converter();
+  return (
+    <div className={styles.article}>
+      <h1 className={styles.title}>{title}</h1>
+      <div className={styles.info}>
+        作者：{author} | 创建时间: {createTime}
+      </div>
+      <div className={styles.description}>{description}</div>
+      <div className={styles.content} dangerouslySetInnerHTML={{__html: converter.makeHtml(content)}} />
+    </div>
+  );
+};
+
+Article.getInitialProps = async (context) => {
+  const { articleId } = context.query;
+  const { data } = await axios.get(`${LOCALDOMAIN}/api/articleInfo`, {
+    params: {
+      articleId,
+    }
+  })
+  return data;
+}
+
+export default Article;
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_63.png" alt="" width="700" />  
+
 ## 国际化功能方案  
+
+官网不一定是给一个国家的人看的，可能公司或是团队的业务是针对多个地区的，语言不应该成为价值观传输的阻碍，所以如果是多地区业务线的公司，实现多语言也是很必要的。   
+
+安装相关依赖包：  
+
+```shell
+npm install i18next next-i18next react-i18next
+```
+
+next-i18next 包提供了 appWithTranslation一个高阶组件（HOC），需要用这个高阶组件包装整个应用程序。  
+
+pages/_app.tsx  
+
+```tsx
+import type { AppProps, AppContext } from 'next/app';
+import App from 'next/app';
+import Head from 'next/head';
+import axios from 'axios';
+import ThemeContextProvider from '@/stores/theme';
+import UserAgentProvider from '@/stores/userAgent';
+import { LOCALDOMAIN, getIsMobile } from '@/utils';
+import type { ILayoutProps } from '@/components/layout';
+import { appWithTranslation } from 'next-i18next';
+import Layout from '@/components/layout';
+import '@/styles/globals.css'
+
+const MyApp = (data: AppProps & ILayoutProps & { isMobile: boolean }) => {
+  const {
+    Component, pageProps, navbarData, footerData, isMobile
+  } = data;
+  return (
+    <div>
+      <Head>
+        <title>{`A Demo for 官网开发实战 (${
+          isMobile ? "移动端" : "pc端"
+        })`}</title>
+        <meta
+          name="description"
+          content="A Demo for 官网开发实战"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <ThemeContextProvider>
+        <UserAgentProvider>
+          <Layout navbarData={navbarData} footerData={footerData}>
+            <Component {...pageProps} />
+          </Layout>
+        </UserAgentProvider>
+      </ThemeContextProvider>
+    </div>
+  )
+}
+
+MyApp.getInitialProps = async (context: AppContext) => {
+  const pageProps = await App.getInitialProps(context);
+  const { data = {} } = await axios.get(`${LOCALDOMAIN}/api/layout`)
+  return {
+    ...pageProps,
+    ...data,
+    isMobile: getIsMobile(context),
+  }
+}
+export default appWithTranslation(MyApp);
+```
+
+现在为 next-i18next 创建一个配置文件，在项目根目录下创建文件 next-i18next.config.js 并添加如下配置。  
+
+```js
+module.exports = {
+  i18n: {
+    defaultLocale: 'zh-CN',
+    locales: ['en_US', 'zh-CN'],
+  },
+  ns: ['header', 'main', 'footer', 'common']
+}
+```
+
+* locales: 包含网站上需要的语言环境的数组。  
+
+* defaultLocale: 要显示的默认语言环境。  
+
+现在将创建的 i18next 配置导入到 next.config.js 中。  
+
+```js
+/** @type {import('next').NextConfig} */
+const path = require('path');
+const semi = require('@douyinfe/semi-next').default({});
+const { i18n } = require('./next-i18next.config');
+
+const nextConfig = semi({
+  reactStrictMode: true,
+  swcMinify: true,
+  i18n,
+  images: {
+    domains: ['127.0.0.1'],
+  },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname),
+    };
+    return config;
+  }
+});
+
+module.exports = nextConfig
+```
+
+现在开始在应用程序中添加语言环境，在 public 目录下新建 locales 目录。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_64.png" alt="" width="300" />  
+
+public/locales/en_US/main.json  
+
+```json
+{
+  "IpadStyle": "Currently Ipad style",
+  "PCStyle": "Currently it is PC style",
+  "MobileStyle": "Currently in mobile style"
+}
+```
+
+public/locales/zh_CN/main.json
+
+```json
+{
+  "IpadStyle": "当前是Ipad端样式",
+  "PCStyle": "当前是pc端样式",
+  "MobileStyle": "当前是移动端样式"
+}
+
+```
+
+类似于主题化注入，针对语言也先来定义一套注入器（Context)，通过缓存的方式统一管理，然后进行全局的注入。  
+
+constants/enum  
+
+```ts
+export enum Language {
+  ch = "zh-CN",
+  en = "en_US",
+}
+```
+
+stores/language.tsx  
+
+```tsx
+import {createContext, FC, useEffect, useState} from 'react';
+import {Language} from '@/constants/enum';
+
+interface ILanguageContextProps {
+  language: Language;
+  setLanguage: (language: Language) => void;
+}
+
+interface ILanguageContextProviderProps {
+  children: JSX.Element;
+}
+
+export const LanguageContext = createContext<ILanguageContextProps>({} as ILanguageContextProps);
+
+const LanguageContextProvider: FC<ILanguageContextProviderProps> = ({children}) => {
+  const [language, setLanguage] = useState<Language>(Language.ch);
+  useEffect(() =>  {
+    const checkLanguage = () => {
+      const item = localStorage.getItem('language') as Language || Language.ch;
+      setLanguage(item);
+      document.getElementsByTagName('html')[0].lang = item;
+    }
+    // 初始化先执行一遍
+    checkLanguage();
+    // 监听浏览器缓存事件
+    window.addEventListener('storage', checkLanguage);
+    return (): void => {
+      // 解绑
+      window.removeEventListener('storage', checkLanguage);
+    }
+  }, []);
+  return (
+    <LanguageContext.Provider value={{
+      language,
+      setLanguage: (currentLanguage) => {
+        setLanguage(currentLanguage);
+        localStorage.setItem('language', currentLanguage);
+        document.getElementsByTagName('html')[0].lang = currentLanguage;
+      }
+    }}>
+      {children}
+    </LanguageContext.Provider>
+  )
+}
+
+export default LanguageContextProvider;
+```
+
+导入 serverSideTranslations，在 getServerSideProps 中进行道具传递。  
+
+pages/index.tsx  
+
+```tsx
+import {useContext, useEffect, useRef, useState} from 'react';
+import axios from 'axios';
+import type {NextPage} from 'next';
+import {Pagination} from '@douyinfe/semi-ui';
+import classNames from 'classnames';
+import {ThemeContext} from '@/stores/theme';
+import {useTranslation} from 'next-i18next';
+import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
+import styles from '@/styles/Home.module.scss';
+import {LOCALDOMAIN} from "@/utils";
+import {IArticleIntroduction} from "@/pages/api/articleIntroduction";
+import {LanguageContext} from "@/stores/language";
+import {useRouter} from "next/router";
+
+interface IHomeProps {
+  title: string;
+  description: string;
+  articles: {
+    total: number;
+    list: {
+      label: string;
+      info: string;
+      link: string;
+    }[];
+  };
+}
+
+const Home: NextPage<IHomeProps> = ({
+  title, description, articles
+}) => {
+  const { i18n } = useTranslation();
+  const router = useRouter();
+  const { locale } = router;
+  const [content, setContent] = useState(articles);
+  const mainRef = useRef<HTMLDivElement>(null);
+  const { theme } = useContext(ThemeContext);
+  const { language } = useContext(LanguageContext);
+  useEffect(() => {
+    mainRef.current?.classList.remove(styles.withAnimation);
+    window.requestAnimationFrame(() => {
+      mainRef.current?.classList.add(styles.withAnimation);
+    });
+  }, [theme]);
+
+  useEffect(() => {
+    i18n?.changeLanguage(locale);
+    console.warn(locale)
+  }, [language, locale])
+  return (
+    <div className={styles.container}>
+      <main className={classNames([styles.main, styles.withAnimation])} ref={mainRef}>
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.description}>{description}</p>
+        <div className={styles.grid}>
+          {
+            content?.list?.map((item, index) => {
+              return (
+                <div key={index} className={styles.card} onClick={(): void => {
+                  window.open(
+                    item?.link,
+                    "blank",
+                    "noopener=yes,noreferrer=yes"
+                  );
+                }}>
+                  <h2>{item?.label}</h2>
+                  <p>{item?.info}</p>
+                </div>
+              )
+            })
+          }
+        </div>
+        <div className={styles.paginationArea}>
+          <Pagination total={content?.total} pageSize={6} onPageChange={pageNo => {
+            axios.post(`${LOCALDOMAIN}/api/articleIntroduction`, {
+              pageNo,
+              pageSize: 6,
+            }).then(({ data: {
+              total,
+              list: listData,
+            }}) => {
+              setContent({
+                list: listData?.map((item: IArticleIntroduction) => ({
+                  label: item.label,
+                  info: item.info,
+                  link: `${LOCALDOMAIN}/article/${item.articleId}`,
+                })),
+                total,
+              })
+            })
+          }} />
+        </div>
+      </main>
+    </div>
+  )
+}
+
+export const getServerSideProps = async ({ locale }: { locale: string }) => {
+  const {
+    data: {
+      title, description,
+    }
+  } = await axios.get(`${LOCALDOMAIN}/api/home`);
+  const {
+    data: {
+      list: listData, total,
+    }} = await axios.post(`${LOCALDOMAIN}/api/articleIntroduction`, {
+      pageNo: 1,
+      pageSize: 6,
+    })
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'footer', 'header', 'main'])),
+      title,
+      description,
+      articles: {
+        total,
+        list: listData?.map((item: IArticleIntroduction) => ({
+          label: item.label,
+          info: item.info,
+          link: `${LOCALDOMAIN}/article/${item.articleId}`,
+        }))
+      },
+    }
+
+  };
+}
+
+export default Home;
+```
+
+在 pages/_document.tsx 中进行交互前注入:
+
+```tsx
+import Document, {Html, Head, Main, NextScript, DocumentContext} from 'next/document'
+import Script from 'next/script';
+import {Language} from '@/constants/enum';
+
+const MyDocument = () => {
+  return (
+    <Html>
+      <Head />
+      <body>
+      <Main />
+      <NextScript />
+      <Script id="theme-script" strategy="beforeInteractive">
+        {
+          `const theme = localStorage.getItem('theme') || 'light';
+           localStorage.setItem('theme', theme);
+           document.getElementsByTagName('html')[0].dataset.theme = theme;
+           const language = localStorage.getItem('language') || 'zh-CN';
+           localStorage.setItem('language', language);
+           document.getElementsByTagName('html')[0].lang = language;
+           `
+        }
+      </Script>
+      </body>
+    </Html>
+  )
+}
+
+export const getServerSideProps = async (context: DocumentContext & {locale: string}) => {
+  const initialProps = await Document.getInitialProps(context);
+  return { ...initialProps, locale: context?.locale || Language.ch };
+}
+export default MyDocument;
+```
+
+修改导航组件，添加语言环境切换器。  
+
+components/NavBar/index.tsx   
+
+```tsx
+import {FC, useContext, useEffect} from 'react';
+import Link from "next/link";
+import {useTranslation} from 'next-i18next';
+import {ThemeContext} from '@/stores/theme';
+import {UserAgentContext} from '@/stores/userAgent';
+import {Environment, Language, Themes} from '@/constants/enum';
+import styles from './index.module.scss';
+import {LanguageContext} from "@/stores/language";
+import {useRouter} from "next/router";
+
+export interface INavBarProps {}
+
+const NavBar: FC<INavBarProps> = ({}) => {
+  const { t } = useTranslation('main');
+  const router = useRouter();
+  const { locales, locale: activeLocale } = router;
+  const otherLocales = locales?.filter(
+    (locale) => locale !== activeLocale && locale !== "default"
+  );
+  const { setTheme } = useContext(ThemeContext);
+  const { setLanguage } = useContext(LanguageContext);
+  const { userAgent } = useContext(UserAgentContext);
+  useEffect(() => {
+    setLanguage(router.locale as Language);
+  }, [router.locale]);
+  return (
+    <div className={styles.navBar}>
+      <a href="http://localhost:3000/">
+        <div className={styles.logoIcon} />
+      </a>
+      <div className={styles.themeArea}>
+        {userAgent === Environment.pc && (
+          <span className={styles.text}>{t('PCStyle')}</span>
+        )}
+        {userAgent === Environment.ipad && (
+          <span className={styles.text}>{t('IpadStyle')}</span>
+        )}
+        {userAgent === Environment.mobile && (
+          <span className={styles.text}>{t('MobileStyle')}</span>
+        )}
+      </div>
+      {otherLocales?.map((locale) => {
+        const { pathname, query, asPath } = router;
+        return (
+          <span key={locale}>
+            <Link href={{ pathname, query }} as={asPath} locale={locale}>
+              {locale}
+            </Link>
+          </span>
+        );
+      })}
+      <div className={styles.themeIcon} onClick={(): void => {
+        setTheme(localStorage.getItem('theme') === Themes.light ? Themes.dark : Themes.light);
+      }}/>
+    </div>
+  )
+}
+
+export default NavBar;
+```
+
+在这里获得了 i18next 配置文件中提到的语言环境，然后映射每个区域设置项目并单击每个将链接如下：  
+
+```
+<Link href={{ pathname, query }} as={asPath} locale={locale}>
+```
+
+上面的链接会将应用程序的区域设置 URL 更改为选择的相应区域设置。  
+
+useTranslation 从 next-i18next 包中导入钩子。  
+
+```
+import { useTranslation } from "next-i18next";
+```
+
+现在可以使用一个函数来获取在 locales 目录 t() 中的 locale 文件中添加的语言字符串。  
+
+例如，下面的代码将从选择的相应语言环境（en_US 或 zh_CN）中获取字符串。  
+
+```
+const { t } = useTranslation();
+
+return (
+    <>
+      <span className={styles.text}>{t('MobileStyle')}</span>
+    </>
+  );
+```
+
+实现效果：  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_65.png" alt="" width="700" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_66.png" alt="" width="700" />  
 
