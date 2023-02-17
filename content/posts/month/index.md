@@ -1,6 +1,6 @@
 ---
 title: "蠢 Q 碎碎念"
-date: 2023-02-15T11:40:47+08:00
+date: 2023-02-16T23:40:47+08:00
 tags: ["碎碎念"]
 categories: ["碎碎念"]
 ---
@@ -88,9 +88,17 @@ ps2:
 
 #### 02-15  
 
-🥲 有没有富婆愿意收养这个逆子的   
+🥲 小猫咪的迷惑行为。     
 
 <iframe width="600" height="315" src="/images/ssr/cat.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+#### 02-16  
+
+🤨 今天上线，今天才开始测试，勇气可嘉。  
+
+Breaking Bad S4 最后三集，🤣  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/WechatIMG361.jpeg" alt="" width="300" />
 
 ### 2023-01
 

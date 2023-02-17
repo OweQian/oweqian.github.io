@@ -1,6 +1,6 @@
 ---
 title: "基于 Nextjs + Strapi 的官网开发实战"
-date: 2023-02-15T18:00:47+08:00
+date: 2023-02-16T18:00:47+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
@@ -4099,3 +4099,410 @@ return (
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_65.png" alt="" width="700" />  
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_66.png" alt="" width="700" />  
+
+## 自定义弹窗组件  
+
+不同的业务场景可能需要不同的渐入渐出动画，平常组件库的弹窗组件并不容易在原有基础上覆盖自定义动画，所以来开发一个自己的自定义动画弹窗组件。   
+
+### 静态样式
+
+与平常组件不同，弹窗组件至少需要暴露一个 open 方法给外部进行调用，这就需要用到 forwardRef，它可以将 ref 中的方法暴露给外部进行相关的调用。  
+
+创建一个 popup组件，然后写一下它的静态样式，其中 IPopupRef 是弹窗暴露的 ref 类型，而 IPopupProps 是组件本身的类型，useImperativeHandle 是组件 ref 暴露给外部调用的方法定义，暴露回去的回调方法类型需要和 ref 类型相同。  
+
+component/popup/index.tsx  
+
+```tsx
+import React, {forwardRef, useImperativeHandle, useState,} from 'react';
+import styles from './index.module.scss';
+import classNames from 'classnames';
+
+export interface IPopupRef {
+  open: () => void;
+}
+
+interface IPopupProps {
+  children: JSX.Element;
+}
+
+const Popup = forwardRef<IPopupRef, IPopupProps>(({children}, ref) => {
+  const [visible, setVisible] = useState<boolean>(false);
+  useImperativeHandle(ref, () => ({
+    open: (): void => {
+      setVisible(true);
+    }
+  }));
+  return visible ? (<div className={classNames({
+      [styles.popup]: true,
+      [styles.enter]: enter,
+      [styles.leave]: leave,
+    })}>
+      <div className={styles.mask} />
+      <div className={styles.popupContent}>
+        <div className={styles.closeBtn} onClick={(): void => {
+          setVisible(false);
+        }} />
+        {children}
+      </div>
+    </div>) : null;
+});
+
+export default Popup;
+```
+
+然后写一下静态的样式，相关的全局主题化变量也定义一下。   
+
+components/popup/index.module.scss  
+
+```scss
+@import "./pages/media.scss";
+
+.popup {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+
+  .mask {
+    width: inherit;
+    height: inherit;
+    position: fixed;
+    background-color: #000;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+
+  .popupContent {
+    position: relative;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--popup-content-background-color);
+    z-index: 20;
+    min-width: 25rem;
+    min-height: 25rem;
+
+    .closeBtn {
+      width: 2.125rem;
+      height: 2.125rem;
+      background-color: inherit;
+      background-image: var(--popup-close-icon);
+      background-position: center;
+      background-size: 1rem 1rem;
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 1.1875rem;
+      right: 1.1875rem;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    .closeBtn:hover {
+      background-color: var(--popup-close-hover-background-color);
+    }
+  }
+}
+
+@include media-mobile {
+  .popup {
+    .dialogContent {
+      .closeBtn {
+        width: 0.6875rem;
+        height: 0.6875rem;
+        top: 1.3125rem;
+        right: 0.875rem;
+      }
+    }
+  }
+}
+
+@include media-ipad {
+  .dialog {
+    .dialogContent {
+      .titleArea {
+        padding: 1.5rem 1.5625rem;
+      }
+    }
+  }
+}
+
+```
+
+styles/globals.css   
+
+```css
+html[data-theme="dark"] {
+  --primary-color: #ffffff;
+  --primary-background-color: rgba(14, 14, 14, 1);
+  --footer-background-color: rgba(36, 36, 36, 1);
+  --navbar-background-color: rgba(0, 0, 0, 0.5);
+  --secondary-color: rgba(255, 255, 255, 0.5);
+  --link-color: #34a8eb;
+  --navbar-icon: url('../public/logo_dark.png');
+  --theme-icon: url('../public/theme_dark.png');
+  --popup-close-icon: url('../public/close.png');
+  --popup-close-hover-background-color: #353535;
+  --popup-content-background-color: #1f1f1f;
+}
+
+html[data-theme="light"] {
+  --primary-color: #333333;
+  --primary-background-color: rgba(255, 255, 255, 1);
+  --footer-background-color: #f4f5f5;
+  --navbar-background-color: rgba(255, 255, 255, 0.5);
+  --secondary-color: #666666;
+  --link-color: #0070f3;
+  --navbar-icon: url('../public/logo_light.png');
+  --theme-icon: url('../public/theme_light.png');
+  --popup-close-icon: url('../public/close_light.png');
+  --popup-close-hover-background-color: #f5f5f5;
+  --popup-content-background-color: #f4f5f5;
+}
+```
+
+在 navbar 加一个入口。  
+
+component/navbar/index.tsx  
+
+```tsx
+import {FC, useContext, useEffect, useRef} from 'react';
+import Link from "next/link";
+import Popup from '@/components/popup';
+import { IPopupRef } from '@/components/popup';
+import {useTranslation} from 'next-i18next';
+import {ThemeContext} from '@/stores/theme';
+import {UserAgentContext} from '@/stores/userAgent';
+import {Environment, Language, Themes} from '@/constants/enum';
+import styles from './index.module.scss';
+import {LanguageContext} from "@/stores/language";
+import {useRouter} from "next/router";
+
+export interface INavBarProps {}
+
+const NavBar: FC<INavBarProps> = ({}) => {
+  const { t } = useTranslation('main');
+  const router = useRouter();
+  const popupRef = useRef<IPopupRef>(null);
+  const { locales, locale: activeLocale } = router;
+  const otherLocales = locales?.filter(
+    (locale) => locale !== activeLocale && locale !== "default"
+  );
+  const { setTheme } = useContext(ThemeContext);
+  const { setLanguage } = useContext(LanguageContext);
+  const { userAgent } = useContext(UserAgentContext);
+  useEffect(() => {
+    setLanguage(router.locale as Language);
+  }, [router.locale]);
+  return (
+    <div className={styles.navBar}>
+      <a href="http://localhost:3000/">
+        <div className={styles.logoIcon} />
+      </a>
+      <div className={styles.themeArea}>
+        {userAgent === Environment.pc && (
+          <span className={styles.text}>{t('PCStyle')}</span>
+        )}
+        {userAgent === Environment.ipad && (
+          <span className={styles.text}>{t('IpadStyle')}</span>
+        )}
+        {userAgent === Environment.mobile && (
+          <span className={styles.text}>{t('MobileStyle')}</span>
+        )}
+        <div className={styles.popupText} onClick={(): void => popupRef.current?.open()}>弹窗示范</div>
+        <div className={styles.language}>
+          {otherLocales?.map((locale) => {
+            const { pathname, query, asPath } = router;
+            return (
+              <span key={locale}>
+            <Link href={{ pathname, query }} as={asPath} locale={locale}>
+              {locale}
+            </Link>
+          </span>
+            );
+          })}
+        </div>
+        <div className={styles.themeIcon} onClick={(): void => {
+          setTheme(localStorage.getItem('theme') === Themes.light ? Themes.dark : Themes.light);
+        }}/>
+      </div>
+      <Popup ref={popupRef}>
+        <div>这是一个弹窗</div>
+      </Popup>
+    </div>
+  )
+}
+
+export default NavBar;
+```
+
+效果实现：    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_67.png" alt="" width="700" />  
+
+### 遮罩层滚动穿透  
+
+这时候存在一个问题，在有遮罩层的时候，最外层仍然是可以滚动的，这个问题称作为滚动穿透现象，其实也很好理解，最外层的区域（body) 仍然是可以产生滚动的，仅仅是给了 100vh 的遮罩层，所以并不能阻止滚动的产生。  
+
+解决方案也很简单，只需要在遮罩层的时候，在 body 手动加上一个类来限制它的高度即可。  
+
+components/popup/index.tsx  
+
+```
+// ...
+useEffect(() => {
+document.body.className = visible ? "forbidScroll" : "";
+}, [visible]);
+```
+
+styles/globals.css  
+
+```css
+.forbidScroll {
+  height: 100vh;
+  overflow: hidden;
+}
+```
+
+现在可以发现已经不会再滚动了。   
+
+### 指定渲染位置 
+
+打开控制台的 Elements，通过选取元素选中弹窗，可以看到渲染的位置是在对应组件调用的 dom 下的。
+
+这样其实会存在一个问题，因为被嵌套在别的 dom 下，包括样式、事件在内的很多情况，弹窗组件可能都会受到影响，作为一个通用的组件是不希望弹窗的展现因为外界的情况而有所变化的，所以不应该把它渲染在父级区域下。  
+
+在 React 16，有提供一个 api，ReactDom.createPortal， 它提供了将子节点渲染到存在于父组件以外的 DOM 节点的能力，通过这个 api 可以将弹窗组件渲染到 body 下，这样就可以有效解决这个问题，因为需要使用到 BOM 的问题，所以需要进行判空。  
+
+component/popup/index.tsx  
+
+```tsx
+import React, {forwardRef, useImperativeHandle, useState} from 'react';
+import {createPortal} from 'react-dom';
+import styles from './index.module.scss';
+import classNames from 'classnames';
+
+export interface IPopupRef {
+  open: () => void;
+}
+
+interface IPopupProps {
+  children: JSX.Element;
+}
+
+const Popup = forwardRef<IPopupRef, IPopupProps>(({children}, ref) => {
+  const [visible, setVisible] = useState<boolean>(false);
+  useImperativeHandle(ref, () => ({
+    open: (): void => {
+      setVisible(true);
+    }
+  }));
+  return visible ? (
+    createPortal((<div className={classNames({
+      [styles.popup]: true,
+    })}>
+     <div className={styles.mask} />
+     <div className={styles.popupContent}>
+       <div className={styles.closeBtn} onClick={(): void => {
+         setVisible(false);
+       }} />
+       {children}
+     </div>
+    </div>), document.body)
+  ) : null;
+});
+
+export default Popup;
+```
+
+再来看一下控制台，可以看到已经渲染到最外层了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_68.png" alt="" width="700" />  
+
+### 动画实现  
+
+应该怎么为弹窗实现动画呢？   
+
+渐入渐出的动画关键在于类的切换，在切换过程中需要对下一个状态的类进行异步切换，因为 react state 是对最终结果进行切换的，这样没办法起到类型变化的效果。   
+
+现在来实现这个效果，动画的效果就实现一个普通的渐入渐出就可以了。   
+
+component/popup/index.tsx  
+
+```tsx
+import React, {forwardRef, useEffect, useImperativeHandle, useState,} from 'react';
+import {createPortal} from 'react-dom';
+import styles from './index.module.scss';
+import classNames from 'classnames';
+
+export interface IPopupRef {
+  open: () => void;
+}
+
+interface IPopupProps {
+  children: JSX.Element;
+}
+
+const Popup = forwardRef<IPopupRef, IPopupProps>(({children}, ref) => {
+  const [visible, setVisible] = useState<boolean>(false);
+  const [enter, setEnter] = useState<boolean>(false);
+  const [leave, setLeave] = useState<boolean>(false);
+  useImperativeHandle(ref, () => ({
+    open: (): void => {
+      setEnter(true);
+      setTimeout((): void => {
+        setEnter(false);
+      }, 300);
+      setVisible(true);
+    }
+  }));
+  useEffect(() => {
+    document.body.className = visible ? maskClass : '';
+    let timer = null;
+    if (visible) {
+      setEnter(true);
+      timer = setTimeout((): void => {
+        setEnter(false);
+      }, 300);
+    } else {
+      setLeave(true);
+      timer = setTimeout((): void => {
+        setLeave(false);
+      }, 300);
+    }
+    return (): void => {
+      timer = null;
+    };
+  }, [visible]);
+  return visible ? (
+    createPortal((<div className={classNames({
+      [styles.popup]: true,
+      [styles.enter]: enter,
+      [styles.leave]: leave,
+    })}>
+     <div className={styles.mask} />
+     <div className={styles.popupContent}>
+       <div className={styles.closeBtn} onClick={(): void => {
+         setLeave(true);
+         setTimeout((): void => {
+           setLeave(false);
+         }, 300);
+         setVisible(false);
+       }} />
+       {children}
+     </div>
+    </div>), document.body)
+  ) : null;
+});
+
+export default Popup;
+```
+
