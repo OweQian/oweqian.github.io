@@ -4,15 +4,7 @@
         <link>http://oweqian.xyz/tags/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/</link>
         <description>第一技能 - 标签 - OweQian</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 17 Feb 2023 16:50:47 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/tags/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/" rel="self" type="application/rss+xml" /><item>
-    <title>基于 Nextjs &#43; Strapi 的官网开发实战</title>
-    <link>http://oweqian.xyz/ssr/</link>
-    <pubDate>Fri, 17 Feb 2023 16:50:47 &#43;0800</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/ssr/</guid>
-    <description><![CDATA[项目地址： SSR 搭建 Client 项目 项目初始化 先对项目进行初始化，Nextjs 提供了脚手架来帮助初始化项目，执行下面的命令： 1 npx create-next-app@latest --typescript next.config.js 是构建配置，底层是基]]></description>
-</item>
-<item>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 07 Feb 2023 10:20:47 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/tags/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/" rel="self" type="application/rss+xml" /><item>
     <title>基于 Electron &#43; Vue3 的桌面应用开发实战</title>
     <link>http://oweqian.xyz/electron/</link>
     <pubDate>Tue, 07 Feb 2023 10:20:47 &#43;0800</pubDate>

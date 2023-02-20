@@ -13,14 +13,6 @@
     <description><![CDATA[2023 2023-02 02-01 02-02 Damn cool!!! 02-03 node.js 还是挺有意思的。 02-04 😠 无知和过度的商业宣传形成了健康问题必然危机生命的大众认知，从维持生命的人性底层上滋生了心理层面的恐慌，驱]]></description>
 </item>
 <item>
-    <title>基于 Nextjs &#43; Strapi 的官网开发实战</title>
-    <link>http://oweqian.xyz/ssr/</link>
-    <pubDate>Fri, 17 Feb 2023 16:50:47 &#43;0800</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/ssr/</guid>
-    <description><![CDATA[项目地址： SSR 搭建 Client 项目 项目初始化 先对项目进行初始化，Nextjs 提供了脚手架来帮助初始化项目，执行下面的命令： 1 npx create-next-app@latest --typescript next.config.js 是构建配置，底层是基]]></description>
-</item>
-<item>
     <title>你需要一首 BGM，来撑起你的内心戏</title>
     <link>http://oweqian.xyz/souldance/</link>
     <pubDate>Wed, 15 Feb 2023 11:50:47 &#43;0800</pubDate>

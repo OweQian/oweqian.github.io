@@ -1,6 +1,6 @@
 ---
 title: "基于 Nextjs + Strapi 的官网开发实战"
-date: 2023-02-20T09:10:47+08:00
+date: 2023-02-20T11:25:47+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
@@ -5225,7 +5225,7 @@ make install
 
 安装完以后，在终端中输入 WebBench 验证一下。  
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_74.png" alt="" width="700" />   
 
 需要关注的参数有两个：  
 
@@ -5234,7 +5234,7 @@ image.png
 
 对服务简单压测试验下看看。  
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_75.png" alt="" width="700" />   
 
 可以看到 200 并发就会出现大规模请求异常的情况，不过这个结果算比较简陋的，加上对环境和安装步骤上相对苛刻一些，所以并不推荐使用这个方案。  
 
@@ -5252,7 +5252,7 @@ brew install wrk
 
 装完可以在终端执行一下 wrk -v验证一下。   
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_76.png" alt="" width="700" />   
 
 上面执行完以后可以看到它列出了 wrk 相关的参数，其中常用到的有三个参数：  
 
@@ -5262,7 +5262,7 @@ image.png
 
 其中连接数（c）会平分给每个线程，比如设置 -c200 -t8，那么将启用 8 个线程，每个线程处理 200/8 个请求，可以对 bing 搜索简单试验一下，具体参数其实大部分都是一样的。  
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_77.png" alt="" width="700" />   
 
 这个方案更多是给后端同学测吞吐率用的，包括线程等参数，具体的值不好衡量，对前端不算那么友好。   
 
@@ -5290,11 +5290,11 @@ autocannon http://127.0.0.1:3000
 
 在这个 10s 的执行过程，如果切回 client 可以看到服务在飞快请求。   
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_80.png" alt="" width="700" />   
 
 最后可以得到这样一个数据。  
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_79.png" alt="" width="700" />   
 
 介绍一下每个指标对应什么，先看每列的指标：  
 
@@ -5317,15 +5317,68 @@ image.png
 autocannon -c 200 http://127.0.0.1:3000
 ```
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_81.png" alt="" width="700" />   
 
 从数据上看，发现所有的数据都清 0 了，说明在这个并发量下单服务器的计算支撑不下去，最下面的请求数据中也有显示 200 个错误， 200 个超时。  
 
 这时候切回 client 的终端可以看到，服务已经崩掉了，没办法承载 200 的并发量，如果业务需要，这时候就需要考虑给服务器集群进行扩容操作了。  
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_82.png" alt="" width="700" />   
 
 ## 提高搜索引擎排名
+
+### 技术优化
+#### 语义化标签
+
+写 toB 项目时，可能会直接用 div 标签作为块级区域的标签，但是对于 SEO 而言，这样的爬取和关键词检索效果是极差的，搜索引擎的索引器在对站点进行分析的过程中，会根据语义化标签来决定不同信息的重要程度，以此来匹配对应的关键词进行推荐。  
+
+其中最需要关注的，也最常用的就是站点的 H 标签，有几个需要着重注意的使用事项：  
+
+* H 标签只针对用户可见内容进行设置，图片、链接、写给 robots 可读文字均不在 H 标签使用范围之内。  
+* H1 是一个页面中权重最高，关键词优先级最高的文案，一个页面只能使用一个。  
+* 页面中通常只使用 H1 ~ H3，剩下的标题优先级太低，部分搜索引擎不会进行识别。  
+* H 标签通常不使用在文字 logo、 标签栏、侧边栏等每页固定存在的部分。因为这部分不属于这一页的重点，即不是“与众不同” 的区域。  
+
+#### Meta
+
+影响 SEO 有三个重要元素，通常称 TDK（即 title，description，keywords），除这些部分外，还有一些常用的 meta 标签，这些都需要加到模板页面中。  
+
+* Title: 就是常用的 title 标签。  
+* Description: 页面描述，SEO 的关键。需要注意的是，PC 端下页面描述不要超过 155 个字符，移动端不要超过 120 个字符，如果过长，页面描述会被截断，反而会影响最终的 SEO。  
+* Keywords: 关键词，这个的设定需要注意几点：  
+
+1. 每个页面通常设置比较重要的3、4个关键词，不要堆砌，不要过长，更不要只因为热门，就加完全不相关的内容进来蹭热度。    
+2. 关键词按照由高到低的顺序来排，用逗号分隔。  
+3. 每个关键词都要是独特的，不要每个关键词意思都差不多。
+```html
+<meta name="keywords" content=""/>
+```
+
+4. robots（重要）: 是否开启搜索引擎抓取，noindex 对应是否开启抓取，nofollow 对应不追踪网页的链接，需要开启。  
+```html
+<meta name="robots" content="index, follow" />
+```
+5. Applicable-device: 告诉 Google，你这个站点适配了哪些设备，不加就是默认 PC 端，将会影响移动端搜索你站点的推送。  
+```html
+<meta name="applicable-device" content="pc,mobile" />
+```
+6. Format-detection: 在默认状态下，网页的数字会被认为是电话号码（在不同的系统中，显示的格式可能有所不同，比如在 iphone 手机中会有下划线），点击数字会被当作电话号码拨打或者添加到联系人，所以需要禁用。  
+```html
+<meta name="format-detection" content="telephone=no" />
+```
+
+#### Sitemap
+
+站点地图是一种文件，您可以在其中提供与您网站中的网页、视频或其他文件有关的信息，还可以说明这些内容之间的关系。Google 等搜索引擎会读取此文件，以便更高效地抓取您的网站。站点地图会告诉 Google 您认为网站中的哪些网页和文件比较重要，还会提供与这些文件有关的重要信息。更多内容请查阅官方文档。    
+
+### 内容优化
+
+内容是 SEO 的核心，没有高质量的内容，只通过蹭热门关键词，只会有适得其反的效果。推荐阅读 Google SEO 开发者文档，其中对于内容的部分有非常详细的说明，涵括如何让你的内容有趣，怎么满足读者的需求，以及如何具备权威性和能解决用户的问题等。  
+
+#### SEM
+
+搜索引擎营销的基本思想是让用户发现信息，并通过（搜索引擎）搜索点击进入网站/网页进一步了解他所需要的信息。简单来说 SEM 所做的就是以最小的投入在搜索引擎中获最大的访问量并产生商业价值。SEM的方法包括SEO、付费排名、精准广告以及付费收录等。  
+
 ## 网站服务部署
 
 站点应用想要部署外网，需要提前准备资源和流程，大体可以分为以下几个步骤：   
@@ -5351,15 +5404,24 @@ npm install pm2 -g
 
 安装完成后在终端输入 pm2 试试。   
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_83.png" alt="" width="700" />   
 
 然后分别切到 client 和 server 的目录下执行一下 npm run build，这个是为了构建线上环境启动所需要的产物。   
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_84.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_85.png" alt="" width="700" />   
 
 安装完尝试重新构建一下，并且在对应目录下执行 npm run start，如果没有异常，就可以尝试使用 pm2 来启动服务了。  
 
-在这之前，先简单介绍一下原理，pm2 可以通过执行 pm2 start ${脚本文件} --name ${服务名} 的方式启动，不过要注意，因为执行路径的不同，所以这里使用 npm 的绝对路径执行确保没有问题。  
+server:   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_89.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_86.png" alt="" width="700" />   
+
+client:  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_88.png" alt="" width="700" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_87.png" alt="" width="700" />   
+
+在这之前，先简单介绍一下原理，pm2 可以通过执行 pm2 start ${脚本文件} --name ${服务名} 的方式启动，不过要注意，因为执行路径的不同，所以这里使用 npm 的绝对路径执行确保没有问题。    
 
 首先执行下面的命令看一下 npm 的目录位置。   
 
@@ -5367,7 +5429,8 @@ image.png
 which npm
 ```
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_90.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_91.png" alt="" width="700" />   
 
 然后切到对应项目目录下，创建一个 shell 脚本，然后写入 ${npm目录} run start 即可。  
 
@@ -5375,15 +5438,15 @@ image.png
 vi server.sh
 ```
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_92.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_93.png" alt="" width="700" />   
 
 类似这样，然后在对应 shell 脚本根目录分别执行 pm2 start server.sh，为了区分还可以给它们加上 --name 名称的参数，执行完以后，再执行 pm2 list，如果看到服务 online，就可以了。  
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_94.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_95.png" alt="" width="700" />   
 
-这时候直接访问 http://127.0.0.1:3000，也是可以打开官网的。  
-
-image.png
+这时候直接访问 http://127.0.0.1:3000，也是可以打开官网的。   
 
 如果想要服务器开机的时候自启动，只需要执行下面的命令，保存当前服务并且生成自启动脚本即可。   
 
@@ -5394,7 +5457,7 @@ pm2 startup
 
 至于关闭和重启服务，使用 stop 和 restart 即可，类似下面的例子。   
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_97.png" alt="" width="700" />   
 
 值得一提的是，启动的过程可能并不是一帆风顺的，可能会有一些报错，那这时候服务的 status 就会显示 errored，这时候可以通过输出日志的方式来排查，以 server (client) 的服务举例。  
 
@@ -5404,7 +5467,7 @@ pm2 log server --lines 50
 
 日志默认输出是 15 行，这个一般是不够的，可能错误栈都不足够显示完成，这边加上行数的参数，调整为 50 行。  
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_98.png" alt="" width="700" />   
 
 就可以看到和平时开发一样的终端结果了，这时候如果有一些报错可以通过错误栈的信息来快速定位，并且 pm2 提供了持续监听的能力，类似平时开发中的热更新，只需要在 start 命令后加上 --watch 的参数就可以启动，这样当代码发生变化的时候，部署也会同步自动更新。  
 
@@ -5422,7 +5485,7 @@ brew install nginx
 vi /usr/local/etc/nginx/nginx.conf
 ```
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_99.png" alt="" width="700" />   
 
 改这两个部分就好，listen 是监听的端口号，proxy_pass 是希望转发的目标服务，这样就会将 80 端口的服务都转发到 3000 端口上，用户就可以直接通过域名进行访问了。   
 
@@ -5430,7 +5493,8 @@ image.png
 
 尝试一下直接访问 http://127.0.0.1/ ，可以看到已经可以了，到这里服务部署的部分就全部完成了。  
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_100.png" alt="" width="700" />   
 
 ## 总结
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_101.jpg" alt="" width="400" />   
