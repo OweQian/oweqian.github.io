@@ -8,8 +8,8 @@
 <meta property="og:description" content="项目地址： SSR 搭建 Client 项目 项目初始化 先对项目进行初始化，Nextjs 提供了脚手架来帮助初始化项目，执行下面的命令： 1 npx create-next-app@latest --typescript next.config.js 是构建配置，底层是基" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/ssr/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-02-16T18:00:47+08:00" />
-<meta property="article:modified_time" content="2023-02-17T09:37:37+08:00" /><meta property="og:site_name" content="OweQian" />
+<meta property="article:published_time" content="2023-02-17T16:50:47+08:00" />
+<meta property="article:modified_time" content="2023-02-17T09:48:41+08:00" /><meta property="og:site_name" content="OweQian" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://oweqian.xyz/logo.png"/>
@@ -35,8 +35,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "第一技能","wordcount":  23657 ,
-        "url": "http:\/\/oweqian.xyz\/ssr\/","datePublished": "2023-02-16T18:00:47+08:00","dateModified": "2023-02-17T09:37:37+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "第一技能","wordcount":  28186 ,
+        "url": "http:\/\/oweqian.xyz\/ssr\/","datePublished": "2023-02-17T16:50:47+08:00","dateModified": "2023-02-17T09:48:41+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -114,8 +114,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">基于 Nextjs + Strapi 的官网开发实战</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-16">2023-02-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 23657 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 48 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-17">2023-02-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 28186 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 57 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -172,7 +172,7 @@
         <li><a href="#bff-接口定义">BFF 接口定义</a></li>
       </ul>
     </li>
-    <li><a href="#主题化实现方案">主题化实现方案</a>
+    <li><a href="#主题化功能">主题化功能</a>
       <ul>
         <li><a href="#基础色调变量抽离">基础色调变量抽离</a></li>
         <li><a href="#图片主题化配置">图片主题化配置</a></li>
@@ -181,12 +181,12 @@
         <li><a href="#闪烁场景优化">闪烁场景优化</a></li>
       </ul>
     </li>
-    <li><a href="#帧动画实现方案">帧动画实现方案</a>
+    <li><a href="#帧动画功能">帧动画功能</a>
       <ul>
         <li><a href="#主动触发动画重新播放">主动触发动画重新播放</a></li>
       </ul>
     </li>
-    <li><a href="#多媒体适配方案">多媒体适配方案</a>
+    <li><a href="#多媒体适配">多媒体适配</a>
       <ul>
         <li><a href="#px-转-rem">Px 转 Rem</a></li>
         <li><a href="#css-多媒体设备适配">CSS 多媒体设备适配</a></li>
@@ -204,7 +204,7 @@
         </li>
       </ul>
     </li>
-    <li><a href="#国际化功能方案">国际化功能方案</a></li>
+    <li><a href="#国际化功能">国际化功能</a></li>
     <li><a href="#自定义弹窗组件">自定义弹窗组件</a>
       <ul>
         <li><a href="#静态样式">静态样式</a></li>
@@ -213,6 +213,33 @@
         <li><a href="#动画实现">动画实现</a></li>
       </ul>
     </li>
+    <li><a href="#图片优化">图片优化</a>
+      <ul>
+        <li><a href="#静态样式-1">静态样式</a></li>
+        <li><a href="#navigatorconnectioneffectivetype">navigator.connection.effectiveType</a></li>
+        <li><a href="#responsive-images--picture">responsive images / picture</a></li>
+        <li><a href="#webp推荐">webp(推荐)</a></li>
+      </ul>
+    </li>
+    <li><a href="#ios-300ms-delay">IOS 300ms delay</a>
+      <ul>
+        <li><a href="#meta-禁用缩放推荐">Meta 禁用缩放(推荐)</a></li>
+        <li><a href="#更改视口尺寸">更改视口尺寸</a></li>
+        <li><a href="#touch-action">Touch-action</a></li>
+        <li><a href="#fastclick">fastclick</a></li>
+      </ul>
+    </li>
+    <li><a href="#橡皮筋问题">橡皮筋问题</a>
+      <ul>
+        <li><a href="#overflow-给定宽高">overflow 给定宽高</a></li>
+        <li><a href="#禁用-touchmove-事件">禁用 touchmove 事件</a></li>
+        <li><a href="#监听滚动禁止">监听滚动禁止</a></li>
+        <li><a href="#简单方案推荐">简单方案(推荐)</a></li>
+      </ul>
+    </li>
+    <li><a href="#前端压力测试">前端压力测试</a></li>
+    <li><a href="#提高搜索引擎排名">提高搜索引擎排名</a></li>
+    <li><a href="#网站服务部署">网站服务部署</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>项目地址： <a href="https://github.com/OweQian/SSR.git" target="_blank" rel="noopener noreffer ">SSR</a></p>
@@ -2544,7 +2571,7 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </div>
 </div><p>访问 http://localhost:3000。</p>
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_31.png" alt="" width="700" />  
-<h2 id="主题化实现方案">主题化实现方案</h2>
+<h2 id="主题化功能">主题化功能</h2>
 <p>以 <a href="https://douyinfe.com/" target="_blank" rel="noopener noreffer ">抖音前端技术官网</a> 为例，它的官网有包含默认的样式：</p>
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_32.png" alt="" width="700" />  
 <p>也有暗黑色调的展示：</p>
@@ -3388,7 +3415,7 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </div><p>id 是用于 Nextjs 检索，beforeInteractive 表明这个脚本的执行策略是在交互之前，会被默认放到 head 中。</p>
 <p>现在再来试试效果，发现走到钩子的时候已经可以正常去初始化了。</p>
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_37.png" alt="" width="700" />  
-<h2 id="帧动画实现方案">帧动画实现方案</h2>
+<h2 id="帧动画功能">帧动画功能</h2>
 <p>以 <a href="https://douyinfe.com/" target="_blank" rel="noopener noreffer ">抖音前端技术官网</a> 的首页加载动画为例，看看这个动画下究竟发生了什么？</p>
 <p>首先打开控制台的 network，使用 performance 来录制首页加载的过程，为了能更清晰查看，适当降低 CPU 的性能，调整为 4 x slowdown。</p>
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_38.png" alt="" width="700" />  
@@ -4154,7 +4181,7 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </div>
 </div><p>在每次 theme 发生变化的时候，主动移除对应的动画类，再通过 requestAnimationFrame 对动画类进重新绑定，达到主动触发动画刷新的效果，现在来看一下最终成品。</p>
 <iframe width="700" height="315" src="/images/ssr/a.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
-<h2 id="多媒体适配方案">多媒体适配方案</h2>
+<h2 id="多媒体适配">多媒体适配</h2>
 <p>之前的页面只绘制了 pc 端的样式，通常官网需要支持 pc、 ipad、 移动端等多种设备的访问，现在需要对多媒体设备的样式进行兼容适配。</p>
 <h3 id="px-转-rem">Px 转 Rem</h3>
 <p>在适配之前，先了解一下 rem 和 px，px 是相对屏幕分辨率的像素单位， rem 是相对 HTML 根元素字体大小而确定的相对单位，对于多媒体的适配，常用 rem 进行开发。</p>
@@ -6434,7 +6461,7 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </span></span></code></pre></td></tr></table>
 </div>
 </div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_63.png" alt="" width="700" />  
-<h2 id="国际化功能方案">国际化功能方案</h2>
+<h2 id="国际化功能">国际化功能</h2>
 <p>官网不一定是给一个国家的人看的，可能公司或是团队的业务是针对多个地区的，语言不应该成为价值观传输的阻碍，所以如果是多地区业务线的公司，实现多语言也是很必要的。</p>
 <p>安装相关依赖包：</p>
 <div class="highlight"><div class="chroma">
@@ -8303,12 +8330,820 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </div>
 </div><p>实现效果：</p>
 <iframe width="700" height="315" src="/images/ssr/d.mp4" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h2 id="图片优化">图片优化</h2>
+<p>官网交互中，通常会有一些高分辨率图片用于展示，这些图片通常体积大、加载时间长，且占页面区域较大，如果在网速较快的情况下可能尚可，但是在低网速，类似 fast 3G，slow 3G 的场景下，几百 kb，甚至几 mb 的图片资源加载是难以忍受的，加上区域大，很可能会出现页面内容已经加载完成，但是图片区域长时间留白的问题。</p>
+<p>那么高分辨率图在低网速下加载时，应该如何减少加载时间，达到首屏优化的目的。</p>
+<h3 id="静态样式-1">静态样式</h3>
+<p>首先切两个大图，加在首页的位置，大小控制在 500kb 上下的清晰度（500px * 500px 2x) 即可，这种在快速 3g 的网速下，通常需要请求几十秒左右可以完全加载，可以用来说明这个场景。</p>
+<p>styles/globals.css</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">html</span><span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">&#34;dark&#34;</span><span class="o">]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">--home-background-icon</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="s1">&#39;../public/home_bg_dark.png&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">html</span><span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">&#34;light&#34;</span><span class="o">]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">--home-background-icon</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="s1">&#39;../public/home_bg_light.png&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>pages/index.tsx</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">header</span><span class="p">}</span> <span class="p">/&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>styles/Home.module.scss</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.header</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">background-image</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">home-background-icon</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="na">background-size</span><span class="o">:</span> <span class="mi">18</span><span class="mf">.75</span><span class="kt">rem</span> <span class="mi">18</span><span class="mf">.75</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">background-repeat</span><span class="o">:</span> <span class="ni">no-repeat</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">width</span><span class="o">:</span> <span class="mi">18</span><span class="mf">.75</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">height</span><span class="o">:</span> <span class="mi">18</span><span class="mf">.75</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>图片的大小大致在 700kb， 正常 4g 网络下的加载时长为 12ms 左右。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_70.png" alt="" width="700" />   
+<p>把网速切换至 fast 3g，看看这个图片的加载时长需要多久。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_69.png" alt="" width="700" />   
+<p>可以看到需要 4s，远远超过其他静态资源，这意味着页面元素加载出来后，用户需要再等好几秒图片才能缓缓加载出来。</p>
+<p>针对这个问题，在实际业务开发中有大概这几个方案。</p>
+<p>这是 MDN 2020 年网络信息接口提案中提出的最新 BOM 属性，通过这个 BOM 来获取当前的流量状态，根据不同的流量状态进行图片清晰度的选择。</p>
+<p>在较低网速下的场景，选择优先加载 0.5x 或是 1x 的图片，同时也加载 2x 的大图，通过隐藏 DOM 的方式隐性加载，然后监听 2x 资源的 onload 事件，在资源加载完成时，进行类的切换即可。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_69.png" alt="" width="700" />   
+<h3 id="navigatorconnectioneffectivetype">navigator.connection.effectiveType</h3>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_71.png" alt="" width="700" />   
+<p>这种方案在低网速下的效果是所有方案中最好的，用户的感知视角是，只需要等待 0.5x 到 1x 的模糊图加载时长，不会有区域的大面积留白，同时最后也可以体验到高清图的交互。</p>
+<p>不过这种方案毕竟还是一个实验性属性，兼容性各方面并不是很好，只有较少的浏览器支持这个属性。</p>
+<p>需要注意的有两点：</p>
+<ul>
+<li>考虑到兼容性问题，navigator.connection.effectiveType 的使用需要进行判空处理，避免因为 navigator.connection is not defined 的报错阻塞页面渲染，可以写成 navigator?.connection?.effectiveType 来进行调用。</li>
+<li>因为是 BOM，模板页面会同时执行在服务器端和客户端，在服务器端是没有 BOM 等属性的注入的，如果是在 hook 以外的地方调用，需要对第一个元素进行判空，采用typeof navigator !== &ldquo;undefined&rdquo; &amp;&amp; navigator?.connection?.effectiveType的方式调用。</li>
+</ul>
+<h3 id="responsive-images--picture">responsive images / picture</h3>
+<p>浏览器有提供响应式图片的能力，分别是 img srcset 和 picture，它们都支持根据不同的像素场景自动选取不同的元素来进行适配。</p>
+<p>下面是两个 MDN 的使用例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;elva-fairy-480w.jpg 480w, elva-fairy-800w.jpg 800w&#34;</span> <span class="na">sizes</span><span class="o">=</span><span class="s">&#34;(max-width: 600px) 480px,800px&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="na">src</span><span class="o">=</span><span class="s">&#34;elva-fairy-800w.jpg&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;Elva dressed as a fairy&#34;</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">&#34;http://www.w3.org/1999/html&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">picture</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">source</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;/media/cc0-images/surfer-240-200.jpg&#34;</span> <span class="na">media</span><span class="o">=</span><span class="s">&#34;(min-width: 800px)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/media/cc0-images/painted-hand-298-332.jpg&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">picture</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>img srcset 根据像素比来选取适合的静态资源加载，而对于 picture， user agent 会检查每个 <source> 的 srcset、media 和 type 属性，来选择最匹配页面当前布局、显示设备特征等的兼容图像。</p>
+<p>这种方案兼容性很强，不过缺陷也很明显，针对 PC 端的确是需要高清图且低网速的场景，它没办法做任何处理。</p>
+<p>如果在低像素场景下，低分辨率的图也没办法满足需求时，这个方案也是束手无策的，它的本质还是根据不同页宽来调整资源的分辨率，没办法改变高分辨率资源加载时间长的现状。</p>
+<p>不过这两种方案在 C 端中也有广泛的应用，对于多媒体设备，可以针对不同页宽设备选取不同分辨率的资源，对性能也是有很大提高的。</p>
+<h3 id="webp推荐">webp(推荐)</h3>
+<p>Webp 是谷歌推出的一种新的格式，它可以通过 jpg、png 等主流资源格式转换，达到无损画质的效果，并且相比正常的图片资源，压缩体积会减少到 40% 以上，大量主流浏览器已经支持了webp，并且最近 IOS14 及以上设备的 safari 浏览器也已经新增对 webp 的支持，只有少部分 IOS 低版本还不兼容。</p>
+<p>首先，针对静态样式部分的资源进行 webp 相关的转换，转换的方式很简单，可以在 google 上搜索 png to webp，有很多开源免费的转换器帮助进行资源的转换。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_72.png" alt="" width="700" />   
+<p>资源压缩后，可以看到 webp 对应的大小为 456kb，相比当初的 700kb 减少了近 40%，接下来把它加到代码中，试验一下 3g 场景下实际加载的时间可以优化多少。</p>
+<p>styles/globals.css</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">html</span><span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">&#34;dark&#34;</span><span class="o">]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="err">//</span> <span class="err">...</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">--home-background-icon-webp</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="s1">&#39;../public/home_bg_dark.webp&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">html</span><span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">&#34;light&#34;</span><span class="o">]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="err">//</span> <span class="err">...</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">--home-background-icon-webp</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="s1">&#39;../public/home_bg_light.webp&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为一些浏览器还不支持 webp，所以需要对它的兼容性进行判断，在资源请求的请求头 accept 字段中，包含了当前浏览器所支持的静态资源类型，可以通过这个字段来进行判断。</p>
+<p>utils/index.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">getIsSupportWebp</span> <span class="o">=</span> <span class="p">(</span><span class="nx">context</span>: <span class="kt">AppContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">req</span> <span class="o">||</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">headers</span><span class="p">.</span><span class="nx">accept</span><span class="o">?</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;image/webp&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 _app.tsx 中对所有的组件进行 isSupportWebp 的注入，这样每个页面模板都可以拿到这个字段。</p>
+<p>pages/_app.tsx</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="p">{</span> <span class="nx">AppProps</span><span class="p">,</span> <span class="nx">AppContext</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;next/app&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">App</span> <span class="kr">from</span> <span class="s1">&#39;next/app&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Head</span> <span class="kr">from</span> <span class="s1">&#39;next/head&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">axios</span> <span class="kr">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">ThemeContextProvider</span> <span class="kr">from</span> <span class="s1">&#39;@/stores/theme&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">UserAgentProvider</span> <span class="kr">from</span> <span class="s1">&#39;@/stores/userAgent&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">LanguageContextProvider</span> <span class="kr">from</span> <span class="s1">&#39;@/stores/language&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">LOCALDOMAIN</span><span class="p">,</span> <span class="nx">getIsMobile</span><span class="p">,</span> <span class="nx">getIsSupportWebp</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@/utils&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="p">{</span> <span class="nx">ILayoutProps</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@/components/layout&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">appWithTranslation</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;next-i18next&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Layout</span> <span class="kr">from</span> <span class="s1">&#39;@/components/layout&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s1">&#39;@/styles/globals.css&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IDeviceInfoProps</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">isMobile</span>: <span class="kt">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">isSupportWebp</span>: <span class="kt">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">MyApp</span> <span class="o">=</span> <span class="p">(</span><span class="nx">data</span>: <span class="kt">AppProps</span> <span class="o">&amp;</span> <span class="nx">ILayoutProps</span> <span class="o">&amp;</span> <span class="nx">IDeviceInfoProps</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Component</span><span class="p">,</span> <span class="nx">pageProps</span><span class="p">,</span> <span class="nx">navbarData</span><span class="p">,</span> <span class="nx">footerData</span><span class="p">,</span> <span class="nx">isMobile</span><span class="p">,</span> <span class="nx">isSupportWebp</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">Head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;{</span><span class="sb">`A Demo for 官网开发实战 (</span><span class="si">${</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">isMobile</span> <span class="o">?</span> <span class="s2">&#34;移动端&#34;</span> <span class="o">:</span> <span class="s2">&#34;pc端&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="si">}</span><span class="sb">)`</span><span class="p">}&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">meta</span>
+</span></span><span class="line"><span class="cl">          <span class="na">name</span><span class="o">=</span><span class="s">&#34;description&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">content</span><span class="o">=</span><span class="s">&#34;A Demo for 官网开发实战&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;icon&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/favicon.ico&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;user-scalable=no&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;initial-scale=1,maximum-scale=1&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">Head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">LanguageContextProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">ThemeContextProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">UserAgentProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">Layout</span> <span class="na">navbarData</span><span class="o">=</span><span class="p">{</span><span class="nx">navbarData</span><span class="p">}</span> <span class="na">footerData</span><span class="o">=</span><span class="p">{</span><span class="nx">footerData</span><span class="p">}&gt;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">&lt;</span><span class="nt">Component</span> <span class="p">{</span><span class="na">...pageProps</span><span class="p">}</span> <span class="na">isMobile</span><span class="o">=</span><span class="p">{</span><span class="nx">isMobile</span><span class="p">}</span> <span class="na">isSupportWebp</span><span class="o">=</span><span class="p">{</span><span class="nx">isSupportWebp</span><span class="p">}</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">Layout</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;/</span><span class="nt">UserAgentProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">ThemeContextProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">LanguageContextProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">MyApp</span><span class="p">.</span><span class="nx">getInitialProps</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">context</span>: <span class="kt">AppContext</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">pageProps</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">App</span><span class="p">.</span><span class="nx">getInitialProps</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">LOCALDOMAIN</span><span class="si">}</span><span class="sb">/api/layout`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span><span class="nx">pageProps</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span><span class="nx">data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isMobile</span>: <span class="kt">getIsMobile</span><span class="p">(</span><span class="nx">context</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isSupportWebp</span>: <span class="kt">getIsSupportWebp</span><span class="p">(</span><span class="nx">context</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">appWithTranslation</span><span class="p">(</span><span class="nx">MyApp</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 index.tsx 中引入对应的 webp 资源。</p>
+<p>pages/index.tsx</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">useContext</span><span class="p">,</span> <span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useRef</span><span class="p">,</span> <span class="nx">useState</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">axios</span> <span class="kr">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="p">{</span><span class="nx">NextPage</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;next&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">Pagination</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@douyinfe/semi-ui&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">classNames</span> <span class="kr">from</span> <span class="s1">&#39;classnames&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">ThemeContext</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@/stores/theme&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">useTranslation</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;next-i18next&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">serverSideTranslations</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;next-i18next/serverSideTranslations&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">styles</span> <span class="kr">from</span> <span class="s1">&#39;@/styles/Home.module.scss&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">LOCALDOMAIN</span><span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/utils&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">IDeviceInfoProps</span><span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/pages/_app&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">IArticleIntroduction</span><span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/pages/api/articleIntroduction&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">LanguageContext</span><span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/stores/language&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">useRouter</span><span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;next/router&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">IHomeProps</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">description</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">articles</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">total</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">list</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">label</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">info</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">link</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}[];</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Home</span>: <span class="kt">NextPage</span><span class="p">&lt;</span><span class="nt">IHomeProps</span> <span class="err">&amp;</span> <span class="na">IDeviceInfoProps</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span><span class="p">,</span> <span class="nx">description</span><span class="p">,</span> <span class="nx">articles</span><span class="p">,</span> <span class="nx">isSupportWebp</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">i18n</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useTranslation</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">useRouter</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">locale</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">content</span><span class="p">,</span> <span class="nx">setContent</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">articles</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">mainRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">&lt;</span><span class="nt">HTMLDivElement</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">theme</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useContext</span><span class="p">(</span><span class="nx">ThemeContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">language</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useContext</span><span class="p">(</span><span class="nx">LanguageContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">mainRef</span><span class="p">.</span><span class="nx">current</span><span class="o">?</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">styles</span><span class="p">.</span><span class="nx">withAnimation</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">mainRef</span><span class="p">.</span><span class="nx">current</span><span class="o">?</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">styles</span><span class="p">.</span><span class="nx">withAnimation</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[</span><span class="nx">theme</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">i18n</span><span class="o">?</span><span class="p">.</span><span class="nx">changeLanguage</span><span class="p">(</span><span class="nx">locale</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="nx">locale</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[</span><span class="nx">language</span><span class="p">,</span> <span class="nx">locale</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">container</span><span class="p">}&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">main</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classNames</span><span class="p">([</span><span class="nx">styles</span><span class="p">.</span><span class="nx">main</span><span class="p">,</span> <span class="nx">styles</span><span class="p">.</span><span class="nx">withAnimation</span><span class="p">])}</span> <span class="na">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">mainRef</span><span class="p">}&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classNames</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">          <span class="p">[</span><span class="nx">styles</span><span class="p">.</span><span class="nx">header</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="p">[</span><span class="nx">styles</span><span class="p">.</span><span class="nx">headerWebp</span><span class="p">]</span><span class="o">:</span> <span class="nx">isSupportWebp</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})}</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">title</span><span class="p">}&gt;{</span><span class="nx">title</span><span class="p">}&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">description</span><span class="p">}&gt;{</span><span class="nx">description</span><span class="p">}&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">grid</span><span class="p">}&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">content</span><span class="o">?</span><span class="p">.</span><span class="nx">list</span><span class="o">?</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">index</span><span class="p">}</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">card</span><span class="p">}</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">item</span><span class="o">?</span><span class="p">.</span><span class="nx">link</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;blank&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;noopener=yes,noreferrer=yes&#34;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}}&gt;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;{</span><span class="nx">item</span><span class="o">?</span><span class="p">.</span><span class="nx">label</span><span class="p">}&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;{</span><span class="nx">item</span><span class="o">?</span><span class="p">.</span><span class="nx">info</span><span class="p">}&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">paginationArea</span><span class="p">}&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">Pagination</span> <span class="na">total</span><span class="o">=</span><span class="p">{</span><span class="nx">content</span><span class="o">?</span><span class="p">.</span><span class="nx">total</span><span class="p">}</span> <span class="na">pageSize</span><span class="o">=</span><span class="p">{</span><span class="mi">6</span><span class="p">}</span> <span class="na">onPageChange</span><span class="o">=</span><span class="p">{</span><span class="nx">pageNo</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">LOCALDOMAIN</span><span class="si">}</span><span class="sb">/api/articleIntroduction`</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">pageNo</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">pageSize</span>: <span class="kt">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}).</span><span class="nx">then</span><span class="p">(({</span> <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">total</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">list</span>: <span class="kt">listData</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">setContent</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">list</span>: <span class="kt">listData?.map</span><span class="p">((</span><span class="nx">item</span>: <span class="kt">IArticleIntroduction</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">                  <span class="nx">label</span>: <span class="kt">item.label</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="nx">info</span>: <span class="kt">item.info</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="nx">link</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">LOCALDOMAIN</span><span class="si">}</span><span class="sb">/article/</span><span class="si">${</span><span class="nx">item</span><span class="p">.</span><span class="nx">articleId</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">})),</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">total</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}}</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">main</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">getServerSideProps</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">({</span> <span class="nx">locale</span> <span class="p">}</span><span class="o">:</span> <span class="p">{</span> <span class="nx">locale</span>: <span class="kt">string</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">title</span><span class="p">,</span> <span class="nx">description</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">LOCALDOMAIN</span><span class="si">}</span><span class="sb">/api/home`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">list</span>: <span class="kt">listData</span><span class="p">,</span> <span class="nx">total</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">LOCALDOMAIN</span><span class="si">}</span><span class="sb">/api/articleIntroduction`</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pageNo</span>: <span class="kt">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pageSize</span>: <span class="kt">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">...(</span><span class="k">await</span> <span class="nx">serverSideTranslations</span><span class="p">(</span><span class="nx">locale</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;common&#39;</span><span class="p">,</span> <span class="s1">&#39;footer&#39;</span><span class="p">,</span> <span class="s1">&#39;header&#39;</span><span class="p">,</span> <span class="s1">&#39;main&#39;</span><span class="p">])),</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">description</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">articles</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">total</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">list</span>: <span class="kt">listData?.map</span><span class="p">((</span><span class="nx">item</span>: <span class="kt">IArticleIntroduction</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">label</span>: <span class="kt">item.label</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">info</span>: <span class="kt">item.info</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">link</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">LOCALDOMAIN</span><span class="si">}</span><span class="sb">/article/</span><span class="si">${</span><span class="nx">item</span><span class="p">.</span><span class="nx">articleId</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}))</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">Home</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>styles/Home.module.scss</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.headerWebp</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">background-image</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">home-background-icon-webp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后来看看效果，fast 3g 下对应资源的加载时间 从 4s 减少到了 3s，优化了近 25%！</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_73.png" alt="" width="700" />   
+<p>为什么 webp 可以在保证无损画质的前提下，缩小这么多体积呢？</p>
+<p>很有意思的一件事是，当处于极快网速的情况下，webp 相比同画质的 png 的加载时间反而会更长，即使它相比其他类型的资源，体积上缩小了整整 40% 以上。</p>
+<p>为什么会有这样的现象呢？</p>
+<p>webp 的低体积并不是毫无代价的，webp 在压缩过程中进行了分块、帧内预测、量化等操作，这些操作是减少 webp 体积的核心原因，不过作为交换的是，相比 jpg、png 等资源，它具备更长的解析时长，不过这个是不受网速等影响的，因为是浏览器内置的能力。</p>
+<p>所以这也是为什么在极快网速的情况下，webp 的加载时间有时会呈现为负优化的原因，因为减少的资源请求时间不足够抵消掉额外的解析时间，不过这个时间差值并不长，几毫秒在用户体验的过程中是无伤大雅的。</p>
+<p>但是在低网速的场景下，这个优化比例是极高的，因为 40% 的体积大小，对于低网速场景下，请求时间将会是质的提高，相比之下，几毫秒的解析时长就无关紧要了。</p>
+<h2 id="ios-300ms-delay">IOS 300ms delay</h2>
+<p>平时的开发中，事件触发大部分都是立刻响应，但是在 IOS 中，移动端的触摸事件会有 300ms 的延迟。</p>
+<p>IOS 浏览器有一个特点，可以通过双击来对屏幕页面进行缩放，这是导致 300ms 延迟的核心原因。</p>
+<p>因为当一个用户点击链接后，浏览器没办法判定用户是想双击缩放，还是进行点击事件触发，所以 IOS Safari 会统一等待 300ms，来判断用户是否会再次点击屏幕。</p>
+<h3 id="meta-禁用缩放推荐">Meta 禁用缩放(推荐)</h3>
+<p>300ms 延迟的初衷是为了解决点击和缩放没办法区分的问题，针对不需要缩放的页面，通过禁用缩放来解决。</p>
+<p>事实上，大部分移动端页面都是可以避免缩放的，通过交互等样式的兼容即可。</p>
+<p>pages/_app.tsx</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// ./pages/_app.tsx
+</span></span><span class="line"><span class="cl">// head加这两行即可
+</span></span><span class="line"><span class="cl">// ...
+</span></span><span class="line"><span class="cl">&lt; meta name=&#34;viewport&#34; content=&#34;user-scalable=no&#34; &gt;
+</span></span><span class="line"><span class="cl">&lt; meta name=&#34;viewport&#34; content=&#34;initial-scale=1,maximum-scale=1&#34; &gt; 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="更改视口尺寸">更改视口尺寸</h3>
+<p>Chrome 浏览器对包含 width=device-width 或者比 viewport 更小的页面禁用双击缩放，只需要加上下面的 meta 头，就可以在 IOS 中的 chrome 浏览器解决 300ms delay 的问题。</p>
+<p>这个方案的好处是，并不会完全禁用缩放。但是 IOS 默认的 Safari 浏览器没有支持这个能力，所以可以加上这个 meta 头来兼容视口尺寸，但并不作为这个的解决方案。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width&#34;&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="touch-action">Touch-action</h3>
+<p>在 W3C 草案中，有提出一个 touch-action css 属性，通过设置 touch-action: none 可以移除目标元素的 300ms delay，如果这个日后可以被主流浏览器支持，更推荐用这种方式针对区域进行灵活的限制。</p>
+<h3 id="fastclick">fastclick</h3>
+<p>这是一个老牌的解决 300ms 延迟的轻量 JS 库，可以通过 npm 安装且使用方式简单。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">FastClick</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>不建议使用 fastclick 的方式解决这个问题，有几个原因：</p>
+<ul>
+<li>对 TS 兼容性太差，fastclick 基于 JS，虽然有 ts for fastclick 的依赖，但是不被原作者认可，并且类型定义存在问题，直接引入依赖存在问题，需要自行进入模块定义中修改。</li>
+<li>包体过大，且包八年没再维护。</li>
+<li>不能直接用于 SSR，里面有直接用到 BOM，在服务器端渲染的时候会有相关报错，没找到比较好的插件可以兼容这个问题。</li>
+</ul>
+<h2 id="橡皮筋问题">橡皮筋问题</h2>
+<p>IOS上，当页面滚动到顶部或底部仍可向下或向上拖拽，并伴随一个弹性的效果。该效果被称为“rubber band”——橡皮筋。</p>
+<p>IOS 和安卓不同，即使页面没有设置滚动，仍然可以拉扯，给人一种橡皮筋的感觉，可以看到下面的效果。</p>
+<p>那么，怎么解决这个问题呢？</p>
+<h3 id="overflow-给定宽高">overflow 给定宽高</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">html</span><span class="o">,</span> <span class="nt">body</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="禁用-touchmove-事件">禁用 touchmove 事件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;touchmove&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">{</span><span class="nx">passive</span><span class="o">:</span> <span class="kc">false</span><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="监听滚动禁止">监听滚动禁止</h3>
+<p>IOS 橡皮筋的原理还是通过滚动，只不过与安卓不同的是，当到边界状态时，仍允许滚动，如果替 IOS 禁用边界的情况，理论上就可以实现对橡皮筋效果的禁用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">useForbidIosScroll</span> <span class="o">=</span> <span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">startEvent</span>: <span class="kt">TouchEvent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">cancelEvent</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">TouchEvent</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 有个瑕疵就是，如果是大惯性的那种滚动，浏览器该事件并不接受你禁用当前正在执行的动作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 导致如果猛地滑动会出页面边界
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">cancelable</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">checkScroll</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">TouchEvent</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">startY</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">startEvent</span><span class="o">?</span><span class="p">.</span><span class="nx">touches</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">pageY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">endY</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">e</span><span class="o">?</span><span class="p">.</span><span class="nx">touches</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">pageY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 下滑且滑动到底
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">startY</span> <span class="o">&gt;</span> <span class="nx">endY</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollY</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span> <span class="o">&gt;=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">cancelEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 上滑且滑动到顶
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">startY</span> <span class="o">&lt;</span> <span class="nx">endY</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollY</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">cancelEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">start</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">TouchEvent</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">startEvent</span> <span class="o">=</span> <span class="nx">e</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">end</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">TouchEvent</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">checkScroll</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;touchstart&#39;</span><span class="p">,</span> <span class="nx">start</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;touchmove&#39;</span><span class="p">,</span> <span class="nx">end</span><span class="p">,</span> <span class="p">{</span> <span class="nx">passive</span>: <span class="kt">false</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;touchstart&#39;</span><span class="p">,</span> <span class="nx">start</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;touchmove&#39;</span><span class="p">,</span> <span class="nx">end</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个效果其实并不是很理想，即使脚本已经走到中断的逻辑，滚动的行为在到达边界的时候仍然不会中止。</p>
+<p>到谷歌浏览器开发者文档里可以查看到，浏览器的事件其实分为两种，cancelable（可暂停）和 uncancelable（不可暂停），能够通过阻止默认事件的和阻止冒泡的都是可暂停的事件，滚动事件和鼠标滚轮事件，在触发的瞬间，就已经决定了要滚动到终点再停止，你只能暂停可能会影响滚动的前提的导线事件，这个场景下，滚动事件就已经是起源的操作，不存在间接触发，所以不行。</p>
+<h3 id="简单方案推荐">简单方案(推荐)</h3>
+<p>有一个很简单的方案，并且可以完美解决，给 body 进行隐藏，然后对根节点设置 100 页宽的高度，将外部 body 的滚动移动到页面内，这样外界的滚动相关的问题都会解决，因为页面采用的实际是内部滚动。</p>
+<p>styles/globals.css</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">forbidScroll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">vh</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">body</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">#</span><span class="nn">__next</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">vh</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">overflow</span><span class="p">:</span> <span class="kc">auto</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>看看改后的效果，发现橡皮筋的功能已经禁用了，因为现在页面采用的是页面内部 div 的滚动，外部 body 的滚动相关的问题也随之解决。</p>
+<h2 id="前端压力测试">前端压力测试</h2>
+<h2 id="提高搜索引擎排名">提高搜索引擎排名</h2>
+<h2 id="网站服务部署">网站服务部署</h2>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2023-02-17&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/b161d3ed49a8aab280d389c3ae4ba8724173fc77" target="_blank" title="commit by qian wang(1510106069@qq.com) b161d3ed49a8aab280d389c3ae4ba8724173fc77: update">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>b161d3e</a></span>
+                <span>更新于 2023-02-17&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/7d6c62b9a241c566060cb14203265c971b5e02a4" target="_blank" title="commit by qian wang(1510106069@qq.com) 7d6c62b9a241c566060cb14203265c971b5e02a4: update">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>7d6c62b</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>

@@ -1423,7 +1423,7 @@ export default MyApp;
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_31.png" alt="" width="700" />  
 
-## 主题化实现方案   
+## 主题化功能   
 
 以 [抖音前端技术官网](https://douyinfe.com/) 为例，它的官网有包含默认的样式：
 
@@ -1920,7 +1920,7 @@ id 是用于 Nextjs 检索，beforeInteractive 表明这个脚本的执行策略
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_37.png" alt="" width="700" />  
 
-## 帧动画实现方案  
+## 帧动画功能  
 
 以 [抖音前端技术官网](https://douyinfe.com/) 的首页加载动画为例，看看这个动画下究竟发生了什么？   
 
@@ -2336,7 +2336,7 @@ export default Home;
 
 <iframe width="700" height="315" src="/images/ssr/a.webm" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
 
-## 多媒体适配方案  
+## 多媒体适配
 
 之前的页面只绘制了 pc 端的样式，通常官网需要支持 pc、 ipad、 移动端等多种设备的访问，现在需要对多媒体设备的样式进行兼容适配。   
 
@@ -3629,7 +3629,7 @@ export default Article;
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_63.png" alt="" width="700" />  
 
-## 国际化功能方案  
+## 国际化功能
 
 官网不一定是给一个国家的人看的，可能公司或是团队的业务是针对多个地区的，语言不应该成为价值观传输的阻碍，所以如果是多地区业务线的公司，实现多语言也是很必要的。   
 
@@ -4656,4 +4656,532 @@ components/popup/index.module.scss
 
 <iframe width="700" height="315" src="/images/ssr/d.mp4" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+## 图片优化   
+
+官网交互中，通常会有一些高分辨率图片用于展示，这些图片通常体积大、加载时间长，且占页面区域较大，如果在网速较快的情况下可能尚可，但是在低网速，类似 fast 3G，slow 3G 的场景下，几百 kb，甚至几 mb 的图片资源加载是难以忍受的，加上区域大，很可能会出现页面内容已经加载完成，但是图片区域长时间留白的问题。  
+
+那么高分辨率图在低网速下加载时，应该如何减少加载时间，达到首屏优化的目的。  
+
+### 静态样式  
+
+首先切两个大图，加在首页的位置，大小控制在 500kb 上下的清晰度（500px * 500px 2x) 即可，这种在快速 3g 的网速下，通常需要请求几十秒左右可以完全加载，可以用来说明这个场景。   
+
+styles/globals.css   
+
+```css
+html[data-theme="dark"] {
+  --home-background-icon: url('../public/home_bg_dark.png');
+}
+
+html[data-theme="light"] {
+  --home-background-icon: url('../public/home_bg_light.png');
+}
+```
+
+pages/index.tsx  
+
+```tsx
+<div className={styles.header} />
+```
+
+styles/Home.module.scss  
+
+```scss
+.header {
+      background-image: var(--home-background-icon);
+      background-size: 18.75rem 18.75rem;
+      background-repeat: no-repeat;
+      width: 18.75rem;
+      height: 18.75rem;
+    }
+```
+
+图片的大小大致在 700kb， 正常 4g 网络下的加载时长为 12ms 左右。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_70.png" alt="" width="700" />   
+
+把网速切换至 fast 3g，看看这个图片的加载时长需要多久。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_69.png" alt="" width="700" />   
+
+可以看到需要 4s，远远超过其他静态资源，这意味着页面元素加载出来后，用户需要再等好几秒图片才能缓缓加载出来。   
+
+针对这个问题，在实际业务开发中有大概这几个方案。  
+
+这是 MDN 2020 年网络信息接口提案中提出的最新 BOM 属性，通过这个 BOM 来获取当前的流量状态，根据不同的流量状态进行图片清晰度的选择。   
+
+在较低网速下的场景，选择优先加载 0.5x 或是 1x 的图片，同时也加载 2x 的大图，通过隐藏 DOM 的方式隐性加载，然后监听 2x 资源的 onload 事件，在资源加载完成时，进行类的切换即可。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_69.png" alt="" width="700" />   
+
+### navigator.connection.effectiveType  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_71.png" alt="" width="700" />   
+
+这种方案在低网速下的效果是所有方案中最好的，用户的感知视角是，只需要等待 0.5x 到 1x 的模糊图加载时长，不会有区域的大面积留白，同时最后也可以体验到高清图的交互。  
+
+不过这种方案毕竟还是一个实验性属性，兼容性各方面并不是很好，只有较少的浏览器支持这个属性。  
+
+需要注意的有两点：  
+
+* 考虑到兼容性问题，navigator.connection.effectiveType 的使用需要进行判空处理，避免因为 navigator.connection is not defined 的报错阻塞页面渲染，可以写成 navigator?.connection?.effectiveType 来进行调用。  
+* 因为是 BOM，模板页面会同时执行在服务器端和客户端，在服务器端是没有 BOM 等属性的注入的，如果是在 hook 以外的地方调用，需要对第一个元素进行判空，采用typeof navigator !== "undefined" && navigator?.connection?.effectiveType的方式调用。  
+
+### responsive images / picture  
+
+浏览器有提供响应式图片的能力，分别是 img srcset 和 picture，它们都支持根据不同的像素场景自动选取不同的元素来进行适配。  
+
+下面是两个 MDN 的使用例子。
+
+```html
+<img srcset="elva-fairy-480w.jpg 480w, elva-fairy-800w.jpg 800w" sizes="(max-width: 600px) 480px,800px"
+     src="elva-fairy-800w.jpg" alt="Elva dressed as a fairy" xmlns="http://www.w3.org/1999/html">
+<picture>
+  <source srcset="/media/cc0-images/surfer-240-200.jpg" media="(min-width: 800px)">
+  <img src="/media/cc0-images/painted-hand-298-332.jpg" alt=""/>
+</picture>
+```
+
+img srcset 根据像素比来选取适合的静态资源加载，而对于 picture， user agent 会检查每个 <source> 的 srcset、media 和 type 属性，来选择最匹配页面当前布局、显示设备特征等的兼容图像。  
+
+这种方案兼容性很强，不过缺陷也很明显，针对 PC 端的确是需要高清图且低网速的场景，它没办法做任何处理。  
+
+如果在低像素场景下，低分辨率的图也没办法满足需求时，这个方案也是束手无策的，它的本质还是根据不同页宽来调整资源的分辨率，没办法改变高分辨率资源加载时间长的现状。  
+
+不过这两种方案在 C 端中也有广泛的应用，对于多媒体设备，可以针对不同页宽设备选取不同分辨率的资源，对性能也是有很大提高的。  
+
+### webp(推荐)  
+
+Webp 是谷歌推出的一种新的格式，它可以通过 jpg、png 等主流资源格式转换，达到无损画质的效果，并且相比正常的图片资源，压缩体积会减少到 40% 以上，大量主流浏览器已经支持了webp，并且最近 IOS14 及以上设备的 safari 浏览器也已经新增对 webp 的支持，只有少部分 IOS 低版本还不兼容。  
+
+首先，针对静态样式部分的资源进行 webp 相关的转换，转换的方式很简单，可以在 google 上搜索 png to webp，有很多开源免费的转换器帮助进行资源的转换。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_72.png" alt="" width="700" />   
+
+资源压缩后，可以看到 webp 对应的大小为 456kb，相比当初的 700kb 减少了近 40%，接下来把它加到代码中，试验一下 3g 场景下实际加载的时间可以优化多少。  
+
+styles/globals.css  
+
+```css
+html[data-theme="dark"] {
+  // ...
+  --home-background-icon-webp: url('../public/home_bg_dark.webp');
+}
+
+html[data-theme="light"] {
+  // ...
+  --home-background-icon-webp: url('../public/home_bg_light.webp');
+}
+```
+
+因为一些浏览器还不支持 webp，所以需要对它的兼容性进行判断，在资源请求的请求头 accept 字段中，包含了当前浏览器所支持的静态资源类型，可以通过这个字段来进行判断。  
+
+utils/index.ts  
+
+```ts
+export const getIsSupportWebp = (context: AppContext) => {
+  const { headers = {} } = context.ctx.req || {};
+  return headers.accept?.includes('image/webp');
+}
+```
+
+在 _app.tsx 中对所有的组件进行 isSupportWebp 的注入，这样每个页面模板都可以拿到这个字段。  
+
+pages/_app.tsx  
+
+```tsx
+import type { AppProps, AppContext } from 'next/app';
+import App from 'next/app';
+import Head from 'next/head';
+import axios from 'axios';
+import ThemeContextProvider from '@/stores/theme';
+import UserAgentProvider from '@/stores/userAgent';
+import LanguageContextProvider from '@/stores/language';
+import { LOCALDOMAIN, getIsMobile, getIsSupportWebp } from '@/utils';
+import type { ILayoutProps } from '@/components/layout';
+import { appWithTranslation } from 'next-i18next';
+import Layout from '@/components/layout';
+import '@/styles/globals.css'
+
+export interface IDeviceInfoProps {
+  isMobile: boolean;
+  isSupportWebp: boolean;
+}
+
+const MyApp = (data: AppProps & ILayoutProps & IDeviceInfoProps) => {
+  const {
+    Component, pageProps, navbarData, footerData, isMobile, isSupportWebp
+  } = data;
+  return (
+    <div>
+      <Head>
+        <title>{`A Demo for 官网开发实战 (${
+          isMobile ? "移动端" : "pc端"
+        })`}</title>
+        <meta
+          name="description"
+          content="A Demo for 官网开发实战"
+        />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="user-scalable=no" />
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1" />
+        <meta name="viewport" content="width=device-width" />
+      </Head>
+      <LanguageContextProvider>
+        <ThemeContextProvider>
+          <UserAgentProvider>
+            <Layout navbarData={navbarData} footerData={footerData}>
+              <Component {...pageProps} isMobile={isMobile} isSupportWebp={isSupportWebp} />
+            </Layout>
+          </UserAgentProvider>
+        </ThemeContextProvider>
+      </LanguageContextProvider>
+    </div>
+  )
+}
+
+MyApp.getInitialProps = async (context: AppContext) => {
+  const pageProps = await App.getInitialProps(context);
+  const { data = {} } = await axios.get(`${LOCALDOMAIN}/api/layout`)
+  return {
+    ...pageProps,
+    ...data,
+    isMobile: getIsMobile(context),
+    isSupportWebp: getIsSupportWebp(context),
+  }
+}
+export default appWithTranslation(MyApp);
+```
+
+在 index.tsx 中引入对应的 webp 资源。   
+
+pages/index.tsx  
+
+```tsx
+import {useContext, useEffect, useRef, useState} from 'react';
+import axios from 'axios';
+import type {NextPage} from 'next';
+import {Pagination} from '@douyinfe/semi-ui';
+import classNames from 'classnames';
+import {ThemeContext} from '@/stores/theme';
+import {useTranslation} from 'next-i18next';
+import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
+import styles from '@/styles/Home.module.scss';
+import {LOCALDOMAIN} from "@/utils";
+import {IDeviceInfoProps} from "@/pages/_app";
+import {IArticleIntroduction} from "@/pages/api/articleIntroduction";
+import {LanguageContext} from "@/stores/language";
+import {useRouter} from "next/router";
+
+interface IHomeProps {
+  title: string;
+  description: string;
+  articles: {
+    total: number;
+    list: {
+      label: string;
+      info: string;
+      link: string;
+    }[];
+  };
+}
+
+const Home: NextPage<IHomeProps & IDeviceInfoProps> = ({
+  title, description, articles, isSupportWebp
+}) => {
+  const { i18n } = useTranslation();
+  const router = useRouter();
+  const { locale } = router;
+  const [content, setContent] = useState(articles);
+  const mainRef = useRef<HTMLDivElement>(null);
+  const { theme } = useContext(ThemeContext);
+  const { language } = useContext(LanguageContext);
+  useEffect(() => {
+    mainRef.current?.classList.remove(styles.withAnimation);
+    window.requestAnimationFrame(() => {
+      mainRef.current?.classList.add(styles.withAnimation);
+    });
+  }, [theme]);
+
+  useEffect(() => {
+    i18n?.changeLanguage(locale);
+    console.warn(locale)
+  }, [language, locale])
+  return (
+    <div className={styles.container}>
+      <main className={classNames([styles.main, styles.withAnimation])} ref={mainRef}>
+        <div className={classNames({
+          [styles.header]: true,
+          [styles.headerWebp]: isSupportWebp,
+        })} />
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.description}>{description}</p>
+        <div className={styles.grid}>
+          {
+            content?.list?.map((item, index) => {
+              return (
+                <div key={index} className={styles.card} onClick={(): void => {
+                  window.open(
+                    item?.link,
+                    "blank",
+                    "noopener=yes,noreferrer=yes"
+                  );
+                }}>
+                  <h2>{item?.label}</h2>
+                  <p>{item?.info}</p>
+                </div>
+              )
+            })
+          }
+        </div>
+        <div className={styles.paginationArea}>
+          <Pagination total={content?.total} pageSize={6} onPageChange={pageNo => {
+            axios.post(`${LOCALDOMAIN}/api/articleIntroduction`, {
+              pageNo,
+              pageSize: 6,
+            }).then(({ data: {
+              total,
+              list: listData,
+            }}) => {
+              setContent({
+                list: listData?.map((item: IArticleIntroduction) => ({
+                  label: item.label,
+                  info: item.info,
+                  link: `${LOCALDOMAIN}/article/${item.articleId}`,
+                })),
+                total,
+              })
+            })
+          }} />
+        </div>
+      </main>
+    </div>
+  )
+}
+
+export const getServerSideProps = async ({ locale }: { locale: string }) => {
+  const {
+    data: {
+      title, description,
+    }
+  } = await axios.get(`${LOCALDOMAIN}/api/home`);
+  const {
+    data: {
+      list: listData, total,
+    }} = await axios.post(`${LOCALDOMAIN}/api/articleIntroduction`, {
+      pageNo: 1,
+      pageSize: 6,
+    })
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'footer', 'header', 'main'])),
+      title,
+      description,
+      articles: {
+        total,
+        list: listData?.map((item: IArticleIntroduction) => ({
+          label: item.label,
+          info: item.info,
+          link: `${LOCALDOMAIN}/article/${item.articleId}`,
+        }))
+      },
+    }
+
+  };
+}
+
+export default Home;
+```
+
+styles/Home.module.scss  
+
+```scss
+.headerWebp {
+      background-image: var(--home-background-icon-webp);
+    }
+```
+
+然后来看看效果，fast 3g 下对应资源的加载时间 从 4s 减少到了 3s，优化了近 25%！   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_73.png" alt="" width="700" />   
+
+为什么 webp 可以在保证无损画质的前提下，缩小这么多体积呢？   
+
+很有意思的一件事是，当处于极快网速的情况下，webp 相比同画质的 png 的加载时间反而会更长，即使它相比其他类型的资源，体积上缩小了整整 40% 以上。    
+
+为什么会有这样的现象呢？  
+
+webp 的低体积并不是毫无代价的，webp 在压缩过程中进行了分块、帧内预测、量化等操作，这些操作是减少 webp 体积的核心原因，不过作为交换的是，相比 jpg、png 等资源，它具备更长的解析时长，不过这个是不受网速等影响的，因为是浏览器内置的能力。  
+
+所以这也是为什么在极快网速的情况下，webp 的加载时间有时会呈现为负优化的原因，因为减少的资源请求时间不足够抵消掉额外的解析时间，不过这个时间差值并不长，几毫秒在用户体验的过程中是无伤大雅的。  
+
+但是在低网速的场景下，这个优化比例是极高的，因为 40% 的体积大小，对于低网速场景下，请求时间将会是质的提高，相比之下，几毫秒的解析时长就无关紧要了。   
+
+## IOS 300ms delay
+
+平时的开发中，事件触发大部分都是立刻响应，但是在 IOS 中，移动端的触摸事件会有 300ms 的延迟。  
+
+IOS 浏览器有一个特点，可以通过双击来对屏幕页面进行缩放，这是导致 300ms 延迟的核心原因。  
+
+因为当一个用户点击链接后，浏览器没办法判定用户是想双击缩放，还是进行点击事件触发，所以 IOS Safari 会统一等待 300ms，来判断用户是否会再次点击屏幕。  
+
+### Meta 禁用缩放(推荐)  
+
+300ms 延迟的初衷是为了解决点击和缩放没办法区分的问题，针对不需要缩放的页面，通过禁用缩放来解决。   
+
+事实上，大部分移动端页面都是可以避免缩放的，通过交互等样式的兼容即可。  
+
+pages/_app.tsx  
+
+```
+// ./pages/_app.tsx
+// head加这两行即可
+// ...
+< meta name="viewport" content="user-scalable=no" >
+< meta name="viewport" content="initial-scale=1,maximum-scale=1" > 
+```
+
+### 更改视口尺寸
+
+Chrome 浏览器对包含 width=device-width 或者比 viewport 更小的页面禁用双击缩放，只需要加上下面的 meta 头，就可以在 IOS 中的 chrome 浏览器解决 300ms delay 的问题。  
+
+这个方案的好处是，并不会完全禁用缩放。但是 IOS 默认的 Safari 浏览器没有支持这个能力，所以可以加上这个 meta 头来兼容视口尺寸，但并不作为这个的解决方案。  
+
+```
+<meta name="viewport" content="width=device-width">
+```
+
+### Touch-action
+
+在 W3C 草案中，有提出一个 touch-action css 属性，通过设置 touch-action: none 可以移除目标元素的 300ms delay，如果这个日后可以被主流浏览器支持，更推荐用这种方式针对区域进行灵活的限制。  
+
+### fastclick
+
+这是一个老牌的解决 300ms 延迟的轻量 JS 库，可以通过 npm 安装且使用方式简单。  
+
+```js
+window.addEventListener('load', () => {
+    FastClick.attach(document.body);
+  }, false);
+```
+
+不建议使用 fastclick 的方式解决这个问题，有几个原因：  
+
+* 对 TS 兼容性太差，fastclick 基于 JS，虽然有 ts for fastclick 的依赖，但是不被原作者认可，并且类型定义存在问题，直接引入依赖存在问题，需要自行进入模块定义中修改。  
+* 包体过大，且包八年没再维护。   
+* 不能直接用于 SSR，里面有直接用到 BOM，在服务器端渲染的时候会有相关报错，没找到比较好的插件可以兼容这个问题。  
+
+## 橡皮筋问题
+
+IOS上，当页面滚动到顶部或底部仍可向下或向上拖拽，并伴随一个弹性的效果。该效果被称为“rubber band”——橡皮筋。  
+
+IOS 和安卓不同，即使页面没有设置滚动，仍然可以拉扯，给人一种橡皮筋的感觉，可以看到下面的效果。  
+
+那么，怎么解决这个问题呢？  
+
+### overflow 给定宽高  
+
+```css
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+```
+
+### 禁用 touchmove 事件  
+
+```js
+document.body.addEventListener('touchmove', function (e) {
+    e.preventDefault() 
+  }, {passive: false})
+```
+
+### 监听滚动禁止  
+
+IOS 橡皮筋的原理还是通过滚动，只不过与安卓不同的是，当到边界状态时，仍允许滚动，如果替 IOS 禁用边界的情况，理论上就可以实现对橡皮筋效果的禁用。  
+
+```tsx
+import { useEffect } from 'react';
+
+
+export const useForbidIosScroll = (): void => {
+  let startEvent: TouchEvent;
+
+
+  const cancelEvent = (e: TouchEvent): void => {
+    // 有个瑕疵就是，如果是大惯性的那种滚动，浏览器该事件并不接受你禁用当前正在执行的动作
+    // 导致如果猛地滑动会出页面边界
+    if (e.cancelable) {
+      e.preventDefault();
+    }
+  };
+
+
+  const checkScroll = (e: TouchEvent): void => {
+    const startY = Number(startEvent?.touches[0].pageY);
+    const endY = Number(e?.touches[0].pageY);
+
+
+    // 下滑且滑动到底
+    if (startY > endY && window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+      cancelEvent(e);
+    }
+
+
+    // 上滑且滑动到顶
+    if (startY < endY && window.scrollY <= 0) {
+      cancelEvent(e);
+    }
+  };
+
+
+  useEffect(() => {
+    const start = (e: TouchEvent): void => {
+      startEvent = e;
+    };
+    const end = (e: TouchEvent): void => {
+      checkScroll(e);
+    };
+    window.addEventListener('touchstart', start);
+    window.addEventListener('touchmove', end, { passive: false });
+    return (): void => {
+      window.removeEventListener('touchstart', start);
+      window.removeEventListener('touchmove', end);
+    };
+  }, []);
+};
+```
+
+这个效果其实并不是很理想，即使脚本已经走到中断的逻辑，滚动的行为在到达边界的时候仍然不会中止。  
+
+到谷歌浏览器开发者文档里可以查看到，浏览器的事件其实分为两种，cancelable（可暂停）和 uncancelable（不可暂停），能够通过阻止默认事件的和阻止冒泡的都是可暂停的事件，滚动事件和鼠标滚轮事件，在触发的瞬间，就已经决定了要滚动到终点再停止，你只能暂停可能会影响滚动的前提的导线事件，这个场景下，滚动事件就已经是起源的操作，不存在间接触发，所以不行。  
+
+### 简单方案(推荐)  
+
+有一个很简单的方案，并且可以完美解决，给 body 进行隐藏，然后对根节点设置 100 页宽的高度，将外部 body 的滚动移动到页面内，这样外界的滚动相关的问题都会解决，因为页面采用的实际是内部滚动。  
+
+styles/globals.css  
+
+```css
+.forbidScroll {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  overflow: hidden;
+}
+
+#__next {
+  height: 100vh;
+  overflow: auto;
+}
+```
+
+看看改后的效果，发现橡皮筋的功能已经禁用了，因为现在页面采用的是页面内部 div 的滚动，外部 body 的滚动相关的问题也随之解决。  
+
+## 前端压力测试 
+## 提高搜索引擎排名
+## 网站服务部署
 
