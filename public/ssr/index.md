@@ -5077,9 +5077,11 @@ IOS上，当页面滚动到顶部或底部仍可向下或向上拖拽，并伴�
 
 IOS 和安卓不同，即使页面没有设置滚动，仍然可以拉扯，给人一种橡皮筋的感觉，可以看到下面的效果。  
 
+<iframe width="700" height="315" src="/images/ssr/e.mp4" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 那么，怎么解决这个问题呢？  
 
-### overflow 给定宽高  
+### overflow 给定宽高 
 
 ```css
 html, body {
@@ -5181,7 +5183,314 @@ body {
 
 看看改后的效果，发现橡皮筋的功能已经禁用了，因为现在页面采用的是页面内部 div 的滚动，外部 body 的滚动相关的问题也随之解决。  
 
+<iframe width="700" height="315" src="/images/ssr/f.mp4" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## 前端压力测试 
+
+通常在上线前会对这些小流量环境进行预估流量的压测，来预估目前的小流量集群服务器能否承载对应的流量，进而评估一下使用多少服务器集群部署服务，才能足够承载流量，又不至于浪费服务器资源。  
+
+基于本地服务压测，对于实际上线，需要先部署在测试服务器，然后对测试环境内网域名进行压测，进而判断能否承受预估的QPS，从而对服务集群进行扩容等操作。  
+
+### WebBench  
+
+WebBench 是一个在 Linux 下使用的非常简单的网站压测工具。它使用 fork() 模拟多个客户端同时访问设定的 URL，测试网站在压力下工作的性能，最多可以模拟 3 万个并发连接去测试网站的负载能力。  
+
+WebBench 不能支持 Windows，只能在 Linux 等类 UNIX 系统下使用。  
+
+首先需要安装一下 brew，这是一个针对 macOS 和 Linux 的包管理工具，安装完在终端里直接输入 brew 看下有没有正常输出即可。  
+
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+然后装一下 wget，它是 Linux 下的一个安装文件的工具，对应的安装包可以通过它下载下来。  
+
+```shell
+brew install wget
+```
+
+最后来装一下 WebBench。  
+
+```shell
+wget http://www.ha97.com/code/webbench-1.5.tar.gz
+tar zxvf webbench-1.5.tar.gz // 解压
+cd webbench-1.5
+make
+make install
+```
+
+安装完以后，在终端中输入 WebBench 验证一下。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_74.png" alt="" width="700" />   
+
+需要关注的参数有两个：  
+
+* -c: 并发量。  
+* -t: 运行时间。  
+
+对服务简单压测试验下看看。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_75.png" alt="" width="700" />   
+
+可以看到 200 并发就会出现大规模请求异常的情况，不过这个结果算比较简陋的，加上对环境和安装步骤上相对苛刻一些，所以并不推荐使用这个方案。  
+
+### wrk
+
+wrk 是一款针对 HTTP 协议的基准测试工具，它能够在单机多核 CPU 的条件下，使用系统自带的高性能 I/O 机制，如 epoll、kqueue 等，通过多线程和事件模式，对目标机器产生大量的负载。   
+
+wrk 支持大多数类 UNIX 系统，不支持 Windows。不同的类 UNIX 系统安装方式也略有差异。    
+
+装一下 wrk。   
+
+```shell
+brew install wrk
+```
+
+装完可以在终端执行一下 wrk -v验证一下。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_76.png" alt="" width="700" />   
+
+上面执行完以后可以看到它列出了 wrk 相关的参数，其中常用到的有三个参数：  
+
+* -c: 保持打开状态的 HTTP 连接总数。  
+* -d: 测试时长。  
+* -t: 使用线程。  
+
+其中连接数（c）会平分给每个线程，比如设置 -c200 -t8，那么将启用 8 个线程，每个线程处理 200/8 个请求，可以对 bing 搜索简单试验一下，具体参数其实大部分都是一样的。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_77.png" alt="" width="700" />   
+
+这个方案更多是给后端同学测吞吐率用的，包括线程等参数，具体的值不好衡量，对前端不算那么友好。   
+
+### autocannon
+
+一个用 Node 编写的 HTTP/1.1 基准测试工具，受到 wrk 和 wrk2 的极大启发，支持 HTTP 管道和 HTTPS。autocannon 可以产生比 wrk 和 wrk2 更多的负载。   
+
+autocannon 可以同时支持 Windows、Mac 和 Linux 的环境，而且作为一个 npm 包，使用上比较符合前端的开发习惯，安装更为方便，使用方式也很轻量。   
+
+```shell
+npm i autocannon -g
+```
+
+它提供了一些参数来对应不同压测指数，常用的有 3 个：  
+
+* -c: 要使用的并发连接数。默认值：10。  
+* -p: 使用流水线请求的数量。默认值：1。  
+* -d: 运行秒数。默认值：10。  
+
+首先测试一下默认值的效果。   
+
+```shell
+autocannon http://127.0.0.1:3000
+```
+
+在这个 10s 的执行过程，如果切回 client 可以看到服务在飞快请求。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_80.png" alt="" width="700" />   
+
+最后可以得到这样一个数据。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_79.png" alt="" width="700" />   
+
+介绍一下每个指标对应什么，先看每列的指标：  
+
+* 2.5% / 50% / 97.5% / 99%：整个过程百分比所对应的值。   
+* Avg: 平均值。  
+* Stdev: 标准差。  
+* Max: 最大值。  
+
+对于每行的指标含义是这样的：  
+
+* Latency: 耗时(毫秒)。  
+* Req/Sec: QPS，吞吐量，每秒请求数。  
+* Bytes/Sec: 每秒请求字节数。  
+
+这些指标通常在对具体接口或是页面 case by case 的性能分析中会有使用，服务器资源判定只需要关注请求时间是否过长，或是是否存在大面积报错即可，这里可以看到大部分数值是正常的，也没有报错等信息。  
+
+接下来把并发量提高到 200，再来看下效果。  
+
+```shell
+autocannon -c 200 http://127.0.0.1:3000
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_81.png" alt="" width="700" />   
+
+从数据上看，发现所有的数据都清 0 了，说明在这个并发量下单服务器的计算支撑不下去，最下面的请求数据中也有显示 200 个错误， 200 个超时。  
+
+这时候切回 client 的终端可以看到，服务已经崩掉了，没办法承载 200 的并发量，如果业务需要，这时候就需要考虑给服务器集群进行扩容操作了。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_82.png" alt="" width="700" />   
+
 ## 提高搜索引擎排名
+
+### 技术优化
+#### 语义化标签
+
+写 toB 项目时，可能会直接用 div 标签作为块级区域的标签，但是对于 SEO 而言，这样的爬取和关键词检索效果是极差的，搜索引擎的索引器在对站点进行分析的过程中，会根据语义化标签来决定不同信息的重要程度，以此来匹配对应的关键词进行推荐。  
+
+其中最需要关注的，也最常用的就是站点的 H 标签，有几个需要着重注意的使用事项：  
+
+* H 标签只针对用户可见内容进行设置，图片、链接、写给 robots 可读文字均不在 H 标签使用范围之内。  
+* H1 是一个页面中权重最高，关键词优先级最高的文案，一个页面只能使用一个。  
+* 页面中通常只使用 H1 ~ H3，剩下的标题优先级太低，部分搜索引擎不会进行识别。  
+* H 标签通常不使用在文字 logo、 标签栏、侧边栏等每页固定存在的部分。因为这部分不属于这一页的重点，即不是“与众不同” 的区域。  
+
+#### Meta
+
+影响 SEO 有三个重要元素，通常称 TDK（即 title，description，keywords），除这些部分外，还有一些常用的 meta 标签，这些都需要加到模板页面中。  
+
+* Title: 就是常用的 title 标签。  
+* Description: 页面描述，SEO 的关键。需要注意的是，PC 端下页面描述不要超过 155 个字符，移动端不要超过 120 个字符，如果过长，页面描述会被截断，反而会影响最终的 SEO。  
+* Keywords: 关键词，这个的设定需要注意几点：  
+
+1. 每个页面通常设置比较重要的3、4个关键词，不要堆砌，不要过长，更不要只因为热门，就加完全不相关的内容进来蹭热度。    
+2. 关键词按照由高到低的顺序来排，用逗号分隔。  
+3. 每个关键词都要是独特的，不要每个关键词意思都差不多。
+```html
+<meta name="keywords" content=""/>
+```
+
+4. robots（重要）: 是否开启搜索引擎抓取，noindex 对应是否开启抓取，nofollow 对应不追踪网页的链接，需要开启。  
+```html
+<meta name="robots" content="index, follow" />
+```
+5. Applicable-device: 告诉 Google，你这个站点适配了哪些设备，不加就是默认 PC 端，将会影响移动端搜索你站点的推送。  
+```html
+<meta name="applicable-device" content="pc,mobile" />
+```
+6. Format-detection: 在默认状态下，网页的数字会被认为是电话号码（在不同的系统中，显示的格式可能有所不同，比如在 iphone 手机中会有下划线），点击数字会被当作电话号码拨打或者添加到联系人，所以需要禁用。  
+```html
+<meta name="format-detection" content="telephone=no" />
+```
+
+#### Sitemap
+
+站点地图是一种文件，您可以在其中提供与您网站中的网页、视频或其他文件有关的信息，还可以说明这些内容之间的关系。Google 等搜索引擎会读取此文件，以便更高效地抓取您的网站。站点地图会告诉 Google 您认为网站中的哪些网页和文件比较重要，还会提供与这些文件有关的重要信息。更多内容请查阅官方文档。    
+
+### 内容优化
+
+内容是 SEO 的核心，没有高质量的内容，只通过蹭热门关键词，只会有适得其反的效果。推荐阅读 Google SEO 开发者文档，其中对于内容的部分有非常详细的说明，涵括如何让你的内容有趣，怎么满足读者的需求，以及如何具备权威性和能解决用户的问题等。  
+
+#### SEM
+
+搜索引擎营销的基本思想是让用户发现信息，并通过（搜索引擎）搜索点击进入网站/网页进一步了解他所需要的信息。简单来说 SEM 所做的就是以最小的投入在搜索引擎中获最大的访问量并产生商业价值。SEM的方法包括SEO、付费排名、精准广告以及付费收录等。  
+
 ## 网站服务部署
 
+站点应用想要部署外网，需要提前准备资源和流程，大体可以分为以下几个步骤：   
+
+* 云服务器：可以理解为在云端上的一台电脑，把服务挂载到对应的端口下，即可通过云服务器公网 IP + 端口的方式进行访问。  
+* 域名：可以理解成是云服务器公网 IP 的一个代号，因为 IP 地址不方便记忆，所以采用注册域名并把服务器 IP 解析到对应域名下进行访问，通常域名和站点的内容也有一定的联系，相当于是品牌标识的一个体现，一个好的域名可以成为内容和文化的良好助力，给用户留下不错的印象。   
+* 域名 ICP 备案：ICP 证是指各地通信管理部门核发的《中华人民共和国电信与信息服务业务经营许可证》。没有备案通过这个是不可以上线的，ICP 备案成功后，若域名有网站或落地页，则需要在网站底部悬挂工信部下发的 ICP 备案号，并生成链接指向工信部网站。如果未在网站底部添加 ICP 备案号，被相关部门核查出来将处以五千元以上一万元以下罚款，或注销备案号等处罚。  
+* 公安备案：根据《计算机信息网络国际联网安全保护管理办法》规定，网站在工信部备案成功后，需在网站开通之日起 30 日内登录 全国互联网安全管理服务平台 提交公安联网备案申请。公安联网备案审核通过后，需要复制网站公安机关备案号和备案编号 HTML 代码，下载备案编号图标，并编辑网页源代码将公安联网备案信息放置在网页底部。  
+* 域名解析：把域名指向我们服务器公网 IP 的过程，经过这个步骤，就可以通过域名访问到我们的服务器了。   
+* 服务部署：在完成上面步骤后，需要把服务部署到云服务器的对应端口，并解析到域名上，然后用户就可以通过访问注册的域名访问服务了。  
+
+### 服务部署  
+
+对于服务部署，推荐使用 pm2 来进行部署，当然直接使用 node 然后执行 npm run start 效果上也是可以的。  
+
+pm2 具备日志，重启等一套完整能力，可以更容易定位一些问题，所以是部署 node 服务的主流工具，现在在本地以现在的项目示范一下。  
+
+首先打开终端，安装一下 pm2。  
+
+```shell
+npm install pm2 -g
+```
+
+安装完成后在终端输入 pm2 试试。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_83.png" alt="" width="700" />   
+
+然后分别切到 client 和 server 的目录下执行一下 npm run build，这个是为了构建线上环境启动所需要的产物。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_84.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_85.png" alt="" width="700" />   
+
+安装完尝试重新构建一下，并且在对应目录下执行 npm run start，如果没有异常，就可以尝试使用 pm2 来启动服务了。  
+
+server:   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_89.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_86.png" alt="" width="700" />   
+
+client:  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_88.png" alt="" width="700" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_87.png" alt="" width="700" />   
+
+在这之前，先简单介绍一下原理，pm2 可以通过执行 pm2 start ${脚本文件} --name ${服务名} 的方式启动，不过要注意，因为执行路径的不同，所以这里使用 npm 的绝对路径执行确保没有问题。    
+
+首先执行下面的命令看一下 npm 的目录位置。   
+
+```shell
+which npm
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_90.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_91.png" alt="" width="700" />   
+
+然后切到对应项目目录下，创建一个 shell 脚本，然后写入 ${npm目录} run start 即可。  
+
+```shell
+vi server.sh
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_92.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_93.png" alt="" width="700" />   
+
+类似这样，然后在对应 shell 脚本根目录分别执行 pm2 start server.sh，为了区分还可以给它们加上 --name 名称的参数，执行完以后，再执行 pm2 list，如果看到服务 online，就可以了。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_94.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_95.png" alt="" width="700" />   
+
+这时候直接访问 http://127.0.0.1:3000，也是可以打开官网的。   
+
+如果想要服务器开机的时候自启动，只需要执行下面的命令，保存当前服务并且生成自启动脚本即可。   
+
+```shell
+pm2 save
+pm2 startup
+```
+
+至于关闭和重启服务，使用 stop 和 restart 即可，类似下面的例子。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_97.png" alt="" width="700" />   
+
+值得一提的是，启动的过程可能并不是一帆风顺的，可能会有一些报错，那这时候服务的 status 就会显示 errored，这时候可以通过输出日志的方式来排查，以 server (client) 的服务举例。  
+
+```shell
+pm2 log server --lines 50
+```
+
+日志默认输出是 15 行，这个一般是不够的，可能错误栈都不足够显示完成，这边加上行数的参数，调整为 50 行。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_98.png" alt="" width="700" />   
+
+就可以看到和平时开发一样的终端结果了，这时候如果有一些报错可以通过错误栈的信息来快速定位，并且 pm2 提供了持续监听的能力，类似平时开发中的热更新，只需要在 start 命令后加上 --watch 的参数就可以启动，这样当代码发生变化的时候，部署也会同步自动更新。  
+
+不过这时候访问还是使用 3000 端口，这样显得奇怪，比如用户在访问百度的时候不可能访问 www.baidu.com:3000吧。    
+
+首先安装一下 nginx，同样可以通过 nginx -v 的方式来判断是否安装成功。  
+
+```shell
+brew install nginx
+```
+ 
+然后需要修改一下对应的配置。   
+
+```shell
+vi /usr/local/etc/nginx/nginx.conf
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_99.png" alt="" width="700" />   
+
+改这两个部分就好，listen 是监听的端口号，proxy_pass 是希望转发的目标服务，这样就会将 80 端口的服务都转发到 3000 端口上，用户就可以直接通过域名进行访问了。   
+
+修改完成后，执行一下 nginx，没有报错的话就已经启动了。
+
+尝试一下直接访问 http://127.0.0.1/ ，可以看到已经可以了，到这里服务部署的部分就全部完成了。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_100.png" alt="" width="700" />   
+
+## 总结
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_101.jpg" alt="" width="400" />   

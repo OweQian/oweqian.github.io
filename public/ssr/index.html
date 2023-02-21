@@ -8,9 +8,8 @@
 <meta property="og:description" content="项目地址： SSR 搭建 Client 项目 项目初始化 先对项目进行初始化，Nextjs 提供了脚手架来帮助初始化项目，执行下面的命令： 1 npx create-next-app@latest --typescript next.config.js 是构建配置，底层是基" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/ssr/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-02-17T16:50:47+08:00" />
-<meta property="article:modified_time" content="2023-02-17T09:48:41+08:00" /><meta property="og:site_name" content="OweQian" />
-
+<meta property="article:published_time" content="2023-02-20T11:25:47+08:00" />
+<meta property="article:modified_time" content="2023-02-20T11:25:50+08:00" /><meta property="og:site_name" content="OweQian" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://oweqian.xyz/logo.png"/>
 
@@ -35,8 +34,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "第一技能","wordcount":  28186 ,
-        "url": "http:\/\/oweqian.xyz\/ssr\/","datePublished": "2023-02-17T16:50:47+08:00","dateModified": "2023-02-17T09:48:41+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "第一技能","wordcount":  32601 ,
+        "url": "http:\/\/oweqian.xyz\/ssr\/","datePublished": "2023-02-20T11:25:47+08:00","dateModified": "2023-02-20T11:25:50+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -114,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">基于 Nextjs + Strapi 的官网开发实战</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-17">2023-02-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 28186 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 57 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-20">2023-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 32601 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 66 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -237,9 +236,35 @@
         <li><a href="#简单方案推荐">简单方案(推荐)</a></li>
       </ul>
     </li>
-    <li><a href="#前端压力测试">前端压力测试</a></li>
-    <li><a href="#提高搜索引擎排名">提高搜索引擎排名</a></li>
-    <li><a href="#网站服务部署">网站服务部署</a></li>
+    <li><a href="#前端压力测试">前端压力测试</a>
+      <ul>
+        <li><a href="#webbench">WebBench</a></li>
+        <li><a href="#wrk">wrk</a></li>
+        <li><a href="#autocannon">autocannon</a></li>
+      </ul>
+    </li>
+    <li><a href="#提高搜索引擎排名">提高搜索引擎排名</a>
+      <ul>
+        <li><a href="#技术优化">技术优化</a>
+          <ul>
+            <li><a href="#语义化标签">语义化标签</a></li>
+            <li><a href="#meta">Meta</a></li>
+            <li><a href="#sitemap">Sitemap</a></li>
+          </ul>
+        </li>
+        <li><a href="#内容优化">内容优化</a>
+          <ul>
+            <li><a href="#sem">SEM</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#网站服务部署">网站服务部署</a>
+      <ul>
+        <li><a href="#服务部署">服务部署</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>项目地址： <a href="https://github.com/OweQian/SSR.git" target="_blank" rel="noopener noreffer ">SSR</a></p>
@@ -4798,10 +4823,10 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">themeArea</span><span class="p">}&gt;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">userAgent</span> <span class="o">===</span> <span class="nx">Environment</span><span class="p">.</span><span class="nx">pc</span> <span class="o">&amp;&amp;</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">span</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">text</span><span class="p">}&gt;</span><span class="err">当前是</span><span class="nx">pc端样式</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">span</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">text</span><span class="p">}&gt;</span><span class="err">当前是</span><span class="nx">pc</span><span class="err">端样式</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">)}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">userAgent</span> <span class="o">===</span> <span class="nx">Environment</span><span class="p">.</span><span class="nx">ipad</span> <span class="o">&amp;&amp;</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">span</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">text</span><span class="p">}&gt;</span><span class="err">当前是</span><span class="nx">Ipad端样式</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">span</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">text</span><span class="p">}&gt;</span><span class="err">当前是</span><span class="nx">Ipad</span><span class="err">端样式</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">)}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">userAgent</span> <span class="o">===</span> <span class="nx">Environment</span><span class="p">.</span><span class="nx">mobile</span> <span class="o">&amp;&amp;</span> <span class="p">(</span>
 </span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">span</span> <span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">text</span><span class="p">}&gt;</span><span class="err">当前是移动端样式</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
@@ -8960,6 +8985,7 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 <h2 id="橡皮筋问题">橡皮筋问题</h2>
 <p>IOS上，当页面滚动到顶部或底部仍可向下或向上拖拽，并伴随一个弹性的效果。该效果被称为“rubber band”——橡皮筋。</p>
 <p>IOS 和安卓不同，即使页面没有设置滚动，仍然可以拉扯，给人一种橡皮筋的感觉，可以看到下面的效果。</p>
+<iframe width="700" height="315" src="/images/ssr/e.mp4" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 <p>那么，怎么解决这个问题呢？</p>
 <h3 id="overflow-给定宽高">overflow 给定宽高</h3>
 <div class="highlight"><div class="chroma">
@@ -9135,15 +9161,325 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>看看改后的效果，发现橡皮筋的功能已经禁用了，因为现在页面采用的是页面内部 div 的滚动，外部 body 的滚动相关的问题也随之解决。</p>
+<iframe width="700" height="315" src="/images/ssr/f.mp4" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 <h2 id="前端压力测试">前端压力测试</h2>
+<p>通常在上线前会对这些小流量环境进行预估流量的压测，来预估目前的小流量集群服务器能否承载对应的流量，进而评估一下使用多少服务器集群部署服务，才能足够承载流量，又不至于浪费服务器资源。</p>
+<p>基于本地服务压测，对于实际上线，需要先部署在测试服务器，然后对测试环境内网域名进行压测，进而判断能否承受预估的QPS，从而对服务集群进行扩容等操作。</p>
+<h3 id="webbench">WebBench</h3>
+<p>WebBench 是一个在 Linux 下使用的非常简单的网站压测工具。它使用 fork() 模拟多个客户端同时访问设定的 URL，测试网站在压力下工作的性能，最多可以模拟 3 万个并发连接去测试网站的负载能力。</p>
+<p>WebBench 不能支持 Windows，只能在 Linux 等类 UNIX 系统下使用。</p>
+<p>首先需要安装一下 brew，这是一个针对 macOS 和 Linux 的包管理工具，安装完在终端里直接输入 brew 看下有没有正常输出即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">/bin/bash -c <span class="s2">&#34;</span><span class="k">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="k">)</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后装一下 wget，它是 Linux 下的一个安装文件的工具，对应的安装包可以通过它下载下来。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">brew install wget
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后来装一下 WebBench。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">wget http://www.ha97.com/code/webbench-1.5.tar.gz
+</span></span><span class="line"><span class="cl">tar zxvf webbench-1.5.tar.gz // 解压
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> webbench-1.5
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装完以后，在终端中输入 WebBench 验证一下。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_74.png" alt="" width="700" />   
+<p>需要关注的参数有两个：</p>
+<ul>
+<li>-c: 并发量。</li>
+<li>-t: 运行时间。</li>
+</ul>
+<p>对服务简单压测试验下看看。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_75.png" alt="" width="700" />   
+<p>可以看到 200 并发就会出现大规模请求异常的情况，不过这个结果算比较简陋的，加上对环境和安装步骤上相对苛刻一些，所以并不推荐使用这个方案。</p>
+<h3 id="wrk">wrk</h3>
+<p>wrk 是一款针对 HTTP 协议的基准测试工具，它能够在单机多核 CPU 的条件下，使用系统自带的高性能 I/O 机制，如 epoll、kqueue 等，通过多线程和事件模式，对目标机器产生大量的负载。</p>
+<p>wrk 支持大多数类 UNIX 系统，不支持 Windows。不同的类 UNIX 系统安装方式也略有差异。</p>
+<p>装一下 wrk。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">brew install wrk
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>装完可以在终端执行一下 wrk -v验证一下。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_76.png" alt="" width="700" />   
+<p>上面执行完以后可以看到它列出了 wrk 相关的参数，其中常用到的有三个参数：</p>
+<ul>
+<li>-c: 保持打开状态的 HTTP 连接总数。</li>
+<li>-d: 测试时长。</li>
+<li>-t: 使用线程。</li>
+</ul>
+<p>其中连接数（c）会平分给每个线程，比如设置 -c200 -t8，那么将启用 8 个线程，每个线程处理 200/8 个请求，可以对 bing 搜索简单试验一下，具体参数其实大部分都是一样的。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_77.png" alt="" width="700" />   
+<p>这个方案更多是给后端同学测吞吐率用的，包括线程等参数，具体的值不好衡量，对前端不算那么友好。</p>
+<h3 id="autocannon">autocannon</h3>
+<p>一个用 Node 编写的 HTTP/1.1 基准测试工具，受到 wrk 和 wrk2 的极大启发，支持 HTTP 管道和 HTTPS。autocannon 可以产生比 wrk 和 wrk2 更多的负载。</p>
+<p>autocannon 可以同时支持 Windows、Mac 和 Linux 的环境，而且作为一个 npm 包，使用上比较符合前端的开发习惯，安装更为方便，使用方式也很轻量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">npm i autocannon -g
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>它提供了一些参数来对应不同压测指数，常用的有 3 个：</p>
+<ul>
+<li>-c: 要使用的并发连接数。默认值：10。</li>
+<li>-p: 使用流水线请求的数量。默认值：1。</li>
+<li>-d: 运行秒数。默认值：10。</li>
+</ul>
+<p>首先测试一下默认值的效果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">autocannon http://127.0.0.1:3000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在这个 10s 的执行过程，如果切回 client 可以看到服务在飞快请求。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_80.png" alt="" width="700" />   
+<p>最后可以得到这样一个数据。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_79.png" alt="" width="700" />   
+<p>介绍一下每个指标对应什么，先看每列的指标：</p>
+<ul>
+<li>2.5% / 50% / 97.5% / 99%：整个过程百分比所对应的值。</li>
+<li>Avg: 平均值。</li>
+<li>Stdev: 标准差。</li>
+<li>Max: 最大值。</li>
+</ul>
+<p>对于每行的指标含义是这样的：</p>
+<ul>
+<li>Latency: 耗时(毫秒)。</li>
+<li>Req/Sec: QPS，吞吐量，每秒请求数。</li>
+<li>Bytes/Sec: 每秒请求字节数。</li>
+</ul>
+<p>这些指标通常在对具体接口或是页面 case by case 的性能分析中会有使用，服务器资源判定只需要关注请求时间是否过长，或是是否存在大面积报错即可，这里可以看到大部分数值是正常的，也没有报错等信息。</p>
+<p>接下来把并发量提高到 200，再来看下效果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">autocannon -c <span class="m">200</span> http://127.0.0.1:3000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_81.png" alt="" width="700" />   
+<p>从数据上看，发现所有的数据都清 0 了，说明在这个并发量下单服务器的计算支撑不下去，最下面的请求数据中也有显示 200 个错误， 200 个超时。</p>
+<p>这时候切回 client 的终端可以看到，服务已经崩掉了，没办法承载 200 的并发量，如果业务需要，这时候就需要考虑给服务器集群进行扩容操作了。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_82.png" alt="" width="700" />   
 <h2 id="提高搜索引擎排名">提高搜索引擎排名</h2>
+<h3 id="技术优化">技术优化</h3>
+<h4 id="语义化标签">语义化标签</h4>
+<p>写 toB 项目时，可能会直接用 div 标签作为块级区域的标签，但是对于 SEO 而言，这样的爬取和关键词检索效果是极差的，搜索引擎的索引器在对站点进行分析的过程中，会根据语义化标签来决定不同信息的重要程度，以此来匹配对应的关键词进行推荐。</p>
+<p>其中最需要关注的，也最常用的就是站点的 H 标签，有几个需要着重注意的使用事项：</p>
+<ul>
+<li>H 标签只针对用户可见内容进行设置，图片、链接、写给 robots 可读文字均不在 H 标签使用范围之内。</li>
+<li>H1 是一个页面中权重最高，关键词优先级最高的文案，一个页面只能使用一个。</li>
+<li>页面中通常只使用 H1 ~ H3，剩下的标题优先级太低，部分搜索引擎不会进行识别。</li>
+<li>H 标签通常不使用在文字 logo、 标签栏、侧边栏等每页固定存在的部分。因为这部分不属于这一页的重点，即不是“与众不同” 的区域。</li>
+</ul>
+<h4 id="meta">Meta</h4>
+<p>影响 SEO 有三个重要元素，通常称 TDK（即 title，description，keywords），除这些部分外，还有一些常用的 meta 标签，这些都需要加到模板页面中。</p>
+<ul>
+<li>Title: 就是常用的 title 标签。</li>
+<li>Description: 页面描述，SEO 的关键。需要注意的是，PC 端下页面描述不要超过 155 个字符，移动端不要超过 120 个字符，如果过长，页面描述会被截断，反而会影响最终的 SEO。</li>
+<li>Keywords: 关键词，这个的设定需要注意几点：</li>
+</ul>
+<ol>
+<li>每个页面通常设置比较重要的3、4个关键词，不要堆砌，不要过长，更不要只因为热门，就加完全不相关的内容进来蹭热度。</li>
+<li>关键词按照由高到低的顺序来排，用逗号分隔。</li>
+<li>每个关键词都要是独特的，不要每个关键词意思都差不多。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;keywords&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">/&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>robots（重要）: 是否开启搜索引擎抓取，noindex 对应是否开启抓取，nofollow 对应不追踪网页的链接，需要开启。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;robots&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;index, follow&#34;</span> <span class="p">/&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>Applicable-device: 告诉 Google，你这个站点适配了哪些设备，不加就是默认 PC 端，将会影响移动端搜索你站点的推送。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;applicable-device&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;pc,mobile&#34;</span> <span class="p">/&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="6">
+<li>Format-detection: 在默认状态下，网页的数字会被认为是电话号码（在不同的系统中，显示的格式可能有所不同，比如在 iphone 手机中会有下划线），点击数字会被当作电话号码拨打或者添加到联系人，所以需要禁用。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;format-detection&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;telephone=no&#34;</span> <span class="p">/&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="sitemap">Sitemap</h4>
+<p>站点地图是一种文件，您可以在其中提供与您网站中的网页、视频或其他文件有关的信息，还可以说明这些内容之间的关系。Google 等搜索引擎会读取此文件，以便更高效地抓取您的网站。站点地图会告诉 Google 您认为网站中的哪些网页和文件比较重要，还会提供与这些文件有关的重要信息。更多内容请查阅官方文档。</p>
+<h3 id="内容优化">内容优化</h3>
+<p>内容是 SEO 的核心，没有高质量的内容，只通过蹭热门关键词，只会有适得其反的效果。推荐阅读 Google SEO 开发者文档，其中对于内容的部分有非常详细的说明，涵括如何让你的内容有趣，怎么满足读者的需求，以及如何具备权威性和能解决用户的问题等。</p>
+<h4 id="sem">SEM</h4>
+<p>搜索引擎营销的基本思想是让用户发现信息，并通过（搜索引擎）搜索点击进入网站/网页进一步了解他所需要的信息。简单来说 SEM 所做的就是以最小的投入在搜索引擎中获最大的访问量并产生商业价值。SEM的方法包括SEO、付费排名、精准广告以及付费收录等。</p>
 <h2 id="网站服务部署">网站服务部署</h2>
-</div><div class="post-footer" id="post-footer">
+<p>站点应用想要部署外网，需要提前准备资源和流程，大体可以分为以下几个步骤：</p>
+<ul>
+<li>云服务器：可以理解为在云端上的一台电脑，把服务挂载到对应的端口下，即可通过云服务器公网 IP + 端口的方式进行访问。</li>
+<li>域名：可以理解成是云服务器公网 IP 的一个代号，因为 IP 地址不方便记忆，所以采用注册域名并把服务器 IP 解析到对应域名下进行访问，通常域名和站点的内容也有一定的联系，相当于是品牌标识的一个体现，一个好的域名可以成为内容和文化的良好助力，给用户留下不错的印象。</li>
+<li>域名 ICP 备案：ICP 证是指各地通信管理部门核发的《中华人民共和国电信与信息服务业务经营许可证》。没有备案通过这个是不可以上线的，ICP 备案成功后，若域名有网站或落地页，则需要在网站底部悬挂工信部下发的 ICP 备案号，并生成链接指向工信部网站。如果未在网站底部添加 ICP 备案号，被相关部门核查出来将处以五千元以上一万元以下罚款，或注销备案号等处罚。</li>
+<li>公安备案：根据《计算机信息网络国际联网安全保护管理办法》规定，网站在工信部备案成功后，需在网站开通之日起 30 日内登录 全国互联网安全管理服务平台 提交公安联网备案申请。公安联网备案审核通过后，需要复制网站公安机关备案号和备案编号 HTML 代码，下载备案编号图标，并编辑网页源代码将公安联网备案信息放置在网页底部。</li>
+<li>域名解析：把域名指向我们服务器公网 IP 的过程，经过这个步骤，就可以通过域名访问到我们的服务器了。</li>
+<li>服务部署：在完成上面步骤后，需要把服务部署到云服务器的对应端口，并解析到域名上，然后用户就可以通过访问注册的域名访问服务了。</li>
+</ul>
+<h3 id="服务部署">服务部署</h3>
+<p>对于服务部署，推荐使用 pm2 来进行部署，当然直接使用 node 然后执行 npm run start 效果上也是可以的。</p>
+<p>pm2 具备日志，重启等一套完整能力，可以更容易定位一些问题，所以是部署 node 服务的主流工具，现在在本地以现在的项目示范一下。</p>
+<p>首先打开终端，安装一下 pm2。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">npm install pm2 -g
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装完成后在终端输入 pm2 试试。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_83.png" alt="" width="700" />   
+<p>然后分别切到 client 和 server 的目录下执行一下 npm run build，这个是为了构建线上环境启动所需要的产物。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_84.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_85.png" alt="" width="700" />   
+<p>安装完尝试重新构建一下，并且在对应目录下执行 npm run start，如果没有异常，就可以尝试使用 pm2 来启动服务了。</p>
+<p>server:<br>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_89.png" alt="" width="700" /><br>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_86.png" alt="" width="700" /></p>
+<p>client:<br>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_88.png" alt="" width="700" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_87.png" alt="" width="700" /></p>
+<p>在这之前，先简单介绍一下原理，pm2 可以通过执行 pm2 start ${脚本文件} &ndash;name ${服务名} 的方式启动，不过要注意，因为执行路径的不同，所以这里使用 npm 的绝对路径执行确保没有问题。</p>
+<p>首先执行下面的命令看一下 npm 的目录位置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">which npm
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_90.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_91.png" alt="" width="700" />   
+<p>然后切到对应项目目录下，创建一个 shell 脚本，然后写入 ${npm目录} run start 即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vi server.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_92.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_93.png" alt="" width="700" />   
+<p>类似这样，然后在对应 shell 脚本根目录分别执行 pm2 start server.sh，为了区分还可以给它们加上 &ndash;name 名称的参数，执行完以后，再执行 pm2 list，如果看到服务 online，就可以了。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_94.png" alt="" width="700" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_95.png" alt="" width="700" />   
+<p>这时候直接访问 http://127.0.0.1:3000，也是可以打开官网的。</p>
+<p>如果想要服务器开机的时候自启动，只需要执行下面的命令，保存当前服务并且生成自启动脚本即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pm2 save
+</span></span><span class="line"><span class="cl">pm2 startup
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>至于关闭和重启服务，使用 stop 和 restart 即可，类似下面的例子。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_97.png" alt="" width="700" />   
+<p>值得一提的是，启动的过程可能并不是一帆风顺的，可能会有一些报错，那这时候服务的 status 就会显示 errored，这时候可以通过输出日志的方式来排查，以 server (client) 的服务举例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pm2 log server --lines <span class="m">50</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>日志默认输出是 15 行，这个一般是不够的，可能错误栈都不足够显示完成，这边加上行数的参数，调整为 50 行。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_98.png" alt="" width="700" />   
+<p>就可以看到和平时开发一样的终端结果了，这时候如果有一些报错可以通过错误栈的信息来快速定位，并且 pm2 提供了持续监听的能力，类似平时开发中的热更新，只需要在 start 命令后加上 &ndash;watch 的参数就可以启动，这样当代码发生变化的时候，部署也会同步自动更新。</p>
+<p>不过这时候访问还是使用 3000 端口，这样显得奇怪，比如用户在访问百度的时候不可能访问 <a href="https://www.baidu.com" target="_blank" rel="noopener noreffer ">www.baidu.com</a>:3000吧。</p>
+<p>首先安装一下 nginx，同样可以通过 nginx -v 的方式来判断是否安装成功。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">brew install nginx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后需要修改一下对应的配置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vi /usr/local/etc/nginx/nginx.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_99.png" alt="" width="700" />   
+<p>改这两个部分就好，listen 是监听的端口号，proxy_pass 是希望转发的目标服务，这样就会将 80 端口的服务都转发到 3000 端口上，用户就可以直接通过域名进行访问了。</p>
+<p>修改完成后，执行一下 nginx，没有报错的话就已经启动了。</p>
+<p>尝试一下直接访问 http://127.0.0.1/ ，可以看到已经可以了，到这里服务部署的部分就全部完成了。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_100.png" alt="" width="700" />   
+<h2 id="总结">总结</h2>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_101.jpg" alt="" width="400" />   </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2023-02-17&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/7d6c62b9a241c566060cb14203265c971b5e02a4" target="_blank" title="commit by qian wang(1510106069@qq.com) 7d6c62b9a241c566060cb14203265c971b5e02a4: update">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>7d6c62b</a></span>
+                <span>更新于 2023-02-20&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/63d4ee2db4487dd9537ebb562963c590e8f2c690" target="_blank" title="commit by qian wang(1510106069@qq.com) 63d4ee2db4487dd9537ebb562963c590e8f2c690: update">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>63d4ee2</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
@@ -9169,7 +9505,7 @@ res.revalidate(urlPath) - 使用 . 按需重新验证页面 getStaticProps。url
                 Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.106.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">OweQian</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
