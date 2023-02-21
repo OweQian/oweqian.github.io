@@ -683,8 +683,8 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         [languages.zh-cn.params.home.profile]
           enable = true
           gravatarEmail = ""
-          avatarURL = "/images/img.png"
+          avatarURL = "/images/img.jpg"
           title = ""
-          subtitle = "欢迎光临我的小站😄"
+          subtitle = "欢迎光临我的小站🤪"
           typeit = true
           social = true
