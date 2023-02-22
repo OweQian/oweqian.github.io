@@ -87,17 +87,25 @@ categories: ["Soul Dance"]
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/pg7ZRoQoORs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-## Lucky Luke - Cooler Than Me  
-
-<iframe width="600" height="315" src="https://www.youtube.com/embed/A3pJB4m713M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
 ## Next Level Lyrics-A$ton Wyld  
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/75yxhHEJlbI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+## Bigg Robb - So Delicious 
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/-ay0jELXCEE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## BLACKPINK - How You Like That 
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/ioNng23DkIM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Fat Joe, Remy Ma - All The Way Up 
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/y2ak_oBeC-I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Lucky Luke - Cooler Than Me
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/A3pJB4m713M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Chago Williams · Wilson Ramos - Im Going
 
