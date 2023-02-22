@@ -5,20 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Typescript 使用手册 - OweQian</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Typescript 使用手册" />
-<meta property="og:description" content="项目地址： TSHandbook" />
+<meta property="og:description" content="项目地址： TSHandbook 原始类型 number / string / boolean / null / undefined / symbol / bigint 1 2 3 4 5 6 7 const name: string = &#39;wangxiaobia&#39;; const age: number = 18; const male: boolean = false; const undef: undefined = undefined; const nul: null = null; const bigIntVar1: bigint = 9007199254740991n; const symbolVar: symbol = Symbol(&#39;unique&#39;); null 和 undefined null 与" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/ts/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-02-21T11:25:47+08:00" />
-<meta property="article:modified_time" content="2023-02-21T11:25:47+08:00" /><meta property="og:site_name" content="OweQian" />
+<meta property="article:published_time" content="2023-02-22T11:00:47+08:00" />
+<meta property="article:modified_time" content="2023-02-21T11:47:04+08:00" /><meta property="og:site_name" content="OweQian" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://oweqian.xyz/logo.png"/>
 
 <meta name="twitter:title" content="Typescript 使用手册"/>
-<meta name="twitter:description" content="项目地址： TSHandbook"/>
+<meta name="twitter:description" content="项目地址： TSHandbook 原始类型 number / string / boolean / null / undefined / symbol / bigint 1 2 3 4 5 6 7 const name: string = &#39;wangxiaobia&#39;; const age: number = 18; const male: boolean = false; const undef: undefined = undefined; const nul: null = null; const bigIntVar1: bigint = 9007199254740991n; const symbolVar: symbol = Symbol(&#39;unique&#39;); null 和 undefined null 与"/>
 <meta name="application-name" content="OweQian">
 <meta name="apple-mobile-web-app-title" content="OweQian"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/ts/" /><link rel="prev" href="http://oweqian.xyz/books/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/ts/" /><link rel="prev" href="http://oweqian.xyz/books/" /><link rel="next" href="http://oweqian.xyz/month/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -34,8 +35,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "第一技能","wordcount":  6 ,
-        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-02-21T11:25:47+08:00","dateModified": "2023-02-21T11:25:47+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "第一技能","wordcount":  507 ,
+        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-02-22T11:00:47+08:00","dateModified": "2023-02-21T11:47:04+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -113,20 +114,113 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Typescript 使用手册</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-21">2023-02-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-22">2023-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 507 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#原始类型">原始类型</a>
+      <ul>
+        <li><a href="#null-和-undefined">null 和 undefined</a></li>
+        <li><a href="#void">void</a></li>
+      </ul>
+    </li>
+    <li><a href="#数组类型">数组类型</a></li>
+  </ul>
+</nav></div>
             </div><div class="content" id="content"><p>项目地址： <a href="https://github.com/OweQian/TSHandbook.git" target="_blank" rel="noopener noreffer ">TSHandbook</a></p>
+<h2 id="原始类型">原始类型</h2>
+<p>number / string / boolean / null / undefined / symbol / bigint</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">name</span>: <span class="kt">string</span> <span class="o">=</span> <span class="s1">&#39;wangxiaobia&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">age</span>: <span class="kt">number</span> <span class="o">=</span> <span class="mi">18</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">male</span>: <span class="kt">boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">undef</span>: <span class="kt">undefined</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">nul</span>: <span class="kt">null</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">bigIntVar1</span>: <span class="kt">bigint</span> <span class="o">=</span> <span class="mi">9007199254740991</span><span class="nx">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">symbolVar</span>: <span class="kt">symbol</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s1">&#39;unique&#39;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="null-和-undefined">null 和 undefined</h3>
+<p>null 与 undefined 都是有具体意义的类型。在没有开启 strictNullChecks 检查的情况下，会被视作其他类型的子类型，比如 string 类型会被认为包含了 null 与 undefined 类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">temp1</span>: <span class="kt">null</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">temp2</span>: <span class="kt">undefined</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">temp3</span>: <span class="kt">string</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">temp4</span>: <span class="kt">string</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="void">void</h3>
+<p>描述一个内部没有 return，或没有显示 return 一个值的函数的返回值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">func1</span> <span class="p">()</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">func2</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">func3</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kc">undefined</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>func1 与 func2 的返回值类型会被隐式推导为 void，显式返回了 undefined 值的 func3 其返回值类型被推导为了 undefined。但在实际的代码执行中，func1 与 func2 的返回值均是 undefined。</p>
+<p>虽然 func3 的返回值类型会被推导为 undefined，但仍可以使用 void 类型进行标注，因为在类型层面 func1、func2、func3 都表示“没有返回一个有意义的值”。</p>
+<p>void 表示一个空类型，而 null 与 undefined 都是一个具有意义的实际类型。而 undefined（null） 能够被赋值给 void 类型的变量，但需要在关闭 strictNullChecks 配置的情况下才能成立。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">voidVar1</span>: <span class="kt">void</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">voidVar2</span>: <span class="kt">void</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="数组类型">数组类型</h2>
+<p>有两种方式来声明一个数组类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">arr1</span>: <span class="kt">string</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">arr2</span>: <span class="kt">Array</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这两种方式是完全等价的，更多的以前者为主。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2023-02-21</span>
+                <span>更新于 2023-02-21&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/f87235fda676817e687b9e3782f8fcc0b842e8b5" target="_blank" title="commit by qian wang(1510106069@qq.com) f87235fda676817e687b9e3782f8fcc0b842e8b5: update">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>f87235f</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
@@ -145,13 +239,14 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/books/" class="prev" rel="prev" title="在书的字缝里，总有梦的发生"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>在书的字缝里，总有梦的发生</a></div>
+    <div class="post-nav"><a href="/books/" class="prev" rel="prev" title="在书的字缝里，总有梦的发生"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>在书的字缝里，总有梦的发生</a>
+            <a href="/month/" class="next" rel="next" title="蠢 Q 碎碎念">蠢 Q 碎碎念<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"><div id="giscus" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.106.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">OweQian</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
