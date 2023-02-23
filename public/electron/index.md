@@ -3,6 +3,8 @@
 
 项目地址： [ElectronVue3](https://github.com/OweQian/ElectronVue3)  
 
+<!--more-->
+
 ## 构建开发环境  
 
 按如下步骤搭建开发环境：  

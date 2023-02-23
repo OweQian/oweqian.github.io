@@ -3,6 +3,8 @@
 
 项目地址： [SSR](https://github.com/OweQian/SSR.git)  
 
+<!--more-->
+
 ## 搭建 Client 项目
 
 ### 项目初始化   
@@ -5494,3 +5496,4 @@ vi /usr/local/etc/nginx/nginx.conf
 ## 总结
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ssr/img_101.jpg" alt="" width="400" />   
+

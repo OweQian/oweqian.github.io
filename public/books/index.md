@@ -1,7 +1,13 @@
-# 在书的字缝里，总有梦的发生
+# 那些年读过的书随手记
 
 
-## 微习惯  
+🧐 书中自有黄金屋，书中自有颜如玉。    
+
+<!--more-->
+
+## 2023 
+
+### 微习惯  
 
 2023 年读完的第五本书，🤔 好像打开了新世界的大门。  
 
@@ -27,7 +33,7 @@ step8: 留意微习惯养成的标志。
 * 绝不要小看微步骤。  
 * 用多余精力超额完成任务，而不是制定更大目标。   
 
-## 李诞脱口秀工作手册  
+### 李诞脱口秀工作手册  
 
 2023 年读完的第四本书，很薄，2 个小时不到就看完了，以下是我有收获的地方：  
 
@@ -49,15 +55,15 @@ step8: 留意微习惯养成的标志。
 * 面对一个大脑，想要影响它，最好是从情绪进入，再去说服理性。在提出一个看法之前，先讲一个故事，先在情绪上拉近彼此，唤醒你对某些困境的情绪记忆，再小心翼翼地说出我的观点，视图把它放进你那武装完整的新皮层。(: 🤔 N + 1 循序渐进。  
 * 产品经理俞军关于用户的定义我们可以好好借鉴：用户不是自然人，而是需求的集合。比如：假设使用微信的自然人有 11 亿，其中通信需求 11 亿，朋友圈需求 9 亿，收付款需求 5 亿，那么微信的用户实际上是 25亿。(: 😮 学到了。   
 
-## 长期主义  
+### 长期主义  
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/d0lJ8wx3vag" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-## 解忧杂货店  
+### 解忧杂货店  
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/REPPWttrOk4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-## 生活蒙太奇   
+### 生活蒙太奇   
 
 <img src="/images/books/img_2.png" alt="" width="400" />  
 

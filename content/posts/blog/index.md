@@ -1,9 +1,14 @@
 ---
-title: "做个俗人，贪财好色"
+title: "看事儿的那些年"
 date: 2023-02-01T20:00:38+08:00
 tags: ["谈人生"]
 categories: ["谈人生"]
+featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/trouble.png"
 ---
+
+倒霉 🥚 儿行为大赏 🤪，且看且珍惜。  
+
+<!--more-->
 
 ## 2023
 

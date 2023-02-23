@@ -10,7 +10,9 @@
     <pubDate>Wed, 22 Feb 2023 16:00:47 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/ts/</guid>
-    <description><![CDATA[项目地址： TSHandbook 原始类型 number / string / boolean / null / undefined / symbol / bigint 1 2 3 4 5 6 7 const name: string = &#39;wangxiaobia&#39;; const age: number = 18; const male: boolean = false; const undef: undefined = undefined; const nul: null = null; const bigIntVar1: bigint = 9007199254740991n; const symbolVar: symbol = Symbol(&#39;unique&#39;); null 和 undefined null 与]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/ts.png" referrerpolicy="no-referrer">
+            </div><p>项目地址： <a href="https://github.com/OweQian/TSHandbook.git" target="_blank" rel="noopener noreffer ">TSHandbook</a></p>]]></description>
 </item>
 <item>
     <title>蠢 Q 碎碎念</title>
@@ -18,15 +20,19 @@
     <pubDate>Wed, 22 Feb 2023 14:00:47 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/month/</guid>
-    <description><![CDATA[2023 2023-02 02-01 02-02 Damn cool!!! 02-03 node.js 还是挺有意思的。 02-04 😠 无知和过度的商业宣传形成了健康问题必然危机生命的大众认知，从维持生命的人性底层上滋生了心理层面的恐慌，驱]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/blog.png" referrerpolicy="no-referrer">
+            </div><p>🤔 每天都像开盲盒，今天开到的是什么呢？</p>]]></description>
 </item>
 <item>
-    <title>在书的字缝里，总有梦的发生</title>
+    <title>那些年读过的书随手记</title>
     <link>http://oweqian.xyz/books/</link>
     <pubDate>Tue, 21 Feb 2023 09:25:38 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/books/</guid>
-    <description><![CDATA[微习惯 2023 年读完的第五本书，🤔 好像打开了新世界的大门。 彻底改变只需八步： step1: 选择适合你的微习惯和计划。 step2: 挖掘每个微习惯的内在价值。 step3: 明确习惯依据]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/book.png" referrerpolicy="no-referrer">
+            </div><p>🧐 书中自有黄金屋，书中自有颜如玉。</p>]]></description>
 </item>
 <item>
     <title>基于 Nextjs &#43; Strapi 的官网开发实战</title>
@@ -34,7 +40,9 @@
     <pubDate>Mon, 20 Feb 2023 11:25:47 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/ssr/</guid>
-    <description><![CDATA[项目地址： SSR 搭建 Client 项目 项目初始化 先对项目进行初始化，Nextjs 提供了脚手架来帮助初始化项目，执行下面的命令： 1 npx create-next-app@latest --typescript next.config.js 是构建配置，底层是基]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/next.png" referrerpolicy="no-referrer">
+            </div><p>项目地址： <a href="https://github.com/OweQian/SSR.git" target="_blank" rel="noopener noreffer ">SSR</a></p>]]></description>
 </item>
 <item>
     <title>你需要一首 BGM，来撑起你的内心戏</title>
@@ -42,15 +50,19 @@
     <pubDate>Wed, 15 Feb 2023 11:50:47 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/souldance/</guid>
-    <description><![CDATA[🚇 上，🏃🏻 ‍时，搬 🧱 中&hellip;&hellip;戴起耳机，就是你一个人的舞台！在这里，希望你能找到一首 BGM，来撑起你独一无二的内心戏]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/song.png" referrerpolicy="no-referrer">
+            </div><p>🚇 上，🏃🏻 ‍时，搬 🧱 中&hellip;&hellip;戴起耳机，就是你一个人的舞台！</p>]]></description>
 </item>
 <item>
-    <title>一个人的绘画馆：蠢 Q 的油画棒画成长之旅</title>
+    <title>油画棒画成长之旅</title>
     <link>http://oweqian.xyz/draw/</link>
     <pubDate>Sun, 12 Feb 2023 23:00:47 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/draw/</guid>
-    <description><![CDATA[2023年 一个人淋 🌧 1 季如梦，人生如梦，没有一刻想清醒。 仰望 🌃 1 我们仰望着同一片星空，你可能在失神，而我努力在星空中寻找你的模样。 窗台上的 🐱]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/draw.png" referrerpolicy="no-referrer">
+            </div><p>这里是 &ldquo;一个人的绘画馆&rdquo;，画得不好，纯属娱乐 😝。</p>]]></description>
 </item>
 <item>
     <title>基于 Electron &#43; Vue3 的桌面应用开发实战</title>
@@ -58,15 +70,19 @@
     <pubDate>Tue, 07 Feb 2023 10:20:47 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/electron/</guid>
-    <description><![CDATA[项目地址： ElectronVue3 构建开发环境 按如下步骤搭建开发环境： 创建项目 首先通过命令行创建一个 Vue 项目： 1 npm create vite@latest electron -- --template vue-ts 安装 electron 依赖： 1 npm i electron -D 调整 package.json 文件： 1 2]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/vue3.png" referrerpolicy="no-referrer">
+            </div><p>项目地址： <a href="https://github.com/OweQian/ElectronVue3" target="_blank" rel="noopener noreffer ">ElectronVue3</a></p>]]></description>
 </item>
 <item>
-    <title>做个俗人，贪财好色</title>
+    <title>看事儿的那些年</title>
     <link>http://oweqian.xyz/blog/</link>
     <pubDate>Wed, 01 Feb 2023 20:00:38 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/blog/</guid>
-    <description><![CDATA[2023 由房屋租赁纠纷引发的思考 简述一下事情的起因，因为工作变动，没有太多时间找房子，在贝壳找房上紧急租到了套一公寓，和中介公司签订了半年的租房合]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/trouble.png" referrerpolicy="no-referrer">
+            </div><p>倒霉 🥚 儿行为大赏 🤪，且看且珍惜。</p>]]></description>
 </item>
 </channel>
 </rss>

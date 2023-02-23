@@ -10,7 +10,9 @@
     <pubDate>Wed, 22 Feb 2023 16:00:47 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/ts/</guid>
-    <description><![CDATA[项目地址： TSHandbook 原始类型 number / string / boolean / null / undefined / symbol / bigint 1 2 3 4 5 6 7 const name: string = &#39;wangxiaobia&#39;; const age: number = 18; const male: boolean = false; const undef: undefined = undefined; const nul: null = null; const bigIntVar1: bigint = 9007199254740991n; const symbolVar: symbol = Symbol(&#39;unique&#39;); null 和 undefined null 与]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/ts.png" referrerpolicy="no-referrer">
+            </div><p>项目地址： <a href="https://github.com/OweQian/TSHandbook.git" target="_blank" rel="noopener noreffer ">TSHandbook</a></p>]]></description>
 </item>
 <item>
     <title>基于 Nextjs &#43; Strapi 的官网开发实战</title>
@@ -18,7 +20,9 @@
     <pubDate>Mon, 20 Feb 2023 11:25:47 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/ssr/</guid>
-    <description><![CDATA[项目地址： SSR 搭建 Client 项目 项目初始化 先对项目进行初始化，Nextjs 提供了脚手架来帮助初始化项目，执行下面的命令： 1 npx create-next-app@latest --typescript next.config.js 是构建配置，底层是基]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/next.png" referrerpolicy="no-referrer">
+            </div><p>项目地址： <a href="https://github.com/OweQian/SSR.git" target="_blank" rel="noopener noreffer ">SSR</a></p>]]></description>
 </item>
 <item>
     <title>基于 Electron &#43; Vue3 的桌面应用开发实战</title>
@@ -26,7 +30,9 @@
     <pubDate>Tue, 07 Feb 2023 10:20:47 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/electron/</guid>
-    <description><![CDATA[项目地址： ElectronVue3 构建开发环境 按如下步骤搭建开发环境： 创建项目 首先通过命令行创建一个 Vue 项目： 1 npm create vite@latest electron -- --template vue-ts 安装 electron 依赖： 1 npm i electron -D 调整 package.json 文件： 1 2]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/vue3.png" referrerpolicy="no-referrer">
+            </div><p>项目地址： <a href="https://github.com/OweQian/ElectronVue3" target="_blank" rel="noopener noreffer ">ElectronVue3</a></p>]]></description>
 </item>
 </channel>
 </rss>

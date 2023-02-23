@@ -3,6 +3,8 @@
 
 项目地址： [TSHandbook](https://github.com/OweQian/TSHandbook.git)  
 
+<!--more-->
+
 ## 原始类型 
 
 number / string / boolean / null / undefined / symbol / bigint 
