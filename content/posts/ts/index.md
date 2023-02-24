@@ -283,7 +283,7 @@ interface IResponseProps {
 
 这时就能在访问时获得精确地类型推导了。  
 
-image.png
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_01.png" alt="" width="700" />  
 
 对于 declare var res: Res，它是快速生成一个符合指定类型，但没有实际值的变量，同时它也不存在于运行时中。   
 
