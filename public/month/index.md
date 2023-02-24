@@ -12,6 +12,7 @@
 #### 02-24
 面试官：请说一下 git revert 和 git reset 的区别? 😓   
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_17.png" alt="" width="600" />  
 
 #### 02-23 
 冲啊！
@@ -79,7 +80,7 @@ ps2:
 
 #### 02-13
 🤣    
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_14.png" alt="" width="500" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_14.png" alt="" width="600" />
 
 
 #### 02-12
@@ -117,7 +118,7 @@ He deserved it.
 #### 02-05
 😜 轻断食前的最后一顿大餐。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_11.jpeg" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_11.jpeg" alt="" width="600" />  
 
 #### 02-04
 😠 无知和过度的商业宣传形成了健康问题必然危机生命的大众认知，从维持生命的人性底层上滋生了心理层面的恐慌，驱动了盲目的就医行动。  
@@ -175,7 +176,7 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 #### 01-20
 🤔发现一个挺有意思的事情，因为要回老家过年，给🐱准备了两个猫砂盆，这家伙竟然自己主动分类了，一个专门用来💧，一个专门用来💩。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_8.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_8.png" alt="" width="300" />  
 
 #### 01-19
 * 彩妆的尽头是裸妆  
@@ -195,7 +196,7 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 #### 01-17
 世界上怎么会有IU这么可爱的👧🏻。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_5.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_5.png" alt="" width="300" />  
 
 #### 01-16   
 打扫卫生。   
@@ -212,17 +213,17 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 #### 01-12
 原来妈妈也喜欢听你给她讲在外面遇到的新鲜事儿😊。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img.png" alt="" width="300" />  
 
 #### 01-11
 闺蜜失恋了，被迫听了3个小时的她和她前男友的爱情故事🤕。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_6.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_6.png" alt="" width="300" />  
 
 #### 01-10
 公司产品总监为了拍老板🐴屁，东西还没做完就着急给老板👁，然后白屏了，🦷都笑掉了。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_7.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_7.png" alt="" width="300" />  
 
 #### 01-09
 犹豫了很久很久，终于下定决心入手 AJ 扣碎篮板😍。  
@@ -245,17 +246,17 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 
 好想知道如果这样吃，会不会让灵魂得到升华🤔。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_4.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_4.png" alt="" width="300" />  
 
 #### 01-06
 或许曾经我们都想自己是齐天大圣，可长大后才发现，其实我们都只是一只努力生存的小猪妖。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_3.png" alt="" width="400" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_3.png" alt="" width="300" />   
 
 #### 01-05
 做前端死路一条，后端也是。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_2.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_2.png" alt="" width="300" />  
 
 #### 01-04
 读文学经典以来最大的感受是：慢慢看淡生与死。   
@@ -266,7 +267,7 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 #### 01-02 
 乔妹的演技还是可以，一口气追完了，期待第二季😄  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_1.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_1.png" alt="" width="300" />  
 
 #### 01-01
 去成都SKP逛一圈，才能知道自己有多穷😭  
@@ -340,24 +341,24 @@ Merry Christmas🎄
 #### 12-18
 和饼干一起晒☀️，地上铺上新毯子，🐱在地上趴着就不会🥶了。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_14.png" alt="" width="230" />
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_15.png" alt="" width="230" />
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_16.png" alt="" width="230" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_14.png" alt="" width="200" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_15.png" alt="" width="200" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_16.png" alt="" width="200" />
 
 #### 12-17
 发烧中。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_13.png" alt="" width="220" height="200"/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_13.png" alt="" width="300" />
 
 #### 12-16
 发烧中。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_13.png" alt="" width="220" height="200"/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_13.png" alt="" width="300" />
 
 #### 12-15  
 发烧中。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_13.png" alt="" width="220" height="200"/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_13.png" alt="" width="300" />
 
 #### 12-14
 🐑了。  
@@ -375,9 +376,9 @@ Merry Christmas🎄
 ``` 
 小红猪里裂开的都是💰啊。。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_4.png" alt="" width="230" />
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_5.png" alt="" width="230" />
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_6.png" alt="" width="230" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_4.png" alt="" width="200" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_5.png" alt="" width="200" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_6.png" alt="" width="200" />
 
 #### 12-10
 公司后端写的烂接口，一个都不能用，就混吧  
@@ -385,7 +386,7 @@ Merry Christmas🎄
 #### 12-09
 神🐱压中了🇭🇷  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_3.png" alt="" width="400" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_3.png" alt="" width="300" />
 
 #### 12-08
 公司有人🐑了。。。  
@@ -400,7 +401,7 @@ Merry Christmas🎄
 #### 12-05
 这支球队就像一个平凡努力的普通人的一生。他不是最强最出彩的，但你想赢他也不容易，因为他有强大的定力和拼劲，打不倒压不垮，还能绝处逢生。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_7.png" alt="" width="400" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_7.png" alt="" width="300" />  
 
 #### 12-04
 被欲望蒙蔽双眼的人，往往分不清眼前的是食物还是诱饵。  
