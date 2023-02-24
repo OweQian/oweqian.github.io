@@ -8,7 +8,7 @@
 <meta property="og:description" content="项目地址： TSHandbook" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/ts/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-02-22T16:00:47+08:00" />
+<meta property="article:published_time" content="2023-02-24T15:10:47+08:00" />
 <meta property="article:modified_time" content="2023-02-23T15:29:48+08:00" /><meta property="og:site_name" content="OweQian" />
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +19,7 @@
 <meta name="application-name" content="OweQian">
 <meta name="apple-mobile-web-app-title" content="OweQian"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/ts/" /><link rel="prev" href="http://oweqian.xyz/books/" /><link rel="next" href="http://oweqian.xyz/month/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/ts/" /><link rel="prev" href="http://oweqian.xyz/month/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -35,8 +35,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "第一技能","wordcount":  1970 ,
-        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-02-22T16:00:47+08:00","dateModified": "2023-02-23T15:29:48+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "第一技能","wordcount":  4196 ,
+        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-02-24T15:10:47+08:00","dateModified": "2023-02-23T15:29:48+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -114,8 +114,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Typescript 使用手册</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-22">2023-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1970 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-24">2023-02-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4196 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -142,6 +142,18 @@
       <ul>
         <li><a href="#修饰接口属性">修饰接口属性</a></li>
         <li><a href="#objectobject">object、Object、</a></li>
+      </ul>
+    </li>
+    <li><a href="#字面量类型与联合类型">字面量类型与联合类型</a>
+      <ul>
+        <li><a href="#字面量类型">字面量类型</a></li>
+        <li><a href="#联合类型">联合类型</a></li>
+        <li><a href="#对象字面量类型">对象字面量类型</a></li>
+      </ul>
+    </li>
+    <li><a href="#枚举">枚举</a>
+      <ul>
+        <li><a href="#常量枚举">常量枚举</a></li>
       </ul>
     </li>
   </ul>
@@ -508,7 +520,436 @@
 <li>可以使用 any[] 或 unknown[] 表示数组。</li>
 <li>可以使用 (&hellip;args: any[]) =&gt; any 表示函数。</li>
 <li>避免使用 {}。</li>
-</ul></div><div class="post-footer" id="post-footer">
+</ul>
+<h2 id="字面量类型与联合类型">字面量类型与联合类型</h2>
+<p>定义一个接口，它描述了响应的消息结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">IResponseProps</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">code</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">status</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span>: <span class="kt">any</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的 code 与 status 实际值会来自于一组确定值的集合，比如 code 可能是 10000 / 10001 / 50000，status 可能是 &ldquo;success&rdquo; / &ldquo;failure&rdquo;。</p>
+<p>上面的类型只给出了一个宽泛的 number / string，既不能在访问 code 时获得精确的提示，也失去了 TypeScript 类型即文档的功能。</p>
+<p>可以使用字面量类型加上联合类型进行改写：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">IResponseProps</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">code</span>: <span class="kt">10000</span> <span class="o">|</span> <span class="mi">10001</span> <span class="o">|</span> <span class="mi">50000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">status</span><span class="o">:</span> <span class="s1">&#39;success&#39;</span> <span class="o">|</span> <span class="s1">&#39;failure&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span>: <span class="kt">any</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这时就能在访问时获得精确地类型推导了。</p>
+<p>image.png</p>
+<p>对于 declare var res: Res，它是快速生成一个符合指定类型，但没有实际值的变量，同时它也不存在于运行时中。</p>
+<h3 id="字面量类型">字面量类型</h3>
+<p>&ldquo;success&rdquo; 不是一个值吗？为什么它可以作为类型？在 TypeScript 中，这叫做字面量类型（Literal Types），它代表着比原始类型更精确的类型，同时也是原始类型的子类型。</p>
+<p>字面量类型主要包括字符串字面量类型、数字字面量类型、布尔字面量类型和对象字面量类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">=</span> <span class="s1">&#39;wangxiaobai&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">age</span>: <span class="kt">18</span> <span class="o">=</span> <span class="mi">18</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">male</span>: <span class="kt">false</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>为什么说字面量类型比原始类型更精确？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="c1">// 报错！不能将类型“&#34;wangxiaobai18&#34;”分配给类型“&#34;wangxiaobai&#34;”。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">str1</span><span class="o">:</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">=</span> <span class="s1">&#39;wangxiaobai18&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">str2</span>: <span class="kt">string</span> <span class="o">=</span> <span class="s1">&#39;wangxiaobai&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">str3</span>: <span class="kt">string</span> <span class="o">=</span> <span class="s1">&#39;wangxiaobai3&#39;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>原始类型的值可以包括任意的同类型值，而字面量类型要求的是值级别的字面量一致。</p>
+<p>单独使用字面量类型比较少见，因为单个字面量类型并没有什么实际意义。它通常和联合类型（即这里的 |）一起使用，表达一组字面量类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">ITempProps</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">bool</span><span class="o">:</span> <span class="kc">true</span> <span class="o">|</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">num</span>: <span class="kt">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">str</span><span class="o">:</span> <span class="s1">&#39;wang&#39;</span> <span class="o">|</span> <span class="s1">&#39;xiao&#39;</span> <span class="o">|</span> <span class="s1">&#39;bai&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="联合类型">联合类型</h3>
+<p>它代表了一组类型的可用集合，只要最终赋值的类型属于联合类型的成员之一，就可以认为符合这个联合类型。</p>
+<p>联合类型对其成员并没有任何限制，除了上面这样对同一类型字面量的联合，还可以将各种类型混合到一起。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">ITempMixedProps</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mixed</span>: <span class="kt">true</span> <span class="o">|</span> <span class="kt">string</span> <span class="o">|</span> <span class="mi">18</span> <span class="o">|</span> <span class="p">{}</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{})</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里有几点需要注意：</p>
+<ul>
+<li>联合类型中的函数类型需要使用括号 () 包裹起来</li>
+<li>函数类型并不存在字面量类型，因此这里的 (() =&gt; {}) 就是一个合法的函数类型</li>
+<li>可以在联合类型中进一步嵌套联合类型，但这些嵌套的联合类型最终都会被展平到第一级中</li>
+</ul>
+<p>常用场景之一是通过多个对象类型的联合，来实现手动的互斥属性，即这一属性如果有字段 1，那就没有字段 2。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">ITempProps</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">user</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">vip</span>: <span class="kt">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">expires</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">vip</span>: <span class="kt">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">promotion</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">declare</span> <span class="kd">var</span> <span class="nx">temp</span>: <span class="kt">ITempProps</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">temp</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">vip</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">temp</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">expires</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>user 属性会满足普通用户与 VIP 用户两种类型，这里 vip 属性的类型基于布尔字面量类型声明。</p>
+<p>在实际使用时可以通过判断此属性为 true，确保接下来的类型推导都会将其类型收窄到 VIP 用户的类型（即联合类型的第一个分支）。</p>
+<p>可以通过类型别名来复用一组字面量联合类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Code</span> <span class="o">=</span> <span class="mi">10000</span> <span class="o">|</span> <span class="mi">10001</span> <span class="o">|</span> <span class="mi">50000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Status</span> <span class="o">=</span> <span class="s1">&#39;success&#39;</span> <span class="o">|</span> <span class="s1">&#39;failure&#39;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>除了原始类型的字面量类型以外，对象类型也有着对应的字面量类型。</p>
+<h3 id="对象字面量类型">对象字面量类型</h3>
+<p>对象字面量类型就是一个对象类型的值，这也就意味着这个对象的值全都为字面量值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">ITempProps</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">obj</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;wangxiaobai&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">age</span>: <span class="kt">18</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">temp</span>: <span class="kt">ITempProps</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">obj</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;wangxiaobai&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">age</span>: <span class="kt">18</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果要实现一个对象字面量类型，意味着完全的实现这个类型每一个属性的每一个值。</p>
+<p>无论是原始类型还是对象类型的字面量类型，它们的本质都是类型而不是值。在编译时同样会被擦除，同时也是被存储在内存中的类型空间而非值空间。</p>
+<h2 id="枚举">枚举</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">enum PageUrl {
+</span></span><span class="line"><span class="cl">  Home_Page_Url = &#39;home&#39;,
+</span></span><span class="line"><span class="cl">  Setting_Page_Url = &#39;setting&#39;,
+</span></span><span class="line"><span class="cl">  Share_Page_Url = &#39;share&#39;,
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">const home = PageUrl.Home_Page_Url;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用枚举拥有了更好的类型提示，并且这些常量被真正地约束在一个命名空间下。</p>
+<p>如果没有声明枚举的值，它会默认使用数字枚举，并且从 0 开始，以 1 递增。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">Items</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Foo</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Bar</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Baz</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在这个例子中，Items.Foo、Items.Bar、Items.Baz 的值依次是 0、1、2。</p>
+<p>如果只为某一个成员指定了枚举值，那么之前未赋值成员仍然会使用从 0 递增的方式，之后的成员则会开始从枚举值递增。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">Items</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">Foo</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Bar</span> <span class="o">=</span> <span class="mi">18</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 19
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">Baz</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在数字型枚举中，可以使用延迟求值的枚举值，比如函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">returnNum</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="mi">100</span> <span class="o">+</span> <span class="mi">18</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">Items</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Foo</span> <span class="o">=</span> <span class="nx">returnNum</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Bar</span> <span class="o">=</span> <span class="mi">18</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Baz</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但要注意，延迟求值的枚举值是有条件的。如果使用了延迟求值，那么没有使用延迟求值的枚举成员必须放在使用常量枚举值声明的成员之后，或者放在第一位。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">Items</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Baz</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Foo</span> <span class="o">=</span> <span class="nx">returnNum</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Bar</span> <span class="o">=</span> <span class="mi">18</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>也可以同时使用字符串枚举值和数字枚举值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">Mixed</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Num</span> <span class="o">=</span> <span class="mi">18</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Str</span> <span class="o">=</span> <span class="s1">&#39;wangxiaobai&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>枚举和对象的重要差异在于，对象是单向映射的，只能从键映射到键值。而枚举是双向映射的，可以从枚举成员映射到枚举值，也可以从枚举值映射到枚举成员。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">Items</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Foo</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Bar</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Baz</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fooValue</span> <span class="o">=</span> <span class="nx">Items</span><span class="p">.</span><span class="nx">Foo</span><span class="p">;</span> <span class="c1">// 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">fooKey</span> <span class="o">=</span> <span class="nx">Items</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// &#39;Foo&#39;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>要了解这一现象的本质，需要来看一看枚举的编译产物，如以上的枚举会被编译为以下 JavaScript 代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="s2">&#34;use strict&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">Items</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">Items</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Items</span><span class="p">[</span><span class="nx">Items</span><span class="p">[</span><span class="s2">&#34;Foo&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Foo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Items</span><span class="p">[</span><span class="nx">Items</span><span class="p">[</span><span class="s2">&#34;Bar&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Bar&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Items</span><span class="p">[</span><span class="nx">Items</span><span class="p">[</span><span class="s2">&#34;Baz&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Baz&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">})(</span><span class="nx">Items</span> <span class="o">||</span> <span class="p">(</span><span class="nx">Items</span> <span class="o">=</span> <span class="p">{}));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>obj[k] = v 的返回值即是 v，因此这里的 obj[obj[k] = v] = k 本质上就是进行了 obj[k] = v 与 obj[v] = k 这样两次赋值。</p>
+<p>仅有值为数字的枚举成员才能够进行这样的双向枚举，字符串枚举成员仍然只会进行单次映射：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">Items</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Foo</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Bar</span> <span class="o">=</span> <span class="s2">&#34;BarValue&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Baz</span> <span class="o">=</span> <span class="s2">&#34;BazValue&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 编译结果，只会进行 键-值 的单向映射
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="s2">&#34;use strict&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">Items</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">Items</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Items</span><span class="p">[</span><span class="nx">Items</span><span class="p">[</span><span class="s2">&#34;Foo&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Foo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Items</span><span class="p">[</span><span class="s2">&#34;Bar&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;BarValue&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Items</span><span class="p">[</span><span class="s2">&#34;Baz&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;BazValue&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">})(</span><span class="nx">Items</span> <span class="o">||</span> <span class="p">(</span><span class="nx">Items</span> <span class="o">=</span> <span class="p">{}));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="常量枚举">常量枚举</h3>
+<p>常量枚举和枚举相似，只是其声明多了一个 const。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="kr">enum</span> <span class="nx">Items</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Foo</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Bar</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Baz</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fooValue</span> <span class="o">=</span> <span class="nx">Items</span><span class="p">.</span><span class="nx">Foo</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>它和普通枚举的差异主要在访问性与编译产物。对于常量枚举，只能通过枚举成员访问枚举值（而不能通过值访问成员）。同时，在编译产物中并不会存在一个额外的辅助对象（如上面的 Items 对象），对枚举成员的访问会被直接内联替换为枚举的值。</p>
+<p>以上的代码会被编译为如下形式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fooValue</span> <span class="o">=</span> <span class="mi">0</span> <span class="cm">/* Foo */</span><span class="p">;</span> <span class="c1">// 0
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -532,8 +973,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/books/" class="prev" rel="prev" title="那些年读过的书随手记"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>那些年读过的书随手记</a>
-            <a href="/month/" class="next" rel="next" title="蠢 Q 碎碎念">蠢 Q 碎碎念<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/month/" class="prev" rel="prev" title="蠢 Q 碎碎念"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>蠢 Q 碎碎念</a></div>
 </div>
 <div id="comments"><div id="giscus" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
