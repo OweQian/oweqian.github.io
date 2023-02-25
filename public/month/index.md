@@ -9,6 +9,11 @@
 
 ### 2023-02
 
+#### 02-25
+迅速买了蒙脱石散和奥司他韦，舒坦了 😌。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_18.jpeg" alt="" width="300" />  
+
 #### 02-24
 面试官：请说一下 git revert 和 git reset 的区别? 😓   
 
@@ -61,7 +66,9 @@ Breaking Bad S4 最后三集，🤣
 #### 02-15
 🥲 小猫咪的迷惑行为。       
 
-<iframe width="600" height="315" src="/images/ssr/cat.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<video width="600" height="315" controls>
+  <source src="/images/ssr/cat.mp4" type="video/mp4">
+</video>
 
 #### 02-14
 ps1:  
