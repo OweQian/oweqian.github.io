@@ -7,6 +7,15 @@
 
 ## 2023年
 
+### 红尘悠悠
+
+```
+为遇一人而入红尘，人去我亦去，此处不留尘。      
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/draw/img_6.jpeg" alt="" width="300" />  
+
+
 ### 一个人淋 🌧 
 
 ```
