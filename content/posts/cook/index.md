@@ -1,6 +1,6 @@
 ---
 title: "程序媛烟火气儿"
-date: 2023-02-25T22:00:47+08:00
+date: 2023-02-26T14:00:47+08:00
 tags: ["cook"]
 categories: ["cook"]
 featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/cook/WechatIMG387.jpeg"
@@ -11,6 +11,10 @@ featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/cook/WechatIMG387.j
 <!--more-->
 
 ## 2023年
+
+### 蔬菜鸡胸肉饼
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cook/img_01.jpeg" alt="" width="300" />  
 
 ### 大拌菜 
 

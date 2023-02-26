@@ -7,6 +7,14 @@
 
 ## 2023年
 
+### 海  
+
+```
+Jay 与海都给你。      
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/draw/img_7.jpeg" alt="" width="300" />  
+
 ### 红尘悠悠
 
 ```
