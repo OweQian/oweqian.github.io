@@ -1,6 +1,6 @@
 ---
 title: "Typescript 使用手册"
-date: 2023-02-27T16:00:47+08:00
+date: 2023-02-27T18:20:47+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/ts.png"
@@ -10,7 +10,9 @@ featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/ts.png"
 
 <!--more-->
 
-## 原始类型 
+## 类型世界
+
+### 原始类型 
 
 number / string / boolean / null / undefined / symbol / bigint 
 
@@ -24,7 +26,7 @@ const bigIntVar1: bigint = 9007199254740991n;
 const symbolVar: symbol = Symbol('unique');
 ```
 
-### null 和 undefined  
+#### null 和 undefined  
 
 null 与 undefined 都是有具体意义的类型。在没有开启 strictNullChecks 检查的情况下，会被视作其他类型的子类型，比如 string 类型会被认为包含了 null 与 undefined 类型：  
 
@@ -35,7 +37,7 @@ const temp3: string = null;
 const temp4: string = undefined;
 ```
 
-### void 
+#### void 
 
 描述一个内部没有 return，或没有显示 return 一个值的函数的返回值。  
 
@@ -58,7 +60,7 @@ const voidVar1: void = null;
 const voidVar2: void = undefined;
 ```
 
-## 数组类型 
+### 数组类型 
 
 有两种方式来声明一个数组类型：  
 
@@ -69,7 +71,7 @@ const arr2: Array<string> = [];
 
 这两种方式是完全等价的，更多的以前者为主。   
 
-## 元组类型
+### 元组类型
 
 用来代替数组，已知数组长度和成员类型，在越界访问时（数组不会给出）可以给出类型报错。  
 
@@ -104,7 +106,7 @@ const arr6: [name: string, age: number, male: boolean] = ['wang', 18, false];
 const arr7: [name: string, age?: number, male?: boolean] = ['wang'];
 ```
 
-## 对象类型
+### 对象类型
 
 interface 来描述对象类型，它代表了这个对象对外提供的接口结构。   
 
@@ -124,7 +126,7 @@ const obj1: IDescription = {
 
 每一个属性的值必须一一对应到接口的属性类型，不能有多的属性，也不能有少的属性。  
 
-### 修饰接口属性  
+#### 修饰接口属性  
 
 在接口中用 ? 来标记一个属性为可选：  
 
@@ -176,7 +178,7 @@ ps: 在数组和元组层面也存在着只读的修饰。
 * 只能将整个数组/元组标记为只读，而不能像对象那样标记某个属性为只读。  
 * 一旦被标记为只读，那这个只读数组/元组的类型上，将不再具有 push、pop 等方法。  
 
-### object、Object、{} 
+#### object、Object、{} 
 
 在 TS 中，Object 包含了所有的类型:  
 
@@ -255,7 +257,7 @@ temp31.age = 18; // X 类型“{}”上不存在属性“age”
 * 可以使用 (...args: any[]) => any 表示函数。  
 * 避免使用 {}。  
 
-## 字面量类型与联合类型
+### 字面量类型与联合类型
 
 定义一个接口，它描述了响应的消息结构：   
 
@@ -287,7 +289,7 @@ interface IResponseProps {
 
 对于 declare var res: Res，它是快速生成一个符合指定类型，但没有实际值的变量，同时它也不存在于运行时中。   
 
-### 字面量类型
+#### 字面量类型
 
 "success" 不是一个值吗？为什么它可以作为类型？在 TypeScript 中，这叫做字面量类型（Literal Types），它代表着比原始类型更精确的类型，同时也是原始类型的子类型。  
 
@@ -320,7 +322,7 @@ interface ITempProps {
 }
 ```
 
-### 联合类型
+#### 联合类型
 
 它代表了一组类型的可用集合，只要最终赋值的类型属于联合类型的成员之一，就可以认为符合这个联合类型。  
 
@@ -373,7 +375,7 @@ type Status = 'success' | 'failure';
 
 除了原始类型的字面量类型以外，对象类型也有着对应的字面量类型。  
 
-### 对象字面量类型
+#### 对象字面量类型
 
 对象字面量类型就是一个对象类型的值，这也就意味着这个对象的值全都为字面量值。  
 
@@ -397,9 +399,9 @@ const temp: ITempProps = {
 
 无论是原始类型还是对象类型的字面量类型，它们的本质都是类型而不是值。在编译时同样会被擦除，同时也是被存储在内存中的类型空间而非值空间。
 
-## 枚举
+### 枚举类型
 
-```
+```ts
 enum PageUrl {
   Home_Page_Url = 'home',
   Setting_Page_Url = 'setting',
@@ -513,7 +515,7 @@ var Items;
 })(Items || (Items = {}));
 ```
 
-### 常量枚举
+#### 常量枚举
 
 常量枚举和枚举相似，只是其声明多了一个 const。   
 
@@ -535,9 +537,9 @@ const fooValue = Items.Foo;
 const fooValue = 0 /* Foo */; // 0
 ```
 
-## 函数类型
+### 函数类型
 
-### 类型签名
+#### 类型签名
 
 函数类型是为了描述了函数入参类型与函数返回值类型，它们同样使用 : 的语法进行类型标注。   
 
@@ -605,7 +607,7 @@ interface FuncFooStruct {
 
 这时的 interface 被称为 Callable Interface。  
 
-### void 类型
+#### void 类型
 
 在 TypeScript 中，一个没有返回值（即没有调用 return 语句）的函数，其返回类型应当被标记为 void 而不是 undefined，即使它实际的值是 undefined。
 
@@ -628,7 +630,7 @@ function bar(): undefined {
 
 这个函数进行了返回操作，但没有返回实际的值。   
 
-### 可选参数
+#### 可选参数
 
 函数存在一些可选参数的情况，当不传入参数时函数会使用此参数的默认值。正如在对象类型中使用 ? 描述一个可选属性一样，在函数类型中也使用 ? 描述一个可选参数：   
 
@@ -648,7 +650,7 @@ function foo2(name: string, age: number = 18): number {
 
 可选参数必须位于必选参数之后。这里的可选参数类型也可以省略，如这里原始类型的情况可以直接从提供的默认值类型推导出来。但对于联合类型或对象类型的复杂情况，还是需要老老实实地进行标注。    
 
-### rest 参数
+#### rest 参数
 
 rest 参数的类型标注也比较简单，由于其实际上是一个数组，这里也应当使用数组类型进行标注：   
 
@@ -666,7 +668,7 @@ function foo(arg1: string, ...rest: [number, boolean]) { }
 foo("wangxiaobai", 18, true)
 ```
 
-### 重载
+#### 重载
 
 在某些逻辑较复杂的情况下，函数可能有多组入参类型和返回值类型：   
 
@@ -714,7 +716,7 @@ const res3 = func(599, false); // number
 
 你可以试着为第一个重载声明的 bar 参数也加上可选符号，然后就会发现第一个函数调用错误地匹配到了第一个重载声明。   
 
-### 异步函数、Generator 函数等类型签名
+#### 异步函数、Generator 函数等类型签名
 
 对于异步函数、Generator 函数、异步 Generator 函数的类型签名，其参数签名基本一致，而返回值类型则稍微有些区别：   
 
@@ -727,3 +729,270 @@ async function* asyncGenFunc(): AsyncIterable<void> {}
 ```
 
 对于异步函数（即标记为 async 的函数），其返回值必定为一个 Promise 类型，而 Promise 内部包含的类型则通过泛型的形式书写，即 Promise<T>。   
+
+### Class
+
+#### 类与类成员的类型签名  
+
+类的主要结构有构造函数、属性、方法和访问符（Accessor）。   
+
+属性的类型标注类似于变量，而构造函数、方法、存取器的类型编标注类似于函数：  
+
+```ts
+class Foo {
+  prop: string;
+
+  constructor(inputProps: string) {
+    this.prop = inputProps;
+  }
+
+  print (addon: string): string {
+    return `${this.prop} and ${addon}`;
+  }
+
+  get PropA(): string {
+    return `${this.prop}+A`;
+  }
+
+  set PropA(value: string) {
+    this.prop = `${value}`;
+  }
+}
+```
+
+setter 方法不允许进行返回值的类型标注，可以理解为 setter 的返回值并不会被消费，它是一个只关注过程的函数。类的方法同样可以进行函数那样的重载。  
+
+类也可以通过类声明和类表达式的方式创建。上面的写法即是类声明，而使用类表达式的语法则是这样的：  
+
+```ts
+const Foo = class {
+  prop: string;
+
+  constructor(inputProps: string) {
+    this.prop = inputProps;
+  }
+
+  print (addon: string): string {
+    return `${this.prop} and ${addon}`;
+  }
+
+  get PropA(): string {
+    return `${this.prop}+A`;
+  }
+
+  set PropA(value: string) {
+    this.prop = `${value}`;
+  }
+}
+```
+
+##### 修饰符
+
+在 TypeScript 中能够为 Class 成员添加这些修饰符：public / private / protected / readonly。   
+
+除 readonly 以外，其他三位都属于访问性修饰符，而 readonly 属于操作性修饰符（就和 interface 中的 readonly 意义一致）。   
+
+这些修饰符应用的位置在成员命名前：  
+
+```ts
+class Foo {
+  private prop: string;
+
+  constructor(inputProps: string) {
+    this.prop = inputProps;
+  }
+
+  protected print (addon: string): string {
+    return `${this.prop} and ${addon}`;
+  }
+
+  public get PropA(): string {
+    return `${this.prop}+A`;
+  }
+
+  public set PropA(value: string) {
+    this.prop = `${value}`;
+  }
+}
+```
+
+通常不会为构造函数添加修饰符，而是让它保持默认的 public。  
+
+* public：此类成员在类、类的实例、子类中都能被访问。  
+* private：此类成员仅能在类的内部被访问。  
+* protected：此类成员仅能在类与子类中被访问。  
+
+当你不显式使用访问性修饰符，成员的访问性默认会被标记为 public。简单起见，可以在构造函数中对参数应用访问性修饰符：   
+
+```ts
+class Foo {
+  constructor(public arg1: string, private arg2: boolean) {
+  }
+}
+
+new Foo('wangxiaobai', false);
+```
+
+此时，参数会被直接作为类的成员（即实例的属性），免去后续的手动赋值。   
+
+##### 静态成员
+
+在 TypeScript 中，可以使用 static 关键字来标识一个成员为静态成员：   
+
+```ts
+class Foo {
+  static staticHandler () {}
+  public instanceHandler () {}
+}
+```
+
+不同于实例成员，在类的内部静态成员无法通过 this 来访问，需要通过 Foo.staticHandler 这种形式进行访问。   
+
+可以查看编译到 ES5 及以下 target 的 JavaScript 代码（ES6 以上就原生支持静态成员了），来进一步了解它们的区别：   
+
+```javascript
+var Foo = /** @class */ (function () {
+	function Foo() {
+	}
+	Foo.staticHandler = function () { };
+	Foo.prototype.instanceHandler = function () { };
+		return Foo;
+	}());
+```
+
+从中可以看到，静态成员直接被挂载在函数体上，而实例成员挂载在原型上，这就是二者的最重要差异：静态成员不会被实例继承，它始终只属于当前定义的这个类（以及其子类）。而原型对象上的实例成员则会沿着原型链进行传递，也就是能够被继承。  
+
+而对于静态成员和实例成员的使用时机，其实并不需要非常刻意地划分。比如用类 + 静态成员来收敛变量与 utils 方法：   
+
+```ts
+class Utils {
+  static identifier = 'wangxiaobai'
+
+  static studyWithU () {
+
+  }
+
+  static makeUHappy () {
+    Utils.studyWithU()
+  }
+}
+
+Utils.makeUHappy()
+```
+
+#### 继承、实现、抽象类
+
+说到 Class，那一定离不开继承。TypeScript 中也使用 extends 关键字来实现继承：  
+
+```ts
+class Base {}
+
+class Derived extends Base {}
+```
+
+对于这里的两个类，比较严谨的称呼是基类（Base）与派生类（Derived）。当然，如果叫父类与子类也没问题。关于基类与派生类，需要了解的主要是派生类对基类成员的访问与覆盖操作。  
+
+基类中的哪些成员能够被派生类访问，完全是由其访问性修饰符决定的。派生类中可以访问到使用 public 或 protected 修饰符的基类成员。   
+
+除了访问以外，基类中的方法也可以在派生类中被覆盖，但仍然可以通过 super 访问到基类中的方法：   
+
+```ts
+class Base {
+  print () {}
+}
+
+class Derived extends Base {
+  print() {
+    super.print();
+    // ...
+  }
+}
+```
+
+在派生类中覆盖基类方法时，并不能确保派生类的这一方法能覆盖基类方法，万一基类中不存在这个方法呢？  
+
+所以，TypeScript 4.3 新增了 override 关键字，来确保派生类尝试覆盖的方法一定在基类中存在定义：  
+
+```ts
+class Base {
+  printWithLove() {}
+}
+
+class Derived extends Base {
+  override print() {
+    super.print();
+  }
+}
+```
+
+在这里 TypeScript 将会给出错误，因为尝试覆盖的方法并未在基类中声明。通过这一关键字就能确保首先这个方法在基类中存在，同时标识这个方法在派生类中被覆盖了。   
+
+除了基类与派生类以外，还有一个比较重要的概念：抽象类。   
+
+抽象类是对类结构与方法的抽象，简单来说，一个抽象类描述了一个类中应当有哪些成员（属性、方法等），一个抽象方法描述了这一方法在实际实现中的结构，抽象方法其实描述的就是这个方法的入参类型与返回值类型。  
+
+抽象类使用 abstract 关键字声明：  
+
+```ts
+abstract class AbsFoo {
+  abstract absProp: string;
+  abstract get absGetter (): string;
+  abstract absMethod (name: string): string;
+}
+```
+
+注意，抽象类中的成员也需要使用 abstract 关键字才能被视为抽象类成员，如这里的抽象方法。   
+
+实现（implements）一个抽象类：   
+
+```ts
+class Foo implements AbsFoo {
+  absProp: string = 'wangxiaobai';
+
+  get absGetter(): string {
+    return 'wangxiaobai';
+  }
+
+  absMethod(name: string): string {
+    return name;
+  }
+}
+```
+
+此时，必须完全实现这个抽象类的每一个抽象成员。需要注意的是，在 TypeScript 中无法声明静态的抽象成员。   
+
+对于抽象类，它的本质就是描述类的结构。interface 不仅可以声明函数结构，也可以声明类的结构：  
+
+```ts
+interface IFooStruct {
+  absProp: string;
+  get absGetter (): string;
+  absMethod (name: string): string;
+}
+
+class Foo implements IFooStruct {
+  absProp: string = 'wangxiaobai';
+
+  get absGetter(): string {
+    return 'wangxiaobai';
+  }
+
+  absMethod(name: string): string {
+    return name;
+  }
+}
+```
+
+在这里让类去实现了一个接口。这里接口的作用和抽象类一样，都是描述这个类的结构。除此以外，还可以使用 Newable Interface 来描述一个类的结构（类似于描述函数结构的 Callable Interface）：   
+
+```ts
+class Foo { }
+
+interface FooStruct {
+	new(): Foo
+}
+
+declare const NewableFoo: FooStruct;
+
+const foo = new NewableFoo();
+```

@@ -9,6 +9,12 @@
 
 ### 2023-02
 
+#### 02-27
+
+一款 AI 玩具。 [Scribble Diffusion](https://scribblediffusion.com)  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_20.png" alt="" width="600" />  
+
 #### 02-26  
 被安利了《初恋 First Love》，终于赶在这周的最后一天追完了 😌。     
 

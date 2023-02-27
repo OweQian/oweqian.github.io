@@ -1,6 +1,6 @@
 ---
 title: "蠢 Q 碎碎念"
-date: 2023-02-26T15:00:47+08:00
+date: 2023-02-27T17:00:47+08:00
 tags: ["碎碎念"]
 categories: ["碎碎念"]
 featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/blog.png"
@@ -13,6 +13,12 @@ featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/blog.png"
 ## 2023  
 
 ### 2023-02
+
+#### 02-27
+
+一款 AI 玩具。 [Scribble Diffusion](https://scribblediffusion.com)  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_20.png" alt="" width="600" />  
 
 #### 02-26  
 被安利了《初恋 First Love》，终于赶在这周的最后一天追完了 😌。     
