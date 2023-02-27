@@ -530,4 +530,195 @@ const fooValue = Items.Foo;
 const fooValue = 0 /* Foo */; // 0
 ```
 
+## 函数类型
 
+### 类型签名
+
+函数类型是为了描述了函数入参类型与函数返回值类型，它们同样使用 : 的语法进行类型标注。   
+
+```ts
+function foo(name: string): number {
+return name.length;
+}
+```
+
+在函数类型中同样存在类型推导。比如下面这个例子，你可以不写返回值处的类型，它也能被正确推导为 number 类型。    
+
+function name () {} 这一声明函数的方式为函数声明（Function Declaration）。除了函数声明以外，还可以通过函数表达式（Function Expression），即 const foo = function(){} 的形式声明一个函数。      
+
+在表达式中进行类型声明的方式是这样的：   
+
+```ts
+const foo = function (name: string): number {
+return name.length
+}
+```
+
+还可以像对变量进行类型标注那样，对 foo 这个变量进行类型声明：   
+
+```ts
+const foo: (name: string) => number = function (name) {
+return name.length
+}
+```
+
+这里的 (name: string) => number 是 TypeScript 中的函数类型签名，有点类似 ES6 中的箭头函数。  
+
+而实际的箭头函数的类型标注也是类似的：  
+
+```ts
+// 方式一
+const foo = (name: string): number => {
+	return name.length
+}
+
+// 方式二
+const foo: (name: string) => number = (name) => {
+	return name.length
+}
+```
+
+在方式二的声明方式中，你会发现函数类型声明混合箭头函数声明时，代码的可读性非常差。  
+
+一般不推荐这么使用，要么直接在函数中进行参数和返回值的类型声明，要么使用类型别名将函数声明抽离出来：   
+
+```ts
+type FuncFoo = (name: string) => number
+
+const foo: FuncFoo = (name) => {
+	return name.length
+}
+```
+
+如果只是为了描述这个函数的类型结构，也可以使用 interface 来进行函数声明：  
+
+```ts
+interface FuncFooStruct {
+	(name: string): number
+}
+```
+
+这时的 interface 被称为 Callable Interface。  
+
+### void 类型
+
+在 TypeScript 中，一个没有返回值（即没有调用 return 语句）的函数，其返回类型应当被标记为 void 而不是 undefined，即使它实际的值是 undefined。
+
+```ts
+// 没有调用 return 语句
+function foo(): void { }
+```
+
+在 TypeScript 中，undefined 类型是一个实际的、有意义的类型值，而 void 代表着空的、没有意义的类型值。    
+
+相比之下，void 类型就像是 JavaScript 中的 null 一样。因此在没有实际返回值时，使用 void 类型能更好地说明这个函数没有进行返回操作。   
+
+但当函数中有 return 语句但没有显示返回一个值时，其实更好的方式是使用 undefined：   
+
+```ts
+function bar(): undefined {
+	return;
+}
+```
+
+这个函数进行了返回操作，但没有返回实际的值。   
+
+### 可选参数
+
+函数存在一些可选参数的情况，当不传入参数时函数会使用此参数的默认值。正如在对象类型中使用 ? 描述一个可选属性一样，在函数类型中也使用 ? 描述一个可选参数：   
+
+```ts
+// 在函数逻辑中注入可选参数默认值
+function foo1(name: string, age?: number): number {
+	const inputAge = age ?? 18;
+	return name.length + inputAge
+}
+
+// 直接为可选参数声明默认值
+function foo2(name: string, age: number = 18): number {
+  const inputAge = age || 18;
+  return name.length + inputAge
+}
+```
+
+可选参数必须位于必选参数之后。这里的可选参数类型也可以省略，如这里原始类型的情况可以直接从提供的默认值类型推导出来。但对于联合类型或对象类型的复杂情况，还是需要老老实实地进行标注。    
+
+### rest 参数
+
+rest 参数的类型标注也比较简单，由于其实际上是一个数组，这里也应当使用数组类型进行标注：   
+
+对于 any 类型，你可以简单理解为它包含了一切可能的类型。   
+
+```ts
+function foo(arg1: string, ...rest: any[]) { }
+```
+
+也可以使用元组类型进行标注：   
+
+```ts
+function foo(arg1: string, ...rest: [number, boolean]) { }
+
+foo("wangxiaobai", 18, true)
+```
+
+### 重载
+
+在某些逻辑较复杂的情况下，函数可能有多组入参类型和返回值类型：   
+
+```ts
+function func(foo: number, bar?: boolean): string | number {
+	if (bar) {
+		return String(foo);
+	} else {
+		return foo * 599;
+	}
+}
+```
+
+在这个实例中，函数的返回类型基于其入参 bar 的值，并且从其内部逻辑中知道，当 bar 为 true，返回值为 string 类型，否则为 number 类型。而这里的类型签名完全没有体现这一点，只知道它的返回值是个联合类型。   
+
+要想实现与入参关联的返回值类型，可以使用 TypeScript 提供的函数重载签名（Overload Signature），将以上的例子使用重载改写：   
+
+```ts
+function func(foo: number, bar: true): string;
+function func(foo: number, bar?: false): number;
+function func(foo: number, bar?: boolean): string | number {
+	if (bar) {
+		return String(foo);
+	} else {
+		return foo * 599;
+	}
+}
+
+const res1 = func(599); // number
+const res2 = func(599, true); // string
+const res3 = func(599, false); // number
+```
+
+这里的三个 function func 其实具有不同的意义：  
+
+* function func(foo: number, bar: true): string，重载签名一，传入 bar 的值为 true 时，函数返回值为 string 类型。
+* function func(foo: number, bar?: false): number，重载签名二，不传入 bar，或传入 bar 的值为 false 时，函数返回值为 number 类型。
+* function func(foo: number, bar?: boolean): string | number，函数的实现签名，会包含重载签名的所有可能情况。
+
+基于重载签名就实现了将入参类型和返回值类型的可能情况进行关联，获得了更精确的类型标注能力。   
+
+这里有一个需要注意的地方，拥有多个重载声明的函数在被调用时，是按照重载的声明顺序往下查找的。   
+
+因此在第一个重载声明中，为了与逻辑中保持一致，即在 bar 为 true 时返回 string 类型，这里需要将第一个重载声明的 bar 声明为必选的字面量类型。   
+
+你可以试着为第一个重载声明的 bar 参数也加上可选符号，然后就会发现第一个函数调用错误地匹配到了第一个重载声明。   
+
+### 异步函数、Generator 函数等类型签名
+
+对于异步函数、Generator 函数、异步 Generator 函数的类型签名，其参数签名基本一致，而返回值类型则稍微有些区别：   
+
+```ts
+async function asyncFunc(): Promise<void> {}
+
+function* genFunc(): Iterable<void> {}
+
+async function* asyncGenFunc(): AsyncIterable<void> {}
+```
+
+对于异步函数（即标记为 async 的函数），其返回值必定为一个 Promise 类型，而 Promise 内部包含的类型则通过泛型的形式书写，即 Promise<T>。   
