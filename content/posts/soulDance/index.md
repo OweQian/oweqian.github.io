@@ -1,6 +1,6 @@
 ---
 title: "你需要一首 BGM，来撑起你的内心戏"
-date: 2023-02-15T11:50:47+08:00
+date: 2023-02-28T15:30:47+08:00
 tags: ["Soul Dance"]
 categories: ["Soul Dance"]
 featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/song.png"
@@ -28,6 +28,58 @@ featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/song.png"
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/BWf-eARnf6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+## Vietsub - One Last Time
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/xf1F5Frzzbg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## BLUEY ROBINSON - SHOWGIRL
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/vsIgUQ35jVo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Outasight - The Wild Life  
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/tcoufDmfW3E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Charlie Wilson - Sugar.Honey.Ice.Tea
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/KfBC6AWcmU4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Elton John, Dua Lipa - Cold Heart
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/qod03PVTLqk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Dogg Master - Get Ready
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/TMOEVz-ZG9w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Ichon - La Vie | A COLORS SHOW
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/OTrPBsvuR3M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## L'Impératrice — Voodoo?
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/R7-v1slmarM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## L'Impératrice — Hématome  
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/FOs7wtSiJnQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## L'Impératrice — SONATE PACIFIQUE
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/jiRUH9b33dA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## AURORA - Cure For Me 
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/sFWP-GQ0UcU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## The Jackson 5 - I Want You Back    
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/s3Q80mk7bxE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Sean Paul - No Lie 
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/GzU8KqOY8YA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Jovan - That Kind Of Love  
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/K-pWu9_Th2o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -40,6 +92,22 @@ featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/song.png"
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/kUhHdASVjGs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+## GD&TOP - Don't Go Home  
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/1eux3uOhW0g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Tep No - Long Lost Sunday Morning
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/vm9x8eKaH5g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Cerrone - Move Me
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/MVR3W3qJO3A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## DENKI SAMA - Moonlight Romance  
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/dj76joHBtq4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Lazer Boomerang - Time To Pretend
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/IXisGwqkJPo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -47,6 +115,14 @@ featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/song.png"
 ## Jessfield Park - The Shanghai Restoration Project
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/ihER7vZQ5SM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Insan3Lik3 - We Are The Robots 
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/oe443Gl4Skk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Emotional Oranges - West Coast Love  
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/IlkG7Zo5SwA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Claire Ridgely - Busy boy  
 
@@ -59,6 +135,18 @@ featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/song.png"
 ## Dabeull - Glitter Fonk  
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/55CCmVTk7ko" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Logic - Beggin Lyrics 
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/paYa6m5yJEE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Funk LeBlanc - Toast to Life with Holland Greco
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/vGafbCNTuCQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## BoA - Only One 
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/PQjovLrnvVo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## 甘草片r - Free Loop
 
@@ -79,6 +167,10 @@ featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/song.png"
 ## DeJ Loaf - No Fear
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/ny4SFoeAAaM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Irma - I know  
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/Mus0XbaGx0M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## HONNE - no song without you
 
@@ -147,6 +239,10 @@ featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/song.png"
 ## Tamia - Officially Missing You
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/HeK1zQFJtXE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## 安魂曲(Requiem) 
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/PSwR6c8iV6o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## YOASOBI - 群青
 

@@ -1,6 +1,6 @@
 ---
 title: "Typescript 使用手册"
-date: 2023-02-27T18:20:47+08:00
+date: 2023-02-28T15:37:47+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/ts.png"
@@ -677,7 +677,7 @@ function func(foo: number, bar?: boolean): string | number {
 	if (bar) {
 		return String(foo);
 	} else {
-		return foo * 599;
+		return foo * 18;
 	}
 }
 ```
@@ -693,13 +693,13 @@ function func(foo: number, bar?: boolean): string | number {
 	if (bar) {
 		return String(foo);
 	} else {
-		return foo * 599;
+		return foo * 18;
 	}
 }
 
-const res1 = func(599); // number
-const res2 = func(599, true); // string
-const res3 = func(599, false); // number
+const res1 = func(18); // number
+const res2 = func(18, true); // string
+const res3 = func(18, false); // number
 ```
 
 这里的三个 function func 其实具有不同的意义：  
@@ -996,3 +996,329 @@ declare const NewableFoo: FooStruct;
 
 const foo = new NewableFoo();
 ```
+
+### 内置类型
+
+#### any 
+
+TypeScript 中提供了一个内置类型 any，表示任意类型。    
+
+```
+log(message?: any, ...optionalParams: any[]): void
+```
+
+一个被标记为 any 类型的参数可以接受任意类型的值。除了 message 是 any 以外，optionalParams 作为一个 rest 参数，也使用 any[] 进行了标记，这就意味着你可以使用任意类型的任意数量类型来调用这个方法。    
+
+除了显式的标记一个变量或参数为 any，在某些情况下你的变量 / 参数也会被隐式地推导为 any。比如使用 let 声明一个变量但不提供初始值，以及不为函数参数提供类型标注：   
+
+````ts
+// any
+let foo;
+
+// foo、bar 均为 any
+function func(foo, bar){}
+````
+
+以上的函数声明在 tsconfig 中启用了 noImplicitAny 时会报错，你可以显式为这两个参数指定 any 类型，或者暂时关闭这一配置（不推荐）。   
+
+any 类型的变量几乎无所不能，它可以在声明后再次接受任意类型的值，同时可以被赋值给任意其它类型的变量：   
+
+```ts
+// 被标记为 any 类型的变量可以拥有任意类型的值
+let anyVar: any = "wangxiaobai";
+
+anyVar = false;
+anyVar = "wangxiaobai";
+anyVar = {
+site: "github.io"
+};
+
+anyVar = () => { }
+
+// 标记为具体类型的变量也可以接受任何 any 类型的值
+const val1: string = anyVar;
+const val2: number = anyVar;
+const val3: () => {} = anyVar;
+const val4: {} = anyVar;
+```
+
+可以在 any 类型变量上任意地进行操作，包括赋值、访问、方法调用等等，此时可以认为类型推导与检查是被完全禁用的：   
+
+```ts
+let anyVar: any = null;
+
+anyVar.foo.bar.baz();
+anyVar[0][1][2].prop1;
+```
+
+any 类型的主要意义，是为了表示一个无拘无束的“任意类型”，它能兼容所有类型，也能够被所有类型兼容。    
+
+无论什么时候，你都可以使用 any 类型跳过类型检查。当然，运行时出了问题就需要你自己负责了。   
+
+any 的本质是类型系统中的顶级类型，即 Top Type。  
+
+any 类型的万能性也导致经常滥用它，此时的 TypeScript 就变成了令人诟病的 AnyScript。为了避免这一情况，记住以下使用小 tips：   
+
+* 如果是类型不兼容报错导致你使用 any，考虑用类型断言替代。  
+* 如果是类型太复杂导致不想全部声明而使用 any，考虑将这一处的类型去断言为你需要的最简类型。  
+* 如果你是想表达一个未知类型，更合理的方式是使用 unknown。   
+
+#### unknown 类型和
+
+unknown 类型代表未知类型，这个类型的变量可以再次赋值为任意其它类型，但只能赋值给 any 与 unknown 类型的变量：   
+
+```ts
+let unknownVar: unknown = "wangxiaobai";
+
+unknownVar = false;
+unknownVar = "wangxiaobai";
+unknownVar = {
+site: "github.io"
+};
+
+unknownVar = () => { }
+
+const val1: string = unknownVar; // Error
+const val2: number = unknownVar; // Error
+const val3: () => {} = unknownVar; // Error
+const val4: {} = unknownVar; // Error
+
+const val5: any = unknownVar;
+const val6: unknown = unknownVar;
+```
+
+unknown 和 any 的一个主要差异在赋值给别的变量时，any 就像是 “我身化万千无处不在”，所有类型都把它当自己人。     
+
+而 unknown 就像是 “我虽然身化万千，但我坚信我在未来的某一刻会得到一个确定的类型”，只有 any 和 unknown 自己把它当自己人。      
+
+简单地说，any 放弃了所有的类型检查，而 unknown 并没有。这一点也体现在对 unknown 类型的变量进行属性访问时：     
+
+```ts
+let unknownVar: unknown;
+
+unknownVar.foo(); // 报错：对象类型为 unknown
+```
+
+要对 unknown 类型进行属性访问，需要进行类型断言，即“虽然这是一个未知的类型，但我跟你保证它在这里就是这个类型！”：     
+
+```ts
+let unknownVar: unknown;
+
+(unknownVar as { foo: () => {} }).foo();
+```
+
+在类型未知的情况下，推荐使用 unknown 标注。这相当于你使用额外的心智负担保证了类型在各处的结构，后续重构为具体类型时也可以获得最初始的类型信息，同时还保证了类型检查的存在。    
+
+#### never 类型
+
+```ts
+type UnionWithNever = "wangxiaobai" | 18 | true | void | never;  
+```
+
+将鼠标悬浮在类型别名之上，你会发现这里显示的类型是 "wangxiaobai" | 18 | true | void。   
+
+never 类型被直接无视掉了，而 void 仍然存在。这是因为，void 作为类型表示一个空类型，就像没有返回值的函数使用 void 来作为返回值类型标注一样，void 类型就像 JS 中的 null 一样代表“这里有类型，但是个空类型”。   
+
+而 never 才是一个 “什么都没有” 的类型，它甚至不包括空的类型，严格来说，never 类型不携带任何的类型信息，因此会在联合类型中被直接移除。   
+
+void 和 never 的类型兼容性：   
+
+```ts
+declare let v1: never;
+declare let v2: void;
+
+v1 = v2; // X 类型 void 不能赋值给类型 never
+
+v2 = v1;
+```
+
+在编程语言的类型系统中，never 类型被称为 Bottom Type，是整个类型系统层级中最底层的类型。   
+
+和 null、undefined 一样，它是所有类型的子类型，但只有 never 类型的变量能够赋值给另一个 never 类型变量。   
+
+它主要被类型检查所使用。但在某些情况下使用 never 确实是符合逻辑的，比如一个只负责抛出错误的函数：   
+
+```ts
+function justThrow(): never {
+	throw new Error()
+}
+```
+
+在类型流的分析中，一旦一个返回值类型为 never 的函数被调用，那么下方的代码都会被视为无效的代码（即无法执行到）：   
+
+```ts
+function justThrow(): never {
+	throw new Error()
+}
+
+function foo (input:number){
+	if(input > 1){
+		justThrow();
+		// 等同于 return 语句后的代码，即 Dead Code
+		const name = "linbudu";
+	}
+}
+```
+
+#### 类型断言
+
+类型断言能够显式告知类型检查程序当前这个变量的类型，可以进行类型分析地修正、类型。   
+
+它其实就是一个将变量的已有类型更改为新指定类型的操作，它的基本语法是 as NewType，你可以将 any / unknown 类型断言到一个具体的类型：   
+
+```ts
+let unknownVar: unknown;
+
+(unknownVar as { foo: () => {} }).foo();
+```
+
+还可以 as 到 any 来为所欲为，跳过所有的类型检查：   
+
+```ts
+const str: string = "wangxiaobai";
+
+(str as any).func().foo().prop;
+```
+
+也可以在联合类型中断言一个具体的分支：   
+
+```ts
+function foo(union: string | number) {
+	if ((union as string).includes("wangxiaobai")) { }
+	if ((union as number).toFixed() === '18') { }
+}
+```
+
+类型断言的正确使用方式是，在 TypeScript 类型分析不正确或不符合预期时，将其断言为此处的正确类型：   
+
+```ts
+interface IFoo {
+	name: string;
+}
+
+declare const obj: {
+	foo: IFoo
+}
+
+const {
+	foo = {} as IFoo
+} = obj
+```
+
+这里从 {} 字面量类型断言为了 IFoo 类型，即为解构赋值默认值进行了预期的类型断言。当然，更严谨的方式应该是定义为 Partial<IFoo> 类型，即 IFoo 的属性均为可选的。     
+
+除了使用 as 语法以外，也可以使用 <> 语法。它虽然书写更简洁，但效果一致。可以通过 TypeScript ESLint 提供的 consistent-type-assertions 规则来约束断言风格。  
+
+类型断言应当是在迫不得己的情况下使用的。虽然说可以用类型断言纠正不正确的类型分析，但类型分析在大部分场景下还是可以智能地满足需求的。   
+
+总的来说，在实际场景中，还是 as any 这一种操作更多。但这也是让你的代码编程 AnyScript 的罪魁祸首之一，请务必小心使用。   
+
+#### 双重断言
+
+如果在使用类型断言时，原类型与断言类型之间差异过大，TypeScript 会给你一个类型报错：   
+
+```ts
+const str: string = "wangxiaobai";
+
+// 从 X 类型 到 Y 类型的断言可能是错误的，blabla
+(str as { handler: () => {} }).handler()
+```
+
+此时它会提醒你先断言到 unknown 类型，再断言到预期类型：    
+
+```ts
+const str: string = "linbudu";
+
+(str as unknown as { handler: () => {} }).handler();
+
+// 使用尖括号断言
+(<{ handler: () => {} }>(<unknown>str)).handler();
+```
+
+这是因为你的断言类型和原类型的差异太大，需要先断言到一个通用的类，即 any / unknown。这一通用类型包含了所有可能的类型，因此断言到它和从它断言到另一个类型差异不大。   
+
+### 非空断言
+
+非空断言其实是类型断言的简化，它使用 ! 语法，即 obj!.func()!.prop 的形式标记前面的一个声明一定是非空的（实际上就是剔除了 null 和 undefined 类型）。     
+
+```ts
+declare const foo: {
+	func?: () => ({
+		prop?: number | null;
+	})
+};
+
+foo.func().prop.toFixed();
+```
+
+此时，func 在 foo 中不一定存在，prop 在 func 调用结果中不一定存在，且可能为 null，会收获两个类型报错。如果坚持调用，想要解决掉类型报错就可以使用非空断言：    
+
+```ts
+foo.func!().prop!.toFixed();
+```
+
+其应用位置类似于可选链：   
+
+```ts
+foo.func?.().prop?.toFixed();
+```
+
+不同的是，非空断言的运行时仍然会保持调用链，因此在运行时可能会报错。而可选链则会在某一个部分收到 undefined 或 null 时直接短路掉，不会再发生后面的调用。   
+
+非空断言的常见场景还有 document.querySelector、Array.find 方法等：   
+
+```ts
+const element = document.querySelector("#id")!;
+const target = [1, 2, 3, 18].find(item => item === 18)!;
+```
+
+上面的非空断言实际上等价于以下的类型断言操作：   
+
+```ts
+((foo.func as () => ({
+prop?: number;
+}))().prop as number).toFixed();
+```
+
+非空断言是不是简单多了？可以通过 non-nullable-type-assertion-style 规则来检查代码中是否存在类型断言能够被简写为非空断言的情况。    
+
+类型断言还有一种用法是作为代码提示的辅助工具，比如对于以下这个稍微复杂的接口：    
+
+```ts
+interface IStruct {
+	foo: string;
+	bar: {
+		barPropA: string;
+		barPropB: number;
+		barMethod: () => void;
+		baz: {
+			handler: () => Promise<void>;
+		};
+	};
+}
+```
+
+假设你想要基于这个结构随便实现一个对象，你可能会使用类型标注：   
+
+```ts
+const obj: IStruct = {};
+```
+
+这个时候等待你的是一堆类型报错，你必须规规矩矩地实现整个接口结构才可以。但如果使用类型断言，就可以在保留类型提示的前提下，不那么完整地实现这个结构：   
+
+```ts
+// 这个例子是不会报错的
+const obj = <IStruct>{
+	bar: {
+		baz: {},
+	},
+};
+```
+
+类型提示仍然存在：
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_02.png" alt="" width="700" />  
+
+在你错误地实现结构时仍然可以给到你报错信息：
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_03.png" alt="" width="700" />  
