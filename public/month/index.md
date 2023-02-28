@@ -9,8 +9,11 @@
 
 ### 2023-02
 
-#### 02-27
+#### 02-28
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_21.jpg" alt="" width="300" />  
+
+#### 02-27
 一款 AI 玩具。 [Scribble Diffusion](https://scribblediffusion.com)  
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_20.png" alt="" width="600" />  
