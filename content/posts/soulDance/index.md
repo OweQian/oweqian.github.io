@@ -3,7 +3,6 @@ title: "你需要一首 BGM，来撑起你的内心戏"
 date: 2023-02-28T15:30:47+08:00
 tags: ["Soul Dance"]
 categories: ["Soul Dance"]
-featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/song.png"
 ---
 
 🚇 上，🏃🏻 ‍时，搬 🧱 中......戴起耳机，就是你一个人的舞台！  

@@ -3,7 +3,6 @@ title: "程序媛烟火气儿"
 date: 2023-02-26T14:00:47+08:00
 tags: ["cook"]
 categories: ["cook"]
-featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/cook/WechatIMG387.jpeg"
 ---
 
 🥰 就算一个人生活也要好好吃饭呀。   

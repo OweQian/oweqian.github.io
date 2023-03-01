@@ -3,7 +3,6 @@ title: "Typescript 使用手册"
 date: 2023-03-01T10:35:47+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
-featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/ts.png"
 ---
 
 项目地址： [TSHandbook](https://github.com/OweQian/TSHandbook.git)  

@@ -3,7 +3,6 @@ title: "那些年读过的书随手记"
 date: 2023-02-21T09:25:38+08:00
 tags: ["读书"]
 categories: ["读书"]
-featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/book.png"
 ---
 
 🧐 书中自有黄金屋，书中自有颜如玉。    

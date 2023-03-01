@@ -1,9 +1,8 @@
 ---
 title: "蠢 Q 碎碎念"
-date: 2023-02-28T10:00:47+08:00
+date: 2023-03-01T15:00:47+08:00
 tags: ["碎碎念"]
 categories: ["碎碎念"]
-featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/blog.png"
 ---
 
 🤔 每天都像开盲盒，今天开到的是什么呢？  
@@ -11,6 +10,14 @@ featuredImage: "https://oweqian.oss-cn-hangzhou.aliyuncs.com/resource/blog.png"
 <!--more-->
 
 ## 2023  
+
+### 2023-03
+
+#### 03-01  
+
+吸~~~ Nice。浓浓的阿里味儿，这一张 PPT吹了半小时还意犹未尽。。。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_22.png" alt="" width="600" />  
 
 ### 2023-02
 
