@@ -1150,7 +1150,7 @@ function foo (input:number){
 	if(input > 1){
 		justThrow();
 		// 等同于 return 语句后的代码，即 Dead Code
-		const name = "linbudu";
+		const name = "wangxiaobai";
 	}
 }
 ```
@@ -1222,7 +1222,7 @@ const str: string = "wangxiaobai";
 此时它会提醒你先断言到 unknown 类型，再断言到预期类型：    
 
 ```ts
-const str: string = "linbudu";
+const str: string = "wangxiaobai";
 
 (str as unknown as { handler: () => {} }).handler();
 
@@ -1232,7 +1232,7 @@ const str: string = "linbudu";
 
 这是因为你的断言类型和原类型的差异太大，需要先断言到一个通用的类，即 any / unknown。这一通用类型包含了所有可能的类型，因此断言到它和从它断言到另一个类型差异不大。   
 
-### 非空断言
+#### 非空断言
 
 非空断言其实是类型断言的简化，它使用 ! 语法，即 obj!.func()!.prop 的形式标记前面的一个声明一定是非空的（实际上就是剔除了 null 和 undefined 类型）。     
 
@@ -1317,3 +1317,327 @@ const obj = <IStruct>{
 在你错误地实现结构时仍然可以给到你报错信息：
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_03.png" alt="" width="700" />  
+
+## 类型工具
+
+类型工具就是对类型进行处理的工具，分为类型创建与类型安全保护两类。  
+
+### 类型创建  
+
+基于已有的类型创建新的类型，这些类型工具包括类型别名、交叉类型、索引类型与映射类型。   
+
+#### 类型别名
+
+对一组类型或一个特定类型结构进行封装，以便于在其它地方进行复用。   
+
+使用 type 关键字进行声明：  
+
+```ts
+type A = string;
+```
+
+抽离一组联合类型：  
+
+```ts
+type StatusCode = 200 | 301 | 400 | 500 | 502;
+type PossibleDataTypes = string | number | (() => unknown);
+
+const status: StatusCode = 502;
+```
+
+抽离一个函数类型：  
+
+```ts
+type Handler = (e: Event) => void;
+
+const clickHandler: Handler = (e) => { };
+const moveHandler: Handler = (e) => { };
+const dragHandler: Handler = (e) => { };
+```
+
+声明一个对象类型，就像接口那样：   
+
+```ts
+type ObjType = {
+	name: string;
+	age: number;
+}
+```
+
+在类型别名中，类型别名还可以声明自己能够接受泛型。一旦接受了泛型，它就叫工具类型：  
+
+```ts
+type Factory<T> = T | number | string;
+```
+
+它的基本功能仍然是创建类型，基于传入的泛型进行各种类型操作，得到一个新的类型。    
+
+```ts
+const foo: Factory<boolean> = true;
+```
+
+一般不会直接使用工具类型来做类型标注，而是再度声明一个新的类型别名：  
+
+```ts
+type FactoryWithBool = Factory<boolean>;
+
+const foo: FactoryWithBool = true;
+```
+
+泛型参数的名称（上面的 T ）也不是固定的。通常使用大写的 T / K / U / V / M / O ...这种形式。  
+
+声明一个简单、有实际意义的工具类型：  
+
+```ts
+type MaybeNull<T> = T | null;
+```
+
+这个工具类型会接受一个类型，并返回一个包括 null 的联合类型。这样一来，在实际使用时就可以确保你处理了可能为空值的属性读取与方法调用：   
+
+```ts
+type MaybeNull<T> = T | null;
+
+function process(input: MaybeNull<{ handler: () => {} }>) {
+  input?.handler();
+}
+```
+
+类似的还有 MaybePromise、MaybeArray。  
+
+```ts
+type MaybeArray<T> = T | T[];
+
+function ensureArray<T>(input: MaybeArray<T>): T[] {
+  return Array.isArray(input) ? input : [input];
+}
+```
+
+另外，类型别名中可以接受任意个泛型，以及为泛型指定约束、默认值等。    
+
+#### 交叉类型 
+
+它和联合类型的使用位置一样，只不过符号是 &，即按位与运算符。   
+
+你需要符合这里的所有类型，才可以说实现了这个交叉类型，即 A & B，需要同时满足 A 与 B 两个类型才行。   
+
+声明一个交叉类型：   
+
+```ts
+interface NameStruct {
+  name: string;
+}
+
+interface AgeStruct {
+  age: number;
+}
+
+type ProfileStruct = NameStruct & AgeStruct;
+
+const profile: ProfileStruct = {
+  name: "wangxiaobai",
+  age: 18
+}
+```
+
+ProfileStruct 是一个同时包含 NameStruct 和 AgeStruct 两个接口所有属性的类型。  
+
+```ts
+type StrAndNum = string & number; // never
+```
+
+原始类型的合并变成了 never。实际上，这也是 never 这一 BottomType 的实际意义之一，描述根本不存在的类型。   
+
+对于对象类型的交叉类型，其内部的同名属性类型同样会按照交叉类型进行合并：   
+
+```ts
+type Struct1 = {
+  primitiveProp: string;
+  objectProp: {
+    name: string;
+  }
+}
+
+type Struct2 = {
+  primitiveProp: number;
+  objectProp: {
+    age: number;
+  }
+}
+
+type Composed = Struct1 & Struct2;
+
+type PrimitivePropType = Composed['primitiveProp']; // never
+type ObjectPropType = Composed['objectProp']; // { name: string; age: number; }
+```
+
+两个联合类型组成的交叉类型，各实现两边联合类型中的一个就行了，也就是两边联合类型的交集：   
+
+```ts
+type UnionIntersection1 = (1 | 2 | 3) & (1 | 2); // 1 | 2
+type UnionIntersection2 = (string | number | symbol) & string; // string
+```
+
+#### 索引类型
+
+索引类型包含三个部分：索引签名类型、索引类型查询与索引类型访问。  
+
+##### 索引类型签名
+
+指的是在接口或类型别名中，通过以下语法来快速声明一个键值类型一致的类型结构：   
+
+```ts
+interface AllStringTypes {
+  [key: string]: string;
+}
+
+type AllStringTypes = {
+  [key: string]: string;
+}
+```
+
+即使你还没声明具体的属性，对于这些类型结构的属性访问也将全部被视为 string 类型：   
+
+```ts
+interface AllStringTypes {
+  [key: string]: string;
+}
+
+type PropType1 = AllStringTypes['wangxiaobai']; // string
+type PropType2 = AllStringTypes['18']; // string
+```
+
+这也意味着在实现这个类型结构的变量中只能声明字符串类型的键：   
+
+```ts
+interface AllStringTypes {
+  [key: string]: string;
+}
+
+const foo: AllStringTypes = {
+  "wangxiaobai": "18"
+}
+```
+
+索引签名类型也可以和具体的键值对类型声明并存，但这时这些具体的键值类型也需要符合索引签名类型的声明：   
+
+```ts
+interface AllStringTypes {
+	// 类型“number”的属性“propA”不能赋给“string”索引类型“boolean”。
+	propA: number;
+	[key: string]: boolean;
+}
+```
+
+这里的符合即指子类型，因此自然也包括联合类型：    
+
+```ts
+interface StringOrBooleanTypes {
+	propA: number;
+	propB: boolean;
+	[key: string]: number | boolean;
+}
+```
+
+索引签名类型的一个常见场景是在重构 JavaScript 代码时，为内部属性较多的对象声明一个 any 的索引签名类型，以此来暂时支持对类型未明确属性的访问，并在后续一点点补全类型：   
+
+```ts
+interface AnyTypeHere {
+	[key: string]: any;
+}
+
+const foo: AnyTypeHere['wangxiaobai'] = 'any value';
+```
+
+##### 索引类型查询  
+
+索引类型查询，也就是 keyof 操作符。它可以将对象中的所有键转换为对应字面量类型，然后再组合成联合类型。   
+
+```ts
+interface Foo {
+  wangxiaobai: 1,
+  18: 2
+}
+
+type FooKeys = keyof Foo; // "wangxiaobai" | '18'
+```
+
+##### 索引类型访问
+
+在 Typescript 中可以通过类似 obj[expression] 的方式来动态访问一个对象属性，只不过这里的 expression 要换成类型。   
+
+```ts
+interface NumberRecord {
+  [key: string]: number;
+}
+
+type PropType = NumberRecord[string]; // number
+```
+
+更直观的例子是通过字面量类型来进行索引类型访问：   
+
+```ts
+interface Foo {
+  propA: number;
+  propB: boolean;
+}
+
+type PropAType = Foo['propA']; // number
+type PropBType = Foo['propB']; // boolean
+```
+
+这里的 'propA' 和 'propB' 都是字符串字面量类型，而不是一个 JavaScript 字符串值。索引类型查询的本质其实就是，通过键的字面量类型（'propA'）访问这个键对应的键值类型（number）。     
+
+```ts
+interface Foo {
+  propA: number;
+  propB: boolean;
+  propC: string;
+}
+
+type PropTypeUnion = Foo[keyof Foo]; // string | number | boolean
+```
+
+使用字面量联合类型进行索引类型访问时，其结果就是将联合类型每个分支对应的类型进行访问后的结果，重新组装成联合类型。   
+
+#### 映射类型
+
+映射类型的主要作用即是基于键名映射到键值类型。   
+
+```ts
+type Stringify<T> = {
+  [K in keyof T]: string;
+};
+```
+
+这个工具类型会接受一个对象类型，使用 keyof 获得这个对象类型的键名组成字面量联合类型，然后通过映射类型（即这里的 in 关键字）将这个联合类型的每一个成员映射出来，并将其键值类型设置为 string。   
+
+```ts
+interface Foo {
+  prop1: string;
+  prop2: number;
+  prop3: boolean;
+  prop4: () => void;
+}
+
+type StringifiedFoo = Stringify<Foo>;
+
+// 等价于
+interface StringifiedFoo {
+  prop1: string;
+  prop2: string;
+  prop3: string;
+  prop4: string;
+}
+```
+
+键值类型也能拿到：  
+
+```ts
+type Clone<T> = {
+  [K in keyof T]: T[K];
+};
+```
+
+这里的 T[K] 其实就是上面说到的索引类型访问，使用键的字面量类型访问到了键值的类型，这里就相当于克隆了一个接口。   
+
+这里只有 K in 属于映射类型的语法，keyof T 属于 keyof 操作符，[K in keyof T] 的 [] 属于索引签名类型，T[K] 属于索引类型访问。   

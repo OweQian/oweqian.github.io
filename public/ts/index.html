@@ -8,8 +8,8 @@
 <meta property="og:description" content="项目地址： TSHandbook" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/ts/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-02-28T15:37:47+08:00" />
-<meta property="article:modified_time" content="2023-02-27T18:26:03+08:00" /><meta property="og:site_name" content="OweQian" />
+<meta property="article:published_time" content="2023-03-01T10:35:47+08:00" />
+<meta property="article:modified_time" content="2023-02-28T15:41:27+08:00" /><meta property="og:site_name" content="OweQian" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://oweqian.xyz/logo.png"/>
 
@@ -34,8 +34,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "第一技能","wordcount":  11297 ,
-        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-02-28T15:37:47+08:00","dateModified": "2023-02-27T18:26:03+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "第一技能","wordcount":  13470 ,
+        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-03-01T10:35:47+08:00","dateModified": "2023-02-28T15:41:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Typescript 使用手册</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-28">2023-02-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 11297 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 23 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-01">2023-03-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 13470 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 27 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -185,9 +185,27 @@
             <li><a href="#never-类型">never 类型</a></li>
             <li><a href="#类型断言">类型断言</a></li>
             <li><a href="#双重断言">双重断言</a></li>
+            <li><a href="#非空断言">非空断言</a></li>
           </ul>
         </li>
-        <li><a href="#非空断言">非空断言</a></li>
+      </ul>
+    </li>
+    <li><a href="#类型工具">类型工具</a>
+      <ul>
+        <li><a href="#类型创建">类型创建</a>
+          <ul>
+            <li><a href="#类型别名">类型别名</a></li>
+            <li><a href="#交叉类型">交叉类型</a></li>
+            <li><a href="#索引类型">索引类型</a>
+              <ul>
+                <li><a href="#索引类型签名">索引类型签名</a></li>
+                <li><a href="#索引类型查询">索引类型查询</a></li>
+                <li><a href="#索引类型访问">索引类型访问</a></li>
+              </ul>
+            </li>
+            <li><a href="#映射类型">映射类型</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -1913,7 +1931,7 @@
 </span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="nx">input</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">justThrow</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">// 等同于 return 语句后的代码，即 Dead Code
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="kr">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;linbudu&#34;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="kr">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;wangxiaobai&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2021,7 +2039,7 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">str</span>: <span class="kt">string</span> <span class="o">=</span> <span class="s2">&#34;linbudu&#34;</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">str</span>: <span class="kt">string</span> <span class="o">=</span> <span class="s2">&#34;wangxiaobai&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nx">str</span> <span class="kr">as</span> <span class="kt">unknown</span> <span class="kr">as</span> <span class="p">{</span> <span class="nx">handler</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{}</span> <span class="p">}).</span><span class="nx">handler</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
@@ -2030,7 +2048,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这是因为你的断言类型和原类型的差异太大，需要先断言到一个通用的类，即 any / unknown。这一通用类型包含了所有可能的类型，因此断言到它和从它断言到另一个类型差异不大。</p>
-<h3 id="非空断言">非空断言</h3>
+<h4 id="非空断言">非空断言</h4>
 <p>非空断言其实是类型断言的简化，它使用 ! 语法，即 obj!.func()!.prop 的形式标记前面的一个声明一定是非空的（实际上就是剔除了 null 和 undefined 类型）。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2156,12 +2174,516 @@
 </div><p>类型提示仍然存在：</p>
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_02.png" alt="" width="700" />  
 <p>在你错误地实现结构时仍然可以给到你报错信息：</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_03.png" alt="" width="700" /></div><div class="post-footer" id="post-footer">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_03.png" alt="" width="700" />  
+<h2 id="类型工具">类型工具</h2>
+<p>类型工具就是对类型进行处理的工具，分为类型创建与类型安全保护两类。</p>
+<h3 id="类型创建">类型创建</h3>
+<p>基于已有的类型创建新的类型，这些类型工具包括类型别名、交叉类型、索引类型与映射类型。</p>
+<h4 id="类型别名">类型别名</h4>
+<p>对一组类型或一个特定类型结构进行封装，以便于在其它地方进行复用。</p>
+<p>使用 type 关键字进行声明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">A</span> <span class="o">=</span> <span class="kt">string</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>抽离一组联合类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">StatusCode</span> <span class="o">=</span> <span class="mi">200</span> <span class="o">|</span> <span class="mi">301</span> <span class="o">|</span> <span class="mi">400</span> <span class="o">|</span> <span class="mi">500</span> <span class="o">|</span> <span class="mi">502</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PossibleDataTypes</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">|</span> <span class="kt">number</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="kt">unknown</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">status</span>: <span class="kt">StatusCode</span> <span class="o">=</span> <span class="mi">502</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>抽离一个函数类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">Event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">clickHandler</span>: <span class="kt">Handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">moveHandler</span>: <span class="kt">Handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">dragHandler</span>: <span class="kt">Handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>声明一个对象类型，就像接口那样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">ObjType</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">age</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在类型别名中，类型别名还可以声明自己能够接受泛型。一旦接受了泛型，它就叫工具类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Factory</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="o">|</span> <span class="kt">number</span> <span class="o">|</span> <span class="kt">string</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>它的基本功能仍然是创建类型，基于传入的泛型进行各种类型操作，得到一个新的类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">foo</span>: <span class="kt">Factory</span><span class="p">&lt;</span><span class="nt">boolean</span><span class="p">&gt;</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一般不会直接使用工具类型来做类型标注，而是再度声明一个新的类型别名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">FactoryWithBool</span> <span class="o">=</span> <span class="nx">Factory</span><span class="p">&lt;</span><span class="nt">boolean</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">foo</span>: <span class="kt">FactoryWithBool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>泛型参数的名称（上面的 T ）也不是固定的。通常使用大写的 T / K / U / V / M / O &hellip;这种形式。</p>
+<p>声明一个简单、有实际意义的工具类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">MaybeNull</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="o">|</span> <span class="kc">null</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个工具类型会接受一个类型，并返回一个包括 null 的联合类型。这样一来，在实际使用时就可以确保你处理了可能为空值的属性读取与方法调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">MaybeNull</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="o">|</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">process</span><span class="p">(</span><span class="nx">input</span>: <span class="kt">MaybeNull</span><span class="o">&lt;</span><span class="p">{</span> <span class="nx">handler</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{}</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">input</span><span class="o">?</span><span class="p">.</span><span class="nx">handler</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>类似的还有 MaybePromise、MaybeArray。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">MaybeArray</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="o">|</span> <span class="nx">T</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">ensureArray</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;(</span><span class="nx">input</span>: <span class="kt">MaybeArray</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;)</span><span class="o">:</span> <span class="nx">T</span><span class="p">[]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="o">?</span> <span class="nx">input</span> <span class="o">:</span> <span class="p">[</span><span class="nx">input</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>另外，类型别名中可以接受任意个泛型，以及为泛型指定约束、默认值等。</p>
+<h4 id="交叉类型">交叉类型</h4>
+<p>它和联合类型的使用位置一样，只不过符号是 &amp;，即按位与运算符。</p>
+<p>你需要符合这里的所有类型，才可以说实现了这个交叉类型，即 A &amp; B，需要同时满足 A 与 B 两个类型才行。</p>
+<p>声明一个交叉类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">NameStruct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">AgeStruct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">ProfileStruct</span> <span class="o">=</span> <span class="nx">NameStruct</span> <span class="o">&amp;</span> <span class="nx">AgeStruct</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">profile</span>: <span class="kt">ProfileStruct</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;wangxiaobai&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age</span>: <span class="kt">18</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>ProfileStruct 是一个同时包含 NameStruct 和 AgeStruct 两个接口所有属性的类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">StrAndNum</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">&amp;</span> <span class="kt">number</span><span class="p">;</span> <span class="c1">// never
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>原始类型的合并变成了 never。实际上，这也是 never 这一 BottomType 的实际意义之一，描述根本不存在的类型。</p>
+<p>对于对象类型的交叉类型，其内部的同名属性类型同样会按照交叉类型进行合并：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Struct1</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">primitiveProp</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">objectProp</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Struct2</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">primitiveProp</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">objectProp</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">age</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Composed</span> <span class="o">=</span> <span class="nx">Struct1</span> <span class="o">&amp;</span> <span class="nx">Struct2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PrimitivePropType</span> <span class="o">=</span> <span class="nx">Composed</span><span class="p">[</span><span class="s1">&#39;primitiveProp&#39;</span><span class="p">];</span> <span class="c1">// never
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">ObjectPropType</span> <span class="o">=</span> <span class="nx">Composed</span><span class="p">[</span><span class="s1">&#39;objectProp&#39;</span><span class="p">];</span> <span class="c1">// { name: string; age: number; }
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>两个联合类型组成的交叉类型，各实现两边联合类型中的一个就行了，也就是两边联合类型的交集：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">UnionIntersection1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 1 | 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">UnionIntersection2</span> <span class="o">=</span> <span class="p">(</span><span class="kt">string</span> <span class="o">|</span> <span class="kt">number</span> <span class="o">|</span> <span class="kt">symbol</span><span class="p">)</span> <span class="o">&amp;</span> <span class="kt">string</span><span class="p">;</span> <span class="c1">// string
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="索引类型">索引类型</h4>
+<p>索引类型包含三个部分：索引签名类型、索引类型查询与索引类型访问。</p>
+<h5 id="索引类型签名">索引类型签名</h5>
+<p>指的是在接口或类型别名中，通过以下语法来快速声明一个键值类型一致的类型结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">AllStringTypes</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">AllStringTypes</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>即使你还没声明具体的属性，对于这些类型结构的属性访问也将全部被视为 string 类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">AllStringTypes</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PropType1</span> <span class="o">=</span> <span class="nx">AllStringTypes</span><span class="p">[</span><span class="s1">&#39;wangxiaobai&#39;</span><span class="p">];</span> <span class="c1">// string
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">PropType2</span> <span class="o">=</span> <span class="nx">AllStringTypes</span><span class="p">[</span><span class="s1">&#39;18&#39;</span><span class="p">];</span> <span class="c1">// string
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这也意味着在实现这个类型结构的变量中只能声明字符串类型的键：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">AllStringTypes</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">foo</span>: <span class="kt">AllStringTypes</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;wangxiaobai&#34;</span><span class="o">:</span> <span class="s2">&#34;18&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>索引签名类型也可以和具体的键值对类型声明并存，但这时这些具体的键值类型也需要符合索引签名类型的声明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">AllStringTypes</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 类型“number”的属性“propA”不能赋给“string”索引类型“boolean”。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">propA</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的符合即指子类型，因此自然也包括联合类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">StringOrBooleanTypes</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">propA</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">propB</span>: <span class="kt">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">number</span> <span class="o">|</span> <span class="kr">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>索引签名类型的一个常见场景是在重构 JavaScript 代码时，为内部属性较多的对象声明一个 any 的索引签名类型，以此来暂时支持对类型未明确属性的访问，并在后续一点点补全类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">AnyTypeHere</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">any</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">foo</span>: <span class="kt">AnyTypeHere</span><span class="p">[</span><span class="s1">&#39;wangxiaobai&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;any value&#39;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="索引类型查询">索引类型查询</h5>
+<p>索引类型查询，也就是 keyof 操作符。它可以将对象中的所有键转换为对应字面量类型，然后再组合成联合类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">wangxiaobai</span>: <span class="kt">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">18</span>: <span class="kt">2</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">FooKeys</span> <span class="o">=</span> <span class="k">keyof</span> <span class="nx">Foo</span><span class="p">;</span> <span class="c1">// &#34;wangxiaobai&#34; | &#39;18&#39;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="索引类型访问">索引类型访问</h5>
+<p>在 Typescript 中可以通过类似 obj[expression] 的方式来动态访问一个对象属性，只不过这里的 expression 要换成类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">NumberRecord</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PropType</span> <span class="o">=</span> <span class="nx">NumberRecord</span><span class="p">[</span><span class="kt">string</span><span class="p">];</span> <span class="c1">// number
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>更直观的例子是通过字面量类型来进行索引类型访问：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">propA</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">propB</span>: <span class="kt">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PropAType</span> <span class="o">=</span> <span class="nx">Foo</span><span class="p">[</span><span class="s1">&#39;propA&#39;</span><span class="p">];</span> <span class="c1">// number
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">PropBType</span> <span class="o">=</span> <span class="nx">Foo</span><span class="p">[</span><span class="s1">&#39;propB&#39;</span><span class="p">];</span> <span class="c1">// boolean
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的 &lsquo;propA&rsquo; 和 &lsquo;propB&rsquo; 都是字符串字面量类型，而不是一个 JavaScript 字符串值。索引类型查询的本质其实就是，通过键的字面量类型（&lsquo;propA&rsquo;）访问这个键对应的键值类型（number）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">propA</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">propB</span>: <span class="kt">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">propC</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PropTypeUnion</span> <span class="o">=</span> <span class="nx">Foo</span><span class="p">[</span><span class="k">keyof</span> <span class="nx">Foo</span><span class="p">];</span> <span class="c1">// string | number | boolean
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用字面量联合类型进行索引类型访问时，其结果就是将联合类型每个分支对应的类型进行访问后的结果，重新组装成联合类型。</p>
+<h4 id="映射类型">映射类型</h4>
+<p>映射类型的主要作用即是基于键名映射到键值类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Stringify</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">K</span> <span class="k">in</span> <span class="k">keyof</span> <span class="nx">T</span><span class="p">]</span><span class="o">:</span> <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个工具类型会接受一个对象类型，使用 keyof 获得这个对象类型的键名组成字面量联合类型，然后通过映射类型（即这里的 in 关键字）将这个联合类型的每一个成员映射出来，并将其键值类型设置为 string。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prop1</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prop2</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prop3</span>: <span class="kt">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prop4</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">StringifiedFoo</span> <span class="o">=</span> <span class="nx">Stringify</span><span class="p">&lt;</span><span class="nt">Foo</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 等价于
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">interface</span> <span class="nx">StringifiedFoo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prop1</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prop2</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prop3</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prop4</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>键值类型也能拿到：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Clone</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">K</span> <span class="k">in</span> <span class="k">keyof</span> <span class="nx">T</span><span class="p">]</span><span class="o">:</span> <span class="nx">T</span><span class="p">[</span><span class="nx">K</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的 T[K] 其实就是上面说到的索引类型访问，使用键的字面量类型访问到了键值的类型，这里就相当于克隆了一个接口。</p>
+<p>这里只有 K in 属于映射类型的语法，keyof T 属于 keyof 操作符，[K in keyof T] 的 [] 属于索引签名类型，T[K] 属于索引类型访问。</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2023-02-27&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/126a3563cdc4134d5643476ebcac5cf80577eeba" target="_blank" title="commit by qian wang(1510106069@qq.com) 126a3563cdc4134d5643476ebcac5cf80577eeba: update">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>126a356</a></span>
+                <span>更新于 2023-02-28&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/104f42b899cdbd74f293d26803ea5fbce3e14d83" target="_blank" title="commit by qian wang(1510106069@qq.com) 104f42b899cdbd74f293d26803ea5fbce3e14d83: update">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>104f42b</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
