@@ -15,8 +15,6 @@ categories: ["碎碎念"]
 
 #### 03-02
 
-啊这...这不就是我嘛        
-
 <iframe width="600" height="315" src="//player.bilibili.com/player.html?aid=695328283&bvid=BV1E24y187wG&cid=1033431476&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 03-01  
