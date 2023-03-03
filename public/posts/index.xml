@@ -4,7 +4,15 @@
         <link>http://oweqian.xyz/posts/</link>
         <description>所有文章 | OweQian</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 03 Mar 2023 16:00:47 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 03 Mar 2023 18:00:47 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Typescript 使用手册</title>
+    <link>http://oweqian.xyz/ts/</link>
+    <pubDate>Fri, 03 Mar 2023 18:00:47 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.xyz/ts/</guid>
+    <description><![CDATA[<p>项目地址： <a href="https://github.com/OweQian/TSHandbook.git" target="_blank" rel="noopener noreffer ">TSHandbook</a></p>]]></description>
+</item>
+<item>
     <title>LeetCode Top100 刷题</title>
     <link>http://oweqian.xyz/leetcode/</link>
     <pubDate>Fri, 03 Mar 2023 16:00:47 &#43;0800</pubDate>
@@ -27,14 +35,6 @@
     <author>OweQian</author>
     <guid>http://oweqian.xyz/books/</guid>
     <description><![CDATA[<p>🧐 书中自有黄金屋，书中自有颜如玉。</p>]]></description>
-</item>
-<item>
-    <title>Typescript 使用手册</title>
-    <link>http://oweqian.xyz/ts/</link>
-    <pubDate>Wed, 01 Mar 2023 10:35:47 &#43;0800</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/ts/</guid>
-    <description><![CDATA[<p>项目地址： <a href="https://github.com/OweQian/TSHandbook.git" target="_blank" rel="noopener noreffer ">TSHandbook</a></p>]]></description>
 </item>
 <item>
     <title>你需要一首 BGM，来撑起你的内心戏</title>

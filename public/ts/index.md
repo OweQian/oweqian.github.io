@@ -494,8 +494,8 @@ obj[k] = v 的返回值即是 v，因此这里的 obj[obj[k] = v] = k 本质上�
 ```ts
 enum Items {
   Foo,
-  Bar = "BarValue",
-  Baz = "BazValue"
+  Bar = 'BarValue',
+  Baz = 'BazValue'
 }
 ```
 
@@ -660,7 +660,7 @@ function foo(arg1: string, ...rest: any[]) { }
 ```ts
 function foo(arg1: string, ...rest: [number, boolean]) { }
 
-foo("wangxiaobai", 18, true)
+foo('wangxiaobai', 18, true)
 ```
 
 #### 重载
@@ -1020,12 +1020,12 @@ any 类型的变量几乎无所不能，它可以在声明后再次接受任意�
 
 ```ts
 // 被标记为 any 类型的变量可以拥有任意类型的值
-let anyVar: any = "wangxiaobai";
+let anyVar: any = 'wangxiaobai';
 
 anyVar = false;
-anyVar = "wangxiaobai";
+anyVar = 'wangxiaobai';
 anyVar = {
-site: "github.io"
+site: 'github.io'
 };
 
 anyVar = () => { }
@@ -1063,12 +1063,12 @@ any 类型的万能性也导致经常滥用它，此时的 TypeScript 就变成�
 unknown 类型代表未知类型，这个类型的变量可以再次赋值为任意其它类型，但只能赋值给 any 与 unknown 类型的变量：   
 
 ```ts
-let unknownVar: unknown = "wangxiaobai";
+let unknownVar: unknown = 'wangxiaobai';
 
 unknownVar = false;
-unknownVar = "wangxiaobai";
+unknownVar = 'wangxiaobai';
 unknownVar = {
-site: "github.io"
+site: 'github.io'
 };
 
 unknownVar = () => { }
@@ -1107,7 +1107,7 @@ let unknownVar: unknown;
 #### never 类型
 
 ```ts
-type UnionWithNever = "wangxiaobai" | 18 | true | void | never;  
+type UnionWithNever = 'wangxiaobai' | 18 | true | void | never;  
 ```
 
 将鼠标悬浮在类型别名之上，你会发现这里显示的类型是 "wangxiaobai" | 18 | true | void。   
@@ -1150,7 +1150,7 @@ function foo (input:number){
 	if(input > 1){
 		justThrow();
 		// 等同于 return 语句后的代码，即 Dead Code
-		const name = "wangxiaobai";
+		const name = 'wangxiaobai';
 	}
 }
 ```
@@ -1170,7 +1170,7 @@ let unknownVar: unknown;
 还可以 as 到 any 来为所欲为，跳过所有的类型检查：   
 
 ```ts
-const str: string = "wangxiaobai";
+const str: string = 'wangxiaobai';
 
 (str as any).func().foo().prop;
 ```
@@ -1179,7 +1179,7 @@ const str: string = "wangxiaobai";
 
 ```ts
 function foo(union: string | number) {
-	if ((union as string).includes("wangxiaobai")) { }
+	if ((union as string).includes('wangxiaobai')) { }
 	if ((union as number).toFixed() === '18') { }
 }
 ```
@@ -1213,7 +1213,7 @@ const {
 如果在使用类型断言时，原类型与断言类型之间差异过大，TypeScript 会给你一个类型报错：   
 
 ```ts
-const str: string = "wangxiaobai";
+const str: string = 'wangxiaobai';
 
 // 从 X 类型 到 Y 类型的断言可能是错误的，blabla
 (str as { handler: () => {} }).handler()
@@ -1222,7 +1222,7 @@ const str: string = "wangxiaobai";
 此时它会提醒你先断言到 unknown 类型，再断言到预期类型：    
 
 ```ts
-const str: string = "wangxiaobai";
+const str: string = 'wangxiaobai';
 
 (str as unknown as { handler: () => {} }).handler();
 
@@ -1263,7 +1263,7 @@ foo.func?.().prop?.toFixed();
 非空断言的常见场景还有 document.querySelector、Array.find 方法等：   
 
 ```ts
-const element = document.querySelector("#id")!;
+const element = document.querySelector('#id')!;
 const target = [1, 2, 3, 18].find(item => item === 18)!;
 ```
 
@@ -1434,7 +1434,7 @@ interface AgeStruct {
 type ProfileStruct = NameStruct & AgeStruct;
 
 const profile: ProfileStruct = {
-  name: "wangxiaobai",
+  name: 'wangxiaobai',
   age: 18
 }
 ```
@@ -1514,7 +1514,7 @@ interface AllStringTypes {
 }
 
 const foo: AllStringTypes = {
-  "wangxiaobai": "18"
+  wangxiaobai: '18'
 }
 ```
 
@@ -1640,4 +1640,314 @@ type Clone<T> = {
 
 这里的 T[K] 其实就是上面说到的索引类型访问，使用键的字面量类型访问到了键值的类型，这里就相当于克隆了一个接口。   
 
-这里只有 K in 属于映射类型的语法，keyof T 属于 keyof 操作符，[K in keyof T] 的 [] 属于索引签名类型，T[K] 属于索引类型访问。   
+这里只有 K in 属于映射类型的语法，keyof T 属于 keyof 操作符，[K in keyof T] 的 [] 属于索引签名类型，T[K] 属于索引类型访问。  
+
+### 类型安全  
+
+#### 类型查询操作符：typeof 
+
+TypeScript 新增了用于类型查询的 typeof ，即 Type Query Operator，这个 typeof 返回的是一个类型：   
+
+```ts
+const str = 'wangxiaobai';
+
+const obj = { name: 'wangxiaobai' };
+
+const nullVar = null;
+const undefinedVar = undefined;
+
+const func = (input: string) => {
+  return input.length > 10;
+}
+
+type Str = typeof str; // "wangxiaobai"
+type Obj = typeof obj; // { name: string; }
+type Null = typeof nullVar; // null
+type Undefined = typeof undefined; // undefined
+type Func = typeof func; // (input: string) => boolean
+```
+
+可以直接在类型标注中使用 typeof，也可以在工具类型中使用 typeof。   
+
+```ts
+const func = (input: string) => {
+  return input.length > 10;
+}
+
+const func2: typeof func = (name: string) => {
+  return name === 'wangxiaobai'
+}
+```
+
+大部分情况下，typeof 返回的类型就是当你把鼠标悬浮在变量名上时出现的推导后的类型，并且是最窄的推导程度（即到字面量类型的级别）。   
+
+为了更好地避免这种情况，也就是隔离类型层和逻辑层，类型查询操作符后是不允许使用表达式的：    
+
+```ts
+const isInputValid = (input: string) => {
+  return input.length > 10;
+}
+
+// 不允许表达式
+let isValid: typeof isInputValid('wangxiaobai');
+
+```
+
+#### 类型守卫
+
+TypeScript 提供了非常强大的类型推导能力，它会随着你的代码逻辑不断尝试收窄类型，这一能力称之为类型的控制流分析（也可以简单理解为类型推导）。    
+
+```ts
+function foo (input: string | number) {
+  if(typeof input === 'string') {}
+  if(typeof input === 'number') {}
+  // ...
+}
+```
+
+在类型控制流分析下，每流过一个 if 分支，后续联合类型的分支就少了一个，因为这个类型已经在这个分支处理过了，不会进入下一个分支：    
+
+```ts
+declare const strOrNumOrBool: string | number | boolean;
+
+if (typeof strOrNumOrBool === 'string') {
+  // 一定是字符串！
+  strOrNumOrBool.charAt(1);
+} else if (typeof strOrNumOrBool === 'number') {
+  // 一定是数字！
+  strOrNumOrBool.toFixed();
+} else if (typeof strOrNumOrBool === 'boolean') {
+  // 一定是布尔值！
+  strOrNumOrBool === true;
+} else {
+  // 要是走到这里就说明有问题！
+  const _exhaustiveCheck: never = strOrNumOrBool;
+  throw new Error(`Unknown input type: ${_exhaustiveCheck}`);
+}
+```
+
+这里实际上通过 if 条件中的表达式进行了类型保护，即告知了流过这里的分析程序每个 if 语句代码块中变量会是何类型。   
+
+这是编程语言类型能力中最重要的一部分：与实际逻辑紧密关联的类型，再反过来让类型为逻辑保驾护航。  
+
+如果 if 条件中的表达式被提取出来了会发生什么情况？    
+
+```ts
+function isString(input: unknown): boolean {
+  return typeof input === 'string';
+}
+
+function foo(input: string | number) {
+  if (isString(input)) {
+    // 类型“string | number”上不存在属性“replace”。
+    (input).replace('wangxiaobai', 'wangxiaobai18')
+  }
+  if (typeof input === 'number') { }
+  // ...
+}
+```
+
+奇怪的事情发生了，只是把逻辑提取到了外面而已，如果 isString 返回了 true，那 input 肯定也是 string 类型啊？    
+
+想象类型控制流分析，刚流进 if (isString(input)) 就戛然而止了。因为 isString 这个函数在另外一个地方，内部的判断逻辑并不在函数 foo 中。这里的类型控制流分析做不到跨函数上下文来进行类型的信息收集。     
+
+##### 基于 is 的类型保护
+
+将判断逻辑封装起来提取到函数外部进行复用很常见。为了解决这一类型控制流分析的能力不足， TypeScript 引入了 is 关键字来显式地提供类型信息：    
+
+```ts
+function isString(input: unknown): input is string {
+  return typeof input === 'string';
+}
+
+function foo(input: string | number) {
+  if (isString(input)) {
+    // 正确了
+    (input).replace('wangxiaobai', 'wangxiaobai18')
+  }
+  if (typeof input === 'number') { }
+  // ...
+}
+```
+
+isString 函数称为类型守卫，在它的返回值中不再使用 boolean 作为类型标注，而是使用 input is string 这么个奇怪的搭配：   
+
+* input: 函数的某个参数。   
+* is string: 即 is 关键字 + 预期类型，即如果这个函数成功返回为 true，那么 is 关键字前这个入参的类型，就会被这个类型守卫调用方后续的类型控制流分析收集到。   
+
+但类型守卫函数中并不会对判断逻辑和实际类型的关联进行检查：   
+
+```ts
+function isString(input: unknown): input is number {
+  return typeof input === 'string';
+}
+
+function foo(input: string | number) {
+  if (isString(input)) {
+    // 报错，在这里变成了 number 类型
+    (input).replace('wangxiaobai', 'wangxiaobai18')
+  }
+  if (typeof input === 'number') { }
+  // ...
+}
+```
+
+类型守卫有些类似类型断言，但类型守卫更宽容，也更信任你一些。你指定什么类型，它就是什么类型。   
+
+除了使用简单的原始类型以外，还可以在类型守卫中使用对象类型、联合类型等：        
+
+```ts
+export type Falsy = false | '' | 0 | null | undefined;
+
+export const isFalsy = (val: unknown): val is Falsy => !val;
+
+// 不包括不常用的 symbol 和 bigint
+export type Primitive = string | number | boolean | undefined;
+
+export const isPrimitive = (val: unknown): val is Primitive => ['string', 'number', 'boolean' , 'undefined'].includes(typeof val);
+```
+
+##### 基于 in 与 instanceof 的类型保护
+
+Typescript 中的 in 操作符，可以通过 key in object 的方式来判断 key 是否存在于 object 或其原型链上（返回 true 说明存在）。    
+
+```ts
+interface Foo {
+  foo: string;
+  fooOnly: boolean;
+  shared: number;
+}
+
+interface Bar {
+  bar: string;
+  barOnly: boolean;
+  shared: number;
+}
+
+function handle(input: Foo | Bar) {
+  if ('foo' in input) {
+    input.fooOnly;
+  } else {
+    input.barOnly;
+  }
+}
+```
+
+这里的 foo / bar、fooOnly / barOnly、shared 属性们其实有着不同的意义。   
+
+使用 foo 和 bar 来区分 input 联合类型，然后就可以在对应的分支代码块中正确访问到 Foo 和 Bar 独有的类型 fooOnly / barOnly。   
+
+但是，如果用 shared 来区分，就会发现在分支代码块中 input 仍然是初始的联合类型：   
+
+```ts
+function handle(input: Foo | Bar) {
+  if ('shared' in input) {
+    // 类型“Foo | Bar”上不存在属性“fooOnly”。类型“Bar”上不存在属性“fooOnly”。
+    input.fooOnly;
+  } else {
+    // 类型“never”上不存在属性“barOnly”。
+    input.barOnly;
+  }
+}
+```
+
+Foo 与 Bar 都满足 'shared' in input 这个条件。因此在 if 分支中， Foo 与 Bar 都会被保留，那在 else 分支中就只剩下 never 类型。    
+
+可辨识属性可以是结构层面的，比如结构 A 的属性 prop 是数组，而结构 B 的属性 prop 是对象，或者结构 A 中存在属性 prop 而结构 B 中不存在。    
+
+它甚至可以是共同属性的字面量类型差异：
+
+```ts
+function ensureArray(input: number | number[]): number[] {
+  if (Array.isArray(input)) {
+    return input;
+  } else {
+    return [input];
+  }
+}
+
+interface Foo {
+  kind: 'foo';
+  diffType: string;
+  fooOnly: boolean;
+  shared: number;
+}
+
+interface Bar {
+  kind: 'bar';
+  diffType: number;
+  barOnly: boolean;
+  shared: number;
+}
+
+function handle1(input: Foo | Bar) {
+  if (input.kind === 'foo') {
+    input.fooOnly;
+  } else {
+    input.barOnly;
+  }
+}
+```
+
+对于同名但不同类型的属性，需要使用字面量类型的区分，并不能使用简单的 typeof：    
+
+```ts
+function handle2(input: Foo | Bar) {
+  // 报错，并没有起到区分的作用，在两个代码块中都是 Foo | Bar
+  if (typeof input.diffType === 'string') {
+    input.fooOnly;
+  } else {
+    input.barOnly;
+  }
+}
+```
+
+Typescript 中的 instanceof，判断的是原型级别的关系，如 foo instanceof Base 会沿着 foo 的原型链查找 Base.prototype 是否存在其上。   
+
+```ts
+class FooBase {}
+
+class BarBase {}
+
+class Foo extends FooBase {
+  fooOnly() {}
+}
+class Bar extends BarBase {
+  barOnly() {}
+}
+
+function handle(input: Foo | Bar) {
+  if (input instanceof FooBase) {
+    input.fooOnly();
+  } else {
+    input.barOnly();
+  }
+}
+```
+
+#### 类型断言守卫
+
+断言守卫和类型守卫最大的不同点在于，在判断条件不通过时，断言守卫需要抛出一个错误，类型守卫只需要剔除掉预期的类型。    
+
+这里的抛出错误可能让你想到了 never 类型，但实际情况要更复杂一些，断言守卫并不会始终都抛出错误，所以它的返回值类型并不能简单地使用 never 类型。    
+
+为此，TypeScript 3.7 版本引入了 asserts 关键字来进行断言场景下的类型守卫：   
+
+```ts
+let name: any = 'wangxiaobai';
+
+function assertIsNumber(val: any): asserts val is number {
+  if (typeof val !== 'number') {
+    throw new Error('Not a number!');
+  }
+}
+
+assertIsNumber(name);
+
+// number 类型！
+name.toFixed();
+```
+
+这种情况下无需再为断言守卫传入一个表达式，而是可以将这个判断用的表达式放进断言守卫的内部，来获得更独立地代码逻辑。   
+
+
