@@ -9,6 +9,31 @@
 
 ### 2023-03
 
+#### 03-03
+
+本周在小破站追了一部番 - 《怪化猫》 😌。   
+
+背着一个大药箱、持着一把退魔之剑的卖药郎是每一个故事的联结者。   
+
+物怪的形成，是由人类的种种因缘引起的；要想拔出退魔之剑，就必须要凑齐“形、真、理”。       
+
+“形”即由人的因缘所引起的物怪的形态；“真”即事件的真相；“理”即当事人心里真实的想法。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_23.jpg" alt="" width="300" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_24.png" alt="" width="300" height="399" />  
+
+每一个故事都很喜欢，最喜欢的是前传 《怪ayakashi》 的化猫篇，大中午在办公室看完给我哭的稀里哗啦的 😭。。。   
+
+以下摘自豆瓣精选影评：   
+
+* 座敷童子：所谓温柔，是未诞生生命的感谢。     
+* 海坊主：所谓温柔，是不求回报的爱情。        
+* 无面：所谓温柔，是正视自己的真诚。    
+* 鵺：所谓温柔，是在欲望前的却步。  
+* 化猫：所谓温柔，是站在别人的角度。    
+
+最后，一向冷冰冰的卖药郎的侧脸，出现了温柔的笑容……    
+
 #### 03-02
 
 <iframe width="600" height="315" src="//player.bilibili.com/player.html?aid=695328283&bvid=BV1E24y187wG&cid=1033431476&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
