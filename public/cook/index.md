@@ -7,6 +7,10 @@
 
 ## 2023年
 
+### 排骨汤 / 凉拌藕
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cook/img_04.jpeg" alt="" width="300" />  
+
 ### 蔬菜鸡胸肉饼
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cook/img_01.jpeg" alt="" width="300" />  

@@ -1,6 +1,6 @@
 ---
 title: "程序媛烟火气儿"
-date: 2023-02-26T14:00:47+08:00
+date: 2023-03-04T23:30:47+08:00
 tags: ["cook"]
 categories: ["cook"]
 ---
@@ -10,6 +10,10 @@ categories: ["cook"]
 <!--more-->
 
 ## 2023年
+
+### 排骨汤 / 凉拌藕
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cook/img_04.jpeg" alt="" width="300" />  
 
 ### 蔬菜鸡胸肉饼
 

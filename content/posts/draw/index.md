@@ -1,6 +1,6 @@
 ---
 title: "油画棒画成长之旅"
-date: 2023-02-26T14:10:47+08:00
+date: 2023-03-04T23:50:47+08:00
 tags: ["画画"]
 categories: ["画画"]
 ---
@@ -10,6 +10,15 @@ categories: ["画画"]
 <!--more-->
 
 ## 2023年
+
+### 🌹 云
+
+```
+送你一朵玫瑰云。        
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/draw/img_8.jpeg" alt="" width="300" />  
+
 
 ### 海  
 
