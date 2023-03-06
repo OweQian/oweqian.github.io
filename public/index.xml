@@ -4,9 +4,17 @@
         <link>http://oweqian.xyz/</link>
         <description>Hugo theme - LoveIt</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 05 Mar 2023 22:20:47 &#43;0800</lastBuildDate>
+            <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 06 Mar 2023 14:00:47 &#43;0800</lastBuildDate>
             <atom:link href="http://oweqian.xyz/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Typescript 使用手册</title>
+    <link>http://oweqian.xyz/ts/</link>
+    <pubDate>Mon, 06 Mar 2023 14:00:47 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.xyz/ts/</guid>
+    <description><![CDATA[<p>项目地址： <a href="https://github.com/OweQian/TSHandbook.git" target="_blank" rel="noopener noreffer ">TSHandbook</a></p>]]></description>
+</item>
+<item>
     <title>蠢 Q 碎碎念</title>
     <link>http://oweqian.xyz/month/</link>
     <pubDate>Sun, 05 Mar 2023 22:20:47 &#43;0800</pubDate>
@@ -29,14 +37,6 @@
     <author>OweQian</author>
     <guid>http://oweqian.xyz/cook/</guid>
     <description><![CDATA[<p>🥰 就算一个人生活也要好好吃饭呀。</p>]]></description>
-</item>
-<item>
-    <title>Typescript 使用手册</title>
-    <link>http://oweqian.xyz/ts/</link>
-    <pubDate>Fri, 03 Mar 2023 18:00:47 &#43;0800</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/ts/</guid>
-    <description><![CDATA[<p>项目地址： <a href="https://github.com/OweQian/TSHandbook.git" target="_blank" rel="noopener noreffer ">TSHandbook</a></p>]]></description>
 </item>
 <item>
     <title>LeetCode Top100 刷题</title>

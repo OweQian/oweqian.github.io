@@ -1,6 +1,6 @@
 ---
 title: "LeetCode Top100 刷题"
-date: 2023-03-03T16:00:47+08:00
+date: 2023-03-06T15:00:47+08:00
 tags: ["算法"]
 categories: ["算法"]
 ---
@@ -13,7 +13,7 @@ categories: ["算法"]
 
 [题目内容](https://leetcode.cn/problems/add-two-numbers/)  
 
-解题思路：递龟    
+解题思路：递龟。       
 
 ```ts
 /**
@@ -49,7 +49,7 @@ const addTwoNumbers = (l1: ListNode | null, l2: ListNode | null): ListNode | nul
 
 [题目内容](https://leetcode.cn/problems/two-sum/)
 
-解题思路：哈希表，两数之和变为两数之差。
+解题思路：哈希表，两数之和变为两数之差。   
 
 ```ts
 const twoSum = (nums: number[], target: number): number[] => {
@@ -64,4 +64,27 @@ const twoSum = (nums: number[], target: number): number[] => {
 };
 ```
 
+### 无重复字符的最长子串
 
+[题目内容](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)
+
+解题思路：字符串转换为数组应用累加器求值。       
+
+```ts
+const lengthOfLongestSubstring = (s: string): number => {
+    let max: number = 0;
+    if (s.length <= 1) return s.length;
+    s.split('').reduce<string>((acc: string, value: string) => {
+        const len = acc.indexOf(value);
+        if (len === -1) {
+            acc += value;
+            max = acc.length > max ? acc.length : max;
+            return acc;
+        } else {
+            acc += value;
+            return acc.slice(len + 1);
+        }
+    }, '')
+    return max;
+};
+```
