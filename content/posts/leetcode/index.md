@@ -1,6 +1,6 @@
 ---
 title: "LeetCode Top100 刷题"
-date: 2023-03-06T15:00:47+08:00
+date: 2023-03-07T14:00:47+08:00
 tags: ["算法"]
 categories: ["算法"]
 ---
@@ -8,6 +8,64 @@ categories: ["算法"]
 🧠 越来越不好使，刷点算法题提高点智商。   
 
 <!--more-->
+
+### 有效的括号
+
+[题目内容](https://leetcode.cn/problems/valid-parentheses/)
+
+解题思路：栈。
+
+```ts
+const isValid = (s: string): boolean => {
+    type KeyType = ')' | '}' | ']';
+    type ValueType = '(' | '{' | '[';
+    const n: number = s.length;
+    if (n % 2 === 1) return false;
+    const mapObj: Record<KeyType, ValueType> = {
+        ')': '(',
+        '}': '{',
+        ']': '['
+    }
+    const stk: ValueType[] = [];
+    for (let item of s) {
+        if (item in mapObj) {
+           let top = stk.pop();
+           if (mapObj[item] !== top) {
+               return false;
+           } 
+        } else {
+            stk.push(item as ValueType);
+        }
+    }
+    return !stk.length;
+};
+```
+
+
+### 无重复字符的最长子串
+
+[题目内容](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)
+
+解题思路：字符串转换为数组应用累加器求值。
+
+```ts
+const lengthOfLongestSubstring = (s: string): number => {
+    let max: number = 0;
+    if (s.length <= 1) return s.length;
+    s.split('').reduce<string>((acc: string, value: string) => {
+        const len = acc.indexOf(value);
+        if (len === -1) {
+            acc += value;
+            max = acc.length > max ? acc.length : max;
+            return acc;
+        } else {
+            acc += value;
+            return acc.slice(len + 1);
+        }
+    }, '')
+    return max;
+};
+```
 
 ### 两数相加
 
@@ -44,7 +102,6 @@ const addTwoNumbers = (l1: ListNode | null, l2: ListNode | null): ListNode | nul
 };
 ```
 
-
 ### 两数之和
 
 [题目内容](https://leetcode.cn/problems/two-sum/)
@@ -61,30 +118,5 @@ const twoSum = (nums: number[], target: number): number[] => {
             mapObj.set(nums[i], i)
         }
     }
-};
-```
-
-### 无重复字符的最长子串
-
-[题目内容](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)
-
-解题思路：字符串转换为数组应用累加器求值。       
-
-```ts
-const lengthOfLongestSubstring = (s: string): number => {
-    let max: number = 0;
-    if (s.length <= 1) return s.length;
-    s.split('').reduce<string>((acc: string, value: string) => {
-        const len = acc.indexOf(value);
-        if (len === -1) {
-            acc += value;
-            max = acc.length > max ? acc.length : max;
-            return acc;
-        } else {
-            acc += value;
-            return acc.slice(len + 1);
-        }
-    }, '')
-    return max;
 };
 ```
