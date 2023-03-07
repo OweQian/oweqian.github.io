@@ -1,6 +1,6 @@
 ---
 title: "Typescript 使用手册"
-date: 2023-03-06T15:12:47+08:00
+date: 2023-03-07T11:30:47+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
@@ -2373,4 +2373,199 @@ const ref = useRef<number>();
 
 const context =  createContext<ContextType>({});
 ```
+
+## 类型系统
+
+在 TypeScript 中，你可能遇见过以下这样 “看起来不太对，但竟然能正常运行” 的代码：   
+
+```ts
+class Cat {
+  eat() { }
+}
+
+class Dog {
+  eat() { }
+}
+
+function feedCat(cat: Cat) { }
+
+feedCat(new Dog())
+```
+
+这就是 TypeScript 的类型系统特性：结构化类型系统，还存在另一种类型系统：标称类型系统。     
+
+### 结构化类型系统
+
+如果为 Cat 类新增一个独特的方法，这个时候的表现才是符合预期的，即只能用真实的 Cat 类来进行调用：   
+
+```ts
+class Cat {
+  meow() { }
+  eat() { }
+}
+
+class Dog {
+  eat() { }
+}
+
+function feedCat(cat: Cat) { }
+
+// 报错！
+feedCat(new Dog())
+```
+
+TypeScript 比较两个类型并非通过类型的名称（即 feedCat 函数只能通过 Cat 类型调用），而是比较这两个类型上实际拥有的属性与方法。   
+
+最初的例子里，Cat 与 Dog 类型上的方法是一致的，所以它们虽然是两个名字不同的类型，但仍然被视为结构一致，这就是结构化类型系统的特性。   
+
+结构类型的别称为鸭子类型（Duck Typing），这个名字来源于鸭子测试（Duck Test）。其核心理念是，如果你看到一只鸟走起来像鸭子，游泳像鸭子，叫得也像鸭子，那么这只鸟就是鸭子。      
+
+但如果为 Dog 类型添加一个独特方法呢？   
+
+```ts
+class Cat {
+  eat() { }
+}
+
+class Dog {
+  bark() { }
+  eat() { }
+}
+
+function feedCat(cat: Cat) { }
+
+feedCat(new Dog())
+```
+
+这个时候为什么没有类型报错了？   
+
+结构化类型系统认为 Dog 类型完全实现了 Cat 类型。至于额外的方法 bark，可认为是 Dog 类型继承 Cat 类型后添加的新方法，即此时 Dog 类可以被认为是 Cat 类的子类。    
+
+更进一步，在比较对象类型的属性时，同样会采用结构化类型系统进行判断。而对结构中的函数类型（即方法）进行比较时，同样存在类型的兼容性比较：   
+
+```ts
+class Cat {
+  eat(): boolean {
+    return true
+  }
+}
+
+class Dog {
+  eat(): number {
+    return 18;
+  }
+}
+
+function feedCat(cat: Cat) { }
+
+// 报错！
+feedCat(new Dog())
+```
+
+这是结构化类型系统的核心理念，即基于类型结构进行判断类型兼容性。   
+
+严格来说，鸭子类型系统和结构化类型系统并不完全一致，结构化类型系统意味着基于完全的类型结构来判断类型兼容性，而鸭子类型则只基于运行时访问的部分来决定。    
+
+如果调用了走、游泳、叫这三个方法，那么传入的类型只需要存在这几个方法即可（而不需要类型结构完全一致）。   
+
+由于 TypeScript 本身并不是在运行时进行类型检查，同时官方文档中同样认为这两个概念是一致的（One of TypeScript’s core principles is that type checking focuses on the shape that values have. This is sometimes called “duck typing” or “structural typing”.）。因此可以直接认为鸭子类型与结构化类型是同一概念。      
+
+### 标称类型系统
+
+标称类型系统（Nominal Typing System）要求两个可兼容的类型，其名称必须是完全一致的。   
+
+```ts
+type USD = number;
+type CNY = number;
+
+const CNYCount: CNY = 200;
+const USDCount: USD = 200;
+
+function addCNY(source: CNY, input: CNY) {
+  return source + input;
+}
+
+addCNY(CNYCount, USDCount)
+```
+
+在结构化类型系统中，USD 与 CNY 被认为是两个完全一致的类型，因此在 addCNY 函数中可以传入 USD 类型的变量。人民币与美元这两个单位实际的意义并不一致，怎么能进行相加？   
+
+在标称类型系统中，CNY 与 USD 被认为是两个完全不同的类型，因此能够避免这一情况发生。   
+
+类型的重要意义之一是限制了数据的可用操作与实际意义，这一点在标称类型系统中的体现要更加明显。   
+
+上面可以通过类型的结构，来让结构化类型系统认为两个类型具有父子类型关系，而对于标称类型系统，父子类型关系只能通过显式的继承来实现，称为标称子类型（Nominal Subtyping）。    
+
+```ts
+class Cat { }
+// 实现一只短毛猫！
+class ShorthairCat extends Cat { }
+```
+
+### 模拟标称类型系统
+
+类型的重要意义之一是限制了数据的可用操作与实际意义，它是通过类型附带的额外信息来实现的（类似于元数据）。    
+
+要在 TypeScript 中实现，其实也只需要为类型额外附加元数据即可，比如 CNY 与 USD，分别附加上它们的单位信息即可，但同时又需要保留原本的信息（即原本的 number 类型）。   
+
+```ts
+declare class TagProtector<T extends string> {
+  protected __tag__: T;
+}
+
+type Nominal<T, U extends string> = T & TagProtector<U>;
+
+type CNY = Nominal<number, 'CNY'>;
+
+type USD = Nominal<number, 'USD'>;
+
+const CNYCount = 100 as CNY;
+
+const USDCount = 100 as USD;
+
+function addCNY(source: CNY, input: CNY) {
+  return (source + input) as CNY;
+}
+
+addCNY(CNYCount, CNYCount);
+
+// 报错了！
+addCNY(CNYCount, USDCount);
+```
+
+使用 TagProtector 声明了一个具有 protected 属性的类，使用它来携带额外的信息，并和原本的类型合并到一起，就得到了 Nominal 工具类型。   
+
+这一实现方式本质上只在类型层面做了数据的处理，在运行时无法进行进一步的限制。可以从逻辑层面入手进一步确保安全性：   
+
+```ts
+class CNY {
+  private __tag!: void;
+  constructor(public value: number) {}
+}
+class USD {
+  private __tag!: void;
+  constructor(public value: number) {}
+}
+```
+
+使用方式也要进行变化：   
+
+```ts
+const CNYCount = new CNY(100);
+const USDCount = new USD(100);
+
+function addCNY(source: CNY, input: CNY) {
+  return (source.value + input.value);
+}
+
+addCNY(CNYCount, CNYCount);
+// 报错了！
+addCNY(CNYCount, USDCount);
+```
+
+通过这种方式，在运行时添加更多的检查逻辑，同时在类型层面也得到了保障。    
+
+这两种方式的本质都是通过额外属性实现了类型信息的附加，从而使得结构化类型系统将结构一致的两个类型也判断为不可兼容。    
+
+将其标记为 private / protected 其实不是必须的，只是为了避免类型信息被错误消费。    
 

@@ -8,8 +8,8 @@
 <meta property="og:description" content="项目地址： TSHandbook" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/ts/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-03-06T14:00:47+08:00" />
-<meta property="article:modified_time" content="2023-03-03T18:42:28+08:00" /><meta property="og:site_name" content="OweQian" />
+<meta property="article:published_time" content="2023-03-07T11:30:47+08:00" />
+<meta property="article:modified_time" content="2023-03-06T16:27:22+08:00" /><meta property="og:site_name" content="OweQian" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://oweqian.xyz/logo.png"/>
 
@@ -34,8 +34,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "第一技能","wordcount":  19628 ,
-        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-03-06T14:00:47+08:00","dateModified": "2023-03-03T18:42:28+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "第一技能","wordcount":  21480 ,
+        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-03-07T11:30:47+08:00","dateModified": "2023-03-06T16:27:22+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Typescript 使用手册</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-06">2023-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 19628 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 40 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-07">2023-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 21480 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 43 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -225,6 +225,13 @@
         <li><a href="#函数中的泛型">函数中的泛型</a></li>
         <li><a href="#class-中的泛型">Class 中的泛型</a></li>
         <li><a href="#内置方法中的泛型">内置方法中的泛型</a></li>
+      </ul>
+    </li>
+    <li><a href="#类型系统">类型系统</a>
+      <ul>
+        <li><a href="#结构化类型系统">结构化类型系统</a></li>
+        <li><a href="#标称类型系统">标称类型系统</a></li>
+        <li><a href="#模拟标称类型系统">模拟标称类型系统</a></li>
       </ul>
     </li>
   </ul>
@@ -3862,12 +3869,308 @@
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span>  <span class="nx">createContext</span><span class="p">&lt;</span><span class="nt">ContextType</span><span class="p">&gt;({});</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><h2 id="类型系统">类型系统</h2>
+<p>在 TypeScript 中，你可能遇见过以下这样 “看起来不太对，但竟然能正常运行” 的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Cat</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">eat() {</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Dog</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">eat() {</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">feedCat</span><span class="p">(</span><span class="nx">cat</span>: <span class="kt">Cat</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">feedCat</span><span class="p">(</span><span class="k">new</span> <span class="nx">Dog</span><span class="p">())</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这就是 TypeScript 的类型系统特性：结构化类型系统，还存在另一种类型系统：标称类型系统。</p>
+<h3 id="结构化类型系统">结构化类型系统</h3>
+<p>如果为 Cat 类新增一个独特的方法，这个时候的表现才是符合预期的，即只能用真实的 Cat 类来进行调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Cat</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">meow() {</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">eat() {</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Dog</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">eat() {</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">feedCat</span><span class="p">(</span><span class="nx">cat</span>: <span class="kt">Cat</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 报错！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">feedCat</span><span class="p">(</span><span class="k">new</span> <span class="nx">Dog</span><span class="p">())</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>TypeScript 比较两个类型并非通过类型的名称（即 feedCat 函数只能通过 Cat 类型调用），而是比较这两个类型上实际拥有的属性与方法。</p>
+<p>最初的例子里，Cat 与 Dog 类型上的方法是一致的，所以它们虽然是两个名字不同的类型，但仍然被视为结构一致，这就是结构化类型系统的特性。</p>
+<p>结构类型的别称为鸭子类型（Duck Typing），这个名字来源于鸭子测试（Duck Test）。其核心理念是，如果你看到一只鸟走起来像鸭子，游泳像鸭子，叫得也像鸭子，那么这只鸟就是鸭子。</p>
+<p>但如果为 Dog 类型添加一个独特方法呢？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Cat</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">eat() {</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Dog</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">bark() {</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">eat() {</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">feedCat</span><span class="p">(</span><span class="nx">cat</span>: <span class="kt">Cat</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">feedCat</span><span class="p">(</span><span class="k">new</span> <span class="nx">Dog</span><span class="p">())</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个时候为什么没有类型报错了？</p>
+<p>结构化类型系统认为 Dog 类型完全实现了 Cat 类型。至于额外的方法 bark，可认为是 Dog 类型继承 Cat 类型后添加的新方法，即此时 Dog 类可以被认为是 Cat 类的子类。</p>
+<p>更进一步，在比较对象类型的属性时，同样会采用结构化类型系统进行判断。而对结构中的函数类型（即方法）进行比较时，同样存在类型的兼容性比较：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Cat</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">eat</span><span class="p">()</span><span class="o">:</span> <span class="kr">boolean</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Dog</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">eat</span><span class="p">()</span><span class="o">:</span> <span class="kt">number</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">18</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">feedCat</span><span class="p">(</span><span class="nx">cat</span>: <span class="kt">Cat</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 报错！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">feedCat</span><span class="p">(</span><span class="k">new</span> <span class="nx">Dog</span><span class="p">())</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这是结构化类型系统的核心理念，即基于类型结构进行判断类型兼容性。</p>
+<p>严格来说，鸭子类型系统和结构化类型系统并不完全一致，结构化类型系统意味着基于完全的类型结构来判断类型兼容性，而鸭子类型则只基于运行时访问的部分来决定。</p>
+<p>如果调用了走、游泳、叫这三个方法，那么传入的类型只需要存在这几个方法即可（而不需要类型结构完全一致）。</p>
+<p>由于 TypeScript 本身并不是在运行时进行类型检查，同时官方文档中同样认为这两个概念是一致的（One of TypeScript’s core principles is that type checking focuses on the shape that values have. This is sometimes called “duck typing” or “structural typing”.）。因此可以直接认为鸭子类型与结构化类型是同一概念。</p>
+<h3 id="标称类型系统">标称类型系统</h3>
+<p>标称类型系统（Nominal Typing System）要求两个可兼容的类型，其名称必须是完全一致的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">USD</span> <span class="o">=</span> <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">CNY</span> <span class="o">=</span> <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CNYCount</span>: <span class="kt">CNY</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">USDCount</span>: <span class="kt">USD</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">addCNY</span><span class="p">(</span><span class="nx">source</span>: <span class="kt">CNY</span><span class="p">,</span> <span class="nx">input</span>: <span class="kt">CNY</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">source</span> <span class="o">+</span> <span class="nx">input</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">addCNY</span><span class="p">(</span><span class="nx">CNYCount</span><span class="p">,</span> <span class="nx">USDCount</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在结构化类型系统中，USD 与 CNY 被认为是两个完全一致的类型，因此在 addCNY 函数中可以传入 USD 类型的变量。人民币与美元这两个单位实际的意义并不一致，怎么能进行相加？</p>
+<p>在标称类型系统中，CNY 与 USD 被认为是两个完全不同的类型，因此能够避免这一情况发生。</p>
+<p>类型的重要意义之一是限制了数据的可用操作与实际意义，这一点在标称类型系统中的体现要更加明显。</p>
+<p>上面可以通过类型的结构，来让结构化类型系统认为两个类型具有父子类型关系，而对于标称类型系统，父子类型关系只能通过显式的继承来实现，称为标称子类型（Nominal Subtyping）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Cat</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 实现一只短毛猫！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">class</span> <span class="nx">ShorthairCat</span> <span class="kr">extends</span> <span class="nx">Cat</span> <span class="p">{</span> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="模拟标称类型系统">模拟标称类型系统</h3>
+<p>类型的重要意义之一是限制了数据的可用操作与实际意义，它是通过类型附带的额外信息来实现的（类似于元数据）。</p>
+<p>要在 TypeScript 中实现，其实也只需要为类型额外附加元数据即可，比如 CNY 与 USD，分别附加上它们的单位信息即可，但同时又需要保留原本的信息（即原本的 number 类型）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">declare</span> <span class="kr">class</span> <span class="nx">TagProtector</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">string</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">protected</span> <span class="nx">__tag__</span>: <span class="kt">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Nominal</span><span class="p">&lt;</span><span class="nt">T</span><span class="err">,</span> <span class="na">U</span> <span class="na">extends</span> <span class="na">string</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="o">&amp;</span> <span class="nx">TagProtector</span><span class="p">&lt;</span><span class="nt">U</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">CNY</span> <span class="o">=</span> <span class="nx">Nominal</span><span class="p">&lt;</span><span class="nt">number</span><span class="err">,</span> <span class="err">&#39;</span><span class="na">CNY</span><span class="err">&#39;</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">USD</span> <span class="o">=</span> <span class="nx">Nominal</span><span class="p">&lt;</span><span class="nt">number</span><span class="err">,</span> <span class="err">&#39;</span><span class="na">USD</span><span class="err">&#39;</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CNYCount</span> <span class="o">=</span> <span class="mi">100</span> <span class="kr">as</span> <span class="nx">CNY</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">USDCount</span> <span class="o">=</span> <span class="mi">100</span> <span class="kr">as</span> <span class="nx">USD</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">addCNY</span><span class="p">(</span><span class="nx">source</span>: <span class="kt">CNY</span><span class="p">,</span> <span class="nx">input</span>: <span class="kt">CNY</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span><span class="nx">source</span> <span class="o">+</span> <span class="nx">input</span><span class="p">)</span> <span class="kr">as</span> <span class="nx">CNY</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">addCNY</span><span class="p">(</span><span class="nx">CNYCount</span><span class="p">,</span> <span class="nx">CNYCount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 报错了！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">addCNY</span><span class="p">(</span><span class="nx">CNYCount</span><span class="p">,</span> <span class="nx">USDCount</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 TagProtector 声明了一个具有 protected 属性的类，使用它来携带额外的信息，并和原本的类型合并到一起，就得到了 Nominal 工具类型。</p>
+<p>这一实现方式本质上只在类型层面做了数据的处理，在运行时无法进行进一步的限制。可以从逻辑层面入手进一步确保安全性：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">CNY</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">private</span> <span class="nx">__tag</span><span class="o">!:</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">value</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">USD</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">private</span> <span class="nx">__tag</span><span class="o">!:</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">value</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用方式也要进行变化：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CNYCount</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CNY</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">USDCount</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">USD</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">addCNY</span><span class="p">(</span><span class="nx">source</span>: <span class="kt">CNY</span><span class="p">,</span> <span class="nx">input</span>: <span class="kt">CNY</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span><span class="nx">source</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">addCNY</span><span class="p">(</span><span class="nx">CNYCount</span><span class="p">,</span> <span class="nx">CNYCount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 报错了！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">addCNY</span><span class="p">(</span><span class="nx">CNYCount</span><span class="p">,</span> <span class="nx">USDCount</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过这种方式，在运行时添加更多的检查逻辑，同时在类型层面也得到了保障。</p>
+<p>这两种方式的本质都是通过额外属性实现了类型信息的附加，从而使得结构化类型系统将结构一致的两个类型也判断为不可兼容。</p>
+<p>将其标记为 private / protected 其实不是必须的，只是为了避免类型信息被错误消费。</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2023-03-03&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/fa750a17a7a5a6e814524587707d4b3da160fdde" target="_blank" title="commit by OweQian(1510106069@qq.com) fa750a17a7a5a6e814524587707d4b3da160fdde: update">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>fa750a1</a></span>
+                <span>更新于 2023-03-06&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/875b4c13b3eb5cf97e3932bd52466ea63be3e506" target="_blank" title="commit by OweQian(1510106069@qq.com) 875b4c13b3eb5cf97e3932bd52466ea63be3e506: update">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>875b4c1</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
