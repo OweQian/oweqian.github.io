@@ -1,6 +1,6 @@
 ---
 title: "蠢 Q 碎碎念"
-date: 2023-03-07T12:00:47+08:00
+date: 2023-03-08T9:00:47+08:00
 tags: ["碎碎念"]
 categories: ["碎碎念"]
 ---
@@ -12,6 +12,12 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-03
+
+#### 03-08
+
+致敬，每一个独一无二的她。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_28.jpg" alt="" width="600" />  
 
 #### 03-07
 

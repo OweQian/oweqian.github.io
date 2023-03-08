@@ -9,6 +9,12 @@
 
 ### 2023-03
 
+#### 03-08
+
+致敬，每一个独一无二的她。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_28.jpg" alt="" width="600" />  
+
 #### 03-07
 
 所知甚少，唯善学。    
