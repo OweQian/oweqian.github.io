@@ -8,7 +8,7 @@
 <meta property="og:description" content="项目地址： TSHandbook" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/ts/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-03-07T12:30:47+08:00" />
+<meta property="article:published_time" content="2023-03-09T11:00:47+08:00" />
 <meta property="article:modified_time" content="2023-03-07T17:56:24+08:00" /><meta property="og:site_name" content="OweQian" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://oweqian.xyz/logo.png"/>
@@ -18,7 +18,7 @@
 <meta name="application-name" content="OweQian">
 <meta name="apple-mobile-web-app-title" content="OweQian"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/ts/" /><link rel="prev" href="http://oweqian.xyz/draw/" /><link rel="next" href="http://oweqian.xyz/leetcode/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/ts/" /><link rel="prev" href="http://oweqian.xyz/month/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -34,8 +34,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "第一技能","wordcount":  21480 ,
-        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-03-07T12:30:47+08:00","dateModified": "2023-03-07T17:56:24+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "第一技能","wordcount":  24878 ,
+        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-03-09T11:00:47+08:00","dateModified": "2023-03-07T17:56:24+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Typescript 使用手册</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-07">2023-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 21480 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 43 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-09">2023-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 24878 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 50 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -232,6 +232,19 @@
         <li><a href="#结构化类型系统">结构化类型系统</a></li>
         <li><a href="#标称类型系统">标称类型系统</a></li>
         <li><a href="#模拟标称类型系统">模拟标称类型系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#类型系统层级">类型系统层级</a>
+      <ul>
+        <li><a href="#判断类型兼容性的方式">判断类型兼容性的方式</a></li>
+        <li><a href="#从原始类型开始">从原始类型开始</a></li>
+        <li><a href="#联合类型-1">联合类型</a></li>
+        <li><a href="#装箱类型">装箱类型</a></li>
+        <li><a href="#top-type">Top Type</a></li>
+        <li><a href="#never-类型-1">never 类型</a></li>
+        <li><a href="#类型层级链">类型层级链</a></li>
+        <li><a href="#其他比较场景">其他比较场景</a></li>
+        <li><a href="#总结">总结</a></li>
       </ul>
     </li>
   </ul>
@@ -3312,7 +3325,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">IsEqual</span><span class="p">&lt;</span><span class="nt">true</span><span class="p">&gt;;</span> <span class="c1">// 1
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">IsEqual</span><span class="p">&lt;</span><span class="nt">false</span><span class="p">&gt;;</span> <span class="c1">// 2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">IsEqual</span><span class="o">&lt;</span><span class="s1">&#39;linbudu&#39;</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">IsEqual</span><span class="o">&lt;</span><span class="s1">&#39;wangxiaobai&#39;</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// 2
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>在条件类型参与的情况下，通常泛型会被作为条件类型中的判断条件（T extends Condition，或者 Type extends T）以及返回值（即 : 两端的值），这也是筛选类型需要依赖的能力之一。</p>
@@ -3338,7 +3351,7 @@
 </div><p>泛型还能做到函数参数做不到的事：泛型约束，可以要求传入这个工具类型的泛型必须符合某些条件，否则就拒绝进行后面的逻辑。</p>
 <p>使用 extends 关键字来约束传入的泛型参数必须符合要求。关于 extends，A extends B 意味着 A 是 B 的子类型，也就是说 A 比 B 的类型更精确，或者说更复杂。</p>
 <ul>
-<li>更精确：如字面量类型是对应原始类型的子类型，即 &rsquo;linbudu&rsquo; extends string，18 extends number 成立。类似的，联合类型子集均为联合类型的子类型，即 1、 1 | 2 是 1 | 2 | 3 | 4 的子类型。</li>
+<li>更精确：如字面量类型是对应原始类型的子类型，即 &lsquo;wangxiaobai&rsquo; extends string，18 extends number 成立。类似的，联合类型子集均为联合类型的子类型，即 1、 1 | 2 是 1 | 2 | 3 | 4 的子类型。</li>
 <li>更复杂，如 { name: string } 是 {} 的子类型，因为在 {} 的基础上增加了额外的类型，基类与派生类（父类与子类）同理。</li>
 </ul>
 <div class="highlight"><div class="chroma">
@@ -3413,10 +3426,10 @@
 </span></span><span class="line"><span class="cl">  <span class="nx">Type</span> <span class="kr">extends</span> <span class="nx">Condition</span> <span class="o">?</span> <span class="nx">TruthyResult</span> : <span class="kt">FalsyResult</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//  &#34;passed!&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result1</span> <span class="o">=</span> <span class="nx">Conditional</span><span class="o">&lt;</span><span class="s1">&#39;linbudu&#39;</span><span class="p">,</span> <span class="kt">string</span><span class="p">,</span> <span class="s1">&#39;passed!&#39;</span><span class="p">,</span> <span class="s1">&#39;rejected!&#39;</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result1</span> <span class="o">=</span> <span class="nx">Conditional</span><span class="o">&lt;</span><span class="s1">&#39;wangxiaobai&#39;</span><span class="p">,</span> <span class="kt">string</span><span class="p">,</span> <span class="s1">&#39;passed!&#39;</span><span class="p">,</span> <span class="s1">&#39;rejected!&#39;</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// &#34;rejected!&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result2</span> <span class="o">=</span> <span class="nx">Conditional</span><span class="o">&lt;</span><span class="s1">&#39;linbudu&#39;</span><span class="p">,</span> <span class="kr">boolean</span><span class="p">,</span> <span class="s1">&#39;passed!&#39;</span><span class="p">,</span> <span class="s1">&#39;rejected!&#39;</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result2</span> <span class="o">=</span> <span class="nx">Conditional</span><span class="o">&lt;</span><span class="s1">&#39;wangxiaobai&#39;</span><span class="p">,</span> <span class="kr">boolean</span><span class="p">,</span> <span class="s1">&#39;passed!&#39;</span><span class="p">,</span> <span class="s1">&#39;rejected!&#39;</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>多泛型参数其实就像接受更多参数的函数，其内部的运行逻辑（类型操作）会更加抽象，表现在参数（泛型参数）需要进行的逻辑运算（类型操作）会更加复杂。</p>
@@ -3808,9 +3821,9 @@
 <pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">arr</span>: <span class="kt">Array</span><span class="p">&lt;</span><span class="nt">number</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 类型“string”的参数不能赋给类型“number”的参数。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;linbudu&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;wangxiaobai&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 类型“string”的参数不能赋给类型“number”的参数。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;linbudu&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;wangxiaobai&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// number | undefined
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">find</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">);</span>
@@ -4165,7 +4178,468 @@
 </div>
 </div><p>通过这种方式，在运行时添加更多的检查逻辑，同时在类型层面也得到了保障。</p>
 <p>这两种方式的本质都是通过额外属性实现了类型信息的附加，从而使得结构化类型系统将结构一致的两个类型也判断为不可兼容。</p>
-<p>将其标记为 private / protected 其实不是必须的，只是为了避免类型信息被错误消费。</p></div><div class="post-footer" id="post-footer">
+<p>将其标记为 private / protected 其实不是必须的，只是为了避免类型信息被错误消费。</p>
+<h2 id="类型系统层级">类型系统层级</h2>
+<h3 id="判断类型兼容性的方式">判断类型兼容性的方式</h3>
+<p>使用条件类型来判断类型兼容性。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result</span> <span class="o">=</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="kr">extends</span> <span class="kt">string</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果返回 1，则说明 &lsquo;wangxiaobai&rsquo; 为 string 的子类型。否则，说明不成立。但注意，不成立并不意味着 string 就是 &lsquo;wangxiaobai&rsquo; 的子类型了。</p>
+<p>还有一种通过赋值来进行兼容性检查的方式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">declare</span> <span class="kd">let</span> <span class="nx">source</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">declare</span> <span class="kd">let</span> <span class="nx">anyType</span>: <span class="kt">any</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">declare</span> <span class="kd">let</span> <span class="nx">neverType</span>: <span class="kt">never</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">anyType</span> <span class="o">=</span> <span class="nx">source</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 不能将类型“string”分配给类型“never”。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">neverType</span> <span class="o">=</span> <span class="nx">source</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于变量 a = 变量 b，如果成立，意味着 &lt;变量 b 的类型&gt; extends &lt;变量 a 的类型&gt; 成立，即 b 类型是 a 类型的子类型，在这里即是 string extends never ，这明显是不成立的。</p>
+<h3 id="从原始类型开始">从原始类型开始</h3>
+<p>首先从原始类型、对象类型和它们对应的字面量类型开始。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result1</span> <span class="o">=</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="kr">extends</span> <span class="kt">string</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result2</span> <span class="o">=</span> <span class="mi">1</span> <span class="kr">extends</span> <span class="kt">number</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result3</span> <span class="o">=</span> <span class="kc">true</span> <span class="kr">extends</span> <span class="kr">boolean</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result4</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span>: <span class="kt">string</span> <span class="p">}</span> <span class="kr">extends</span> <span class="kt">object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result5</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="p">}</span> <span class="kr">extends</span> <span class="kt">object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result6</span> <span class="o">=</span> <span class="p">[]</span> <span class="kr">extends</span> <span class="kt">object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>一个基础类型和它们对应的字面量类型必定存在父子类型关系。</p>
+<p>object 代表着所有非原始类型的类型，即数组、对象与函数类型，所以这里 Result6 成立的原因即是 [] 这个字面量类型也可以被认为是 object 的字面量类型。</p>
+<p>结论简记为，字面量类型 &lt; 对应的原始类型。</p>
+<h3 id="联合类型-1">联合类型</h3>
+<p>在联合类型中，只需要符合其中一个类型，就可以认为实现了这个联合类型，用条件类型表达是这样的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result7</span> <span class="o">=</span> <span class="mi">1</span> <span class="kr">extends</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">3</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result8</span> <span class="o">=</span> <span class="s1">&#39;wang&#39;</span> <span class="kr">extends</span> <span class="s1">&#39;wang&#39;</span> <span class="o">|</span> <span class="s1">&#39;xiao&#39;</span> <span class="o">|</span> <span class="s1">&#39;bai&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result9</span> <span class="o">=</span> <span class="kc">true</span> <span class="kr">extends</span> <span class="kc">true</span> <span class="o">|</span> <span class="kc">false</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>并不需要联合类型的所有成员均为字面量类型，或者字面量类型来自于同一基础类型这样的前提，只需要这个类型存在于联合类型中。</p>
+<p>对于原始类型，联合类型的比较其实也是一致的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result10</span> <span class="o">=</span> <span class="kt">string</span> <span class="kr">extends</span> <span class="kt">string</span> <span class="o">|</span> <span class="kc">false</span> <span class="o">|</span> <span class="kt">number</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>结论：字面量类型 &lt; 包含此字面量类型的联合类型 / 原始类型 &lt; 包含此原始类型的联合类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result11</span> <span class="o">=</span> <span class="s1">&#39;wang&#39;</span> <span class="o">|</span> <span class="s1">&#39;xiao&#39;</span> <span class="o">|</span> <span class="s1">&#39;bai&#39;</span> <span class="kr">extends</span> <span class="kt">string</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result12</span> <span class="o">=</span> <span class="p">{}</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">)</span> <span class="o">|</span> <span class="p">[]</span> <span class="kr">extends</span> <span class="kt">object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>结论：同一基础类型的字面量联合类型 &lt; 此基础类型。</p>
+<p>合并一下结论，去掉比较特殊的情况：字面量类型 &lt; 包含此字面量类型的联合类型（同一基础类型） &lt; 对应的原始类型，即：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result13</span> <span class="o">=</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="kr">extends</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">|</span> <span class="s1">&#39;18&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">?</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">|</span> <span class="s1">&#39;18&#39;</span> <span class="kr">extends</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="o">?</span> <span class="nx">2</span>
+</span></span><span class="line"><span class="cl">    : <span class="kt">1</span>
+</span></span><span class="line"><span class="cl">  <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="装箱类型">装箱类型</h3>
+<p>string 类型会是 String 类型的子类型，String 类型会是 Object 类型的子类型，中间还有一个奇怪的 {}。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result14</span> <span class="o">=</span> <span class="kt">string</span> <span class="kr">extends</span> <span class="nb">String</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result15</span> <span class="o">=</span> <span class="nb">String</span> <span class="kr">extends</span> <span class="p">{}</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result16</span> <span class="o">=</span> <span class="p">{}</span> <span class="kr">extends</span> <span class="kt">object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result18</span> <span class="o">=</span> <span class="kt">object</span> <span class="kr">extends</span> <span class="nb">Object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>{} 不是 object 的字面量类型吗？为什么能在这里比较，并且 String 还是它的子类型？</p>
+<p>把 String 看作一个普通的对象，上面存在一些方法，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nb">String</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">replace</span><span class="o">:</span> <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">replaceAll</span><span class="o">:</span> <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">startsWith</span><span class="o">:</span> <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">endsWith</span><span class="o">:</span> <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">includes</span><span class="o">:</span> <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这时是不是能看做 String 继承了 {} 这个空对象，然后自己实现了这些方法？当然可以！</p>
+<p>在结构化类型系统的比较下，String 会被认为是 {} 的子类型。这里从 string &lt; {} &lt; object 看起来构建了一个类型链，但实际上 string extends object 并不成立：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Tmp</span> <span class="o">=</span> <span class="kt">string</span> <span class="kr">extends</span> <span class="kt">object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于结构化类型系统这一特性的存在，会得到一些看起来矛盾的结论：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result16</span> <span class="o">=</span> <span class="p">{}</span> <span class="kr">extends</span> <span class="kt">object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result18</span> <span class="o">=</span> <span class="kt">object</span> <span class="kr">extends</span> <span class="p">{}</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result17</span> <span class="o">=</span> <span class="kt">object</span> <span class="kr">extends</span> <span class="nb">Object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result20</span> <span class="o">=</span> <span class="nb">Object</span> <span class="kr">extends</span> <span class="kt">object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result19</span> <span class="o">=</span> <span class="nb">Object</span> <span class="kr">extends</span> <span class="p">{}</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result21</span> <span class="o">=</span> <span class="p">{}</span> <span class="kr">extends</span> <span class="nb">Object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>16-18 和 19-21 这两对，为什么无论如何判断都成立？难道说明 {} 和 object 类型相等，也和 Object 类型一致？</p>
+<p>当然不，这里的 {} extends 和 extends {} 实际上是两种完全不同的比较方式。</p>
+<p>{} extends object 和 {} extends Object 意味着， {} 是 object 和 Object 的字面量类型，是从类型信息的层面出发的，即字面量类型在基础类型之上提供了更详细的类型信息。</p>
+<p>object extends {} 和 Object extends {} 则是从结构化类型系统的比较出发的，即 {} 作为一个一无所有的空对象，几乎可以被视作是所有类型的基类，万物的起源。</p>
+<p>如果混淆了这两种类型比较的方式，就可能会得到 string extends object 这样的错误结论。</p>
+<p>而 object extends Object 和 Object extends object 这两者的情况就要特殊一些，它们是因为“系统设定”的问题，Object 包含了所有除 Top Type 以外的类型（基础类型、函数类型等），object 包含了所有非原始类型的类型，即数组、对象与函数类型，这就导致了你中有我、我中有你的神奇现象。</p>
+<p>由此得出结论：原始类型 &lt; 原始类型对应的装箱类型 &lt; Object 类型。</p>
+<h3 id="top-type">Top Type</h3>
+<p>类型层级的顶端只有 any 和 unknown 这两兄弟。</p>
+<p>Object 类型自然会是 any 与 unknown 类型的子类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result22</span> <span class="o">=</span> <span class="nb">Object</span> <span class="kr">extends</span> <span class="kt">any</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result23</span> <span class="o">=</span> <span class="nb">Object</span> <span class="kr">extends</span> <span class="kt">unknown</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>但如果把条件类型的两端对调一下呢？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result24</span> <span class="o">=</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="nb">Object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1 | 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result25</span> <span class="o">=</span> <span class="kt">unknown</span> <span class="kr">extends</span> <span class="nb">Object</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>你会发现，any 竟然调过来，值竟然变成了 1 | 2？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result26</span> <span class="o">=</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="s1">&#39;linbudu&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1 | 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result27</span> <span class="o">=</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="kt">string</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1 | 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result28</span> <span class="o">=</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="p">{}</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1 | 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result29</span> <span class="o">=</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="kt">never</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1 | 2
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>实际上，还是因为“系统设定”的原因。any 代表了任何可能的类型，当使用 any extends 时，它包含了“让条件成立的一部分”，以及“让条件不成立的一部分”。</p>
+<p>而从实现上说，在 TypeScript 内部代码的条件类型处理中，如果接受判断的是 any，那么会直接返回条件类型结果组成的联合类型。</p>
+<p>因此 any extends string 并不能简单地认为等价于以下条件类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result30</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&#34;I&#39;m string!&#34;</span> <span class="o">|</span> <span class="p">{})</span> <span class="kr">extends</span> <span class="kt">string</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这种情况下，由于联合类型的成员并非均是字符串字面量类型，条件显然不成立。</p>
+<p>在赋值给其他类型时，any 来者不拒，而 unknown 则只允许赋值给 unknown 类型和 any 类型，这也是由于“系统设定”的原因，即 any 可以表达为任何类型。</p>
+<p>你需要我赋值给这个变量？那我现在就是这个变量的子类型了，我是不是很乖巧？</p>
+<p>另外，any 类型和 unknown 类型的比较也是互相成立的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result31</span> <span class="o">=</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="kt">unknown</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span>  <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result32</span> <span class="o">=</span> <span class="kt">unknown</span> <span class="kr">extends</span> <span class="kt">any</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span>  <span class="c1">// 1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>虽然还是存在系统设定的部分，但仍然只关注类型信息层面的层级，即结论为：Object &lt; any / unknown。</p>
+<h3 id="never-类型-1">never 类型</h3>
+<p>never 类型，它代表了“虚无”的类型，一个根本不存在的类型。对于这样的类型，它会是任何类型的子类型，当然也包括字面量类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result33</span> <span class="o">=</span> <span class="kt">never</span> <span class="kr">extends</span> <span class="s1">&#39;linbudu&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>但你可能又想到了一些特别的部分，比如 null、undefined、void。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result34</span> <span class="o">=</span> <span class="kc">undefined</span> <span class="kr">extends</span> <span class="s1">&#39;linbudu&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result35</span> <span class="o">=</span> <span class="kc">null</span> <span class="kr">extends</span> <span class="s1">&#39;linbudu&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result36</span> <span class="o">=</span> <span class="k">void</span> <span class="kr">extends</span> <span class="s1">&#39;linbudu&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面三种情况当然不应该成立。在 TypeScript 中，void、undefined、null 都是切实存在、有实际意义的类型，它们和 string、number、object 并没有什么本质区别。</p>
+<p>这里得到的结论是，never &lt; 字面量类型。</p>
+<p>现在可以开始组合整个类型层级了。</p>
+<h3 id="类型层级链">类型层级链</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">TypeChain</span> <span class="o">=</span> <span class="kt">never</span> <span class="kr">extends</span> <span class="s1">&#39;wangxiaobai&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">?</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="kr">extends</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">|</span> <span class="s1">&#39;18&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">?</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">|</span> <span class="s1">&#39;18&#39;</span> <span class="kr">extends</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">      <span class="o">?</span> <span class="kt">string</span> <span class="kr">extends</span> <span class="nb">String</span>
+</span></span><span class="line"><span class="cl">        <span class="o">?</span> <span class="nb">String</span> <span class="kr">extends</span> <span class="nb">Object</span>
+</span></span><span class="line"><span class="cl">          <span class="o">?</span> <span class="nb">Object</span> <span class="kr">extends</span> <span class="kt">any</span>
+</span></span><span class="line"><span class="cl">            <span class="o">?</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="kt">unknown</span>
+</span></span><span class="line"><span class="cl">              <span class="o">?</span> <span class="kt">unknown</span> <span class="kr">extends</span> <span class="kt">any</span>
+</span></span><span class="line"><span class="cl">                <span class="o">?</span> <span class="nx">8</span>
+</span></span><span class="line"><span class="cl">                : <span class="kt">7</span>
+</span></span><span class="line"><span class="cl">              <span class="o">:</span><span class="nx">6</span>
+</span></span><span class="line"><span class="cl">            :<span class="kt">5</span>
+</span></span><span class="line"><span class="cl">          <span class="o">:</span><span class="nx">4</span>
+</span></span><span class="line"><span class="cl">        :<span class="kt">3</span>
+</span></span><span class="line"><span class="cl">      <span class="o">:</span><span class="nx">2</span>
+</span></span><span class="line"><span class="cl">    :<span class="kt">1</span>
+</span></span><span class="line"><span class="cl">  <span class="o">:</span><span class="mi">0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其返回的结果为 8 ，也就意味着所有条件均成立。</p>
+<p>还可以构造出一条更长的类型层级链：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">VerboseTypeChain</span> <span class="o">=</span> <span class="kt">never</span> <span class="kr">extends</span> <span class="s1">&#39;wangxiaobai&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">?</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="kr">extends</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">|</span> <span class="s1">&#39;18&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">?</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">|</span> <span class="s1">&#39;18&#39;</span> <span class="kr">extends</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">      <span class="o">?</span> <span class="kt">string</span> <span class="kr">extends</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">?</span> <span class="kt">string</span> <span class="kr">extends</span> <span class="nb">String</span>
+</span></span><span class="line"><span class="cl">          <span class="o">?</span> <span class="nb">String</span> <span class="kr">extends</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">?</span> <span class="p">{}</span> <span class="kr">extends</span> <span class="kt">object</span>
+</span></span><span class="line"><span class="cl">              <span class="o">?</span> <span class="kt">object</span> <span class="kr">extends</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">                <span class="o">?</span> <span class="p">{}</span> <span class="kr">extends</span> <span class="nb">Object</span>
+</span></span><span class="line"><span class="cl">                  <span class="o">?</span> <span class="nb">Object</span> <span class="kr">extends</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">?</span> <span class="kt">object</span> <span class="kr">extends</span> <span class="nb">Object</span>
+</span></span><span class="line"><span class="cl">                      <span class="o">?</span> <span class="nb">Object</span> <span class="kr">extends</span> <span class="kt">object</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">?</span> <span class="nb">Object</span> <span class="kr">extends</span> <span class="kt">any</span>
+</span></span><span class="line"><span class="cl">                          <span class="o">?</span> <span class="nb">Object</span> <span class="kr">extends</span> <span class="kt">unknown</span>
+</span></span><span class="line"><span class="cl">                            <span class="o">?</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="kt">unknown</span>
+</span></span><span class="line"><span class="cl">                              <span class="o">?</span> <span class="kt">unknown</span> <span class="kr">extends</span> <span class="kt">any</span>
+</span></span><span class="line"><span class="cl">                                <span class="o">?</span> <span class="nx">8</span>
+</span></span><span class="line"><span class="cl">                                : <span class="kt">7</span>
+</span></span><span class="line"><span class="cl">                              <span class="o">:</span> <span class="nx">6</span>
+</span></span><span class="line"><span class="cl">                            : <span class="kt">5</span>
+</span></span><span class="line"><span class="cl">                          <span class="o">:</span> <span class="nx">4</span>
+</span></span><span class="line"><span class="cl">                        : <span class="kt">3</span>
+</span></span><span class="line"><span class="cl">                      <span class="o">:</span> <span class="nx">2</span>
+</span></span><span class="line"><span class="cl">                    : <span class="kt">1</span>
+</span></span><span class="line"><span class="cl">                  <span class="o">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">                <span class="o">:</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">              <span class="o">:</span> <span class="o">-</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">            <span class="o">:</span> <span class="o">-</span><span class="mi">3</span>
+</span></span><span class="line"><span class="cl">          <span class="o">:</span> <span class="o">-</span><span class="mi">4</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="o">-</span><span class="mi">5</span>
+</span></span><span class="line"><span class="cl">      <span class="o">:</span> <span class="o">-</span><span class="mi">6</span>
+</span></span><span class="line"><span class="cl">    <span class="o">:</span> <span class="o">-</span><span class="mi">7</span>
+</span></span><span class="line"><span class="cl">  <span class="o">:</span> <span class="o">-</span><span class="mi">8</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果仍然为 8 。</p>
+<h3 id="其他比较场景">其他比较场景</h3>
+<ul>
+<li>
+<p>对于基类和派生类，通常情况下派生类会完全保留基类的结构，而只是自己新增新的属性与方法。在结构化类型的比较下，其类型自然会存在子类型关系。更不用说派生类本身就是 extends 基类得到的。</p>
+</li>
+<li>
+<p>联合类型的判断，前面只是判断联合类型的单个成员，那如果是多个成员呢？</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result36</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">3</span> <span class="kr">extends</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">3</span> <span class="o">|</span> <span class="mi">4</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result37</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">4</span> <span class="kr">extends</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">3</span> <span class="o">|</span> <span class="mi">4</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result38</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">5</span> <span class="kr">extends</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">3</span> <span class="o">|</span> <span class="mi">4</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result39</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">5</span> <span class="kr">extends</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">3</span> <span class="o">|</span> <span class="mi">4</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>实际上，对于联合类型地类型层级比较，只需要比较一个联合类型是否可被视为另一个联合类型的子集，即这个联合类型中所有成员在另一个联合类型中都能找到。</p>
+<ul>
+<li>数组和元组</li>
+</ul>
+<p>数组和元组是一个比较特殊的部分:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result40</span> <span class="o">=</span> <span class="p">[</span><span class="kt">number</span><span class="p">,</span> <span class="kt">number</span><span class="p">]</span> <span class="kr">extends</span> <span class="kt">number</span><span class="p">[]</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result41</span> <span class="o">=</span> <span class="p">[</span><span class="kt">number</span><span class="p">,</span> <span class="kt">string</span><span class="p">]</span> <span class="kr">extends</span> <span class="kt">number</span><span class="p">[]</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result42</span> <span class="o">=</span> <span class="p">[</span><span class="kt">number</span><span class="p">,</span> <span class="kt">string</span><span class="p">]</span> <span class="kr">extends</span> <span class="p">(</span><span class="kt">number</span> <span class="o">|</span> <span class="kt">string</span><span class="p">)[]</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result43</span> <span class="o">=</span> <span class="p">[]</span> <span class="kr">extends</span> <span class="kt">number</span><span class="p">[]</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result44</span> <span class="o">=</span> <span class="p">[]</span> <span class="kr">extends</span> <span class="kt">unknown</span><span class="p">[]</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result45</span> <span class="o">=</span> <span class="kt">number</span><span class="p">[]</span> <span class="kr">extends</span> <span class="p">(</span><span class="kt">number</span> <span class="o">|</span> <span class="kt">string</span><span class="p">)[]</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result46</span> <span class="o">=</span> <span class="kt">any</span><span class="p">[]</span> <span class="kr">extends</span> <span class="kt">number</span><span class="p">[]</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result47</span> <span class="o">=</span> <span class="kt">unknown</span><span class="p">[]</span> <span class="kr">extends</span> <span class="kt">number</span><span class="p">[]</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result48</span> <span class="o">=</span> <span class="kt">never</span><span class="p">[]</span> <span class="kr">extends</span> <span class="kt">number</span><span class="p">[]</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>40，这个元组类型实际上能确定其内部成员全部为 number 类型，因此是 number[] 的子类型。而 41 中混入了别的类型元素，因此认为不成立。</li>
+<li>42 混入了别的类型，但其判断条件为 (number | string)[] ，即其成员需要为 number 或 string 类型。</li>
+<li>43 的成员是未确定的，等价于 never[] extends number[]，44 同理。</li>
+<li>45类似于41，即可能存在的元素类型是符合要求的。</li>
+<li>46、47，还记得身化万千的 any 类型和小心谨慎的 unknown 类型嘛？</li>
+<li>48，类似于 43、44，由于 never 类型本就位于最下方，这里显然成立。只不过 never[] 类型的数组也就无法再填充值了。</li>
+</ol>
+<h3 id="总结">总结</h3>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_04.png" alt="" width="600" /></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -4189,8 +4663,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/draw/" class="prev" rel="prev" title="油画棒画成长之旅"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>油画棒画成长之旅</a>
-            <a href="/leetcode/" class="next" rel="next" title="LeetCode Top100 刷题">LeetCode Top100 刷题<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/month/" class="prev" rel="prev" title="蠢 Q 碎碎念"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>蠢 Q 碎碎念</a></div>
 </div>
 <div id="comments"><div id="giscus" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.

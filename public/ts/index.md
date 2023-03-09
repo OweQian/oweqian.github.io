@@ -2012,7 +2012,7 @@ type IsEqual<T> = T extends true ? 1 : 2;
 
 type A = IsEqual<true>; // 1
 type B = IsEqual<false>; // 2
-type C = IsEqual<'linbudu'>; // 2
+type C = IsEqual<'wangxiaobai'>; // 2
 ```
 
 在条件类型参与的情况下，通常泛型会被作为条件类型中的判断条件（T extends Condition，或者 Type extends T）以及返回值（即 : 两端的值），这也是筛选类型需要依赖的能力之一。   
@@ -2035,7 +2035,7 @@ const foo: Factory = false;
 
 使用 extends 关键字来约束传入的泛型参数必须符合要求。关于 extends，A extends B 意味着 A 是 B 的子类型，也就是说 A 比 B 的类型更精确，或者说更复杂。   
 
-* 更精确：如字面量类型是对应原始类型的子类型，即 'linbudu' extends string，18 extends number 成立。类似的，联合类型子集均为联合类型的子类型，即 1、 1 | 2 是 1 | 2 | 3 | 4 的子类型。   
+* 更精确：如字面量类型是对应原始类型的子类型，即 'wangxiaobai' extends string，18 extends number 成立。类似的，联合类型子集均为联合类型的子类型，即 1、 1 | 2 是 1 | 2 | 3 | 4 的子类型。   
 * 更复杂，如 { name: string } 是 {} 的子类型，因为在 {} 的基础上增加了额外的类型，基类与派生类（父类与子类）同理。  
 
 ```ts
@@ -2077,10 +2077,10 @@ type Conditional<Type, Condition, TruthyResult, FalsyResult> =
   Type extends Condition ? TruthyResult : FalsyResult;
 
 //  "passed!"
-type Result1 = Conditional<'linbudu', string, 'passed!', 'rejected!'>;
+type Result1 = Conditional<'wangxiaobai', string, 'passed!', 'rejected!'>;
 
 // "rejected!"
-type Result2 = Conditional<'linbudu', boolean, 'passed!', 'rejected!'>;
+type Result2 = Conditional<'wangxiaobai', boolean, 'passed!', 'rejected!'>;
 ```
 
 多泛型参数其实就像接受更多参数的函数，其内部的运行逻辑（类型操作）会更加抽象，表现在参数（泛型参数）需要进行的逻辑运算（类型操作）会更加复杂。   
@@ -2324,9 +2324,9 @@ function p() {
 const arr: Array<number> = [1, 2, 3];
 
 // 类型“string”的参数不能赋给类型“number”的参数。
-arr.push('linbudu');
+arr.push('wangxiaobai');
 // 类型“string”的参数不能赋给类型“number”的参数。
-arr.includes('linbudu');
+arr.includes('wangxiaobai');
 
 // number | undefined
 arr.find(() => false);
@@ -2565,4 +2565,326 @@ addCNY(CNYCount, USDCount);
 
 将其标记为 private / protected 其实不是必须的，只是为了避免类型信息被错误消费。    
 
+## 类型系统层级
 
+### 判断类型兼容性的方式 
+
+使用条件类型来判断类型兼容性。   
+
+```ts
+type Result = 'wangxiaobai' extends string ? 1 : 2;
+```
+
+如果返回 1，则说明 'wangxiaobai' 为 string 的子类型。否则，说明不成立。但注意，不成立并不意味着 string 就是 'wangxiaobai' 的子类型了。   
+
+还有一种通过赋值来进行兼容性检查的方式。   
+
+```ts
+declare let source: string;
+
+declare let anyType: any;
+declare let neverType: never;
+
+anyType = source;
+
+// 不能将类型“string”分配给类型“never”。
+neverType = source;
+```
+
+对于变量 a = 变量 b，如果成立，意味着 <变量 b 的类型> extends <变量 a 的类型> 成立，即 b 类型是 a 类型的子类型，在这里即是 string extends never ，这明显是不成立的。    
+
+### 从原始类型开始
+
+首先从原始类型、对象类型和它们对应的字面量类型开始。   
+
+```ts
+type Result1 = 'wangxiaobai' extends string ? 1 : 2; // 1
+type Result2 = 1 extends number ? 1 : 2; // 1
+type Result3 = true extends boolean ? 1 : 2; // 1
+type Result4 = { name: string } extends object ? 1 : 2; // 1
+type Result5 = { name: 'wangxiaobai' } extends object ? 1 : 2; // 1
+type Result6 = [] extends object ? 1 : 2; // 1
+```
+
+一个基础类型和它们对应的字面量类型必定存在父子类型关系。    
+
+object 代表着所有非原始类型的类型，即数组、对象与函数类型，所以这里 Result6 成立的原因即是 [] 这个字面量类型也可以被认为是 object 的字面量类型。    
+
+结论简记为，字面量类型 < 对应的原始类型。    
+
+### 联合类型  
+
+在联合类型中，只需要符合其中一个类型，就可以认为实现了这个联合类型，用条件类型表达是这样的：   
+
+```ts
+type Result7 = 1 extends 1 | 2 | 3 ? 1 : 2; // 1
+type Result8 = 'wang' extends 'wang' | 'xiao' | 'bai' ? 1 : 2; // 1
+type Result9 = true extends true | false ? 1 : 2; // 1
+```
+
+并不需要联合类型的所有成员均为字面量类型，或者字面量类型来自于同一基础类型这样的前提，只需要这个类型存在于联合类型中。   
+
+对于原始类型，联合类型的比较其实也是一致的：   
+
+```ts
+type Result10 = string extends string | false | number ? 1 : 2; // 1
+```
+
+结论：字面量类型 < 包含此字面量类型的联合类型 / 原始类型 < 包含此原始类型的联合类型。    
+
+```ts
+type Result11 = 'wang' | 'xiao' | 'bai' extends string ? 1 : 2; // 1
+type Result12 = {} | (() => void) | [] extends object ? 1 : 2; // 1
+```
+
+结论：同一基础类型的字面量联合类型 < 此基础类型。   
+
+合并一下结论，去掉比较特殊的情况：字面量类型 < 包含此字面量类型的联合类型（同一基础类型） < 对应的原始类型，即：   
+
+```ts
+type Result13 = 'wangxiaobai' extends 'wangxiaobai' | '18'
+  ? 'wangxiaobai' | '18' extends string
+    ? 2
+    : 1
+  : 0;
+```
+
+### 装箱类型
+
+string 类型会是 String 类型的子类型，String 类型会是 Object 类型的子类型，中间还有一个奇怪的 {}。   
+
+```ts
+type Result14 = string extends String ? 1 : 2; // 1
+type Result15 = String extends {} ? 1 : 2; // 1
+type Result16 = {} extends object ? 1 : 2; // 1
+type Result18 = object extends Object ? 1 : 2; // 1
+```
+
+{} 不是 object 的字面量类型吗？为什么能在这里比较，并且 String 还是它的子类型？    
+
+把 String 看作一个普通的对象，上面存在一些方法，如：   
+
+```ts
+interface String {
+  replace: // ...
+  replaceAll: // ...
+  startsWith: // ...
+  endsWith: // ...
+  includes: // ...
+}
+```
+
+这时是不是能看做 String 继承了 {} 这个空对象，然后自己实现了这些方法？当然可以！    
+
+在结构化类型系统的比较下，String 会被认为是 {} 的子类型。这里从 string < {} < object 看起来构建了一个类型链，但实际上 string extends object 并不成立：   
+
+```ts
+type Tmp = string extends object ? 1 : 2; // 2
+```
+
+由于结构化类型系统这一特性的存在，会得到一些看起来矛盾的结论：   
+
+```ts
+type Result16 = {} extends object ? 1 : 2; // 1
+type Result18 = object extends {} ? 1 : 2; // 1
+
+type Result17 = object extends Object ? 1 : 2; // 1
+type Result20 = Object extends object ? 1 : 2; // 1
+
+type Result19 = Object extends {} ? 1 : 2; // 1
+type Result21 = {} extends Object ? 1 : 2; // 1
+```
+
+16-18 和 19-21 这两对，为什么无论如何判断都成立？难道说明 {} 和 object 类型相等，也和 Object 类型一致？    
+
+当然不，这里的 {} extends 和 extends {} 实际上是两种完全不同的比较方式。   
+
+{} extends object 和 {} extends Object 意味着， {} 是 object 和 Object 的字面量类型，是从类型信息的层面出发的，即字面量类型在基础类型之上提供了更详细的类型信息。    
+
+object extends {} 和 Object extends {} 则是从结构化类型系统的比较出发的，即 {} 作为一个一无所有的空对象，几乎可以被视作是所有类型的基类，万物的起源。    
+
+如果混淆了这两种类型比较的方式，就可能会得到 string extends object 这样的错误结论。
+
+而 object extends Object 和 Object extends object 这两者的情况就要特殊一些，它们是因为“系统设定”的问题，Object 包含了所有除 Top Type 以外的类型（基础类型、函数类型等），object 包含了所有非原始类型的类型，即数组、对象与函数类型，这就导致了你中有我、我中有你的神奇现象。     
+
+由此得出结论：原始类型 < 原始类型对应的装箱类型 < Object 类型。    
+
+### Top Type
+
+类型层级的顶端只有 any 和 unknown 这两兄弟。   
+
+Object 类型自然会是 any 与 unknown 类型的子类型。   
+
+```ts
+type Result22 = Object extends any ? 1 : 2; // 1
+type Result23 = Object extends unknown ? 1 : 2; // 1
+```
+
+但如果把条件类型的两端对调一下呢？   
+
+```ts
+type Result24 = any extends Object ? 1 : 2; // 1 | 2
+type Result25 = unknown extends Object ? 1 : 2; // 2
+```
+
+你会发现，any 竟然调过来，值竟然变成了 1 | 2？  
+
+```ts
+type Result26 = any extends 'linbudu' ? 1 : 2; // 1 | 2
+type Result27 = any extends string ? 1 : 2; // 1 | 2
+type Result28 = any extends {} ? 1 : 2; // 1 | 2
+type Result29 = any extends never ? 1 : 2; // 1 | 2
+```
+
+实际上，还是因为“系统设定”的原因。any 代表了任何可能的类型，当使用 any extends 时，它包含了“让条件成立的一部分”，以及“让条件不成立的一部分”。  
+
+而从实现上说，在 TypeScript 内部代码的条件类型处理中，如果接受判断的是 any，那么会直接返回条件类型结果组成的联合类型。   
+
+因此 any extends string 并不能简单地认为等价于以下条件类型：
+
+```ts
+type Result30 = ("I'm string!" | {}) extends string ? 1 : 2; // 2
+```
+
+这种情况下，由于联合类型的成员并非均是字符串字面量类型，条件显然不成立。   
+
+在赋值给其他类型时，any 来者不拒，而 unknown 则只允许赋值给 unknown 类型和 any 类型，这也是由于“系统设定”的原因，即 any 可以表达为任何类型。   
+
+你需要我赋值给这个变量？那我现在就是这个变量的子类型了，我是不是很乖巧？   
+
+另外，any 类型和 unknown 类型的比较也是互相成立的：   
+
+```ts
+type Result31 = any extends unknown ? 1 : 2;  // 1
+type Result32 = unknown extends any ? 1 : 2;  // 1
+```
+
+虽然还是存在系统设定的部分，但仍然只关注类型信息层面的层级，即结论为：Object < any / unknown。   
+
+### never 类型
+
+never 类型，它代表了“虚无”的类型，一个根本不存在的类型。对于这样的类型，它会是任何类型的子类型，当然也包括字面量类型：    
+
+```ts
+type Result33 = never extends 'linbudu' ? 1 : 2; // 1
+```
+
+但你可能又想到了一些特别的部分，比如 null、undefined、void。
+
+```ts
+type Result34 = undefined extends 'linbudu' ? 1 : 2; // 2
+type Result35 = null extends 'linbudu' ? 1 : 2; // 2
+type Result36 = void extends 'linbudu' ? 1 : 2; // 2
+```
+
+上面三种情况当然不应该成立。在 TypeScript 中，void、undefined、null 都是切实存在、有实际意义的类型，它们和 string、number、object 并没有什么本质区别。
+
+这里得到的结论是，never < 字面量类型。     
+
+现在可以开始组合整个类型层级了。      
+
+### 类型层级链   
+
+```ts
+type TypeChain = never extends 'wangxiaobai'
+  ? 'wangxiaobai' extends 'wangxiaobai' | '18'
+    ? 'wangxiaobai' | '18' extends string
+      ? string extends String
+        ? String extends Object
+          ? Object extends any
+            ? any extends unknown
+              ? unknown extends any
+                ? 8
+                : 7
+              :6
+            :5
+          :4
+        :3
+      :2
+    :1
+  :0
+```
+
+其返回的结果为 8 ，也就意味着所有条件均成立。   
+
+还可以构造出一条更长的类型层级链：   
+
+```ts
+type VerboseTypeChain = never extends 'wangxiaobai'
+  ? 'wangxiaobai' extends 'wangxiaobai' | '18'
+    ? 'wangxiaobai' | '18' extends string
+      ? string extends {}
+        ? string extends String
+          ? String extends {}
+            ? {} extends object
+              ? object extends {}
+                ? {} extends Object
+                  ? Object extends {}
+                    ? object extends Object
+                      ? Object extends object
+                        ? Object extends any
+                          ? Object extends unknown
+                            ? any extends unknown
+                              ? unknown extends any
+                                ? 8
+                                : 7
+                              : 6
+                            : 5
+                          : 4
+                        : 3
+                      : 2
+                    : 1
+                  : 0
+                : -1
+              : -2
+            : -3
+          : -4
+        : -5
+      : -6
+    : -7
+  : -8
+```
+
+结果仍然为 8 。   
+
+### 其他比较场景 
+
+* 对于基类和派生类，通常情况下派生类会完全保留基类的结构，而只是自己新增新的属性与方法。在结构化类型的比较下，其类型自然会存在子类型关系。更不用说派生类本身就是 extends 基类得到的。   
+
+* 联合类型的判断，前面只是判断联合类型的单个成员，那如果是多个成员呢？
+
+```ts
+type Result36 = 1 | 2 | 3 extends 1 | 2 | 3 | 4 ? 1 : 2; // 1
+type Result37 = 2 | 4 extends 1 | 2 | 3 | 4 ? 1 : 2; // 1
+type Result38 = 1 | 2 | 5 extends 1 | 2 | 3 | 4 ? 1 : 2; // 2
+type Result39 = 1 | 5 extends 1 | 2 | 3 | 4 ? 1 : 2; // 2
+```
+
+实际上，对于联合类型地类型层级比较，只需要比较一个联合类型是否可被视为另一个联合类型的子集，即这个联合类型中所有成员在另一个联合类型中都能找到。    
+
+* 数组和元组
+
+数组和元组是一个比较特殊的部分:  
+
+```ts
+type Result40 = [number, number] extends number[] ? 1 : 2; // 1
+type Result41 = [number, string] extends number[] ? 1 : 2; // 2
+type Result42 = [number, string] extends (number | string)[] ? 1 : 2; // 1
+type Result43 = [] extends number[] ? 1 : 2; // 1
+type Result44 = [] extends unknown[] ? 1 : 2; // 1
+type Result45 = number[] extends (number | string)[] ? 1 : 2; // 1
+type Result46 = any[] extends number[] ? 1 : 2; // 1
+type Result47 = unknown[] extends number[] ? 1 : 2; // 2
+type Result48 = never[] extends number[] ? 1 : 2; // 1
+```
+
+1. 40，这个元组类型实际上能确定其内部成员全部为 number 类型，因此是 number[] 的子类型。而 41 中混入了别的类型元素，因此认为不成立。     
+2. 42 混入了别的类型，但其判断条件为 (number | string)[] ，即其成员需要为 number 或 string 类型。     
+3. 43 的成员是未确定的，等价于 never[] extends number[]，44 同理。    
+4. 45类似于41，即可能存在的元素类型是符合要求的。    
+5. 46、47，还记得身化万千的 any 类型和小心谨慎的 unknown 类型嘛？    
+6. 48，类似于 43、44，由于 never 类型本就位于最下方，这里显然成立。只不过 never[] 类型的数组也就无法再填充值了。    
+
+### 总结
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_04.png" alt="" width="600" />  
