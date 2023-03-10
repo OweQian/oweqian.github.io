@@ -11,7 +11,15 @@
 
 #### 03-10
 
-头好痒，要扎辫子了。   
+本周追了我女神的剧 - 《我的大叔》 😌。   
+
+豆瓣评分：9.4。   
+
+几年前追过一次，看了半集就弃剧了。这次想着说什么也要坚持下去，看到第 4 集的时候开始打退堂鼓，一度怀疑是不是粉丝刷分，从第 4 集之后开始变得好看了起来，大中午在办公室看完最后一集开始抹眼泪。   
+
+平淡、平和、平实、平凡，这样一群小人物，被生活的湍流裹挟着，有欢笑、有烦恼、有悲伤...他们没有停下脚步，在挣扎和努力中活出光彩，成为更好的自己。   
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/1mw3u14kROE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 03-09
 
