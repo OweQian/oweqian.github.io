@@ -1,6 +1,7 @@
 ---
 title: "蠢 Q 碎碎念"
 date: 2023-03-09T10:50:47+08:00
+weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
 ---

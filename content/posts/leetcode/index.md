@@ -1,6 +1,7 @@
 ---
 title: "LeetCode Top100 刷题"
 date: 2023-03-07T14:00:47+08:00
+weight: 4
 tags: ["算法"]
 categories: ["算法"]
 ---
