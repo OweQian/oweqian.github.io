@@ -8,7 +8,7 @@
 <meta property="og:description" content="🧠 越来越不好使，刷点算法题提高点智商。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/leetcode/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-03-07T14:00:47+08:00" />
+<meta property="article:published_time" content="2023-03-10T15:10:47+08:00" />
 <meta property="article:modified_time" content="2023-03-10T09:43:13+08:00" /><meta property="og:site_name" content="OweQian" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://oweqian.xyz/logo.png"/>
@@ -18,7 +18,7 @@
 <meta name="application-name" content="OweQian">
 <meta name="apple-mobile-web-app-title" content="OweQian"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/leetcode/" /><link rel="prev" href="http://oweqian.xyz/ssr/" /><link rel="next" href="http://oweqian.xyz/ts/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://oweqian.xyz/leetcode/" /><link rel="prev" href="http://oweqian.xyz/books/" /><link rel="next" href="http://oweqian.xyz/month/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -34,8 +34,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "算法","wordcount":  699 ,
-        "url": "http:\/\/oweqian.xyz\/leetcode\/","datePublished": "2023-03-07T14:00:47+08:00","dateModified": "2023-03-10T09:43:13+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "算法","wordcount":  846 ,
+        "url": "http:\/\/oweqian.xyz\/leetcode\/","datePublished": "2023-03-10T15:10:47+08:00","dateModified": "2023-03-10T09:43:13+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">LeetCode Top100 刷题</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AE%97%E6%B3%95/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-07">2023-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 699 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-10">2023-03-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 846 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -124,6 +124,7 @@
   <ul>
     <li>
       <ul>
+        <li><a href="#二叉树的中序遍历">二叉树的中序遍历</a></li>
         <li><a href="#合并两个有序链表">合并两个有序链表</a></li>
         <li><a href="#有效的括号">有效的括号</a></li>
         <li><a href="#无重复字符的最长子串">无重复字符的最长子串</a></li>
@@ -134,7 +135,66 @@
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>🧠 越来越不好使，刷点算法题提高点智商。</p>
-<h3 id="合并两个有序链表">合并两个有序链表</h3>
+<h3 id="二叉树的中序遍历">二叉树的中序遍历</h3>
+<p><a href="https://leetcode.cn/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
+<p>解题思路：递龟。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Definition for a binary tree node.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * class TreeNode {
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     val: number
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     left: TreeNode | null
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     right: TreeNode | null
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *         this.val = (val===undefined ? 0 : val)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *         this.left = (left===undefined ? null : left)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *         this.right = (right===undefined ? null : right)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     }
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * }
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">inorderTraversal</span> <span class="o">=</span> <span class="p">(</span><span class="nx">root</span>: <span class="kt">TreeNode</span> <span class="o">|</span> <span class="kc">null</span><span class="p">)</span><span class="o">:</span> <span class="kt">number</span><span class="p">[]</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">res</span>: <span class="kt">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">preOrder</span> <span class="o">=</span> <span class="p">(</span><span class="nx">root</span>: <span class="kt">TreeNode</span> <span class="o">|</span> <span class="kc">null</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">preOrder</span><span class="p">(</span><span class="nx">root</span><span class="o">?</span><span class="p">.</span><span class="nx">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">root</span><span class="o">?</span><span class="p">.</span><span class="nx">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">preOrder</span><span class="p">(</span><span class="nx">root</span><span class="o">?</span><span class="p">.</span><span class="nx">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">preOrder</span><span class="p">(</span><span class="nx">root</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="合并两个有序链表">合并两个有序链表</h3>
 <p><a href="https://leetcode.cn/problems/merge-two-sorted-lists/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
 <p>解题思路：创建新结点。</p>
 <div class="highlight"><div class="chroma">
@@ -411,8 +471,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/ssr/" class="prev" rel="prev" title="基于 Nextjs &#43; Strapi 的官网开发实战"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>基于 Nextjs + Strapi 的官网开发实战</a>
-            <a href="/ts/" class="next" rel="next" title="Typescript 使用手册">Typescript 使用手册<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/books/" class="prev" rel="prev" title="那些年读过的书随手记"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>那些年读过的书随手记</a>
+            <a href="/month/" class="next" rel="next" title="蠢 Q 碎碎念">蠢 Q 碎碎念<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"><div id="giscus" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.

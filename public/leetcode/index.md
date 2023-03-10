@@ -5,6 +5,40 @@
 
 <!--more-->
 
+### 二叉树的中序遍历
+
+[题目内容](https://leetcode.cn/problems/binary-tree-inorder-traversal/)
+
+解题思路：递龟。   
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
+
+const inorderTraversal = (root: TreeNode | null): number[] => {
+    let res: number[] = [];
+    const preOrder = (root: TreeNode | null): void => {
+        if (!root) return;
+        preOrder(root?.left);
+        res.push(root?.val);
+        preOrder(root?.right);
+    } 
+    preOrder(root);
+    return res;
+};
+```
+
 ### 合并两个有序链表
 
 [题目内容](https://leetcode.cn/problems/merge-two-sorted-lists/)

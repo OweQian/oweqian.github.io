@@ -1,7 +1,7 @@
 ---
 title: "LeetCode Top100 刷题"
-date: 2023-03-07T14:00:47+08:00
-weight: 4
+date: 2023-03-10T15:10:47+08:00
+weight: 3
 tags: ["算法"]
 categories: ["算法"]
 ---
@@ -9,6 +9,40 @@ categories: ["算法"]
 🧠 越来越不好使，刷点算法题提高点智商。   
 
 <!--more-->
+
+### 二叉树的中序遍历
+
+[题目内容](https://leetcode.cn/problems/binary-tree-inorder-traversal/)
+
+解题思路：递龟。   
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
+
+const inorderTraversal = (root: TreeNode | null): number[] => {
+    let res: number[] = [];
+    const preOrder = (root: TreeNode | null): void => {
+        if (!root) return;
+        preOrder(root?.left);
+        res.push(root?.val);
+        preOrder(root?.right);
+    } 
+    preOrder(root);
+    return res;
+};
+```
 
 ### 合并两个有序链表
 
