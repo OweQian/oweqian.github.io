@@ -9,7 +9,7 @@
 
 [题目内容](https://leetcode.cn/problems/binary-tree-inorder-traversal/)
 
-解题思路：递龟。   
+解题思路：递 🐢。   
 
 ```ts
 /**
@@ -139,7 +139,7 @@ const lengthOfLongestSubstring = (s: string): number => {
 
 [题目内容](https://leetcode.cn/problems/add-two-numbers/)  
 
-解题思路：递龟。       
+解题思路：递 🐢。       
 
 ```ts
 /**

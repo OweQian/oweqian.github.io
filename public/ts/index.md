@@ -2730,7 +2730,7 @@ type Result25 = unknown extends Object ? 1 : 2; // 2
 你会发现，any 竟然调过来，值竟然变成了 1 | 2？  
 
 ```ts
-type Result26 = any extends 'linbudu' ? 1 : 2; // 1 | 2
+type Result26 = any extends ''wangxiaobai'' ? 1 : 2; // 1 | 2
 type Result27 = any extends string ? 1 : 2; // 1 | 2
 type Result28 = any extends {} ? 1 : 2; // 1 | 2
 type Result29 = any extends never ? 1 : 2; // 1 | 2
@@ -2766,15 +2766,15 @@ type Result32 = unknown extends any ? 1 : 2;  // 1
 never 类型，它代表了“虚无”的类型，一个根本不存在的类型。对于这样的类型，它会是任何类型的子类型，当然也包括字面量类型：    
 
 ```ts
-type Result33 = never extends 'linbudu' ? 1 : 2; // 1
+type Result33 = never extends ''wangxiaobai'' ? 1 : 2; // 1
 ```
 
 但你可能又想到了一些特别的部分，比如 null、undefined、void。
 
 ```ts
-type Result34 = undefined extends 'linbudu' ? 1 : 2; // 2
-type Result35 = null extends 'linbudu' ? 1 : 2; // 2
-type Result36 = void extends 'linbudu' ? 1 : 2; // 2
+type Result34 = undefined extends ''wangxiaobai'' ? 1 : 2; // 2
+type Result35 = null extends ''wangxiaobai'' ? 1 : 2; // 2
+type Result36 = void extends ''wangxiaobai'' ? 1 : 2; // 2
 ```
 
 上面三种情况当然不应该成立。在 TypeScript 中，void、undefined、null 都是切实存在、有实际意义的类型，它们和 string、number、object 并没有什么本质区别。
@@ -2888,3 +2888,110 @@ type Result48 = never[] extends number[] ? 1 : 2; // 1
 ### 总结
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_04.png" alt="" width="600" />  
+
+## 类型逻辑运算
+
+### 条件类型
+
+条件类型的语法类似于常用的三元表达式，它的基本语法如下：  
+
+```
+ValueA === ValueB ? Result1 : Result2;
+TypeA extends TypeB ? Result1 : Result2;
+```
+
+条件类型中使用 extends 判断类型的兼容性，而非判断类型的全等性，在类型层面中，对于能够进行赋值操作的两个变量并不需要它们的类型完全相等，只需要具有兼容性，而两个完全相同的类型，其 extends 自然也是成立的。   
+
+条件类型绝大部分场景下会和泛型一起使用，泛型参数的实际类型会在实际调用时才被填充，而条件类型在这一基础上，可以基于填充后的泛型参数做进一步的类型操作：   
+
+```ts
+type LiteralType<T> = T extends string ? 'string' : 'other';
+
+type Res1 = LiteralType<'wangxiaobai'>; // 'string'
+type Res2 = LiteralType<18>; // 'other'
+```
+
+同三元表达式可以嵌套一样，条件类型中也常见多层嵌套：   
+
+```ts
+export type LiteralType<T> = T extends string
+	? 'string'
+	: T extends number
+	? 'number'
+	: T extends boolean
+	? 'boolean'
+	: T extends null
+	? 'null'
+	: T extends undefined
+	? 'undefined'
+	: never;
+
+type Res1 = LiteralType<'wangxiaobai'>; // 'string'
+type Res2 = LiteralType<18>; // 'number'
+type Res3 = LiteralType<true>; // 'boolean'
+```
+
+在函数中，条件类型与泛型的搭配同样常见：   
+
+```ts
+function universalAdd<T extends number | bigint | string>(x: T, y: T) {
+    return x + (y as any);
+}
+```
+
+当调用这个函数时，由于两个参数都引用了泛型参数 T ，因此泛型会被填充为一个联合类型：   
+
+```ts
+universalAdd(18, 1); // T 填充为 18 | 1
+universalAdd('wangxiaobai', '18'); // T 填充为 'wangxiaobai' | 18
+```
+
+此时的返回值类型就需要从这个字面量联合类型中推导回其原本的基础类型。   
+
+同一基础类型的字面量联合类型可以被认为是此基础类型的子类型，即 18 | 1 是 number 的子类型。   
+
+因此可以使用嵌套条件类型来进行字面量类型到基础类型地提取：   
+
+```ts
+function universalAdd<T extends number | bigint | string>(
+	x: T,
+	y: T
+): LiteralToPrimitive<T> {
+	return x + (y as any);
+}
+
+export type LiteralToPrimitive<T> = T extends number
+	? number
+	: T extends bigint
+	? bigint
+	: T extends string
+	? string
+	: never;
+
+universalAdd('wangxiaobai', '18'); // string
+universalAdd(18, 1); // number
+universalAdd(10n, 10n); // bigint
+```
+
+条件类型还可以用来对更复杂的类型进行比较，比如函数类型：   
+
+```ts
+type Func = (...args: any[]) => any;
+
+type FunctionConditionType<T extends Func> = T extends (
+  ...args: any[]
+) => string
+  ? 'A string return func!'
+  : 'A non-string return func!';
+
+//  "A string return func!"
+type StringResult = FunctionConditionType<() => string>;
+// 'A non-string return func!';
+type NonStringResult1 = FunctionConditionType<() => boolean>;
+```
+
+条件类型用于判断两个函数类型是否具有兼容性，而条件中并不限制参数类型，仅比较二者的返回值类型。    
+
+泛型约束要求传入符合结构的类型参数，相当于参数校验。而条件类型使用类型参数进行条件判断，相当于实际内部逻辑。    
+
+

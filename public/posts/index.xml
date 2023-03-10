@@ -21,20 +21,20 @@
     <description><![CDATA[<p>🧠 越来越不好使，刷点算法题提高点智商。</p>]]></description>
 </item>
 <item>
+    <title>Typescript 使用手册</title>
+    <link>http://oweqian.xyz/ts/</link>
+    <pubDate>Fri, 10 Mar 2023 11:00:47 &#43;0800</pubDate>
+    <author>OweQian</author>
+    <guid>http://oweqian.xyz/ts/</guid>
+    <description><![CDATA[<p>项目地址： <a href="https://github.com/OweQian/TSHandbook.git" target="_blank" rel="noopener noreffer ">TSHandbook</a></p>]]></description>
+</item>
+<item>
     <title>那些年读过的书随手记</title>
     <link>http://oweqian.xyz/books/</link>
     <pubDate>Fri, 10 Mar 2023 09:10:38 &#43;0800</pubDate>
     <author>OweQian</author>
     <guid>http://oweqian.xyz/books/</guid>
     <description><![CDATA[<p>🧐 我们因为无知而读书，读书又让我们真正地承认自己的无知与浅薄。拒绝读书当然是一种愚蠢，但是因为读书而滋生出骄傲与傲慢是一种更大的愚蠢。</p>]]></description>
-</item>
-<item>
-    <title>Typescript 使用手册</title>
-    <link>http://oweqian.xyz/ts/</link>
-    <pubDate>Thu, 09 Mar 2023 11:00:47 &#43;0800</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/ts/</guid>
-    <description><![CDATA[<p>项目地址： <a href="https://github.com/OweQian/TSHandbook.git" target="_blank" rel="noopener noreffer ">TSHandbook</a></p>]]></description>
 </item>
 <item>
     <title>基于 Nextjs &#43; Strapi 的官网开发实战</title>
