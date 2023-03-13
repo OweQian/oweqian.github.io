@@ -1,6 +1,6 @@
 ---
 title: "蠢 Q 碎碎念"
-date: 2023-03-10T13:50:47+08:00
+date: 2023-03-13T13:52:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,24 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-03
+
+#### 03-13
+
+第 95 届奥斯卡最佳记录短片 --- 小象守护者 The Elephant Whisperers（2022）   
+
+<iframe width="600" height="315" src="//player.bilibili.com/player.html?aid=734364386&bvid=BV1pD4y1j7ay&cid=939003531&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>   
+
+#### 03-12
+
+用 AI 生成梦幻房间，[roomGPT.io](https://www.roomgpt.io/dream)
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_31.png" alt="" width="600" />  
+
+#### 03-11
+
+喜欢听歌的原因找到了。       
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_30.jpg" alt="" width="600" />  
 
 #### 03-10
 

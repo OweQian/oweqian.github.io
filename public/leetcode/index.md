@@ -5,6 +5,37 @@
 
 <!--more-->
 
+### 对称二叉树
+
+[题目内容](https://leetcode.cn/problems/symmetric-tree/)
+
+解题思路：递龟。
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
+
+function isSymmetric(root: TreeNode | null): boolean {
+    const check = (p: TreeNode | null, q: TreeNode | null): boolean => {
+        if (!p && !q) return true;
+        if (!p || !q) return false;
+        return p.val === q.val && check(p.left, q.right) && check(p.right, q.left);
+    }
+    return check(root, root);
+};
+```
+
 ### 二叉树的中序遍历
 
 [题目内容](https://leetcode.cn/problems/binary-tree-inorder-traversal/)
