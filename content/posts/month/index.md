@@ -1,6 +1,6 @@
 ---
 title: "蠢 Q 碎碎念"
-date: 2023-03-13T13:52:47+08:00
+date: 2023-03-14T15:45:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,14 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-03
+
+#### 03-14
+
+饼师傅开始工作啦 😌。   
+
+<video width="600" height="315" controls>
+  <source src="/images/ssr/cat02.mp4" type="video/mp4">
+</video>
 
 #### 03-13
 
@@ -46,7 +54,7 @@ categories: ["碎碎念"]
 
 #### 03-09
 
-果真是梦，哈哈哈 😌。   
+果真是梦，哈哈哈 😌。       
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_29.png" alt="" width="600" />  
 
