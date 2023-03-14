@@ -1,7 +1,7 @@
 ---
 title: "Typescript 使用手册"
 date: 2023-03-09T11:00:47+08:00
-weight: 4
+weight: 3
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---

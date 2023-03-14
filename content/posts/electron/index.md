@@ -1,7 +1,7 @@
 ---
 title: "基于 Electron + Vue3 的桌面应用开发实战"
 date: 2023-02-07T10:20:47+08:00
-weight: 6
+weight: 7
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---

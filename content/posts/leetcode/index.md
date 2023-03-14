@@ -1,7 +1,7 @@
 ---
 title: "LeetCode Top100 刷题"
-date: 2023-03-13T13:50:47+08:00
-weight: 3
+date: 2023-03-14T15:00:47+08:00
+weight: 2
 tags: ["算法"]
 categories: ["算法"]
 ---
@@ -9,6 +9,35 @@ categories: ["算法"]
 🧠 越来越不好使，刷点算法题提高点智商。   
 
 <!--more-->
+
+### 二叉树的最大深度
+
+[题目内容](https://leetcode.cn/problems/maximum-depth-of-binary-tree/)
+
+解题思路：dfs + 递龟。  
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
+
+const maxDepth = (root: TreeNode | null): number => {
+    if (root === null) return 0;
+    let leftDepth = maxDepth(root?.left);
+    let rightDepth = maxDepth(root?.right);
+    return Math.max(leftDepth, rightDepth) + 1;
+};
+```
 
 ### 对称二叉树
 
@@ -31,7 +60,7 @@ categories: ["算法"]
  * }
  */
 
-function isSymmetric(root: TreeNode | null): boolean {
+const isSymmetric = (root: TreeNode | null): boolean => {
     const check = (p: TreeNode | null, q: TreeNode | null): boolean => {
         if (!p && !q) return true;
         if (!p || !q) return false;
