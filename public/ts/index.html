@@ -8,7 +8,7 @@
 <meta property="og:description" content="项目地址： TSHandbook" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/ts/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-03-09T11:00:47+08:00" />
+<meta property="article:published_time" content="2023-03-14T19:30:47+08:00" />
 <meta property="article:modified_time" content="2023-03-14T15:35:03+08:00" /><meta property="og:site_name" content="OweQian" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://oweqian.xyz/logo.png"/>
@@ -34,8 +34,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "第一技能","wordcount":  24878 ,
-        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-03-09T11:00:47+08:00","dateModified": "2023-03-14T15:35:03+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "第一技能","wordcount":  26942 ,
+        "url": "http:\/\/oweqian.xyz\/ts\/","datePublished": "2023-03-14T19:30:47+08:00","dateModified": "2023-03-14T15:35:03+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Typescript 使用手册</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>第一技能</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-09">2023-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 24878 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 50 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-14">2023-03-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 26942 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 54 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -245,6 +245,12 @@
         <li><a href="#类型层级链">类型层级链</a></li>
         <li><a href="#其他比较场景">其他比较场景</a></li>
         <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#类型逻辑运算">类型逻辑运算</a>
+      <ul>
+        <li><a href="#条件类型基础">条件类型基础</a></li>
+        <li><a href="#infer-关键字">infer 关键字</a></li>
       </ul>
     </li>
   </ul>
@@ -4404,7 +4410,7 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result26</span> <span class="o">=</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="s1">&#39;linbudu&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1 | 2
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result26</span> <span class="o">=</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1 | 2
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result27</span> <span class="o">=</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="kt">string</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1 | 2
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result28</span> <span class="o">=</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="p">{}</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1 | 2
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result29</span> <span class="o">=</span> <span class="kt">any</span> <span class="kr">extends</span> <span class="kt">never</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1 | 2
@@ -4443,7 +4449,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result33</span> <span class="o">=</span> <span class="kt">never</span> <span class="kr">extends</span> <span class="s1">&#39;linbudu&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result33</span> <span class="o">=</span> <span class="kt">never</span> <span class="kr">extends</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 1
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>但你可能又想到了一些特别的部分，比如 null、undefined、void。</p>
@@ -4454,9 +4460,9 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result34</span> <span class="o">=</span> <span class="kc">undefined</span> <span class="kr">extends</span> <span class="s1">&#39;linbudu&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result35</span> <span class="o">=</span> <span class="kc">null</span> <span class="kr">extends</span> <span class="s1">&#39;linbudu&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result36</span> <span class="o">=</span> <span class="k">void</span> <span class="kr">extends</span> <span class="s1">&#39;linbudu&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Result34</span> <span class="o">=</span> <span class="kc">undefined</span> <span class="kr">extends</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result35</span> <span class="o">=</span> <span class="kc">null</span> <span class="kr">extends</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Result36</span> <span class="o">=</span> <span class="k">void</span> <span class="kr">extends</span> <span class="s1">&#39;wangxiaobai&#39;</span> <span class="o">?</span> <span class="nx">1</span> : <span class="kt">2</span><span class="p">;</span> <span class="c1">// 2
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面三种情况当然不应该成立。在 TypeScript 中，void、undefined、null 都是切实存在、有实际意义的类型，它们和 string、number、object 并没有什么本质区别。</p>
@@ -4639,7 +4645,401 @@
 <li>48，类似于 43、44，由于 never 类型本就位于最下方，这里显然成立。只不过 never[] 类型的数组也就无法再填充值了。</li>
 </ol>
 <h3 id="总结">总结</h3>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_04.png" alt="" width="600" /></div><div class="post-footer" id="post-footer">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_04.png" alt="" width="600" />  
+<h2 id="类型逻辑运算">类型逻辑运算</h2>
+<h3 id="条件类型基础">条件类型基础</h3>
+<p>条件类型的语法类似于平时常用的三元表达式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ValueA === ValueB ? Result1 : Result2;
+</span></span><span class="line"><span class="cl">TypeA extends TypeB ? Result1 : Result2;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>条件类型中使用 extends 判断类型的兼容性，而非判断类型的全等性。在类型层面中，对于能够进行赋值操作的两个变量，并不需要它们的类型完全相等，只需要具有兼容性，而两个完全相同的类型，其 extends 自然也是成立的。</p>
+<p>条件类型绝大部分场景下会和泛型一起使用，泛型参数的实际类型会在实际调用时才被填充，而条件类型在这一基础上，可以基于填充后的泛型参数做进一步的类型操作。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">LiteralType</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="kt">string</span> <span class="o">?</span> <span class="s1">&#39;string&#39;</span> <span class="o">:</span> <span class="s1">&#39;other&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Res1</span> <span class="o">=</span> <span class="nx">LiteralType</span><span class="o">&lt;</span><span class="s1">&#39;wangxiaobai&#39;</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// &#34;string&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Res2</span> <span class="o">=</span> <span class="nx">LiteralType</span><span class="p">&lt;</span><span class="nt">18</span><span class="p">&gt;;</span> <span class="c1">// &#34;other&#34;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>条件类型中也常见多层嵌套，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">LiteralType</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="o">?</span> <span class="s1">&#39;string&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">:</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">	<span class="o">?</span> <span class="s1">&#39;number&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">:</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="kr">boolean</span>
+</span></span><span class="line"><span class="cl">	<span class="o">?</span> <span class="s1">&#39;boolean&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">:</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">	<span class="o">?</span> <span class="s1">&#39;null&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">:</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="kc">undefined</span>
+</span></span><span class="line"><span class="cl">	<span class="o">?</span> <span class="s1">&#39;undefined&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">:</span> <span class="kt">never</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Res1</span> <span class="o">=</span> <span class="nx">LiteralType</span><span class="o">&lt;</span><span class="s1">&#39;wangxiaobai&#39;</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// &#34;string&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Res2</span> <span class="o">=</span> <span class="nx">LiteralType</span><span class="p">&lt;</span><span class="nt">18</span><span class="p">&gt;;</span> <span class="c1">// &#34;number&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Res3</span> <span class="o">=</span> <span class="nx">LiteralType</span><span class="p">&lt;</span><span class="nt">true</span><span class="p">&gt;;</span> <span class="c1">// &#34;boolean&#34;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在函数中，条件类型与泛型的搭配同样很常见。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">universalAdd</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">number</span> <span class="err">|</span> <span class="na">bigint</span> <span class="err">|</span> <span class="na">string</span><span class="p">&gt;(</span><span class="nx">x</span>: <span class="kt">T</span><span class="p">,</span> <span class="nx">y</span>: <span class="kt">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="p">(</span><span class="nx">y</span> <span class="kr">as</span> <span class="kt">any</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当调用这个函数时，由于两个参数都引用了泛型参数 T ，因此泛型会被填充为一个联合类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="nx">universalAdd</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// T 填充为 18 | 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">universalAdd</span><span class="p">(</span><span class="s1">&#39;wangxiaobai&#39;</span><span class="p">,</span> <span class="s1">&#39;18&#39;</span><span class="p">);</span> <span class="c1">// T 填充为 &#39;wangxiaobai&#39; | &#39;18&#39;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时的返回值类型就需要从这个字面量联合类型中推导回其原本的基础类型。</p>
+<p>同一基础类型的字面量联合类型可以被认为是此基础类型的子类型，即 18 | 1 是 number 的子类型。</p>
+<p>因此可以使用嵌套的条件类型来进行字面量类型到基础类型地提取：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">universalAdd</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">number</span> <span class="err">|</span> <span class="na">bigint</span> <span class="err">|</span> <span class="na">string</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">x</span>: <span class="kt">T</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">y</span>: <span class="kt">T</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="nx">LiteralToPrimitive</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="p">(</span><span class="nx">y</span> <span class="kr">as</span> <span class="kt">any</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">LiteralToPrimitive</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">	<span class="o">?</span> <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">	<span class="o">:</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="kt">bigint</span>
+</span></span><span class="line"><span class="cl">	<span class="o">?</span> <span class="kt">bigint</span>
+</span></span><span class="line"><span class="cl">	<span class="o">:</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="o">?</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="o">:</span> <span class="kt">never</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">universalAdd</span><span class="p">(</span><span class="s1">&#39;wangxiaobai&#39;</span><span class="p">,</span> <span class="s1">&#39;18&#39;</span><span class="p">);</span> <span class="c1">// string
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">universalAdd</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// number
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">universalAdd</span><span class="p">(</span><span class="mi">10</span><span class="nx">n</span><span class="p">,</span> <span class="mi">10</span><span class="nx">n</span><span class="p">);</span> <span class="c1">// bigint
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>条件类型还可以用来对更复杂的类型进行比较，比如函数类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Func</span> <span class="o">=</span> <span class="p">(...</span><span class="nx">args</span>: <span class="kt">any</span><span class="p">[])</span> <span class="o">=&gt;</span> <span class="kt">any</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">FunctionConditionType</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">Func</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span><span class="nx">args</span>: <span class="kt">any</span><span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">=&gt;</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="o">?</span> <span class="s1">&#39;A string return func!&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">:</span> <span class="s1">&#39;A non-string return func!&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//  &#34;A string return func!&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">StringResult</span> <span class="o">=</span> <span class="nx">FunctionConditionType</span><span class="o">&lt;</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="kt">string</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// &#39;A non-string return func!&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">NonStringResult1</span> <span class="o">=</span> <span class="nx">FunctionConditionType</span><span class="o">&lt;</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">boolean</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// &#39;A non-string return func!&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">NonStringResult2</span> <span class="o">=</span> <span class="nx">FunctionConditionType</span><span class="o">&lt;</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="kt">number</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>条件类型用于判断两个函数类型是否具有兼容性，而条件中并不限制参数类型，仅比较二者的返回值类型。</p>
+<h3 id="infer-关键字">infer 关键字</h3>
+<p>在上面的例子中，假如不再比较填充的函数类型是否是 (&hellip;args: any[]) =&gt; string 的子类型，而是要拿到其返回值类型呢？</p>
+<p>TypeScript 中支持通过 infer 关键字来在条件类型中提取类型的某一部分信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">FunctionReturnType</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">Func</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span><span class="nx">args</span>: <span class="kt">any</span><span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">infer</span> <span class="nx">R</span>
+</span></span><span class="line"><span class="cl">  <span class="o">?</span> <span class="nx">R</span>
+</span></span><span class="line"><span class="cl">  : <span class="kt">never</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的代码表达了当传入的类型参数满足 T extends (&hellip;args: any[] ) =&gt; infer R 这样一个结构，返回 infer R 位置的值，即 R。否则，返回 never。</p>
+<p>infer 是 inference 的缩写，意为推断，如 infer R 中 R 就表示 待推断的类型。</p>
+<p>infer 只能在条件类型中使用。</p>
+<p>这里的类型结构并不局限于函数类型结构，还可以是数组：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Swap</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">any</span><span class="err">[]</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="p">[</span><span class="k">infer</span> <span class="nx">A</span><span class="p">,</span> <span class="k">infer</span> <span class="nx">B</span><span class="p">]</span> <span class="o">?</span> <span class="p">[</span><span class="nx">B</span><span class="p">,</span> <span class="nx">A</span><span class="p">]</span> <span class="o">:</span> <span class="nx">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">SwapResult1</span> <span class="o">=</span> <span class="nx">Swap</span><span class="o">&lt;</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// 符合元组结构，首尾元素替换[2, 1]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">SwapResult2</span> <span class="o">=</span> <span class="nx">Swap</span><span class="o">&lt;</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// 不符合结构，没有发生替换，仍是 [1, 2, 3]
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于声明的结构是一个仅有两个元素的元组，因此三个元素的元组就被认为是不符合类型结构了。但可以使用 rest 操作符来处理任意长度的情况：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="c1">// 提取首尾两个
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">ExtractStartAndEnd</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">any</span><span class="err">[]</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="k">infer</span> <span class="nx">Start</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span><span class="kt">any</span><span class="p">[],</span>
+</span></span><span class="line"><span class="cl">  <span class="k">infer</span> <span class="nx">End</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="o">?</span> <span class="p">[</span><span class="nx">Start</span><span class="p">,</span> <span class="nx">End</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="o">:</span> <span class="nx">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 调换首尾两个
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">SwapStartAndEnd</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">any</span><span class="err">[]</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="k">infer</span> <span class="nx">Start</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span><span class="k">infer</span> <span class="nx">Left</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="k">infer</span> <span class="nx">End</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="o">?</span> <span class="p">[</span><span class="nx">End</span><span class="p">,</span> <span class="p">...</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">Start</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="o">:</span> <span class="nx">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 调换开头两个
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">SwapFirstTwo</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">any</span><span class="err">[]</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="k">infer</span> <span class="nx">Start1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="k">infer</span> <span class="nx">Start2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span><span class="k">infer</span> <span class="nx">Left</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="o">?</span> <span class="p">[</span><span class="nx">Start2</span><span class="p">,</span> <span class="nx">Start1</span><span class="p">,</span> <span class="p">...</span><span class="nx">Left</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="o">:</span> <span class="nx">T</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>infer 甚至可以和 rest 操作符一样同时提取一组不定长的类型，而 &hellip;any[] 的用法是否也让你直呼神奇？</p>
+<p>上面的输入输出仍然都是数组，而实际上完全可以进行结构层面的转换。比如从数组到联合类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">ArrayItemType</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="nb">Array</span><span class="p">&lt;</span><span class="nt">infer</span> <span class="na">ElementType</span><span class="p">&gt;</span> <span class="o">?</span> <span class="nx">ElementType</span> : <span class="kt">never</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">ArrayItemTypeResult1</span> <span class="o">=</span> <span class="nx">ArrayItemType</span><span class="o">&lt;</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// never
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">ArrayItemTypeResult2</span> <span class="o">=</span> <span class="nx">ArrayItemType</span><span class="p">&lt;</span><span class="nt">string</span><span class="err">[]</span><span class="p">&gt;;</span> <span class="c1">// string
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">ArrayItemTypeResult3</span> <span class="o">=</span> <span class="nx">ArrayItemType</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">string</span><span class="p">,</span> <span class="kt">number</span><span class="p">]</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// string | number
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>原理即是这里的 [string, number] 实际上等价于 (string | number)[]。</p>
+<p>除了数组，infer 结构也可以是接口：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="c1">// 提取对象的属性类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">PropType</span><span class="p">&lt;</span><span class="nt">T</span><span class="err">,</span> <span class="na">K</span> <span class="na">extends</span> <span class="na">keyof</span> <span class="na">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="p">{</span> <span class="p">[</span><span class="nx">Key</span> <span class="k">in</span> <span class="nx">K</span><span class="p">]</span><span class="o">:</span> <span class="k">infer</span> <span class="nx">R</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">?</span> <span class="nx">R</span>
+</span></span><span class="line"><span class="cl">  : <span class="kt">never</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PropTypeResult1</span> <span class="o">=</span> <span class="nx">PropType</span><span class="o">&lt;</span><span class="p">{</span> <span class="nx">name</span>: <span class="kt">string</span> <span class="p">},</span> <span class="s1">&#39;name&#39;</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// string
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">PropTypeResult2</span> <span class="o">=</span> <span class="nx">PropType</span><span class="o">&lt;</span><span class="p">{</span> <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span> <span class="nx">age</span>: <span class="kt">number</span> <span class="p">},</span> <span class="s1">&#39;name&#39;</span> <span class="o">|</span> <span class="s1">&#39;age&#39;</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// string | number
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 反转键名与键值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">ReverseKeyValue</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">Record</span><span class="err">&lt;</span><span class="na">string</span><span class="err">,</span> <span class="na">unknown</span><span class="p">&gt;</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="nx">Record</span><span class="p">&lt;</span><span class="nt">infer</span> <span class="na">K</span><span class="err">,</span> <span class="na">infer</span> <span class="na">V</span><span class="p">&gt;</span> <span class="o">?</span> <span class="nx">Record</span><span class="p">&lt;</span><span class="nt">V</span> <span class="err">&amp;</span> <span class="na">string</span><span class="err">,</span> <span class="na">K</span><span class="p">&gt;</span> <span class="o">:</span> <span class="kt">never</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">ReverseKeyValueResult1</span> <span class="o">=</span> <span class="nx">ReverseKeyValue</span><span class="o">&lt;</span><span class="p">{</span> <span class="s1">&#39;key&#39;</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// { &#34;value&#34;: &#34;key&#34; }
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>为了体现 infer 作为类型工具的属性，结合了索引类型与映射类型，以及使用 &amp; string 来确保属性名为 string 类型的小技巧。</p>
+<p>为什么需要这个小技巧，如果不使用又会有什么问题呢？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="c1">// 类型“V”不满足约束“string | number | symbol”。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">ReverseKeyValue</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">Record</span><span class="err">&lt;</span><span class="na">string</span><span class="err">,</span> <span class="na">string</span><span class="p">&gt;</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="nx">Record</span><span class="o">&lt;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">infer</span> <span class="nx">K</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="k">infer</span> <span class="nx">V</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">?</span> <span class="nx">Record</span><span class="p">&lt;</span><span class="nt">V</span><span class="err">,</span> <span class="na">K</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">:</span> <span class="kt">never</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>明明约束已经声明了 V 的类型是 string，为什么还是报错了？</p>
+<p>这是因为泛型参数 V 的来源是从键值类型推导出来的，TypeScript 中这样对键值类型进行 infer 推导，将导致类型信息丢失，而不满足索引签名类型只允许 string | number | symbol 的要求。</p>
+<p>这里需要同时满足其两端的类型，使用 V &amp; string 这一形式，就确保了最终符合条件的类型参数 V 一定会满足 string | never 这个类型，因此可以被视为合法的索引签名类型。</p>
+<p>infer 结构还可以是 Promise 结构。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PromiseValue</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">infer</span> <span class="na">V</span><span class="p">&gt;</span> <span class="o">?</span> <span class="nx">V</span> : <span class="kt">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PromiseValueResult1</span> <span class="o">=</span> <span class="nx">PromiseValue</span><span class="p">&lt;</span><span class="nt">Promise</span><span class="err">&lt;</span><span class="na">number</span><span class="p">&gt;</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// number
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">PromiseValueResult2</span> <span class="o">=</span> <span class="nx">PromiseValue</span><span class="p">&lt;</span><span class="nt">number</span><span class="p">&gt;;</span> <span class="c1">// number，但并没有发生提取
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>像条件类型可以嵌套一样，infer 关键字也经常被使用在嵌套的场景中，包括对类型结构深层信息地提取，以及对提取到类型信息的筛选等。</p>
+<p>比如上面的 PromiseValue，如果传入了一个嵌套的 Promise 类型就失效了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PromiseValueResult3</span> <span class="o">=</span> <span class="nx">PromiseValue</span><span class="p">&lt;</span><span class="nt">Promise</span><span class="err">&lt;</span><span class="na">Promise</span><span class="err">&lt;</span><span class="na">boolean</span><span class="p">&gt;</span><span class="o">&gt;&gt;</span><span class="p">;</span> <span class="c1">// Promise&lt;boolean&gt;，只提取了一层
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这时就需要进行嵌套地提取了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PromiseValue</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">infer</span> <span class="na">V</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">?</span> <span class="nx">V</span> <span class="kr">extends</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">infer</span> <span class="na">N</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">?</span> <span class="nx">N</span>
+</span></span><span class="line"><span class="cl">    : <span class="kt">V</span>
+</span></span><span class="line"><span class="cl">  <span class="o">:</span> <span class="nx">T</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>也可以使用递归来处理任意嵌套深度：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PromiseValue</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">T</span> <span class="kr">extends</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">infer</span> <span class="na">V</span><span class="p">&gt;</span> <span class="o">?</span> <span class="nx">PromiseValue</span><span class="p">&lt;</span><span class="nt">V</span><span class="p">&gt;</span> <span class="o">:</span> <span class="nx">T</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

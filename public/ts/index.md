@@ -2730,7 +2730,7 @@ type Result25 = unknown extends Object ? 1 : 2; // 2
 你会发现，any 竟然调过来，值竟然变成了 1 | 2？  
 
 ```ts
-type Result26 = any extends 'linbudu' ? 1 : 2; // 1 | 2
+type Result26 = any extends 'wangxiaobai' ? 1 : 2; // 1 | 2
 type Result27 = any extends string ? 1 : 2; // 1 | 2
 type Result28 = any extends {} ? 1 : 2; // 1 | 2
 type Result29 = any extends never ? 1 : 2; // 1 | 2
@@ -2766,15 +2766,15 @@ type Result32 = unknown extends any ? 1 : 2;  // 1
 never 类型，它代表了“虚无”的类型，一个根本不存在的类型。对于这样的类型，它会是任何类型的子类型，当然也包括字面量类型：    
 
 ```ts
-type Result33 = never extends 'linbudu' ? 1 : 2; // 1
+type Result33 = never extends 'wangxiaobai' ? 1 : 2; // 1
 ```
 
 但你可能又想到了一些特别的部分，比如 null、undefined、void。
 
 ```ts
-type Result34 = undefined extends 'linbudu' ? 1 : 2; // 2
-type Result35 = null extends 'linbudu' ? 1 : 2; // 2
-type Result36 = void extends 'linbudu' ? 1 : 2; // 2
+type Result34 = undefined extends 'wangxiaobai' ? 1 : 2; // 2
+type Result35 = null extends 'wangxiaobai' ? 1 : 2; // 2
+type Result36 = void extends 'wangxiaobai' ? 1 : 2; // 2
 ```
 
 上面三种情况当然不应该成立。在 TypeScript 中，void、undefined、null 都是切实存在、有实际意义的类型，它们和 string、number、object 并没有什么本质区别。
@@ -2888,3 +2888,253 @@ type Result48 = never[] extends number[] ? 1 : 2; // 1
 ### 总结
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_04.png" alt="" width="600" />  
+
+## 类型逻辑运算
+
+### 条件类型基础
+
+条件类型的语法类似于平时常用的三元表达式：   
+
+```
+ValueA === ValueB ? Result1 : Result2;
+TypeA extends TypeB ? Result1 : Result2;
+```
+
+条件类型中使用 extends 判断类型的兼容性，而非判断类型的全等性。在类型层面中，对于能够进行赋值操作的两个变量，并不需要它们的类型完全相等，只需要具有兼容性，而两个完全相同的类型，其 extends 自然也是成立的。    
+
+条件类型绝大部分场景下会和泛型一起使用，泛型参数的实际类型会在实际调用时才被填充，而条件类型在这一基础上，可以基于填充后的泛型参数做进一步的类型操作。    
+
+```ts
+type LiteralType<T> = T extends string ? 'string' : 'other';
+
+type Res1 = LiteralType<'wangxiaobai'>; // "string"
+type Res2 = LiteralType<18>; // "other"
+```
+
+条件类型中也常见多层嵌套，如：  
+
+```ts
+export type LiteralType<T> = T extends string
+	? 'string'
+	: T extends number
+	? 'number'
+	: T extends boolean
+	? 'boolean'
+	: T extends null
+	? 'null'
+	: T extends undefined
+	? 'undefined'
+	: never;
+
+type Res1 = LiteralType<'wangxiaobai'>; // "string"
+type Res2 = LiteralType<18>; // "number"
+type Res3 = LiteralType<true>; // "boolean"
+```
+
+在函数中，条件类型与泛型的搭配同样很常见。   
+
+```ts
+function universalAdd<T extends number | bigint | string>(x: T, y: T) {
+    return x + (y as any);
+}
+```
+
+当调用这个函数时，由于两个参数都引用了泛型参数 T ，因此泛型会被填充为一个联合类型：   
+
+```ts
+universalAdd(18, 1); // T 填充为 18 | 1
+universalAdd('wangxiaobai', '18'); // T 填充为 'wangxiaobai' | '18'
+```
+
+此时的返回值类型就需要从这个字面量联合类型中推导回其原本的基础类型。      
+
+同一基础类型的字面量联合类型可以被认为是此基础类型的子类型，即 18 | 1 是 number 的子类型。   
+
+因此可以使用嵌套的条件类型来进行字面量类型到基础类型地提取：    
+
+```ts
+function universalAdd<T extends number | bigint | string>(
+	x: T,
+	y: T
+): LiteralToPrimitive<T> {
+	return x + (y as any);
+}
+
+export type LiteralToPrimitive<T> = T extends number
+	? number
+	: T extends bigint
+	? bigint
+	: T extends string
+	? string
+	: never;
+
+universalAdd('wangxiaobai', '18'); // string
+universalAdd(18, 1); // number
+universalAdd(10n, 10n); // bigint
+```
+
+条件类型还可以用来对更复杂的类型进行比较，比如函数类型：    
+
+```ts
+type Func = (...args: any[]) => any;
+
+type FunctionConditionType<T extends Func> = T extends (
+  ...args: any[]
+) => string
+  ? 'A string return func!'
+  : 'A non-string return func!';
+
+//  "A string return func!"
+type StringResult = FunctionConditionType<() => string>;
+// 'A non-string return func!';
+type NonStringResult1 = FunctionConditionType<() => boolean>;
+// 'A non-string return func!';
+type NonStringResult2 = FunctionConditionType<() => number>;
+```
+
+条件类型用于判断两个函数类型是否具有兼容性，而条件中并不限制参数类型，仅比较二者的返回值类型。   
+
+### infer 关键字
+
+在上面的例子中，假如不再比较填充的函数类型是否是 (...args: any[]) => string 的子类型，而是要拿到其返回值类型呢？  
+
+TypeScript 中支持通过 infer 关键字来在条件类型中提取类型的某一部分信息。    
+
+```ts
+type FunctionReturnType<T extends Func> = T extends (
+  ...args: any[]
+) => infer R
+  ? R
+  : never;
+```
+
+上面的代码表达了当传入的类型参数满足 T extends (...args: any[] ) => infer R 这样一个结构，返回 infer R 位置的值，即 R。否则，返回 never。    
+
+infer 是 inference 的缩写，意为推断，如 infer R 中 R 就表示 待推断的类型。    
+
+infer 只能在条件类型中使用。    
+
+这里的类型结构并不局限于函数类型结构，还可以是数组：    
+
+```ts
+type Swap<T extends any[]> = T extends [infer A, infer B] ? [B, A] : T;
+
+type SwapResult1 = Swap<[1, 2]>; // 符合元组结构，首尾元素替换[2, 1]
+type SwapResult2 = Swap<[1, 2, 3]>; // 不符合结构，没有发生替换，仍是 [1, 2, 3]
+```
+
+由于声明的结构是一个仅有两个元素的元组，因此三个元素的元组就被认为是不符合类型结构了。但可以使用 rest 操作符来处理任意长度的情况：    
+
+```ts
+// 提取首尾两个
+type ExtractStartAndEnd<T extends any[]> = T extends [
+  infer Start,
+  ...any[],
+  infer End
+]
+  ? [Start, End]
+  : T;
+
+// 调换首尾两个
+type SwapStartAndEnd<T extends any[]> = T extends [
+  infer Start,
+  ...infer Left,
+  infer End
+]
+  ? [End, ...Left, Start]
+  : T;
+
+// 调换开头两个
+type SwapFirstTwo<T extends any[]> = T extends [
+  infer Start1,
+  infer Start2,
+  ...infer Left
+]
+  ? [Start2, Start1, ...Left]
+  : T;
+```
+
+infer 甚至可以和 rest 操作符一样同时提取一组不定长的类型，而 ...any[] 的用法是否也让你直呼神奇？   
+
+上面的输入输出仍然都是数组，而实际上完全可以进行结构层面的转换。比如从数组到联合类型：    
+
+```ts
+type ArrayItemType<T> = T extends Array<infer ElementType> ? ElementType : never;
+
+type ArrayItemTypeResult1 = ArrayItemType<[]>; // never
+type ArrayItemTypeResult2 = ArrayItemType<string[]>; // string
+type ArrayItemTypeResult3 = ArrayItemType<[string, number]>; // string | number
+```
+
+原理即是这里的 [string, number] 实际上等价于 (string | number)[]。   
+
+除了数组，infer 结构也可以是接口：   
+
+```ts
+// 提取对象的属性类型
+type PropType<T, K extends keyof T> = T extends { [Key in K]: infer R }
+  ? R
+  : never;
+
+type PropTypeResult1 = PropType<{ name: string }, 'name'>; // string
+type PropTypeResult2 = PropType<{ name: string; age: number }, 'name' | 'age'>; // string | number
+
+// 反转键名与键值
+type ReverseKeyValue<T extends Record<string, unknown>> = T extends Record<infer K, infer V> ? Record<V & string, K> : never
+
+type ReverseKeyValueResult1 = ReverseKeyValue<{ 'key': 'value' }>; // { "value": "key" }
+```
+
+为了体现 infer 作为类型工具的属性，结合了索引类型与映射类型，以及使用 & string 来确保属性名为 string 类型的小技巧。   
+
+为什么需要这个小技巧，如果不使用又会有什么问题呢？    
+
+```ts
+// 类型“V”不满足约束“string | number | symbol”。
+type ReverseKeyValue<T extends Record<string, string>> = T extends Record<
+  infer K,
+  infer V
+>
+  ? Record<V, K>
+  : never;
+```
+
+明明约束已经声明了 V 的类型是 string，为什么还是报错了？    
+
+这是因为泛型参数 V 的来源是从键值类型推导出来的，TypeScript 中这样对键值类型进行 infer 推导，将导致类型信息丢失，而不满足索引签名类型只允许 string | number | symbol 的要求。   
+
+这里需要同时满足其两端的类型，使用 V & string 这一形式，就确保了最终符合条件的类型参数 V 一定会满足 string | never 这个类型，因此可以被视为合法的索引签名类型。   
+
+infer 结构还可以是 Promise 结构。    
+
+```ts
+type PromiseValue<T> = T extends Promise<infer V> ? V : T;
+
+type PromiseValueResult1 = PromiseValue<Promise<number>>; // number
+type PromiseValueResult2 = PromiseValue<number>; // number，但并没有发生提取
+```
+
+像条件类型可以嵌套一样，infer 关键字也经常被使用在嵌套的场景中，包括对类型结构深层信息地提取，以及对提取到类型信息的筛选等。   
+
+比如上面的 PromiseValue，如果传入了一个嵌套的 Promise 类型就失效了：   
+
+```ts
+type PromiseValueResult3 = PromiseValue<Promise<Promise<boolean>>>; // Promise<boolean>，只提取了一层
+```
+
+这时就需要进行嵌套地提取了：    
+
+```ts
+type PromiseValue<T> = T extends Promise<infer V>
+  ? V extends Promise<infer N>
+    ? N
+    : V
+  : T;
+```
+
+也可以使用递归来处理任意嵌套深度：     
+
+```ts
+type PromiseValue<T> = T extends Promise<infer V> ? PromiseValue<V> : T;
+```
+
