@@ -9,6 +9,12 @@
 
 ### 2023-03
 
+#### 03-15
+
+AI 都要把前端干掉了，我还在公司里忙着堆业务代码。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_32.jpg" alt="" width="600" />  
+
 #### 03-14
 
 饼师傅开始工作啦 😌。   

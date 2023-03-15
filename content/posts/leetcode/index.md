@@ -1,6 +1,6 @@
 ---
 title: "LeetCode Top100 刷题"
-date: 2023-03-14T15:00:47+08:00
+date: 2023-03-15T18:30:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -9,6 +9,25 @@ categories: ["算法"]
 🧠 越来越不好使，刷点算法题提高点智商。   
 
 <!--more-->
+
+### 买卖股票的最佳时机 
+
+[题目内容](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
+
+解题思路：贪心，取最左最小值，取最右最大值，得到的差值就是最大利润。      
+
+```ts
+const maxProfit = (prices: number[]): number => {
+    if (prices.length === 0) return 0;
+    let min: number = prices[0];
+    let max: number = 0;
+    for (let item of prices) {
+        min = Math.min(min, item);
+        max = Math.max(max, item - min);
+    }
+    return max;
+};
+```
 
 ### 二叉树的最大深度
 
