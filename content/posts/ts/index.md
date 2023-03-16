@@ -1,6 +1,6 @@
 ---
-title: "Typescript 使用手册"
-date: 2023-03-10T11:00:47+08:00
+title: "👩‍💻 Typescript 使用手册"
+date: 2023-03-16T16:30:47+08:00
 weight: 3
 tags: ["第一技能"]
 categories: ["第一技能"]
@@ -2735,7 +2735,7 @@ type Result25 = unknown extends Object ? 1 : 2; // 2
 你会发现，any 竟然调过来，值竟然变成了 1 | 2？  
 
 ```ts
-type Result26 = any extends ''wangxiaobai'' ? 1 : 2; // 1 | 2
+type Result26 = any extends 'wangxiaobai' ? 1 : 2; // 1 | 2
 type Result27 = any extends string ? 1 : 2; // 1 | 2
 type Result28 = any extends {} ? 1 : 2; // 1 | 2
 type Result29 = any extends never ? 1 : 2; // 1 | 2
@@ -2771,15 +2771,15 @@ type Result32 = unknown extends any ? 1 : 2;  // 1
 never 类型，它代表了“虚无”的类型，一个根本不存在的类型。对于这样的类型，它会是任何类型的子类型，当然也包括字面量类型：    
 
 ```ts
-type Result33 = never extends ''wangxiaobai'' ? 1 : 2; // 1
+type Result33 = never extends 'wangxiaobai' ? 1 : 2; // 1
 ```
 
 但你可能又想到了一些特别的部分，比如 null、undefined、void。
 
 ```ts
-type Result34 = undefined extends ''wangxiaobai'' ? 1 : 2; // 2
-type Result35 = null extends ''wangxiaobai'' ? 1 : 2; // 2
-type Result36 = void extends ''wangxiaobai'' ? 1 : 2; // 2
+type Result34 = undefined extends 'wangxiaobai' ? 1 : 2; // 2
+type Result35 = null extends 'wangxiaobai' ? 1 : 2; // 2
+type Result36 = void extends 'wangxiaobai' ? 1 : 2; // 2
 ```
 
 上面三种情况当然不应该成立。在 TypeScript 中，void、undefined、null 都是切实存在、有实际意义的类型，它们和 string、number、object 并没有什么本质区别。
@@ -2896,27 +2896,27 @@ type Result48 = never[] extends number[] ? 1 : 2; // 1
 
 ## 类型逻辑运算
 
-### 条件类型
+### 条件类型基础
 
-条件类型的语法类似于常用的三元表达式，它的基本语法如下：  
+条件类型的语法类似于平时常用的三元表达式：   
 
 ```
 ValueA === ValueB ? Result1 : Result2;
 TypeA extends TypeB ? Result1 : Result2;
 ```
 
-条件类型中使用 extends 判断类型的兼容性，而非判断类型的全等性，在类型层面中，对于能够进行赋值操作的两个变量并不需要它们的类型完全相等，只需要具有兼容性，而两个完全相同的类型，其 extends 自然也是成立的。   
+条件类型中使用 extends 判断类型的兼容性，而非判断类型的全等性。在类型层面中，对于能够进行赋值操作的两个变量，并不需要它们的类型完全相等，只需要具有兼容性，而两个完全相同的类型，其 extends 自然也是成立的。    
 
-条件类型绝大部分场景下会和泛型一起使用，泛型参数的实际类型会在实际调用时才被填充，而条件类型在这一基础上，可以基于填充后的泛型参数做进一步的类型操作：   
+条件类型绝大部分场景下会和泛型一起使用，泛型参数的实际类型会在实际调用时才被填充，而条件类型在这一基础上，可以基于填充后的泛型参数做进一步的类型操作。    
 
 ```ts
 type LiteralType<T> = T extends string ? 'string' : 'other';
 
-type Res1 = LiteralType<'wangxiaobai'>; // 'string'
-type Res2 = LiteralType<18>; // 'other'
+type Res1 = LiteralType<'wangxiaobai'>; // "string"
+type Res2 = LiteralType<18>; // "other"
 ```
 
-同三元表达式可以嵌套一样，条件类型中也常见多层嵌套：   
+条件类型中也常见多层嵌套，如：  
 
 ```ts
 export type LiteralType<T> = T extends string
@@ -2931,12 +2931,12 @@ export type LiteralType<T> = T extends string
 	? 'undefined'
 	: never;
 
-type Res1 = LiteralType<'wangxiaobai'>; // 'string'
-type Res2 = LiteralType<18>; // 'number'
-type Res3 = LiteralType<true>; // 'boolean'
+type Res1 = LiteralType<'wangxiaobai'>; // "string"
+type Res2 = LiteralType<18>; // "number"
+type Res3 = LiteralType<true>; // "boolean"
 ```
 
-在函数中，条件类型与泛型的搭配同样常见：   
+在函数中，条件类型与泛型的搭配同样很常见。   
 
 ```ts
 function universalAdd<T extends number | bigint | string>(x: T, y: T) {
@@ -2948,14 +2948,14 @@ function universalAdd<T extends number | bigint | string>(x: T, y: T) {
 
 ```ts
 universalAdd(18, 1); // T 填充为 18 | 1
-universalAdd('wangxiaobai', '18'); // T 填充为 'wangxiaobai' | 18
+universalAdd('wangxiaobai', '18'); // T 填充为 'wangxiaobai' | '18'
 ```
 
-此时的返回值类型就需要从这个字面量联合类型中推导回其原本的基础类型。   
+此时的返回值类型就需要从这个字面量联合类型中推导回其原本的基础类型。      
 
 同一基础类型的字面量联合类型可以被认为是此基础类型的子类型，即 18 | 1 是 number 的子类型。   
 
-因此可以使用嵌套条件类型来进行字面量类型到基础类型地提取：   
+因此可以使用嵌套的条件类型来进行字面量类型到基础类型地提取：    
 
 ```ts
 function universalAdd<T extends number | bigint | string>(
@@ -2978,7 +2978,7 @@ universalAdd(18, 1); // number
 universalAdd(10n, 10n); // bigint
 ```
 
-条件类型还可以用来对更复杂的类型进行比较，比如函数类型：   
+条件类型还可以用来对更复杂的类型进行比较，比如函数类型：    
 
 ```ts
 type Func = (...args: any[]) => any;
@@ -2993,9 +2993,284 @@ type FunctionConditionType<T extends Func> = T extends (
 type StringResult = FunctionConditionType<() => string>;
 // 'A non-string return func!';
 type NonStringResult1 = FunctionConditionType<() => boolean>;
+// 'A non-string return func!';
+type NonStringResult2 = FunctionConditionType<() => number>;
 ```
 
-条件类型用于判断两个函数类型是否具有兼容性，而条件中并不限制参数类型，仅比较二者的返回值类型。    
+条件类型用于判断两个函数类型是否具有兼容性，而条件中并不限制参数类型，仅比较二者的返回值类型。   
 
-泛型约束要求传入符合结构的类型参数，相当于参数校验。而条件类型使用类型参数进行条件判断，相当于实际内部逻辑。    
+### infer 关键字
+
+在上面的例子中，假如不再比较填充的函数类型是否是 (...args: any[]) => string 的子类型，而是要拿到其返回值类型呢？  
+
+TypeScript 中支持通过 infer 关键字来在条件类型中提取类型的某一部分信息。    
+
+```ts
+type FunctionReturnType<T extends Func> = T extends (
+  ...args: any[]
+) => infer R
+  ? R
+  : never;
+```
+
+上面的代码表达了当传入的类型参数满足 T extends (...args: any[] ) => infer R 这样一个结构，返回 infer R 位置的值，即 R。否则，返回 never。    
+
+infer 是 inference 的缩写，意为推断，如 infer R 中 R 就表示 待推断的类型。    
+
+infer 只能在条件类型中使用。    
+
+这里的类型结构并不局限于函数类型结构，还可以是数组：    
+
+```ts
+type Swap<T extends any[]> = T extends [infer A, infer B] ? [B, A] : T;
+
+type SwapResult1 = Swap<[1, 2]>; // 符合元组结构，首尾元素替换[2, 1]
+type SwapResult2 = Swap<[1, 2, 3]>; // 不符合结构，没有发生替换，仍是 [1, 2, 3]
+```
+
+由于声明的结构是一个仅有两个元素的元组，因此三个元素的元组就被认为是不符合类型结构了。但可以使用 rest 操作符来处理任意长度的情况：    
+
+```ts
+// 提取首尾两个
+type ExtractStartAndEnd<T extends any[]> = T extends [
+  infer Start,
+  ...any[],
+  infer End
+]
+  ? [Start, End]
+  : T;
+
+// 调换首尾两个
+type SwapStartAndEnd<T extends any[]> = T extends [
+  infer Start,
+  ...infer Left,
+  infer End
+]
+  ? [End, ...Left, Start]
+  : T;
+
+// 调换开头两个
+type SwapFirstTwo<T extends any[]> = T extends [
+  infer Start1,
+  infer Start2,
+  ...infer Left
+]
+  ? [Start2, Start1, ...Left]
+  : T;
+```
+
+infer 甚至可以和 rest 操作符一样同时提取一组不定长的类型，而 ...any[] 的用法是否也让你直呼神奇？   
+
+上面的输入输出仍然都是数组，而实际上完全可以进行结构层面的转换。比如从数组到联合类型：    
+
+```ts
+type ArrayItemType<T> = T extends Array<infer ElementType> ? ElementType : never;
+
+type ArrayItemTypeResult1 = ArrayItemType<[]>; // never
+type ArrayItemTypeResult2 = ArrayItemType<string[]>; // string
+type ArrayItemTypeResult3 = ArrayItemType<[string, number]>; // string | number
+```
+
+原理即是这里的 [string, number] 实际上等价于 (string | number)[]。   
+
+除了数组，infer 结构也可以是接口：   
+
+```ts
+// 提取对象的属性类型
+type PropType<T, K extends keyof T> = T extends { [Key in K]: infer R }
+  ? R
+  : never;
+
+type PropTypeResult1 = PropType<{ name: string }, 'name'>; // string
+type PropTypeResult2 = PropType<{ name: string; age: number }, 'name' | 'age'>; // string | number
+
+// 反转键名与键值
+type ReverseKeyValue<T extends Record<string, unknown>> = T extends Record<infer K, infer V> ? Record<V & string, K> : never
+
+type ReverseKeyValueResult1 = ReverseKeyValue<{ 'key': 'value' }>; // { "value": "key" }
+```
+
+为了体现 infer 作为类型工具的属性，结合了索引类型与映射类型，以及使用 & string 来确保属性名为 string 类型的小技巧。   
+
+为什么需要这个小技巧，如果不使用又会有什么问题呢？    
+
+```ts
+// 类型“V”不满足约束“string | number | symbol”。
+type ReverseKeyValue<T extends Record<string, string>> = T extends Record<
+  infer K,
+  infer V
+>
+  ? Record<V, K>
+  : never;
+```
+
+明明约束已经声明了 V 的类型是 string，为什么还是报错了？    
+
+这是因为泛型参数 V 的来源是从键值类型推导出来的，TypeScript 中这样对键值类型进行 infer 推导，将导致类型信息丢失，而不满足索引签名类型只允许 string | number | symbol 的要求。   
+
+这里需要同时满足其两端的类型，使用 V & string 这一形式，就确保了最终符合条件的类型参数 V 一定会满足 string | never 这个类型，因此可以被视为合法的索引签名类型。   
+
+infer 结构还可以是 Promise 结构。    
+
+```ts
+type PromiseValue<T> = T extends Promise<infer V> ? V : T;
+
+type PromiseValueResult1 = PromiseValue<Promise<number>>; // number
+type PromiseValueResult2 = PromiseValue<number>; // number，但并没有发生提取
+```
+
+像条件类型可以嵌套一样，infer 关键字也经常被使用在嵌套的场景中，包括对类型结构深层信息地提取，以及对提取到类型信息的筛选等。   
+
+比如上面的 PromiseValue，如果传入了一个嵌套的 Promise 类型就失效了：   
+
+```ts
+type PromiseValueResult3 = PromiseValue<Promise<Promise<boolean>>>; // Promise<boolean>，只提取了一层
+```
+
+这时就需要进行嵌套地提取了：    
+
+```ts
+type PromiseValue<T> = T extends Promise<infer V>
+  ? V extends Promise<infer N>
+    ? N
+    : V
+  : T;
+```
+
+也可以使用递归来处理任意嵌套深度：     
+
+```ts
+type PromiseValue<T> = T extends Promise<infer V> ? PromiseValue<V> : T;
+```
+
+### 分布式条件类型
+
+分布式条件类型也称条件类型的分布式特性，只不过是条件类型在满足一定情况下会执行的逻辑而已。   
+
+```ts
+type Condition<T> = T extends 1 | 2 | 3 ? T : never;
+
+// 1 | 2 | 3
+type Res1 = Condition<1 | 2 | 3 | 4 | 5>;
+
+// never
+type Res2 = 1 | 2 | 3 | 4 | 5 extends 1 | 2 | 3 ? 1 | 2 | 3 | 4 | 5 : never;
+```
+
+仔细观察这两个类型别名的差异会发现，唯一的差异就是在 Res1 中，进行判断的联合类型被作为泛型参数传入给另一个独立的类型别名，而 Res2 中直接对这两者进行判断。   
+
+记住第一个差异：是否通过泛型参数传入。   
+
+```ts
+type Naked<T> = T extends boolean ? 'Y' : 'N';
+type Wrapped<T> = [T] extends [boolean] ? 'Y' : 'N';
+
+// "N" | "Y"
+type Res3 = Naked<number | boolean>;
+
+// "N"
+type Res4 = Wrapped<number | boolean>;
+```
+
+现在都是通过泛型参数传入了，但诡异的事情又发生了，为什么第一个还是个联合类型？   
+
+第二个倒是好理解一些，元组的成员有可能是数字类型，显然不兼容于 [boolean]。   
+
+再仔细观察这两个例子会发现，它们唯一的差异是条件类型中的泛型参数是否被数组包裹了。    
+
+同时你会发现在 Res3 的判断中，其联合类型的两个分支，恰好对应于分别使用 number 和 boolean 去作为条件类型判断时的结果。    
+
+把上面的线索理一下大致得到了条件类型分布式起作用的条件:   
+
+* 类型参数需要是一个联合类型。   
+* 类型参数需要通过泛型参数的方式传入。   
+* 条件类型中的泛型参数不能被包裹。   
+
+条件类型分布式特性会产生的效果也很明显了，即将这个联合类型拆开来，每个分支分别进行一次条件类型判断，再将最后的结果合并起来（如 Naked 中）。   
+
+官方的解释：对于属于裸类型参数的检查类型，条件类型会在实例化时期自动分发到联合类型上。    
+
+这里的自动分发可以这么理解：   
+
+```ts
+type Naked<T> = T extends boolean ? 'Y' : 'N';
+
+// (number extends boolean ? "Y" : "N") | (boolean extends boolean ? "Y" : "N")
+// "N" | "Y"
+type Res3 = Naked<number | boolean>;
+```
+
+这里的裸类型参数，其实指的就是泛型参数是否完全裸露，上面使用数组包裹泛型参数只是其中一种方式，比如还可以这么做：   
+
+```ts
+export type NoDistribute<T> = T & {};
+
+type Wrapped<T> = NoDistribute<T> extends boolean ? "Y" : "N";
+
+type Res1 = Wrapped<number | boolean>; // "N"
+type Res2 = Wrapped<true | false>; // "Y"
+type Res3 = Wrapped<true | false | 18>; // "N"
+```
+
+需要注意的是，并不是只会通过裸露泛型参数，来确保分布式特性能够发生。   
+
+在某些情况下也会需要包裹泛型参数来禁用掉分布式特性。最常见的场景也许还是联合类型的判断，即不希望进行联合类型成员的分布判断，而是希望直接判断这两个联合类型的兼容性判断。    
+
+就像在最初的 Res2 中那样：   
+
+```ts
+type CompareUnion<T, U> = [T] extends [U] ? true : false;
+
+type CompareRes1 = CompareUnion<1 | 2, 1 | 2 | 3>; // true
+type CompareRes2 = CompareUnion<1 | 2, 1>; // false
+```
+
+通过将参数与条件都包裹起来的方式对联合类型的比较就变成了数组成员类型的比较，在此时就会严格遵守类型层级一文中联合类型的类型判断。   
+
+另外一种情况则是，当想判断一个类型是否为 never 时，也可以通过类似的手段：   
+
+```ts
+type IsNever<T> = [T] extends [never] ? true : false;
+
+type IsNeverRes1 = IsNever<never>; // true
+type IsNeverRes2 = IsNever<'wangxiaobai'>; // false
+```
+
+这里的原因其实并不是因为分布式条件类型。当条件类型的判断参数为 any，会直接返回条件类型两个结果的联合类型。   
+
+而在这里其实类似，当通过泛型传入的参数为 never，则会直接返回 never。   
+
+需要注意的是这里的 never 与 any 的情况并不完全相同，any 在直接作为判断参数时、作为泛型参数时都会产生这一效果：   
+
+```ts
+// 直接使用，返回联合类型
+type Tmp1 = any extends string ? 1 : 2;  // 1 | 2
+
+type Tmp2<T> = T extends string ? 1 : 2;
+// 通过泛型参数传入，同样返回联合类型
+type Tmp2Res = Tmp2<any>; // 1 | 2
+
+// 如果判断条件是 any，那么仍然会进行判断
+type Special1 = any extends any ? 1 : 2; // 1
+type Special2<T> = T extends any ? 1 : 2;
+type Special2Res = Special2<any>; // 1
+```
+
+而 never 仅在作为泛型参数时才会产生：   
+
+```ts
+// 直接使用，仍然会进行判断
+type Tmp3 = never extends string ? 1 : 2; // 1
+
+type Tmp4<T> = T extends string ? 1 : 2;
+// 通过泛型参数传入，会跳过判断
+type Tmp4Res = Tmp4<never>; // never
+
+// 如果判断条件是 never，还是仅在作为泛型参数时才跳过判断
+type Special3 = never extends never ? 1 : 2; // 1
+type Special4<T> = T extends never ? 1 : 2;
+type Special4Res = Special4<never>; // never
+```
+
+这里的 any、never 两种情况都不会实际地执行条件类型，而在这里通过包裹的方式让它不再是 never，也就能够去执行判断了。   
 

@@ -1,13 +1,53 @@
-# 蠢 Q 碎碎念
+# 🤯 蠢 Q 碎碎念
 
 
-🤔 每天都像开盲盒，今天开到的是什么呢？  
+每天都像开盲盒，今天开到的是什么呢？  
 
 <!--more-->
 
 ## 2023  
 
 ### 2023-03
+
+#### 03-16
+
+Baidu 的 CTO 是个实诚人，心虚了还会磕巴。   
+
+调戏了一下 GPT-4 😌。 
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_34.png" alt="" width="600" />  
+
+#### 03-15
+
+AI 都要把前端干掉了，我还在公司里忙着堆业务代码。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_32.jpg" alt="" width="600" />  
+
+#### 03-14
+
+饼师傅开始工作啦 😌。   
+
+<video width="600" height="315" controls>
+  <source src="/images/ssr/cat02.mp4" type="video/mp4">
+</video>
+
+#### 03-13
+
+第 95 届奥斯卡最佳记录短片 --- 小象守护者 The Elephant Whisperers（2022）   
+
+<iframe width="600" height="315" src="//player.bilibili.com/player.html?aid=734364386&bvid=BV1pD4y1j7ay&cid=939003531&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>   
+
+#### 03-12
+
+用 AI 生成梦幻房间，[roomGPT.io](https://www.roomgpt.io/dream)
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_31.png" alt="" width="600" />  
+
+#### 03-11
+
+喜欢听歌的原因找到了。       
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_30.jpg" alt="" width="600" />  
 
 #### 03-10
 
@@ -23,7 +63,7 @@
 
 #### 03-09
 
-果真是梦，哈哈哈 😌。   
+果真是梦，哈哈哈 😌。       
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_29.png" alt="" width="600" />  
 

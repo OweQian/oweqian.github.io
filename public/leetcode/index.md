@@ -1,15 +1,136 @@
-# LeetCode Top100 刷题
+# 🔥 LeetCode HOT 100
 
 
-🧠 越来越不好使，刷点算法题提高点智商。   
+脑子越来越不好使，刷点算法题提高点智商。   
 
 <!--more-->
+
+## Easy 
+
+### 只出现一次的数字
+
+[题目内容](https://leetcode.cn/problems/single-number/)
+
+#### 解题思路
+
+异或位运算。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img.png" alt="" width="600" />  
+
+#### 代码实现
+
+```ts
+const singleNumber = (nums: number[]): number => {
+    let num: number = nums[0];
+    if (nums.length > 1) {
+        for (let i = 1; i < nums.length; i++) {
+            num ^= nums[i];
+        }
+    }
+    return num;
+};
+```
+
+### 买卖股票的最佳时机 
+
+[题目内容](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
+
+#### 解题思路
+
+贪心，取最左最小值，取最右最大值，得到的差值就是最大利润。      
+
+#### 代码实现
+
+```ts
+const maxProfit = (prices: number[]): number => {
+    if (prices.length === 0) return 0;
+    let min: number = prices[0];
+    let max: number = 0;
+    for (let item of prices) {
+        min = Math.min(min, item);
+        max = Math.max(max, item - min);
+    }
+    return max;
+};
+```
+
+### 二叉树的最大深度
+
+[题目内容](https://leetcode.cn/problems/maximum-depth-of-binary-tree/)
+
+#### 解题思路
+
+dfs + 递龟。    
+
+#### 代码实现
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
+
+const maxDepth = (root: TreeNode | null): number => {
+    if (root === null) return 0;
+    let leftDepth = maxDepth(root?.left);
+    let rightDepth = maxDepth(root?.right);
+    return Math.max(leftDepth, rightDepth) + 1;
+};
+```
+
+### 对称二叉树
+
+[题目内容](https://leetcode.cn/problems/symmetric-tree/)
+
+#### 解题思路
+
+递龟。    
+
+#### 代码实现
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
+
+const isSymmetric = (root: TreeNode | null): boolean => {
+    const check = (p: TreeNode | null, q: TreeNode | null): boolean => {
+        if (!p && !q) return true;
+        if (!p || !q) return false;
+        return p.val === q.val && check(p.left, q.right) && check(p.right, q.left);
+    }
+    return check(root, root);
+};
+```
 
 ### 二叉树的中序遍历
 
 [题目内容](https://leetcode.cn/problems/binary-tree-inorder-traversal/)
 
-解题思路：递 🐢。   
+#### 解题思路   
+
+递龟。   
+
+#### 代码实现
 
 ```ts
 /**
@@ -43,7 +164,11 @@ const inorderTraversal = (root: TreeNode | null): number[] => {
 
 [题目内容](https://leetcode.cn/problems/merge-two-sorted-lists/)
 
-解题思路：创建新结点。  
+#### 解题思路
+
+创建新结点。     
+
+#### 代码实现
 
 ```ts
 /**
@@ -81,7 +206,11 @@ function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode
 
 [题目内容](https://leetcode.cn/problems/valid-parentheses/)
 
-解题思路：栈。
+#### 解题思路   
+
+栈。    
+
+#### 代码实现
 
 ```ts
 const isValid = (s: string): boolean => {
@@ -114,7 +243,11 @@ const isValid = (s: string): boolean => {
 
 [题目内容](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)
 
-解题思路：字符串转换为数组应用累加器求值。
+#### 解题思路   
+
+字符串转换为数组应用累加器求值。    
+
+#### 代码实现
 
 ```ts
 const lengthOfLongestSubstring = (s: string): number => {
@@ -139,7 +272,11 @@ const lengthOfLongestSubstring = (s: string): number => {
 
 [题目内容](https://leetcode.cn/problems/add-two-numbers/)  
 
-解题思路：递 🐢。       
+#### 解题思路
+
+递龟。        
+
+#### 代码实现
 
 ```ts
 /**
@@ -174,7 +311,11 @@ const addTwoNumbers = (l1: ListNode | null, l2: ListNode | null): ListNode | nul
 
 [题目内容](https://leetcode.cn/problems/two-sum/)
 
-解题思路：哈希表，两数之和变为两数之差。   
+#### 解题思路  
+
+哈希表，两数之和变为两数之差。     
+
+#### 代码实现
 
 ```ts
 const twoSum = (nums: number[], target: number): number[] => {
