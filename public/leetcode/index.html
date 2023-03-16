@@ -8,8 +8,8 @@
 <meta property="og:description" content="🧠 越来越不好使，刷点算法题提高点智商。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://oweqian.xyz/leetcode/" /><meta property="og:image" content="http://oweqian.xyz/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-03-15T18:30:47+08:00" />
-<meta property="article:modified_time" content="2023-03-14T15:35:03+08:00" /><meta property="og:site_name" content="OweQian" />
+<meta property="article:published_time" content="2023-03-16T10:30:47+08:00" />
+<meta property="article:modified_time" content="2023-03-15T18:53:14+08:00" /><meta property="og:site_name" content="OweQian" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://oweqian.xyz/logo.png"/>
 
@@ -34,8 +34,8 @@
                             "url": "http:\/\/oweqian.xyz\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "算法","wordcount":  1243 ,
-        "url": "http:\/\/oweqian.xyz\/leetcode\/","datePublished": "2023-03-15T18:30:47+08:00","dateModified": "2023-03-14T15:35:03+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "算法","wordcount":  1340 ,
+        "url": "http:\/\/oweqian.xyz\/leetcode\/","datePublished": "2023-03-16T10:30:47+08:00","dateModified": "2023-03-15T18:53:14+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
                     "@type": "ImageObject",
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">LeetCode Top100 刷题</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AE%97%E6%B3%95/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-15">2023-03-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1243 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-16">2023-03-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1340 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -122,25 +122,109 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#easy">Easy</a>
       <ul>
-        <li><a href="#买卖股票的最佳时机">买卖股票的最佳时机</a></li>
-        <li><a href="#二叉树的最大深度">二叉树的最大深度</a></li>
-        <li><a href="#对称二叉树">对称二叉树</a></li>
-        <li><a href="#二叉树的中序遍历">二叉树的中序遍历</a></li>
-        <li><a href="#合并两个有序链表">合并两个有序链表</a></li>
-        <li><a href="#有效的括号">有效的括号</a></li>
-        <li><a href="#无重复字符的最长子串">无重复字符的最长子串</a></li>
-        <li><a href="#两数相加">两数相加</a></li>
-        <li><a href="#两数之和">两数之和</a></li>
+        <li><a href="#只出现一次的数字">只出现一次的数字</a>
+          <ul>
+            <li><a href="#解题思路">解题思路</a></li>
+            <li><a href="#代码实现">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#买卖股票的最佳时机">买卖股票的最佳时机</a>
+          <ul>
+            <li><a href="#解题思路-1">解题思路</a></li>
+            <li><a href="#代码实现-1">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#二叉树的最大深度">二叉树的最大深度</a>
+          <ul>
+            <li><a href="#解题思路-2">解题思路</a></li>
+            <li><a href="#代码实现-2">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#对称二叉树">对称二叉树</a>
+          <ul>
+            <li><a href="#解题思路-3">解题思路</a></li>
+            <li><a href="#代码实现-3">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#二叉树的中序遍历">二叉树的中序遍历</a>
+          <ul>
+            <li><a href="#解题思路-4">解题思路</a></li>
+            <li><a href="#代码实现-4">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#合并两个有序链表">合并两个有序链表</a>
+          <ul>
+            <li><a href="#解题思路-5">解题思路</a></li>
+            <li><a href="#代码实现-5">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#有效的括号">有效的括号</a>
+          <ul>
+            <li><a href="#解题思路-6">解题思路</a></li>
+            <li><a href="#代码实现-6">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#无重复字符的最长子串">无重复字符的最长子串</a>
+          <ul>
+            <li><a href="#解题思路-7">解题思路</a></li>
+            <li><a href="#代码实现-7">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#两数相加">两数相加</a>
+          <ul>
+            <li><a href="#解题思路-8">解题思路</a></li>
+            <li><a href="#代码实现-8">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#两数之和">两数之和</a>
+          <ul>
+            <li><a href="#解题思路-9">解题思路</a></li>
+            <li><a href="#代码实现-9">代码实现</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>🧠 越来越不好使，刷点算法题提高点智商。</p>
-<h3 id="买卖股票的最佳时机">买卖股票的最佳时机</h3>
+<h2 id="easy">Easy</h2>
+<h3 id="只出现一次的数字">只出现一次的数字</h3>
+<p><a href="https://leetcode.cn/problems/single-number/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
+<h4 id="解题思路">解题思路</h4>
+<p>异或位运算。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img.png" alt="" width="600" />  
+<h4 id="代码实现">代码实现</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">singleNumber</span> <span class="o">=</span> <span class="p">(</span><span class="nx">nums</span>: <span class="kt">number</span><span class="p">[])</span><span class="o">:</span> <span class="kt">number</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">num</span>: <span class="kt">number</span> <span class="o">=</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">nums</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">nums</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">num</span> <span class="o">^=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="买卖股票的最佳时机">买卖股票的最佳时机</h3>
 <p><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
-<p>解题思路：贪心，取最左最小值，取最右最大值，得到的差值就是最大利润。</p>
+<h4 id="解题思路-1">解题思路</h4>
+<p>贪心，取最左最小值，取最右最大值，得到的差值就是最大利润。</p>
+<h4 id="代码实现-1">代码实现</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -169,7 +253,9 @@
 </div>
 </div><h3 id="二叉树的最大深度">二叉树的最大深度</h3>
 <p><a href="https://leetcode.cn/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
-<p>解题思路：dfs + 递龟。</p>
+<h4 id="解题思路-2">解题思路</h4>
+<p>dfs + 递龟。</p>
+<h4 id="代码实现-2">代码实现</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -218,7 +304,9 @@
 </div>
 </div><h3 id="对称二叉树">对称二叉树</h3>
 <p><a href="https://leetcode.cn/problems/symmetric-tree/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
-<p>解题思路：递龟。</p>
+<h4 id="解题思路-3">解题思路</h4>
+<p>递龟。</p>
+<h4 id="代码实现-3">代码实现</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -271,7 +359,9 @@
 </div>
 </div><h3 id="二叉树的中序遍历">二叉树的中序遍历</h3>
 <p><a href="https://leetcode.cn/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
-<p>解题思路：递龟。</p>
+<h4 id="解题思路-4">解题思路</h4>
+<p>递龟。</p>
+<h4 id="代码实现-4">代码实现</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -330,7 +420,9 @@
 </div>
 </div><h3 id="合并两个有序链表">合并两个有序链表</h3>
 <p><a href="https://leetcode.cn/problems/merge-two-sorted-lists/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
-<p>解题思路：创建新结点。</p>
+<h4 id="解题思路-5">解题思路</h4>
+<p>创建新结点。</p>
+<h4 id="代码实现-5">代码实现</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -397,7 +489,9 @@
 </div>
 </div><h3 id="有效的括号">有效的括号</h3>
 <p><a href="https://leetcode.cn/problems/valid-parentheses/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
-<p>解题思路：栈。</p>
+<h4 id="解题思路-6">解题思路</h4>
+<p>栈。</p>
+<h4 id="代码实现-6">代码实现</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -452,7 +546,9 @@
 </div>
 </div><h3 id="无重复字符的最长子串">无重复字符的最长子串</h3>
 <p><a href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
-<p>解题思路：字符串转换为数组应用累加器求值。</p>
+<h4 id="解题思路-7">解题思路</h4>
+<p>字符串转换为数组应用累加器求值。</p>
+<h4 id="代码实现-7">代码实现</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -493,7 +589,9 @@
 </div>
 </div><h3 id="两数相加">两数相加</h3>
 <p><a href="https://leetcode.cn/problems/add-two-numbers/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
-<p>解题思路：递龟。</p>
+<h4 id="解题思路-8">解题思路</h4>
+<p>递龟。</p>
+<h4 id="代码实现-8">代码实现</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -554,7 +652,9 @@
 </div>
 </div><h3 id="两数之和">两数之和</h3>
 <p><a href="https://leetcode.cn/problems/two-sum/" target="_blank" rel="noopener noreffer ">题目内容</a></p>
-<p>解题思路：哈希表，两数之和变为两数之差。</p>
+<h4 id="解题思路-9">解题思路</h4>
+<p>哈希表，两数之和变为两数之差。</p>
+<h4 id="代码实现-9">代码实现</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -585,8 +685,8 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2023-03-14&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/1880f9aa1fcf6c9c2edc8337495e6aa17da029fe" target="_blank" title="commit by OweQian(1510106069@qq.com) 1880f9aa1fcf6c9c2edc8337495e6aa17da029fe: feat: leetcode一题">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>1880f9a</a></span>
+                <span>更新于 2023-03-15&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/1cbb5efac3060d809449769efb15e7c697673777" target="_blank" title="commit by OweQian(1510106069@qq.com) 1cbb5efac3060d809449769efb15e7c697673777: feat: update leetcode feat: update month">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>1cbb5ef</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>

@@ -1,7 +1,7 @@
 ---
 title: "油画棒画成长之旅"
 date: 2023-03-04T23:50:47+08:00
-weight: 8
+weight: 6
 tags: ["画画"]
 categories: ["画画"]
 ---
