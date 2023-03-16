@@ -65,7 +65,7 @@ const maxProfit = (prices: number[]): number => {
 
 #### 解题思路
 
-dfs + 递龟。    
+dfs + 递 🐢。    
 
 #### 代码实现
 
@@ -98,7 +98,7 @@ const maxDepth = (root: TreeNode | null): number => {
 
 #### 解题思路
 
-递龟。    
+递 🐢。    
 
 #### 代码实现
 
@@ -133,7 +133,7 @@ const isSymmetric = (root: TreeNode | null): boolean => {
 
 #### 解题思路   
 
-递龟。   
+递 🐢。   
 
 #### 代码实现
 
@@ -279,7 +279,7 @@ const lengthOfLongestSubstring = (s: string): number => {
 
 #### 解题思路
 
-递龟。        
+递 🐢。        
 
 #### 代码实现
 
