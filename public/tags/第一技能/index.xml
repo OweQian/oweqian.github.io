@@ -5,7 +5,7 @@
         <description>第一技能 - 标签 - OweQian</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
             <webMaster>1510106069@qq.com (OweQian)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 14 Mar 2023 19:30:47 &#43;0800</lastBuildDate><atom:link href="http://oweqian.xyz/tags/%E7%AC%AC%E4%B8%80%E6%8A%80%E8%83%BD/" rel="self" type="application/rss+xml" /><item>
-    <title>Typescript 使用手册</title>
+    <title>👩‍💻 Typescript 使用手册</title>
     <link>http://oweqian.xyz/ts/</link>
     <pubDate>Tue, 14 Mar 2023 19:30:47 &#43;0800</pubDate>
     <author>OweQian</author>
@@ -13,7 +13,7 @@
     <description><![CDATA[<p>项目地址： <a href="https://github.com/OweQian/TSHandbook.git" target="_blank" rel="noopener noreffer ">TSHandbook</a></p>]]></description>
 </item>
 <item>
-    <title>基于 Nextjs &#43; Strapi 的官网开发实战</title>
+    <title>👩‍💻 基于 Nextjs &#43; Strapi 的官网开发实战</title>
     <link>http://oweqian.xyz/ssr/</link>
     <pubDate>Mon, 20 Feb 2023 11:25:47 &#43;0800</pubDate>
     <author>OweQian</author>
@@ -21,7 +21,7 @@
     <description><![CDATA[<p>项目地址： <a href="https://github.com/OweQian/SSR.git" target="_blank" rel="noopener noreffer ">SSR</a></p>]]></description>
 </item>
 <item>
-    <title>基于 Electron &#43; Vue3 的桌面应用开发实战</title>
+    <title>👩‍💻 基于 Electron &#43; Vue3 的桌面应用开发实战</title>
     <link>http://oweqian.xyz/electron/</link>
     <pubDate>Tue, 07 Feb 2023 10:20:47 &#43;0800</pubDate>
     <author>OweQian</author>

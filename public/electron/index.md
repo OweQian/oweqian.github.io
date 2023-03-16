@@ -1,4 +1,4 @@
-# 基于 Electron + Vue3 的桌面应用开发实战
+# 👩‍💻 基于 Electron + Vue3 的桌面应用开发实战
 
 
 项目地址： [ElectronVue3](https://github.com/OweQian/ElectronVue3)

@@ -1,5 +1,5 @@
 ---
-title: "Typescript 使用手册"
+title: "👩‍💻 Typescript 使用手册"
 date: 2023-03-14T19:30:47+08:00
 weight: 3
 tags: ["第一技能"]
