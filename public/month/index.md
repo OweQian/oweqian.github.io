@@ -13,7 +13,9 @@
 
 Baidu 的 CTO 是个实诚人，心虚了还会磕巴。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_33.jpg" alt="" width="600" />  
+调戏了一下 GPT-4 😌。 
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_34.png" alt="" width="600" />  
 
 #### 03-15
 
