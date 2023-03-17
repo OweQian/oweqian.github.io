@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-03-16T10:30:47+08:00
+date: 2023-03-17T17:40:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,43 @@ categories: ["算法"]
 <!--more-->
 
 ## Easy 
+
+### 环形链表
+
+[题目内容](https://leetcode.cn/problems/linked-list-cycle/)
+
+#### 解题思路
+
+快慢指针。       
+
+#### 代码实现
+
+```ts
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+function hasCycle(head: ListNode | null): boolean {
+  let slow: ListNode | null = head;
+  let fast: ListNode | null = head;
+  while(fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+    if (slow === fast) {
+      return true;
+    }
+  }
+  return false;
+};
+```
 
 ### 只出现一次的数字
 
