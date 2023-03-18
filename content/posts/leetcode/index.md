@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-03-17T17:40:47+08:00
+date: 2023-03-18T23:40:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,45 @@ categories: ["算法"]
 <!--more-->
 
 ## Easy 
+
+### 相交链表
+
+[题目内容](https://leetcode.cn/problems/intersection-of-two-linked-lists/)
+
+#### 解题思路
+
+哈希。
+
+#### 代码实现
+
+```ts
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {
+    let setA = new Set<ListNode>();
+    let curr = headA;
+    while(curr !== null) {
+        setA.add(curr);
+        curr = curr.next;
+    }
+    curr = headB;
+    while(curr !== null) {
+        if (setA.has(curr)) return curr;
+        curr = curr.next;
+    }
+    return null;
+};
+```
 
 ### 环形链表
 
