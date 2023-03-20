@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-03-18T23:40:47+08:00
+date: 2023-03-20T10:40:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,36 @@ categories: ["算法"]
 <!--more-->
 
 ## Easy 
+
+### 多数元素
+
+[题目内容](https://leetcode.cn/problems/majority-element/)      
+
+#### 解题思路   
+
+摩尔投票法: 两两对抗，票数抵消。         
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img_01.png" alt="" width="600" />  
+
+#### 代码实现
+
+```ts
+const majorityElement = (nums: number[]): number => {
+  let count: number = 1;
+  let major: number = nums[0];
+  for (let i = 1; i < nums.length; i++) {
+    if (count === 0) {
+      major = nums[i];
+      count = 1
+    } else if (major === nums[i]) {
+      count += 1;
+    } else {
+      count -= 1;
+    }
+  }
+  return major;
+};
+```
 
 ### 相交链表
 
@@ -35,7 +65,7 @@ categories: ["算法"]
  * }
  */
 
-function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {
+const getIntersectionNode = (headA: ListNode | null, headB: ListNode | null): ListNode | null => {
     let setA = new Set<ListNode>();
     let curr = headA;
     while(curr !== null) {
@@ -74,7 +104,7 @@ function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): Li
  * }
  */
 
-function hasCycle(head: ListNode | null): boolean {
+const hasCycle = (head: ListNode | null): boolean => {
   let slow: ListNode | null = head;
   let fast: ListNode | null = head;
   while(fast && fast.next) {
@@ -264,7 +294,7 @@ const inorderTraversal = (root: TreeNode | null): number[] => {
  * }
  */
 
-function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode | null {
+const mergeTwoLists = (list1: ListNode | null, list2: ListNode | null): ListNode | null => {
     const head: ListNode = new ListNode(-1);
     let current: ListNode = head;
     while(list1 !== null && list2 !== null) {
