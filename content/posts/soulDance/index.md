@@ -10,11 +10,13 @@ categories: ["Soul Dance"]
 
 <!--more-->
 
-在这里，希望你能找到一首 BGM，来撑起你独一无二的内心戏！  
+这里是 OweQian 的私人歌单，在这里，希望你能找到一首 BGM，来撑起你独一无二的内心戏！  
+
+## 致敬 Daft Punk ♥   
 
 “我们不喜欢做重复的事。但无论戴着头盔或创造一个新角色都把虚构与真实结合在一起，我们所做的非凡的事充满了欢乐。我们很高兴能回馈给群众。”     
 
-🤪 欢迎来到疯子的世界~，持续更新中... 
+<iframe width="600" height="315" src="https://www.youtube.com/embed/DuDX6wNfjqc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Daft Punk - Harder, Better, Faster, Stronger 📌
 
