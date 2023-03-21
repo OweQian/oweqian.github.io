@@ -6,11 +6,47 @@ tags: ["算法"]
 categories: ["算法"]
 ---
 
-脑子越来越不好使，刷点算法题提高点智商。   
+脑子越来越不好使，刷点算法题提高点智商。       
 
-<!--more-->
+<!--more-->    
 
 ## Easy 
+
+### 反转链表
+
+[题目内容](https://leetcode.cn/problems/reverse-linked-list/)
+
+#### 解题思路
+
+迭代。    
+
+#### 代码实现
+
+```ts
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+const reverseList = (head: ListNode | null): ListNode | null => {
+  let prev: ListNode | null = null;
+  let curr: ListNode | null = head;
+  while(curr) {
+    const next: ListNode | null = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+  return prev;
+};
+```
 
 ### 多数元素
 
@@ -20,7 +56,7 @@ categories: ["算法"]
 
 摩尔投票法: 两两对抗，票数抵消。         
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img_01.png" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img_01.png" alt="" width="600" />     
 
 #### 代码实现
 
