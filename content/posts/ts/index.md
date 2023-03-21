@@ -1,6 +1,6 @@
 ---
 title: "👩‍💻 Typescript 使用手册"
-date: 2023-03-16T16:30:47+08:00
+date: 2023-03-21T17:30:47+08:00
 weight: 3
 tags: ["第一技能"]
 categories: ["第一技能"]
@@ -3274,3 +3274,304 @@ type Special4Res = Special4<never>; // never
 
 这里的 any、never 两种情况都不会实际地执行条件类型，而在这里通过包裹的方式让它不再是 never，也就能够去执行判断了。   
 
+## 内置工具类型
+
+### 分类
+
+内置的工具类型大致划分为以下几类：   
+
+* 属性修饰工具类型：对属性的修饰，包括对象属性和数组元素的可选/必选、只读/可写。  
+* 结构工具类型：对既有类型的裁剪、拼接、转换等，比如使用对一个对象类型裁剪得到一个新的对象类型，将联合类型结构转换到交叉类型结构。  
+* 集合工具类型：对集合（即联合类型）的处理，即交集、并集、差集、补集。  
+* 模式匹配工具类型：基于 infer 的模式匹配，即对一个既有类型特定位置类型的提取，比如提取函数类型签名中的返回值类型。    
+
+#### 属性修饰工具类型
+
+访问性修饰工具类型包括以下三位：   
+
+```ts
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+};
+
+type Required<T> = {
+    [P in keyof T]-?: T[P];
+};
+
+type Readonly<T> = {
+    readonly [P in keyof T]: T[P];
+};
+```
+
+Partial 与 Required 可以认为是一对工具类型，它们的功能是相反的，而在实现上，它们的唯一差异是在索引类型签名处的可选修饰符，Partial 是 ?，即标记属性为可选，而 Required 则是 -?，相当于在原本属性上如果有 ? 这个标记，则移除它。    
+
+Partial 也可以使用 +? 来显式的表示添加可选标记：   
+
+```ts
+type Partial<T> = {
+	[P in keyof T]+?: T[P];
+};
+```
+
+可选标记不等于修改此属性类型为 原类型 | undefined ，如以下的接口结构：     
+
+```ts
+interface Foo {
+	optional: string | undefined;
+	required: string;
+}
+```
+
+如果声明一个对象去实现这个接口，它仍然会要求你提供 optional 属性：   
+
+```ts
+interface Foo {
+	optional: string | undefined;
+	required: string;
+}
+// 类型 "{ required: string; }" 中缺少属性 "optional"，但类型 "Foo" 中需要该属性。
+const foo1: Foo = {
+  required: '1',
+};
+
+const foo2: Foo = {
+  required: '1',
+  optional: undefined
+};
+```
+
+这是因为对于结构声明来说，一个属性是否必须提供仅取决于其是否携带可选标记。   
+
+即使使用 never 也无法标记这个属性为可选：   
+
+```ts
+interface Foo {
+	optional: never;
+	required: string;
+}
+
+const foo: Foo = {
+	required: '1',
+	// 不能将类型“string”分配给类型“never”。
+	optional: '',
+};
+```
+
+类似 +?，Readonly 中也可以使用 +readonly：    
+
+```ts
+type Readonly<T> = {
+	+readonly [P in keyof T]: T[P];
+};
+```
+
+虽然 TypeScript 中并没有提供它的另一半，参考 Required 很容易想到这么实现一个工具类型 Mutable，来将属性中的 readonly 修饰移除：    
+
+```ts
+type Mutable<T> = {
+	-readonly [P in keyof T]: T[P];
+};
+```
+
+#### 结构工具类型
+
+结构工具类型可以分为两类，结构声明和结构处理。    
+
+结构声明工具类型即快速声明一个结构，比如内置类型中的 Record：   
+
+```ts
+type Record<K extends keyof any, T> = {
+	[P in K]: T;
+};
+```
+
+K extends keyof any 即为键的类型，这里使用 extends keyof any 标明，传入的 K 可以是单个类型，也可以是联合类型，而 T 即为属性的类型。    
+
+```ts
+// 键名均为字符串，键值类型未知
+type Record1 = Record<string, unknown>;
+// 键名均为字符串，键值类型任意
+type Record2 = Record<string, any>;
+// 键名为字符串或数字，键值类型任意
+type Record3 = Record<string | number, any>;
+```
+
+Record<string, unknown> 和 Record<string, any> 是日常使用较多的形式，通常使用这两者来代替 object 。    
+
+在一些工具类库源码中还存在类似的结构声明工具类型，如：    
+
+```ts
+type Dictionary<T> = {
+	[index: string]: T;
+};
+
+type NumericDictionary<T> = {
+	[index: number]: T;
+};
+```
+
+Dictionary （字典）结构只需要一个作为属性类型的泛型参数即可。    
+
+对于结构处理工具类型，在 TypeScript 中主要是 Pick、Omit：   
+
+```ts
+type Pick<T, K extends keyof T> = {
+	[P in K]: T[P];
+};
+
+type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+```
+
+Pick 接受两个泛型参数，T 即是进行结构处理的原类型（一般是对象类型），而 K 则被约束为 T 类型的键名联合类型。    
+
+由于泛型约束是立即填充推导的，即为第一个泛型参数传入 Foo 类型以后，K 的约束条件会立刻被填充，在输入 K 时会获得代码提示。    
+
+```ts
+interface Foo {
+	name: string;
+	age: number;
+	job: JobUnionType;
+}
+
+type PickedFoo = Pick<Foo, "name" | "age">
+```
+
+Pick 会将传入的联合类型作为需要保留的属性，使用这一联合类型配合映射类型，上面的例子等价于：      
+
+```ts
+type Pick<T> = {
+	[P in "name" | "age"]: T[P];
+};
+```
+
+联合类型的成员会被依次映射，并通过索引类型访问来获取到它们原本的类型。    
+
+Omit 类型，它是 Pick 的反向实现：Pick 是保留这些传入的键，比如从一个庞大的结构中选择少数字段保留，需要的是这些少数字段，而 Omit 则是移除这些传入的键，也就是从一个庞大的结构中剔除少数字段，需要的是剩余的多数部分。    
+
+```ts
+type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+```
+
+Omit 是基于 Pick 实现的，这也是 TypeScript 中成对工具类型的另一种实现方式。上面的 Partial 与 Required 使用类似的结构，在关键位置使用一个相反操作来实现反向，而这里的 Omit 类型则是基于 Pick 类型实现，也就是反向工具类型基于正向工具类型实现。     
+
+首先接受的泛型参数类似，也是一个类型与联合类型（要剔除的属性），在将这个联合类型传入给 Pick 时多了一个 Exclude，Exclude<A, B> 的结果就是联合类型 A 中不存在于 B 中的部分：    
+
+```ts
+type Tmp1 = Exclude<1, 2>; // 1
+type Tmp2 = Exclude<1 | 2, 2>; // 1
+type Tmp3 = Exclude<1 | 2 | 3, 2 | 3>; // 1
+type Tmp4 = Exclude<1 | 2 | 3, 2 | 4>; // 1 | 3
+```
+
+Exclude<keyof T, K> 就是 T 的键名联合类型中剔除了 K 的部分，将其作为 Pick 的键名，就实现了剔除一部分类型的效果。     
+
+#### 集合工具类型
+
+对于两个集合来说，通常存在交集、并集、差集、补集几种情况。    
+
+* 并集：两个集合的合并，合并时重复的元素只会保留一份。      
+* 交集：两个集合的相交部分，即同时存在于这两个集合内的元素组成的集合。     
+* 差集：对于 A、B 两个集合来说，A 相对于 B 的差集即为 A 中独有而 B 中不存在的元素 的组成的集合，或者说 A 中剔除了 B 中也存在的元素以后，还剩下的部分。    
+* 补集：补集是差集的特殊情况，此时集合 B 为集合 A 的子集，在这种情况下 A 相对于 B 的差集 + B = 完整的集合 A。   
+
+内置工具类型中提供了交集与差集的实现：    
+
+```ts
+type Extract<T, U> = T extends U ? T : never;
+
+type Exclude<T, U> = T extends U ? never : T;
+```
+
+当 T、U 都是联合类型（视为一个集合）时，T 的成员会依次被拿出来进行 extends U ? T1 : T2 的计算，然后将最终的结果再合并成联合类型。   
+
+交集 Extract ，其运行逻辑是这样的：    
+
+```ts
+type AExtractB = Extract<1 | 2 | 3, 1 | 2 | 4>; // 1 | 2
+
+type _AExtractB =
+| (1 extends 1 | 2 | 4 ? 1 : never) // 1
+| (2 extends 1 | 2 | 4 ? 2 : never) // 2
+| (3 extends 1 | 2 | 4 ? 3 : never); // never
+```
+
+差集 Exclude 类似，差集存在相对的概念，即 A 相对于 B 的差集与 B 相对于 A 的差集并不一定相同，而交集则一定相同。     
+
+```ts
+type SetA = 1 | 2 | 3 | 5;
+
+type SetB = 0 | 1 | 2 | 4;
+
+type AExcludeB = Exclude<SetA, SetB>; // 3 | 5
+type BExcludeA = Exclude<SetB, SetA>; // 0 | 4
+
+type _AExcludeB =
+| (1 extends 0 | 1 | 2 | 4 ? never : 1) // never
+| (2 extends 0 | 1 | 2 | 4 ? never : 2) // never
+| (3 extends 0 | 1 | 2 | 4 ? never : 3) // 3
+| (5 extends 0 | 1 | 2 | 4 ? never : 5); // 5
+
+type _BExcludeA =
+| (0 extends 1 | 2 | 3 | 5 ? never : 0) // 0
+| (1 extends 1 | 2 | 3 | 5 ? never : 1) // never
+| (2 extends 1 | 2 | 3 | 5 ? never : 2) // never
+| (4 extends 1 | 2 | 3 | 5 ? never : 4); // 4
+```
+
+实现并集与补集：   
+
+```ts
+// 并集
+export type Concurrence<A, B> = A | B;
+
+// 交集
+export type Intersection<A, B> = A extends B ? A : never;
+
+// 差集
+export type Difference<A, B> = A extends B ? never : A;
+
+// 补集
+export type Complement<A, B extends A> = Difference<A, B>;
+```
+
+补集基于差集实现，只需要约束集合 B 为集合 A 的子集即可。    
+
+在基于分布式条件类型的工具类型中，也存在着正反工具类型，但并不都是简单地替换条件类型结果的两端，如交集与补集就只是简单调换了结果，但二者作用却完全不同。      
+
+#### 模式匹配工具类型
+
+主要使用条件类型与 infer 关键字，infer 其实代表了一种模式匹配的思路。     
+
+对函数类型签名的模式匹配：    
+
+```ts
+type FunctionType = (...args: any) => any;
+
+type Parameters<T extends FunctionType> = T extends (...args: infer P) => any ? P : never;
+type ReturnType<T extends FunctionType> = T extends (...args: any) => infer R ? R : any;
+```
+
+根据 infer 的位置不同，就能够获取到不同位置的类型，在函数这里则是参数类型与返回值类型。     
+
+只匹配第一个参数类型：   
+
+```ts
+type FirstParameter<T extends FunctionType> = T extends (arg: infer P, ...args: any) => any ? P : never;
+
+type FuncFoo = (arg: number) => void;
+type FuncBar = (...args: string[]) => void;
+
+type FooFirstParameter = FirstParameter<FuncFoo>; // number
+type BarFirstParameter = FirstParameter<FuncBar>; // string
+```
+
+内置工具类型中还有一组对 Class 进行模式匹配的工具类型：    
+
+```ts
+type ClassType = abstract new (...args: any) => any;
+
+type ConstructorParameters<T extends ClassType> = T extends abstract new (...args: infer P) => any ? P : never;
+type InstanceType<T extends ClassType> = T extends abstract new (...args: any) => infer R ? R : any;
+```
+
+Class 的模式匹配思路类似于函数，或者说这是一个通用的思路，即基于放置位置的匹配。放在参数部分，就是构造函数的参数类型，放在返回值部分，就是 Class 的实例类型了。        

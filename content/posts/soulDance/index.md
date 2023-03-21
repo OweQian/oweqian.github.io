@@ -28,17 +28,17 @@ categories: ["Soul Dance"]
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/BWf-eARnf6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-## Me & My Toothbrush - Get Your Party On   
+## Me & My Toothbrush - Get Your Party On 📌      
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/mTPv3tLO0DA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="600" height="315" src="https://www.youtube.com/embed/W3W4wJe2dzA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Jessie Ware - Soul Control 📌  
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/QwhkvO_hCOM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Oh Wonder - Landslide
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/PiGt9C76U0s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-## Jessie Ware - Soul Control
-
-<iframe width="600" height="315" src="https://www.youtube.com/embed/QwhkvO_hCOM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Satin Jackets feat. Kids At Midnight - Say You
 
