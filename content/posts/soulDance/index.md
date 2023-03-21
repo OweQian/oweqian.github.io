@@ -1,6 +1,6 @@
 ---
 title: "🎶 你需要一首 BGM，来撑起你的内心戏"
-date: 2023-02-28T15:30:47+08:00
+date: 2023-03-21T14:20:47+08:00
 weight: 4
 tags: ["Soul Dance"]
 categories: ["Soul Dance"]
@@ -27,6 +27,30 @@ categories: ["Soul Dance"]
 ## Michael Jackson - Heal The World 📌 
 
 <iframe width="600" height="315" src="https://www.youtube.com/embed/BWf-eARnf6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Me & My Toothbrush - Get Your Party On   
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/mTPv3tLO0DA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Oh Wonder - Landslide
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/PiGt9C76U0s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Jessie Ware - Soul Control
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/QwhkvO_hCOM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Satin Jackets feat. Kids At Midnight - Say You
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/NXw6Qfe503E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Kygo, Oliver Nelson - Riding Shotgun ft. Bonnie McKee
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/bi8DS9pKyw8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Cerrone Feat. Sam Gray - Time Machine
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/6SMd1apTR-I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Vietsub - One Last Time
 
