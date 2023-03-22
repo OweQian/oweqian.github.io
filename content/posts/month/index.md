@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-03-20T23:40:47+08:00
+date: 2023-03-22T10:28:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,18 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-03
+
+#### 03-22
+
+🙃 开始强制加班了。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_39.jpg" alt="" width="600" />  
+
+#### 03-21
+
+真实，哈哈哈。     
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_38.jpg" alt="" width="600" />  
 
 #### 03-20
 
