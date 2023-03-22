@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-03-21T09:20:47+08:00
+date: 2023-03-22T10:20:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,39 @@ categories: ["算法"]
 <!--more-->    
 
 ## Easy 
+
+### 翻转二叉树
+
+[题目内容](https://leetcode.cn/problems/invert-binary-tree/)
+
+#### 解题思路
+
+递 🐢。    
+
+#### 代码实现
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
+
+const invertTree = (root: TreeNode | null): TreeNode | null => {
+  if (root) {
+    [root.left, root.right] = [invertTree(root.right), invertTree(root.left)];
+  }
+  return root;
+};
+```
 
 ### 反转链表
 
