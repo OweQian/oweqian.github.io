@@ -20,9 +20,9 @@ categories: ["算法"]
 
 快慢指针 + 反转链表。   
 
-* 初始化快慢指针 slow、fast 指向 head，fast 每次走两步，slow每次走一步，当 fast 走到最后，slow 位于中间位置，slow 在移动期间不断反转前半部分链表，反转后为 prev。   
-* 判断链表长度的奇偶性，如果是奇数 (即 fast 不为 null)，slow 再向后移动一步，过滤掉中间的公共节点。    
-* slow 和 prev 此时分别为原链表的前半部分（反转后）和后半部分的头节点，循环判断 slow 和 prev 的值，都相同则返回 true，否则结束循环返回 false。   
+* 初始化快慢指针 slow、fast 指向 head，fast 每次走两步，slow 每次走一步，当 fast 走到最后，slow 位于中间位置，slow 在移动期间不断反转前半部分链表，反转后为 prev。   
+* 判断链表长度的奇偶性，如果是奇数 (即此时 fast 不为 null)，slow 再向后移动一步，过滤掉中间的公共节点。    
+* prev 和 slow 此时分别为原链表的前半部分（反转后）和后半部分的头节点，循环判断 prev 和 slow 的值，都相同则返回 true，否则结束循环返回 false。   
 
 #### 代码实现
 
