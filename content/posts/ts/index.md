@@ -1,6 +1,6 @@
 ---
 title: "👩‍💻 Typescript 使用手册"
-date: 2023-03-21T17:30:47+08:00
+date: 2023-03-23T16:30:47+08:00
 weight: 3
 tags: ["第一技能"]
 categories: ["第一技能"]
@@ -3574,4 +3574,140 @@ type ConstructorParameters<T extends ClassType> = T extends abstract new (...arg
 type InstanceType<T extends ClassType> = T extends abstract new (...args: any) => infer R ? R : any;
 ```
 
-Class 的模式匹配思路类似于函数，或者说这是一个通用的思路，即基于放置位置的匹配。放在参数部分，就是构造函数的参数类型，放在返回值部分，就是 Class 的实例类型了。        
+Class 的模式匹配思路类似于函数，或者说这是一个通用的思路，即基于放置位置的匹配。放在参数部分，就是构造函数的参数类型，放在返回值部分，就是 Class 的实例类型了。   
+
+## 上下文类型
+
+举一个最常见的例子：  
+
+```ts
+window.onerror = (event, source, line, col, err) => {};
+```
+
+在这个例子里，虽然并没有为 onerror 的各个参数声明类型，但是它们也已经获得了正确的类型。   
+
+这是因为 onerror 的类型声明已经内置了：  
+
+```ts
+interface Handler {
+  // 简化
+  onerror: OnErrorEventHandlerNonNull;
+}
+
+interface OnErrorEventHandlerNonNull {
+    (event: Event | string, source?: string, lineno?: number, colno?: number, error?: Error): any;
+}
+```
+
+实现一个函数签名，效果是一样的：  
+
+```ts
+type CustomHandler = (name: string, age: number) => boolean;
+
+// 也推导出了参数类型
+const handler: CustomHandler = (arg1, arg2) => true;
+```
+
+除了参数类型，返回值类型同样会纳入管控：   
+
+```ts
+declare const struct: {
+  handler: CustomHandler;
+};
+// 不能将类型“void”分配给类型“boolean”。
+struct.handler = (name, age) => {};
+```
+
+在这里，参数的类型基于其上下文类型中的参数类型位置来进行匹配，arg1 对应到 name ，所以是 string 类型，arg2 对应到 age，所以是 number 类型。    
+
+这就是上下文类型的核心理念：基于位置的类型推导。    
+
+在上下文类型中，实现的表达式可以只使用更少的参数，而不能使用更多，这是因为上下文类型基于位置的匹配，一旦参数个数超过定义的数量，那就没法进行匹配了。    
+
+```ts
+// 正常
+window.onerror = (event) => {};
+// 报错
+window.onerror = (event, source, line, col, err, extra) => {};
+```
+
+上下文类型也可以进行”嵌套“情况下的类型推导:   
+
+```ts
+declare let func: (raw: number) => (input: string) => any;
+
+// raw → number
+func = (raw) => {
+  // input → string
+  return (input) => {};
+};
+```
+
+在某些情况下，上下文类型的推导能力也会失效:   
+
+```ts
+class Foo {
+  foo!: number;
+}
+
+class Bar extends Foo {
+  bar!: number;
+}
+
+let f1: { (input: Foo): void } | { (input: Bar): void };
+// 参数“input”隐式具有“any”类型。
+f1 = (input) => {};
+```
+
+预期的结果是 input 被推导为 Foo | Bar 类型，也就是所有符合结构的函数类型的参数，但却失败了。这是因为 TypeScript 中的上下文类型目前暂时不支持这一判断方式。   
+
+直接使用一个联合类型参数的函数签名：   
+
+```ts
+let f2: { (input: Foo | Bar): void };
+// Foo | Bar
+f2 = (input) => {};
+```
+
+如果联合类型中将这两个类型再嵌套一层，此时上下文类型反而正常了：   
+
+```ts
+let f3:
+  | { (raw: number): (input: Foo) => void }
+  | { (raw: number): (input: Bar) => void };
+
+// raw → number
+f3 = (raw) => {
+  // input → Bar
+  return (input) => {};
+};
+```
+
+任何接收 Foo 类型参数的地方，都可以接收一个 Bar 类型参数，因此推导到 Bar 类型要更加安全。    
+
+### void 返回值类型下的特殊情况
+
+上下文类型同样会推导并约束函数的返回值类型，但存在特殊情况，当内置函数类型的返回值类型为 void 时：   
+
+```ts
+type CustomHandler = (name: string, age: number) => void;
+
+const handler1: CustomHandler = (name, age) => true;
+const handler2: CustomHandler = (name, age) => 'wangxiaobai';
+const handler3: CustomHandler = (name, age) => null;
+const handler4: CustomHandler = (name, age) => undefined;
+```
+
+这时函数实现返回值类型变成了五花八门的样子，而且还都不会报错。    
+
+同样的，这也是一条世界底层的规则，上下文类型对于 void 返回值类型的函数，并不会真的要求它什么都不能返回。   
+
+虽然这些函数实现可以返回任意类型的值，但对于调用结果的类型，仍然是 void：    
+
+```ts
+const result1 = handler1('wangxiaobai', 18); // void
+const result2 = handler2('wangxiaobai', 18); // void
+const result3 = handler3('wangxiaobai', 18); // void
+const result4 = handler4('wangxiaobai', 18); // void
+```
+
