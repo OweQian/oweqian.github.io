@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-03-22T10:20:47+08:00
+date: 2023-03-23T09:50:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,55 @@ categories: ["算法"]
 <!--more-->    
 
 ## Easy 
+
+### 回文链表
+
+[题目内容](https://leetcode.cn/problems/palindrome-linked-list/)
+
+#### 解题思路
+
+快慢指针 + 反转链表。   
+
+* 初始化快慢指针 slow、fast 指向 head，fast 每次走两步，slow每次走一步，当 fast 走到最后，slow 位于中间位置，slow 在移动期间不断反转前半部分链表，反转后为 prev。   
+* 判断链表长度的奇偶性，如果是奇数 (即 fast 不为 null)，slow 再向后移动一步，过滤掉中间的公共节点。    
+* slow 和 prev 此时分别为原链表的前半部分和后半部分的头节点，循环判断 slow 和 prev 的值，都相同则返回 true，否则结束循环返回 false。   
+
+#### 代码实现
+
+```ts
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+const isPalindrome = (head: ListNode | null): boolean => {
+    let fast: ListNode | null = head;
+    let slow: ListNode | null = head;
+    let prev: ListNode | null = null;
+    while(fast !== null && fast?.next !== null) {
+      fast = fast?.next?.next;
+      const next: ListNode | null = slow?.next;
+      slow.next = prev;
+      prev = slow;
+      slow = next;
+    }
+    if (fast !== null) slow = slow?.next;
+
+    while(slow !== null && prev !== null) {
+      if (slow?.val !== prev?.val) return false;
+      prev = prev?.next;
+      slow = slow?.next;
+    }
+    return true;
+};
+```
 
 ### 翻转二叉树
 
@@ -346,7 +395,7 @@ const inorderTraversal = (root: TreeNode | null): number[] => {
 
 #### 解题思路
 
-创建新结点。     
+创建新节点。     
 
 #### 代码实现
 
