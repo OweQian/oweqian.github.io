@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-03-23T09:50:47+08:00
+date: 2023-03-24T10:00:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,50 @@ categories: ["算法"]
 <!--more-->    
 
 ## Easy 
+
+### 移动零
+
+[题目内容](https://leetcode.cn/problems/move-zeroes/)
+
+#### 解题思路
+
+双指针 + 遍历。   
+
+参考快速排序的思想，确定一个待分割的元素做中间节点 x，然后把所有小于等于 x 的元素放到 x 的左边，大于 x 的元素放到它的右边。    
+
+* 初始化两个指针 i 和 j，j 指针用于找中间点 0，i 指针用于找中间点右侧的非 0 元素。    
+* 如果两个指针指向元素均不为 0，整体向右移动一位。   
+* 如果 j 指针找到了中间点 0，i 没有找到中间点右侧的非 0 元素，则继续下一轮循环。    
+* 如果 j 指针找到了中间点 0，i 指针也找到了中间点右侧的非 0 元素，则通过一个临时变量来交换两个元素的值。   
+
+#### 代码实现
+
+```ts
+/**
+ Do not return anything, modify nums in-place instead.
+ */
+var moveZeroes = function(nums) {
+    let j: number = 0;
+    for (let i = 0; i < nums.length; i++) {
+      switch(true) {
+        case nums[i] !== 0 && nums[j]!== 0:
+          j++;
+          break;
+        case nums[j] === 0 && nums[i] === 0:
+          continue;
+          break;
+        case nums[j] === 0 && nums[i] !== 0:
+          const tmp: number = nums[i];
+          nums[i] = nums[j];
+          nums[j++] = tmp;
+          break;
+        default:
+          break;  
+      }
+    }
+    return nums;
+};
+```
 
 ### 回文链表
 
