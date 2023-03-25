@@ -14,6 +14,22 @@ categories: ["碎碎念"]
 
 ### 2023-03
 
+#### 03-25
+
+本周追了新晋男神的剧 - 《模范出租车》 😌。   
+
+豆瓣评分：8.2。
+
+漫改剧、复仇爽剧，代替别人复仇并完成自己的复仇计划。😍 李帝勋真的好帅好帅啊，演技、车技真不错。   
+
+附上剧里最喜欢的一首 OST，很治愈的一首歌，希望所有受过伤的人都能治愈自己的伤，开始新的生活 ☀️。   
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/PIM2CoRFQ1c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+#### 03-24
+
+🙄 前端某位 "正五边形原创大佬" 翻车，看着他继续频繁地在朋友圈 / 公众号里塑造人设。害，以谎言开始的事情，必须用更多的谎言来使它巩固...       
+
 #### 03-23
 
 饼师傅听完开始 emo 了。   
