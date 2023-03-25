@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-03-24T10:00:47+08:00
+date: 2023-03-25T19:00:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,36 @@ categories: ["算法"]
 <!--more-->    
 
 ## Easy 
+
+### 比特位计数
+
+[题目内容](https://leetcode.cn/problems/counting-bits/)
+
+#### 解题思路
+
+Brian Kernighan 算法。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img_02.png" alt="" width="600" />  
+
+#### 代码实现
+
+```ts
+function countBits(n: number): number[] {
+    const result: number[] = new Array(n + 1).fill(0);
+    const countOneNums = (n: number) => {
+        let count: number = 0;
+        while(n) {
+            n &= n - 1;
+            count++
+        }
+        return count;
+    }
+    for (let i = 0; i <= n; i++) {
+        result[i] = countOneNums(i);
+    }
+    return result;
+};
+```
 
 ### 移动零
 
