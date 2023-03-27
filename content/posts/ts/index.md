@@ -1,6 +1,6 @@
 ---
 title: "‍💻 Typescript 使用手册"
-date: 2023-03-23T16:30:47+08:00
+date: 2023-03-27T17:30:47+08:00
 weight: 3
 tags: ["第一技能"]
 categories: ["第一技能"]
@@ -3710,4 +3710,91 @@ const result2 = handler2('wangxiaobai', 18); // void
 const result3 = handler3('wangxiaobai', 18); // void
 const result4 = handler4('wangxiaobai', 18); // void
 ```
+
+## 函数类型层级
+
+给出三个具有层级关系的类，分别代表动物、狗、柯基。   
+
+```ts
+class Animal {
+  asPet() {}
+}
+
+class Dog extends Animal {
+  bark() {}
+}
+
+class Corgi extends Dog {
+  cute() {}
+}
+```
+
+对于一个接受 Dog 类型并返回 Dog 类型的函数，可以这样表示：  
+
+```ts
+type DogFactory = (args: Dog) => Dog;
+```
+
+简化为：Dog -> Dog 的表达形式。   
+
+对于函数类型比较，实际上要比较的即是参数类型与返回值类型（也只能是这俩位置的类型）。   
+
+对于 Animal、Dog、Corgi 这三个类，如果将它们分别可重复地放置在参数类型与返回值类型处，就可以得到以下这些函数签名类型：   
+
+* Animal -> Animal   
+* Animal -> Dog   
+* Animal -> Corgi   
+* Dog -> Dog   
+* Dog -> Animal   
+* Dog -> Corgi   
+* Corgi -> Animal   
+* Corgi -> Dog   
+* Corgi -> Corgi    
+
+引入一个辅助函数：它接收一个 Dog -> Dog 类型的参数：   
+
+```ts
+function transformDogAndBark(dogFactory: DogFactory) {
+  const dog = dogFactory(new Dog());
+  dog.bark();
+}
+```
+
+如果一个值能够被赋值给某个类型的变量，那么可以认为这个值的类型为此变量类型的子类型。    
+
+如一个简单接受 Dog 类型参数的函数：   
+
+```ts
+function makeDogBark(dog: Dog) {
+  dog.bark();
+}
+```
+
+它在调用时只可能接受 Dog 类型或 Dog 类型的子类型，而不能接受 Dog 类型的父类型：    
+
+```ts
+makeDogBark(new Corgi()); // 没问题
+makeDogBark(new Animal()); // 不行
+```
+
+这是因为派生类（即子类）会保留基类的属性与方法，因此说其与基类兼容，但基类并不能未卜先知的拥有子类的方法。   
+
+transformDogAndBark 函数会实例化一只狗狗，并传入 Factory（就像宠物美容），然后让它叫唤两声。这个函数同时约束了此类型的参数与返回值。   
+
+"首先，我只会传入一只正常的狗狗，但它不一定是什么品种。其次，你返回的必须也是一只狗狗，我并不在意它是什么品种"。   
+
+对于这两条约束依次进行检查：
+
+* 对于 Animal/Dog/Corgi -> Animal 类型：无论它的参数类型是什么，它的返回值类型都是不满足条件的。因为它返回的不一定是合法的狗狗，即我它不是 Dog -> Dog 的子类型。    
+
+* 对于 Corgi -> Corgi 与 Corgi -> Dog：其返回值满足了条件，但是参数类型又不满足了。这两个类型需要接受 Corgi 类型，可能内部需要它腿短的这个特性。但可没说一定会传入柯基，如果传个德牧，程序可能就崩溃了。   
+
+* 对于 Dog -> Corgi、Animal -> Corgi、Animal -> Dog：首先它们的参数类型正确的满足了约束，能接受一只狗狗。其次，它们的返回值类型也一定会能汪汪汪。    
+
+如果去掉了包含 Dog 类型的例子，会发现只剩下 Animal -> Corgi 了，也即是说，(Animal → Corgi) ≼ (Dog → Dog) 成立（A ≼ B 意为 A 为 B 的子类型）。   
+
+结论：    
+
+* 参数类型允许为 Dog 的父类型，不允许为 Dog 的子类型。    
+* 返回值类型允许为 Dog 的子类型，不允许为 Dog 的父类型。    
 
