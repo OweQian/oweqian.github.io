@@ -10,6 +10,77 @@ categories: ["算法"]
 
 <!--more-->    
 
+## Medium
+
+
+### 无重复字符的最长子串
+
+[题目内容](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)
+
+#### 解题思路
+
+字符串转换为数组应用累加器求值。
+
+#### 代码实现
+
+```ts
+const lengthOfLongestSubstring = (s: string): number => {
+    let max: number = 0;
+    if (s.length <= 1) return s.length;
+    s.split('').reduce<string>((acc: string, value: string) => {
+        const len = acc.indexOf(value);
+        if (len === -1) {
+            acc += value;
+            max = acc.length > max ? acc.length : max;
+            return acc;
+        } else {
+            acc += value;
+            return acc.slice(len + 1);
+        }
+    }, '')
+    return max;
+};
+```
+
+### 两数相加
+
+[题目内容](https://leetcode.cn/problems/add-two-numbers/)
+
+#### 解题思路
+
+递 🐢。
+
+#### 代码实现
+
+```ts
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+const dfs = (l1: ListNode | null, l2: ListNode | null, carry: number = 0): ListNode => {
+    if (!l1 && !l2 && carry === 0) {
+        return null;
+    }
+    const value1 = l1?.val ?? 0;
+    const value2 = l2?.val ?? 0;
+    const sum = value1 + value2 + carry;
+    const node = new ListNode(sum % 10);
+    node.next = dfs(l1?.next ?? null, l2?.next ?? null, Math.floor(sum / 10));
+    return node;
+}
+const addTwoNumbers = (l1: ListNode | null, l2: ListNode | null): ListNode | null => {
+    return dfs(l1, l2, 0);
+};
+```
+
 ## Easy 
 
 ### 汉明距离
@@ -602,75 +673,6 @@ const isValid = (s: string): boolean => {
         }
     }
     return !stk.length;
-};
-```
-
-
-### 无重复字符的最长子串
-
-[题目内容](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)
-
-#### 解题思路   
-
-字符串转换为数组应用累加器求值。    
-
-#### 代码实现
-
-```ts
-const lengthOfLongestSubstring = (s: string): number => {
-    let max: number = 0;
-    if (s.length <= 1) return s.length;
-    s.split('').reduce<string>((acc: string, value: string) => {
-        const len = acc.indexOf(value);
-        if (len === -1) {
-            acc += value;
-            max = acc.length > max ? acc.length : max;
-            return acc;
-        } else {
-            acc += value;
-            return acc.slice(len + 1);
-        }
-    }, '')
-    return max;
-};
-```
-
-### 两数相加
-
-[题目内容](https://leetcode.cn/problems/add-two-numbers/)  
-
-#### 解题思路
-
-递 🐢。        
-
-#### 代码实现
-
-```ts
-/**
- * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
- */
-
-const dfs = (l1: ListNode | null, l2: ListNode | null, carry: number = 0): ListNode => {
-    if (!l1 && !l2 && carry === 0) {
-        return null;
-    }
-    const value1 = l1?.val ?? 0;
-    const value2 = l2?.val ?? 0;
-    const sum = value1 + value2 + carry;
-    const node = new ListNode(sum % 10);
-    node.next = dfs(l1?.next ?? null, l2?.next ?? null, Math.floor(sum / 10));
-    return node;
-}
-const addTwoNumbers = (l1: ListNode | null, l2: ListNode | null): ListNode | null => {
-    return dfs(l1, l2, 0);
 };
 ```
 
