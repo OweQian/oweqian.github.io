@@ -12,6 +12,34 @@ categories: ["算法"]
 
 ## Easy 
 
+### 汉明距离
+
+[题目内容](https://leetcode.cn/problems/hamming-distance/)
+
+#### 解题思路
+
+异或位运算 + Brian Kernighan 算法。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img.png" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img_02.png" alt="" width="600" />
+
+#### 代码实现
+
+```ts
+const hammingDistance = (x: number, y: number): number => {
+  let s: number = x ^ y;
+  const countOneNums = (n: number): number => {
+    let count: number = 0;
+    while(n) {
+      n &= n - 1;
+      ++count;
+    }
+    return count;
+  }
+  return countOneNums(s);
+};
+```
+
 ### 找到所有数组中消失的数字
 
 [题目内容](https://leetcode.cn/problems/find-all-numbers-disappeared-in-an-array/)
@@ -61,13 +89,13 @@ Brian Kernighan 算法。
 #### 代码实现
 
 ```ts
-function countBits(n: number): number[] {
+const countBits = (n: number): number[] => {
     const result: number[] = new Array(n + 1).fill(0);
-    const countOneNums = (n: number) => {
+    const countOneNums = (n: number): number => {
         let count: number = 0;
         while(n) {
             n &= n - 1;
-            count++
+            ++count;
         }
         return count;
     }
