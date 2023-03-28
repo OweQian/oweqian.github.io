@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-03-27T10:40:00+08:00
+date: 2023-03-28T10:00:00+08:00
 weight: 4
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -492,6 +492,47 @@ int main() {
     int n;
     while (scanf("%d", &n) != EOF) {
         printf("%d\n", factorial(n)); 
+    }
+    return 0;
+}
+```
+
+## ASCII 码
+
+### 题目内容
+
+循环输入，每组输入数据为一个字符，如果字符不是小写英文字母则原样输出；如果是小写英文字母则转换成大写字母后输出。当没有输入时，程序结束。   
+
+### 解题思路
+
+本题考验的是对 C 语言的 ASCII 码的理解。在 C 中，字符 char 对应的是 [-128, 127] 的码值。但实际上并不需要关心每个字母的 ASCII 码是多少。只需要把它当做一个符号，并满足两种规则：    
+
+* 加减法：例如 'A' + 2 和 'C' 等价，'z' - 1 和 'y' 等价。原因是大写字母和小写字母的 ASCII 码值是连续的。   
+
+* 关系比较：例如 'C' > 'A'、'a' <= 'z'。   
+
+输入一个字符，首先通过关系比较来判断它是否是一个小写字母，确定是小写字母后，用它减去 'a' 得到一个偏移量，然后再加上 'A'，就可以得到它的大写形式。     
+
+### 代码实现  
+
+```
+#include <stdio.h>
+
+int isLowerCase(char c) {
+    return c >= 'a' && c <= 'z';
+}
+
+char getUpperCase(char c) {
+    return c - 'a' + 'A';
+}
+
+int main() {
+    char c;
+    while (scanf("%c", &c) != EOF) {
+        if (isLowerCase(c)) {
+            c = getUpperCase(c);
+        }
+        printf("%c\n", c);
     }
     return 0;
 }
