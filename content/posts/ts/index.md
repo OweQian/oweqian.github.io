@@ -1,6 +1,6 @@
 ---
 title: "‍💻 Typescript 使用手册"
-date: 2023-03-27T17:30:47+08:00
+date: 2023-03-28T10:20:47+08:00
 weight: 3
 tags: ["第一技能"]
 categories: ["第一技能"]
@@ -3711,7 +3711,7 @@ const result3 = handler3('wangxiaobai', 18); // void
 const result4 = handler4('wangxiaobai', 18); // void
 ```
 
-## 函数类型层级
+## 函数类型层级（TODO）
 
 给出三个具有层级关系的类，分别代表动物、狗、柯基。   
 
@@ -3798,3 +3798,133 @@ transformDogAndBark 函数会实例化一只狗狗，并传入 Factory（就像�
 * 参数类型允许为 Dog 的父类型，不允许为 Dog 的子类型。    
 * 返回值类型允许为 Dog 的子类型，不允许为 Dog 的父类型。    
 
+## 类型编程进阶  
+
+### 属性修饰进阶
+
+#### 深层属性修饰
+
+```ts
+type PromiseValue<T> = T extends Promise<infer V> ? PromiseValue<V> : T;
+```
+
+在条件类型成立时，再次调用这个工具类型形成递龟。在某一次递龟到条件类型不成立时，就会直接返回这个类型值。   
+
+对于 Partial、Required，也可以进行这样地处理：   
+
+```ts
+export type DeepPartial<T extends object> = {
+  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
+};
+```
+
+简单起见使用 object 作为泛型约束与条件，这意味着也有可能传入函数、数组等类型。   
+
+实现其他进行递归属性修饰的工具类型，展示如下：   
+
+```ts
+export type DeepPartial<T extends object> = {
+  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
+};
+
+export type DeepRequired<T extends object> = {
+  [K in keyof T]-?: T[K] extends object ? DeepRequired<T[K]> : T[K];
+};
+
+// 也可以记作 DeepImmutable
+export type DeepReadonly<T extends object> = {
+  readonly [K in keyof T]: T[K] extends object ? DeepReadonly<T[K]> : T[K];
+};
+
+export type DeepMutable<T extends object> = {
+  -readonly [K in keyof T]: T[K] extends object ? DeepMutable<T[K]> : T[K];
+};
+```
+
+从联合类型中剔除 null | undefined 的工具类型 NonNullable：   
+
+```ts
+type NonNullable<T> = T extends null | undefined ? never : T;
+```
+
+实现一个 DeepNonNullable 来递归剔除所有属性的 null 与 undefined：   
+
+```ts
+type NonNullable<T> = T extends null | undefined ? never : T;
+
+export type DeepNonNullable<T extends object> = {
+  [K in keyof T]: T[K] extends object
+    ? DeepNonNullable<T[K]>
+    : NonNullable<T[K]>;
+};
+```
+
+DeepNonNullable 也有自己的另一半：DeepNullable：   
+
+```ts
+export type Nullable<T> = T | null;
+
+export type DeepNullable<T extends object> = {
+  [K in keyof T]: T[K] extends object ? DeepNullable<T[K]> : Nullable<T[K]>;
+};
+```
+
+#### 已知属性部分修饰
+
+要让一个对象的三个已知属性为可选的，那只要把这个对象拆成 A、B 两个对象结构，分别由三个属性和其他属性组成。然后让对象 A 的属性全部变为可选的，和另外一个对象 B 组合起来，不就行了吗？    
+
+* 拆分对象结构，那不就是结构工具类型，即 Pick 与 Omit？   
+* 三个属性的对象全部变为可选，那不就是属性修饰？   
+* 组合两个对象类型，也就意味着得到一个同时符合这两个对象类型的新结构，那不就是交叉类型？   
+
+MarkPropsAsOptional 会将一个对象的部分属性标记为可选：  
+
+```ts
+type MakePropsAsOptional<T extends object, K extends keyof T = keyof T> = Flatten<Partial<Pick<T, K>> & Omit<T, K>>;
+```
+
+T 为需要处理的对象类型，而 K 为需要标记为可选的属性。K 必须为 T 内部的属性，将其约束为 keyof T，即对象属性组成的字面量联合类型。   
+
+为了让它能够直接代替掉 Partial，为其指定默认值也为 keyof T，这样在不传入第二个泛型参数时，它的表现就和 Partial 一致，即全量的属性可选。    
+
+Partial<Pick<T, K>> 为需要标记为可选的属性组成的对象子结构，Omit<T, K> 则为不需要处理的部分，使用交叉类型将其组合即可。    
+
+验证下效果：   
+
+```ts
+type MarkPropsAsOptionalStruct = MarkPropsAsOptional<
+  {
+    foo: string;
+    bar: number;
+    baz: boolean;
+  },
+  'bar'
+>;
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_05.png" alt="" width="700" />  
+
+引入一个辅助的工具类型，称其为 Flatten，对于这种交叉类型的结构，Flatten 能够将它展平为单层的对象结构。而它的实现也很简单，就是复制一下结构：   
+
+```ts
+export type Flatten<T> = { [K in keyof T]: T[K] };
+
+export type MarkPropsAsOptional<
+  T extends object,
+  K extends keyof T = keyof T
+> = Flatten<Partial<Pick<T, K>> & Omit<T, K>>;
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ts/img_06.png" alt="" width="700" />  
+
+实现其它类型的部分修饰：   
+
+```ts
+type MakePropsAsRequired<T extends object, K extends keyof T = keyof T> = Flatten<Required<Pick<T, K>> & Omit<T, K>>;
+
+type MakePropsAsReadonly<T extends object, K extends keyof T = keyof T> = Flatten<Readonly<Pick<T, K>> & Omit<T, K>>;
+
+type MakePropsAsNullable<T extends object, K extends keyof T = keyof T> = Flatten<Nullable<Pick<T, K>> & Omit<T, K>>;
+
+type MakePropsAsNonNullable<T extends object, K extends keyof T = keyof T> = Flatten<NonNullable<Pick<T, K>> & Omit<T, K>>;
+```
