@@ -537,3 +537,40 @@ int main() {
     return 0;
 }
 ```
+
+## 最值
+
+### 题目内容
+
+循环输入。每组数据先输入 n (n ≤ 10000)，再输入 n 个正整数 a[i] (a[i] ≤ 10000)，输出其中最大的数。当没有任何输入时，程序结束。    
+
+### 解题思路
+
+* 封装最大值函数：给定两个数，取其中最大者。   
+* 使用 for 循环输入 n 个正整数 a。    
+* 对每个输入的数 a 和 maxv 比大小，迭代求最大值。    
+
+### 代码实现  
+
+```
+#include <stdio.h>
+
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+int main() {
+    int n, a, i, maxv;
+    while(scanf("%d", &n) != EOF) {
+        for (i = 0; i < n; ++i) {
+            scanf("%d", &a);
+            if (i == 0) {
+                maxv = a;
+            }
+            maxv = max(maxv, a);
+        }
+        printf("%d\n", maxv);
+    }
+    return 0;
+}
+```
