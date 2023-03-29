@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-03-28T09:20:47+08:00
+date: 2023-03-29T09:30:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,7 +11,6 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
-
 
 ### 无重复字符的最长子串
 
@@ -82,6 +81,45 @@ const addTwoNumbers = (l1: ListNode | null, l2: ListNode | null): ListNode | nul
 ```
 
 ## Easy 
+
+### 二叉树的直径
+
+[题目内容](https://leetcode.cn/problems/diameter-of-binary-tree/)
+
+#### 解题思路
+
+递 🐢。  
+
+#### 代码实现
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
+
+function diameterOfBinaryTree(root: TreeNode | null): number {
+  let ans: number = 0;
+  const depth = (rootNode: TreeNode | null): number => {
+    if (!rootNode) return 0;
+    const L: number = depth(rootNode.left);
+    const R: number = depth(rootNode.right);
+    ans = Math.max(ans, L + R + 1); // 将每个节点最大直径(左子树深度 + 右子树深度)与当前最大值比较并取大者
+    return Math.max(L, R); // 返回节点深度
+  }
+  depth(root);
+  return ans;
+};
+```
 
 ### 汉明距离
 
