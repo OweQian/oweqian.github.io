@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-03-29T10:50:00+08:00
+date: 2023-03-30T00:20:00+08:00
 weight: 4
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -570,6 +570,40 @@ int main() {
             maxv = max(maxv, a);
         }
         printf("%d\n", maxv);
+    }
+    return 0;
+}
+```
+
+## 平均数
+
+### 题目内容
+
+循环输入。每组数据先输入 n (n ≤ 10000)，再输入 n 个正整数 a[i] (a[i] ≤ 10000)，输出它们的平均数，精确到小数点后两位小数。当没有任何输入时，程序结束。   
+
+### 解题思路
+
+* n 个数的平均数就是：这 n 个数的和除上 n。   
+* 所有数字和不能被 n 整除时，就会出现浮点数，需要将平均数定义为 double。   
+* 一组数据开始输入前，将平均数 avg 置为零。      
+* 每输入一个数，就把它累加到 avg 上。   
+* 除上 n 得到平均数。   
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+int main() {
+    int n, a, i;
+    double avg;
+    while (scanf("%d", &n) != EOF) {
+        avg = 0; 
+        for (i = 0; i < n; ++i) {
+            scanf("%d", &a);
+            avg += a;
+        }
+        printf("%.2lf\n", avg / n);
     }
     return 0;
 }
