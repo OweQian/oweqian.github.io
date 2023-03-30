@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-03-29T09:30:47+08:00
+date: 2023-03-30T09:30:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -82,6 +82,53 @@ const addTwoNumbers = (l1: ListNode | null, l2: ListNode | null): ListNode | nul
 
 ## Easy 
 
+### 合并二叉树   
+
+[题目内容](https://leetcode.cn/problems/merge-two-binary-trees/)
+
+#### 解题思路
+
+递 🐢。     
+
+同步遍历两棵树上的节点，直接在 t1 上修改。    
+
+* t1 为 null、t2 不为 null，t1 换成 t2。        
+* t2 为 null、t1 不为 null，t1 仍为 t1。     
+* t1 和 t2 都为 null，t1 仍为 t1。    
+* t1、t2 都存在，将 t2 的值加到 t1 上。     
+* 子树合并使用递龟。     
+
+#### 代码实现
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
+
+const mergeTrees = (root1: TreeNode | null, root2: TreeNode | null): TreeNode | null => {
+  if (root1 === null && root2) {
+    return root2;
+  }
+  if (root1 && root2 === null || root1 === null && root2 === null) {
+    return root1;
+  }
+  root1.val += root2.val;
+  root1.left = mergeTrees(root1.left, root2.left);
+  root1.right = mergeTrees(root1.right, root2.right);
+  return root1;
+};
+```
+
 ### 二叉树的直径
 
 [题目内容](https://leetcode.cn/problems/diameter-of-binary-tree/)
@@ -107,7 +154,7 @@ const addTwoNumbers = (l1: ListNode | null, l2: ListNode | null): ListNode | nul
  * }
  */
 
-function diameterOfBinaryTree(root: TreeNode | null): number {
+const diameterOfBinaryTree = (root: TreeNode | null): number => {
   let ans: number = 0;
   const depth = (rootNode: TreeNode | null): number => {
     if (!rootNode) return 0;
