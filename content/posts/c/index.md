@@ -608,3 +608,44 @@ int main() {
     return 0;
 }
 ```
+
+## 整数溢出
+
+### 题目内容
+
+先输入一个 t (t ≤ 100)，然后输入 t 组数据。每组输入为 4 个正整数 a, b, c, d (0 ≤ a,b,c,d ≤ 2 ** 62)，输出 a + b + c + d 的值。     
+
+### 解题思路
+
+* 四个数的范围：[0, 2 ** 62]，这四个数加起来的和最大值为 2 ** 64。    
+* long long 的最大值为：2 ** 63 - 1，unsigned long long 的最大值为：2 ** 64 - 1。    
+* 只有四个数均为最大值 2 ** 62 时，结果才为 2 ** 64，对这一情况进行特殊判断。    
+* 64 位无符号整型，ull 作为 unsigned long long 的别名。    
+* 常量 MAX 表示 2 ** 62，使用左移运算符实现 2 的幂运算(2 ** n => 1 << n)。   
+* 1 是 int 型，需要对 1 进行强制转换。(ull)1 等价于 (unsigned long long)1。    
+* %llu 是无符号 64 位整型的输入方式。     
+* 2 ** 64 是无法用数字的形式输出的，提前计算机算好后，用字符串的形式进行输出。   
+* 其它情况都在 [0, 2 ** 64 - 1] 范围内，直接相加输出即可。    
+
+### 代码实现
+
+```
+#include <stdio.h>
+typedef unsigned long long ull;
+const ull MAX = ((ull)1)<<62;
+
+int main() {
+    int t;
+    ull a, b, c, d;
+    scanf("%d", &t);
+    while(t--) {
+        scanf("%llu %llu %llu %llu", &a, &b, &c, &d);
+        if (a == MAX && b == MAX && c == MAX && d == MAX)
+            printf("18446744073709551616\n");
+        else    
+            printf("%llu\n", a + b + c + d);
+
+    }
+    return 0;
+}
+```
