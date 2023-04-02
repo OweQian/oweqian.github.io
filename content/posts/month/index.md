@@ -12,7 +12,24 @@ categories: ["碎碎念"]
 
 ## 2023  
 
+### 2023-04
+
+#### 04-02
+
+摆烂两天，重启重启。    
+
+#### 04-01
+
+今天厉害了，饭都没吃，一下子睡到下午 5 点。    
+
 ### 2023-03
+
+#### 03-31
+
+Q1 结束。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_42.jpeg" alt="" width="300" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_43.jpeg" alt="" width="300" />    
 
 #### 03-30
 
