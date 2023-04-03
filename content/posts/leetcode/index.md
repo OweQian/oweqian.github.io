@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-03-31T09:50:47+08:00
+date: 2023-04-03T09:40:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,30 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 盛最多水的容器
+
+[题目内容](https://leetcode.cn/problems/container-with-most-water/)
+
+#### 解题思路
+
+双指针。    
+
+不断计算面积，更新最大面积。    
+
+#### 代码实现
+
+```
+const maxArea = (arr: number[]): number => {
+    let max: number = 0;
+    for (let i = 0, j = arr.length - 1; i < j;) {
+      const minHeight: number = arr[i] < arr[j] ? arr[i++] : arr[j--];
+      const area: number = (j - i + 1) * minHeight;
+      max = Math.max(max, area);
+    }
+    return max;
+};
+```
 
 ### 最长回文子串
 
