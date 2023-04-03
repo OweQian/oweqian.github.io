@@ -649,3 +649,36 @@ int main() {
     return 0;
 }
 ```
+
+## 圆公式
+
+### 题目内容
+
+循环输入。每输一个正整数 r，计算圆周长和圆面积，输出这两个浮点数并以空格分隔 ，均精确到小数点后六位。当没有任何输入时，程序结束。    
+
+### 解题思路
+
+* 圆周长公式：2 * π * r。    
+* 圆面积公式：π * r * r。    
+* π = acos(-1)。    
+* 定义常量 PI。    
+* %lf 等价于 %.6lf，默认输出六位。    
+
+### 代码实现
+
+```
+#include <stdio.h>
+#include <math.h>
+
+const double PI = acos(-1.0);
+
+int main() {
+    double r;
+    while (scanf("%lf", &r) != EOF) {
+        double c = 2 * PI * r;
+        double s = PI * r * r;
+        printf("%lf %lf\n", c, s);
+    }
+    return 0;
+}
+```
