@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-03T09:40:47+08:00
+date: 2023-04-04T11:40:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,57 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 三数之和
+
+[题目内容](https://leetcode.cn/problems/container-with-most-water/)
+
+#### 解题思路
+
+双指针。
+
+先将数组 nums 由小到大排序。    
+
+如果数组长度小于 3，则直接返回空数组。    
+
+固定 3 个指针中最左侧的指针 i，双指针 left、right 分设在数组索引 i + 1 和数组尾端，交替向中间移动，记录每个固定指针 i 的所有满足 nums[i] + nums[right] + nums[left] = 0 的 i、left、right 组合：    
+
+* 当 num[i] > 0 时直接跳出，因为 nums[i] + nums[right] + nums[left] > 0，即 3 个数字都大于 0。    
+* 当 i > 0 且 nums[i] === nums[i - 1] 时跳过此时的元素 nums[i]，因为已经将 nums[i - 1] 的所有组合加入到结果中。   
+* left、right 分设在数组索引两端，当 left < right 时，循环计算 nums[i] + nums[right] + nums[left]。    
+* 如果三者和 > 0，right--。      
+* 如果三者和 < 0，left++。    
+* 如果三者和 === 0，记录组合到 result， right--、left++、并跳过所有重复的 nums[right]、nums[left]。    
+
+#### 代码实现
+
+```ts
+const threeSum = (nums: number[]): number[][] => {
+  nums.sort((a, b) => a - b);
+  let result: number[][] = [];
+  if (nums.length < 3) return result;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] > 0) return result;
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
+    let left: number = i + 1;
+    let right: number = nums.length - 1;
+    while (right > left) {
+      if (nums[i] + nums[right] + nums[left] > 0) {
+        right--;
+      } else if (nums[i] + nums[right] + nums[left] < 0) {
+        left++
+      } else {
+        result.push([nums[i], nums[left], nums[right]]);
+        while(right > left && nums[left] === nums[left + 1]) left++;
+        while(right > left && nums[right] === nums[right - 1]) right--;
+        left++;
+        right--;
+      }
+    }
+  }
+  return result;
+};
+```
 
 ### 盛最多水的容器
 
@@ -24,7 +75,7 @@ categories: ["算法"]
 
 #### 代码实现
 
-```
+```ts
 const maxArea = (arr: number[]): number => {
     let max: number = 0;
     for (let i = 0, j = arr.length - 1; i < j;) {
