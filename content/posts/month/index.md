@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-04-04T15:40:47+08:00
+date: 2023-04-06T16:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,29 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-04
+
+#### 04-06
+
+嘿嘿嘿小猫咪~        
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_46.jpg" alt="" width="300" />    
+
+#### 04-05
+
+📌 龙泉山城市森林公园
+
+满怀期待去爬山，实际应该是在爬土坡。以为爬到了山顶，实际只是某个看起来最高的大土坡的坡顶。呜呜呜。整体感觉还是不错啦，风吹起来挺舒服 🤪。     
+
+🎬 《Titanic》 3D
+
+第一次看这部电影应该是 2014 年刚刚大学毕业，窝在公司宿舍里痛哭流涕，印象最深的是 rose 挣脱开 jack 的手，jack 从此沉入大海那一幕。   
+
+2023 年有幸在电影院看重映，不得不说经典就是经典，每一幕都很有意义，对 rose、jack、rose 未婚夫三者之间的爱情也有了更多思考。
+
+总结一句：用最简单的死亡，来证明爱情的永恒。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_44.jpg" alt="" height="235" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_45.jpg" alt="" height="235" />    
 
 #### 04-04
 
