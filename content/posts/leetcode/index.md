@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-04T11:40:47+08:00
+date: 2023-04-06T14:20:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -12,9 +12,49 @@ categories: ["算法"]
 
 ## Medium
 
+### 电话号码的字母组合
+
+[题目内容](https://leetcode.cn/problems/letter-combinations-of-a-phone-number)
+
+#### 解题思路
+
+回溯。    
+
+#### 代码实现
+
+```
+const letterCombinations = (digits: string): string[] => {
+  const map = [
+    '',
+    '',
+    'abc',
+    'def',
+    'ghi',
+    'jkl',
+    'mno',
+    'pqrs',
+    'tuv',
+    'wxyz',
+  ]
+  const ans: string[] = []
+  const length = digits.length;
+  if (!length) return ans;
+  const backTrack = (digitsIndex: number, s: string) => {
+    if (digitsIndex === length) {
+      return ans.push(s);
+    }
+    for (let i = 0; i < map[digits[digitsIndex]].length; i++) {
+      backTrack(digitsIndex + 1, s + map[digits[digitsIndex]][i]);
+    }
+  }
+  backTrack(0, '');
+  return ans;
+};
+```
+
 ### 三数之和
 
-[题目内容](https://leetcode.cn/problems/container-with-most-water/)
+[题目内容](https://leetcode.cn/problems/3sum)
 
 #### 解题思路
 
