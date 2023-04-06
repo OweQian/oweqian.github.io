@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-04T15:20:00+08:00
+date: 2023-04-06T15:00:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -717,6 +717,74 @@ int main() {
         if (b > c) swap(&b, &c);
         if (a > b) swap(&a, &b);
         printf("%d %d %d\n", a, b, c);
+    }
+    return 0;
+}
+```
+
+## 字符串翻转
+
+### 题目内容
+
+循环输入。每组输入是一个长度不超过 1000 的字符串，现在需要对这个字符串进行翻转后输出，当没有任何输入时，程序结束。    
+
+### 解题思路
+
+两种解法：
+
+第一种：本地字符串不进行修改，从后往前对这个字符串按照字符一个一个输出。     
+
+第二种：修改本地字符串，循环对收尾的字符交换位置后输出整个字符串的值。    
+
+### 代码实现
+
+* 对于字符串相关的操作，需要引入头文件 string.h。   
+* 任何一个字符串都是以 '\0' 结尾，一个长度为 n 的字符串，实际占用的字节数为 n + 1。   
+* 对字符串进行输入的时候，不需要加 &。    
+* strlen 函数，返回传入的字符串的长度。
+
+#### 下标逆序
+
+```
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    int i, len;
+    char str[1000+1];
+    while (scanf("%s", str) != EOF) {
+        len = strlen(str);
+        for (i = len - 1; i >= 0; --i) {
+            printf("%c", str[i]);
+        }
+        printf("\n");
+    }
+    
+    return 0;
+}
+```
+
+#### 下标交换
+
+```
+#include <stdio.h>
+#include <string.h>
+
+void swap(char* x, char* y) {
+    char tmp = *x;
+    *x = *y;
+    *y = tmp;
+}
+
+int main() {
+    int i, len;
+    char str[1000 + 1];
+    while(scanf("%s", str) != EOF) {
+        len = strlen(str);
+        for (i = 0; i < len / 2; ++i) {
+            swap(&str[i], &str[len - 1 - i]);
+        }
+        printf("%s\n", str);
     }
     return 0;
 }
