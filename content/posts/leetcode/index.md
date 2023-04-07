@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-06T14:20:47+08:00
+date: 2023-04-08T00:20:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -12,6 +12,48 @@ categories: ["算法"]
 
 ## Medium
 
+### 删除链表的倒数第 N 个结点
+
+[题目内容](https://leetcode.cn/problems/remove-nth-node-from-end-of-list/)
+
+#### 解题思路
+
+快慢指针 + 虚拟头结点。   
+
+* 初始化快慢指针 slow、fast 指向虚拟头结点。   
+* fast 向后移动 n 个位置，此时 fast 和 slow 之间相隔的元素个数为 n。   
+* 同时向后移动 fast 和 slow，当 fast 移动到最后时，slow 的下一个结点就是要删除的倒数第 n 个结点。   
+* 将 slow 的下一个结点指向下下个结点，则删除倒数第 n 个结点。    
+
+#### 代码实现
+
+```ts
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+const removeNthFromEnd = (head: ListNode | null, n: number): ListNode | null => {
+  let dmy: ListNode | null = new ListNode(0, head);
+  let slow: ListNode | null = dmy;
+  let fast: ListNode | null = dmy;
+  while (n--) fast = fast.next;
+  while (fast && fast.next) {
+    fast = fast.next;
+    slow = slow.next;
+  }
+  slow.next = slow.next.next;
+  return dmy.next;
+};
+```
+
 ### 电话号码的字母组合
 
 [题目内容](https://leetcode.cn/problems/letter-combinations-of-a-phone-number)
@@ -22,7 +64,7 @@ categories: ["算法"]
 
 #### 代码实现
 
-```
+```ts
 const letterCombinations = (digits: string): string[] => {
   const map = [
     '',
