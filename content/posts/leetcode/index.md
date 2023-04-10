@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-08T00:20:47+08:00
+date: 2023-04-10T09:40:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,34 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 括号生成
+
+[题目内容](https://leetcode.cn/problems/generate-parentheses/)
+
+#### 解题思路
+
+BFS + 去重。    
+
+从 n - 1 推导 n 的组合情况，只需要遍历 n - 1 的所有组合，并在所有组合的每个位置填入一对括号 () 并去重即可。     
+
+#### 代码实现
+
+```ts
+const generateParenthesis = (n: number): string[] => {
+  let set: Set<string> = new Set(['()']);
+  for (let i = 2; i <= n; i++) {
+    let nextSet: Set<string> = new Set();
+    for (const s of set) {
+      for (let j = 0; j < s.length; j++) {
+        nextSet.add(`${s.slice(0, j)}()${s.slice(j)}`);
+      }
+    }
+    set = nextSet;
+  }
+  return [...set];
+};
+```
 
 ### 删除链表的倒数第 N 个结点
 
