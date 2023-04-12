@@ -1,7 +1,7 @@
 ---
 title: "‍💻 Typescript 使用手册"
 date: 2023-03-28T10:20:47+08:00
-weight: 3
+weight: 5
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
@@ -3928,3 +3928,4 @@ type MakePropsAsNullable<T extends object, K extends keyof T = keyof T> = Flatte
 
 type MakePropsAsNonNullable<T extends object, K extends keyof T = keyof T> = Flatten<NonNullable<Pick<T, K>> & Omit<T, K>>;
 ```
+

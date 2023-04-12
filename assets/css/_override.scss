@@ -2,3 +2,7 @@
 // Override Variables
 // 覆盖变量
 // ==============================
+@import url('https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css'); // 引入字体 CDN
+$global-font-family: "LXGW WenKai Screen", sans-serif; // 修改字体
+$global-font-size: 18px; // 修改字体大小
+$global-line-height: 32px; // 修改行高
