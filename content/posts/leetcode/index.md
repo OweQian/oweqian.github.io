@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-11T10:10:47+08:00
+date: 2023-04-12T10:00:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,48 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 搜索旋转排序数组
+
+[题目内容](https://leetcode.cn/problems/search-in-rotated-sorted-array/)
+
+#### 解题思路
+
+题目要求时间复杂度为 O(log n)，二分法。    
+
+随便选择一个点，将数组一分为二，其中一部分一定是有序的。    
+
+* 先找出 mid，根据 mid 来判断，mid 是在有序部分还是无序部分。   
+* 如果 mid 小于 start，则 mid 一定在右边有序部分。    
+* 如果 mid 大于等于 start， 则 mid 一定在左边有序部分。   
+* 继续判断 target 在哪一部分。    
+
+#### 代码实现
+
+```ts
+const search = (nums: number[], target: number): number => {
+  let start: number = 0;
+  let end: number = nums.length - 1;
+  while(start <= end) {
+    const mid: number = start + ((end - start) >> 1);
+    if (nums[mid] === target) return mid;
+    if (nums[mid] >= nums[start]) {
+      if (target >= nums[start] && target <= nums[mid]) {
+        end = mid - 1;
+      } else {
+        start = mid + 1;
+      }
+    } else {
+      if (target >= nums[mid] && target <= nums[end]) {
+        start = mid + 1;
+      } else {
+        end = mid - 1;
+      }
+    }
+  }
+  return -1;
+};
+```
 
 ### 下一个排列   
 
