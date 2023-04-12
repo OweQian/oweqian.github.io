@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-11T11:00:00+08:00
+date: 2023-04-12T11:00:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,87 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 合法标识符
+
+### 题目内容
+
+循环输入。每组输入为一个长度不超过 80 的字符串，判断它是否是 C 语言合法标识符。没有任何输入时，程序结束。C 语言合法标识符需要满足如下条件：   
+
+1）出现空格 (或 tab) 非法。   
+2）首字符不能是数字。    
+3）中间不能出现空格。   
+4）字符集合只有 数字、_、大写字母、小写字母。    
+
+### 解题思路
+
+* 空字符串判定。   
+* 首字符是数字判定。  
+* 中间出现空格或者 tab 判定。    
+* 非合法字符判定。    
+
+### 代码实现
+
+```
+#include <stdio.h>
+const int __UNDEFINE = 100000;
+char str[100];
+int isnum(char c) {
+    return c >= '0' && c <= '9';
+}
+int is_space_or_tab(char c) {
+    return c == ' ' || c == '\t';
+}
+int judge_char(char c) {
+    if (isnum(c)) return 1;
+    if (c >= 'a' && c <= 'z') return 1;
+    if (c >= 'A' && c <= 'Z') return 1;
+    if (c == '_') return 1;
+    return 0;
+}
+int judge(const char* str) {
+    int i;
+    int s, t;
+    s = __UNDEFINE;
+    t = 0;
+    for (i = 0; str[i]; ++i) {
+        if (!is_space_or_tab(str[i])) {
+            if (s == __UNDEFINE) {
+                s = i;
+            }
+            t = i;
+        }
+        else {
+            return 0;
+        }
+    }
+    if (s > t) {                       // (1)
+        return 0;
+    }
+    if (isnum(str[s])) {               // (2)
+        return 0;
+    }
+    for (i = s; i <= t; ++i) {         
+        if (is_space_or_tab(str[i])) { // (3)
+            return 0;
+        }
+        if (!judge_char(str[i])) {     // (4)
+            return 0;
+        }
+    }
+    return 1;
+}
+int main() {
+    int t;
+    scanf("%d", &t);
+    getchar();
+    while (t--) {
+        gets(str);
+        printf("%s\n", judge(str) ? "yes" : "no");
+    }
+    return 0;
+}
+```
 
 ## 安全密码
 
