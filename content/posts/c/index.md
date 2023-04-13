@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-12T11:00:00+08:00
+date: 2023-04-13T10:50:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,50 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 日期   
+
+### 题目内容
+
+循环输入。每次输入为一个字符串，字符串的格式为 YYYY/MM/DD，即 YYYY 年 MM 月 DD 日。要求输出这是一年的第几天。当没有任何输入时，程序结束。   
+
+### 解题思路
+
+* 对于 YYYY 年 MM 月 DD 日，1 到 MM - 1 月总共有 X 天，答案就是 X + DD。    
+* 闰年的 2 月有 29 天，平年的 2 月则是 28 天。   
+* 闰年就是模 4 为零且模 100 不为零，或者模 400 为零的年份。     
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+int monthday[] = {
+    0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+};
+
+int sumday[13];
+int y, m, d;
+
+int main() {
+    int i;
+    while (1) {
+        if (scanf("%4d/%2d/%2d", &y, &m, &d) == 3) {
+            monthday[2] = y % 4 == 0 && y % 100 || y % 400 == 0 ? 29 : 28;
+            sumday[0] = 0;
+            for (i = 1; i <= 12; ++i) {
+                sumday[i] = sumday[i - 1] + monthday[i];
+            }
+            int ans = sumday[m - 1] + d;
+            printf("%d\n", ans);
+        }
+    }
+    return 0;
+}
+```
+### 调试结果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/c/img_01.png" alt="" width="200" />  
 
 ## 合法标识符
 
