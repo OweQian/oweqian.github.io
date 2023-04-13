@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-12T10:00:47+08:00
+date: 2023-04-13T10:00:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -12,9 +12,48 @@ categories: ["算法"]
 
 ## Medium
 
+### 在排序数组中查找元素的第一个和最后一个位置
+
+[题目内容](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/)    
+
+#### 解题思路
+
+题目要求时间复杂度为 O(log n)，二分法。    
+ 
+* 二分查找中，寻找 leftIndex 即为在数组中寻找第一个大于等于 target 的下标，寻找 rightIndex 即为在数组中寻找第一个大于 target 的下标，然后将下标减一。   
+* binarySearch(nums, target, lower) 表示在 nums 数组中二分查找 target 的位置，如果 lower 为 true，则查找第一个大于等于 target 的下标，否则查找第一个大于 target 的下标。    
+* target 可能不存在数组中，需要重新校验获得的两个下标 leftIndex 和 rightIndex，不符合则返回 [-1, -1];    
+
+#### 代码实现
+
+```ts
+const searchRange = (nums: number[], target: number): number[] => {
+  const binarySearch = (nums: number[], target: number, lower: boolean): number => {
+    let left: number = 0, right: number = nums.length - 1, ans: number = nums.length;
+    while (left <= right) {
+      const mid: number = left + ((right - left) >> 1);
+      if (nums[mid] > target || (lower && nums[mid] >= target)) {
+        right = mid - 1;
+        ans = mid;
+      } else {
+        left = mid + 1;
+      }
+    }
+    return ans;
+  }
+  let ans = [-1, -1];
+  const leftIndex = binarySearch(nums, target, true);
+  const rightIndex = binarySearch(nums, target, false) - 1;
+  if(leftIndex <= rightIndex && rightIndex < nums.length && nums[leftIndex] === target && nums[rightIndex] === target) {
+    ans = [leftIndex, rightIndex];
+  }
+  return ans;
+};
+```
+
 ### 搜索旋转排序数组
 
-[题目内容](https://leetcode.cn/problems/search-in-rotated-sorted-array/)
+[题目内容](https://leetcode.cn/problems/search-in-rotated-sorted-array/)   
 
 #### 解题思路
 
