@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-04-12T19:20:47+08:00
+date: 2023-04-13T14:50:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-04
+
+#### 04-13
+
+|- Thinking...        
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_48.png" alt="" width="600" />    
 
 #### 04-12
 
