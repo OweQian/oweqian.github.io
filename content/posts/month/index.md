@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-04-13T14:50:47+08:00
+date: 2023-04-14T10:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-04
+
+#### 04-14
+
+😓 反复听了几遍，越听越冷。       
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/gOMhN-hfMtY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 04-13
 
