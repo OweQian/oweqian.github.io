@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-13T10:50:00+08:00
+date: 2023-04-14T11:00:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,44 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 进制转换
+
+### 题目内容
+
+循环输入。每组输入数据为两个整数，分别为 X(2≤X<10) 和 D，其中 D 代表了一个 X 进制数，求这个 X 进制数的十进制表示。当没有任何输入时，程序结束。     
+
+### 解题思路
+
+每次取 X 进制数的最低位，然后乘以 X 的次幂 (`pow()`)，次幂从 0 开始递增，得到这一位的十进制值，将所有位的十进制值相加即可得到 X 进制数的十进制表示。      
+
+### 代码实现
+
+```c
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int x, d, i, n, sum;
+    while (scanf("%d%d", &x, &d) != EOF) {
+        n = 0;
+        sum = 0;
+        while (d > 0) {
+            sum += (d % 10) * pow(x, n);
+            n++;
+            d /= 10;
+        }
+        printf("%d\n", sum);
+        
+    }
+    
+    return 0;
+}
+```
+
+### 调试结果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/c/img_02.png" alt="" width="200" />  
 
 ## 日期   
 
