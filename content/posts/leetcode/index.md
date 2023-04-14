@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-13T10:00:47+08:00
+date: 2023-04-14T10:00:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,40 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 组合总和
+
+[题目内容](https://leetcode.cn/problems/combination-sum/)
+
+#### 解题思路
+
+回溯 + 剪枝。    
+
+* 剪枝：sum > target 结束当前递龟；sum === target 路径加入解集；限制下次递龟的起点避免重复组合。   
+* ×：当前组合和之前生成的组合重复了。
+* △：当前求和 > target，不能选下去了，返回。
+* ○：求和正好 == target，加入解集，并返回。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img_03.png" alt="" width="600" />
+
+#### 代码实现
+
+```ts
+const combinationSum = (candidates: number[], target: number): number[][] => {
+  const res: number[][] = [];
+  const backTrace = (start: number, temp: number[], sum: number): void => {
+    if (sum > target) return;
+    if (sum === target) res.push([...temp]);
+    for (let i = start; i < candidates.length; i++) {
+      temp.push(candidates[i]); // 选这个数
+      backTrace(i, temp, sum + candidates[i])
+      temp.pop(); // 撤销选择，继续尝试选同层右边的数
+    }
+  }
+  backTrace(0, [], 0);
+  return res;
+};
+```
 
 ### 在排序数组中查找元素的第一个和最后一个位置
 
