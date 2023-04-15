@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-04-14T10:30:47+08:00
+date: 2023-04-15T19:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,13 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-04
+
+#### 04-15
+
+🙃 越薅越多，越薅越多。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_49.jpeg" alt="" width="300" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_50.jpeg" alt="" width="300" />    
 
 #### 04-14
 
