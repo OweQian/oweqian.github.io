@@ -1,6 +1,6 @@
 ---
 title: "🧐 从 0 学习手语"
-date: 2023-04-14T22:10:47+08:00
+date: 2023-04-17T22:00:47+08:00
 weight: 6
 tags: ["手语"]
 categories: ["手语"]
@@ -19,3 +19,11 @@ categories: ["手语"]
 ### F、G、H、I、J
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/handLanguage/img_03.png" alt="" width="600" />  
+
+### K、L、M、N、O
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/handLanguage/img_04.png" alt="" width="600" />  
+
+### P、Q、R、S、T
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/handLanguage/img_05.png" alt="" width="600" />  
