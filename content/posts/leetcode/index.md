@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-14T10:00:47+08:00
+date: 2023-04-17T11:40:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,45 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 全排列
+
+[题目内容](https://leetcode.cn/problems/permutations/)
+
+#### 解题思路
+
+回溯 + 剪枝。
+
+* 每一位都有3种选择：1、2、3。   
+* 每一次都做选择，展开出一棵空间树。    
+* 利用 hashMap，记录选过的数，下次遇到相同的数，跳过。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img_04.png" alt="" width="600" />   
+
+#### 代码实现
+
+```ts
+const permute = (nums: number[]): number[][] => {
+  const res: number[][] = [];
+  const used: Record<string, boolean> = {};
+  const dfs = (path: number[]) => {
+    if (path.length === nums.length) {
+      res.push(path.slice());
+      return;
+    }
+    for (const num of nums) {
+      if (used[String(num)]) continue;
+      path.push(num);
+      used[String(num)] = true;
+      dfs(path);
+      path.pop();
+      used[String(num)] = false;
+    }
+  }
+  dfs([]);
+  return res;
+};
+```
 
 ### 组合总和
 
@@ -25,7 +64,7 @@ categories: ["算法"]
 * △：当前求和 > target，不能选下去了，返回。
 * ○：求和正好 == target，加入解集，并返回。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img_03.png" alt="" width="600" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/leetcode/img_03.png" alt="" width="600" />   
 
 #### 代码实现
 
