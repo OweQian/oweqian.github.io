@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-14T11:00:00+08:00
+date: 2023-04-17T15:15:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,49 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 进制转换
+
+### 题目内容
+
+循环输入。给定一个十进制数 d 和 一个进制 X (2 ≤ X ≤ 16)，输出它的 X 进制的表示。当没有任何输入时，程序结束。   
+
+### 解题思路
+
+* 定义字符数组 hex_chars，用于存储十六进制数的字符表示（'0'-'9' 和 'A'-'F'）。    
+* 定义递归函数 print_base_x，用于将给定的十进制数 d 转换为 X 进制表示并输出。    
+* 如果 d 为 0，则函数直接返回。否则，函数递归调用自己，将 d / x 转换为 X 进制表示并输出，然后输出 d % x 对应的字符。得到整个 X 进制数的表示。    
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+char hex_chars[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
+void print_base_x(int d, int x) {
+    if (d == 0) return;
+    print_base_x(d / x, x);
+    printf("%c", hex_chars[d % x]);
+}
+
+int main() {
+    int d, x;
+    while (1) {
+        if (scanf("%d%d", &d, &x) == 2) {
+            if (d < 0) d = -d;
+            print_base_x(d, x);
+            printf("\n");
+        }
+    }
+    
+    return 0;
+}
+```
+
+### 调试结果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/c/img_03.png" alt="" width="200" />  
 
 ## 进制转换
 
