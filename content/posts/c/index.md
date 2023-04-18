@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-17T15:15:00+08:00
+date: 2023-04-18T15:20:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,43 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 最大公约数
+
+### 题目内容
+
+循环输入。每组数据，给定两个非负整数 a 和 b (a,b ≤ 10 ** 9)，求两者的最大公约数。当没有任何输入时，程序结束。    
+
+### 解题思路
+
+封装递归函数 gcd，计算 a 和 b 的最大公约数。如果 b 为 0，则 a 就是最大公约数；否则，递归调用 gcd 函数，将 b 和 a % b 作为参数继续计算最大公约数。    
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+int gcd (int a, int b) {
+    if (b == 0) {
+        return a;
+    }
+    return gcd(b, a % b);
+}
+
+int main() {
+    int a, b;
+    while(1) {
+        if (scanf("%d%d", &a, &b) != EOF) {
+            printf("%d\n", gcd(a, b));
+        }
+    }
+    return 0;
+}
+```
+
+### 调试结果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/c/img_04.png" alt="" width="200" />  
 
 ## 进制转换
 
