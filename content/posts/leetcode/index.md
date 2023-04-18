@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-17T11:40:47+08:00
+date: 2023-04-18T14:00:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,46 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 旋转图像
+
+[题目内容](https://leetcode.cn/problems/rotate-image/)
+
+#### 解题思路
+
+两次翻转。    
+
+matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]    
+
+先根据水平轴翻转得到：   
+
+[[15,14,12,16],[13,3,6,7],[2,4,8,10],[5,1,9,11]]   
+
+再根据主对角线翻转得到：  
+
+[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]   
+
+#### 代码实现
+
+```ts
+/**
+ Do not return anything, modify matrix in-place instead.
+ */
+const rotate = (matrix: number[][]): void => {
+  const n: number = matrix.length;
+  for (let i = 0; i < Math.floor(n / 2); ++i) {
+    for (let j = 0; j < n; ++j) {
+      [matrix[i][j], matrix[n - i - 1][j]] = [matrix[n - i - 1][j], matrix[i][j]];
+    }
+  }
+
+  for (let i = 0; i < n; ++i) {
+    for (let j = 0; j < i; ++j) {
+      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
+    }
+  }
+};
+```
 
 ### 全排列
 
