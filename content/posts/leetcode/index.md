@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-18T14:00:47+08:00
+date: 2023-04-19T16:10:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,30 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 字母异位词分组
+
+[题目内容](https://leetcode.cn/problems/group-anagrams/)
+
+#### 解题思路
+
+哈希表。    
+
+#### 代码实现
+
+```ts
+const groupAnagrams = (strs: string[]): string[][] => {
+  let map: Map<string, string[]> = new Map();
+  for (let i = 0; i < strs.length; i++) {
+    let key: string = strs[i].split('').sort().join('');
+    if (!map.has(key)) {
+      map.set(key, []);
+    }
+    map.get(key).push(strs[i]);
+  }
+  return [...map.values()];
+};
+```
 
 ### 旋转图像
 
