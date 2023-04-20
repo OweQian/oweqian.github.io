@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-19T16:10:47+08:00
+date: 2023-04-20T11:00:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,37 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 最大子数组和
+
+[题目内容](https://leetcode.cn/problems/maximum-subarray/)
+
+#### 解题思路
+
+动态规划。    
+
+* 对数组进行遍历，当前最大子序列和为 sum，结果为 ans。     
+* sum > 0，则说明 sum 对结果有增益，保留 sum 并加上当前遍历数字。    
+* sum < 0，则说明 sum 对结果无增益，需要舍弃，sum 更新为当前遍历数字。       
+* 每次遍历比较 sum 和 ans 的大小，将最大值置为 ans。     
+
+#### 代码实现
+
+```ts
+const maxSubArray = (nums: number[]): number => {
+  let ans: number = nums[0];
+  let sum: number = 0;
+  for (let num of nums) {
+    if (sum > 0) {
+      sum += num;
+    } else {
+      sum = num;
+    }
+    ans = Math.max(ans, sum);
+  }
+  return ans;
+};
+```
 
 ### 字母异位词分组
 
