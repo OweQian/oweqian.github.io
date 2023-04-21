@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-20T11:00:47+08:00
+date: 2023-04-21T09:40:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,30 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 跳跃游戏
+
+[题目内容](https://leetcode.cn/problems/maximum-subarray/)
+
+#### 解题思路
+
+贪心。    
+
+重点看可跳跃的覆盖范围，在可跳跃范围内，每次取最大跳跃步数更新可跳跃范围，如果更新后的可跳跃覆盖范围大于等于终点下标，则直接返回 true，否则只前进一步继续更新可跳跃范围。     
+
+#### 代码实现
+
+```ts
+const canJump = (nums: number[]): boolean => {
+  if (nums.length === 1) return true;
+  let cover: number = 0;
+  for (let i = 0; i <= cover; ++i) {
+    cover = Math.max(nums[i] + i, cover);
+    if (cover >= nums.length - 1) return true;
+  }
+  return false;
+};
+```
 
 ### 最大子数组和
 
