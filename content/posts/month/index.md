@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-04-20T23:20:47+08:00
+date: 2023-04-21T15:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-04
+
+#### 04-21
+
+😨 新租的房子还没来得及搬进去，一下子多了两个妹子要来借住，快乐的独居生活就要这么结束了吗？    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_53.jpg" alt="" width="600" />    
 
 #### 04-20
 
