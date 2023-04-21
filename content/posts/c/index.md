@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-20T11:28:00+08:00
+date: 2023-04-21T11:10:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,45 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 全排列
+
+### 题目内容
+
+没有输入，按照字典序输出所有 1,2,3,4,5 的全排列。   
+
+### 解题思路
+
+封装递归函数 permute()，如果 l 等于 r，则 a 中的所有字符已经排列好，可以输出当前排列；否则，从 l 到 r 的范围内，枚举每个字符，将它与 l 位置的字符交换，然后递归处理 l + 1 到 r 的子问题，处理完子问题后再交换回来，继续枚举下一个字符。   
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+void permute(char *a, int l, int r) {
+    int i;
+    if (l == r) {
+        printf("%s\n", a);
+    } else {
+        for (i = l; i <= r; ++i) {
+            char temp = a[l];
+            a[l] = a[i];
+            a[i] = temp;
+            permute(a, l + 1, r);
+            temp = a[l];
+            a[l] = a[i];
+            a[i] = temp;
+        }
+    }
+}
+
+int main() {
+    char a[] = "12345";
+    permute(a, 0, 4);
+    return 0;
+}
+```
 
 ## 最小公倍数
 
