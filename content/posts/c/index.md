@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-21T11:10:00+08:00
+date: 2023-04-23T15:00:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,61 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 水仙花数
+
+### 题目内容
+
+循环输入。每组输入为两个数 l 和 r，要求输出 [l, r] 范围内的所有水仙花数。没有的话输出 no。当没有任何输入时，程序结束。    
+
+其中，水仙花数的定义如下：   
+1）十进制位数有三位；    
+2）每一位的立方和等于它本身；   
+
+### 解题思路
+
+使用 for 循环遍历 [l, r] 范围内的所有数，判断每个数是否是水仙花数。判断一个数是否是水仙花数，需要计算它各位数字的立方和，并与这个数本身进行比较。    
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+int is_narcissistic(int n) {
+    int sum = 0, temp = n;
+    while (temp > 0) {
+        int digit = temp % 10;
+        sum += digit * digit * digit;
+        temp /= 10;
+    }
+    return sum == n;
+}
+
+int main() {
+    int l, r;
+    while (1) {
+        if (scanf("%d%d", &l, &r) != EOF) {
+            int found = 0;
+            int i;
+            for (i = l; i <= r; ++i) {
+                if (is_narcissistic(i)) {
+                    printf("%d", i);
+                    found = 1;
+                }
+            }
+            if (!found) {
+                printf("no");
+            }
+            printf("\n");
+        }
+    }
+    return 0;
+}
+```
+
+### 调试结果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/c/img_07.png" alt="" width="200" />
 
 ## 全排列
 
