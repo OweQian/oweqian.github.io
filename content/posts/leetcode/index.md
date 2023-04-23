@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-21T09:40:47+08:00
+date: 2023-04-23T11:20:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,35 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 合并区间
+
+[题目内容](https://leetcode.cn/problems/merge-intervals/)
+
+#### 解题思路
+
+prev 初始化为第一个区间，curr 为当前遍历到的区间， res 为结果数组。尝试合并 prev 和 curr，合并后更新到 prev，合并后的新区间还可能会和后面的区间重合，继续尝试合并新的 curr，更新给 prev，直到不能合并，将 prev 推入到 res。先合并遇到不重合再推入 prev，当考察完最后一个区间，遇不到不重合的区间，要单独把 prev 推入到 res。         
+
+#### 代码实现
+
+```ts
+const merge = (intervals: number[][]): number[][] => {
+  let res: number[][] = [];
+  intervals.sort((a: number[], b: number[]) => a[0] - b[0]);
+  let prev: number[] = intervals[0];
+  for (let i = 1; i < intervals.length; ++i) {
+    let curr = intervals[i];
+    if (prev[1] >= curr[0]) {
+      prev[1] = Math.max(prev[1], curr[1]);
+    } else {
+      res.push(prev);
+      prev = curr;
+    }
+  }
+  res.push(prev);
+  return res;
+};
+```
 
 ### 跳跃游戏
 
