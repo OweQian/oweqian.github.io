@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-23T15:00:00+08:00
+date: 2023-04-24T11:20:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,51 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 数组查找
+
+### 题目内容
+
+循环输入。每组数据给定一个 n (n ≤ 1000000)，然后是 n 个不同的整数 a[i] (a[i] ≤10 ** 9)，再输入一个整数 x，求 x 在数组中的下标，找不到则返回 -1。当没有任何输入时，程序结束。    
+
+### 解题思路
+
+将所有输入的数存到一个数组中，然后用一个循环去一一寻找，一旦找到就返回，n 个数穷举完毕都没有找到这个数，则返回 -1。     
+
+### 代码实现
+
+```
+#include <stdio.h>
+int n;
+int a[10000001];
+
+int findIndex(int size, int a[], int value) {
+    int i;
+    for (i = 0; i < size; ++i) {
+        if (a[i] == value) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    int i, x;
+    while (scanf("%d", &n) != EOF) {
+        for (i = 0; i < n; ++i) {
+            scanf("%d", &a[i]);
+        }
+        scanf("%d", &x);
+        printf("%d\n", findIndex(n, a, x));
+    }
+    
+    return 0;
+}
+```
+
+### 调试结果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/c/img_08.png" alt="" width="200" />
 
 ## 水仙花数
 
