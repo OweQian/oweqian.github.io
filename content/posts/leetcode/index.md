@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-23T11:20:47+08:00
+date: 2023-04-24T09:50:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,30 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 不同路径
+
+[题目内容](https://leetcode.cn/problems/unique-paths/)
+
+#### 解题思路
+
+动态规划。    
+
+每个位置的路径 = 该位置左边的路径 + 该位置上边的路径。     
+
+#### 代码实现
+
+```ts
+const uniquePaths = (m: number, n: number): number => {
+  const dp = new Array(m).fill(1).map(i => new Array(n).fill(1));
+  for (let i = 1; i < m; ++i) {
+    for (let j = 1; j < n; ++j) {
+      dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+    }
+  }
+  return dp[m - 1][n - 1];
+};
+```
 
 ### 合并区间
 
