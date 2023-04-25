@@ -10,6 +10,55 @@ categories: ["第二技能"]
 
 <!--more-->
 
+## 数组插入
+
+### 题目内容
+
+循环输入。每组数据给定一个 n (n ≤ 1000000)，然后是 n 个不同的整数 a[i] (a[i] ≤10 ** 9)，再输入一个整数 x，将 x 插入数组的第一个位置后，将插入后的数组输出。当没有任何输入时，程序结束。
+
+### 解题思路
+
+数组插入会导致插入位置后面的元素往后移，需要一个临时变量，将后移的元素缓存起来，枚举每个数，分别和缓存起来的数进行交换，实现滚动向后移动的过程。     
+
+### 代码实现
+
+```
+#include <stdio.h>
+int n;
+int a[10000001], x;
+
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int i, x;
+    while (scanf("%d", &n) != EOF) {
+        for (i = 0; i < n; ++i) {
+            scanf("%d", &a[i]);
+        }
+        scanf("%d", &x);
+        for (i = 0; i < n + 1; ++i) {
+            swap(&x, &a[i]);
+        }
+        for (i = 0; i < n + 1; ++i) {
+            if (i) {
+                printf(" ");
+            }
+            printf("%d", a[i]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+```
+
+### 调试结果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/c/img_09.png" alt="" width="200" />
+
 ## 数组查找
 
 ### 题目内容
