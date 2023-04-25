@@ -1,7 +1,7 @@
 ---
 title: "🍳 程序媛烟火气儿"
-date: 2023-03-04T23:30:47+08:00
-weight: 10
+date: 2023-04-25T14:10:47+08:00
+weight: 13
 tags: ["cook"]
 categories: ["cook"]
 ---
@@ -11,6 +11,18 @@ categories: ["cook"]
 <!--more-->
 
 ## 2023年
+
+### 减脂餐
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cook/img_07.jpg" alt="" width="300" />  
+
+### 紫菜蛋汤 / 减脂餐
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cook/img_06.jpg" alt="" width="300" />  
+
+### 大拌菜
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cook/img_05.jpg" alt="" width="300" />  
 
 ### 排骨汤 / 凉拌藕
 
