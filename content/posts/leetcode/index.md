@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-24T09:50:47+08:00
+date: 2023-04-25T11:10:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,44 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 最小路径和
+
+[题目内容](https://leetcode.cn/problems/minimum-path-sum/)    
+
+#### 解题思路
+
+动态规划。
+
+从左上角起始点到右下角终点不断累加找到最短路径。   
+
+#### 代码实现
+
+```ts
+const minPathSum = (grid: number[][]): number => {
+  const m: number = grid.length, n: number = grid[0].length;
+  const dp: number[][] = new Array(m).fill(0).map(_ => new Array(n).fill(0));
+  dp[0][0] = grid[0][0];
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      switch(true) {
+        case i === 0 && j !== 0:
+          dp[i][j] = grid[i][j] + dp[i][j - 1];
+          break;
+        case i !== 0 && j === 0:
+          dp[i][j] = grid[i][j] + dp[i - 1][j];
+          break;
+        case i !== 0 && j !== 0:
+          dp[i][j] = grid[i][j] + Math.min(dp[i - 1][j], dp[i][j - 1]);
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  return dp[m - 1][n - 1];
+};
+```
 
 ### 不同路径
 
