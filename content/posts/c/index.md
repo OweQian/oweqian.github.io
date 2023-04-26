@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-25T11:20:00+08:00
+date: 2023-04-26T11:15:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,48 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 数组删除
+
+### 题目内容
+
+循环输入。每组数据给定一个 n (n ≤ 1000000)，然后是 n 个不同的整数 a[i] (a[i] ≤10 ** 9)，删除数组第一个位置上的数，将操作完后的数组输出。当没有任何输入时，程序结束。      
+
+### 解题思路
+
+原本在 0 号位的数字没有了，原本在 1 号位的数字到 0 号位去了，... ，原本在 i 号位的数字到 i − 1 号位去了。循环左移。     
+
+### 代码实现
+
+```
+#include <stdio.h>
+int n;
+int a[10000001], x;
+
+int main() {
+    int i, x;
+    while (scanf("%d", &n) != EOF) {
+        for (i = 0; i < n; ++i) {
+            scanf("%d", &a[i]);
+        }
+        for (i = 1; i < n; ++i) {
+            a[i - 1] = a[i];
+        }
+        for (i = 0; i < n - 1; ++i) {
+            if (i) {
+                printf(" ");
+            }
+            printf("%d", a[i]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+```
+
+### 调试结果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/c/img_10.png" alt="" width="200" />
 
 ## 数组插入
 
