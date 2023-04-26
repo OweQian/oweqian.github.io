@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-25T11:10:47+08:00
+date: 2023-04-26T10:25:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,46 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 颜色分类
+
+[题目内容](https://leetcode.cn/problems/sort-colors/)
+
+#### 解题思路
+
+荷兰国旗问题，三指针算法。     
+
+使用三个指针（low、mid 和 high）来遍历和排序数组。执行过程中，所有位于 low 指针左侧的元素都是红色，位于 high 指针右侧的元素都是蓝色，确保所有白色元素位于 low 和 high 指针之间。   
+
+#### 代码实现
+
+```ts
+/**
+ Do not return anything, modify nums in-place instead.
+ */
+
+function sortColors(nums: number[]): void {
+  let low: number = 0, mid: number = 0, high: number = nums.length - 1;
+  while(mid <= high) {
+    switch(nums[mid]) {
+      case 0:
+        [nums[mid], nums[low]] = [nums[low], nums[mid]];
+        low++;
+        mid++;
+        break;
+      case 1:
+        mid++;
+        break;
+      case 2:
+        [nums[mid], nums[high]] = [nums[high], nums[mid]];
+        high--;
+        break;
+      default:
+        return;
+    }
+  }
+};
+```
 
 ### 最小路径和
 
@@ -42,7 +82,7 @@ const minPathSum = (grid: number[][]): number => {
           dp[i][j] = grid[i][j] + Math.min(dp[i - 1][j], dp[i][j - 1]);
           break;
         default:
-          break;
+          return;
       }
     }
   }
@@ -928,7 +968,7 @@ const moveZeroes = (nums: number[]): number[] => {
           nums[j++] = tmp;
           break;
         default:
-          break;  
+          return;  
       }
     }
     return nums;
