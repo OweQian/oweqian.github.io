@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-26T11:15:00+08:00
+date: 2023-04-27T14:00:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,54 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 二分查找
+
+### 题目内容
+
+循环输入。对于每组数据，给定 n (1 ≤ n ≤ 10 ** 4) 个元素的升序整型数组 nums 和一个值 target，求实现一个函数查找 nums 中 target 的下标，如果查找不到则返回 -1。当没有任何输入时，程序结束。     
+
+### 解题思路
+
+二分查找。    
+
+### 代码实现
+
+```
+#include <stdio.h>
+int nums[10001];
+
+int binarySearch(int n, int *nums, int target) {
+    int low = 0, high = n - 1;
+    while(low <= high) {
+        int mid = (low + high) >> 1;
+        if (nums[mid] == target) {
+            return mid;
+        } else if (target > nums[mid]) {
+            low = mid + 1;
+        } else if (target < nums[mid]) {
+            high = mid + 1;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    int n, target, i;
+    while (scanf("%d", &n) != EOF) {
+        for (i = 0; i < n; ++i) {
+            scanf("%d", &nums[i]);
+        }
+        scanf("%d", &target);
+        printf("%d\n", binarySearch(n, nums, target));
+    }
+    return 0;
+}
+```
+
+### 调试结果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/c/img_11.png" alt="" width="200" />
 
 ## 数组删除
 
