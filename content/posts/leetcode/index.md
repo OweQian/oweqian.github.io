@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-26T10:25:47+08:00
+date: 2023-04-27T13:30:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -11,6 +11,40 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 子集
+
+[题目内容](https://leetcode.cn/problems/subsets/)
+
+#### 解题思路
+
+枚举出当前可选的数：       
+
+* 如果第一个数选 1，选第二个数，2、3 可选；    
+* 如果第一个数选 2，选第二个数，只有 3 可选；    
+* 如果第一个数选 3，没有第二个数可选；     
+
+#### 代码实现
+
+```ts
+/**
+ Do not return anything, modify nums in-place instead.
+ */
+
+const subsets = (nums: number[]): number[][] => {
+  const result: number[][] = [];
+  const dfs = (index: number, list: number[]) => {
+    result.push(list.slice());
+    for (let i = index; i < nums.length; i++) {
+      list.push(nums[i]);
+      dfs(i + 1, list);
+      list.pop();
+    }
+  };
+  dfs(0, []);
+  return result;
+};
+```
 
 ### 颜色分类
 
@@ -29,7 +63,7 @@ categories: ["算法"]
  Do not return anything, modify nums in-place instead.
  */
 
-function sortColors(nums: number[]): void {
+const sortColors = (nums: number[]): void => {
   let low: number = 0, mid: number = 0, high: number = nums.length - 1;
   while(mid <= high) {
     switch(nums[mid]) {
