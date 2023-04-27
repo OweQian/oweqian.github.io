@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-04-26T14:15:47+08:00
+date: 2023-04-27T09:45:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,17 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-04
+
+#### 04-27
+
+🤪 谢谢你 yyx，还知道给国内开发者打（骨）折。      
+
+认证到 Vue 高级玩家，在国内找工作不发愁。     
+
+[Vue 官网认证证书](https://certification.vuejs.org/)    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_56.png" alt="" width="600" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_57.png" alt="" width="600" />    
 
 #### 04-26 
 
