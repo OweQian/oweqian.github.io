@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-04-27T09:45:47+08:00
+date: 2023-04-28T16:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,13 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-04
+
+#### 04-28
+
+📌 成都市·大源·欢乐颂，在这里的最后一天。     
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_58.jpg" alt="" width="600" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_59.jpg" alt="" width="600" />    
 
 #### 04-27
 
