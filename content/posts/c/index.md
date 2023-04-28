@@ -1,6 +1,6 @@
 ---
 title: "‍💻 从 0 学习 C 语言"
-date: 2023-04-27T14:00:00+08:00
+date: 2023-04-28T13:45:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,55 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 冒泡排序
+
+### 题目内容
+
+循环输入。每组数据为一个 n (n ≤ 100000)，然后输入 n 个数 a[i] (a[i] ≤10 ** 6)，要求递增有序输出所有数。程序结束。   
+
+### 解题思路
+
+冒泡排序。    
+
+不断地比较相邻的两个数，如果它们的顺序不正确，则交换它们的位置。通过多次这样的比较和交换，可以将整个数组排序。     
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+int main() {
+    int n, i, j, temp;
+    int a[100];
+    while (scanf("%d", &n) != EOF) {
+        for (i = 0; i < n; ++i) {
+            scanf("%d", &a[i]);
+        }
+
+        for (i = 0; i < n - 1; ++i) {
+            for (j = 0; j < n - i - 1; ++j) {
+                if (a[j] > a[j + 1]) {
+                    temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+            }
+        }
+
+        for (i = 0; i < n; ++i) {
+            printf("%d ", a[i]);
+        }
+        printf("\n");
+    }
+    
+    return 0;
+}
+```
+
+### 调试结果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/c/img_12.png" alt="" width="200" />
 
 ## 二分查找
 
