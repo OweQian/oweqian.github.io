@@ -782,7 +782,8 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 * nestjs 写个 demo。     
 * C 语言做一百道题巩固基础。    
 * 争取下半年开始探索 STM32。    
-* leetcode hot 100 刷完。    
+* leetcode hot 100 刷完。 
+* 得到一顶 leetcode 帽子。   
 * 学一门乐器，例如尤克里里。
 * 每天学英语。
 * 油画棒画 20 幅（白嫖，找 1 小时以上的画画教程认真画，不再糊弄了事）。
