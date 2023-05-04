@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-04-28T10:40:47+08:00
+date: 2023-05-04T10:15:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -13,6 +13,37 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 根据身高重建队列
+
+[题目内容](https://leetcode.cn/problems/queue-reconstruction-by-height/)
+
+#### 解题思路
+
+贪心。    
+
+按照身高 h 来排序，身高一定是从大到小排（身高相同的话则 k 小的站前面），让高个子在前面。     
+
+然后按照 k 为下标重新插入队列，插入操作过后的 queue 满足队列属性。     
+
+#### 代码实现
+
+```ts
+const reconstructQueue = (people: number[][]): number[][] => {
+  let queue: number[][] = [];
+  people.sort((a, b) => {
+    if (b[0] !== a[0]) {
+      return b[0] - a[0];
+    } else {
+      return a[1] - b[1];
+    }
+  })
+  for (let i = 0; i < people.length; i++) {
+    queue.splice(people[i][1], 0, people[i])
+  }
+  return queue;
+};
+```
 
 ### 打家劫舍
 
