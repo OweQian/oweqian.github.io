@@ -1,6 +1,6 @@
 ---
 title: "🏅 C 语言 100 题"
-date: 2023-04-28T13:45:00+08:00
+date: 2023-05-04T15:05:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,55 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 矩阵转置
+
+### 题目内容
+
+循环输入。每组数据先输入一个 n (n ≤ 10)，然后 n 行 n 列数据代表一个矩阵，每个数据为一个整数，输出它的转置矩阵。当没有任何输入时，程序结束。   
+
+### 解题思路
+
+将矩阵中第 i 行第 j 列的数与第 j 行第 i 列的数进行交换，从而得到转置矩阵。    
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+int main() {
+    int n, i, j;
+    int matrix[100][100];
+    while (scanf("%d", &n) != EOF) {
+        for (i = 0; i < n; ++i) {
+            for (j = 0; j < n; ++j) {
+                scanf("%d", &matrix[i][j]);
+            }
+        }
+
+        for (i = 0; i < n; ++i) {
+            for (j = i; j < n; ++j) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+
+        for (i = 0; i < n; ++i) {
+            for (j = 0; j < n; ++j) {
+                printf("%d ", matrix[i][j]);
+            }
+            printf("\n");
+        }
+    }
+    
+    return 0;
+}
+```
+
+### 调试结果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/c/img_13.png" alt="" width="200" />   
 
 ## 冒泡排序
 
