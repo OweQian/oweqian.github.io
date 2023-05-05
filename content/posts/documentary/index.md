@@ -1,6 +1,6 @@
 ---
 title: "📝 看过的纪录片随手记"
-date: 2023-05-02T00:10:38+08:00
+date: 2023-05-05T17:20:38+08:00
 weight: 4
 tags: ["纪录片"]
 categories: ["纪录片"]
@@ -11,6 +11,19 @@ categories: ["纪录片"]
 <!--more-->
 
 ## 2023
+
+### 圆明园
+
+豆瓣评分：8.6         
+导演：金铁木       
+推荐指数：❤️❤️❤️️    ️️
+
+在地球上的一个角落里，有一个神奇的世界，这个世界就叫做圆明园，现在这个神奇的世界已经不见了。     
+
+(ps: 图片拍摄于 2015 年)    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/documentary/img_05.jpg" alt="" height="220" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/documentary/img_04.jpg" alt="" height="220" />   
 
 ### 大明宫
 
