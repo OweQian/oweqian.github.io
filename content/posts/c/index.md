@@ -1,6 +1,6 @@
 ---
 title: "🏅 C 语言 100 题"
-date: 2023-05-04T15:05:00+08:00
+date: 2023-05-05T10:30:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,60 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 矩阵旋转
+
+### 题目内容
+
+循环输入。每组数据先输入一个 n (n ≤ 10)，然后 n 行 n 列数据代表一个矩阵，每个数据为一个整数，然后再给出一个数字 R，输出这个矩阵按照顺时针旋转 90R 度以后的矩阵。当没有任何输入时，程序结束。     
+
+### 解题思路
+
+执行 R 次 90 度旋转。   
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+void rotateMatrix(int matrix[][100], int n, int r) {
+    r %= 4;
+    while (r--) {
+        for (int i = 0; i < n / 2; i++) {
+            for (int j = i; j < n - i - 1; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[n - j - 1][i];
+                matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
+                matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1];
+                matrix[j][n - i - 1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    int n, r, i, j;
+    int matrix[100][100];
+    while (scanf("%d", &n) != EOF) {
+        for (i = 0; i < n; ++i) {
+            for (j = 0; j < n; ++j) {
+                scanf("%d", &matrix[i][j]);
+            }
+        }
+
+        scanf("%d", &r);
+        rotateMatrix(matrix, n, r);
+        for (i = 0; i < n; ++i) {
+            for (j = 0; j < n; ++j) {
+                printf("%d ", matrix[i][j]);
+            }
+            printf("\n");
+        }
+    }
+    
+    return 0;
+}
+```
 
 ## 矩阵转置
 
