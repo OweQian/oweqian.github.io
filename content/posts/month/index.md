@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-05-03T15:45:47+08:00
+date: 2023-05-04T22:45:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -18,13 +18,21 @@ categories: ["碎碎念"]
 
 打倒老大哥。    
 
+打倒老大哥。   
+
+打倒老大哥。   
+
 #### 05-03
 
 😨 眉山之行吃的这两块东坡肉后劲很大，回来开始出冷汗头疼想吐，一直从昨晚 10 点睡到今天下午 3 点才活过来。   
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_62.jpg" alt="" width="300" />     
+
 #### 05-02
 
 发现了一种很好吃的菜，苋菜。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_61.jpg" alt="" width="300" />     
 
 #### 05-01 
 
