@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-05-04T10:15:47+08:00
+date: 2023-05-05T10:00:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -13,6 +13,66 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### LRU 缓存
+
+[题目内容](https://leetcode.cn/problems/lru-cache/)
+
+#### 解题思路
+
+Map 迭代器。    
+
+* Map 中的键值对按照插入的顺序排列，第一个插入的键值对会排在第一个位置，第二个插入的键值对会排在第二个位置，以此类推。      
+* map.keys().next().value 会返回 Map 对象中的第一个键值对的键。    
+
+```ts
+const myMap: Map<string, string> = new Map();
+myMap.set('key1', 'value1');
+myMap.set('key2', 'value2');
+myMap.set('key3', 'value3');
+
+console.log(myMap.keys().next().value); // 输出: key1
+```
+
+#### 代码实现
+
+```ts
+class LRUCache {
+  capacity: number;
+  map: Map<number, number>;
+  constructor(capacity: number) {
+    this.capacity = capacity;
+    this.map = new Map();
+  }
+  
+  get(key: number): number {
+    if (this.map.has(key)) {
+      let value = this.map.get(key);
+      this.map.delete(key);
+      this.map.set(key, value);
+      return value;
+    }
+    return -1;
+  }
+  
+  put(key: number, value: number): void {
+    if (this.map.has(key)) {
+      this.map.delete(key);
+    }
+    this.map.set(key, value);
+    if (this.map.size > this.capacity) {
+      this.map.delete(this.map.keys().next().value);
+    }
+  }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * var obj = new LRUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */
+```
 
 ### 根据身高重建队列
 
