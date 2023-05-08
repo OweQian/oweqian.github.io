@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-05-05T10:00:47+08:00
+date: 2023-05-08T09:50:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -13,6 +13,35 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 任务调度器
+
+[题目内容](https://leetcode.cn/problems/task-scheduler/)
+
+#### 解题思路
+
+贪心。
+
+先排个数最多的任务 A，在 A 的冷却时间内插入其他任务，先计算前 n-1 行 n 的间隔的时间大小，再计算和最大次数相同的字母个数，然后累加进 ret。最后在 tasks 的长度和 ret 中取较大的一个。    
+
+#### 代码实现
+
+```ts
+const leastInterval = (tasks: string[], n: number): number => {
+  let arr: number[] = new Array(26).fill(0);
+  for (let c of tasks) {
+    arr[c.charCodeAt(0) - "A".charCodeAt(0)]++;
+  }
+  let max: number = Math.max(...arr);
+  let ret: number = (max - 1) * (n + 1);
+  for (let i = 0; i < 26; i++) {
+    if (arr[i] === max) {
+      ret++;
+    }
+  }
+  return Math.max(ret, tasks.length);
+};
+```
 
 ### LRU 缓存
 
