@@ -1,6 +1,6 @@
 ---
 title: "🔥 LeetCode HOT 100"
-date: 2023-05-08T09:50:47+08:00
+date: 2023-05-09T09:50:47+08:00
 weight: 2
 tags: ["算法"]
 categories: ["算法"]
@@ -13,6 +13,34 @@ categories: ["算法"]
 <!--more-->    
 
 ## Medium
+
+### 每日温度
+
+[题目内容](https://leetcode.cn/problems/daily-temperatures/)
+
+#### 解题思路
+
+遍历每日温度，维护一个单调栈：   
+
+* 如果栈为空或当日温度小于等于栈顶元素，则直接入栈。    
+* 如果栈不为空并且当日温度大于栈顶元素，说明栈顶元素的升温日找到了，出栈并计算天数，继续判断栈顶元素。   
+
+#### 代码实现
+
+```ts
+const dailyTemperatures = (temperatures: number[]): number[] => {
+  let result: number[] = new Array(temperatures.length).fill(0);
+  let stack: number[] = [0];
+  for (let i = 1; i < temperatures.length; i++) {
+    while(stack.length && temperatures[i] > temperatures[stack[stack.length - 1]]) {
+      const top: number = stack.pop();
+      result[top] = i - top;
+    }
+    stack.push(i);
+  }
+  return result;
+};
+```
 
 ### 任务调度器
 
