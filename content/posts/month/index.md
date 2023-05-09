@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-05-09T12:20:47+08:00
+date: 2023-05-09T22:10:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -17,6 +17,17 @@ categories: ["碎碎念"]
 #### 05-09
 
 清梅逐马，巴黎剩姆院。     
+
+-------- 我是分割线 --------   
+
+傻 🐱 的主人下雨天作妖 🚴🏻 摔倒手腕肿成了 "面包"。    
+
+傻 🐱 从餐桌上往下跳把小前爪挫伤了，不敢着地了。     
+
+😂 她残了，它瘸了。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_66.jpeg" alt="" width="300" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_65.jpeg" alt="" width="300" />     
 
 #### 05-08
 
