@@ -1,6 +1,6 @@
 ---
 title: "🏅 C 语言 100 题"
-date: 2023-05-08T10:20:00+08:00
+date: 2023-05-09T10:08:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,41 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 因子个数
+
+### 题目内容
+
+循环输入。每组输入给定一个数 n (n ≤ 10 ** 9)，输出它的因子个数。当没有任何输入时，程序结束。   
+
+### 解题思路
+
+对于一个数 n，从 1 到根号 n 遍历每个数 i，如果 i 是 n 的因子，则 n / i 也是 n 的因子。如果 i 和 n / i 相等，则只计算一次，否则计算两次。     
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+int get_factor_count(int n) {
+    int count = 0;
+    for (int i = 1; i * i <= n; i++) {
+        if (n % i == 0) {
+            count += i * i == n ? 1 : 2;
+        }
+    }
+    return count;
+}
+
+int main() {
+    int n;
+    while (scanf("%d", &n) != EOF) {
+        int count = get_factor_count(n);
+        printf("%d\n", count);
+    }
+    return 0;
+}
+```
 
 ## 素数
 
