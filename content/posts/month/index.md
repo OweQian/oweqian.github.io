@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-05-12T12:20:47+08:00
+date: 2023-05-14T20:55:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,19 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-05
+
+#### 05-14
+
+😂 这题我会，"阿珍爱上了阿强" 💯。     
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_68.jpeg" alt="" width="300" />     
+    
+#### 05-13
+
+大半夜在嘉陵江边坐着吹晚风真舒服，下次还来 👍🏻。           
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_67.jpeg" alt="" width="300" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_69.jpeg" alt="" width="300" />     
 
 #### 05-12
 
