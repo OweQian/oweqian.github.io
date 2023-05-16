@@ -1,6 +1,6 @@
 ---
 title: "🏅 C 语言 100 题"
-date: 2023-05-12T09:55:00+08:00
+date: 2023-05-16T11:25:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -9,6 +9,39 @@ categories: ["第二技能"]
 朋友花了 700 多块送的 STM32 开发板，钱不能白花，我要先把 C 语言学会，加油吧！         
 
 <!--more-->
+
+## 异或
+
+### 题目内容
+
+循环输入。每组数据输入一个 n，然后再给定 n−1 个数，分别代表 1 到 n 的其中 n−1 个，求丢失的那个数。当没有任何输入时，程序结束。    
+
+### 解题思路
+
+对于任意整数 a 和 b，有 a ^ b ^ b = a。根据这个性质，通过对所有输入的数进行异或操作，找到丢失的那个数。    
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+int main() {
+    int n;
+    while (scanf("%d", &n) != EOF) {
+        int missingNum = 0;
+        for (int i = 1; i <= n - 1; i++) {
+            int num;
+            scanf("%d", &num);
+            missingNum ^= num;
+        }
+        for (int i = 1; i <= n; i++) {
+            missingNum ^= i;
+        }
+        printf("%d\n", missingNum);
+    }
+    return 0;
+}
+```
 
 ## 位或
 
