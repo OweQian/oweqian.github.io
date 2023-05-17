@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-05-16T11:40:47+08:00
+date: 2023-05-17T23:40:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,15 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-05
+
+#### 05-17
+
+📌 成都珉丰二堆场    
+
+🤪 "阿里" 领导组织研发人员自费来的。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_70.jpeg" alt="" width="300" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_71.jpeg" alt="" width="300" />     
 
 #### 05-16 
 
