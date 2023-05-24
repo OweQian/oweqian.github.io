@@ -18,7 +18,7 @@ categories: ["碎碎念"]
 
 🤨 连续两周加班加的眼花缭乱，做题也没耐性了，暴躁王小白上线，差点站起来把电脑砸了。。。     
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_77.png" alt="" width="300" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_77.jpg" alt="" width="300" />     
 
 #### 05-23
 
