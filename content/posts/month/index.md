@@ -16,11 +16,11 @@ categories: ["碎碎念"]
 
 #### 05-28
 
-飘了，报名参加第 347 场力扣周赛，费劲抠了两道简单题之后，脑袋晕晕的 🤯。   
+飘了，报名参加第 347 场力扣周赛，费劲抠了两道题之后，脑袋晕晕的 🤯。   
 
 #### 05-27
 
-蜣螂能推动超体重 10 倍的粪球，粪球不仅是食物，也是吸引雌性的资本。  --《小小世界》   
+蜣螂能推动超自身体重 10 倍的粪球，粪球不仅是它们的食物，也是它们吸引雌性的资本。    --- 《小小世界》   
 
 #### 05-26
 
@@ -32,7 +32,8 @@ categories: ["碎碎念"]
 
 味道不错，有点小贵。    
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_78.jpeg" alt="" width="600" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_78.jpeg" alt="" width="300" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_79.jpeg" alt="" width="300" />     
 
 #### 05-25
 
