@@ -1,6 +1,6 @@
 ---
 title: "🏅 C 语言 100 题"
-date: 2023-05-31T19:20:00+08:00
+date: 2023-06-01T09:30:00+08:00
 weight: 3
 tags: ["第二技能"]
 categories: ["第二技能"]
@@ -10,7 +10,64 @@ categories: ["第二技能"]
 
 <!--more-->
 
-## 完成度：48/100
+## 完成度：49/100
+
+## qsort 函数
+
+### 题目内容
+
+循环输入。每组数据先给出一个 n，再给出 n 个整型数 a[i]，对这个数组进行排序后进行 非递减降序 输出。当没有任何输入时，程序结束。     
+
+### 解题思路
+
+```
+void qsort(void *base, size_t nitems, size_t size, int (*compar)(const void *, const void*))     
+```
+
+* base 指向排序数组的第一个元素的指针。    
+* nitems 由 base 指向数组的元素个数。      
+* size 数组中每个元素的大小，以字节为单位。    
+* compar 用来比较两个元素的函数，即函数指针（回调函数）。      
+
+### 代码实现
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+int a[200010];
+
+void input(int n) {
+    int i;
+    for(i = 0; i < n; ++i) {
+        scanf("%d", &a[i]);
+    }    
+}
+
+void output(int n) {
+    int i;
+    for(i = 0; i < n; ++i) {
+        if(i) {
+            printf(" ");
+        }
+        printf("%d", a[i]);
+    }    
+    puts("");
+}
+
+int cmp(const void* a, const void* b) {
+    return *(int *)a <= *(int *)b ? -1 : 1;    
+}
+
+int main() {
+    int n;
+    while(scanf("%d", &n) != EOF) {
+        input(n);
+        qsort(&a[0], n, sizeof(a[0]), cmp);  // (1)
+        output(n);
+    }
+}
+```
 
 ## 选择排序
 
