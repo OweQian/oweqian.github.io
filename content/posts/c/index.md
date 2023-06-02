@@ -1,7 +1,7 @@
 ---
 title: "🏅 C 语言 100 题"
-date: 2023-06-01T09:30:00+08:00
-weight: 3
+date: 2023-06-02T10:20:00+08:00
+weight: 2
 tags: ["第二技能"]
 categories: ["第二技能"]
 ---
@@ -10,7 +10,65 @@ categories: ["第二技能"]
 
 <!--more-->
 
-## 完成度：49/100
+## 完成度：50/100
+
+## 结构体数组
+
+### 题目内容
+
+循环输入。每组数据先给出一个数 n，然后 n 对数 (x[i], y[i]) 代表 n 个点的坐标，要求按照顺序输出所有的点，先按照 x 递增排序，如果 x 相等，则按照 y 递增排序。当没有任何输入时，程序结束。         
+
+### 解题思路
+
+使用 qsort 函数对结构体数组按照 x 坐标和 y 坐标进行排序。      
+
+比较 pa 和 pb 所指向的结构体的 x 坐标。如果它们的 x 坐标相等，则比较它们的 y 坐标。如果 pa 的 y 坐标小于等于 pb 的 y 坐标，返回 -1，否则返回 1。       
+
+如果 pa 的 x 坐标小于 pb 的 x 坐标，返回 -1，否则返回 1。     
+
+### 代码实现
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Point {
+    int x;
+    int y;
+}pt[1000010]; // 定义结构体，数组 pt，存储 1000010 个 Point 结构体的点
+
+void input(int n) {
+    for (int i = 0; i < n; i++) {
+        scanf("%d %d", &pt[i].x, &pt[i].y);
+    }
+}
+
+void output(int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d %d\n", &pt[i].x, &pt[i].y);
+    }
+}
+
+// 通用比较函数
+int cmp(const void* a, const void* b) {
+    const struct Point *pa = (const struct Point *)a; // 强制类型转换
+    const struct Point *pb = (const struct Point *)b;
+    if (pa->x == pb->x){
+        return pa->y <= pb->y ? -1 : 1;
+    };
+    return pa->x < pb->x ? -1 : 1;
+}
+
+int main() {
+    int n;
+    while(scanf("%d", &n) != EOF) {
+        input(n);
+        qsort(&pt[0], n, sizeof(pt[0]), cmp);
+        output(n);
+    }
+    return 0;
+}
+```
 
 ## qsort 函数
 
