@@ -1,7 +1,7 @@
 ---
 title: "🔥 LeetCode HOT 100"
 date: 2023-05-09T09:50:47+08:00
-weight: 2
+weight: 3
 tags: ["算法"]
 categories: ["算法"]
 ---
