@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-06-04T23:00:47+08:00
+date: 2023-06-05T22:10:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-06
+
+#### 06-05
+
+🤣...    
+
+<iframe width="600" height="315" src="//player.bilibili.com/player.html?aid=486876047&bvid=BV1BN411C7E1&cid=1151825956&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 06-04
 
