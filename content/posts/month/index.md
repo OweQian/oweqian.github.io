@@ -14,6 +14,14 @@ categories: ["碎碎念"]
 
 ### 2023-06
 
+#### 06-06
+
+从书上学来的开始做 "时间预算清单"。    
+
+想做的事那么多，感觉时间又那么少，原来时间就是这么一点点没的 🙃。。。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_83.png" alt="" width="300" />     
+
 #### 06-05
 
 🤣...    
