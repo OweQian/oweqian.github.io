@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-06-07T21:05:47+08:00
+date: 2023-06-09T09:15:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,10 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-06
+
+#### 06-08
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_86.jpg" alt="" width="300" />     
 
 #### 06-07
 
