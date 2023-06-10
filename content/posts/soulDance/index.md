@@ -1,7 +1,6 @@
 ---
 title: "🎶 你需要一首 BGM，来撑起你的内心戏"
 date: 2023-03-21T14:20:47+08:00
-weight: 8
 tags: ["Soul Dance"]
 categories: ["Soul Dance"]
 ---
