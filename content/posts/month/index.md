@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-06-09T09:15:47+08:00
+date: 2023-06-10T18:40:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,16 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-06
+
+#### 06-10
+
+🤣 和骗子聊天还是挺消耗能量的，要时刻提防自己不被套路进去，还特别好奇地想知道骗子们的套路是什么。。。   
+
+#### 06-09
+
+"Apple Vision Pro"
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_87.jpeg" alt="" width="300" />     
 
 #### 06-08
 
