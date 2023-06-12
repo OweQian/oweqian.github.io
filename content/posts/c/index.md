@@ -9,7 +9,35 @@ categories: ["第二技能"]
 
 <!--more-->
 
-## 完成度：55/100
+## 完成度：56/100
+
+## 三目运算符
+
+### 题目内容
+
+循环输入。每组数据输入两个数 a 和 b，实现一个函数，返回它们当中的大者，并进行输出。当没有任何输入时，程序结束。     
+
+### 解题思路
+
+三目运算符 ?:。   
+
+### 代码实现
+
+```
+#include <stdio.h>
+
+int maxValue(int a, int b) {
+    return a > b ? a : b;
+}
+
+int main() {
+    int a, b;
+    while (scanf("%d %d", &a, &b) != EOF) {
+        printf("%d\n", maxValue(a, b));
+    }
+    return 0;
+}
+```
 
 ## 指针
 
