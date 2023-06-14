@@ -1,6 +1,6 @@
 ---
 title: "‍💻 React Hooks API 的介绍和使用"
-date: 2023-06-12T21:00:07+08:00
+date: 2023-06-13T17:45:07+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
@@ -452,3 +452,155 @@ export default () => {
 效果：   
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_10.png" alt="" />  
+
+### useCallback
+
+与 useMemo 类似，唯一不同的点在于，useMemo 返回的是值，useCallback 返回的是函数。        
+
+#### 介绍
+
+```
+const resfn = useCallback(fn, deps)   
+```
+
+参数：    
+ 
+* fn：函数，返回的值作为缓存值。    
+* deps：依赖项数组，通过数组里的值是否改变来进行 fn 的调用，得到新的缓存值。   
+
+返回值：    
+
+* resfn：更新后的数据源，即 fn 的返回值，如果 deps 中的依赖值发生改变，将重新执行 fn，否则取上一次的函数。    
+
+#### 使用  
+
+```tsx
+"use client"
+import {useState, memo, useCallback} from 'react';
+import {Button, Card, Space} from 'antd';
+
+const TestButton = memo(({children, onClick = () => {}}) => {
+  console.log(children);
+  return (
+    <Button type="primary" onClick={onClick}>
+      {children}
+    </Button>
+  )
+})
+
+export default () => {
+  const [count, setCount] = useState<number>(0);
+  const [flag, setFlag] = useState<boolean>(true);
+  const add = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+  return (
+    <Card title="useCallback example" bordered={false} style={{ width: '100%' }}>
+      <Space>
+        <TestButton onClick={() => setCount(value => value + 1)}>普通点击</TestButton>
+        <TestButton onClick={add}>useCallback点击</TestButton>
+      </Space>
+      <div>数字：{count}</div>
+      <Button type="primary" onClick={() => setFlag(value => !value)}>切换：{JSON.stringify(flag)}</Button>
+    </Card>
+  )
+}
+```
+
+TestButton 是个按钮，分别存放着有无 useCallback 包裹的函数。    
+
+父组件中有一个 flag 变量，这个变量与 count 无关，当依次切换按钮时，TestButton 会怎样执行呢？   
+
+效果：   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_11.png" alt="" />    
+
+切换 flag，没有经过 useCallback 的函数会再次执行，而包裹的函数并没有执行（点击 "普通点击" 按钮时，useCallback 的依赖项 count 发生了改变，所以会打印出 "useCallback 点击"）。    
+
+> 为什么在 TestButton 中使用了 React.memo，不使用会怎样？
+> useCallback 必须配合 React.memo 进行优化，如果不配合使用，性能不但不会提升，还有可能降低。
+
+### useRef
+
+获取当前元素的所有属性，还可以用于缓存数据。   
+
+#### 介绍
+
+```
+const ref = useRef(initialValue)   
+```
+
+参数：    
+
+* initialValue：初始值。     
+
+返回值：
+
+* ref：返回一个带 current 属性的对象。   
+
+#### 使用 
+
+```tsx
+"use client"
+import {useRef, useState} from 'react';
+import {Button, Card, Space} from 'antd';
+
+export default () => {
+  const scrollRef = useRef<any>(null);
+  const [clientHeight, setClientHeight] = useState<number>(0);
+  const [scrollTop, setScrollTop] = useState<number>(0);
+  const [scrollHeight, setScrollHeight] = useState<number>(0);
+
+  const onScroll = () => {
+    if (scrollRef?.current) {
+      console.log(scrollRef?.current);
+      const clientHeight = scrollRef?.current?.clientHeight;
+      const scrollTop = scrollRef?.current?.scrollTop;
+      const scrollHeight = scrollRef?.current?.scrollHeight;
+      setClientHeight(clientHeight);
+      setScrollTop(scrollTop);
+      setScrollHeight(scrollHeight);
+    }
+  }
+  return (
+    <Card title="useRef example" bordered={false} style={{ width: '100%' }}>
+      <div>
+        <p>可视区域高度：{clientHeight}</p>
+        <p>滚动条滚动高度：{scrollTop}</p>
+        <p>滚动内容高度：{scrollHeight}</p>
+      </div>
+      <div
+        style={{ height: 200, border: "1px solid #000", overflowY: "auto" }}
+        ref={scrollRef}
+        onScroll={onScroll}
+      >
+        <div style={{height: 2000}}/>
+      </div>
+    </Card>
+  )
+}
+```
+
+效果：    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_12.png" alt="" />    
+
+### useImperativeHandle
+
+获取当前元素的所有属性，还可以用于缓存数据。
+
+#### 介绍
+
+```
+const ref = useRef(initialValue)   
+```
+
+参数：
+
+* initialValue：初始值。
+
+返回值：
+
+* ref：返回一个带 current 属性的对象。
+
+#### 使用 
