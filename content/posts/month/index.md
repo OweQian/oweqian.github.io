@@ -14,6 +14,16 @@ categories: ["碎碎念"]
 
 ### 2023-06
 
+#### 06-15
+
+发现了一部宝藏动画，喜欢这种画风 🥰。   
+
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=261272997&bvid=BV1Be411j7zh&cid=854769671&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+#### 06-14
+
+爽文，[公司最大的内耗，就是养了一批伪高管](https://mp.weixin.qq.com/s/T_0DmO_4mcdVzpD74LabWw)
+
 #### 06-13
 
 又在公司通宵了 😴。    
@@ -58,7 +68,7 @@ categories: ["碎碎念"]
 
 🤣...    
 
-<iframe width="600" height="315" src="//player.bilibili.com/player.html?aid=486876047&bvid=BV1BN411C7E1&cid=1151825956&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=486876047&bvid=BV1BN411C7E1&cid=1151825956&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 06-04
 
@@ -139,7 +149,7 @@ Chat GPT Plus 账号 GG 了。
 
 😂 直接给我笑喷了...   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_75.png" alt="" width="600" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_75.png" alt="" width="100%" />     
 
 #### 05-21
 
@@ -151,7 +161,7 @@ Chat GPT Plus 账号 GG 了。
 
 😂 有点相似。我们的某里出来的王姓领导，不定期喊产研部 985、9105、996...   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_73.jpeg" alt="" width="600" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_73.jpeg" alt="" width="100%" />     
 
 #### 05-19
 
@@ -182,7 +192,7 @@ Chat GPT Plus 账号 GG 了。
 
 😍 Love it!!!Love it!!!      
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/tUo-_fmU9VU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>    
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/tUo-_fmU9VU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>    
 
 #### 05-15
 
@@ -250,13 +260,13 @@ Chat GPT Plus 账号 GG 了。
 
 🏆    
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_64.jpeg" alt="" width="600" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_64.jpeg" alt="" width="100%" />     
 
 #### 05-06
 
 🤩 上头了。    
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/7QQzDQceGgU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/7QQzDQceGgU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 05-05
 
@@ -304,8 +314,8 @@ Chat GPT Plus 账号 GG 了。
 
 📌 成都市·大源·欢乐颂，在这里的最后一天。     
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_58.jpg" alt="" width="600" />     
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_59.jpg" alt="" width="600" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_58.jpg" alt="" width="100%" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_59.jpg" alt="" width="100%" />    
 
 #### 04-27
 
@@ -315,8 +325,8 @@ Chat GPT Plus 账号 GG 了。
 
 [Vue 官网认证证书](https://certification.vuejs.org/)    
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_56.png" alt="" width="600" />     
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_57.png" alt="" width="600" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_56.png" alt="" width="100%" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_57.png" alt="" width="100%" />    
 
 #### 04-26 
 
@@ -334,7 +344,7 @@ Chat GPT Plus 账号 GG 了。
 
 👍 大女主。   
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/cevOA5ib9HU?start=634" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>   
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/cevOA5ib9HU?start=634" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>   
 
 #### 04-23
 
@@ -354,7 +364,7 @@ Chat GPT Plus 账号 GG 了。
 
 😨 新租的房子还没来得及搬进去，一下子多了两个妹子要来借住，快乐的独居生活就要这么结束了吗？    
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_53.jpg" alt="" width="600" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_53.jpg" alt="" width="100%" />    
 
 #### 04-20
 
@@ -385,7 +395,7 @@ Chat GPT Plus 账号 GG 了。
 
 🤪 这不是一个悲伤的故事。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_52.jpg" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_52.jpg" alt="" width="100%" />  
 
 #### 04-18
 
@@ -412,13 +422,13 @@ AirPods Pro 真是神经衰弱者的福音，什么雷声、邻居吵闹声...�
 
 😓 反复听了几遍，越听越冷。       
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/gOMhN-hfMtY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/gOMhN-hfMtY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 04-13
 
 |- Thinking...        
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_48.png" alt="" width="600" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_48.png" alt="" width="100%" />    
 
 #### 04-12
 
@@ -528,7 +538,7 @@ ps: 😓 23:30，右上角的那三棵 "小可怜" 已经被饼师傅咬下来�
 
 下着雨，一瘸一拐地走回家。but，只要出去玩就开心 😌。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_40.jpg" alt="" width="600" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_40.jpg" alt="" width="100%" />    
 
 #### 03-25
 
@@ -540,7 +550,7 @@ ps: 😓 23:30，右上角的那三棵 "小可怜" 已经被饼师傅咬下来�
 
 附上剧里最喜欢的一首 OST，很治愈的一首歌，希望所有受过伤的人都能治愈自己的伤，开始新的生活 ☀️。   
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/PIM2CoRFQ1c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/PIM2CoRFQ1c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 03-24
 
@@ -550,19 +560,19 @@ ps: 😓 23:30，右上角的那三棵 "小可怜" 已经被饼师傅咬下来�
 
 饼师傅听完开始 emo 了。   
 
-<iframe width="600" height="315" src="//player.bilibili.com/player.html?aid=823618204&bvid=BV1wg4y1t7j6&cid=1057102166&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=823618204&bvid=BV1wg4y1t7j6&cid=1057102166&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 03-22
 
 🙃 开始强制加班了。    
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_39.jpg" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_39.jpg" alt="" width="100%" />  
 
 #### 03-21
 
 真实，哈哈哈。     
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_38.jpg" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_38.jpg" alt="" width="100%" />  
 
 #### 03-20
 
@@ -582,7 +592,7 @@ ps: 😓 23:30，右上角的那三棵 "小可怜" 已经被饼师傅咬下来�
 
 一边啃着兔腿，一边把 《黑暗荣耀 2》 看完了。兔腿好吃，剧也没有烂尾 🤤。       
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_35.jpeg" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_35.jpeg" alt="" width="100%" />  
 
 "恶之所以能成为恶，是因为恶永远有高高在上的立场和借口，恶为自己不平衡的扭曲心理吞噬无辜，恶永远高度自洽"。     
 
@@ -604,19 +614,19 @@ Baidu 的 CTO 是个实诚人，心虚了还会磕巴。
 
 调戏了一下 GPT-4 😌。 
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_34.png" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_34.png" alt="" width="100%" />  
 
 #### 03-15
 
 AI 都要把前端干掉了，我还在公司里忙着堆业务代码。    
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_32.jpg" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_32.jpg" alt="" width="100%" />  
 
 #### 03-14
 
 饼师傅开始工作啦 😌。   
 
-<video width="600" height="315" controls>
+<video width="100%" height="400" controls>
   <source src="/images/ssr/cat02.mp4" type="video/mp4">
 </video>
 
@@ -624,19 +634,19 @@ AI 都要把前端干掉了，我还在公司里忙着堆业务代码。
 
 第 95 届奥斯卡最佳记录短片 --- 小象守护者 The Elephant Whisperers（2022）   
 
-<iframe width="600" height="315" src="//player.bilibili.com/player.html?aid=734364386&bvid=BV1pD4y1j7ay&cid=939003531&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>   
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=734364386&bvid=BV1pD4y1j7ay&cid=939003531&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>   
 
 #### 03-12
 
 用 AI 生成梦幻房间，[roomGPT.io](https://www.roomgpt.io/dream)
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_31.png" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_31.png" alt="" width="100%" />  
 
 #### 03-11
 
 喜欢听歌的原因找到了。       
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_30.jpg" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_30.jpg" alt="" width="100%" />  
 
 #### 03-10
 
@@ -648,19 +658,19 @@ AI 都要把前端干掉了，我还在公司里忙着堆业务代码。
 
 平淡、平和、平实、平凡，这样一群小人物，被生活的湍流裹挟着，有欢笑、有烦恼、有悲伤...他们没有停下脚步，在挣扎和努力中活出光彩，成为更好的自己。   
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/1mw3u14kROE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/1mw3u14kROE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 03-09
 
 果真是梦，哈哈哈 😌。       
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_29.png" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_29.png" alt="" width="100%" />  
 
 #### 03-08
 
 致敬，每一个独一无二的她。    
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_28.jpg" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_28.jpg" alt="" width="100%" />  
 
 #### 03-07
 
@@ -672,7 +682,7 @@ AI 都要把前端干掉了，我还在公司里忙着堆业务代码。
 
 又被甲流包围了。。和最开始被新冠包围一样，陆陆续续前后左右的同事都没来了。。。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_27.png" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_27.png" alt="" width="100%" />  
 
 #### 03-05
 
@@ -713,13 +723,13 @@ AI 都要把前端干掉了，我还在公司里忙着堆业务代码。
 
 #### 03-02
 
-<iframe width="600" height="315" src="//player.bilibili.com/player.html?aid=695328283&bvid=BV1E24y187wG&cid=1033431476&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=695328283&bvid=BV1E24y187wG&cid=1033431476&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 03-01  
 
 吸~~~ Nice。浓浓的阿里味儿，这一张 PPT吹了半小时还意犹未尽。。。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_22.png" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_22.png" alt="" width="100%" />  
 
 ### 2023-02
 
@@ -730,7 +740,7 @@ AI 都要把前端干掉了，我还在公司里忙着堆业务代码。
 #### 02-27
 一款 AI 玩具。 [Scribble Diffusion](https://scribblediffusion.com)  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_20.png" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_20.png" alt="" width="100%" />  
 
 #### 02-26  
 被安利了《初恋 First Love》，终于赶在这周的最后一天追完了 😌。     
@@ -771,11 +781,11 @@ AI 都要把前端干掉了，我还在公司里忙着堆业务代码。
 #### 02-24
 面试官：请说一下 git revert 和 git reset 的区别? 😓   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_17.png" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_17.png" alt="" width="100%" />  
 
 #### 02-23 
 冲啊！
-<iframe width="600" height="315" src="https://www.youtube.com/embed/tJuhUqu4FZ8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/tJuhUqu4FZ8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 02-22
 终于把《Breaking Bad》系列追完了 😌。   
@@ -820,7 +830,7 @@ Breaking Bad S4 最后三集，🤣
 #### 02-15
 🥲 小猫咪的迷惑行为。       
 
-<video width="600" height="315" controls>
+<video width="100%" height="400" controls>
   <source src="/images/ssr/cat.mp4" type="video/mp4">
 </video>
 
@@ -841,7 +851,7 @@ ps2:
 
 #### 02-13
 🤣    
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_14.png" alt="" width="600" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_14.png" alt="" width="100%" />
 
 
 #### 02-12
@@ -879,7 +889,7 @@ He deserved it.
 #### 02-05
 😜 轻断食前的最后一顿大餐。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_11.jpeg" alt="" width="600" />  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_11.jpeg" alt="" width="100%" />  
 
 #### 02-04
 😠 无知和过度的商业宣传形成了健康问题必然危机生命的大众认知，从维持生命的人性底层上滋生了心理层面的恐慌，驱动了盲目的就医行动。  
@@ -893,7 +903,7 @@ Damn cool!!!
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_10.png" alt="" width="300" />  
 
 #### 02-01
-<iframe width="600" height="315" src="https://www.youtube.com/embed/fn4JAuCfHQA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/fn4JAuCfHQA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### 2023-01
 
@@ -916,11 +926,11 @@ Damn cool!!!
 
 I am sorry MJ... it's 2023 and the world is still cruel.    
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/BWf-eARnf6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/BWf-eARnf6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 01-25  
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/Dnj5Tcpev0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/Dnj5Tcpev0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 01-24  
 4个人一起喝🍺，吐了1个，晕了2个。    
@@ -952,7 +962,7 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 #### 01-18  
 重温《德鲁纳酒店》，每个人看似理智又冷静，但其实内心也有着最脆弱的一面，没有了依靠时，只能用坚强来掩盖自己的脆弱。  
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/NtuplEYZcrM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/NtuplEYZcrM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 01-17
 世界上怎么会有IU这么可爱的👧🏻。  
@@ -993,14 +1003,14 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 钱不花就是一张纸，花了才是钱😳。 
 ```   
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/HVHzUbFToa4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/HVHzUbFToa4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 01-08
 在飞机上看了《一条狗的使命2》，哭得稀里哗啦的😭。   
 
 多希望饼干🐱也可以一直历经生死轮回找到我并陪伴着我，直到我走到生命的终点。   
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/om_3WjZVDNA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/om_3WjZVDNA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 01-07
 不好好看文档系列😭。。包子都吃完了，才看到要按照顺序吃，可惜肚子吃不下了，不然再来一笼。   
@@ -1023,7 +1033,7 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 读文学经典以来最大的感受是：慢慢看淡生与死。   
 
 #### 01-03
-<iframe width="600" height="315" src="https://www.youtube.com/embed/h1Ebp1_f6Q0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/h1Ebp1_f6Q0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 01-02 
 乔妹的演技还是可以，一口气追完了，期待第二季😄  
@@ -1076,7 +1086,7 @@ I am sorry MJ... it's 2023 and the world is still cruel.
 #### 12-27
 IoTSharp官网新鲜出炉。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_20.png" alt="" width="600" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_20.png" alt="" width="100%" />
 
 #### 12-26
 这本书很有意思。  
@@ -1100,7 +1110,7 @@ Merry Christmas🎄
 #### 12-21
 分享最近很火的一段僵尸舞，来自《星期三》  
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/AE2bY2gOBhk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/AE2bY2gOBhk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 #### 12-20
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2022/img_17.png" alt="" width="300" />  
@@ -1108,7 +1118,7 @@ Merry Christmas🎄
 #### 12-19
 🔥。  
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/uNyOVLKWtlY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/uNyOVLKWtlY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 #### 12-18
 和饼干一起晒☀️，地上铺上新毯子，🐱在地上趴着就不会🥶了。  
