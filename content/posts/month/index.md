@@ -867,9 +867,8 @@ ps2:
 
 
 #### 02-12
-"When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he’s not appreciated or respected or even loved. He simply bears up and he does it. Because he’s a man."  🤯  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_13.png" alt="" width="300" />  
+"When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he’s not appreciated or respected or even loved. He simply bears up and he does it. Because he’s a man."  🤯  
 
 #### 02-11
 大半年没做饭，心血来潮想整个小炒肉，咸哭了😭。。。。    

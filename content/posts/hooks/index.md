@@ -1,6 +1,6 @@
 ---
 title: "‍💻 React Hooks API 的介绍和使用"
-date: 2023-06-13T17:45:07+08:00
+date: 2023-06-19T15:05:07+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
@@ -587,20 +587,99 @@ export default () => {
 
 ### useImperativeHandle
 
-获取当前元素的所有属性，还可以用于缓存数据。
+让父组件通过 ref 属性获取子组件实例，并调用子组件暴露的方法或访问子组件的属性。    
 
 #### 介绍
 
 ```
-const ref = useRef(initialValue)   
+useImperativeHandle(ref, createHandle, deps)   
 ```
 
-参数：
+参数：   
 
-* initialValue：初始值。
-
-返回值：
-
-* ref：返回一个带 current 属性的对象。
+* ref：接受 forwardRef 传递过来的 ref。     
+* createHandle：处理函数，返回值作为暴露给父组件的 ref 对象。     
+* deps：依赖项，依赖项更改，会形成新的 ref 对象。    
 
 #### 使用 
+
+```tsx
+"use client"
+import {forwardRef, useImperativeHandle, useRef, useState} from 'react';
+import {Button, Card} from 'antd';
+
+const Child = forwardRef((props, ref) => {
+  const [count, setCount] = useState<number>(0);
+  const add = () => setCount(value => value + 1);
+  useImperativeHandle(ref, () => ({
+    add,
+  }))
+
+  return (
+    <div>
+      <p>点击次数：{count}</p>
+      <Button type="primary" onClick={add}>子组件的按钮，点击+1</Button>
+    </div>
+  )
+})
+export default () => {
+  const childRef = useRef(null)
+  return (
+    <Card title="useImperativeHandle example" bordered={false} style={{ width: '100%' }}>
+      <div>大家好</div>
+      <Button type="primary" onClick={() => childRef?.current?.add()}>父组件的按钮，点击+1</Button>
+      <Child ref={childRef}/>
+    </Card>
+  )
+}
+```
+
+效果：
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_13.png" alt="" />    
+
+### useDebugValue
+
+让开发者在开发者工具中查看自定义 Hook 中的数据，从而更好地调试和优化代码。    
+
+#### 介绍
+
+```
+useDebugValue(value, (status) => {})    
+```
+
+参数：    
+
+* value：判断的值。   
+* callback：可选，接受 debug 值作为参数，返回一个格式化的显示值。    
+
+#### 使用
+
+```ts
+import {useDebugValue, useEffect, useState} from "react";
+
+const useFetch = (url: string) => {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(url);
+      const data = await response.json();
+      setData(data);
+      setLoading(false);
+    }
+    fetchData();
+  }, [url]);
+
+  // 使用 useDebugValue Hook 显示 loading 和 data 的值
+  useDebugValue({ loading, data });
+
+  return { loading, data };
+}
+
+export default useFetch;
+```
+
+ 
+
