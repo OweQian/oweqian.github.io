@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-06-21T14:30:47+08:00
+date: 2023-06-24T23:05:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -14,6 +14,21 @@ categories: ["碎碎念"]
 
 ### 2023-06
 
+#### 06-24
+
+把《少年包青天》三部快速看了一遍，周杰的演技真不错，相比之下陆毅和邓超的演技太一般了。   
+
+#### 06-23
+
+再见，天台山。          
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_92.jpeg"  width="300" alt="" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_93.jpeg" width="300" alt="" />     
+
+#### 06-22
+
+这么大年纪了，第一次在山上住 🥶。    
+
 #### 06-21
 
 ??? 搞咩啊，这广告还有点酷...     
@@ -24,13 +39,13 @@ categories: ["碎碎念"]
 
 终于不是 100000+ 了。    
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_91.png" alt="" />     
+<img width="600" src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_91.png" alt="" />     
 
 #### 06-19
 
 据说网上曾经有一个投票，你最讨厌的同事来自哪里？排名第一的是阿里。。。    
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_90.jpeg" alt="" />     
+<img width="600" src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_90.jpeg" alt="" />     
 
 #### 06-18
 
