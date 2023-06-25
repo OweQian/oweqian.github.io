@@ -1,6 +1,6 @@
 ---
 title: "🏅 C 语言 100 题"
-date: 2023-06-14T17:20:00+08:00
+date: 2023-06-25T14:00:00+08:00
 tags: ["第二技能"]
 categories: ["第二技能"]
 ---
@@ -9,7 +9,75 @@ categories: ["第二技能"]
 
 <!--more-->
 
-## 完成度：61/100
+## 完成度：62/100
+
+## 计数排序
+
+### 题目内容
+
+循环输入。每组数据输入一个 n，然后是 n 个数，求输出经过计数排序后的结果。当没有任何输入时，程序结束。   
+
+### 解题思路
+
+在 counting_sort 函数中，首先找到数组中的最大值和最小值，然后根据最大值和最小值计算出计数数组的大小。   
+
+接着遍历原数组，统计每个数出现的次数。遍历计数数组，将每个数按照出现次数依次放回原数组中，最后释放计数数组的内存。    
+
+### 代码实现
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_N 100000
+
+void counting_sort(int arr[], int n) {
+    int max = arr[0], min = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+        if (arr[i] < min) {
+            min = arr[i];
+        }
+    }
+
+    int count_size = max - min + 1;
+    int* count = (int*)calloc(count_size, sizeof(int));
+    for (int i = 0; i < n; i++) {
+        count[arr[i] - min]++;
+    }
+
+    int k = 0;
+    for (int i = 0; i < count_size; i++) {
+        for (int j = 0; j < count[i]; j++) {
+            arr[k++] = i + min;
+        }
+    }
+
+    free(count);
+}
+
+int main() {
+    int n;
+    int arr[MAX_N];
+
+    while (scanf("%d", &n) != EOF) {
+        for (int i = 0; i < n; i++) {
+            scanf("%d", &arr[i]);
+        }
+
+        counting_sort(arr, n);
+
+        for (int i = 0; i < n; i++) {
+            printf("%d ", arr[i]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+```
 
 ## 队列
 
