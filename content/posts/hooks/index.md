@@ -1,15 +1,17 @@
 ---
-title: "‍💻 React Hooks API 的介绍和使用"
-date: 2023-06-19T15:05:07+08:00
+title: "‍💻 React v16.8 hooks API 的介绍和使用"
+date: 2023-06-25T10:10:07+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
 
 工欲善其事必先利其器，想要玩转 React Hooks，就必须知道 React 官方提供了哪些 Hooks，如何去使用这些 Hooks。    
 
-项目地址： [Hooks](https://github.com/OweQian/hooks.git)
-
 <!--more-->    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/hooks.png" alt="" />    
+
+项目地址： [Hooks](https://github.com/OweQian/hooks.git)
 
 ### useState
 
@@ -638,6 +640,53 @@ export default () => {
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_13.png" alt="" />    
 
+### useLayoutEffect
+
+与 useEffect 基本一致，执行时机在 DOM 更新之后，浏览器绘制之前，相当于有一层防抖效果。   
+
+#### 介绍
+
+```
+useLayoutEffect(callback,deps)  
+```
+
+参数：    
+ 
+* callback：回调函数。    
+* deps：依赖项，依赖项更改，会形成新的 ref 对象。    
+
+#### 使用
+
+```tsx
+"use client"
+import {useEffect, useLayoutEffect, useState} from 'react';
+import {Card} from 'antd';
+
+export default () => {
+ const [count, setCount] = useState<number>(0);
+ const [count1, setCount1] =useState<number>(0);
+ useEffect(() => {
+   if (count === 0) {
+     setCount(10 + Math.random() * 100);
+   }
+ }, [count]);
+ useLayoutEffect(() => {
+   if (count1 === 0) {
+     setCount1(10 + Math.random() * 100);
+   }
+ }, [count1]);
+  return (
+    <Card title="useLayout example" bordered={false} style={{ width: '100%' }}>
+      <div>大家好</div>
+      <div>useEffect中的count: {count}</div>
+      <div>useLayoutEffect中的count: {count1}</div>
+    </Card>
+  )
+}
+```
+
+> useLayoutEffect 是同步执行，会阻塞浏览器渲染。useEffect 是异步执行，不会阻塞浏览器渲染，呈现速度快于 useLayoutEffect。    
+
 ### useDebugValue
 
 让开发者在开发者工具中查看自定义 Hook 中的数据，从而更好地调试和优化代码。    
@@ -680,6 +729,3 @@ const useFetch = (url: string) => {
 
 export default useFetch;
 ```
-
- 
-
