@@ -1,6 +1,6 @@
 ---
 title: "🏅 C 语言 100 题"
-date: 2023-06-25T14:00:00+08:00
+date: 2023-06-26T15:40:00+08:00
 tags: ["第二技能"]
 categories: ["第二技能"]
 ---
@@ -9,7 +9,58 @@ categories: ["第二技能"]
 
 <!--more-->
 
-## 完成度：62/100
+## 完成度：63/100
+
+## 整数哈希 
+
+### 题目内容
+
+循环输入。每组数据输入一个 n，然后是 n 个数，请找出其中没有出现的最小的正整数。   
+
+### 解题思路
+
+* 定义一个最大值 maxn + 1 作为哈希数组的最大长度；   
+* 遍历这 n 个数字，如果是在 1 到 maxn 之间的数字，映射到哈希数组中；   
+* 从 1 开始遍历哈希数组，第一个没有被哈希的就是答案，直接返回即可；    
+* 所有数字都遍历完毕后，仍然没有找到，则答案为 n + 1；   
+
+### 代码实现
+
+```
+#include <stdio.h> 
+#define maxn 500001
+
+int hash[500001], cases = 0;
+
+int firstMissingPositive(int* nums, int numsSize) {
+    int i;
+    ++cases;
+    for(i = 0; i < numsSize; ++i) {
+        if(nums[i] > 0 && nums[i] < maxn)
+            hash[ nums[i] ] = cases;        // (1) 
+    }
+    for(i = 1; i <= numsSize; ++i) {
+        if(hash[i] < cases) {
+            return i;                       // (2) 
+        }
+    }
+    return numsSize + 1;                    // (3) 
+}
+
+int n, a[maxn];
+
+int main() {
+    int i, ans;
+    while(scanf("%d", &n) != EOF) {
+        for(i = 0; i < n; ++i) {
+            scanf("%d", &a[i]);
+        }
+        ans = firstMissingPositive(a, n);
+        printf("%d\n", ans);
+    }
+    return 0;
+}
+```
 
 ## 计数排序
 
