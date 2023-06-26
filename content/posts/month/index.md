@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-06-24T23:05:47+08:00
+date: 2023-06-26T14:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,16 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-06
+
+#### 06-26
+
+😲 是我喝多了还是你喝多了？    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_95.jpeg" alt="" />     
+
+#### 06-25
+
+"给穷人指路" 的张雪峰这哪是动了谁的 🍰 啊。。。这是捅了马蜂窝。。。      
 
 #### 06-24
 
@@ -39,13 +49,13 @@ categories: ["碎碎念"]
 
 终于不是 100000+ 了。    
 
-<img width="600" src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_91.png" alt="" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_91.png" alt="" />     
 
 #### 06-19
 
 据说网上曾经有一个投票，你最讨厌的同事来自哪里？排名第一的是阿里。。。    
 
-<img width="600" src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_90.jpeg" alt="" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_90.jpeg" alt="" />     
 
 #### 06-18
 
