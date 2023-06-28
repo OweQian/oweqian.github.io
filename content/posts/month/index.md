@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-06-27T16:10:47+08:00
+date: 2023-06-28T15:50:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-06
+
+#### 06-28
+
+不要恋爱脑。       
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_96.jpeg" alt="" width="300" />     
 
 #### 06-27
 
