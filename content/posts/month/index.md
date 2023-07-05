@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-07-03T18:05:47+08:00
+date: 2023-07-05T09:45:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-07
+
+#### 07-04
+
+😲 这么好看的剧以前都没听说过，越看越上瘾，把该干的事都抛脑后了，一口气看完了。      
+
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=869145114&bvid=BV1gV4y1z7EB&cid=1145207854&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>  
 
 #### 07-03   
 
