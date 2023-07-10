@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-07-08T00:25:47+08:00
+date: 2023-07-10T09:40:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,24 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-07
+
+#### 07-10
+
+emmm，睡过了，当成周日了。    
+
+#### 07-09   
+
+😏 今天是清洁工，把房子犄角旮旯全部打扫了一遍，耗时 6 小时 40 分钟，霉运霉运快走开。      
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_102.jpg" alt="" width="300" />    
+
+#### 07-08   
+
+😠 过得最离谱的一个周六。   
+被要求来公司加班，在 google map 上看卫星图找堆场信息，当数据录入员。   
+500 多个城市，30 多个研发，一直搞到周日一点多。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_101.jpg" alt="" />    
 
 #### 07-07  
 
