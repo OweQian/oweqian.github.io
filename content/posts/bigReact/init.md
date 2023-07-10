@@ -1,5 +1,5 @@
 ---
-title: "从 0 实现 React18 系列 - 搭建项目架构"
+title: "从 0 实现 React18 系列"
 date: 2023-07-10T09:45:47+08:00
 tags: ["第一技能"]
 categories: ["React18"]
@@ -11,13 +11,15 @@ categories: ["React18"]
 
 项目地址： [big-react](https://github.com/OweQian/big-react.git)     
 
+## 搭建项目架构 
+
 主要内容：   
 
 * 定义项目结构 (monorepo)      
 * 定义开发规范 (lint, commit, tsc, 代码风格)   
 * 选择打包工具 (rollup)   
 
-## 项目结构   
+### 项目结构   
 
 Multirepo 和 Monorepo 该如何选择？   
 
@@ -28,7 +30,7 @@ Multirepo 和 Monorepo 是两种不同的源代码管理策略。它们的主要
 * Multirepo(多仓库)：每个项目或每个服务都有自己的仓库，每个仓库都是独立的，有自己的提交历史、版本控制、分支。优点是可以更好的隔离项目，避免不必要的依赖，更容易管理权限。缺点是跨项目的代码共享、版本同步、依赖管理会更复杂。  
 * Monorepo(单仓库)：所有的项目或服务都存储在同一个仓库中。优点是更容易进行跨项目的代码共享、版本同步和依赖管理。缺点是如果仓库过大，可能会导致版本控制系统的性能问题，同时也可能在权限管理和项目隔离上遇到挑战。    
 
-### Monorepo
+#### Monorepo
 
 简单工具：   
 
@@ -52,7 +54,7 @@ pnpm 相比其他打包工具的优势：
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/react/img_02.png" alt="" />  
 
-### pnpm 初始化
+#### pnpm 初始化
 
 安装   
 
@@ -71,11 +73,11 @@ packages:
   - 'packages/*'
 ```
 
-## 开发规范
+### 开发规范
 
-### 代码规范检查与修复   
+#### 代码规范检查与修复   
 
-#### eslint - 代码规范  
+##### eslint - 代码规范  
 
 安装   
 
@@ -127,7 +129,7 @@ npx eslint --init
 pnpm i -D -w @typescript-eslint/eslint-plugin 
 ```
 
-#### prettier - 代码风格   
+##### prettier - 代码风格   
 
 ```shell
 pnpm i prettier -D -w
@@ -163,7 +165,7 @@ pnpm i eslint-config-prettier eslint-plugin-prettier -D -w
 "lint": "eslint --ext .ts,.jsx,.tsx --fix --quiet ./packages"
 ```
 
-### commit 规范检查  
+#### commit 规范检查  
 
 安装 husky，用于拦截 commit 命令    
 
@@ -248,7 +250,7 @@ conventional 规范集意义
 }
 ```
 
-## 打包工具   
+### 打包工具   
 
 要开发的项目的特点：  
 
@@ -262,6 +264,6 @@ conventional 规范集意义
 pnpm i -D -w rollup
 ```
 
-## 代码地址
+### 代码地址
 
 [本节代码地址](https://github.com/OweQian/big-react/commit/b93d868e0eda7f3acfb5308b89d15e92d5bc328b)
