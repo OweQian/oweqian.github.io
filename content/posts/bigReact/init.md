@@ -1,6 +1,6 @@
 ---
 title: "从 0 实现 React18 系列"
-date: 2023-07-10T09:45:47+08:00
+date: 2023-07-11T21:55:47+08:00
 tags: ["第一技能"]
 categories: ["React18"]
 ---
@@ -267,3 +267,166 @@ pnpm i -D -w rollup
 ### 代码地址
 
 [本节代码地址](https://github.com/OweQian/big-react/commit/b93d868e0eda7f3acfb5308b89d15e92d5bc328b)
+
+## JSX 转换
+
+React 项目结构   
+
+* react：宿主环境无关的公用方法
+* react-reconciler：协调器，与宿主环境无关
+* 各种宿主环境的包
+* shared：公用辅助方法，宿主环境无关   
+
+### JSX 转换是什么   
+
+[JSX 转换 playground](https://babeljs.io/repl#?browsers=defaults&build=&builtIns=false&corejs=3.6&spec=false&loose=false&code_lz=DwEwlgbgfAjATAZmAenNIA&debug=false&forceAllTransforms=false&modules=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=react%2Cstage-2&prettier=false&targets=&version=7.19.5&externalPlugins=&assumptions=%7B%7D)  
+
+```js
+import { jsx as _jsx } from "react/jsx-runtime";
+
+/*#__PURE__*/_jsx("div", {
+  children: "123"
+});
+
+// 或
+/*#__PURE__*/React.createElement("div", null, "123");
+```
+
+包括两部分：  
+
+* 编译时：由 babel 编译实现
+* 运行时：jsx 方法或 React.createElement 方法的实现 (dev、prod)  
+
+### 实现 JSX 方法
+
+#### jsxDEV 方法（dev 环境）  
+
+```ts
+// react/src/jsx.ts
+import { REACT_ELEMENT_TYPE } from 'shared/ReactSymbols';
+import {
+  ElementType,
+  Key,
+  Props,
+  ReactElement,
+  Ref,
+  Type
+} from 'shared/ReactTypes';
+// ReactElement
+const ReactElement = function (
+  type: Type,
+  key: Key,
+  ref: Ref,
+  props: Props
+): ReactElement {
+  return {
+    $$typeof: REACT_ELEMENT_TYPE,
+    type,
+    key,
+    ref,
+    props,
+    __mark: 'OweQian'
+  };
+};
+
+export const jsx = (
+  type: ElementType,
+  config: any,
+  ...maybeChildren: any[]
+) => {
+  let key: Key = null;
+  const props: Props = {};
+  let ref: Ref = null;
+  for (const prop in config) {
+    const val = config[prop];
+    if (prop === 'key') {
+      if (val !== undefined) {
+        key = `${val}`;
+      }
+      continue;
+    }
+    if (prop === 'ref') {
+      if (val !== undefined) {
+        ref = `${val}`;
+      }
+      continue;
+    }
+    if ({}.hasOwnProperty.call(config, prop)) {
+      props[prop] = val;
+    }
+  }
+  const maybeChildrenLength = maybeChildren.length;
+  if (maybeChildrenLength) {
+    if (maybeChildrenLength === 1) {
+      props.children = maybeChildren[0];
+    } else {
+      props.children = maybeChildren;
+    }
+  }
+  return ReactElement(type, key, ref, props);
+};
+
+export const jsxDEV = jsx;
+```
+
+```ts
+// shared/ReactSymbols.ts
+const supportSymbol = typeof Symbol === 'function' && Symbol.for;
+
+export const REACT_ELEMENT_TYPE = supportSymbol
+	? Symbol.for('react.element')
+	: 0xeac7;
+```
+
+```ts
+// shared/ReactTypes.ts
+export type Type = any;
+export type Ref = any;
+export type Key = any;
+export type Props = any;
+export type ElementType = any;
+
+export interface ReactElement {
+  $$typeof: symbol | number;
+  type: ElementType;
+  key: Key;
+  props: Props;
+  ref: Ref;
+  __mark: string;
+}
+```
+
+React 包入口文件定义版本对象：   
+
+```ts
+import { jsx } from './src/jsx';
+
+export default {
+	version: '0.0.0',
+	createElement: jsx
+};
+```
+
+> React 用到 Shared 包里的辅助方法，需要在 package.json 中添加依赖：   
+
+```json
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "react公用方法",
+  "module": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "shared": "workspace:*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+```
+
+> workspace:*：表示一个工作区的多个子项目的依赖关系。   
+
+[本节代码地址](https://github.com/OweQian/big-react/commit/ed03276ab587d23fc0ea58537255d70bf545f715)
