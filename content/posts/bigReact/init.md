@@ -1,6 +1,6 @@
 ---
 title: "从 0 实现 React18 系列"
-date: 2023-07-11T21:55:47+08:00
+date: 2023-07-12T17:05:47+08:00
 tags: ["第一技能"]
 categories: ["React18"]
 ---
@@ -308,17 +308,19 @@ import {
   ElementType,
   Key,
   Props,
-  ReactElement,
+  ReactElementType,
   Ref,
   Type
 } from 'shared/ReactTypes';
+
 // ReactElement
+
 const ReactElement = function (
   type: Type,
   key: Key,
   ref: Ref,
   props: Props
-): ReactElement {
+): ReactElementType {
   return {
     $$typeof: REACT_ELEMENT_TYPE,
     type,
@@ -329,25 +331,22 @@ const ReactElement = function (
   };
 };
 
-export const jsx = (
-  type: ElementType,
-  config: any,
-  ...maybeChildren: any[]
-) => {
+export const jsx = (type: ElementType, config: any, ...maybeChildren: any) => {
   let key: Key = null;
   const props: Props = {};
   let ref: Ref = null;
+
   for (const prop in config) {
     const val = config[prop];
     if (prop === 'key') {
       if (val !== undefined) {
-        key = `${val}`;
+        key = '' + val;
       }
       continue;
     }
     if (prop === 'ref') {
       if (val !== undefined) {
-        ref = `${val}`;
+        ref = val;
       }
       continue;
     }
@@ -366,7 +365,32 @@ export const jsx = (
   return ReactElement(type, key, ref, props);
 };
 
-export const jsxDEV = jsx;
+export const jsxDEV = (type: ElementType, config: any) => {
+  let key: Key = null;
+  const props: Props = {};
+  let ref: Ref = null;
+
+  for (const prop in config) {
+    const val = config[prop];
+    if (prop === 'key') {
+      if (val !== undefined) {
+        key = '' + val;
+      }
+      continue;
+    }
+    if (prop === 'ref') {
+      if (val !== undefined) {
+        ref = val;
+      }
+      continue;
+    }
+    if ({}.hasOwnProperty.call(config, prop)) {
+      props[prop] = val;
+    }
+  }
+
+  return ReactElement(type, key, ref, props);
+};
 ```
 
 ```ts
@@ -381,12 +405,12 @@ export const REACT_ELEMENT_TYPE = supportSymbol
 ```ts
 // shared/ReactTypes.ts
 export type Type = any;
-export type Ref = any;
 export type Key = any;
+export type Ref = any;
 export type Props = any;
 export type ElementType = any;
 
-export interface ReactElement {
+export interface ReactElementType {
   $$typeof: symbol | number;
   type: ElementType;
   key: Key;
@@ -396,14 +420,16 @@ export interface ReactElement {
 }
 ```
 
-React 包入口文件定义版本对象：   
+#### React.createElement
+
+React 包入口文件定义版本对象：     
 
 ```ts
-import { jsx } from './src/jsx';
+import { jsxDEV } from './src/jsx';
 
 export default {
-	version: '0.0.0',
-	createElement: jsx
+  version: '0.0.0',
+  createElement: jsxDEV
 };
 ```
 
@@ -415,9 +441,6 @@ export default {
   "version": "1.0.0",
   "description": "react公用方法",
   "module": "index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "dependencies": {
     "shared": "workspace:*"
   },
@@ -429,4 +452,129 @@ export default {
 
 > workspace:*：表示一个工作区的多个子项目的依赖关系。   
 
+#### 本节代码地址
+
 [本节代码地址](https://github.com/OweQian/big-react/commit/ed03276ab587d23fc0ea58537255d70bf545f715)
+
+### 实现打包流程  
+
+#### 打包对应文件  
+
+* react/index.js  
+* react/jsx-dev-runtime.j (dev 环境)  
+* react/jsx-runtime.js (prod 环境)  
+
+打包流程中需要安装的 rollup plugin 与 node 包：  
+
+```shell
+pnpm i -D -w rimraf rollup-plugin-generate-package-json rollup-plugin-typescript2 @rollup/plugin-commonjs
+```
+
+> rimraf: 类似 rm -rf。跨平台删除文件和目录。   
+> rollup-plugin-typescript2: 将 TypeScript 代码编译成 JavaScript 代码。   
+> @rollup/plugin-commonjs: rollup 原生支持 ESM 格式，将 CJS 格式的包转换为 ESM 格式。  
+> rollup-plugin-generate-package-json: 在构建目录中生成一个新的 package.json 文件，或者基于现有的 package.json 文件生成一个新的文件。
+
+```js
+// scripts/rollup/react.config.js
+import { getBaseRollupPlugins, getPackageJSON, resolvePkgPath } from './utils';
+import generatePackageJson from 'rollup-plugin-generate-package-json';
+const { name, module } = getPackageJSON('react');
+// react包的路径
+const pkgPath = resolvePkgPath(name);
+// react产物路径
+const pkgDistPath = resolvePkgPath(name, true);
+export default [
+  // react
+  {
+    input: `${pkgPath}/${module}`,
+    output: {
+      file: `${pkgDistPath}/index.js`,
+      name: 'index.js',
+      format: 'umd'
+    },
+    plugins: [
+      ...getBaseRollupPlugins(),
+      generatePackageJson({
+        inputFolder: pkgPath,
+        outputFolder: pkgDistPath,
+        baseContents: ({ name, description, version }) => ({
+          name,
+          description,
+          version,
+          main: 'index.js'
+        })
+      })
+    ]
+  },
+  // jsx-runtime
+  {
+    input: `${pkgPath}/src/jsx.ts`,
+    output: [
+      {
+        // jsx-runtime
+        file: `${pkgDistPath}/jsx-runtime.js`,
+        name: 'jsx-runtime.js',
+        format: 'umd'
+      },
+      {
+        // jsx-dev-runtime
+        file: `${pkgDistPath}/jsx-dev-runtime.js`,
+        name: 'jsx-dev-runtime.js',
+        format: 'umd'
+      }
+    ],
+    plugins: getBaseRollupPlugins()
+  }
+];
+```
+
+封装公用方法和变量。   
+
+```js
+// scripts/rollup/utils.js
+import path from 'path';
+import fs from 'fs';
+
+import ts from 'rollup-plugin-typescript2';
+import cjs from '@rollup/plugin-commonjs';
+
+const pkgPath = path.resolve(__dirname, '../../packages');
+const distPath = path.resolve(__dirname, '../../dist/node_modules');
+
+export function resolvePkgPath(pkgName, isDist) {
+	if (isDist) {
+		return `${distPath}/${pkgName}`;
+	}
+	return `${pkgPath}/${pkgName}`;
+}
+
+export function getPackageJSON(pkgName) {
+	// ...包路径
+	const path = `${resolvePkgPath(pkgName)}/package.json`;
+	const str = fs.readFileSync(path, { encoding: 'utf-8' });
+	return JSON.parse(str);
+}
+
+export function getBaseRollupPlugins({ typescript = {} } = {}) {
+	return [cjs(), ts(typescript)];
+}
+```
+
+添加打包命令。   
+
+```json
+{
+  "scripts": {
+    "build:dev": "rimraf dist && rollup --config scripts/rollup/react.config.js --bundleConfigAsCjs"
+  }
+}
+```
+
+#### 打包效果   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/react/img_03.png" alt="" width="200" />  
+
+#### 本节代码地址
+
+[本节代码地址](https://github.com/OweQian/big-react/commit/666bbbd2d8f4ffbadf12f48d60a63167084a6dcb)
