@@ -578,3 +578,51 @@ export function getBaseRollupPlugins({ typescript = {} } = {}) {
 #### 本节代码地址
 
 [本节代码地址](https://github.com/OweQian/big-react/commit/666bbbd2d8f4ffbadf12f48d60a63167084a6dcb)
+
+### 调试打包结果
+
+[pnpm link](https://pnpm.io/zh/cli/link)
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/react/img_04.png" alt="" />  
+
+进入到打包后的 react 目录，链接到全局 node_modules 的 react 包。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/react/img_05.png" alt="" />  
+
+新建 react-demo 项目，删除无用代码。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/react/img_06.png" alt="" />  
+
+```js
+// index.js  
+
+import React from 'react';
+
+const jsx = <div>hello <span>big-react</span></div>
+
+console.log(React);
+console.log(jsx);
+```
+
+控制台效果。    
+
+React 对象：   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/react/img_07.png" alt="" width="400" />  
+
+jsx 对象：   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/react/img_08.png" alt="" width="400" />  
+
+react-demo 项目链接到全局 node_modules 的 react 包。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/react/img_09.png" alt="" />  
+
+控制台效果。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/react/img_10.png" alt="" width="400" />  
+
+#### 总结
+
+* 优点：可以模拟实际项目引用 React 的情况。   
+* 缺点：略显繁琐，对于开发过程，更期望的是热更新效果。
