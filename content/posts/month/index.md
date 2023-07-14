@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-07-12T23:25:47+08:00
+date: 2023-07-14T17:15:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,19 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-07
+
+#### 07-14
+
+😴 听故事。   
+
+#### 07-13
+
+🐱："这知识它不进脑子啊"。   
+两分钟后...   
+🐱："算了，先睡会吧"。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_103.jpg" alt="" height="400" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_104.jpg" alt="" height="400" />    
 
 #### 07-12
 
