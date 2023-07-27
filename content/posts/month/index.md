@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-07-26T13:45:47+08:00
+date: 2023-07-27T14:15:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-07
+
+#### 07-27
+
+😍 中间那段天鹅湖，封神封神。   
+
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/hvlcwJINLy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 07-26
 
