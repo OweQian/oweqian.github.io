@@ -1,6 +1,6 @@
 ---
 title: "🏅 C 语言 100 题"
-date: 2023-07-03T15:40:00+08:00
+date: 2023-08-03T15:30:00+08:00
 tags: ["第二技能"]
 categories: ["第二技能"]
 ---
@@ -9,7 +9,79 @@ categories: ["第二技能"]
 
 <!--more-->
 
-## 完成度：65/100
+## 完成度：66/100
+
+## 栈的应用
+
+### 题目内容
+
+循环输入。每组数据给你一个只包含 '(' 和 ')' 的字符串，找出最长有效（格式正确且连续）括号子串的长度。当没有任何输入时，程序结束。    
+
+### 解题思路
+
+* 遇到左括号，无脑入栈；      
+* 遇到右括号，先出栈；     
+* 如果这时候栈为空，表示断层了，将当前右括号位置入栈；     
+* 否则，取栈顶元素和当前位置相减，必然是一个合法序列，更新最大长度；  
+
+### 代码实现
+
+```
+#define DataType int
+#define maxn 100010
+
+struct Stack {
+    DataType data[maxn];
+    int top;
+};
+
+void StackClear(struct Stack* stk) {
+    stk->top = 0;
+}
+void StackPushStack(struct Stack *stk, DataType dt) {
+    stk->data[ stk->top++ ] = dt;
+}
+void StackPopStack(struct Stack* stk) {
+    --stk->top;
+}
+
+DataType StackGetTop(struct Stack* stk) {
+    return stk->data[ stk->top - 1 ];
+}
+int StackGetSize(struct Stack* stk) {
+    return stk->top;
+}
+bool StackIsEmpty(struct Stack* stk) {
+    return !StackGetSize(stk);
+}
+
+struct Stack stk;
+int longestValidParentheses(char * s){
+    StackClear(&stk);
+    StackPushStack(&stk, -1);
+    int i = 0, tmpTop;
+    int maxlen = 0;
+    int len = 0;
+    while(s[i]) {
+        if( s[i] == '(' ) {
+            StackPushStack(&stk, i);         // (1)
+        }else {
+            StackPopStack(&stk);             // (2)
+            if( StackIsEmpty(&stk) ) {       // (3)
+                StackPushStack(&stk, i);
+            }else {
+                len = i - StackGetTop(&stk); // (4)
+                if(len > maxlen) {
+                    maxlen = len;
+                }
+            }
+        }
+        ++i;
+    }
+    return maxlen;
+
+}
+```
 
 ## 栈的应用
 
