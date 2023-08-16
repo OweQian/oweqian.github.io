@@ -16,7 +16,9 @@ categories: ["碎碎念"]
 
 #### 08-16
 
-以史为鉴，上手实践。     
+以史为鉴，上手实践。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_113.jpg" alt="" width="400" />   
 
 #### 08-15
 
