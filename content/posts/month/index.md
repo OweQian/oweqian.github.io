@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-08-16T13:00:47+08:00  
+date: 2023-08-18T14:35:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,16 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-08
+
+#### 08-18
+
+Marvel Collins: Positive Learning。    
+
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=333854258&bvid=BV11w411o7hR&cid=360184484&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+#### 08-17
+
+夜店里的那些美女。      
 
 #### 08-16
 
