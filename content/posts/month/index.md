@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-08-30T16:25:47+08:00  
+date: 2023-09-04T13:55:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -12,7 +12,31 @@ categories: ["碎碎念"]
 
 ## 2023  
 
+### 2023-09
+
+#### 09-03
+
+📌 三星堆   
+
+沉睡数千年·一醒惊天下     
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_119.jpg" alt="" width="400" />   
+
+#### 09-02
+
+打扫了一整天卫生 ☀️。       
+
+#### 09-01
+
+奋斗 🐰 哄睡服务。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_118.jpg" alt="" width="400" />   
+
 ### 2023-08
+
+#### 08-31
+
+[十多年程序员差点被骗十多万](https://mp.weixin.qq.com/s/qWc_FkbbZYXuVR7pS9A3FA)
 
 #### 08-30
 
