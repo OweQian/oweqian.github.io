@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-09-14T09:20:47+08:00  
+date: 2023-09-18T09:10:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -14,12 +14,29 @@ categories: ["碎碎念"]
 
 ### 2023-09
 
+#### 09-17
+
+小时候很讨厌爸爸看《水浒传》，长大了自己看才发现每集都是对人性的考验。。    
+
+#### 09-16
+
+自己动手丰衣足食 😏。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_124.jpg" alt="" width="400" />
+
+#### 09-15
+
+乐夏 3，干脆直接给麻园诗人颁个冠军得了。     
+
+#### 09-14
+
+嘿嘿，🚴🏻 装备齐了，下周六挑战绕城绿道 100 公里 (ps：如果不下雨的话)。   
+
 #### 09-13
 
 😏 蓝莓蛋糕补上了。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_123.jpg" alt="" width="400" />   
-
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_123.jpg" alt="" width="400" />
 
 #### 09-12
 
