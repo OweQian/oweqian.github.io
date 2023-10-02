@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-09-27T21:00:47+08:00  
+date: 2023-10-02T23:00:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -12,7 +12,38 @@ categories: ["碎碎念"]
 
 ## 2023  
 
+### 2023-10
+
+#### 10-02
+
+"我睡了 632 个女人，但我为你保留了童贞。"     
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_133.jpg" alt="" width="400" />
+
+#### 10-01
+
+爷爷生在天地间，不怕朝廷不怕官。         
+梁山泊里住一世，好酒好肉赛神仙。           
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_132.jpg" alt="" width="400" />
+
 ### 2023-09
+
+#### 09-30
+
+😄 玩起玩起。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_131.jpg" alt="" width="400" />
+
+#### 09-29
+
+第 5 次来故宫博物院。       
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_130.jpg" alt="" width="400" />
+
+#### 09-28
+
+出发，目的地北京。     
 
 #### 09-27
 
