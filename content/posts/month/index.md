@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-10-09T22:55:47+08:00  
+date: 2023-10-12T00:35:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-10
+
+#### 10-11
+
+《🐫 祥子》- 在吃人的旧社会，想活着太难了！   
+
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/O7U_UAycdAw?si=qpO-WSIIbWLRTLHD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 10-10
 
