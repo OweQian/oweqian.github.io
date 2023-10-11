@@ -192,6 +192,114 @@ git push
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_15.png" alt="" />     
 
+## 角色扮演
 
+对于 Git 来说，团队合作和个人独立工作最大的不同在于，你会提交代码，别人也会提交；你会 push，别人也会 push。  
 
+### 假装有同事
 
+这时候，你自己一个人玩儿就显得有点无趣。为了模拟同事的操作，你需要在你的 /git-practice 目录旁再 clone 一次中央仓库到本地，来当做你的模拟同事的本地仓库：  
+
+```
+git clone git@github.com:OweQian/git-practice.git git-pracetice-another
+```
+
+为了目录名称不冲突，这次的 clone 需要加一个额外参数（git-practice-another）来手动指定本地仓库的根目录名称。   
+
+这条指令执行完成后，你就有了两个内容相同的本地仓库：  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_16.png" alt="" />    
+
+现在，你就可以假装 git-practice 这个目录是你的电脑上的工作目录，而那个新建的 git-practice-another 是你同事的电脑上的工作目录。   
+
+> Git 的管理是目录级别，而不是设备级别。也就是说，git-practice 目录内的 .git 只管理 git-practice 里的内容，git-practice-another 目录内的 .git 也只管理 git-practice-another 里的内容，它们之间互不知晓，也互不影响。   
+
+### 同事写代码并 push 到中央仓库
+
+现在你的身份就是你的同事了，帮她写点代码吧！嗯，写点什么好呢？   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_17.png" alt="" />    
+
+嗯，看起来不错，帮她提交吧：  
+
+```
+git add list2.txt
+git commit
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_18.png" alt="" />   
+
+提交完成以后，push 到 GitHub：  
+
+```
+git push
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_19.png" alt="" />    
+
+### 把同事 push 的新代码取下来
+
+GitHub 上有了同事的新代码以后，你就可以变回自己，把「她」刚 push 上去的代码取到你的仓库了。   
+
+回到你自己的目录 git-practice，然后，把同事的代码取下来吧！   
+
+从远程仓库更新内容，用的是一个新的指令：pull。  
+
+```
+git pull
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_20.png" alt="" />   
+
+这时候再看看你的本地目录，可以看到，同事提交的 list2.txt 已经同步到本地了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_21.png" alt="" />   
+
+### push 发生冲突
+
+你写了代码，commit，push 到 GitHub，然后她 pull 到她的本地；她再写代码，commit, push 到 GitHub，然后你再 pull 到你的本地。你来我往，配合得不亦乐乎。     
+
+但是，这种合作有一个严重的问题：同一时间内，只能有一个人在工作。你和同事其中一个人写代码的时候，另一个人不能做事，必须等着她把工作做完，代码 push 到 GitHub 以后，自己才能把 push 上去的代码 pull 到自己的本地。  
+
+如果同时做事，就会发生冲突：当一个人先于另一个人 push 代码，那么后 push 的这个人就会由于中央仓库上含有本地没有的提交而导致 push 失败。    
+
+Git 的 push 其实是用本地仓库的 commits 记录去覆盖远端仓库的 commits 记录，而如果在远端仓库含有本地没有的 commits 的时候，push （如果成功）将会导致远端的 commits 被擦掉。这种结果当然是不可行的，因此 Git 会在 push 的时候进行检查，如果出现这样的情况，push 就会失败。   
+
+1. 切到 git-practice-another 去，假扮你的同事做一个 commit，然后 push 到 GitHub。   
+2. 切回 git-practice 变回你自己，做一个不一样的 commit。   
+
+这时远端中央仓库已经有了别人 push 的 commit，现在你如果 push 的话：  
+
+```
+git push
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_22.png" alt="" />    
+
+从图中的提示语可以看出，由于 GitHub 的远端仓库上含有本地仓库没有的内容，所以这次 push 被拒绝了。   
+
+这种冲突的解决方式其实很简单：先用 pull 把远端仓库上的新内容取回到本地和本地合并，然后再把合并后的本地仓库向远端仓库推送。   
+
+```
+git pull
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_23.png" alt="" />    
+
+这次的 git pull 并没有像之前的那样直接结束，而是进入了上图这样的一个输入提交信息的界面。   
+
+这是因为当 pull 操作发现不仅远端仓库包含本地没有的 commits，而且本地仓库也包含远端没有的 commits 时，这时它就会把远端和本地的独有 commits 进行合并，自动生成一个新的 commit ，而图上的这个界面，就是这个自动生成的 commit 的提交信息界面。   
+
+与手动的 commit 不同，这种 commit 会自动填入一个默认的提交信息，简单说明了这条 commit 的来由。你可以直接退出界面来使用这个自动填写的提交信息，也可以修改它来填入自己提交信息。   
+
+> git pull 的内部实现就是把远程仓库使用 git fetch 取下来以后再进行 merge 操作。
+
+退出提交信息的界面后，这次 pull 就完成了：远端仓库被取到了本地，并和本地仓库进行了合并。   
+
+这时就可以再 push 一次了。由于现在本地仓库已经包含了所有远端仓库的 commits，所以这次 push 不会再失败：   
+
+```
+git push
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_24.png" alt="" />    
