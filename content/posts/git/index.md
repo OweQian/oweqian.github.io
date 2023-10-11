@@ -196,9 +196,11 @@ git push
 
 对于 Git 来说，团队合作和个人独立工作最大的不同在于，你会提交代码，别人也会提交；你会 push，别人也会 push。  
 
-### 假装有同事
+### 假装有一位美女同事
 
-这时候，你自己一个人玩儿就显得有点无趣。为了模拟同事的操作，你需要在你的 /git-practice 目录旁再 clone 一次中央仓库到本地，来当做你的模拟同事的本地仓库：  
+这时候，你自己一个人玩儿就显得有点无趣，那不如给自己安排一位美女同事吧，毕竟男女搭配，干活不累！      
+
+为了模拟同事的操作，你需要在你的 /git-practice 目录旁再 clone 一次中央仓库到本地，来当做你的模拟同事的本地仓库：  
 
 ```
 git clone git@github.com:OweQian/git-practice.git git-pracetice-another
@@ -214,7 +216,7 @@ git clone git@github.com:OweQian/git-practice.git git-pracetice-another
 
 > Git 的管理是目录级别，而不是设备级别。也就是说，git-practice 目录内的 .git 只管理 git-practice 里的内容，git-practice-another 目录内的 .git 也只管理 git-practice-another 里的内容，它们之间互不知晓，也互不影响。   
 
-### 同事写代码并 push 到中央仓库
+### 她写代码并 push 到中央仓库
 
 现在你的身份就是你的同事了，帮她写点代码吧！嗯，写点什么好呢？   
 
@@ -237,9 +239,9 @@ git push
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_19.png" alt="" />    
 
-### 把同事 push 的新代码取下来
+### 把她 push 的新代码拉取下来
 
-GitHub 上有了同事的新代码以后，你就可以变回自己，把「她」刚 push 上去的代码取到你的仓库了。   
+GitHub 上有了同事的新代码以后，你就可以变回自己，把「她」刚 push 上去的代码拉取到你的仓库了。   
 
 回到你自己的目录 git-practice，然后，把同事的代码取下来吧！   
 
