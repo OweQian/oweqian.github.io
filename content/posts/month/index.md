@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-10-08T20:50:47+08:00  
+date: 2023-10-09T22:55:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,16 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-10
+
+#### 10-10
+
+开始着手准备下一次绕城绿道 100KM 🚴🏻。   
+
+#### 10-09
+
+最爱 《兰亭序》。    
+
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/s5Xl5MXboas?si=zEYiq3hHRYE4x7CG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 10-08
 
