@@ -454,6 +454,114 @@ git log
 
 > add 添加的是具体的文件改动内容，而不是文件名。   
 
+## log
+
+通过 git log 可以查看历史记录。  
+
+```
+git log
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_33.png" alt="" /> 
+
+如果你希望看到更多细节，比如你想看看每条 commit 具体都有哪些改动，可以在 log 后面添加参数。   
+
+### log -p
+
+查看详细历史，-p 是 --patch 的缩写，通过 -p 参数可以看到具体每个 commit 的改动细节。  
+
+```
+git log -p
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_34.png" alt="" />    
+
+### log --stat
+
+查看简要统计，如果你只想大致看一下改动内容，并不想深入每一行的细节，可以把选项换成 --stat。  
+
+```
+git log --stat
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_35.png" alt="" />   
+
+## show
+
+如果你想看某个具体的 commit 的改动内容，可以用 show。   
+
+### 当前 commit
+
+直接输入：  
+
+```
+git show
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_36.png" alt="" />    
+
+### 某一个 commit
+
+show 后面加上这个 commit 的引用（branch 或 HEAD 标记）或它的 SHA-1 码：  
+
+```
+git show c31510fd
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_37.png" alt="" />   
+
+### 指定 commit 中的指定文件
+
+在 commit 的引用或 SHA-1 后输入文件名：  
+
+```
+git show c31510fd list.txt
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_38.png" alt="" />   
+
+## diff
+
+如果你想看未提交的内容，可以用 diff。  
+
+### 比对工作目录和暂存区
+
+使用 git diff 可以显示工作目录和暂存区之间的不同。    
+
+换句话说，这条指令可以让你看到「如果你现在把所有文件都 add，你会向暂存区中增加哪些内容」。  
+
+```
+git diff
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_39.png" alt="" />   
+
+### 比对暂存区和上一条提交
+
+使用 git diff --staged 可以显示暂存区和上一条提交之间的不同。    
+
+换句话说，这条指令可以让你看到「如果你立即输入 git commit，你将会提交什么」。   
+
+```
+git diff --staged
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_40.png" alt="" />   
+
+### 比对工作目录和上一条提交
+
+使用 git diff HEAD 可以显示工作目录和上一条提交之间的不同，它是上面这二者的内容相加。   
+
+换句话说，这条指令可以让你看到「如果你现在把所有文件都 add 然后 git commit，你将会提交什么」。   
+
+```
+git diff HEAD
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_41.png" alt="" />   
+
+> 如果你把 HEAD 换成别的 commit，也可以显示当前工作目录和这条 commit 的区别。
+
 ## push
 
 push：把当前 branch 指向的 commit 上传到远端仓库，并把它的路径上的 commits 一并上传。   
@@ -462,7 +570,7 @@ push：把当前 branch 指向的 commit 上传到远端仓库，并把它的路
 git push
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_34.png" alt="" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_42.png" alt="" />   
 
 这时再切到 feature1 去修改一些东西，再执行一次 push，却发现失败了。  
 
@@ -473,7 +581,7 @@ git commit -m "update list.txt"
 git push
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_35.png" alt="" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_44.png" alt="" />   
 
 在 Git 中（2.0 及它之后的版本），默认情况下，你用不加参数的 git push 只能上传那些之前从远端 clone 下来或者 pull 下来的分支。   
 
@@ -485,7 +593,7 @@ git push origin feature1
 
 现在成功把 feature1 push 到远程仓库了。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_36.png" alt="" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_43.png" alt="" />   
 
 在 feature1 分支下的项目目录中输入：   
 
@@ -493,7 +601,7 @@ git push origin feature1
 git log
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_37.png" alt="" />   
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_45.png" alt="" />   
 
 你会发现在 feature1 被 push 时，远程仓库的 HEAD 并没有和本地仓库的 HEAD 一样指向 feature1。   
 
