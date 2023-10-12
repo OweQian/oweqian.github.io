@@ -445,3 +445,59 @@ git log
 
 最新的 commit 被创建后，HEAD 和 main 这两个引用都指向了它，而上图中的后两个引用 origin/main 和 origin/HEAD 则依然停留在原先的位置。   
 
+## add
+
+通过 add 来把改动的内容放进暂存区。   
+
+* git add 文件名：表示把某个改动的文件内容放进暂存区。
+* git add .：表示把全部改动的文件内容放进暂存区。   
+
+> add 添加的是具体的文件改动内容，而不是文件名。   
+
+## push
+
+push：把当前 branch 指向的 commit 上传到远端仓库，并把它的路径上的 commits 一并上传。   
+
+```
+git push
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_34.png" alt="" />   
+
+这时再切到 feature1 去修改一些东西，再执行一次 push，却发现失败了。  
+
+```
+git checkout feature1
+git add .
+git commit -m "update list.txt"
+git push
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_35.png" alt="" />   
+
+在 Git 中（2.0 及它之后的版本），默认情况下，你用不加参数的 git push 只能上传那些之前从远端 clone 下来或者 pull 下来的分支。   
+
+如果需要 push 你本地的自己创建的分支，则需要手动指定目标仓库和目标分支。   
+
+```
+git push origin feature1
+```
+
+现在成功把 feature1 push 到远程仓库了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_36.png" alt="" />   
+
+在 feature1 分支下的项目目录中输入：   
+
+```
+git log
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_37.png" alt="" />   
+
+你会发现在 feature1 被 push 时，远程仓库的 HEAD 并没有和本地仓库的 HEAD 一样指向 feature1。   
+
+这是因为 push 时只会上传当前的 branch 的指向，并不会把本地的 HEAD 的指向也一起上传到远程仓库。   
+
+远程仓库的 HEAD 是永远指向它的默认分支（即 main/master），并会随着默认分支的移动而移动。   
+
