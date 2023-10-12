@@ -1,6 +1,6 @@
 ---
 title: "🌲 Git 入门操作手册"
-date: 2023-10-11T22:00:47+08:00
+date: 2023-10-12T21:20:47+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
@@ -305,3 +305,143 @@ git push
 ```
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_24.png" alt="" />    
+
+## 引用
+
+使用固定的字符串作为引用，指向某个 commit，作为操作 commit 时的快捷方式。   
+
+首先，再看一次 log：  
+
+```
+git log
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_25.png" alt="" />   
+
+第一行的 commit 后面括号里的 HEAD -> main, origin/main, origin/HEAD ，是几个指向这个 commit 的引用。  
+
+在 Git 中，经常会需要对指定的 commit 进行操作。每一个 commit 都有一个它唯一的指定方式——它的 SHA-1 校验和，也就是上图中每个黄色的 commit 右边的那一长串字符。   
+
+两个 SHA-1 值的重复概率极低，所以你可以使用这个 SHA-1 值来指代 commit，也可以只使用它的前几位来指代它。    
+
+## branch
+
+除了 HEAD 外，Git 还有一种引用，叫做 branch（分支）。   
+
+你可以把一个 branch 理解为从初始 commit 到 branch 所指向的**当前commit** 之间的所有 commits 的一个「串」。   
+
+例如下面这张图：   
+
+<img width="100%" src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_26.jpg" alt="" />   
+
+master 的本质是一个指向 3 的引用，但也可以把 master 理解为是 1 2 3 三个 commit 的「串」，它的起点是 1，终点是 3。   
+
+* 所有的 branch 之间都是平等的。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_27.png" alt="" />   
+
+例如上图 branch1 是 1 2 5 6 的串，而不要理解为 2 5 6 或者 5 6。上图中的 master 和 branch1 之间是平等的。      
+
+* branch 包含了从初始 commit 到它的所有路径，而不是一条路径。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_28.png" alt="" />   
+
+如上图 master 在合并了 branch1 之后，从初始 commit 到 master 有了两条路径。这时，master 的串就包含了 1 2 3 4 7 和 1 2 5 6 7 这两条路径。   
+
+### 创建
+
+如果你想创建 branch ，只需要输入一行 git branch 名称。  
+
+```
+git branch feature1
+```
+
+你的 branch 就创建好了：  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_29.png" alt="" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_30.png" alt="" />   
+
+### 切换
+
+新建的 branch 并不会自动切换，你的 HEAD 在这时依然是指向 main 的。   
+
+你需要用 checkout 来主动切换到你的新 branch 去：    
+
+```
+git checkout feature1
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_31.png" alt="" />    
+
+> git checkout -b 名称 指令可以把上面两步操作合并执行。这行指令可以帮你用指定的名称创建 branch 后，再直接切换过去。   
+
+### 删除
+
+删除 branch 的方法非常简单：git branch -d 名称。  
+
+```
+git branch -d feature1
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_32.png" alt="" />   
+
+需要说明的有两点：  
+
+* HEAD 指向的 branch 不能删除。如果要删除 HEAD 指向的 branch，需要先用 checkout 把 HEAD 指向其他地方。   
+* Git 中的 branch 只是一个引用，所以删除 branch 的操作也只会删掉这个引用，并不会删除任何的 commit。   
+
+### main/master
+
+main/master 是一个特殊的 branch：它是 Git 的默认 branch（俗称主 branch / 主分支）。  
+
+它主要有两个特点：   
+
+* 新创建的 repository 是没有任何 commit 的。但它创建第一个 commit 时，会把 main/master 指向它，并把 HEAD 指向 main/master。  
+* 当有人使用 git clone 时，除了从远程仓库把 .git 这个仓库目录下载到工作目录中，还会 checkout main/master。   
+
+> checkout 的意思就是把某个 commit 作为当前 commit，把 HEAD 移动过去，并把工作目录的文件内容替换成这个 commit 所对应的内容。    
+
+## HEAD
+
+### 指向当前 commit
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_25.png" alt="" /> 
+
+上面提到图中括号里的是指向这个 commit 的引用。
+
+其中这个括号里的 HEAD 是引用中最特殊的一个：它是指向**当前 commit** 的引用，每个仓库中只有一个 HEAD。   
+
+>**当前 commit** 指的就是当前工作目录所对应的 commit。
+
+上图中的**当前 commit** 就是第一行中的那个最新的 commit。
+
+每当有新的 commit 的时候，工作目录自动与最新的 commit 对应，与此同时，HEAD 也会转而指向最新的 commit。
+
+当使用 checkout、reset 等指令手动指定改变**当前 commit** 的时候，HEAD 也会一起跟过去。
+
+**当前 commit** 在哪里，HEAD 就在哪里，这是一个永远自动指向当前 commit 的引用，你永远可以用 HEAD 来操作**当前 commit**。
+
+### 指向 branch
+
+HEAD 除了可以指向**当前commit**，还可以指向一个 branch，当它指向某个 branch 的时候，会通过这个 branch 来间接地指向某个 commit；
+
+当 HEAD 在提交时自动向前移动的时候，它会像一个拖钩一样带着它所指向的 branch 一起移动。
+
+例如上图中的 HEAD -> main 中的 main 就是一个 branch 的名字，而它左边的箭头 -> 表示 HEAD 正指向它（当然，也会间接地指向它所指向的 commit）。
+
+如果在这时创建一个 commit，那么 HEAD 会带着 main 一起移动到最新的 commit。
+
+```
+git commit
+```
+
+通过查看 log 对逻辑进行验证：
+
+```
+git log
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_33.png" alt="" /> 
+
+最新的 commit 被创建后，HEAD 和 main 这两个引用都指向了它，而上图中的后两个引用 origin/main 和 origin/HEAD 则依然停留在原先的位置。   
+
