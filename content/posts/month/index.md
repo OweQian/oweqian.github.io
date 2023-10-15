@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-10-12T00:35:47+08:00  
+date: 2023-10-16T01:40:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,28 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-10
+
+#### 10-15
+
+华夏文明密码·伏羲女娲图   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_135.jpg" alt="" width="400" />
+
+#### 10-14
+
+"世界励志先生-拉子哥"。      
+
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=565586392&bvid=BV1Sv4y1C7Ea&cid=971659996&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+#### 10-13
+
+小酌 😄。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_134.jpg" alt="" width="400" />
+
+#### 10-12
+
+> 不管前方的路有多苦，多崎岖不平，只要走的方向正确，都比站在原地更接近幸福。   
 
 #### 10-11
 
@@ -317,7 +339,7 @@ enjoy...
 
 Marvel Collins: Positive Learning。    
 
-<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=333854258&bvid=BV11w411o7hR&cid=360184484&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=333854258&bvid=BV11w411o7hR&cid=360184484&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 08-17
 
@@ -559,7 +581,7 @@ emmm，睡过了，当成周日了。
 
 😲 这么好看的剧以前都没听说过，越看越上瘾，把该干的事都抛脑后了，一口气看完了。      
 
-<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=869145114&bvid=BV1gV4y1z7EB&cid=1145207854&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>  
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=869145114&bvid=BV1gV4y1z7EB&cid=1145207854&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>  
 
 #### 07-03   
 
@@ -626,7 +648,7 @@ emmm，睡过了，当成周日了。
 
 ??? 搞咩啊，这广告还有点酷...     
 
-<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=741585489&bvid=BV1zk4y1x7gp&cid=1155698236&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=741585489&bvid=BV1zk4y1x7gp&cid=1155698236&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 06-20
 
@@ -660,7 +682,7 @@ emmm，睡过了，当成周日了。
 
 发现了一部宝藏动画，喜欢这种画风 🥰。   
 
-<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=261272997&bvid=BV1Be411j7zh&cid=854769671&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=261272997&bvid=BV1Be411j7zh&cid=854769671&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 06-14
 
@@ -710,7 +732,7 @@ emmm，睡过了，当成周日了。
 
 🤣...    
 
-<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=486876047&bvid=BV1BN411C7E1&cid=1151825956&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=486876047&bvid=BV1BN411C7E1&cid=1151825956&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 06-04
 
@@ -1202,7 +1224,7 @@ ps: 😓 23:30，右上角的那三棵 "小可怜" 已经被饼师傅咬下来�
 
 饼师傅听完开始 emo 了。   
 
-<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=823618204&bvid=BV1wg4y1t7j6&cid=1057102166&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=823618204&bvid=BV1wg4y1t7j6&cid=1057102166&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 03-22
 
@@ -1276,7 +1298,7 @@ AI 都要把前端干掉了，我还在公司里忙着堆业务代码。
 
 第 95 届奥斯卡最佳记录短片 --- 小象守护者 The Elephant Whisperers（2022）   
 
-<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=734364386&bvid=BV1pD4y1j7ay&cid=939003531&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>   
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=734364386&bvid=BV1pD4y1j7ay&cid=939003531&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>   
 
 #### 03-12
 
@@ -1365,7 +1387,7 @@ AI 都要把前端干掉了，我还在公司里忙着堆业务代码。
 
 #### 03-02
 
-<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=695328283&bvid=BV1E24y187wG&cid=1033431476&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=695328283&bvid=BV1E24y187wG&cid=1033431476&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 03-01  
 
