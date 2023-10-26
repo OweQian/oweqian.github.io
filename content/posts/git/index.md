@@ -1,6 +1,6 @@
 ---
 title: "🌲 Git 入门操作手册"
-date: 2023-10-12T21:20:47+08:00
+date: 2023-10-26T10:55:47+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
@@ -562,6 +562,22 @@ git diff HEAD
 
 > 如果你把 HEAD 换成别的 commit，也可以显示当前工作目录和这条 commit 的区别。
 
+## stash
+
+帮你把工作目录的内容存放在你本地的一个独立的地方，不会被提交也不会被删除，把东西放起来之后就可以去做你的临时工作，做完以后再来取走。   
+
+```
+git stash
+```
+
+当你做完临时工作，切回你的分支，然后：   
+
+```
+git stash pop
+```
+
+你之前存储的东西就回来了。   
+
 ## push
 
 push：把当前 branch 指向的 commit 上传到远端仓库，并把它的路径上的 commits 一并上传。   
@@ -609,3 +625,286 @@ git log
 
 远程仓库的 HEAD 是永远指向它的默认分支（即 main/master），并会随着默认分支的移动而移动。   
 
+## checkout
+
+checkout 本质是签出指定的 commit。  
+
+[git checkout branch] 的本质是把 HEAD 指向指定的 branch，然后签出这个 branch 所对应的 commit 的工作目录。   
+
+checkout 的目标可以是 branch，也可以指定某个 commit：   
+
+```
+git checkout HEAD^^  
+```
+
+```
+git checkout master~5
+```
+
+```
+git checkout 78a4bc
+```
+
+```
+git checkout 78a4bc^
+```
+
+## reflog
+
+有时候不小心手残删了一个还有用的 branch，或者把一个 branch 删了才想起来它还有用，怎么办？   
+
+reflog 是 "reference log" 的缩写，它可以查看 Git 仓库中的引用的移动记录。   
+
+如果不指定引用，默认显示 HEAD 的移动记录，除此之外，可以手动加上名称来查看其他引用的移动历史，例如某个 branch：   
+
+```
+git reflog master
+```
+
+现在我在 git-practice 项目中手误删除了 feature1 分支。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_46.png" alt="" />    
+
+查看一下 HEAD 的移动历史：   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_47.png" alt="" />    
+
+HEAD 的最后一次移动行为是 [从 feature1 移动到 main]，在这之后，feature1 就被删除了。   
+
+所以它之前的那个 commit 就是 feature1 被删除之前的位置，也就是第二行的 fe9f77c。   
+
+现在切换回 fe9f77c，然后重新创建 feature1：   
+
+```
+git checkout fe9f77c  
+git checkout -b feature1  
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_48.png" alt="" />    
+
+刚刚删除的 feature1 就找回来了。   
+
+> 不再被引用直接或间接指向的 commit 会在一定时间后被 Git 回收，所以使用 reflog 来找回删除的 branch 的操作一定要及时，不然有可能会由于 commit 被回收而再也找不回来
+
+## pull  
+
+把远程仓库的代码合并到本地。   
+
+```
+git pull
+```
+
+pull 的内部操作其实是把远程仓库取到本地后 (fetch)，再用一次 merge 来把远程仓库的新 commits 合并到本地。   
+
+## merge
+
+merge 的意思是 [合并]，指定一个 commit，把它合并到当前的 commit 来。   
+
+从目标 commit 和当前 commit(即 HEAD 所指向的 commit) 分叉的位置起，把目标 commit 的路径上的所有 commit 的内容一并应用到当前 commit，自动生成一个新的 commit。    
+
+```
+git checkout main
+git merge feature1
+```
+
+### 适用场景
+
+merge 最常用的场景有两处：  
+
+* 合并分支   
+
+当一个 branch 开发完成，需要把内容合并回去时，用 merge 来进行合并。   
+
+* pull 的内部操作
+
+pull 的内部操作是把远端仓库的内容用 fetch 取下来，用 merge 来合并。   
+
+### 冲突
+
+merge 在做合并时，具有一定的自动合并能力。   
+
+如果一个分支改了 A 文件，另一个分支改了 B 文件，那么合并后就是既改 A 又改 B，这个动作会自动完成。   
+
+如果两个分支都改了同一个文件，但一个改的是第 1 行，另一个改的是第 2 行，那么合并后就是第 1 行和第 2 行都改，也是自动完成。   
+
+但如果两个分支修改了同一部分内容，merge 的自动算法就搞不赢了，它不知道以哪个为准，就会把问题交给你自己来处理。这种情况称为：冲突 (Conflict)。    
+
+```
+git merge main
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_49.png" alt="" />     
+
+提示信息说，在 list.txt 中出现了 "merge conflict"，自动合并失败，要求 "fix conflicts and then commit the result"（把冲突解决掉后提交）。   
+
+现在你需要做两件事：   
+
+* 解决冲突   
+
+打开 list.txt，会发现它的内容变了：   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_50.png" alt="" />     
+
+Git 虽然没有帮你完成自动 merge，但它对文件还是做了一些工作：   
+
+把两个分支冲突的内容放在了一起，并用符号标记出了它们的边界以及它们的出处。    
+
+HEAD 中的内容是 [成年男人的崩溃往往在一瞬间...😭。]，而 main 中的内容则是 [成年男人的崩溃往往不在一瞬间...😭。]。    
+
+这两个改动 Git 不知道应该怎样合并，于是把它们放在一起，由你来决定。
+
+假设你决定保留 HEAD 的修改，那么只要删除掉 main 的修改，再把 Git 添加的那三行 <<< === >>> 辅助文字也删掉，保存文件退出，所谓的「解决掉冲突」就完成了。    
+
+* 手动提交   
+
+解决完冲突后，开始进行第二步---commit。   
+
+```
+git add .
+git commit  
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_52.png" alt="" />     
+
+被冲突中断的 merge，在手动 commit 的时候依然会自动填写提交信息。因为在发生冲突后，Git 仓库处于一个「merge 冲突待解决」的中间状态，在这种状态下 commit，Git 就会自动地帮你添加「这是一个 merge commit」的提交信息。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_51.png" alt="" />     
+
+* 放弃解决冲突，取消 merge   
+
+由于现在 Git 仓库处于冲突待解决的中间状态，所以如果你最终决定放弃这次 merge，也需要来手动取消它：      
+
+```
+git merge --abort
+```
+
+输入这行代码，你的 Git 仓库就会回到 merge 前的状态。
+
+### HEAD 领先于目标 commit
+
+如果 merge 时的目标 commit 和 HEAD 处的 commit 并不存在分叉，而是 HEAD 领先于目标 commit，那么 merge 就没必要再创建一个新的 commit 来进行合并操作，因为并没有什么需要合并的。    
+
+在这种情况下，Git 什么也不会做，merge 是一个空操作。    
+
+### commit-fast-forward   
+
+如果 HEAD 和目标 commit 依然是不存在分叉，但 HEAD 不是领先于目标 commit，而是落后于目标 commit，那么 Git 会直接把 HEAD（以及它所指向的 branch，如果有的话）移动到目标 commit，这种操作有一个专有称谓，叫做 "fast-forward"（快速前移）。   
+
+## rebase
+
+有些人不喜欢 merge，因为在 merge 之后，commit 历史可能会出现分叉，这种分叉再汇合的结构让人觉得混乱而难以管理。   
+
+如果你不希望 commit 历史出现分叉，可以用 rebase 来代替 merge。   
+
+rebase，给你的 commit 序列重新设置基础点（也就是父 commit），把你指定的 commit 以及它所在的 commit 串，以指定的目标 commit 为基础，依次重新提交一次。   
+
+例如下面这个 merge:   
+
+```
+git merge branch1
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_53.png" alt="" />    
+
+
+如果把 merge 换成 rebase，可以这样操作：   
+
+```
+git checkout branch1
+git rebase master
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_55.png" alt="" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_54.png" alt="" />     
+
+通过 rebase，5 和 6 两条 commits 把基础点从 2 换成了 4。通过这样的方式，就让本来分叉了的提交历史重新回到了一条线。   
+
+这种 [重新设置基础点] 的操作，就是 rebase 的含义。
+
+在 rebase 之后，记得切回 master 再 merge 一下，把 master 移到最新的 commit：
+
+```
+git checkout master
+git merge branch1
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_56.png" alt="" />    
+
+### 解惑
+
+为什么要从 branch1 来 rebase，然后再切回 master 再 merge 一下这么麻烦，而不是直接在 master 上执行 rebase？   
+
+rebase 后的 commit 虽然内容和 rebase 之前相同，但它们已经是不同的 commits 了。   
+
+如果直接从 master 执行 rebase 的话，就会是下面这样：   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_57.png" alt="" />     
+
+这就导致 master 上之前的两个最新 commit 被剔除了。   
+
+如果这两个 commit 之前已经在中央仓库存在，这就会导致没法 push 了：  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_58.png" alt="" />     
+
+为了避免和远端仓库发生冲突，一般不要从 master 向其他 branch 执行 rebase 操作。    
+
+如果是 master 以外的 branch 之间的 rebase（比如 branch1 和 branch2 之间），直接 rebase 就好。    
+
+## commit 
+
+commit 命令不仅可以用来将要提交的内容保存到暂存区，还可以用来修复错误。     
+
+刚提交了代码，发现有字写错了：   
+
+```
+git add .
+git commit -m "feat: fix list"
+```
+
+```
+老婆：我变成毛毛虫你还会爱窝吗？
+```
+
+怎么修复？   
+
+在提交时，如果加上 --amend 参数，Git 不会在当前 commit 上增加 commit，而是会把当前 commit 里的内容和暂存区（stageing area）里的内容合并起来后创建一个新的 commit，用这个新的 commit 把当前 commit 替换掉。所以 commit --amend 做的事就是它的字面意思：对最新一条 commit 进行修正。    
+
+对于上面这个错误，你就可以把文件中的错别字修改好之后，输入：   
+
+```
+git add .
+git commit --amend   
+```
+
+Git 会把你带到提交信息编辑界面。提交信息默认是当前提交的提交信息。你可以修改或者保留它，然后保存退出。然后，你的最新 commit 就被更新了。   
+
+## .gitignore
+
+记录了所有你希望被 Git 忽略的目录和文件。  
+
+```
+# Build and Release Folders
+bin-debug/
+bin-release/
+[Oo]bj/
+[Bb]in/
+
+# Other files and folders
+.settings/
+
+# Executables
+*.swf
+*.air
+*.ipa
+*.apk
+
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
+```
+
+## 总结   
+
+💪🏻 加油，加油。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_01.jpg" alt="" width="400" />   
