@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-11-06T09:25:47+08:00  
+date: 2023-11-08T19:40:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,18 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-11
+
+#### 11-08
+
+今日份快乐，Apple Music 会员，再见吧，QQ 音乐。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_140.jpg" alt="" width="400" />
+
+#### 11-07
+
+美女虽好，可不要 "贪杯" 哦，看多了有点腻了。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_139.jpg" alt="" width="400" />
 
 #### 11-06
 
