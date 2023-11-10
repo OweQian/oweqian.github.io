@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-11-08T19:40:47+08:00  
+date: 2023-11-10T21:35:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,18 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-11
+
+#### 11-10
+
+雪人王国的冰淇淋、冰鲜柠檬水，yyds。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_142.jpg" alt="" width="400" />
+
+#### 11-09
+
+captain，my captain。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_141.jpg" alt="" width="400" />
 
 #### 11-08
 
