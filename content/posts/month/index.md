@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-11-30T20:05:47+08:00  
+date: 2023-12-05T13:45:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -11,6 +11,28 @@ categories: ["碎碎念"]
 <!--more-->
 
 ## 2023  
+
+### 2023-12
+
+#### 12-04
+
+🐱 跟我一起学英语吧。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_145.jpg" alt="" width="400" />
+
+#### 12-03
+
+网剧鬼吹灯系列，如果不是为了过审删减太多，应该还是不错的，可惜了。    
+
+#### 12-02
+
+"死亡并不是真正的告别，忘却才是"    
+
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/zJ22tByA5_0?si=WK3BNfM4U9glOmJ9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+#### 12-01
+
+又是啥都没干的一年。   
 
 ### 2023-11
 
