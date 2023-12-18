@@ -1,6 +1,6 @@
 ---
 title: "🎬 看过的纪录片随手记"
-date: 2023-11-20T09:50:38+08:00
+date: 2023-12-18T09:45:38+08:00
 tags: ["纪录片"]
 categories: ["纪录片"]
 ---
@@ -10,6 +10,38 @@ categories: ["纪录片"]
 <!--more-->
 
 ## 2023
+
+### 我在故宫修文物 
+
+豆瓣评分：9.4                                              
+导演：叶君 / 萧寒                                           
+推荐指数：❤️❤️❤️❤️❤️
+
+"择一事，忠一生"。   
+
+"文以载道，物传精神"。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/documentary/img_09.png" alt="" width="600" />   
+
+### 企鹅群里有特务
+
+豆瓣评分：9.7                                           
+导演：大卫·田纳特                                         
+推荐指数：❤️❤️❤️❤️❤️   
+
+偷窥了三个大 QQ 群并且没有被踢出去的故事。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/documentary/img_08.png" alt="" width="600" />   
+
+### 幼童
+
+豆瓣评分：9.5                                            
+导演：胡劲草                                     
+推荐指数：❤️❤️❤️❤️❤️   
+
+"愿你回到你的国家时，发现它已成为神圣的共和国，而你将共享推翻专制王朝后胜利的喜悦"    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/documentary/img_07.png" alt="" width="600" />   
 
 ### 川味 4
 
