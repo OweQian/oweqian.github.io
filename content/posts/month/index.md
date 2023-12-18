@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-12-16T09:25:47+08:00  
+date: 2023-12-18T09:15:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -14,9 +14,17 @@ categories: ["碎碎念"]
 
 ### 2023-12
 
+#### 12-17
+
+世界名画 -《辛德勒的名单》。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_149.jpg" alt="" width="400" />
+
 #### 12-16
 
-每周六找一个加班的噱头。
+《海蒂和爷爷》。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_148.jpg" alt="" width="400" />
 
 #### 12-15
 
