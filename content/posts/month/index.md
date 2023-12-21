@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-12-18T09:15:47+08:00  
+date: 2023-12-21T18:35:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,24 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-12
+
+#### 12-21
+
+累。   
+
+#### 12-20
+
+唢呐封神。   
+
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=413465959&bvid=BV1eV411r7aw&cid=200640979&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+#### 12-19
+
+消失的眼镜，因吹斯汀。    
+
+#### 12-18
+
+God bless you. 兄弟们，我又要到饭了。   
 
 #### 12-17
 
