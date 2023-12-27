@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2023-12-21T18:35:47+08:00  
+date: 2023-12-27T09:30:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,34 @@ categories: ["碎碎念"]
 ## 2023  
 
 ### 2023-12
+
+#### 12-26
+
+😊 好好好，985 一个月，996 一个月，需求全砍了，耍猴是吧。   
+
+#### 12-25
+
+Merry Christmas.   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_153.jpg" alt="" width="400" />
+
+#### 12-24
+
+早安，公主。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_152.jpg" alt="" width="400" />
+
+#### 12-23
+
+🤦🏻‍♀️ 过于真实。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_151.jpg" alt="" width="400" />
+
+#### 12-22
+
+没关系，好朋友会送你情绪稳定的卡皮巴拉。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2023/img_150.jpg" alt="" width="400" />
 
 #### 12-21
 
