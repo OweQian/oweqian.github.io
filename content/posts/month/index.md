@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-01-12T10:55:47+08:00  
+date: 2024-01-15T09:40:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -14,9 +14,23 @@ categories: ["碎碎念"]
 
 ### 2024-01
 
+#### 01-14
+
+"琴键并非无限，但你是无限的。"  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_05.jpg" alt="" width="400" />
+
+#### 01-13
+
+"小瓦力，大人生。"  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_04.jpg" alt="" width="400" />
+
 #### 01-12
 
-被川渝同化了，想吃兔子，还是超辣的那种。    
+"也许听着很无聊，但无聊的事却是我最难忘的。"   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_03.jpg" alt="" width="400" />  
 
 #### 01-11
 
