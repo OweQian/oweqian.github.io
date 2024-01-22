@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-01-15T09:40:47+08:00  
+date: 2024-01-22T16:10:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,34 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-01
+
+#### 01-21
+
+🥶。   
+
+#### 01-20
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_08.jpg" alt="" width="400" />
+
+#### 01-19
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_07.jpg" alt="" width="400" />
+
+#### 01-18
+
+遇到一个坏领导真是最大的不幸。  
+
+#### 01-17
+
+再卷也是菜。   
+
+#### 01-16
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_06.jpg" alt="" width="400" />
+
+#### 01-15
+
+每个月只有这一天是最开心的。   
 
 #### 01-14
 
