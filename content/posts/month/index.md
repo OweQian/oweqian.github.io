@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-01-22T16:10:47+08:00  
+date: 2024-01-28T23:30:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,40 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-01
+
+#### 01-28
+
+《庆余年》是部喜剧片。   
+
+#### 01-27
+
+白天当帕鲁，晚上玩帕鲁。   
+
+#### 01-26
+
+哈哈哈哈。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_10.jpg" alt="" width="400" />
+
+#### 01-25
+
+哈哈哈哈。     
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_11.jpg" alt="" width="400" />
+
+#### 01-24
+
+😏，给 ahooks 提 bug。
+
+#### 01-23
+
+嘻嘻，拼好了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_09.jpg" alt="" width="400" />
+
+#### 01-22
+
+有两样东西，我一直没学会：看国足，炒 A 股。现在看，还好没学会。
 
 #### 01-21
 
