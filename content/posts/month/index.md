@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-02-01T09:10:47+08:00  
+date: 2024-02-04T11:50:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -11,6 +11,24 @@ categories: ["碎碎念"]
 <!--more-->
 
 ## 2024
+
+### 2024-02
+
+#### 02-03
+
+😫 是哪个大冤种周六还在上班啊？哦，是我。    
+
+#### 02-02
+
+心血来潮做个炒面，咸死人。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_12.jpg" alt="" width="400" />
+
+#### 02-01
+
+什么叫牛马。       
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_11.jpg" alt="" width="600" />
 
 ### 2024-01
 
