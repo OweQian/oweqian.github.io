@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-02-04T11:50:47+08:00  
+date: 2024-02-10T11:50:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,34 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-02
+
+#### 02-09
+
+新年快乐。   
+
+#### 02-08
+
+😄 又到了每年看《德鲁纳酒店》的时候了。  
+
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/NtuplEYZcrM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+#### 02-07
+
+睡了一天。   
+
+#### 02-06
+
+放假咯。   
+
+#### 02-05
+
+倒计时。    
+
+#### 02-04
+
+探索中华文明密码。   
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XvzDMvT8sjE?si=-DmzPwftMYfocGkk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### 02-03
 
