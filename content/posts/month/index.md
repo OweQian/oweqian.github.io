@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-02-10T11:50:47+08:00  
+date: 2024-02-18T09:00:47+08:00  
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,44 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-02
+
+#### 02-17
+
+😄 《飞驰人生 2》 还行。   
+
+#### 02-16
+
+If I never see you again, good morning, good afternoon and good night.   
+
+#### 02-15
+
+只敢看一次的电影。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_15.jpg" alt="" width="400" />
+
+#### 02-14
+
+😄 有点咸。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_14.jpg" alt="" width="400" />
+
+#### 02-13
+
+风景不错。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_13.jpg" alt="" width="400" />
+
+#### 02-12
+
+想吃红烧铁狮子头。   
+
+#### 02-11
+
+大年初二，补觉。   
+
+#### 02-10
+
+> 研发和创新从来不只是象牙塔里的活动，离不开现实市场，也离不开边干边学的企业。
 
 #### 02-09
 
