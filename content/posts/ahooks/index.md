@@ -3231,20 +3231,21 @@ useMount(fn: () => void);
 #### 源码解析
 
 ```tsx
-import {isFunction} from "../../../utils";
-import {useEffect} from "react";
+import { isFunction } from "../../../utils";
+import { useEffect } from "react";
 
 const useMount = (fn: () => void) => {
   if (!isFunction(fn)) {
-    console.error(`useMount expected parameter is a function, but got ${typeof fn}`)
+    console.error(
+      `useMount expected parameter is a function, but got ${typeof fn}`
+    );
   }
-  
-	// useEffect 的 deps 为空，只会在组件初始化时执行
-	// 单纯在 useEffect 基础上封装了一层
+  // useEffect 的 deps 为空，只会在组件初始化时执行
+  // 单纯在 useEffect 基础上封装了一层
   useEffect(() => {
     fn?.();
   }, []);
-}
+};
 
 export default useMount;
 ```
@@ -3274,20 +3275,21 @@ useUnmount(fn: () => void);
 #### 源码解析
 
 ```tsx
-import {isFunction} from "../../../utils";
-import {useEffect} from "react";
+import { isFunction } from "../../../utils";
+import { useEffect } from "react";
 import useLatest from "@/hooks/useLatest";
 
 const useUnmount = (fn: () => void) => {
   if (!isFunction(fn)) {
-    console.error(`useUnmount expected parameter is a function, but got ${typeof fn}`)
+    console.error(
+      `useUnmount expected parameter is a function, but got ${typeof fn}`
+    );
   }
 
   const fnRef = useLatest(fn);
-  
   // useEffect 的返回值中执行函数
   useEffect(() => () => fnRef.current?.(), []);
-}
+};
 
 export default useUnmount;
 ```
@@ -3317,21 +3319,22 @@ const unmountRef: {current: boolean} = useUnmountedRef();
 #### 源码解析
 
 ```tsx
-import {useRef, MutableRefObject, useEffect} from "react";
+import { MutableRefObject, useEffect, useRef } from "react";
 
-const useUnmountedRef = (): MutableRefObject<boolean>=> {
+const useUnmountedRef = (): MutableRefObject<boolean> => {
   const unmountedRef = useRef<boolean>(false);
 
   useEffect(() => {
+    // 组件挂载，unmountedRef.current 置为 false
     unmountedRef.current = false;
     return () => {
-			// 如果已经卸载，则会执行 return 中的逻辑
+      // 组件卸载，unmountedRef.current 置为 true
       unmountedRef.current = true;
-    }
+    };
   }, []);
 
   return unmountedRef;
-}
+};
 
 export default useUnmountedRef;
 ```
