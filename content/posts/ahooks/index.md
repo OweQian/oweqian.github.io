@@ -1,11 +1,13 @@
 ---
-title: "💻 ahooks@3.7.8 源码解读"
+title: "💻 ahooks@3.7.9 源码解读"
 date: 2024-02-25T01:05:14+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
 
-2023.11 ~ 2024.02，历时 4 个月，在公司宣布 996.ICU(:不是，996 是打工人的福报) 期间读了 ahooks@3.7.8 官网和源码，以下是整理的笔记，欢迎您的指正以及贡献。
+2024.12 ~ 2024.03，历时 4 个月，在公司宣布 996 期间学习了 ahooks@3.7.9 官网和源码，以下是整理的笔记，欢迎您的指正以及贡献。
+
+😏 996.ICU 你值得拥有 (:不是，996 是打工人的福报！！！
 
 <!--more-->
 
@@ -15,27 +17,29 @@ React 官网地址：[react](https://ahooks.js.org/zh-CN)
 
 Github 项目地址： [ahooks-analysis](https://github.com/OweQian/ahooks-analysis.git)
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ahooks/img-ahooks.jpeg" alt="" width="100%" />
+
 ## useRequest
 
 ### 基础用法
 
-useRequest 是一个强大的异步数据管理的 Hooks，React 项目中的网络请求场景使用 useRequest 就够了。  
+useRequest 是一个强大的异步数据管理的 Hooks，React 项目中的网络请求场景使用 useRequest 就够了。
 
-useRequest 通过插件式组织代码，核心代码极其简单，并且可以很方便的扩展出更高级的功能。目前已有能力包括：  
+useRequest 通过插件式组织代码，核心代码极其简单，并且可以很方便的扩展出更高级的功能。目前已有能力包括：
 
-- 自动请求/手动请求  
-- 轮询  
-- 防抖  
-- 节流  
-- 屏幕聚焦重新请求  
-- 错误重试  
-- loading delay   
-- SWR(stale-while-revalidate)  
-- 缓存   
+- 自动请求/手动请求
+- 轮询
+- 防抖
+- 节流
+- 屏幕聚焦重新请求
+- 错误重试
+- loading delay
+- SWR(stale-while-revalidate)
+- 缓存
 
 #### 默认请求
 
-useRequest 第一个参数是一个异步函数，在组件初始化时，会自动执行该异步函数。同时自动管理该异步函数的 loading, data, error 等状态。   
+useRequest 第一个参数是一个异步函数，在组件初始化时，会自动执行该异步函数。同时自动管理该异步函数的 loading, data, error 等状态。
 
 ```tsx
 const { data, error, loading } = useRequest(getUsername);
@@ -45,25 +49,27 @@ const { data, error, loading } = useRequest(getUsername);
 
 #### 手动触发
 
-如果设置了` options.manual = true`，则 useRequest 不会默认执行，需要通过 run 或者 runAsync 来触发执行。   
+如果设置了` options.manual = true`，则 useRequest 不会默认执行，需要通过 run 或者 runAsync 来触发执行。
 
 ```tsx
 const { loading, run, runAsync } = useRequest(changeUsername, {
-  manual: true
+  manual: true,
 });
 ```
 
-run 与 runAsync 的区别在于：  
+run 与 runAsync 的区别在于：
 
-- run 是一个普通的同步函数，我们会自动捕获异常，你可以用过 options.onError 来处理异常时的行为。  
-- runAsync 是一个返回 Promise 的异步函数，如果使用 runAsync 来调用，则意味着你需要自己捕获异常。  
+- run 是一个普通的同步函数，我们会自动捕获异常，你可以用过 options.onError 来处理异常时的行为。
+- runAsync 是一个返回 Promise 的异步函数，如果使用 runAsync 来调用，则意味着你需要自己捕获异常。
 
 ```tsx
-runAsync().then((data) => {
-  console.log(data);
-}).catch((error) => {
-  console.log(error);
-})
+runAsync()
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 ```
 
 [修改用户名 - CodeSandbox](https://codesandbox.io/s/t72dpw)
@@ -72,26 +78,26 @@ runAsync().then((data) => {
 
 #### 生命周期
 
-useRequest 提供了以下几个生命周期配置项，供你在异步函数的不同阶段做一些处理。   
+useRequest 提供了以下几个生命周期配置项，供你在异步函数的不同阶段做一些处理。
 
-- onBefore: 请求之前触发    
-- onSuccess: 请求成功触发    
-- onError: 请求失败触发    
-- onFinally: 请求完成触发     
+- onBefore: 请求之前触发
+- onSuccess: 请求成功触发
+- onError: 请求失败触发
+- onFinally: 请求完成触发
 
 [unruffled-rosalind-k92hpn - CodeSandbox](https://codesandbox.io/s/k92hpn)
 
 #### 刷新（重复上一次请求）
 
-useRequest 提供了 refresh 和 refreshAsync 方法，使我们可以使用上一次的参数，重新发起请求。  
+useRequest 提供了 refresh 和 refreshAsync 方法，使我们可以使用上一次的参数，重新发起请求。
 
-假如在读取用户信息的场景中  
+假如在读取用户信息的场景中
 
-1、我们读取了 ID 为 1 的用户信息 run(1)  
+1、我们读取了 ID 为 1 的用户信息 run(1)
 
-2、我们通过某种手段更新了用户信息  
+2、我们通过某种手段更新了用户信息
 
-3、我们想重新发起上一次请求，那我们就可以使用 refresh 来代替 run(1)，这在复杂场景中是非常有用的。  
+3、我们想重新发起上一次请求，那我们就可以使用 refresh 来代替 run(1)，这在复杂场景中是非常有用的。
 
 [刷新用户名称 - CodeSandbox](https://codesandbox.io/s/2d7mqv)
 
@@ -99,30 +105,30 @@ refresh 和 refreshAsync 的区别和 run 和 runAsync 是一致的。
 
 #### 立即变更数据
 
-useRequest 提供了 mutate，支持立即修改 useRequest 返回的 data 参数。  
+useRequest 提供了 mutate，支持立即修改 useRequest 返回的 data 参数。
 
-mutate 的用法与 React.setState 一致，支持 mutate(newData) 和 mutate(oldData ⇒ newData) 两种写法。   
+mutate 的用法与 React.setState 一致，支持 mutate(newData) 和 mutate(oldData ⇒ newData) 两种写法。
 
 [修改用户名 - CodeSandbox](https://codesandbox.io/s/dtddgn)
 
 #### 取消响应
 
-useRequest 提供了 cancel 函数，用于忽略当前 promise 返回的数据和错误。   
+useRequest 提供了 cancel 函数，用于忽略当前 promise 返回的数据和错误。
 
-注意：调用 cancel 函数并不会取消 promise 的执行。   
+注意：调用 cancel 函数并不会取消 promise 的执行。
 
-同时 useRequest 会在以下时机自动忽略响应：   
+同时 useRequest 会在以下时机自动忽略响应：
 
-- 组件卸载时，正在进行的 promise   
-- 竞态取消，当上一次 promise 还没返回时，又发起了下一次 promise，则会忽略上一次 promise 的响应   
+- 组件卸载时，正在进行的 promise
+- 竞态取消，当上一次 promise 还没返回时，又发起了下一次 promise，则会忽略上一次 promise 的响应
 
 [cranky-bell-3tnfn8 - CodeSandbox](https://codesandbox.io/s/3tnfn8)
 
 #### 参数管理
 
-useRequest 返回的 params 会记录当次调用 service 的参数数组。比如你触发了 run(1, 2, 3)，则 params 等于 [1, 2, 3]。   
+useRequest 返回的 params 会记录当次调用 service 的参数数组。比如你触发了 run(1, 2, 3)，则 params 等于 [1, 2, 3]。
 
-如果设置了 options.manual = false，则首次调用 service 的参数可以通过 options.defaultParams 来设置。   
+如果设置了 options.manual = false，则首次调用 service 的参数可以通过 options.defaultParams 来设置。
 
 [great-einstein-nsn894 - CodeSandbox](https://codesandbox.io/s/nsn894)
 
@@ -155,91 +161,87 @@ const {
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| manual | 默认 false，即在初始化时自动执行 service。如果设置为 true，则需要手动调用 run 或 runAsync 触发执行 | boolean | false |
-| defaultParams | 首次默认执行时，传递给 service 的参数 | TParams | - |
-| onBefore | service 执行前触发 | (params: TParams) => void | - |
-| onSuccess | service resolve 时触发 | (data: TData, params: TParams) => void | - |
-| onError | service reject 时触发 | (e: Error, params: TParams) => void | - |
-| onFinally | service 执行完成时触发 | (params: TParams, data?: TData, e?: Error) => void | - |
+| 参数          | 说明                                                                                               | 类型                                               | 默认值 |
+| ------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ------ |
+| manual        | 默认 false，即在初始化时自动执行 service。如果设置为 true，则需要手动调用 run 或 runAsync 触发执行 | boolean                                            | false  |
+| defaultParams | 首次默认执行时，传递给 service 的参数                                                              | TParams                                            | -      |
+| onBefore      | service 执行前触发                                                                                 | (params: TParams) => void                          | -      |
+| onSuccess     | service resolve 时触发                                                                             | (data: TData, params: TParams) => void             | -      |
+| onError       | service reject 时触发                                                                              | (e: Error, params: TParams) => void                | -      |
+| onFinally     | service 执行完成时触发                                                                             | (params: TParams, data?: TData, e?: Error) => void | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| loading | service 是否正在执行 | boolean |
-| data | service 返回的数据 | TData | undefined |
-| error | service 抛出的异常 | Error | undefined |
-| params | 当次执行的 service 的参数数组。比如你触发了 run(1, 2, 3)，则 params 等于 [1, 2, 3] | TParams | [] |
-| run | 手动触发 service 执行，参数会传递给 service。异常自动处理，通过 onError 反馈。 | (…params: TParams) ⇒ void |
-| runAsync | 与 run 用法一致，但返回的是 Promise，需要自行处理异常。 | (…params: TParams) ⇒ Promise<TData> |
-| refresh | 使用上一次的 params，重新调用 run | () ⇒ void |
-| refreshAsync | 使用上一次的 params，重新调用 runAsync | () ⇒ Promise<TData> |
-|  mutate | 直接修改 data | (data? TData | ((oldData?: TData) ⇒ (TData | undefined))) ⇒ void |
-| cancel | 忽略当前 Promise 的响应 | () ⇒ void |
+| 参数         | 说明                                                                               | 类型                                |
+| ------------ | ---------------------------------------------------------------------------------- | ----------------------------------- | --------------------------- | ------------------- |
+| loading      | service 是否正在执行                                                               | boolean                             |
+| data         | service 返回的数据                                                                 | TData                               | undefined                   |
+| error        | service 抛出的异常                                                                 | Error                               | undefined                   |
+| params       | 当次执行的 service 的参数数组。比如你触发了 run(1, 2, 3)，则 params 等于 [1, 2, 3] | TParams                             | []                          |
+| run          | 手动触发 service 执行，参数会传递给 service。异常自动处理，通过 onError 反馈。     | (…params: TParams) ⇒ void           |
+| runAsync     | 与 run 用法一致，但返回的是 Promise，需要自行处理异常。                            | (…params: TParams) ⇒ Promise<TData> |
+| refresh      | 使用上一次的 params，重新调用 run                                                  | () ⇒ void                           |
+| refreshAsync | 使用上一次的 params，重新调用 runAsync                                             | () ⇒ Promise<TData>                 |
+| mutate       | 直接修改 data                                                                      | (data? TData                        | ((oldData?: TData) ⇒ (TData | undefined))) ⇒ void |
+| cancel       | 忽略当前 Promise 的响应                                                            | () ⇒ void                           |
 
 ### 核心原理
 
 #### 架构图
 
-useRequest 的模块分为三大块：Core、Plugins、utils。   
+useRequest 的模块分为三大块：Core、Plugins、utils。
 
-Plugins: useRequest 通过插件式组件代码，基本上每个功能点对应一个插件。通过插件化机制降低了每个功能之间的耦合度，也降低了其本身的复杂度。   
+Plugins: useRequest 通过插件式组件代码，基本上每个功能点对应一个插件。通过插件化机制降低了每个功能之间的耦合度，也降低了其本身的复杂度。
 
-Core: 整个 useRequest 的核心代码，处理了整个请求的生命周期。   
+Core: 整个 useRequest 的核心代码，处理了整个请求的生命周期。
 
-utils: 工具方法。   
+utils: 工具方法。
 
 #### 源码解析
 
 ##### useRequest 入口
 
-先从入口文件开始，hooks/src/useRequest/src/useRequest.ts   
+先从入口文件开始，hooks/src/useRequest/src/useRequest.ts
 
 ```tsx
-import useAutoRunPlugin from './plugins/useAutoRunPlugin';
-import useCachePlugin from './plugins/useCachePlugin';
-import useDebouncePlugin from './plugins/useDebouncePlugin';
-import useLoadingDelayPlugin from './plugins/useLoadingDelayPlugin';
-import usePollingPlugin from './plugins/usePollingPlugin';
-import useRefreshOnWindowFocusPlugin from './plugins/useRefreshOnWindowFocusPlugin';
-import useRetryPlugin from './plugins/useRetryPlugin';
-import useThrottlePlugin from './plugins/useThrottlePlugin';
-import type { Options, Plugin, Service } from './types';
-import useRequestImplement from './useRequestImplement';
+import useAutoRunPlugin from "./plugins/useAutoRunPlugin";
+import useCachePlugin from "./plugins/useCachePlugin";
+import useDebouncePlugin from "./plugins/useDebouncePlugin";
+import useLoadingDelayPlugin from "./plugins/useLoadingDelayPlugin";
+import usePollingPlugin from "./plugins/usePollingPlugin";
+import useRefreshOnWindowFocusPlugin from "./plugins/useRefreshOnWindowFocusPlugin";
+import useRetryPlugin from "./plugins/useRetryPlugin";
+import useThrottlePlugin from "./plugins/useThrottlePlugin";
+import type { Options, Plugin, Service } from "./types";
+import useRequestImplement from "./useRequestImplement";
 
 function useRequest<TData, TParams extends any[]>(
   service: Service<TData, TParams>,
   options?: Options<TData, TParams>,
-  plugins?: Plugin<TData, TParams>[],
+  plugins?: Plugin<TData, TParams>[]
 ) {
-  return useRequestImplement<TData, TParams>(
-    service,
-    options,
-    [
-      // 插件列表，用于拓展功能
-      // 自定义插件数组
-      ...(plugins || []),
-      useAutoRunPlugin,
-      useCachePlugin,
-      useDebouncePlugin,
-      useLoadingDelayPlugin,
-      usePollingPlugin,
-      useRefreshOnWindowFocusPlugin,
-      useRetryPlugin,
-      useThrottlePlugin,
-    ] as Plugin<TData, TParams>[]
-  );
+  return useRequestImplement<TData, TParams>(service, options, [
+    // 插件列表，用于拓展功能
+    // 自定义插件数组
+    ...(plugins || []),
+    useAutoRunPlugin,
+    useCachePlugin,
+    useDebouncePlugin,
+    useLoadingDelayPlugin,
+    usePollingPlugin,
+    useRefreshOnWindowFocusPlugin,
+    useRetryPlugin,
+    useThrottlePlugin,
+  ] as Plugin<TData, TParams>[]);
 }
 
 export default useRequest;
 ```
 
-类型定义，hooks/src/useRequest/src/types.ts      
+类型定义，hooks/src/useRequest/src/types.ts
 
 ```tsx
-import type Fetch from './Fetch';
+import type Fetch from "./Fetch";
 
 export interface FetchState<TData, TParams extends any[]> {
   loading: boolean;
@@ -258,7 +260,7 @@ export interface PluginReturn<TData, TParams extends any[]> {
 
   onRequest?: (
     service: Service<TData, TParams>,
-    params: TParams,
+    params: TParams
   ) => {
     servicePromise?: Promise<TData>;
   };
@@ -270,7 +272,9 @@ export interface PluginReturn<TData, TParams extends any[]> {
   onMutate?: (data: TData) => void;
 }
 
-export type Service<TData, TParams extends any[]> = (...args: TParams) => Promise<TData>;
+export type Service<TData, TParams extends any[]> = (
+  ...args: TParams
+) => Promise<TData>;
 
 export interface Options<TData, TParams> {
   manual?: boolean;
@@ -286,8 +290,13 @@ export interface Options<TData, TParams> {
 }
 
 export type Plugin<TData, TParams extends any[]> = {
-  (fetchInstance: Fetch<TData, TParams>, options: Options<TData, TParams>): PluginReturn<TData, TParams>;
-  onInit?: (options: Options<TData, TParams>) => Partial<FetchState<TData, TParams>>;
+  (
+    fetchInstance: Fetch<TData, TParams>,
+    options: Options<TData, TParams>
+  ): PluginReturn<TData, TParams>;
+  onInit?: (
+    options: Options<TData, TParams>
+  ) => Partial<FetchState<TData, TParams>>;
 };
 
 export interface Result<TData, TParams extends any[]> {
@@ -295,12 +304,12 @@ export interface Result<TData, TParams extends any[]> {
   data?: TData;
   params: TParams | [];
   error?: Error;
-  cancel: Fetch<TData, TParams>['cancel'];
-  refresh: Fetch<TData, TParams>['refresh'];
-  refreshAsync: Fetch<TData, TParams>['refreshAsync'];
-  run: Fetch<TData, TParams>['run'];
-  runAsync: Fetch<TData, TParams>['runAsync'];
-  mutate: Fetch<TData, TParams>['mutate'];
+  cancel: Fetch<TData, TParams>["cancel"];
+  refresh: Fetch<TData, TParams>["refresh"];
+  refreshAsync: Fetch<TData, TParams>["refreshAsync"];
+  run: Fetch<TData, TParams>["run"];
+  runAsync: Fetch<TData, TParams>["runAsync"];
+  mutate: Fetch<TData, TParams>["mutate"];
 }
 
 export type Subscribe = () => void;
@@ -308,10 +317,10 @@ export type Subscribe = () => void;
 
 ##### useRequestImplement 方法
 
-主要负责对 Fetch 类进行实例化。   
+主要负责对 Fetch 类进行实例化。
 
 ```tsx
-import type {Options, Plugin, Result, Service} from './types';
+import type { Options, Plugin, Result, Service } from "./types";
 import isDev from "../../../../utils/isDev";
 import useLatest from "@/hooks/useLatest";
 import useUpdate from "@/hooks/useUpdate";
@@ -324,13 +333,15 @@ import Fetch from "./Fetch";
 function useRequestImplement<TData, TParams extends any[]>(
   service: Service<TData, TParams>,
   options: Options<TData, TParams> = {},
-  plugins: Plugin<TData, TParams>[] = [],
+  plugins: Plugin<TData, TParams>[] = []
 ) {
   const { manual = false, ...rest } = options;
 
   if (isDev) {
     if (options.defaultParams && !Array.isArray(options.defaultParams)) {
-      console.warn(`expected defaultParams is array, got ${typeof options.defaultParams}`);
+      console.warn(
+        `expected defaultParams is array, got ${typeof options.defaultParams}`
+      );
     }
   }
 
@@ -347,7 +358,9 @@ function useRequestImplement<TData, TParams extends any[]>(
   // 保证请求实例不会发生变化
   const fetchInstance = useCreation(() => {
     // 执行 某个 plugin 的 onInit 方法，初始化状态值
-    const initState = plugins.map(p => p?.onInit?.(fetchOptions)).filter(Boolean);
+    const initState = plugins
+      .map((p) => p?.onInit?.(fetchOptions))
+      .filter(Boolean);
 
     // 返回请求实例
     return new Fetch<TData, TParams>(
@@ -355,13 +368,15 @@ function useRequestImplement<TData, TParams extends any[]>(
       fetchOptions,
       // 强制组件重新渲染
       update,
-      Object.assign({}, ...initState),
-    )
+      Object.assign({}, ...initState)
+    );
   }, []);
 
   fetchInstance.options = fetchOptions;
   // run all plugins hooks
-  fetchInstance.pluginImpls = plugins.map(p => p(fetchInstance, fetchOptions));
+  fetchInstance.pluginImpls = plugins.map((p) =>
+    p(fetchInstance, fetchOptions)
+  );
 
   useMount(() => {
     // 默认 false，在初始化时自动执行 service
@@ -398,9 +413,15 @@ export default useRequestImplement;
 
 ```tsx
 /* eslint-disable @typescript-eslint/no-parameter-properties */
-import type { MutableRefObject } from 'react';
-import type { FetchState, Options, PluginReturn, Service, Subscribe } from './types';
-import {isFunction} from "../../../../utils";
+import type { MutableRefObject } from "react";
+import type {
+  FetchState,
+  Options,
+  PluginReturn,
+  Service,
+  Subscribe,
+} from "./types";
+import { isFunction } from "../../../../utils";
 
 /**
  * 插件化机制
@@ -429,7 +450,7 @@ export default class Fetch<TData, TParams extends any[]> {
     // 订阅-更新函数
     public subscribe: Subscribe,
     // 初始状态值
-    public initState: Partial<FetchState<TData, TParams>> = {},
+    public initState: Partial<FetchState<TData, TParams>> = {}
   ) {
     this.state = {
       ...this.state,
@@ -469,7 +490,7 @@ export default class Fetch<TData, TParams extends any[]> {
       stopNow = false,
       returnNow = false,
       ...state
-    } = this.runPluginHandler('onBefore', params);
+    } = this.runPluginHandler("onBefore", params);
 
     // stop request
     if (stopNow) {
@@ -496,7 +517,11 @@ export default class Fetch<TData, TParams extends any[]> {
     try {
       // replace service
       // 与缓存策略有关，如果有 cache 的 service 实例，则直接使用缓存的实例
-      let { servicePromise } = this.runPluginHandler('onRequest', this.serviceRef.current, params);
+      let { servicePromise } = this.runPluginHandler(
+        "onRequest",
+        this.serviceRef.current,
+        params
+      );
 
       if (!servicePromise) {
         servicePromise = this.serviceRef.current(...params);
@@ -522,14 +547,14 @@ export default class Fetch<TData, TParams extends any[]> {
       this.options.onSuccess?.(res, params);
 
       // plugin 的 Onsuccess 事件
-      this.runPluginHandler('onSuccess', res, params);
+      this.runPluginHandler("onSuccess", res, params);
 
       // options 的 onFinally 回调
       this.options.onFinally?.(params, res, undefined);
 
       if (currentCount === this.count) {
         // plugin 的 onFinally 事件
-        this.runPluginHandler('onFinally', params, res, undefined);
+        this.runPluginHandler("onFinally", params, res, undefined);
       }
 
       return res;
@@ -550,14 +575,14 @@ export default class Fetch<TData, TParams extends any[]> {
       this.options.onError?.(error, params);
 
       // plugin 的 onError 事件
-      this.runPluginHandler('onError', error, params);
+      this.runPluginHandler("onError", error, params);
 
       // options 的 onFinally 回调
       this.options.onFinally?.(params, undefined, error);
 
       // plugin 的 onFinally 事件
       if (currentCount === this.count) {
-        this.runPluginHandler('onFinally', params, undefined, error);
+        this.runPluginHandler("onFinally", params, undefined, error);
       }
 
       // 抛出异常
@@ -583,7 +608,7 @@ export default class Fetch<TData, TParams extends any[]> {
     });
 
     // 执行 plugin 的 onCancel
-    this.runPluginHandler('onCancel');
+    this.runPluginHandler("onCancel");
   }
 
   // 使用上一次的 params，重新调用 run
@@ -601,7 +626,7 @@ export default class Fetch<TData, TParams extends any[]> {
   // 修改 data
   mutate(data?: TData | ((oldData?: TData) => TData | undefined)) {
     const targetData = isFunction(data) ? data(this.state.data) : data;
-    this.runPluginHandler('onMutate', targetData);
+    this.runPluginHandler("onMutate", targetData);
     this.setState({
       data: targetData,
     });
@@ -609,37 +634,40 @@ export default class Fetch<TData, TParams extends any[]> {
 }
 ```
 
-### Loading Delay  
+### Loading Delay
 
-通过设置 options.loadingDelay，可以延迟 loading 变成 true 的时间，有效防止闪烁。   
+通过设置 options.loadingDelay，可以延迟 loading 变成 true 的时间，有效防止闪烁。
 
 ```tsx
 const { loading, data } = useRequest(getUsername, {
-	loadingDelay: 300
-})
+  loadingDelay: 300,
+});
 
-return <div>{loading ? 'Loading...' : data }</div>
+return <div>{loading ? "Loading..." : data}</div>;
 ```
 
 [peaceful-elgamal-o4uk15 - CodeSandbox](https://codesandbox.io/s/o4uk15)
 
 #### API
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| loadingDelay | 设置 loading 变为 true 的延迟时间 | number | 0 |
+| 参数         | 说明                              | 类型   | 默认值 |
+| ------------ | --------------------------------- | ------ | ------ |
+| loadingDelay | 设置 loading 变为 true 的延迟时间 | number | 0      |
 
 #### 备注
 
-options.loadingDelay 支持动态变化  
+options.loadingDelay 支持动态变化
 
 #### 源码解析
 
 ```tsx
-import type {Plugin, Timeout} from '../types';
-import {useRef} from "react";
+import type { Plugin, Timeout } from "../types";
+import { useRef } from "react";
 
-const useLoadingDelayPlugin: Plugin<any, any[]> = (fetchInstance, { loadingDelay, ready }) => {
+const useLoadingDelayPlugin: Plugin<any, any[]> = (
+  fetchInstance,
+  { loadingDelay, ready }
+) => {
   const timerRef = useRef<Timeout>();
 
   if (!loadingDelay) {
@@ -664,32 +692,32 @@ const useLoadingDelayPlugin: Plugin<any, any[]> = (fetchInstance, { loadingDelay
           fetchInstance.setState({
             loading: true,
           });
-        }, loadingDelay)
+        }, loadingDelay);
       }
-      
+
       // 不管是手动还是非手动，先在请求前把 loading 置为 false
       return {
         loading: false,
-      }
+      };
     },
     onFinally: () => {
       cancelTimout();
     },
     onCancel: () => {
       cancelTimout();
-    }
-  }
+    },
+  };
 };
 export default useLoadingDelayPlugin;
 ```
 
 ### 轮询
 
-通过设置 options.pollingInterval，进入轮询模式，useRequest 会定时触发 service 执行。   
+通过设置 options.pollingInterval，进入轮询模式，useRequest 会定时触发 service 执行。
 
 ```tsx
 const { data, run, cancel } = useRequest(getUsername, {
-	pollingInterval: 3000,
+  pollingInterval: 3000,
 });
 ```
 
@@ -699,39 +727,39 @@ const { data, run, cancel } = useRequest(getUsername, {
 
 #### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| pollingInterval | 轮询间隔，单位为毫秒。如果值大于 0，则处于轮询模式。 | number | 0 |
-| pollingWhenHidden | 在页面隐藏时，是否继续轮询。如果设置为 false，在页面隐藏时会暂时停止轮询，页面重新显示时继续上次轮询。 | boolean | true |
-| pollingErrorRetryCount | 轮询错误重试次数。如果设置为 -1，则无限次。 | number | -1 |
+| 参数                   | 说明                                                                                                   | 类型    | 默认值 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ | ------- | ------ |
+| pollingInterval        | 轮询间隔，单位为毫秒。如果值大于 0，则处于轮询模式。                                                   | number  | 0      |
+| pollingWhenHidden      | 在页面隐藏时，是否继续轮询。如果设置为 false，在页面隐藏时会暂时停止轮询，页面重新显示时继续上次轮询。 | boolean | true   |
+| pollingErrorRetryCount | 轮询错误重试次数。如果设置为 -1，则无限次。                                                            | number  | -1     |
 
 #### Return
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| run | 启动轮询 | (…params: TParams) ⇒ void |
+| 参数     | 说明     | 类型                                |
+| -------- | -------- | ----------------------------------- |
+| run      | 启动轮询 | (…params: TParams) ⇒ void           |
 | runAsync | 启动轮询 | (…params: TParams) ⇒ Promise<TData> |
-| cancel | 停止轮询 | () ⇒ void |
+| cancel   | 停止轮询 | () ⇒ void                           |
 
 #### 备注
 
-- options.pollingInterval、options.pollingWhenHidden 支持动态变化  
-- 如果设置 options.manual = true，则初始化不会启动轮询，需要通过 run/runAsync 触发开始  
-- 如果设置 options.pollingInterval 由 0 变为 大于 0 的值，不会启动轮询，需要通过 run/runAsync 触发开始  
-- 轮询原理是在每次请求完成后，等待 options.pollingInterval 时间，发起下一次请求  
+- options.pollingInterval、options.pollingWhenHidden 支持动态变化
+- 如果设置 options.manual = true，则初始化不会启动轮询，需要通过 run/runAsync 触发开始
+- 如果设置 options.pollingInterval 由 0 变为 大于 0 的值，不会启动轮询，需要通过 run/runAsync 触发开始
+- 轮询原理是在每次请求完成后，等待 options.pollingInterval 时间，发起下一次请求
 
 #### 源码解析
 
 ```tsx
-import type {Plugin, Timeout} from '../types';
+import type { Plugin, Timeout } from "../types";
 import useUpdateEffect from "@/hooks/useUpdateEffect";
-import {useRef} from "react";
-import isDocumentVisible from '../utils/isDocumentVisible';
-import subscribeReVisible from '../utils/subscribeReVisible';
+import { useRef } from "react";
+import isDocumentVisible from "../utils/isDocumentVisible";
+import subscribeReVisible from "../utils/subscribeReVisible";
 
 const usePollingPlugin: Plugin<any, any[]> = (
   fetchInstance,
-  { pollingInterval, pollingWhenHidden = true, pollingErrorRetryCount = -1 },
+  { pollingInterval, pollingWhenHidden = true, pollingErrorRetryCount = -1 }
 ) => {
   const timerRef = useRef<Timeout>();
   // 清除订阅事件的函数
@@ -775,7 +803,8 @@ const usePollingPlugin: Plugin<any, any[]> = (
         // pollingErrorRetryCount: 轮询错误重试次数。如果设置为 -1，则无限次
         pollingErrorRetryCount === -1 ||
         // When an error occurs, the request is not repeated after pollingErrorRetryCount retries
-        (pollingErrorRetryCount !== -1 && countRef.current <= pollingErrorRetryCount)
+        (pollingErrorRetryCount !== -1 &&
+          countRef.current <= pollingErrorRetryCount)
       ) {
         timerRef.current = setTimeout(() => {
           // pollingWhenHidden: 在页面隐藏时，是否继续轮询。如果设置为 false，在页面隐藏时会暂时停止轮询，页面重新显示时继续上次轮询
@@ -804,13 +833,13 @@ export default usePollingPlugin;
 
 ### Ready
 
-通过设置 options.ready，可以控制请求是否发出。当值为 false 时，请求永远都不会发出。   
+通过设置 options.ready，可以控制请求是否发出。当值为 false 时，请求永远都不会发出。
 
-其具体行为如下：   
+其具体行为如下：
 
-1、当 manual = false 自动请求模式时，每次 ready 从 false 变为 true 时，都会自动发送请求，会带上参数 options.defaultParams。   
+1、当 manual = false 自动请求模式时，每次 ready 从 false 变为 true 时，都会自动发送请求，会带上参数 options.defaultParams。
 
-2、当 manual = true 手动请求模式时，只要 ready = false，则通过 run/runAsync 触发的请求都不会执行。   
+2、当 manual = true 手动请求模式时，只要 ready = false，则通过 run/runAsync 触发的请求都不会执行。
 
 [peaceful-wind-sz89xz - CodeSandbox](https://codesandbox.io/s/sz89xz)
 
@@ -818,27 +847,27 @@ export default usePollingPlugin;
 
 #### Option
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| ready | 当前请求是否准备好了 | boolean | true |
+| 参数  | 说明                 | 类型    | 默认值 |
+| ----- | -------------------- | ------- | ------ |
+| ready | 当前请求是否准备好了 | boolean | true   |
 
 ### 依赖刷新
 
-通过设置 options.refreshDeps，在依赖变化时，useRequest 会自动调用 refresh 方法，实现刷新重复上一次请求的效果。   
+通过设置 options.refreshDeps，在依赖变化时，useRequest 会自动调用 refresh 方法，实现刷新重复上一次请求的效果。
 
 ```tsx
-const [userId, setUserId] = useState('1');
+const [userId, setUserId] = useState("1");
 const { data, run } = useRequest(() => getUserSchool(userId), {
   refreshDeps: [userId],
 });
 ```
 
-上面的示例代码，useRequest 会在初始化和 userId 变化时，触发函数执行。      
+上面的示例代码，useRequest 会在初始化和 userId 变化时，触发函数执行。
 
-与下面代码实现功能完全一致。     
+与下面代码实现功能完全一致。
 
 ```tsx
-const [userId, setUserId] = useState('1');
+const [userId, setUserId] = useState("1");
 const { data, refresh } = useRequest(() => getUserSchool(userId));
 
 useEffect(() => {
@@ -852,30 +881,33 @@ useEffect(() => {
 
 #### Option
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| refreshDeps | 依赖数组。当数组内容变化后刷新（重复上一次请求）。同 useEffect 的第二个参数。 | any[] | [] |
-| refreshDepsAction | 自定义依赖数组变化时的请求行为。 | () ⇒ void | - |
+| 参数              | 说明                                                                          | 类型      | 默认值 |
+| ----------------- | ----------------------------------------------------------------------------- | --------- | ------ |
+| refreshDeps       | 依赖数组。当数组内容变化后刷新（重复上一次请求）。同 useEffect 的第二个参数。 | any[]     | []     |
+| refreshDepsAction | 自定义依赖数组变化时的请求行为。                                              | () ⇒ void | -      |
 
 #### 备注
 
-如果设置 options.manual = true，则 refreshDeps，refreshDepsAction 都不再生效，需要通过 run/runAsync 手动触发请求。   
+如果设置 options.manual = true，则 refreshDeps，refreshDepsAction 都不再生效，需要通过 run/runAsync 手动触发请求。
 
 #### 源码解析
 
 ```tsx
 import useUpdateEffect from "@/hooks/useUpdateEffect";
-import {useRef} from "react";
-import type { Plugin } from '../types';
+import { useRef } from "react";
+import type { Plugin } from "../types";
 
 // support refreshDeps & ready
-const useAutoRunPlugin: Plugin<any, any[]> = (fetchInstance, {
-  manual,
-  ready = true,
-  defaultParams = [],
-  refreshDeps = [],
-  refreshDepsAction,
-}) => {
+const useAutoRunPlugin: Plugin<any, any[]> = (
+  fetchInstance,
+  {
+    manual,
+    ready = true,
+    defaultParams = [],
+    refreshDeps = [],
+    refreshDepsAction,
+  }
+) => {
   const hasAutoRun = useRef(false);
   hasAutoRun.current = false;
 
@@ -904,7 +936,7 @@ const useAutoRunPlugin: Plugin<any, any[]> = (fetchInstance, {
       hasAutoRun.current = true;
       // 自定义依赖数组变化时的请求行为
       if (refreshDepsAction) {
-        refreshDepsAction()
+        refreshDepsAction();
       } else {
         // 调用 refresh 方法，实现刷新重复上一次请求的效果
         fetchInstance.refresh();
@@ -918,10 +950,10 @@ const useAutoRunPlugin: Plugin<any, any[]> = (fetchInstance, {
       if (!ready) {
         return {
           stopNow: true,
-        }
+        };
       }
-    }
-  }
+    },
+  };
 };
 
 export default useAutoRunPlugin;
@@ -929,28 +961,28 @@ export default useAutoRunPlugin;
 
 ### 屏幕聚焦重新请求
 
-通过设置 options.refreshOnWindowFocus，在浏览器窗口 refocus 和 revisible 时，会重新发起请求。   
+通过设置 options.refreshOnWindowFocus，在浏览器窗口 refocus 和 revisible 时，会重新发起请求。
 
 ```tsx
 const { data } = useRequest(getUsername, {
-	refreshOnWindowFocus: true,
-})
+  refreshOnWindowFocus: true,
+});
 ```
 
 [clever-ioana-gkxvnk - CodeSandbox](https://codesandbox.io/s/gkxvnk)
 
 #### Option
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| refreshOnWindowFocus | 在屏幕重新获取焦点或重新显示时，重新发起请求 | boolean | false |
-| focusTimespan | 重新请求间隔，单位为毫秒 | number | 5000 |
+| 参数                 | 说明                                         | 类型    | 默认值 |
+| -------------------- | -------------------------------------------- | ------- | ------ |
+| refreshOnWindowFocus | 在屏幕重新获取焦点或重新显示时，重新发起请求 | boolean | false  |
+| focusTimespan        | 重新请求间隔，单位为毫秒                     | number  | 5000   |
 
 #### 备注
 
-options.refreshOnWindowFocus、options.focusTimespan 支持动态变化。   
+options.refreshOnWindowFocus、options.focusTimespan 支持动态变化。
 
-监听的浏览器事件为 visibilitychange 和 focus。   
+监听的浏览器事件为 visibilitychange 和 focus。
 
 #### 源码解析
 
@@ -976,7 +1008,7 @@ export default function limit(fn: any, timespan: number) {
 import isBrowser from "../../../../../utils/isBrowser";
 
 export default function isOnline(): boolean {
-  if (isBrowser && typeof navigator.onLine !== 'undefined') {
+  if (isBrowser && typeof navigator.onLine !== "undefined") {
     return navigator.onLine;
   }
   return true;
@@ -989,7 +1021,7 @@ import isBrowser from "../../../../../utils/isBrowser";
 export default function isDocumentVisible(): boolean {
   if (isBrowser) {
     // document.visibilityState 只读属性，返回 document 的可见性
-    return document.visibilityState !== 'hidden';
+    return document.visibilityState !== "hidden";
   }
 
   return true;
@@ -1028,24 +1060,24 @@ if (isBrowser) {
     }
   };
   // 监听 visibilitychange 事件
-  window.addEventListener('visibilityChange', revalidate, false);
+  window.addEventListener("visibilityChange", revalidate, false);
   // 监听 focus 事件
-  window.addEventListener('focus', revalidate, false);
+  window.addEventListener("focus", revalidate, false);
 }
 
 export default subscribe;
 ```
 
 ```tsx
-import {useEffect, useRef} from "react";
-import type { Plugin } from '../types';
+import { useEffect, useRef } from "react";
+import type { Plugin } from "../types";
 import useUnmount from "@/hooks/useUnmount";
 import limit from "../utils/limit";
 import subscribeFocus from "../utils/subscribeFocus";
 
 const useRefreshOnWindowFocusPlugin: Plugin<any, any[]> = (
   fetchInstance,
-  { refreshOnWindowFocus, focusTimespan = 5000 },
+  { refreshOnWindowFocus, focusTimespan = 5000 }
 ) => {
   // 清除订阅事件的函数
   const unsubscribeRef = useRef<() => void>();
@@ -1063,7 +1095,10 @@ const useRefreshOnWindowFocusPlugin: Plugin<any, any[]> = (
     // (: 默认自上一次请求后回到页面的时间间隔大于 5000ms，才重新发起请求
     if (refreshOnWindowFocus) {
       // 根据 focusTimespan，判断是否进行请求
-      const limitRefresh = limit(fetchInstance.refresh.bind(fetchInstance), focusTimespan);
+      const limitRefresh = limit(
+        fetchInstance.refresh.bind(fetchInstance),
+        focusTimespan
+      );
       // 存放在订阅事件列表中
       unsubscribeRef.current = subscribeFocus(() => {
         limitRefresh();
@@ -1086,42 +1121,42 @@ export default useRefreshOnWindowFocusPlugin;
 
 ### 防抖
 
-通过设置 options.debounceWait，进入防抖模式，此时如果频繁触发 run 或者 runAsync，则会以防抖策略进行请求。   
+通过设置 options.debounceWait，进入防抖模式，此时如果频繁触发 run 或者 runAsync，则会以防抖策略进行请求。
 
 ```tsx
 const { data, run } = useRequest(getUsername, {
-	debounceWait: 300,
-	manual: true,
-})
+  debounceWait: 300,
+  manual: true,
+});
 ```
 
 [crimson-firefly-gxgpsl - CodeSandbox](https://codesandbox.io/s/gxgpsl)
 
 #### Option
 
-debounce 所有参数用法和效果同 [lodash.debounce](https://www.lodashjs.com/docs/lodash.debounce/)  
+debounce 所有参数用法和效果同  [lodash.debounce](https://www.lodashjs.com/docs/lodash.debounce/)
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| debounceWait | 防抖等待时间，单位为毫秒，设置后，进入防抖模式 | number | - |
-| debounceLeading | 在延迟开始前执行调用 | boolean | false |
-| debounceTrailing | 在延迟结束后执行调用 | boolean | true |
-| debounceMaxWait | 允许被延迟的最大值 | number | - |
+| 参数             | 说明                                           | 类型    | 默认值 |
+| ---------------- | ---------------------------------------------- | ------- | ------ |
+| debounceWait     | 防抖等待时间，单位为毫秒，设置后，进入防抖模式 | number  | -      |
+| debounceLeading  | 在延迟开始前执行调用                           | boolean | false  |
+| debounceTrailing | 在延迟结束后执行调用                           | boolean | true   |
+| debounceMaxWait  | 允许被延迟的最大值                             | number  | -      |
 
 #### 备注
 
-options.debouceWait、options.debounceLeading、options.debounceTrailing、options.debounceMaxWait 支持动态变化。   
+options.debouceWait、options.debounceLeading、options.debounceTrailing、options.debounceMaxWait 支持动态变化。
 
-runAsync 在真正执行时，会返回 Promise。在未被执行时，不会有任何返回。   
+runAsync 在真正执行时，会返回 Promise。在未被执行时，不会有任何返回。
 
-cancel 可以中止正在等待执行的函数。  
+cancel 可以中止正在等待执行的函数。
 
 #### 源码解析
 
 ```tsx
-import type {Plugin} from '../types';
+import type { Plugin } from "../types";
 import debounce from "lodash/debounce";
-import {useRef, useMemo, useEffect} from "react";
+import { useRef, useMemo, useEffect } from "react";
 import type { DebouncedFunc, DebounceSettings } from "lodash";
 
 /**
@@ -1129,12 +1164,10 @@ import type { DebouncedFunc, DebounceSettings } from "lodash";
  * loadash debounce: 创建一个 debounced（防抖动）函数，该函数会从上一次被调用后，延迟 wait 毫秒后调用 func 方法。
  * https://www.lodashjs.com/docs/lodash.debounce
  * */
-const useDebouncePlugin: Plugin<any, any[]> = (fetchInstance, {
-  debounceWait,
-  debounceLeading,
-  debounceTrailing,
-  debounceMaxWait,
-}) => {
+const useDebouncePlugin: Plugin<any, any[]> = (
+  fetchInstance,
+  { debounceWait, debounceLeading, debounceTrailing, debounceMaxWait }
+) => {
   const debouncedRef = useRef<DebouncedFunc<any>>();
 
   const options = useMemo(() => {
@@ -1163,7 +1196,7 @@ const useDebouncePlugin: Plugin<any, any[]> = (fetchInstance, {
           callback();
         },
         debounceWait,
-        options,
+        options
       );
 
       // 函数劫持，改写 runAsync 方法，使其具有防抖能力
@@ -1205,41 +1238,41 @@ export default useDebouncePlugin;
 
 ### 节流
 
-通过设置 options.throttleWait，进入节流模式，此时如果频繁触发 run 或者 runAsync，则会以节流策略进行请求。   
+通过设置 options.throttleWait，进入节流模式，此时如果频繁触发 run 或者 runAsync，则会以节流策略进行请求。
 
 ```tsx
 const { data, run } = useRequest(getUsername, {
-	throttleWait: 300,
-	manual: true,
-})
+  throttleWait: 300,
+  manual: true,
+});
 ```
 
 [beautiful-yonath-ll44d7 - CodeSandbox](https://codesandbox.io/s/ll44d7)
 
 #### Option
 
-throttle 所有参数用法和效果同 [lodash.throttle](https://www.lodashjs.com/docs/lodash.throttle/)   
+throttle 所有参数用法和效果同  [lodash.throttle](https://www.lodashjs.com/docs/lodash.throttle/)
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| throttleWait | 节流等待时间, 单位为毫秒，设置后，进入节流模式 | number | - |
-| throttleLeading | 在节流开始前执行调用 | boolean | true |
-| throttleTrailing | 在节流结束后执行调用 | boolean | true |
+| 参数             | 说明                                           | 类型    | 默认值 |
+| ---------------- | ---------------------------------------------- | ------- | ------ |
+| throttleWait     | 节流等待时间, 单位为毫秒，设置后，进入节流模式 | number  | -      |
+| throttleLeading  | 在节流开始前执行调用                           | boolean | true   |
+| throttleTrailing | 在节流结束后执行调用                           | boolean | true   |
 
 #### 备注
 
-options.throttleWait、options.throttleLeading、options.throttleTrailing 支持动态变化。   
+options.throttleWait、options.throttleLeading、options.throttleTrailing 支持动态变化。
 
-runAsync 在真正执行时，会返回 Promise。在未被执行时，不会有任何返回。   
+runAsync 在真正执行时，会返回 Promise。在未被执行时，不会有任何返回。
 
-cancel 可以中止正在等待执行的函数。   
+cancel 可以中止正在等待执行的函数。
 
 #### 源码解析
 
 ```tsx
-import type {Plugin} from '../types';
+import type { Plugin } from "../types";
 import throttle from "lodash/throttle";
-import {useRef, useMemo, useEffect} from "react";
+import { useRef, useMemo, useEffect } from "react";
 import type { DebouncedFunc, ThrottleSettings } from "lodash";
 
 /**
@@ -1247,11 +1280,10 @@ import type { DebouncedFunc, ThrottleSettings } from "lodash";
  * loadash throttle: 创建一个节流函数，在 wait 秒内最多执行 func 一次的函数。
  * https://www.lodashjs.com/docs/lodash.throttle
  * */
-const useThrottlePlugin: Plugin<any, any[]> = (fetchInstance, {
-  throttleWait,
-  throttleLeading,
-  throttleTrailing,
-}) => {
+const useThrottlePlugin: Plugin<any, any[]> = (
+  fetchInstance,
+  { throttleWait, throttleLeading, throttleTrailing }
+) => {
   const throttledRef = useRef<DebouncedFunc<any>>();
 
   const options = useMemo(() => {
@@ -1277,7 +1309,7 @@ const useThrottlePlugin: Plugin<any, any[]> = (fetchInstance, {
           callback();
         },
         throttleWait,
-        options,
+        options
       );
 
       // 函数劫持，改写 runAsync 方法，使其具有节流能力
@@ -1319,11 +1351,11 @@ export default useThrottlePlugin;
 
 ### 缓存 & SWR
 
-如果设置了 options.cacheKey，useRequest 会将当前请求成功的数据缓存下来。下次组件初始化时，如果有缓存数据，我们会优先返回缓存数据，然后在背后发送新请求，也就是 SWR 的能力。  
+如果设置了 options.cacheKey，useRequest 会将当前请求成功的数据缓存下来。下次组件初始化时，如果有缓存数据，我们会优先返回缓存数据，然后在背后发送新请求，也就是 SWR 的能力。
 
-你可以通过 options.staleTime 设置数据保持新鲜时间，在该时间内，我们认为数据是新鲜的，不会重新发起请求。  
+你可以通过 options.staleTime 设置数据保持新鲜时间，在该时间内，我们认为数据是新鲜的，不会重新发起请求。
 
-你也可以通过 options.cacheTime 设置数据缓存时间，超过该时间，我们会清空该条缓存数据。  
+你也可以通过 options.cacheTime 设置数据缓存时间，超过该时间，我们会清空该条缓存数据。
 
 #### SWR
 
@@ -1336,12 +1368,11 @@ export default useThrottlePlugin;
 #### 数据共享
 
 > 注意：如果没有发起新请求，不会触发数据共享。cacheTime、staleTime 参数会使数据共享失效。[#2313](https://github.com/alibaba/hooks/issues/2313)
->
 
-同一个 cacheKey 的内容，在全局是共享的，这会带来以下几个特性：  
+同一个 cacheKey 的内容，在全局是共享的，这会带来以下几个特性：
 
-- 请求 Promise 共享：相同的 cacheKey 同时只会有一个在发起请求，后发起的会共用同一个请求 Promise  
-- 数据同步：当某个 cacheKey 发起请求时，其它相同 cacheKey 的内容均会随之同步  
+- 请求 Promise 共享：相同的 cacheKey 同时只会有一个在发起请求，后发起的会共用同一个请求 Promise
+- 数据同步：当某个 cacheKey 发起请求时，其它相同 cacheKey 的内容均会随之同步
 
 [cool-pond-5sfdds - CodeSandbox](https://codesandbox.io/s/5sfdds)
 
@@ -1355,12 +1386,12 @@ export default useThrottlePlugin;
 
 #### 自定义缓存
 
-通过配置 setCache 和 getCache，可以自定义数据缓存，比如将数据存储到 localStorage、IndexDB 等。   
+通过配置 setCache 和 getCache，可以自定义数据缓存，比如将数据存储到 localStorage、IndexDB 等。
 
-请注意：  
+请注意：
 
-- setCache 和 getCache 需要配套使用  
-- 在自定义缓存下，cacheTime 和 clearCache 不会生效，请根据实际情况自行实现  
+- setCache 和 getCache 需要配套使用
+- 在自定义缓存下，cacheTime 和 clearCache 不会生效，请根据实际情况自行实现
 
 [distracted-lamarr-f8g45t - CodeSandbox](https://codesandbox.io/s/f8g45t)
 
@@ -1368,26 +1399,26 @@ export default useThrottlePlugin;
 
 ```tsx
 interface CachedData<TData, TParams> {
-	data: TData;
-	params: TParams;
-	time: number;
+  data: TData;
+  params: TParams;
+  time: number;
 }
 ```
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| cacheKey | 请求的唯一标识。相同 cacheKey 的数据全局同步（cacheTime、staleTime 参数会使该机制失效） | string | - |
-| cacheTime | 设置缓存数据回收时间。默认缓存数据 5 分钟后回收；如果设置为 -1，则表示缓存数据永不过期 | number | 300000 |
-| staleTime | 缓存数据保持新鲜时间。在该时间间隔内，认为数据是新鲜的，不会重新发请求。如果设置为 -1，则表示数据永远新鲜 | number | 0 |
-| setCache | 自定义设置缓存；setCache 和 getCache 需要配套使用；在自定义缓存模式下，cacheTime 和 clearCache 不会生效，请根据实际情况自行实现 | (data: CachedData) ⇒ void; | - |
-| getCache | 自定义读取缓存 | (params: TParams) ⇒ CachedData; | - |
+| 参数      | 说明                                                                                                                            | 类型                            | 默认值 |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ------ |
+| cacheKey  | 请求的唯一标识。相同 cacheKey 的数据全局同步（cacheTime、staleTime 参数会使该机制失效）                                         | string                          | -      |
+| cacheTime | 设置缓存数据回收时间。默认缓存数据 5 分钟后回收；如果设置为 -1，则表示缓存数据永不过期                                          | number                          | 300000 |
+| staleTime | 缓存数据保持新鲜时间。在该时间间隔内，认为数据是新鲜的，不会重新发请求。如果设置为 -1，则表示数据永远新鲜                       | number                          | 0      |
+| setCache  | 自定义设置缓存；setCache 和 getCache 需要配套使用；在自定义缓存模式下，cacheTime 和 clearCache 不会生效，请根据实际情况自行实现 | (data: CachedData) ⇒ void;      | -      |
+| getCache  | 自定义读取缓存                                                                                                                  | (params: TParams) ⇒ CachedData; | -      |
 
 ##### clearCache
 
-- 支持清空单个缓存，或一组缓存  
-- 如果 cacheKey 为空，则清空所有缓存数据  
+- 支持清空单个缓存，或一组缓存
+- 如果 cacheKey 为空，则清空所有缓存数据
 
 ```tsx
 import { clearCache } from 'ahooks';
@@ -1397,8 +1428,8 @@ clearCache(cacheKey?: string | string[]);
 
 #### 备注
 
-- 只有成功的请求数据才会缓存   
-- 缓存的数据包括 data 和 params   
+- 只有成功的请求数据才会缓存
+- 缓存的数据包括 data 和 params
 
 #### 源码解析
 
@@ -1419,7 +1450,11 @@ interface RecordData extends CachedData {
 const cache = new Map<CachedKey, RecordData>();
 
 // 设置缓存
-const setCache = (key: CachedKey, cacheTime: number, cachedData: CachedData) => {
+const setCache = (
+  key: CachedKey,
+  cacheTime: number,
+  cachedData: CachedData
+) => {
   // 是否已存在
   const currentCache = cache.get(key);
   // 如果存在，则先清除
@@ -1482,7 +1517,7 @@ const setCachePromise = (cacheKey: CachedKey, promise: Promise<any>) => {
 
   // 监听 promise 状态，promise 成功或被拒绝，从缓存中删除对应的 cacheKey
   promise
-    .then(res => {
+    .then((res) => {
       // 在 then 和 cache 中都将 promise 缓存删除
       cachePromise.delete(cacheKey);
       return res;
@@ -1505,7 +1540,7 @@ const listeners: Record<string, Listener[]> = {};
 // 触发某个属性(cacheKey)的所有事件
 const trigger = (key: string, data: any) => {
   if (listeners[key]) {
-    listeners[key].forEach(item => item(data));
+    listeners[key].forEach((item) => item(data));
   }
 };
 
@@ -1529,14 +1564,14 @@ export { trigger, subscribe };
 ```
 
 ```tsx
-import {useRef} from "react";
-import type {Plugin} from '../types';
-import { setCache, getCache } from '../utils/cache';
+import { useRef } from "react";
+import type { Plugin } from "../types";
+import { setCache, getCache } from "../utils/cache";
 import type { CachedData } from "../utils/cache";
 import useUnmount from "@/hooks/useUnmount";
 import useCreation from "@/hooks/useCreation";
-import {subscribe, trigger} from "../utils/cacheSubscribe";
-import {getCachePromise, setCachePromise} from "../utils/cachePromise";
+import { subscribe, trigger } from "../utils/cacheSubscribe";
+import { getCachePromise, setCachePromise } from "../utils/cachePromise";
 
 const useCachePlugin: Plugin<any, any[]> = (
   fetchInstance,
@@ -1582,12 +1617,15 @@ const useCachePlugin: Plugin<any, any[]> = (
 
     // get data from cache when init
     const cacheData = _getCache(cacheKey);
-    if (cacheData && Object.hasOwnProperty.call(cacheData, 'data')) {
+    if (cacheData && Object.hasOwnProperty.call(cacheData, "data")) {
       // 直接使用缓存中的 data 和 params 进行替代，返回结果
       fetchInstance.state.data = cacheData.data;
       fetchInstance.state.params = cacheData.params;
       // staleTime 为 -1 或还存在于新鲜时间内，则设置 loading 为 false
-      if (staleTime === -1 || new Date().getTime() - cacheData.time <= staleTime) {
+      if (
+        staleTime === -1 ||
+        new Date().getTime() - cacheData.time <= staleTime
+      ) {
         fetchInstance.state.loading = false;
       }
     }
@@ -1596,7 +1634,7 @@ const useCachePlugin: Plugin<any, any[]> = (
     // 订阅同一个 cacheKey 的更新。假如两个都是用的同一个 cacheKey，它们的内容可以全局同享
     unSubscribeRef.current = subscribe(cacheKey, (data) => {
       fetchInstance.setState({ data });
-    })
+    });
   }, []);
 
   useUnmount(() => {
@@ -1613,13 +1651,16 @@ const useCachePlugin: Plugin<any, any[]> = (
       // 获取缓存
       const cacheData = _getCache(cacheKey, params);
 
-      if (!cacheData || !Object.hasOwnProperty.call(cacheData, 'data')) {
+      if (!cacheData || !Object.hasOwnProperty.call(cacheData, "data")) {
         return {};
       }
 
       // staleTime 为 -1 或还存在于新鲜时间内，直接返回，不需要重新请求
       // If the data is fresh, stop request
-      if (staleTime === -1 || new Date().getTime() - cacheData.time <= staleTime) {
+      if (
+        staleTime === -1 ||
+        new Date().getTime() - cacheData.time <= staleTime
+      ) {
         return {
           loading: false,
           data: cacheData?.data,
@@ -1697,36 +1738,39 @@ export default useCachePlugin;
 
 ### 错误重试
 
-通过设置 options.retryCount，指定错误重试次数，则 useRequest 在失败后会进行重试。   
+通过设置 options.retryCount，指定错误重试次数，则 useRequest 在失败后会进行重试。
 
 ```tsx
 const { data, run } = useRequest(getUsername, {
-	retryCount: 3,
-})
+  retryCount: 3,
+});
 ```
 
 [quirky-architecture-w68hk9 - CodeSandbox](https://codesandbox.io/s/w68hk9)
 
 #### Option
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| retryCount | 错误重试次数。如果设置为 -1，则无限次重试。 | number | - |
-| retryInterval | 重试时间间隔，单位为毫秒。如果不设置，默认采用简易的指数退避算法，取 1000 * 2 ** retryCount，也就是第一次重试等待 2s，第二次重试等待 4s，以此类推，如果大于 30s，则取 30s。 | number | - |
+| 参数          | 说明                                                                                                                                                                           | 类型   | 默认值 |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------ | ------ |
+| retryCount    | 错误重试次数。如果设置为 -1，则无限次重试。                                                                                                                                    | number | -      |
+| retryInterval | 重试时间间隔，单位为毫秒。如果不设置，默认采用简易的指数退避算法，取 1000 \* 2 \*\* retryCount，也就是第一次重试等待 2s，第二次重试等待 4s，以此类推，如果大于 30s，则取 30s。 | number | -      |
 
 #### 备注
 
-options.retryCount、options.retryInterval 支持动态变化。    
+options.retryCount、options.retryInterval 支持动态变化。
 
-cancel 可以取消正在进行的重试行为。    
+cancel 可以取消正在进行的重试行为。
 
 #### 源码解析
 
 ```tsx
-import type {Plugin, Timeout} from '../types';
-import {useRef} from "react";
+import type { Plugin, Timeout } from "../types";
+import { useRef } from "react";
 
-const useRetryPlugin: Plugin<any, any[]> = (fetchInstance, { retryCount, retryInterval}) => {
+const useRetryPlugin: Plugin<any, any[]> = (
+  fetchInstance,
+  { retryCount, retryInterval }
+) => {
   const timerRef = useRef<Timeout>();
   // 记录 retry 的次数
   const countRef = useRef(0);
@@ -1766,7 +1810,8 @@ const useRetryPlugin: Plugin<any, any[]> = (fetchInstance, { retryCount, retryIn
       if (retryCount === -1 || countRef.current <= retryCount) {
         // Exponential backoff
         // 如果不设置，默认采用简易的指数退避算法，取 1000 * 2 ** retryCount，也就是第一次重试等待 2s，第二次重试等待 4s，以此类推，如果大于 30s，则取 30s
-        const timeout = retryInterval ?? Math.min(1000 * 2 ** countRef.current, 30000);
+        const timeout =
+          retryInterval ?? Math.min(1000 * 2 ** countRef.current, 30000);
         timerRef.current = setTimeout(() => {
           // triggerByRetry 置为 true，保证重试次数不重置
           triggerByRetry.current = true;
@@ -1801,25 +1846,25 @@ export default useRetryPlugin;
 
 </aside>
 
-文档地址：[https://ahooks.js.org/zh-CN/hooks/use-fusion-table](https://ahooks.js.org/zh-CN/hooks/use-fusion-table)  
+文档地址：[https://ahooks.js.org/zh-CN/hooks/use-fusion-table](https://ahooks.js.org/zh-CN/hooks/use-fusion-table)
 
-详细代码：[https://github.com/alibaba/hooks/tree/master/packages/hooks/src/useFusionTable](https://github.com/alibaba/hooks/tree/master/packages/hooks/src/useFusionTable)  
+详细代码：[https://github.com/alibaba/hooks/tree/master/packages/hooks/src/useFusionTable](https://github.com/alibaba/hooks/tree/master/packages/hooks/src/useFusionTable)
 
 ### usePagination
 
-usePagination 基于 useRequest 实现，封装了常见的分页逻辑。与 useRequest 不同的点有以下几点：  
+usePagination 基于 useRequest 实现，封装了常见的分页逻辑。与 useRequest 不同的点有以下几点：
 
-1、service 的第一个参数为 { current: number, pageSize: number }  
+1、service 的第一个参数为 { current: number, pageSize: number }
 
-2、service 返回的数据结构为 { total: number, list: Item[] }  
+2、service 返回的数据结构为 { total: number, list: Item[] }
 
-3、会额外返回 pagination 字段，包含所有分页信息，及操作分页的函数  
+3、会额外返回 pagination 字段，包含所有分页信息，及操作分页的函数
 
-4、refreshDeps 变化，会重置 current 到第一页，并重新发起请求，一般你可以把 pagination 依赖的条件放这里  
+4、refreshDeps 变化，会重置 current 到第一页，并重新发起请求，一般你可以把 pagination 依赖的条件放这里
 
 #### API
 
-useRequest 所有参数和返回结果均适用于 usePagination，此处不再赘述。  
+useRequest 所有参数和返回结果均适用于 usePagination，此处不再赘述。
 
 ```tsx
 type Data<T> = { total: number; list: T[]};
@@ -1848,17 +1893,17 @@ const {
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| defaultPageSize | 默认分页数量 | number | 10 |
-| defaultCurrent | 初次请求时的页数 | number | 1 |
-| refreshDeps | refreshDeps 变化，会重置 current 到第一页，并重新发起请求，一般你可以把依赖的条件放这里。 | React.DependencyList | [] |
+| 参数            | 说明                                                                                      | 类型                 | 默认值 |
+| --------------- | ----------------------------------------------------------------------------------------- | -------------------- | ------ |
+| defaultPageSize | 默认分页数量                                                                              | number               | 10     |
+| defaultCurrent  | 初次请求时的页数                                                                          | number               | 1      |
+| refreshDeps     | refreshDeps 变化，会重置 current 到第一页，并重新发起请求，一般你可以把依赖的条件放这里。 | React.DependencyList | []     |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| pagination | 分页数据及操作分页的方法 | - |
+| 参数       | 说明                     | 类型 |
+| ---------- | ------------------------ | ---- |
+| pagination | 分页数据及操作分页的方法 | -    |
 
 #### 代码演示
 
@@ -1873,9 +1918,15 @@ const {
 #### 源码解析
 
 ```tsx
-import type {Data, PaginationOptions, PaginationResult, Params, Service} from './type';
+import type {
+  Data,
+  PaginationOptions,
+  PaginationResult,
+  Params,
+  Service,
+} from "./type";
 import useRequest from "@/hooks/useRequest";
-import {useMemo} from "react";
+import { useMemo } from "react";
 import useMemoizedFn from "@/hooks/useMemoizedFn";
 
 /**
@@ -1883,17 +1934,19 @@ import useMemoizedFn from "@/hooks/useMemoizedFn";
  * */
 const usePagination = <TData extends Data, TParams extends Params>(
   service: Service<TData, TParams>,
-  options: PaginationOptions<TData, TParams>,
+  options: PaginationOptions<TData, TParams>
 ) => {
   const { defaultPageSize = 10, defaultCurrent = 1, ...rest } = options;
 
   // // service 约定返回的数据结构为 { total: number, list: Item[] }
   const result = useRequest(service, {
     // service 的默认参数为 { current: number, pageSize: number }
-    defaultParams: [{
-      current: defaultCurrent,
-      pageSize: defaultPageSize,
-    }],
+    defaultParams: [
+      {
+        current: defaultCurrent,
+        pageSize: defaultPageSize,
+      },
+    ],
     // refreshDeps 变化，会重置 current 到第一页，并重新发起请求
     refreshDepsAction: () => {
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -1907,7 +1960,10 @@ const usePagination = <TData extends Data, TParams extends Params>(
   // 计算总条数
   const total = result.data?.total || 0;
   // 计算总页数
-  const totalPage = useMemo(() => Math.ceil(total / pageSize), [pageSize, total]);
+  const totalPage = useMemo(
+    () => Math.ceil(total / pageSize),
+    [pageSize, total]
+  );
 
   /**
    * c: current
@@ -1926,11 +1982,14 @@ const usePagination = <TData extends Data, TParams extends Params>(
     const [oldPaginationParams = {}, ...restParams] = result.params || [];
 
     // 重新执行请求
-    result.run({
-      ...oldPaginationParams,
-      current: toCurrent,
-      pageSize: toPageSize,
-    }, ...restParams);
+    result.run(
+      {
+        ...oldPaginationParams,
+        current: toCurrent,
+        pageSize: toPageSize,
+      },
+      ...restParams
+    );
   };
 
   const changeCurrent = (c: number) => {
@@ -1983,23 +2042,23 @@ const {
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| initialValue | 可选，初始值 | any | - |
-| maxLength | 可选，限制历史记录最大长度，超过最大长度后将删除第一个记录 | number | 0 不限制 |
+| 参数         | 说明                                                       | 类型   | 默认值   |
+| ------------ | ---------------------------------------------------------- | ------ | -------- |
+| initialValue | 可选，初始值                                               | any    | -        |
+| maxLength    | 可选，限制历史记录最大长度，超过最大长度后将删除第一个记录 | number | 0 不限制 |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| value | 当前值 | T |
-| setValue | 设置 value | (value: T) ⇒ void |
-| backLength | 可回退历史长度 | number |
-| forwardLength | 可前进历史长度 | number |
-| go | 前进步数，step < 0 为后退，step > 0 为前进 | (step: number) ⇒ void |
-| back | 向后回退一步 | () ⇒ void |
-| forward | 向前前进一步 | () ⇒ void |
-| reset | 重置到初始值，或提供一个新的初始值 | (newInitialValue?: T) ⇒ void |
+| 参数          | 说明                                       | 类型                         |
+| ------------- | ------------------------------------------ | ---------------------------- |
+| value         | 当前值                                     | T                            |
+| setValue      | 设置 value                                 | (value: T) ⇒ void            |
+| backLength    | 可回退历史长度                             | number                       |
+| forwardLength | 可前进历史长度                             | number                       |
+| go            | 前进步数，step < 0 为后退，step > 0 为前进 | (step: number) ⇒ void        |
+| back          | 向后回退一步                               | () ⇒ void                    |
+| forward       | 向前前进一步                               | () ⇒ void                    |
+| reset         | 重置到初始值，或提供一个新的初始值         | (newInitialValue?: T) ⇒ void |
 
 #### 代码演示
 
@@ -2012,9 +2071,9 @@ const {
 #### 源码解析
 
 ```tsx
-import {useRef, useState} from "react";
+import { useRef, useState } from "react";
 import useMemoizedFn from "@/hooks/useMemoizedFn";
-import {isNumber} from "../../../utils";
+import { isNumber } from "../../../utils";
 
 /**
  * past - 过去的状态队列
@@ -2028,7 +2087,7 @@ interface IData<T> {
 }
 
 // 获取 current 值的下标
-const dumpIndex = <T>(step: number, arr: T[]) => {
+const dumpIndex = <T,>(step: number, arr: T[]) => {
   // step 大于 0 表示前进，小于 0 表示后退
   let index = step > 0 ? step - 1 : arr.length + step;
   if (index >= arr.length - 1) {
@@ -2045,16 +2104,16 @@ const dumpIndex = <T>(step: number, arr: T[]) => {
  * 比如前进，出参为 2 和 [1,2,3,4]，得到的结果是 { _current: 2, _before: [1], _after: [3,4] }
  * 比如后退，出参为 -1，[1,2,3,4]，得到的结果是 { _current: 4, _before: [1, 2, 3], _after: [] }
  * */
-const split = <T>(step: number, targetArr: T[]) => {
+const split = <T,>(step: number, targetArr: T[]) => {
   const index = dumpIndex(step, targetArr);
   return {
     _current: targetArr[index],
     _before: targetArr.slice(0, index),
     _after: targetArr.slice(index + 1),
-  }
-}
+  };
+};
 
-const useHistoryTravel = <T>(initialValue?: T, maxLength: number = 0) => {
+const useHistoryTravel = <T,>(initialValue?: T, maxLength: number = 0) => {
   const [history, setHistory] = useState<IData<T | undefined>>({
     present: initialValue,
     past: [],
@@ -2077,7 +2136,7 @@ const useHistoryTravel = <T>(initialValue?: T, maxLength: number = 0) => {
       present: _initial,
       past: [],
       future: [],
-    })
+    });
   };
 
   /**
@@ -2095,7 +2154,7 @@ const useHistoryTravel = <T>(initialValue?: T, maxLength: number = 0) => {
       present: val,
       past: _past,
       future: [], // 新状态队列置为空
-    })
+    });
   };
 
   /**
@@ -2112,7 +2171,7 @@ const useHistoryTravel = <T>(initialValue?: T, maxLength: number = 0) => {
       past: [...past, present, ..._before],
       present: _current,
       future: _after,
-    })
+    });
   };
 
   /**
@@ -2129,7 +2188,7 @@ const useHistoryTravel = <T>(initialValue?: T, maxLength: number = 0) => {
       present: _current,
       // 以前的新状态队列、present、_after 合并到新的新状态队列
       future: [..._after, present, ...future],
-    })
+    });
   };
 
   // 跳到第几步，最终调用 _forward 和 _backward
@@ -2157,7 +2216,7 @@ const useHistoryTravel = <T>(initialValue?: T, maxLength: number = 0) => {
       go(1);
     }),
     reset: useMemoizedFn(reset),
-  }
+  };
 };
 
 export default useHistoryTravel;
@@ -2174,14 +2233,14 @@ export default useHistoryTravel;
 
 ```tsx
 interface NetworkState {
-	online?: boolean;
-	since?: Date;
-	rtt?: number;
-	type?: string;
-	downlink?: number;
-	saveData?: boolean;
-	downlinkMax?: number;
-	effectiveType?: string;
+  online?: boolean;
+  since?: Date;
+  rtt?: number;
+  type?: string;
+  downlink?: number;
+  saveData?: boolean;
+  downlinkMax?: number;
+  effectiveType?: string;
 }
 
 const result: NetworkState = useNetwork();
@@ -2189,18 +2248,18 @@ const result: NetworkState = useNetwork();
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| online | 网络是否为在线 | boolean |
-| since | online 最后改变时间 | Date |
-| rtt | 当前连接下评估的往返时延 | number |
-| type | 设备使用与所述网络进行通信的连接的类型 | bluetooth | cellular | ethernet | none | wifi | wimax | other | unknown |
-| downlink | 有效带宽估算(单位：兆比特/秒) | number |
-| downlinkMax | 最大下行速度(单位：兆比特/秒) | number |
-| saveData | 用户代理是否设置了减少数据使用的选项 | boolean |
-| effectiveType | 网络连接的类型 | slow-2g | 2g | 3g | 4g |
+| 参数          | 说明                                   | 类型      |
+| ------------- | -------------------------------------- | --------- | -------- | -------- | ---- | ---- | ----- | ----- | ------- |
+| online        | 网络是否为在线                         | boolean   |
+| since         | online 最后改变时间                    | Date      |
+| rtt           | 当前连接下评估的往返时延               | number    |
+| type          | 设备使用与所述网络进行通信的连接的类型 | bluetooth | cellular | ethernet | none | wifi | wimax | other | unknown |
+| downlink      | 有效带宽估算(单位：兆比特/秒)          | number    |
+| downlinkMax   | 最大下行速度(单位：兆比特/秒)          | number    |
+| saveData      | 用户代理是否设置了减少数据使用的选项   | boolean   |
+| effectiveType | 网络连接的类型                         | slow-2g   | 2g       | 3g       | 4g   |
 
-更多信息参考：[MDN NetworkInformation](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation)  
+更多信息参考：[MDN NetworkInformation](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation)
 
 #### 代码演示
 
@@ -2209,8 +2268,8 @@ const result: NetworkState = useNetwork();
 #### 源码解析
 
 ```tsx
-import {useEffect, useState} from "react";
-import {isObject} from "../../../utils";
+import { useEffect, useState } from "react";
+import { isObject } from "../../../utils";
 
 /**
  * since: online 最后改变时间
@@ -2234,9 +2293,9 @@ export interface NetworkState {
 }
 
 enum NetworkEventType {
-  ONLINE = 'online',
-  OFFLINE = 'offline',
-  CHANGE = 'change',
+  ONLINE = "online",
+  OFFLINE = "offline",
+  CHANGE = "change",
 }
 
 function getConnection() {
@@ -2255,7 +2314,7 @@ function getConnectionProperty(): NetworkState {
     downlink: c.downlink,
     downlinkMax: c.downlinkMax,
     effectiveType: c.effectiveType,
-  }
+  };
 }
 
 const useNetwork = (): NetworkState => {
@@ -2264,7 +2323,7 @@ const useNetwork = (): NetworkState => {
       since: undefined,
       online: navigator?.onLine,
       ...getConnectionProperty(),
-    }
+    };
   });
 
   useEffect(() => {
@@ -2303,12 +2362,15 @@ const useNetwork = (): NetworkState => {
     return () => {
       window.removeEventListener(NetworkEventType.ONLINE, onOnline);
       window.removeEventListener(NetworkEventType.OFFLINE, onOffline);
-      connection?.removeEventListener(NetworkEventType.CHANGE, onConnectionChange);
+      connection?.removeEventListener(
+        NetworkEventType.CHANGE,
+        onConnectionChange
+      );
     };
   }, []);
 
   return state;
-}
+};
 
 export default useNetwork;
 ```
@@ -2328,20 +2390,20 @@ const result: Result = useSelections<T>(items: T[], defaultSelected?: T[]);
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| selected | 已经选择的元素 | T[] |
-| allSelected | 是否全选 | boolean |
-| noneSelected | 是否一个都没有选择 | boolean |
-| partiallySelected | 是否半选 | boolean |
-| isSelected | 是否被选择 | (value: T) ⇒ boolean |
-| setSelected | 选择多个元素。多次执行时，后面的返回值会覆盖前面的，因此如果希望合并多次操作的结果，需要手动处理：setSelected((oldArray) ⇒ oldArray.concat(newArray)) | (value: T[]) ⇒ void | (value: (prevState: T[]) ⇒ T[]) ⇒ void |
-| select | 选择单个元素 | (value: T) ⇒ void |
-| unSelect | 取消选择单个元素 | (value: T) ⇒ void |
-| toggle | 反选单个元素 | (value: T) ⇒ void |
-| selectAll | 选择全部元素 | () ⇒ void |
-| unSelectAll | 取消选择全部元素 | () ⇒ void |
-| toggleAll | 反选全部元素 | () ⇒ void |
+| 参数              | 说明                                                                                                                                                  | 类型                 |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | -------------------------------------- |
+| selected          | 已经选择的元素                                                                                                                                        | T[]                  |
+| allSelected       | 是否全选                                                                                                                                              | boolean              |
+| noneSelected      | 是否一个都没有选择                                                                                                                                    | boolean              |
+| partiallySelected | 是否半选                                                                                                                                              | boolean              |
+| isSelected        | 是否被选择                                                                                                                                            | (value: T) ⇒ boolean |
+| setSelected       | 选择多个元素。多次执行时，后面的返回值会覆盖前面的，因此如果希望合并多次操作的结果，需要手动处理：setSelected((oldArray) ⇒ oldArray.concat(newArray)) | (value: T[]) ⇒ void  | (value: (prevState: T[]) ⇒ T[]) ⇒ void |
+| select            | 选择单个元素                                                                                                                                          | (value: T) ⇒ void    |
+| unSelect          | 取消选择单个元素                                                                                                                                      | (value: T) ⇒ void    |
+| toggle            | 反选单个元素                                                                                                                                          | (value: T) ⇒ void    |
+| selectAll         | 选择全部元素                                                                                                                                          | () ⇒ void            |
+| unSelectAll       | 取消选择全部元素                                                                                                                                      | () ⇒ void            |
+| toggleAll         | 反选全部元素                                                                                                                                          | () ⇒ void            |
 
 #### 代码演示
 
@@ -2350,10 +2412,10 @@ const result: Result = useSelections<T>(items: T[], defaultSelected?: T[]);
 #### 源码解析
 
 ```tsx
-import {useMemo, useState} from "react";
+import { useMemo, useState } from "react";
 import useMemoizedFn from "@/hooks/useMemoizedFn";
 
-const useSelections = <T>(items: T[], defaultSelected: T[] = []) => {
+const useSelections = <T,>(items: T[], defaultSelected: T[] = []) => {
   // 维护被选中的数组
   const [selected, setSelected] = useState<T[]>(defaultSelected);
 
@@ -2368,13 +2430,13 @@ const useSelections = <T>(items: T[], defaultSelected: T[] = []) => {
     selectedSet.add(item);
     // Array.from 将 Set 转换成数组
     return setSelected(Array.from(selectedSet));
-  }
+  };
 
   // 取消选择单个元素
   const unSelect = (item: T) => {
     selectedSet.delete(item);
     return setSelected(Array.from(selectedSet));
-  }
+  };
 
   // 反选单个元素
   const toggle = (item: T) => {
@@ -2383,37 +2445,46 @@ const useSelections = <T>(items: T[], defaultSelected: T[] = []) => {
     } else {
       select(item);
     }
-  }
+  };
 
   // 选择全部元素
   const selectAll = () => {
-    items.forEach(o => {
+    items.forEach((o) => {
       selectedSet.add(o);
     });
     setSelected(Array.from(selectedSet));
-  }
+  };
 
   // 取消选择全部元素
   const unSelectAll = () => {
-    items.forEach(o => {
+    items.forEach((o) => {
       selectedSet.delete(o);
     });
     setSelected(Array.from(selectedSet));
-  }
+  };
 
   // 是否一个都没有选择
-  const noneSelected = useMemo(() => items.every(o => !selectedSet.has(o)), [items, selectedSet]);
+  const noneSelected = useMemo(
+    () => items.every((o) => !selectedSet.has(o)),
+    [items, selectedSet]
+  );
 
   // 是否全选
-  const allSelected = useMemo(() => items.every(o => selectedSet.has(o)) && !noneSelected, [items, selectedSet, noneSelected]);
+  const allSelected = useMemo(
+    () => items.every((o) => selectedSet.has(o)) && !noneSelected,
+    [items, selectedSet, noneSelected]
+  );
 
   // 是否半选
-  const partiallySelected = useMemo(() => !noneSelected && !allSelected, [noneSelected, allSelected]);
+  const partiallySelected = useMemo(
+    () => !noneSelected && !allSelected,
+    [noneSelected, allSelected]
+  );
 
   // 反选全部元素
   const toggleAll = () => {
     allSelected ? unSelectAll() : selectAll();
-  }
+  };
 
   return {
     selected,
@@ -2429,7 +2500,7 @@ const useSelections = <T>(items: T[], defaultSelected: T[] = []) => {
     unSelectAll: useMemoizedFn(unSelectAll),
     toggleAll: useMemoizedFn(toggleAll),
   } as const;
-}
+};
 
 export default useSelections;
 ```
@@ -2447,42 +2518,40 @@ export default useSelections;
 type TDate = Date | number | string | undefined;
 
 interface FormattedRes {
-	days: number;
-	hours: number;
-	minutes: number;
-	seconds: number;
-	milliseconds: number;
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  milliseconds: number;
 }
 
-const [countdown, formattedRes] = useCountDown(
-	{
-		leftTime,
-		targetDate,
-		interval,
-		onEnd
-	}
-)
+const [countdown, formattedRes] = useCountDown({
+  leftTime,
+  targetDate,
+  interval,
+  onEnd,
+});
 ```
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| leftTime | 剩余时间（毫秒） | number | - |
-| targetDate | 目标时间 | TDate | - |
-| interval | 变化时间间隔（毫秒） | number | 1000 |
-| onEnd | 倒计时结束触发 | () ⇒ void |  |
+| 参数       | 说明                 | 类型      | 默认值 |
+| ---------- | -------------------- | --------- | ------ |
+| leftTime   | 剩余时间（毫秒）     | number    | -      |
+| targetDate | 目标时间             | TDate     | -      |
+| interval   | 变化时间间隔（毫秒） | number    | 1000   |
+| onEnd      | 倒计时结束触发       | () ⇒ void |        |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| countdown | 倒计时时间戳（毫秒） | number |
-| formattedRes | 格式化后的倒计时 | FormattedRes |
+| 参数         | 说明                 | 类型         |
+| ------------ | -------------------- | ------------ |
+| countdown    | 倒计时时间戳（毫秒） | number       |
+| formattedRes | 格式化后的倒计时     | FormattedRes |
 
 #### 备注
 
-leftTime、targetDate、interval、onEnd 支持动态变化  
+leftTime、targetDate、interval、onEnd 支持动态变化
 
 #### 代码演示
 
@@ -2492,23 +2561,23 @@ leftTime、targetDate、interval、onEnd 支持动态变化
 
 [剩余时间 - CodeSandbox](https://codesandbox.io/s/dk4dwf)
 
-说明：  
+说明：
 
-useCountDown 的精度为毫秒，可能会造成以下几个问题  
+useCountDown 的精度为毫秒，可能会造成以下几个问题
 
-- 即使设置 interval 时间为 1000 毫秒，useCountDown 每次更新间隔也不一定正好是 1000 毫秒，而是 1000 毫秒左右。  
-- 在第二个 demo 中，countdown 开始一般是 499x 毫秒，因为程序执行有延迟。  
+- 即使设置 interval 时间为 1000 毫秒，useCountDown 每次更新间隔也不一定正好是 1000 毫秒，而是 1000 毫秒左右。
+- 在第二个 demo 中，countdown 开始一般是 499x 毫秒，因为程序执行有延迟。
 
-如果你的精度只要到秒就好了，可以这样用 Math.round(countdown / 1000)。  
+如果你的精度只要到秒就好了，可以这样用 Math.round(countdown / 1000)。
 
-如果同时传了 leftTime 和 targetDate，则会忽略 targetDate，以 leftTime 为主。  
+如果同时传了 leftTime 和 targetDate，则会忽略 targetDate，以 leftTime 为主。
 
 #### 源码解析
 
 ```tsx
 import dayjs from "dayjs";
-import {useEffect, useMemo, useState} from "react";
-import {isNumber} from "../../../utils";
+import { useEffect, useMemo, useState } from "react";
+import { isNumber } from "../../../utils";
 import useLatest from "@/hooks/useLatest";
 
 export type TDate = dayjs.ConfigType;
@@ -2537,7 +2606,7 @@ const calcLeft = (target?: TDate) => {
   // 计算剩余时间，目标时间 - 当前时间
   const left = dayjs(target).valueOf() - Date.now();
   return left < 0 ? 0 : left;
-}
+};
 
 // 格式化后的倒计时
 const parseMs = (milliseconds: number): FormattedRes => {
@@ -2547,15 +2616,17 @@ const parseMs = (milliseconds: number): FormattedRes => {
     minutes: Math.floor(milliseconds / 60000) % 60,
     seconds: Math.floor(milliseconds / 1000) % 60,
     milliseconds: Math.floor(milliseconds) % 1000,
-  }
-}
+  };
+};
 
 const useCountDown = (options: Options = {}) => {
   const { leftTime, targetDate, interval = 1000, onEnd } = options || {};
 
   const target = useMemo<TDate>(() => {
-    if ('leftTime' in options) {
-      return isNumber(leftTime) && leftTime > 0 ? Date.now() + leftTime : undefined;
+    if ("leftTime" in options) {
+      return isNumber(leftTime) && leftTime > 0
+        ? Date.now() + leftTime
+        : undefined;
     } else {
       return targetDate;
     }
@@ -2607,31 +2678,29 @@ export default useCountDown;
 #### API
 
 ```tsx
-const [current, {
-	inc,
-	dec,
-	set,
-	reset,
-}] = useCounter(initialValue, { min, max });
+const [current, { inc, dec, set, reset }] = useCounter(initialValue, {
+  min,
+  max,
+});
 ```
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| initialValue | 默认值 | number | 0 |
-| min | 最小值 | number | - |
-| max | 最大值 | number | - |
+| 参数         | 说明   | 类型   | 默认值 |
+| ------------ | ------ | ------ | ------ |
+| initialValue | 默认值 | number | 0      |
+| min          | 最小值 | number | -      |
+| max          | 最大值 | number | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| current | 当前值 | number |
-| inc | 加，默认加 1 | (delta?: number) ⇒ void |
-| dec | 减，默认减 1 | (delta?: number) ⇒ void |
-| set | 设置 current | (value: number | ((c: number) ⇒ number)) ⇒ void  |
-| reset | 重置为默认值 | () ⇒ void |
+| 参数    | 说明         | 类型                    |
+| ------- | ------------ | ----------------------- | ------------------------------ |
+| current | 当前值       | number                  |
+| inc     | 加，默认加 1 | (delta?: number) ⇒ void |
+| dec     | 减，默认减 1 | (delta?: number) ⇒ void |
+| set     | 设置 current | (value: number          | ((c: number) ⇒ number)) ⇒ void |
+| reset   | 重置为默认值 | () ⇒ void               |
 
 #### 代码演示
 
@@ -2640,8 +2709,8 @@ const [current, {
 #### 源码解析
 
 ```tsx
-import {useState} from "react";
-import {isNumber} from "../../../utils";
+import { useState } from "react";
+import { isNumber } from "../../../utils";
 import useMemoizedFn from "@/hooks/useMemoizedFn";
 
 export interface Options {
@@ -2698,12 +2767,12 @@ const useCounter = (initialValue: number = 0, options: Options = {}) => {
 
   // 加，默认加 1
   const inc = (delta: number = 1) => {
-    setValue(c => c + delta);
+    setValue((c) => c + delta);
   };
 
   // 减，默认减 1
   const dec = (delta: number = 1) => {
-    setValue(c => c - delta);
+    setValue((c) => c - delta);
   };
 
   // 设置 current
@@ -2723,9 +2792,9 @@ const useCounter = (initialValue: number = 0, options: Options = {}) => {
       dec: useMemoizedFn(dec),
       set: useMemoizedFn(set),
       reset: useMemoizedFn(reset),
-    }
+    },
   ] as const;
-}
+};
 
 export default useCounter;
 ```
@@ -2745,27 +2814,27 @@ const state = useTextSelection(target?)
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
+| 参数   | 说明               | 类型    | 默认值   |
+| ------ | ------------------ | ------- | -------- | ------------- | --------- | ------------------------- | -------- |
 | target | DOM element or ref | Element | Document | (() ⇒ Element | Document) | MutableRefObject<Element> | document |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数  | 说明                           | 类型  |
+| ----- | ------------------------------ | ----- |
 | state | DOM 节点内选取文本的内容和位置 | State |
 
 ##### State
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| text | 用户选取的文本值 | string |
-| left | 文本的左坐标 | number |
-| right | 文本的右坐标 | number |
-| top | 文本的顶坐标 | number |
-| bottom | 文本的底坐标 | number |
-| height | 文本的高度 | number |
-| width | 文本的宽度 | number |
+| 参数   | 说明             | 类型   |
+| ------ | ---------------- | ------ |
+| text   | 用户选取的文本值 | string |
+| left   | 文本的左坐标     | number |
+| right  | 文本的右坐标     | number |
+| top    | 文本的顶坐标     | number |
+| bottom | 文本的底坐标     | number |
+| height | 文本的高度       | number |
+| width  | 文本的宽度       | number |
 
 #### 代码演示
 
@@ -2778,8 +2847,8 @@ const state = useTextSelection(target?)
 #### 源码解析
 
 ```tsx
-import {BasicTarget, getTargetElement} from "../../../utils/domTarget";
-import {useRef, useState} from "react";
+import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
+import { useRef, useState } from "react";
 import useEffectWithTarget from "../../../utils/useEffectWithTarget";
 
 interface Rect {
@@ -2805,7 +2874,7 @@ const initRect: Rect = {
 };
 
 const initState: State = {
-  text: '',
+  text: "",
   ...initRect,
 };
 
@@ -2824,7 +2893,8 @@ function getRectFromSelection(selection: Selection | null): Rect {
   const range = selection.getRangeAt(0);
 
   // range.getBoundingClientRect() 返回一个 DOMRect 对象，其绑定了 Range 的整个内容
-  const {height, width, top, left, right, bottom} = range.getBoundingClientRect();
+  const { height, width, top, left, right, bottom } =
+    range.getBoundingClientRect();
   return {
     height,
     width,
@@ -2832,7 +2902,7 @@ function getRectFromSelection(selection: Selection | null): Rect {
     left,
     right,
     bottom,
-  }
+  };
 }
 const useTextSelection = (target?: BasicTarget<Document | Element>): State => {
   const [state, setState] = useState(initState);
@@ -2841,66 +2911,70 @@ const useTextSelection = (target?: BasicTarget<Document | Element>): State => {
   const isInRangeRef = useRef(false);
   stateRef.current = state;
 
-  useEffectWithTarget(() => {
-    // 获取目标元素
-    const el = getTargetElement(target, document);
-    if (!el) {
-      return;
-    }
-
-    // 鼠标松开时触发回调，获取选取的文本及位置信息
-    const mouseupHandler = () => {
-      let selObj: Selection | null = null;
-      let text = '';
-      let rect = initRect;
-      if (!window.getSelection) return;
-      selObj = window.getSelection();
-      // toString() 方法返回当前选区的纯文本内容
-      text = selObj ? selObj.toString() : '';
-
-      if (text && isInRangeRef.current) {
-        rect = getRectFromSelection(selObj);
-        setState({...state, text, ...rect});
+  useEffectWithTarget(
+    () => {
+      // 获取目标元素
+      const el = getTargetElement(target, document);
+      if (!el) {
+        return;
       }
-    };
 
-    // 鼠标按下时触发回调，重置状态、清除选区
-    const mousedownHandler = (e) => {
-      // 如果按下的是右键，则立即返回，这样选中的数据就不会被清空
-      if (e.button === 2) return;
+      // 鼠标松开时触发回调，获取选取的文本及位置信息
+      const mouseupHandler = () => {
+        let selObj: Selection | null = null;
+        let text = "";
+        let rect = initRect;
+        if (!window.getSelection) return;
+        selObj = window.getSelection();
+        // toString() 方法返回当前选区的纯文本内容
+        text = selObj ? selObj.toString() : "";
 
-      if (!window.getSelection) return;
+        if (text && isInRangeRef.current) {
+          rect = getRectFromSelection(selObj);
+          setState({ ...state, text, ...rect });
+        }
+      };
 
-      // 重置状态
-      if (stateRef.current.text) {
-        setState({...initState});
-      }
-      isInRangeRef.current = false;
+      // 鼠标按下时触发回调，重置状态、清除选区
+      const mousedownHandler = (e) => {
+        // 如果按下的是右键，则立即返回，这样选中的数据就不会被清空
+        if (e.button === 2) return;
 
-      // 清除选区
-      // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/getSelection
-      // 返回一个 Selection 对象，表示用户选择的文本范围或光标的当前位置
-      const selObj = window.getSelection();
-      if (!selObj) return;
-      // https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/removeAllRanges
-      // Selection.removeAllRanges() 方法会将所有的区域都从选取中移除，只留下 anchorNode 和focusNode 属性并将其设置为 null
-      // anchorNode readonly 返回该选区起点所在的节点
-      // focusNode readonly 返回该选区终点所在的节点
-      selObj.removeAllRanges();
+        if (!window.getSelection) return;
 
-      // 检查元素 el 是否包含鼠标事件的目标元素
-      isInRangeRef.current = el.contains(e.target);
-    };
+        // 重置状态
+        if (stateRef.current.text) {
+          setState({ ...initState });
+        }
+        isInRangeRef.current = false;
 
-    // 监听 mouseup 和 mousedown
-    el.addEventListener('mouseup', mouseupHandler);
-    document.addEventListener('mousedown', mousedownHandler);
+        // 清除选区
+        // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/getSelection
+        // 返回一个 Selection 对象，表示用户选择的文本范围或光标的当前位置
+        const selObj = window.getSelection();
+        if (!selObj) return;
+        // https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/removeAllRanges
+        // Selection.removeAllRanges() 方法会将所有的区域都从选取中移除，只留下 anchorNode 和focusNode 属性并将其设置为 null
+        // anchorNode readonly 返回该选区起点所在的节点
+        // focusNode readonly 返回该选区终点所在的节点
+        selObj.removeAllRanges();
 
-    return () => {
-      el.removeEventListener('mouseup', mouseupHandler);
-      document.removeEventListener('mousedown', mousedownHandler);
-    }
-  }, [], target);
+        // 检查元素 el 是否包含鼠标事件的目标元素
+        isInRangeRef.current = el.contains(e.target);
+      };
+
+      // 监听 mouseup 和 mousedown
+      el.addEventListener("mouseup", mouseupHandler);
+      document.addEventListener("mousedown", mousedownHandler);
+
+      return () => {
+        el.removeEventListener("mouseup", mouseupHandler);
+        document.removeEventListener("mousedown", mousedownHandler);
+      };
+    },
+    [],
+    target
+  );
 
   return state;
 };
@@ -2950,34 +3024,34 @@ useWebSocket(socketUrl: string, options?: Options): Result;
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| socketUrl | 必填，webSocket 地址 | string | - |
-| options | 可选，连接配置项 | Options | - |
+| 参数      | 说明                 | 类型    | 默认值 |
+| --------- | -------------------- | ------- | ------ |
+| socketUrl | 必填，webSocket 地址 | string  | -      |
+| options   | 可选，连接配置项     | Options | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| onOpen | webSocket 连接成功回调 | (event: WebSocketEventMap['open'], instance: WebSocket) => void | - |
-| onClose | webSocket 关闭回调 | (event: WebSocketEventMap['close'], instance: WebSocket) => void | - |
-| onMessage | webSocket 收到消息回调 | (message: WebSocketEventMap['message'], instance: WebSocket) => void | - |
-| onError | webSocket 错误回调 | (event: WebSocketEventMap['error'], instance: WebSocket) => void | - |
-| reconnectLimit | 重试次数 | number | 3 |
-| reconnectInterval | 重试时间间隔 (ms) | number | 3000 |
-| manual | 手动启动连接 | boolean | false |
-| protocols | 子协议 | string | string[] | - |
+| 参数              | 说明                   | 类型                                                                 | 默认值   |
+| ----------------- | ---------------------- | -------------------------------------------------------------------- | -------- | --- |
+| onOpen            | webSocket 连接成功回调 | (event: WebSocketEventMap['open'], instance: WebSocket) => void      | -        |
+| onClose           | webSocket 关闭回调     | (event: WebSocketEventMap['close'], instance: WebSocket) => void     | -        |
+| onMessage         | webSocket 收到消息回调 | (message: WebSocketEventMap['message'], instance: WebSocket) => void | -        |
+| onError           | webSocket 错误回调     | (event: WebSocketEventMap['error'], instance: WebSocket) => void     | -        |
+| reconnectLimit    | 重试次数               | number                                                               | 3        |
+| reconnectInterval | 重试时间间隔 (ms)      | number                                                               | 3000     |
+| manual            | 手动启动连接           | boolean                                                              | false    |
+| protocols         | 子协议                 | string                                                               | string[] | -   |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| latestMessage | 最新消息 | WebSocketEventMap[’Message’] |
-| sendMessage | 发送消息函数 | WebSocket[’send’] |
-| disconnect | 手动断开 webSocket 连接 | () ⇒ void |
-| connect | 手动连接 webSocket，如果当前已有连接，则关闭后重新连接 | () ⇒ void |
-| readyState | 当前 webSocket 连接状态 | ReadyState |
-| webSocketIns | webSocket 实例 | WebSocket |
+| 参数          | 说明                                                   | 类型                         |
+| ------------- | ------------------------------------------------------ | ---------------------------- |
+| latestMessage | 最新消息                                               | WebSocketEventMap[’Message’] |
+| sendMessage   | 发送消息函数                                           | WebSocket[’send’]            |
+| disconnect    | 手动断开 webSocket 连接                                | () ⇒ void                    |
+| connect       | 手动连接 webSocket，如果当前已有连接，则关闭后重新连接 | () ⇒ void                    |
+| readyState    | 当前 webSocket 连接状态                                | ReadyState                   |
+| webSocketIns  | webSocket 实例                                         | WebSocket                    |
 
 #### 代码演示
 
@@ -2987,7 +3061,7 @@ useWebSocket(socketUrl: string, options?: Options): Result;
 
 ```tsx
 import useLatest from "@/hooks/useLatest";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import useUnmount from "@/hooks/useUnmount";
 import useMemoizedFn from "@/hooks/useMemoizedFn";
 
@@ -3018,10 +3092,13 @@ export interface Options {
   reconnectLimit?: number;
   reconnectInterval?: number;
   manual?: boolean;
-  onOpen?: (event: WebSocketEventMap['open'], instance: WebSocket) => void;
-  onClose?: (event: WebSocketEventMap['close'], instance: WebSocket) => void;
-  onMessage?: (message: WebSocketEventMap['message'], instance: WebSocket) => void;
-  onError?: (event: WebSocketEventMap['error'], instance: WebSocket) => void;
+  onOpen?: (event: WebSocketEventMap["open"], instance: WebSocket) => void;
+  onClose?: (event: WebSocketEventMap["close"], instance: WebSocket) => void;
+  onMessage?: (
+    message: WebSocketEventMap["message"],
+    instance: WebSocket
+  ) => void;
+  onError?: (event: WebSocketEventMap["error"], instance: WebSocket) => void;
   protocols?: string | string[];
 }
 
@@ -3034,8 +3111,8 @@ export interface Options {
  * webSocketIns: webSocket 实例
  * */
 export interface Result {
-  latestMessage?: WebSocketEventMap['message'];
-  sendMessage: WebSocket['send'];
+  latestMessage?: WebSocketEventMap["message"];
+  sendMessage: WebSocket["send"];
   disconnect: () => void;
   connect: () => void;
   readyState: ReadyState;
@@ -3063,13 +3140,17 @@ const useWebSocket = (socketUrl: string, options: Options = {}): Result => {
   const reconnectTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const websocketRef = useRef<WebSocket>();
 
-  const [latestMessage, setLatestMessage] = useState<WebSocketEventMap['message']>();
+  const [latestMessage, setLatestMessage] =
+    useState<WebSocketEventMap["message"]>();
   const [readyState, setReadyState] = useState<ReadyState>(ReadyState.Closed);
 
   // 重试
   const reconnect = () => {
     // 没有超过重试次数并且当前 webSocket 实例状态不是 ReadyState.Open
-    if (reconnectTimesRef.current < reconnectLimit && websocketRef.current?.readyState !== ReadyState.Open) {
+    if (
+      reconnectTimesRef.current < reconnectLimit &&
+      websocketRef.current?.readyState !== ReadyState.Open
+    ) {
       // 如果存在重试逻辑，则清除掉计定时器
       if (reconnectTimerRef.current) {
         clearTimeout(reconnectTimerRef.current);
@@ -3110,7 +3191,7 @@ const useWebSocket = (socketUrl: string, options: Options = {}): Result => {
       onErrorRef.current?.(event, ws);
       // 修改连接状态
       setReadyState(ws.readyState || ReadyState.Closed);
-    }
+    };
 
     // webSocket 连接成功回调
     ws.onopen = (event) => {
@@ -3126,7 +3207,7 @@ const useWebSocket = (socketUrl: string, options: Options = {}): Result => {
     };
 
     // webSocket 收到消息回调
-    ws.onmessage = (message: WebSocketEventMap['message']) => {
+    ws.onmessage = (message: WebSocketEventMap["message"]) => {
       if (websocketRef.current !== ws) {
         return;
       }
@@ -3134,7 +3215,7 @@ const useWebSocket = (socketUrl: string, options: Options = {}): Result => {
       onMessageRef.current?.(message, ws);
       // 更新最新消息状态
       setLatestMessage(message);
-    }
+    };
 
     // webSocket 连接关闭回调
     ws.onclose = (event) => {
@@ -3147,18 +3228,18 @@ const useWebSocket = (socketUrl: string, options: Options = {}): Result => {
       if (!websocketRef.current || websocketRef.current === ws) {
         setReadyState(ws.readyState || ReadyState.Closed);
       }
-    }
+    };
 
     // 保存 webSocket 实例
     websocketRef.current = ws;
   };
 
   // 发送消息函数
-  const sendMessage: WebSocket['send'] = (message) => {
+  const sendMessage: WebSocket["send"] = (message) => {
     if (readyState === ReadyState.Open) {
       websocketRef.current?.send(message);
     } else {
-      throw new Error('Websocket disconnected');
+      throw new Error("Websocket disconnected");
     }
   };
 
@@ -3199,7 +3280,7 @@ const useWebSocket = (socketUrl: string, options: Options = {}): Result => {
     readyState,
     webSocketIns: websocketRef.current,
   };
-}
+};
 
 export default useWebSocket;
 ```
@@ -3220,9 +3301,9 @@ useMount(fn: () => void);
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| fn | 初始化时执行的函数 | () ⇒ void | - |
+| 参数 | 说明               | 类型      | 默认值 |
+| ---- | ------------------ | --------- | ------ |
+| fn   | 初始化时执行的函数 | () ⇒ void | -      |
 
 #### 代码演示
 
@@ -3264,9 +3345,9 @@ useUnmount(fn: () => void);
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| fn | 卸载时执行的函数 | () ⇒ void | - |
+| 参数 | 说明             | 类型      | 默认值 |
+| ---- | ---------------- | --------- | ------ |
+| fn   | 卸载时执行的函数 | () ⇒ void | -      |
 
 #### 代码演示
 
@@ -3303,13 +3384,13 @@ export default useUnmount;
 #### API
 
 ```tsx
-const unmountRef: {current: boolean} = useUnmountedRef();
+const unmountRef: { current: boolean } = useUnmountedRef();
 ```
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数       | 说明             | 类型                 |
+| ---------- | ---------------- | -------------------- |
 | unmountRef | 组件是否已经卸载 | { current: boolean } |
 
 #### 代码演示
@@ -3351,21 +3432,21 @@ export default useUnmountedRef;
 #### API
 
 ```tsx
-const [state, setState] = useSetState<T>(initialState)
+const [state, setState] = useSetState<T>(initialState);
 ```
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| initialState | 初始状态 | T | () ⇒ T | - |
+| 参数         | 说明     | 类型        | 默认值 |
+| ------------ | -------- | ----------- | ------ |
+| initialState | 初始状态 | T \| () ⇒ T | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| state | 当前状态 | T | - |
-| setState | 设置当前状态 | (state: Partial<T> | null) ⇒ void | ((prevState: T) ⇒ Partial<T> | null) ⇒ void | - |
+| 参数     | 说明         | 类型                                                                                   | 默认值 |
+| -------- | ------------ | -------------------------------------------------------------------------------------- | ------ |
+| state    | 当前状态     | T                                                                                      | -      |
+| setState | 设置当前状态 | (state: Partial\<T\> \| null) ⇒ void \| ((prevState: T) ⇒ Partial\<T\> \| null) ⇒ void | -      |
 
 #### 代码演示
 
@@ -3381,25 +3462,29 @@ const [state, setState] = useSetState<T>(initialState)
 </aside>
 
 ```tsx
-import {useCallback, useState} from 'react';
-import {isFunction} from "../../../utils";
+import { useCallback, useState } from "react";
+import { isFunction } from "../../../utils";
 
-export type SetState<S extends Record<string, any>> = <K extends keyof S>(state: Pick<S, K> | null | ((prevState: Readonly<S>) => Pick<S, K> | S | null),) => void;
+export type SetState<S extends Record<string, any>> = <K extends keyof S>(
+  state: Pick<S, K> | null | ((prevState: Readonly<S>) => Pick<S, K> | null | S)
+) => void;
 
-const useSetState = <S extends Record<string, any>>(initialState: S | (() => S)): [S, SetState<S>] => {
+const useSetState = <S extends Record<string, any>>(
+  initialState: S | (() => S)
+): [S, SetState<S>] => {
   const [state, setState] = useState<S>(initialState);
 
-	// 合并操作，并返回一个全新的值
+  // 合并操作，并返回一个全新的值
   const setMergeState = useCallback((patch) => {
-    setState(prevState => {
-			// 判断新状态是否是函数
+    setState((prevState) => {
+      // 判断新状态是否是函数
       const newState = isFunction(patch) ? patch(prevState) : patch;
-      return newState ? {...prevState, ...newState} : prevState;
-    })
-  }, [])
+      return newState ? { ...prevState, ...newState } : prevState;
+    });
+  }, []);
 
   return [state, setMergeState];
-}
+};
 
 export default useSetState;
 ```
@@ -3419,25 +3504,25 @@ const [state, {toggle, set, setTrue, setFalse}] = useToggle(defaultValue?: boole
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| defaultValue | 可选项，传入默认的状态值 | boolean | false |
+| 参数         | 说明                     | 类型    | 默认值 |
+| ------------ | ------------------------ | ------- | ------ |
+| defaultValue | 可选项，传入默认的状态值 | boolean | false  |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| state | 状态值 | boolean |
+| 参数    | 说明     | 类型    |
+| ------- | -------- | ------- |
+| state   | 状态值   | boolean |
 | actions | 操作集合 | Actions |
 
 ##### Actions
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| toggle | 切换 state | () ⇒ void |
-| set | 修改 state | (state: boolean) ⇒ void |
-| setTrue | 设置为 true | () ⇒ void |
-| setFalse | 设置为 false | () ⇒ void |
+| 参数     | 说明         | 类型                    |
+| -------- | ------------ | ----------------------- |
+| toggle   | 切换 state   | () ⇒ void               |
+| set      | 修改 state   | (state: boolean) ⇒ void |
+| setTrue  | 设置为 true  | () ⇒ void               |
+| setFalse | 设置为 false | () ⇒ void               |
 
 #### 代码演示
 
@@ -3446,33 +3531,36 @@ const [state, {toggle, set, setTrue, setFalse}] = useToggle(defaultValue?: boole
 #### 源码解析
 
 ```tsx
-import useToggle from '../useToggle';
-import { useMemo } from 'react';
+import useToggle from "../useToggle";
+import { useMemo } from "react";
 
 export interface Actions {
-  toggle: () => void;
-  set: (value: boolean) => void;
   setTrue: () => void;
   setFalse: () => void;
+  set: (value: boolean) => void;
+  toggle: () => void;
 }
 
 const useBoolean = (defaultValue = false): [boolean, Actions] => {
-  const [state, {toggle, set}] = useToggle(defaultValue);
+  const [state, { toggle, set }] = useToggle(!!defaultValue);
 
   const actions: Actions = useMemo(() => {
     const setTrue = () => set(true);
     const setFalse = () => set(false);
-
     return {
+      // 切换 state
       toggle,
-      set: (v) => set(v),
+      // 修改 state
+      set: (v) => set(!!v),
+      // 设置为 true
       setTrue,
+      // 设置为 false
       setFalse,
-    }
+    };
   }, []);
 
-  return [state, actions]
-}
+  return [state, actions];
+};
 
 export default useBoolean;
 ```
@@ -3496,26 +3584,26 @@ const [state, {toggle, set, setLeft, setRight}] = useToggle<T, U>(defaultValue: 
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| defaultValue | 可选项，传入默认的状态值 | T | false |
-| reverseValue | 可选项，传入取反的状态值 | U | - |
+| 参数         | 说明                     | 类型 | 默认值 |
+| ------------ | ------------------------ | ---- | ------ |
+| defaultValue | 可选项，传入默认的状态值 | T    | false  |
+| reverseValue | 可选项，传入取反的状态值 | U    | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| state | 状态值 | - |
+| 参数    | 说明     | 类型    |
+| ------- | -------- | ------- |
+| state   | 状态值   | -       |
 | actions | 操作集合 | Actions |
 
 ##### Actions
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| toggle | 切换 state | () ⇒ void |
-| set | 修改 state | (state: T | U) ⇒ void |
-| setLeft | 设置为 defaultValue | () ⇒ void |
-| setRight | 如果传入了 reverseValue，则设置为 reverseValue。否则设置为 defaultValue 的反值 | () ⇒ void |
+| 参数     | 说明                                                                           | 类型                   |
+| -------- | ------------------------------------------------------------------------------ | ---------------------- |
+| toggle   | 切换 state                                                                     | () ⇒ void              |
+| set      | 修改 state                                                                     | (state: T \| U) ⇒ void |
+| setLeft  | 设置为 defaultValue                                                            | () ⇒ void              |
+| setRight | 如果传入了 reverseValue，则设置为 reverseValue。否则设置为 defaultValue 的反值 | () ⇒ void              |
 
 #### 代码演示
 
@@ -3526,48 +3614,57 @@ const [state, {toggle, set, setLeft, setRight}] = useToggle<T, U>(defaultValue: 
 #### 源码解析
 
 ```tsx
-import {useState, useMemo} from 'react';
+import { useMemo, useState } from "react";
 
 export interface Actions<T> {
-  toggle: () => void;
-  set: (value: T) => void;
   setLeft: () => void;
   setRight: () => void;
+  set: (value: T) => void;
+  toggle: () => void;
 }
 
 // TS 函数重载声明入参和出参类型，根据不同的入参会返回不同的结果
 /**
-* 入参可能有两个值，第一个为默认值（认为是左值），第二个是取反之后的值（认为是右值），不传右值时，根据默认值取反 !defaultValue
-*/
-function useToggle<T = boolean>(defaultValue?: boolean): [boolean, Actions<T>];
+ * 入参可能有两个值，第一个为默认值（认为是左值），第二个是取反之后的值（认为是右值），不传右值时，根据默认值取反 !defaultValue
+ */
+function useToggle<T = boolean>(): [boolean, Actions<T>];
 
 function useToggle<T>(defaultValue: T): [T, Actions<T>];
 
-function useToggle<T, U>(defaultValue: T, reverseValue: U): [T | U, Actions<T | U>];
+function useToggle<T, U>(
+  defaultValue: T,
+  reverseValue: U
+): [T | U, Actions<T | U>];
 
-function useToggle<D, R>(defaultValue: D = false as unknown as D, reverseValue?: R) {
+function useToggle<D, R>(
+  defaultValue: D = false as unknown as D,
+  reverseValue?: R
+) {
   const [state, setState] = useState<D | R>(defaultValue);
 
   const actions = useMemo(() => {
-    const reverseValueOrigin = (reverseValue === undefined ? !defaultValue : reverseValue) as D | R;
+    const reverseValueOrigin = (
+      reverseValue === undefined ? !defaultValue : reverseValue
+    ) as D | R;
 
-		// 切换 state
-    const toggle = () => setState(s => s === defaultValue ? reverseValueOrigin : defaultValue);
-		// 修改 state
+    // 切换 state
+    const toggle = () =>
+      setState((s) => (s === defaultValue ? reverseValueOrigin : defaultValue));
+    // 修改 state
     const set = (value: D | R) => setState(value);
-		// 设置为 defaultValue
+    // 设置为 defaultValue
     const setLeft = () => setState(defaultValue);
-		// 如果传入了 reverseValue, 则设置为 reverseValue。 否则设置为 defautValue 的反值
+    // 如果传入了 reverseValue, 则设置为 reverseValue。 否则设置为 defautValue 的反值
     const setRight = () => setState(reverseValueOrigin);
-    
+
     return {
       toggle,
       set,
       setLeft,
       setRight,
-    }
+    };
   }, []);
-  
+
   return [state, actions];
 }
 
@@ -3588,12 +3685,11 @@ npm i @ahooksjs/use-url-state -S
 ```
 
 > 该 Hooks 基于 react-router 的 useLocation & useHistory & useNavigate 进行 query 管理，所以使用该 Hooks 之前，你需要保证：你的项目正在使用 react-router 5.x 或 6.x 版本来管理路由；独立安装了 @ahooksjs/use-url-state。
->
 
 #### 使用
 
 ```tsx
-import useUrlState from '@ahooksjs/use-url-state';
+import useUrlState from "@ahooksjs/use-url-state";
 ```
 
 #### 在线演示
@@ -3610,25 +3706,25 @@ const [state, setState] = useUrlState(initialState, options);
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| initialState | 初始状态 | S | () ⇒ S | false |
-| options | url 配置 | Options | - |
+| 参数         | 说明     | 类型        | 默认值 |
+| ------------ | -------- | ----------- | ------ |
+| initialState | 初始状态 | S \| () ⇒ S | false  |
+| options      | url 配置 | Options     | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| navigateMode | 状态变更时切换 history 的方式 | ‘push’ | ‘replace’ | ‘push’ |
-| parseOptions | query-string parse 的配置 | ParseOptions | - |
-| stringifyOptions | query-string stringify 的配置 | StringifyOptions | - |
+| 参数             | 说明                          | 类型             | 默认值              |
+| ---------------- | ----------------------------- | ---------------- | ------------------- |
+| navigateMode     | 状态变更时切换 history 的方式 | ‘push’           | ‘replace’ \| ‘push’ |
+| parseOptions     | query-string parse 的配置     | ParseOptions     | -                   |
+| stringifyOptions | query-string stringify 的配置 | StringifyOptions | -                   |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| state | url query 对象 | object |
-| setState | 用法同 setState，但 state 需要是 object | (state: S) ⇒ void | (() ⇒ ((state: S) ⇒ S)) |
+| 参数     | 说明                                    | 类型                                         |
+| -------- | --------------------------------------- | -------------------------------------------- |
+| state    | url query 对象                          | object                                       |
+| setState | 用法同 setState，但 state 需要是 object | (state: S) ⇒ void \| (() ⇒ ((state: S) ⇒ S)) |
 
 #### 代码演示
 
@@ -3642,25 +3738,26 @@ const [state, setState] = useUrlState(initialState, options);
 
 #### 源码解析
 
-ahooks 项目是一个 monorepo，它的项目管理是通过 [lerna](https://www.lernajs.cn/) 进行管理。源码中的 useUrlState 是一个独立仓库。
+ahooks 项目是一个  monorepo，它的项目管理是通过  [lerna](https://www.lernajs.cn/)  进行管理。源码中的 useUrlState 是一个独立仓库。
 
 你必须单独安装：
 
 ```tsx
-import useUrlState from '@ahooksjs/use-url-state';
+import useUrlState from "@ahooksjs/use-url-state";
 ```
 
 这样做的理由可能是 useUrlState 基于 react-router 的 useLocation & useHistory & useNavigate，你的项目必须要安装 react-router 的 5.x 或者 6.x 版本，但其实很多项目不一定使用 react-router，假如将这个 hook 内置到 ahooks 中的话，可能会导致包体积变大。
 
-另外，该 hook 依赖于 [query-string](https://www.npmjs.com/package/query-string) 包，主要用到 queryString.parse(string, [options]) 和 queryString.stringify(object, [options]) 这两个方法。
+另外，该 hook 依赖于 [query-string](https://www.npmjs.com/package/query-string) 包，主要用到 qs.parse(string, [options]) 和 qs.stringify(object, [options]) 这两个方法。
 
 ```tsx
-import queryString from 'query-string';
-import type {ParseOptions, StringifyOptions} from "query-string";
-import * as tmp from 'react-router';
+import qs from "query-string";
+import type { ParseOptions, StringifyOptions } from "query-string";
+import * as tmp from "react-router";
 import useUpdate from "@/hooks/useUpdate";
-import {useMemo, useRef} from "react";
 import useMemoizedFn from "@/hooks/useMemoizedFn";
+import { useMemo, useRef } from "react";
+import type * as React from "react";
 
 // ignore waring `"export 'useNavigate' (imported as 'rc') was not found in 'react-router'`
 const rc = tmp as any;
@@ -3671,7 +3768,7 @@ const rc = tmp as any;
  * stringifyOptions: query-string stringify 的配置
  * */
 export interface Options {
-  navigateMode?: 'push' | 'replace';
+  navigateMode?: "push" | "replace";
   parseOptions?: ParseOptions;
   stringifyOptions?: StringifyOptions;
 }
@@ -3681,20 +3778,30 @@ const baseParseConfig: ParseOptions = {
   parseBooleans: false,
 };
 
-const baseStringifyConfig: ParseOptions = {
-  parseNumbers: false,
-  parseBooleans: false,
+const baseStringifyConfig: StringifyOptions = {
+  skipNull: false,
+  skipEmptyString: false,
 };
 
 type UrlState = Record<string, any>;
 
-const useUrlState = <S extends UrlState = UrlState>(initialState?: S | (() => S), options?: Options) => {
-  type State = Partial<{[key in keyof S]: any}>;
+const useUrlState = <S extends UrlState = UrlState>(
+  initialState?: S | (() => S),
+  options?: Options
+) => {
+  type State = Partial<{ [key in keyof S]: any }>;
 
-  const { navigateMode = 'push', parseOptions, stringifyOptions} = options || {};
+  const {
+    navigateMode = "push",
+    parseOptions,
+    stringifyOptions,
+  } = options || {};
 
   const mergedParseOptions = { ...baseParseConfig, ...parseOptions };
-  const mergedStringifyOptions = { ...baseStringifyConfig, ...stringifyOptions };
+  const mergedStringifyOptions = {
+    ...baseStringifyConfig,
+    ...stringifyOptions,
+  };
 
   // 返回表示当前 URL 的 location 对象
   // https://reactrouter.com/en/main/hooks/use-location
@@ -3713,11 +3820,15 @@ const useUrlState = <S extends UrlState = UrlState>(initialState?: S | (() => S)
   const update = useUpdate();
 
   // 初始状态对象
-  const initialStateRef = useRef(typeof initialState === 'function' ? (initialState as () => S)() : initialState || {});
+  const initialStateRef = useRef(
+    typeof initialState === "function"
+      ? (initialState as () => S)()
+      : initialState || {}
+  );
 
   // 从 URL 中解析查询参数对象
   const queryFromUrl = useMemo(() => {
-    return queryString.parse(location.search, mergedParseOptions);
+    return qs.parse(location.search, mergedParseOptions);
   }, [location.search]);
 
   // 组合查询参数对象
@@ -3726,35 +3837,49 @@ const useUrlState = <S extends UrlState = UrlState>(initialState?: S | (() => S)
     return {
       ...initialStateRef.current,
       ...queryFromUrl,
-    }
+    };
   }, [queryFromUrl]);
 
-  // 设置 url 状态
   const setState = (s: React.SetStateAction<State>) => {
-    // 根据传入的 s，获取到新的状态 newQuery，支持 function 方式
-    const newQuery = typeof s === 'function' ? s(targetQuery) : s;
+    // 计算新的状态对象 newQuery
+    const newQuery = typeof s === "function" ? s(targetQuery) : s;
 
-    // 如果 setSate 后，search 没变化，就需要 update 来触发一次更新
-    // update 和 history 的更新会合并，不会造成多次更新
+    // 强制更新组件
+    // 1. 如果 setState 后，search 没变化，就需要 update 来触发一次更新。比如 demo1 直接点击 clear，就需要 update 来触发更新。
+    // 2. update 和 history 的更新会合并，不会造成多次更新
     update();
 
-    // state 属性，用于存储与当前位置相关的状态
+    // 根据路由版本，更新 URL 中的查询参数，保持 URL 和状态同步
     if (history) {
-      history[navigateMode]({
-        hash: location.hash,
-        search: queryString.stringify({...queryFromUrl, ...newQuery}, mergedStringifyOptions) || '?',
-      }, location.state);
+      history[navigateMode](
+        {
+          hash: location.hash,
+          search:
+            qs.stringify(
+              { ...queryFromUrl, ...newQuery },
+              mergedStringifyOptions
+            ) || "?",
+        },
+        location.state
+      );
     }
     if (navigate) {
-      navigate({
-        hash: location.hash,
-        search: queryString.stringify({...queryFromUrl, ...newQuery}, mergedStringifyOptions) || '?',
-      }, {
-        replace: navigateMode === 'replace',
-        state: location.state,
-      })
+      navigate(
+        {
+          hash: location.hash,
+          search:
+            qs.stringify(
+              { ...queryFromUrl, ...newQuery },
+              mergedStringifyOptions
+            ) || "?",
+        },
+        {
+          replace: navigateMode === "replace",
+          state: location.state,
+        }
+      );
     }
-  }
+  };
 
   return [targetQuery, useMemoizedFn(setState)] as const;
 };
@@ -3789,30 +3914,30 @@ const [state, setState]: [State, SetState] = useCookieState(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| cookieKey | Cookie 中的 key 值 | string | - |
-| options | 可选项，配置 Cookie 属性 | Options | - |
+| 参数      | 说明                     | 类型    | 默认值 |
+| --------- | ------------------------ | ------- | ------ |
+| cookieKey | Cookie 中的 key 值       | string  | -      |
+| options   | 可选项，配置 Cookie 属性 | Options | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| defaultValue | 可选，定义 Cookie 默认值，但不同步到本地 Cookie | string | undefined | (() ⇒ (string | undefined)) | undefined |
-| expires | 可选，定义 Cookie 存储有效时间 | number | Date | - |
-| path | 可选，定义 Cookie 可用的路径 | string | / |
-| domain | 可选，定义 Cookie 可用的域，默认为 Cookie 创建的域名 | string | - |
-| secure | 可选，Cookie 传输是否需要 https 安全协议 | boolean | false |
-| sameSite | 可选，Cookie 不能与跨域请求一起发送 | strict | lax | none | - |
+| 参数         | 说明                                                 | 类型                                                | 默认值    |
+| ------------ | ---------------------------------------------------- | --------------------------------------------------- | --------- |
+| defaultValue | 可选，定义 Cookie 默认值，但不同步到本地 Cookie      | string \| undefined \| (() ⇒ (string \| undefined)) | undefined |
+| expires      | 可选，定义 Cookie 存储有效时间                       | number \| Date                                      | -         |
+| path         | 可选，定义 Cookie 可用的路径                         | string                                              | /         |
+| domain       | 可选，定义 Cookie 可用的域，默认为 Cookie 创建的域名 | string                                              | -         |
+| secure       | 可选，Cookie 传输是否需要 https 安全协议             | boolean                                             | false     |
+| sameSite     | 可选，Cookie 不能与跨域请求一起发送                  | strict \| lax \| none                               | -         |
 
-Options 与 [js-cookie attributes](https://github.com/js-cookie/js-cookie#cookie-attributes) 保持一致。
+Options 与  [js-cookie attributes](https://github.com/js-cookie/js-cookie#cookie-attributes)  保持一致。
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| state | 本地 Cookie 值 | string | undefined |
-| setState | 设置 Cookie 值 | SetState |
+| 参数     | 说明           | 类型                |
+| -------- | -------------- | ------------------- |
+| state    | 本地 Cookie 值 | string \| undefined |
+| setState | 设置 Cookie 值 | SetState            |
 
 setState 可以更新 cookie options，会与 useCookieState 设置的 options 进行 merge 操作。
 
@@ -3829,9 +3954,9 @@ const targetOptions = {…options, …updateOptions}
 #### 源码解析
 
 ```tsx
-import Cookies from 'js-cookie';
-import { useState } from 'react';
-import useMemoizedFn from '../useMemoizedFn';
+import Cookies from "js-cookie";
+import { useState } from "react";
+import useMemoizedFn from "../useMemoizedFn";
 import { isFunction, isString } from "../../../utils";
 
 export type State = string | undefined;
@@ -3847,7 +3972,7 @@ function useCookieState(cookieKey: string, options: Options = {}) {
 
     if (isString(cookieValue)) return cookieValue;
 
-    // 定义 Cookie 默认值，但不同步到本地 Cookie
+    // options.defaultValue 存在并且为函数
     if (isFunction(options.defaultValue)) {
       return options.defaultValue();
     }
@@ -3858,7 +3983,7 @@ function useCookieState(cookieKey: string, options: Options = {}) {
   const updateState = useMemoizedFn(
     (
       newValue: State | ((prevState: State) => State),
-      newOptions: Cookies.CookieAttributes = {},
+      newOptions: Cookies.CookieAttributes = {}
     ) => {
       // setState 可以更新 cookie options，会与 useCookieState 设置的 options 进行 merge 操作
       const { defaultValue, ...restOptions } = { ...options, ...newOptions };
@@ -3873,7 +3998,7 @@ function useCookieState(cookieKey: string, options: Options = {}) {
       } else {
         Cookies.set(cookieKey, value, restOptions);
       }
-    },
+    }
   );
 
   return [state, updateState] as const;
@@ -3914,18 +4039,18 @@ const [state, setState] = useLocalStorageState<T>(
 
 ##### **Options**
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| defaultValue | 默认值 | T | (() ⇒ T) | - |
-| serializer | 自定义序列化方法 | (value: T) ⇒ string | JSON.stringify |
-| deserializer | 自定义反序列化方法 | (value: string) ⇒ T | JSON.parse |
-| onError | 错误回调函数 | (error: unknown) ⇒ void | (e) => { console.error(e) } |
+| 参数         | 说明               | 类型                    | 默认值                      |
+| ------------ | ------------------ | ----------------------- | --------------------------- |
+| defaultValue | 默认值             | T \| (() ⇒ T)           | -                           |
+| serializer   | 自定义序列化方法   | (value: T) ⇒ string     | JSON.stringify              |
+| deserializer | 自定义反序列化方法 | (value: string) ⇒ T     | JSON.parse                  |
+| onError      | 错误回调函数       | (error: unknown) ⇒ void | (e) => { console.error(e) } |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| state | 本地 localStorage 值 | T |
+| 参数     | 说明                 | 类型                         |
+| -------- | -------------------- | ---------------------------- |
+| state    | 本地 localStorage 值 | T                            |
 | setState | 设置 localStorage 值 | (value?: SetState<T>) ⇒ void |
 
 #### 备注
@@ -3943,29 +4068,35 @@ useLocalStorageState 在往 localStorage 写入数据前，会先调用一次 se
 #### 源码解析
 
 ```tsx
-const isBrowser = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+const isBrowser = !!(
+  typeof window !== "undefined" &&
+  window.document &&
+  window.document.createElement
+);
 
 export default isBrowser;
 ```
 
 ```tsx
 import { createUseStorageState } from "@/hooks/createUseStorageState";
-import isBrowser from '../../../utils/isBrowser';
+import isBrowser from "../../../utils/isBrowser";
 
 /**
  * 调用 createUseStorageState
  * 入参判断是否为浏览器环境
  * */
-const useLocalStorageState = createUseStorageState(() => isBrowser ? localStorage : undefined);
+const useLocalStorageState = createUseStorageState(() =>
+  isBrowser ? localStorage : undefined
+);
 
 export default useLocalStorageState;
 ```
 
 ```tsx
-import {useState} from 'react';
+import { useState } from "react";
 import useMemoizedFn from "@/hooks/useMemoizedFn";
 import useUpdateEffect from "@/hooks/useUpdateEffect";
-import {isFunction, isUndefined} from "../../../utils";
+import { isFunction, isUndef } from "../../../utils";
 
 export type SetState<S> = S | ((prevState?: S) => S);
 
@@ -3976,12 +4107,12 @@ export interface Options<T> {
   onError?: (error: unknown) => void;
 }
 
-export const createUseStorageState = (getStorage: () => Storage | undefined) => {
+export const createUseStorageState = (
+  getStorage: () => Storage | undefined
+) => {
   function useStorageState<T>(key: string, options: Options<T> = {}) {
     let storage: Storage | undefined;
-    const {
-      onError = (e) => console.error(e)
-    } = options;
+    const { onError = (e) => console.error(e) } = options;
 
     /**
      * 🐞
@@ -4021,12 +4152,12 @@ export const createUseStorageState = (getStorage: () => Storage | undefined) => 
         onError(e);
       }
 
-      // 默认值
+      // options.defaultValue 默认值处理
       if (isFunction(options.defaultValue)) {
-        return (options.defaultValue as (() => T))();
+        return (options.defaultValue as () => T)();
       }
       return options.defaultValue;
-    }
+    };
 
     const [state, setState] = useState(getStoredValue);
 
@@ -4035,28 +4166,29 @@ export const createUseStorageState = (getStorage: () => Storage | undefined) => 
       setState(getStoredValue());
     }, [key]);
 
-    const updateState = useMemoizedFn((value?: SetState<T>) => {
-      const currentState = isFunction(value) ? (value as ((prevState?: T) => T))(state) : value;
+    const updateState = (value?: SetState<T>) => {
+      // 如果为函数，则取执行后结果；否则，直接取值
+      const currentState = isFunction(value) ? value(state) : value;
       setState(currentState);
 
       // 如果是值为 undefined，则 removeItem
-      if (isUndefined(currentState)) {
+      if (isUndef(currentState)) {
         storage?.removeItem(key);
       } else {
-        // setItem
         try {
+          // setItem
           storage?.setItem(key, serializer(currentState));
         } catch (e) {
-          onError(e);
+          console.error(e);
         }
       }
-    });
+    };
 
-    return [state, updateState] as const;
-  };
+    return [state, useMemoizedFn(updateState)] as const;
+  }
 
   return useStorageState;
-}
+};
 ```
 
 ### useSessionStorageState
@@ -4066,125 +4198,23 @@ export const createUseStorageState = (getStorage: () => Storage | undefined) => 
 
 </aside>
 
-用法与 [useLocalStorageState](https://ahooks.js.org/zh-CN/hooks/use-local-storage-state) 一致。
+用法与  [useLocalStorageState](https://ahooks.js.org/zh-CN/hooks/use-local-storage-state)  一致。
 
 #### 源码解析
 
 ```tsx
-const isBrowser = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-
-export default isBrowser;
-```
-
-```tsx
 import { createUseStorageState } from "@/hooks/createUseStorageState";
-import isBrowser from '../../../utils/isBrowser';
+import isBrowser from "../../../utils/isBrowser";
 
 /**
  * 调用 createUseStorageState
  * 入参判断是否为浏览器环境
  * */
-const useSessionStorageState = createUseStorageState(() => isBrowser ? sessionStorage : undefined);
+const useSessionStorageState = createUseStorageState(() =>
+  isBrowser ? sessionStorage : undefined
+);
 
 export default useSessionStorageState;
-```
-
-```tsx
-import {useState} from 'react';
-import useMemoizedFn from "@/hooks/useMemoizedFn";
-import useUpdateEffect from "@/hooks/useUpdateEffect";
-import {isFunction, isUndefined} from "../../../utils";
-
-export type SetState<S> = S | ((prevState?: S) => S);
-
-export interface Options<T> {
-  defaultValue?: T | (() => T);
-  serializer?: (value: T) => string;
-  deserializer?: (value: string) => T;
-  onError?: (error: unknown) => void;
-}
-
-export const createUseStorageState = (getStorage: () => Storage | undefined) => {
-  function useStorageState<T>(key: string, options: Options<T> = {}) {
-    let storage: Storage | undefined;
-    const {
-      onError = (e) => console.error(e)
-    } = options;
-
-    /**
-     * 🐞
-     * getStorage 可以返回 localStorage/sessionStorage/undefined
-     * 当 cookie 被 disabled 时，访问不了 localStorage/sessionStorage
-     * */
-    // https://github.com/alibaba/hooks/issues/800
-    try {
-      storage = getStorage();
-    } catch (e) {
-      onError(e);
-    }
-
-    // 支持自定义序列化方法，默认 JSON.stringify
-    const serializer = (value: T): string => {
-      if (options.serializer) {
-        return options.serializer(value);
-      }
-      return JSON.stringify(value);
-    };
-
-    // 支持自定义反序列化方法，默认 JSON.parse
-    const deserializer = (value: string): T => {
-      if (options.deserializer) {
-        return options.deserializer(value);
-      }
-      return JSON.parse(value);
-    };
-
-    const getStoredValue = () => {
-      try {
-        const raw = storage?.getItem(key);
-        if (raw) {
-          return deserializer(raw);
-        }
-      } catch (e) {
-        onError(e);
-      }
-
-      // 默认值
-      if (isFunction(options.defaultValue)) {
-        return (options.defaultValue as (() => T))();
-      }
-      return options.defaultValue;
-    }
-
-    const [state, setState] = useState(getStoredValue);
-
-    // key 更新时执行
-    useUpdateEffect(() => {
-      setState(getStoredValue());
-    }, [key]);
-
-    const updateState = useMemoizedFn((value?: SetState<T>) => {
-      const currentState = isFunction(value) ? (value as ((prevState?: T) => T))(state) : value;
-      setState(currentState);
-
-      // 如果是值为 undefined，则 removeItem
-      if (isUndefined(currentState)) {
-        storage?.removeItem(key);
-      } else {
-        // setItem
-        try {
-          storage?.setItem(key, serializer(currentState));
-        } catch (e) {
-          onError(e);
-        }
-      }
-    });
-
-    return [state, updateState] as const;
-  };
-  
-  return useStorageState;
-}
 ```
 
 ### useDebounce
@@ -4205,19 +4235,19 @@ const debouncedValue = useDebounce(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| value | 需要防抖的值 | any | - |
-| options | 配置防抖的行为 | Options | - |
+| 参数    | 说明           | 类型    | 默认值 |
+| ------- | -------------- | ------- | ------ |
+| value   | 需要防抖的值   | any     | -      |
+| options | 配置防抖的行为 | Options | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| wait | 超时时间，单位为毫秒 | number | 1000 |
-| leading | 是否在延迟开始前调用函数 | boolean | false |
-| trailing | 是否在延迟开始后调用函数 | boolean | true |
-| maxWait | 最大等待时间，单位为毫秒 | number | - |
+| 参数     | 说明                     | 类型    | 默认值 |
+| -------- | ------------------------ | ------- | ------ |
+| wait     | 等待时间，单位为毫秒     | number  | 1000   |
+| leading  | 是否在延迟开始前调用函数 | boolean | false  |
+| trailing | 是否在延迟结束后调用函数 | boolean | true   |
+| maxWait  | 最大等待时间，单位为毫秒 | number  | -      |
 
 #### 代码演示
 
@@ -4226,9 +4256,9 @@ const debouncedValue = useDebounce(
 #### 源码解析
 
 ```tsx
-import type {DebounceOptions} from './debounceOptions';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import useDebounceFn from "@/hooks/useDebounceFn";
+import type { DebounceOptions } from "./debounceOptions";
 
 const useDebounce = <T>(value: T, options?: DebounceOptions) => {
   const [debounced, setDebounced] = useState(value);
@@ -4238,13 +4268,13 @@ const useDebounce = <T>(value: T, options?: DebounceOptions) => {
     setDebounced(value);
   }, options);
 
-  // 监听 value 变化执行防抖函数，更新 debounced 状态
+  // 监听 value 变化，执行防抖函数，更新 debounced
   useEffect(() => {
     run();
   }, [value]);
 
   return debounced;
-}
+};
 
 export default useDebounce;
 ```
@@ -4267,18 +4297,18 @@ const throttledValue = useThrottle(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| value | 需要节流的值 | any | - |
-| options | 配置节流的行为 | Options | - |
+| 参数    | 说明           | 类型    | 默认值 |
+| ------- | -------------- | ------- | ------ |
+| value   | 需要节流的值   | any     | -      |
+| options | 配置节流的行为 | Options | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| wait | 超时时间，单位为毫秒 | number | 1000 |
-| leading | 是否在延迟开始前调用函数 | boolean | false |
-| trailing | 是否在延迟开始后调用函数 | boolean | true |
+| 参数     | 说明                     | 类型    | 默认值 |
+| -------- | ------------------------ | ------- | ------ |
+| wait     | 等待时间，单位为毫秒     | number  | 1000   |
+| leading  | 是否在延迟开始前调用函数 | boolean | true  |
+| trailing | 是否在延迟结束后调用函数 | boolean | true   |
 
 #### 代码演示
 
@@ -4287,25 +4317,25 @@ const throttledValue = useThrottle(
 #### 源码解析
 
 ```tsx
-import type {ThrottleOptions} from './throttleOptions';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import useThrottleFn from "@/hooks/useThrottleFn";
+import type { ThrottleOptions } from "./throttleOptions";
 
 const useThrottle = <T>(value: T, options?: ThrottleOptions) => {
   const [throttled, setThrottled] = useState(value);
 
-  // 依赖 useThrottledFn
+  // 依赖 useThrottleFn
   const { run } = useThrottleFn(() => {
     setThrottled(value);
   }, options);
 
-  // 监听 value 变化执行节流函数，更新 throttled 状态
+  // 监听 value 变化，执行节流函数，更新 throttled
   useEffect(() => {
     run();
   }, [value]);
 
   return throttled;
-}
+};
 
 export default useThrottle;
 ```
@@ -4320,25 +4350,25 @@ export default useThrottle;
 #### API
 
 ```tsx
-const [map, {set, setAll, remove, reset, get}] = useMap<K, V>(initialValue);
+const [map, { set, setAll, remove, reset, get }] = useMap<K, V>(initialValue);
 ```
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| initialValue | 可选项，传入默认的 Map 参数 | Iterable<[K, V]> | - |
+| 参数         | 说明                        | 类型             | 默认值 |
+| ------------ | --------------------------- | ---------------- | ------ |
+| initialValue | 可选项，传入默认的 Map 参数 | Iterable<[K, V]> | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| map | Map 对象 | Map<K, V> |
-| set | 添加元素 | (key: K, value: V) ⇒ void |
-| setAll | 生成一个新的 Map 对象 | Iterable<[K, V]> ⇒ void |
-| get | 获取元素 | (key: K) ⇒ V | undefined |
-| remove | 移除元素 | (key: K) ⇒ void |
-| reset | 重置为默认值 | () ⇒ void |
+| 参数   | 说明                  | 类型                      |
+| ------ | --------------------- | ------------------------- |
+| map    | Map 对象              | Map<K, V>                 |
+| set    | 添加元素              | (key: K, value: V) ⇒ void |
+| setAll | 生成一个新的 Map 对象 | Iterable<[K, V]> ⇒ void   |
+| get    | 获取元素              | (key: K) ⇒ V \| undefined |
+| remove | 移除元素              | (key: K) ⇒ void           |
+| reset  | 重置为默认值          | () ⇒ void                 |
 
 #### 代码演示
 
@@ -4347,57 +4377,54 @@ const [map, {set, setAll, remove, reset, get}] = useMap<K, V>(initialValue);
 #### 源码解析
 
 ```tsx
-import {useState} from "react";
+import { useState } from "react";
 import useMemoizedFn from "@/hooks/useMemoizedFn";
 
-const useMap = <K, V>(initialValue?: Iterable<readonly [K, V]>) => {
-  // 传入默认的 Map 参数
-  const getInitValue = () => new Map(initialValue as Map<K, V>);
+const useMap = <K, T>(initialValue?: Iterable<readonly [K, T]>) => {
+  // 初始值
+  const getInitValue = () => new Map(initialValue);
+  const [map, setMap] = useState<Map<K, T>>(getInitValue);
 
-  const [map, setMap] = useState<Map<K, V>>(getInitValue);
-
-  // 添加
-  const set = useMemoizedFn((key: K, value: V) => {
-    setMap(prevMap => {
-      const temp = new Map(prevMap);
-      temp.set(key, value);
+  // 添加元素
+  const set = (key: K, entry: T) => {
+    setMap((prev) => {
+      const temp = new Map(prev);
+      temp.set(key, entry);
       return temp;
-    })
-  })
+    });
+  };
 
   // 生成一个新的 Map 对象
-  const setAll = useMemoizedFn((newMap: Iterable<readonly [K, V]>) => {
+  const setAll = (newMap: Iterable<readonly [K, T]>) => {
     setMap(new Map(newMap));
-  })
+  };
 
-  // 获取
-  const get = useMemoizedFn((key: K) => map.get(key));
-
-  // 移除
-  const remove = useMemoizedFn((key: K) => {
-    setMap(prevMap => {
-      const temp = new Map(prevMap);
+  // 移除元素
+  const remove = (key: K) => {
+    setMap((prev) => {
+      const temp = new Map(prev);
       temp.delete(key);
       return temp;
-    })
-  })
+    });
+  };
 
-  // 重置
-  const reset = useMemoizedFn(() => {
-    setMap(getInitValue())
-  })
+  // 重置为默认值
+  const reset = () => setMap(getInitValue());
+
+  // 获取元素
+  const get = (key: K) => map.get(key);
 
   return [
     map,
     {
-      set,
-      setAll,
-      get,
-      remove,
-      reset
-    }
+      set: useMemoizedFn(set),
+      setAll: useMemoizedFn(setAll),
+      remove: useMemoizedFn(remove),
+      reset: useMemoizedFn(reset),
+      get: useMemoizedFn(get),
+    },
   ] as const;
-}
+};
 
 export default useMap;
 ```
@@ -4412,23 +4439,23 @@ export default useMap;
 #### API
 
 ```tsx
-const [set, {add, remove, reset}] = useSet<K>(initialValue);
+const [set, { add, remove, reset }] = useSet<K>(initialValue);
 ```
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| initialValue | 可选项，传入默认的 Set 参数 | Iterable<K> | - |
+| 参数         | 说明                        | 类型          | 默认值 |
+| ------------ | --------------------------- | ------------- | ------ |
+| initialValue | 可选项，传入默认的 Set 参数 | Iterable\<K\> | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| set | Set 对象 | Set<K> |
-| add | 添加元素 | (key: K) ⇒ void |
-| remove | 移除元素 | (key: K) ⇒ void |
-| reset | 重置为默认值 | () ⇒ void |
+| 参数   | 说明         | 类型            |
+| ------ | ------------ | --------------- |
+| set    | Set 对象     | Set\<K\>        |
+| add    | 添加元素     | (key: K) ⇒ void |
+| remove | 移除元素     | (key: K) ⇒ void |
+| reset  | 重置为默认值 | () ⇒ void       |
 
 #### 代码演示
 
@@ -4437,49 +4464,46 @@ const [set, {add, remove, reset}] = useSet<K>(initialValue);
 #### 源码解析
 
 ```tsx
-import {useState} from "react";
+import { useState } from "react";
 import useMemoizedFn from "@/hooks/useMemoizedFn";
 
-const useSet = <K>(initialValue?: Iterable<K>) => {
-  // 传入默认的 Set 参数
-  const getInitValue = () => new Set(initialValue as Set<K>);
-
+const useSet = <K,>(initialValue?: Iterable<K>) => {
+  // 默认值
+  const getInitValue = () => new Set(initialValue);
   const [set, setSet] = useState<Set<K>>(getInitValue);
 
-  // 添加
-  const add = useMemoizedFn((key: K) => {
+  // 添加元素
+  const add = (key: K) => {
     if (set.has(key)) return;
-    setSet(prevSet => {
+    setSet((prevSet) => {
       const temp = new Set(prevSet);
       temp.add(key);
       return temp;
-    })
-  });
+    });
+  };
 
-  // 移除
-  const remove = useMemoizedFn((key: K) => {
+  // 移除元素
+  const remove = (key: K) => {
     if (!set.has(key)) return;
-    setSet(prevSet => {
+    setSet((prevSet) => {
       const temp = new Set(prevSet);
       temp.delete(key);
       return temp;
-    })
-  });
+    });
+  };
 
-  // 重置
-  const reset = useMemoizedFn(() => {
-    setSet(getInitValue())
-  });
+  // 重置为默认值
+  const reset = () => setSet(getInitValue());
 
   return [
     set,
     {
-      add,
-      remove,
-      reset,
-    }
-  ];
-}
+      add: useMemoizedFn(add),
+      remove: useMemoizedFn(remove),
+      reset: useMemoizedFn(reset),
+    },
+  ] as const;
+};
 
 export default useSet;
 ```
@@ -4502,16 +4526,16 @@ const previousState: T = usePrevious<T>(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| state | 需要记录变化的值 | T | - |
-| shouldUpdate | 可选，自定义判断值是否变化 | (prev: T | undefined, next: T) ⇒ boolean | (a, b) ⇒ !Object.is(a, b); |
+| 参数         | 说明                       | 类型                                      | 默认值                     |
+| ------------ | -------------------------- | ----------------------------------------- | -------------------------- |
+| state        | 需要记录变化的值           | T                                         | -                          |
+| shouldUpdate | 可选，自定义判断值是否变化 | (prev: T \| undefined, next: T) ⇒ boolean | (a, b) ⇒ !Object.is(a, b); |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| previousState | 上次 state 的值 | T |
+| 参数          | 说明            | 类型 |
+| ------------- | --------------- | ---- |
+| previousState | 上次 state 的值 | T    |
 
 #### 代码演示
 
@@ -4522,17 +4546,20 @@ const previousState: T = usePrevious<T>(
 #### 源码解析
 
 ```tsx
-import { useRef } from 'react';
+import { useRef } from "react";
 
 export type ShouldUpdateFunc<T> = (prev: T | undefined, next: T) => boolean;
 
-const defaultShouldUpdate = <T>(a?: T, b?: T) => !Object.is(a, b);
+const defaultShouldUpdate = <T,>(a?: T, b?: T) => !Object.is(a, b);
 
-const usePrevious = <T>(state: T, shouldUpdate: ShouldUpdateFunc<T> = defaultShouldUpdate): T | undefined => {
+const usePrevious = <T,>(
+  state: T,
+  shouldUpdate: ShouldUpdateFunc<T> = defaultShouldUpdate
+): T | undefined => {
   /**
-   * 维护两个状态 和 curRef（保存当前状态）
-   * prevRef: 保存上一次的状态
-   * curRef: 保存当前状态
+   * 维护两个状态 prevRef 和 curRef
+   * prevRef: 上一次的状态值
+   * curRef: 当前的状态值
    * */
   const prevRef = useRef<T>();
   const curRef = useRef<T>();
@@ -4540,13 +4567,15 @@ const usePrevious = <T>(state: T, shouldUpdate: ShouldUpdateFunc<T> = defaultSho
   /**
    * 使用 shouldUpdate 判断是否发生变化，默认通过 Object.is 判断
    * */
+  // 状态发生变化
   if (shouldUpdate(curRef.current, state)) {
-    // 状态发生变化，更新 prevRef 的值为上一个 curRef
+    // 手动更新 prevRef 的值为上一个状态值
     prevRef.current = curRef.current;
-    // 更新 curRef 为当前的状态
+    // 手动更新 curRef 的值为最新的状态值
     curRef.current = state;
   }
 
+  // 返回上一次的状态值
   return prevRef.current;
 };
 
@@ -4562,7 +4591,7 @@ export default usePrevious;
 
 #### API
 
-与 React.useState 一致。
+与 React.useState  一致。
 
 #### 代码演示
 
@@ -4573,34 +4602,37 @@ export default usePrevious;
 window.requestAnimationFrame()，你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行。
 
 ```tsx
-import {useCallback, useRef, useState} from "react";
-import type {Dispatch, SetStateAction} from "react";
+import { useCallback, useRef, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import useUnmount from "@/hooks/useUnmount";
 
-function useRafState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
-function useRafState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
+function useRafState<S>(
+  initialState: S | (() => S)
+): [S, Dispatch<SetStateAction<S>>];
+function useRafState<S = undefined>(): [
+  S | undefined,
+  Dispatch<SetStateAction<S | undefined>>
+];
 
 function useRafState<S>(initialState?: S | (() => S)) {
-  // 存储 requestAnimationFrame 返回的标识符
   const ref = useRef(0);
-
   const [state, setState] = useState(initialState);
 
-  const setRafState = useCallback((value: S | ((prevState: S) => S)) => {
-    // 取消当前动画帧的执行
+  const setRafState = useCallback((value: SetStateAction<S | undefined>) => {
+    // 取消上一次的 requestAnimationFrame
     cancelAnimationFrame(ref.current);
 
-    // 请求浏览器执行下一帧动画
+    // 重新通过 requestAnimationFrame 控制 setState 的执行时机
     ref.current = requestAnimationFrame(() => {
-      // 更新状态值
       setState(value);
     });
   }, []);
 
   useUnmount(() => {
-    // 页面卸载时，取消动画帧的执行，避免内存泄露
+    // 组件卸载时，取消 requestAnimationFrame，避免内存泄露
     cancelAnimationFrame(ref.current);
-  })
+  });
+
   return [state, setRafState] as const;
 }
 
@@ -4627,25 +4659,33 @@ const [state, setState] = useSafeState(initialState);
 #### 源码解析
 
 ```tsx
-import {useCallback, useState} from "react";
-import type {Dispatch, SetStateAction} from "react";
+import { useCallback, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import useUnmountedRef from "@/hooks/useUnmountedRef";
 
-function useSafeState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
+function useSafeState<S>(
+  initialState: S | (() => S)
+): [S, Dispatch<SetStateAction<S>>];
 
-function useSafeState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
+function useSafeState<S = undefined>(): [
+  S | undefined,
+  Dispatch<SetStateAction<S | undefined>>
+];
 
 function useSafeState<S>(initialState?: S | (() => S)) {
-  // 判断组件是否卸载
+  // 组件是否卸载
   const unmountedRef = useUnmountedRef();
-
   const [state, setState] = useState(initialState);
 
-  const setCurrentState = useCallback((currentState) => {
-    // 如果组件已经卸载，则停止更新
-    if (unmountedRef.current) return;
-    setState(currentState);
-  }, []);
+  const setCurrentState = useCallback(
+    (currentState: SetStateAction<S | undefined>) => {
+      // 如果组件已经卸载，则停止更新
+      if (unmountedRef.current) return;
+      // 否则更新状态
+      setState(currentState);
+    },
+    []
+  );
 
   return [state, setCurrentState] as const;
 }
@@ -4663,40 +4703,31 @@ export default useSafeState;
 #### API
 
 ```tsx
-const [state, setState, getState] = useGetState<S>(initialState)
+const [state, setState, getState] = useGetState<S>(initialState);
 ```
 
 #### 类型定义
 
 ```tsx
-import { Dispatch, SetStateAction } from 'react';
-type GetStateAction<S> = () => S;
-
-function useGetState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>, GetStateAction<S>];
-function useGetState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>, GetStateAction<S | undefined>];
-```
-
-#### 代码演示
-
-[打开控制台查看输出](https://codesandbox.io/p/sandbox/da-kai-kong-zhi-tai-cha-kan-shu-chu-ki11z7?file=/App.tsx)
-
-#### 源码解析
-
-```tsx
-import {useCallback, useRef, useState} from "react";
-import {Dispatch, SetStateAction} from "react";
+import { useCallback, useRef, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import useLatest from "@/hooks/useLatest";
 
 type GetStateAction<S> = () => S;
 
-function useGetState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>, GetStateAction<S>];
-function useGetState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>, GetStateAction<S | undefined>];
+function useGetState<S>(
+  initialState: S | (() => S)
+): [S, Dispatch<SetStateAction<S>>, GetStateAction<S>];
+function useGetState<S = undefined>(): [
+  S | undefined,
+  Dispatch<SetStateAction<S | undefined>>,
+  GetStateAction<S | undefined>
+];
 
-function useGetState<S>(initialState?: S | (() => S)) {
+function useGetState<S>(initialState?: S) {
   const [state, setState] = useState(initialState);
-
-  // 通过 useRef 记录最新的 state 的值
-  const stateRef = useRef(state)
-  stateRef.current = state;
+  // 记录最新的 state 值
+  const stateRef = useLatest(state);
 
   // 暴露一个 getState 方法获取到最新的
   const getState = useCallback(() => stateRef.current, []);
@@ -4729,22 +4760,24 @@ const [state, setState, resetState] = useResetState<S>(
 #### 源码解析
 
 ```tsx
-import {useState} from "react";
-import type {Dispatch, SetStateAction} from "react";
+import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import useMemoizedFn from "@/hooks/useMemoizedFn";
 
 type ResetState = () => void;
 
-const useResetState = <S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>, ResetState] => {
+const useResetState = <S,>(
+  initialState: S | (() => S)
+): [S, Dispatch<SetStateAction<S>>, ResetState] => {
   const [state, setState] = useState(initialState);
 
-  // 暴露一个 resetState 方法重置 state
+  // 暴露一个 resetState 方法重置 state 为 initialState
   const resetState = useMemoizedFn(() => {
     setState(initialState);
   });
 
   return [state, setState, resetState];
-}
+};
 
 export default useResetState;
 ```
@@ -4774,39 +4807,41 @@ useUpdateEffect(
 #### 源码解析
 
 ```tsx
-import {useEffect} from 'react';
-import {createUpdateEffect} from '@/hooks/createUpdateEffect';
+import { useEffect } from "react";
+import { createUpdateEffect } from "@/hooks/createUpdateEffect";
 
 export default createUpdateEffect(useEffect);
 ```
 
 ```tsx
-import { useRef } from 'react';
-import type { useEffect, useLayoutEffect } from 'react';
+import { useRef } from "react";
+import type { useEffect, useLayoutEffect } from "react";
 
 type EffectHookType = typeof useEffect | typeof useLayoutEffect;
 
-export const createUpdateEffect = (hook: EffectHookType): EffectHookType => (effect, deps) => {
-  // 初始化一个标识符，初始值为 false
-  const isMounted = useRef<boolean>(false);
+export const createUpdateEffect =
+  (hook: EffectHookType): EffectHookType =>
+  (effect, deps) => {
+    // 初始化一个标识符，初始值为 false
+    const isMounted = useRef<boolean>(false);
 
-  hook(() => {
-    // 组件卸载时将标识符置为 false
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
+    hook(() => {
+      // 组件卸载时将标识符置为 false
+      return () => {
+        isMounted.current = false;
+      };
+    }, []);
 
-  hook(() => {
-    // 首次执行，将标识符置为 true
-    if (!isMounted.current) {
-      isMounted.current = true;
-    } else {
-      // 组件更新时，执行传入的 effect 回调函数
-      return effect();
-    }
-  }, deps);
-};
+    hook(() => {
+      // 首次执行，将标识符置为 true
+      if (!isMounted.current) {
+        isMounted.current = true;
+      } else {
+        // 组件更新时，执行传入的 effect 回调函数
+        return effect();
+      }
+    }, deps);
+  };
 
 export default createUpdateEffect;
 ```
@@ -4834,43 +4869,44 @@ useUpdateLayoutEffect(
 #### 源码解析
 
 ```tsx
-import {useLayoutEffect} from 'react';
-import {createUpdateEffect} from '@/hooks/createUpdateEffect';
+import { useLayoutEffect } from "react";
+import { createUpdateEffect } from "@/hooks/createUpdateEffect";
 
 export default createUpdateEffect(useLayoutEffect);
 ```
 
 ```tsx
-import { useRef } from 'react';
-import type { useEffect, useLayoutEffect } from 'react';
+import { useRef } from "react";
+import type { useEffect, useLayoutEffect } from "react";
 
 type EffectHookType = typeof useEffect | typeof useLayoutEffect;
 
-export const createUpdateEffect = (hook: EffectHookType): EffectHookType => (effect, deps) => {
-  // 初始化一个标识符，初始值为 false
-  const isMounted = useRef<boolean>(false);
+export const createUpdateEffect =
+  (hook: EffectHookType): EffectHookType =>
+  (effect, deps) => {
+    // 初始化一个标识符，初始值为 false
+    const isMounted = useRef<boolean>(false);
 
-  hook(() => {
-    // 组件卸载时将标识符置为 false
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
+    hook(() => {
+      // 组件卸载时将标识符置为 false
+      return () => {
+        isMounted.current = false;
+      };
+    }, []);
 
-  hook(() => {
-    // 首次执行，将标识符置为 true
-    if (!isMounted.current) {
-      isMounted.current = true;
-    } else {
-      // 组件更新时，执行传入的 effect 回调函数
-      return effect();
-    }
-  }, deps);
-};
+    hook(() => {
+      // 首次执行，将标识符置为 true
+      if (!isMounted.current) {
+        isMounted.current = true;
+      } else {
+        // 组件更新时，执行传入的 effect 回调函数
+        return effect();
+      }
+    }, deps);
+  };
 
 export default createUpdateEffect;
 ```
-
 
 ### useAsyncEffect
 
@@ -4883,9 +4919,9 @@ export default createUpdateEffect;
 
 ```tsx
 function useAsyncEffect(
-	effect: () => AsyncGenerator | Promise,
-	deps: DependencyList
-)
+  effect: () => AsyncGenerator | Promise,
+  deps: DependencyList
+);
 ```
 
 #### 代码演示
@@ -4928,9 +4964,9 @@ useEffect(() => {
 - 自定义 hooks - useAsyncEffect
 
 ```tsx
-import {useEffect} from "react";
-import type {DependencyList} from "react";
-import {isFunction} from "../../../utils";
+import { useEffect } from "react";
+import type { DependencyList } from "react";
+import { isFunction } from "../../../utils";
 
 // 判断是否是 AsyncGenerator
 function isAsyncGenerator(
@@ -4941,7 +4977,10 @@ function isAsyncGenerator(
   return isFunction(val[Symbol.asyncIterator]);
 }
 
-const useAsyncEffect = (effect: () => AsyncGenerator<void, void, void> | Promise<void>, deps?: DependencyList) => {
+const useAsyncEffect = (
+  effect: () => AsyncGenerator<void, void, void> | Promise<void>,
+  deps?: DependencyList
+) => {
   useEffect(() => {
     const e = effect();
     let cancelled = false;
@@ -4965,9 +5004,9 @@ const useAsyncEffect = (effect: () => AsyncGenerator<void, void, void> | Promise
     return () => {
       // 当前 effect 已被清理
       cancelled = true;
-    }
+    };
   }, deps);
-}
+};
 
 export default useAsyncEffect;
 ```
@@ -4991,20 +5030,20 @@ useDebounceEffect(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| effect | 执行函数 | EffectCallback | - |
-| deps | 依赖数组 | DependencyList | - |
-| options | 配置防抖的行为 | Options | - |
+| 参数    | 说明           | 类型           | 默认值 |
+| ------- | -------------- | -------------- | ------ |
+| effect  | 执行函数       | EffectCallback | -      |
+| deps    | 依赖数组       | DependencyList | -      |
+| options | 配置防抖的行为 | Options        | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| wait | 超时时间，单位为毫秒 | number | 1000 |
-| leading | 是否在延迟开始前调用函数 | boolean | false |
-| trailing | 是否在延迟开始后调用函数 | boolean | true |
-| maxWait | 最大等待时间，单位为毫秒 | number | - |
+| 参数     | 说明                     | 类型    | 默认值 |
+| -------- | ------------------------ | ------- | ------ |
+| wait     | 等待时间，单位为毫秒     | number  | 1000   |
+| leading  | 是否在延迟开始前调用函数 | boolean | false  |
+| trailing | 是否在延迟结束后调用函数 | boolean | true   |
+| maxWait  | 最大等待时间，单位为毫秒 | number  | -      |
 
 #### 代码演示
 
@@ -5013,27 +5052,31 @@ useDebounceEffect(
 #### 源码解析
 
 ```tsx
-import type {DependencyList, EffectCallback} from "react";
-import type {DebounceOptions} from "../useDebounce/debounceOptions";
-import useUpdateEffect from "@/hooks/useUpdateEffect";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import type { DependencyList, EffectCallback } from "react";
+import type { DebounceOptions } from "../useDebounce/debounceOptions";
 import useDebounceFn from "@/hooks/useDebounceFn";
+import useUpdateEffect from "@/hooks/useUpdateEffect";
 
-const useDebounceEffect = (effect: EffectCallback, deps?: DependencyList, options?: DebounceOptions) => {
-  // 通过设置 flag 标识依赖，只有 flag 改变时，才会触发 useUpdateEffect 中的回调
+const useDebounceEffect = (
+  effect: EffectCallback,
+  deps?: DependencyList,
+  options?: DebounceOptions
+) => {
+  // 设置 flag 标识
   const [flag, setFlag] = useState({});
 
-  // 防抖函数
+  // 对 flag 标识设置防抖功能
   const { run } = useDebounceFn(() => {
     setFlag({});
   }, options);
 
-  // 监听 deps，中间包一层增加防抖功能
+  // 监听 deps，调用 run 函数更新 flag 标识
   useEffect(() => {
     return run();
   }, deps);
 
-  // flag 变化执行 effect
+  // 监听 flag 标识的变化，执行 effect 回调函数
   useUpdateEffect(effect, [flag]);
 };
 
@@ -5062,27 +5105,27 @@ const {
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| fn | 需要防抖执行的函数 | (…args: any[]) ⇒ any | - |
-| options | 配置防抖的行为 | Options | - |
+| 参数    | 说明               | 类型                 | 默认值 |
+| ------- | ------------------ | -------------------- | ------ |
+| fn      | 需要防抖执行的函数 | (…args: any[]) ⇒ any | -      |
+| options | 配置防抖的行为     | Options              | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| wait | 超时时间，单位为毫秒 | number | 1000 |
-| leading | 是否在延迟开始前调用函数 | boolean | false |
-| trailing | 是否在延迟开始后调用函数 | boolean | true |
-| maxWait | 最大等待时间，单位为毫秒 | number | - |
+| 参数     | 说明                     | 类型    | 默认值 |
+| -------- | ------------------------ | ------- | ------ |
+| wait     | 等待时间，单位为毫秒     | number  | 1000   |
+| leading  | 是否在延迟开始前调用函数 | boolean | false  |
+| trailing | 是否在延迟结束后调用函数 | boolean | true   |
+| maxWait  | 最大等待时间，单位为毫秒 | number  | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| run | 触发执行 fn，函数参数将会传递给 fn | (…args: any[]) ⇒ any |
-| cancel | 取消当前防抖 | () ⇒ void |
-| flush | 立即调用当前防抖函数 | () ⇒ void |
+| 参数   | 说明                               | 类型                 |
+| ------ | ---------------------------------- | -------------------- |
+| run    | 触发执行 fn，函数参数将会传递给 fn | (…args: any[]) ⇒ any |
+| cancel | 取消当前防抖                       | () ⇒ void            |
+| flush  | 立即调用当前防抖函数               | () ⇒ void            |
 
 #### 代码演示
 
@@ -5090,21 +5133,62 @@ const {
 
 #### 源码解析
 
+防抖(Debounce)是指在一段时间内，如果事件持续触发，则只执行一次事件处理函数。
+
+适用场景：
+
+适用于输入框搜索、滚动加载等频繁触发事件的场景。
+
+实现方式：
+
+设置一个定时器，在事件触发后延迟一定时间再执行事件处理函数，如果在延迟时间内再次触发事件，则重新计时。
+
 ```tsx
-import type {DebounceOptions} from '../useDebounce/debounceOptions';
-import isDev from "../../../utils/isDev";
-import {isFunction} from "../../../utils";
+const isDev =
+  process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
+
+export default isDev;
+```
+
+```tsx
+import { debounce } from "lodash-es";
+
+// 判断当前环境是 Node.js 还是 Web 浏览器环境
+function isNodeOrWeb() {
+  const freeGlobal =
+    (typeof global === "undefined" ? "undefined" : typeof global) == "object" &&
+    global &&
+    global.Object === Object &&
+    global;
+  const freeSelf =
+    typeof self == "object" && self && self.Object === Object && self;
+  return freeGlobal || freeSelf;
+}
+
+if (!isNodeOrWeb()) {
+  global.Date = Date;
+}
+
+export { debounce };
+```
+
+```tsx
+import { debounce } from "../../../utils/lodash-polyfill";
+import { useMemo } from "react";
+import type { DebounceOptions } from "../useDebounce/debounceOptions";
 import useLatest from "@/hooks/useLatest";
-import {useMemo} from "react";
 import useUnmount from "@/hooks/useUnmount";
-import {debounce} from "../../../utils/lodash-polyfill";
+import { isFunction } from "../../../utils";
+import isDev from "../../../utils/isDev";
 
 type noop = (...args: any[]) => any;
 
 const useDebounceFn = <T extends noop>(fn: T, options?: DebounceOptions) => {
   if (isDev) {
     if (!isFunction(fn)) {
-      console.error(`useDebounceFn expected parameter is a function, got ${typeof fn}`);
+      console.error(
+        `useDebounceFn expected parameter is a function, got ${typeof fn}`
+      );
     }
   }
 
@@ -5113,32 +5197,34 @@ const useDebounceFn = <T extends noop>(fn: T, options?: DebounceOptions) => {
   // 默认 1000 毫秒
   const wait = options?.wait ?? 1000;
 
-  const debounced = useMemo(() =>
-    // 调用 lodash 的 debounce 方法
-    // https://www.lodashjs.com/docs/lodash.debounce#_debouncefunc-wait0-options
-    debounce(
-      (...args: Parameters<T>): ReturnType<T> => {
-        return fnRef.current(...args);
-      },
-      wait,
-      options,
-    )
-  , []);
+  const debounced = useMemo(
+    () =>
+      // 调用 lodash 的 debounce 方法
+      // https://www.lodashjs.com/docs/lodash.debounce#_debouncefunc-wait0-options
+      debounce(
+        (...args: Parameters<T>): ReturnType<T> => {
+          return fnRef.current(...args);
+        },
+        wait,
+        options
+      ),
+    []
+  );
 
-  // 卸载时取消
+  // 卸载时取消延迟的函数调用
   useUnmount(() => {
     debounced.cancel();
   });
 
   return {
-    // 触发执行 fn，函数参数将会传递给 fn
+    // 防抖函数
     run: debounced,
-    // 取消当前防抖
+    // 取消延迟的函数调用
     cancel: debounced.cancel,
-    // 立即调用当前防抖函数
+    // 立即调用
     flush: debounced.flush,
   };
-}
+};
 
 export default useDebounceFn;
 ```
@@ -5165,26 +5251,26 @@ const {
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| fn | 需要节流的函数 | (…args: any[]) ⇒ any | - |
-| options | 配置节流的行为 | Options | - |
+| 参数    | 说明           | 类型                 | 默认值 |
+| ------- | -------------- | -------------------- | ------ |
+| fn      | 需要节流的函数 | (…args: any[]) ⇒ any | -      |
+| options | 配置节流的行为 | Options              | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| wait | 超时时间，单位为毫秒 | number | 1000 |
-| leading | 是否在延迟开始前调用函数 | boolean | false |
-| trailing | 是否在延迟开始后调用函数 | boolean | true |
+| 参数     | 说明                     | 类型    | 默认值 |
+| -------- | ------------------------ | ------- | ------ |
+| wait     | 等待时间，单位为毫秒     | number  | 1000   |
+| leading  | 是否在延迟开始前调用函数 | boolean | true   |
+| trailing | 是否在延迟结束后调用函数 | boolean | true   |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| run | 触发执行 fn，函数参数将会传递给 fn | (…args: any[]) ⇒ any |
-| cancel | 取消当前节流 | () ⇒ void |
-| flush | 当前节流立即调用 | () ⇒ void |
+| 参数   | 说明                               | 类型                 |
+| ------ | ---------------------------------- | -------------------- |
+| run    | 触发执行 fn，函数参数将会传递给 fn | (…args: any[]) ⇒ any |
+| cancel | 取消当前节流                       | () ⇒ void            |
+| flush  | 当前节流立即调用                   | () ⇒ void            |
 
 #### 代码演示
 
@@ -5192,21 +5278,33 @@ const {
 
 #### 源码解析
 
+节流(Throttle)是指在一段时间内，无论事件触发多少次，则只执行一次事件处理函数。
+
+适用场景：
+
+适用于页面滚动、拖拽等连续触发事件的场景。
+
+实现方式：
+
+设置一个时间间隔，在事件触发后判断当前时间与上次执行事件处理函数的时间间隔是否大于设定的时间间隔，如果大于则执行事件处理函数。
+
 ```tsx
-import useUnmount from "@/hooks/useUnmount";
-import type {ThrottleOptions} from '../useThrottle/throttleOptions';
-import isDev from "../../../utils/isDev";
+import { throttle } from "lodash-es";
+import { useMemo } from "react";
 import useLatest from "@/hooks/useLatest";
-import {isFunction} from "../../../utils";
-import {useMemo} from "react";
-import {throttle} from "lodash-es";
+import type { ThrottleOptions } from "../useThrottle/throttleOptions";
+import useUnmount from "@/hooks/useUnmount";
+import { isFunction } from "../../../utils";
+import isDev from "../../../utils/isDev";
 
 type noop = (...args: any[]) => any;
 
 const useThrottleFn = <T extends noop>(fn: T, options?: ThrottleOptions) => {
   if (isDev) {
     if (!isFunction) {
-      console.error(`useThrottleFn expected parameter is a function, got ${typeof fn}`);
+      console.error(
+        `useThrottleFn expected parameter is a function, got ${typeof fn}`
+      );
     }
   }
 
@@ -5215,31 +5313,34 @@ const useThrottleFn = <T extends noop>(fn: T, options?: ThrottleOptions) => {
   // 默认 1000 毫秒
   const wait = options?.wait ?? 1000;
 
-  const throttled = useMemo(() =>
-    // 调用 lodash 的 throttle 方法
-    // https://www.lodashjs.com/docs/lodash.throttle
-    throttle(
-      (...args: Parameters<T>): ReturnType<T> => {
-        return fnRef.current(...args);
-      },
-      wait,
-      options
-    ), []);
+  const throttled = useMemo(
+    () =>
+      // 调用 lodash 的 throttle 方法
+      // https://www.lodashjs.com/docs/lodash.throttle
+      throttle(
+        (...args: Parameters<T>): ReturnType<T> => {
+          return fnRef.current(...args);
+        },
+        wait,
+        options
+      ),
+    []
+  );
 
-  // 卸载时取消
+  // 卸载时取消延迟的函数调用
   useUnmount(() => {
     throttled.cancel();
   });
 
   return {
-    // 触发执行 fn，函数参数将会传递给 fn
+    // 节流函数
     run: throttled,
-    // 取消当前节流
+    // 取消延迟的函数调用
     cancel: throttled.cancel,
-    // 立即调用当前节流函数
+    // 立即调用
     flush: throttled.flush,
-  }
-}
+  };
+};
 
 export default useThrottleFn;
 ```
@@ -5263,19 +5364,19 @@ useThrottleEffect(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| effect | 执行函数 | EffectCallback | - |
-| deps | 依赖数组 | DependencyList | - |
-| options | 配置节流的行为 | Options | - |
+| 参数    | 说明           | 类型           | 默认值 |
+| ------- | -------------- | -------------- | ------ |
+| effect  | 执行函数       | EffectCallback | -      |
+| deps    | 依赖数组       | DependencyList | -      |
+| options | 配置节流的行为 | Options        | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| wait | 超时时间，单位为毫秒 | number | 1000 |
-| leading | 是否在延迟开始前调用函数 | boolean | false |
-| trailing | 是否在延迟开始后调用函数 | boolean | true |
+| 参数     | 说明                     | 类型    | 默认值 |
+| -------- | ------------------------ | ------- | ------ |
+| wait     | 等待时间，单位为毫秒     | number  | 1000   |
+| leading  | 是否在延迟开始前调用函数 | boolean | true   |
+| trailing | 是否在延迟结束后调用函数 | boolean | true   |
 
 #### 代码演示
 
@@ -5284,29 +5385,33 @@ useThrottleEffect(
 #### 源码解析
 
 ```tsx
-import type {DependencyList, EffectCallback} from "react";
-import {ThrottleOptions} from "../useThrottle/throttleOptions";
+import { useEffect, useState } from "react";
+import type { DependencyList, EffectCallback } from "react";
+import type { ThrottleOptions } from "../useThrottle/throttleOptions";
 import useThrottleFn from "@/hooks/useThrottleFn";
 import useUpdateEffect from "@/hooks/useUpdateEffect";
-import {useEffect, useState} from "react";
 
-const useThrottleEffect = (effect: EffectCallback, deps?: DependencyList, options?: ThrottleOptions) => {
-  // 通过设置 flag 标识依赖，只有 flag 改变时，才会触发 useUpdateEffect 中的回调
+const useThrottleEffect = (
+  effect: EffectCallback,
+  deps?: DependencyList,
+  options?: ThrottleOptions
+) => {
+  // 设置 flag 标识
   const [flag, setFlag] = useState({});
 
-  // 节流函数
+  // 对 flag 标识设置节流功能
   const { run } = useThrottleFn(() => {
     setFlag({});
   }, options);
 
-  // 监听 deps，中间包一层增加节流功能
+  // 监听 deps，调用 run 函数更新 flag 标识
   useEffect(() => {
     return run();
   }, deps);
 
-  // flag 变化执行 effect
+  // 监听 flag 标识的变化，执行 effect 回调函数
   useUpdateEffect(effect, [flag]);
-}
+};
 
 export default useThrottleEffect;
 ```
@@ -5334,32 +5439,33 @@ useDeepCompareEffect(
 #### 源码解析
 
 ```tsx
-import {DependencyList, useEffect, useLayoutEffect, useRef} from "react";
-import {depsEqual} from "../../../utils/depsEqual";
+import { DependencyList, useEffect, useLayoutEffect, useRef } from "react";
+import { depsEqual } from "../../../utils/depsEqual";
 
 type EffectHookType = typeof useEffect | typeof useLayoutEffect;
 type createUpdateEffect = (hook: EffectHookType) => EffectHookType;
 
-const createDeepCompareEffect: createUpdateEffect = (hook) => (effect, deps) => {
-  // 通过 useRef 保存上一次的依赖的值
-  const ref = useRef<DependencyList>();
-  const signalRef = useRef<number>(0);
+const createDeepCompareEffect: createUpdateEffect =
+  (hook) => (effect, deps) => {
+    // 通过 useRef 保存上一次的依赖的值
+    const ref = useRef<DependencyList>();
+    const signalRef = useRef<number>(0);
 
-  // 判断最新的依赖和旧的区别
-  // 如果不相等，则变更 signalRef.current，从而触发 useEffect/useLayoutEffect 中的回调
-  if (deps === undefined || !depsEqual(deps, ref.current)) {
-    ref.current = deps;
-    signalRef.current += 1;
-  }
+    // 判断最新的依赖和旧的区别
+    // 如果不相等，则变更 signalRef.current，从而触发 useEffect/useLayoutEffect 中的回调
+    if (deps === undefined || !depsEqual(deps, ref.current)) {
+      ref.current = deps;
+      signalRef.current += 1;
+    }
 
-  hook(effect, [signalRef.current]);
-};
+    hook(effect, [signalRef.current]);
+  };
 
 export default createDeepCompareEffect;
 ```
 
 ```tsx
-import {useEffect} from "react";
+import { useEffect } from "react";
 import createDeepCompareEffect from "@/hooks/createDeepCompareEffect";
 
 export default createDeepCompareEffect(useEffect);
@@ -5388,32 +5494,33 @@ useDeepCompareLayoutEffect(
 #### 源码解析
 
 ```tsx
-import {DependencyList, useEffect, useLayoutEffect, useRef} from "react";
-import {depsEqual} from "../../../utils/depsEqual";
+import { DependencyList, useEffect, useLayoutEffect, useRef } from "react";
+import { depsEqual } from "../../../utils/depsEqual";
 
 type EffectHookType = typeof useEffect | typeof useLayoutEffect;
 type createUpdateEffect = (hook: EffectHookType) => EffectHookType;
 
-const createDeepCompareEffect: createUpdateEffect = (hook) => (effect, deps) => {
-  // 通过 useRef 保存上一次的依赖的值
-  const ref = useRef<DependencyList>();
-  const signalRef = useRef<number>(0);
+const createDeepCompareEffect: createUpdateEffect =
+  (hook) => (effect, deps) => {
+    // 通过 useRef 保存上一次的依赖的值
+    const ref = useRef<DependencyList>();
+    const signalRef = useRef<number>(0);
 
-  // 判断最新的依赖和旧的区别
-  // 如果不相等，则变更 signalRef.current，从而触发 useEffect/useLayoutEffect 中的回调
-  if (deps === undefined || !depsEqual(deps, ref.current)) {
-    ref.current = deps;
-    signalRef.current += 1;
-  }
+    // 判断最新的依赖和旧的区别
+    // 如果不相等，则变更 signalRef.current，从而触发 useEffect/useLayoutEffect 中的回调
+    if (deps === undefined || !depsEqual(deps, ref.current)) {
+      ref.current = deps;
+      signalRef.current += 1;
+    }
 
-  hook(effect, [signalRef.current]);
-};
+    hook(effect, [signalRef.current]);
+  };
 
 export default createDeepCompareEffect;
 ```
 
 ```tsx
-import {useLayoutEffect} from "react";
+import { useLayoutEffect } from "react";
 import createDeepCompareEffect from "@/hooks/createDeepCompareEffect";
 
 export default createDeepCompareEffect(useLayoutEffect);
@@ -5438,22 +5545,22 @@ useInterval(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| fn | 要定时调用的函数 | () ⇒ void | - |
-| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number | undefined | - |
-| options | 配置计时器的行为 | Options | - |
+| 参数    | 说明                                          | 类型      | 默认值    |
+| ------- | --------------------------------------------- | --------- | --------- | --- |
+| fn      | 要定时调用的函数                              | () ⇒ void | -         |
+| delay   | 间隔时间，当设置值为 undefined 时会停止计时器 | number    | undefined | -   |
+| options | 配置计时器的行为                              | Options   | -         |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| immediate | 是否在首次渲染时立即执行 | boolean | false |
+| 参数      | 说明                     | 类型    | 默认值 |
+| --------- | ------------------------ | ------- | ------ |
+| immediate | 是否在首次渲染时立即执行 | boolean | false  |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数          | 说明       | 类型      |
+| ------------- | ---------- | --------- |
 | clearInterval | 清除定时器 | () ⇒ void |
 
 #### 代码演示
@@ -5465,11 +5572,15 @@ useInterval(
 #### 源码解析
 
 ```tsx
-import {isNumber} from "../../../utils";
+import { isNumber } from "../../../utils";
 import useMemoizedFn from "@/hooks/useMemoizedFn";
-import {useCallback, useEffect, useRef} from "react";
+import { useCallback, useEffect, useRef } from "react";
 
-const useInterval = (fn: () => void, delay?: number, options: {immediate?: boolean} = {}) => {
+const useInterval = (
+  fn: () => void,
+  delay?: number,
+  options: { immediate?: boolean } = {}
+) => {
   const timerCallback = useMemoizedFn(fn);
   const timerRef = useRef<NodeJS.Timer | null>(null);
 
@@ -5512,7 +5623,6 @@ export default useInterval;
 - 希望页面不渲染的情况下依然执行定时器
 
 > Node 环境下 requestAnimationFrame 会自动降级到 setInterval
->
 
 #### API
 
@@ -5526,22 +5636,22 @@ useRafInterval(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| fn | 要定时调用的函数 | () ⇒ void | - |
-| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number | undefined | - |
-| options | 配置计时器的行为 | Options | - |
+| 参数    | 说明                                          | 类型      | 默认值    |
+| ------- | --------------------------------------------- | --------- | --------- | --- |
+| fn      | 要定时调用的函数                              | () ⇒ void | -         |
+| delay   | 间隔时间，当设置值为 undefined 时会停止计时器 | number    | undefined | -   |
+| options | 配置计时器的行为                              | Options   | -         |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| immediate | 是否在首次渲染时立即执行 | boolean | false |
+| 参数      | 说明                     | 类型    | 默认值 |
+| --------- | ------------------------ | ------- | ------ |
+| immediate | 是否在首次渲染时立即执行 | boolean | false  |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数          | 说明       | 类型      |
+| ------------- | ---------- | --------- |
 | clearInterval | 清除定时器 | () ⇒ void |
 
 #### 代码演示
@@ -5556,23 +5666,22 @@ useRafInterval(
 
 ```tsx
 setInterval(() => {
-  console.log('test');
+  console.log("test");
 }, 0);
 ```
 
-另外，setInterval 在页面处于不可见状态时（比如页面隐藏或最小化等），不同的浏览器会设置不同的时间间隔。根据 [当浏览器切换到其他标签页或者最小化时，你的 js 定时器还准时吗？](https://juejin.cn/post/6899796711401586695#comment) 这篇文章的实践结论如下：
+另外，setInterval 在页面处于不可见状态时（比如页面隐藏或最小化等），不同的浏览器会设置不同的时间间隔。根据  [当浏览器切换到其他标签页或者最小化时，你的 js 定时器还准时吗？](https://juejin.cn/post/6899796711401586695#comment)  这篇文章的实践结论如下：
 
 > 在谷歌浏览器中，当页面处于不可见状态时，setInterval 的最小时间间隔会被限制为 1s，火狐浏览器和谷歌浏览器特性一致，ie 浏览器的时间间隔不变。
->
 
 window.requestAnimationFrame() 告诉浏览器，你希望执行一个动画，并要求浏览器在下次重绘之前调用指定的回调函数更新动画。
 
-为了提高性能和电池寿命，在大部分浏览器里，当 requestAnimationFrame() 运行在后台标签页或者隐藏的 `<iframe>` 里时，requestAnimationFrame() 会被暂停调用以提升性能和电池寿命。
+为了提高性能和电池寿命，在大部分浏览器里，当 requestAnimationFrame() 运行在后台标签页或者隐藏的  `<iframe>`  里时，requestAnimationFrame() 会被暂停调用以提升性能和电池寿命。
 
 ```tsx
 import useLatest from "@/hooks/useLatest";
-import {useCallback, useEffect, useRef} from "react";
-import {isNumber} from "../../../utils";
+import { useCallback, useEffect, useRef } from "react";
+import { isNumber } from "../../../utils";
 
 interface Handle {
   id: number | NodeJS.Timer;
@@ -5608,7 +5717,7 @@ const setRafInterval = (callback: () => void, delay: number = 0): Handle => {
 
 const cancelAnimationFrameIsNotDefined = (t: any): t is NodeJS.Timer => {
   return typeof cancelAnimationFrame === typeof undefined;
-}
+};
 
 const clearRafInterval = (handle: Handle) => {
   // 不支持 cancelAnimationFrame API，则通过 clearInterval 清除
@@ -5624,7 +5733,7 @@ const useRafInterval = (
   delay: number | undefined,
   options?: {
     immediate?: boolean;
-  },
+  }
 ) => {
   const immediate = options?.immediate;
 
@@ -5658,7 +5767,7 @@ const useRafInterval = (
   }, [delay]);
 
   return clear;
-}
+};
 
 export default useRafInterval;
 ```
@@ -5681,15 +5790,15 @@ useTimeout(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| fn | 要定时调用的函数 | () ⇒ void | - |
-| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number | undefined | - |
+| 参数  | 说明                                          | 类型      | 默认值    |
+| ----- | --------------------------------------------- | --------- | --------- | --- |
+| fn    | 要定时调用的函数                              | () ⇒ void | -         |
+| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number    | undefined | -   |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数         | 说明       | 类型      |
+| ------------ | ---------- | --------- |
 | clearTimeout | 清除定时器 | () ⇒ void |
 
 #### 代码演示
@@ -5702,8 +5811,8 @@ useTimeout(
 
 ```tsx
 import useMemoizedFn from "@/hooks/useMemoizedFn";
-import {useCallback, useEffect, useRef} from "react";
-import {isNumber} from "../../../utils";
+import { useCallback, useEffect, useRef } from "react";
+import { isNumber } from "../../../utils";
 
 const useTimeout = (fn: () => void, delay?: number) => {
   const timerCallback = useMemoizedFn(fn);
@@ -5739,7 +5848,6 @@ export default useTimeout;
 用 requestAnimationFrame 模拟实现 setTimeout，API 和 useTimout 保持一致，好处是可以在页面不渲染的时候不触发函数执行，比如页面隐藏或最小化等。
 
 > Node 环境下 requestAnimationFrame 会自动降级到 setTimeout
->
 
 #### API
 
@@ -5752,15 +5860,15 @@ useRafTimeout(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| fn | 要定时调用的函数 | () ⇒ void | - |
-| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number | undefined | - |
+| 参数  | 说明                                          | 类型      | 默认值    |
+| ----- | --------------------------------------------- | --------- | --------- | --- |
+| fn    | 要定时调用的函数                              | () ⇒ void | -         |
+| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number    | undefined | -   |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数         | 说明       | 类型      |
+| ------------ | ---------- | --------- |
 | clearTimeout | 清除定时器 | () ⇒ void |
 
 #### 代码演示
@@ -5780,15 +5888,15 @@ useInterval(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| fn | 要定时调用的函数 | () ⇒ void | - |
-| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number | undefined | - |
+| 参数  | 说明                                          | 类型      | 默认值    |
+| ----- | --------------------------------------------- | --------- | --------- | --- |
+| fn    | 要定时调用的函数                              | () ⇒ void | -         |
+| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number    | undefined | -   |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数         | 说明       | 类型      |
+| ------------ | ---------- | --------- |
 | clearTimeout | 清除定时器 | () ⇒ void |
 
 #### 代码演示
@@ -5803,23 +5911,22 @@ useInterval(
 
 ```tsx
 setTimeout(() => {
-  console.log('test');
+  console.log("test");
 }, 0);
 ```
 
-另外，setTimeout 在页面处于不可见状态时（比如页面隐藏或最小化等），不同的浏览器会设置不同的时间间隔。根据 [当浏览器切换到其他标签页或者最小化时，你的 js 定时器还准时吗？](https://juejin.cn/post/6899796711401586695#comment) 这篇文章的实践结论如下：
+另外，setTimeout 在页面处于不可见状态时（比如页面隐藏或最小化等），不同的浏览器会设置不同的时间间隔。根据  [当浏览器切换到其他标签页或者最小化时，你的 js 定时器还准时吗？](https://juejin.cn/post/6899796711401586695#comment)  这篇文章的实践结论如下：
 
 > 在谷歌浏览器中，当页面处于不可见状态时，setTimeout 的最小时间间隔低于 1s 的会变为 1s，大于等于 1s 的会变为 N + 1s。在火狐浏览器中，setTimeout 的最小时间间隔会变为 1s，大于等于 1s 的间隔不变。ie 浏览器的时间间隔保持不变。
->
 
 window.requestAnimationFrame() 告诉浏览器，你希望执行一个动画，并要求浏览器在下次重绘之前调用指定的回调函数更新动画。
 
-为了提高性能和电池寿命，在大部分浏览器里，当 requestAnimationFrame() 运行在后台标签页或者隐藏的 `<iframe>` 里时，requestAnimationFrame() 会被暂停调用以提升性能和电池寿命。
+为了提高性能和电池寿命，在大部分浏览器里，当 requestAnimationFrame() 运行在后台标签页或者隐藏的  `<iframe>`  里时，requestAnimationFrame() 会被暂停调用以提升性能和电池寿命。
 
 ```tsx
 import useLatest from "@/hooks/useLatest";
-import {useCallback, useEffect, useRef} from "react";
-import {isNumber} from "../../../utils";
+import { useCallback, useEffect, useRef } from "react";
+import { isNumber } from "../../../utils";
 
 interface Handle {
   id: number | NodeJS.Timer;
@@ -5855,7 +5962,7 @@ const setRafTimeout = (callback: () => void, delay: number = 0): Handle => {
 
 const cancelAnimationFrameIsNotDefined = (t: any): t is NodeJS.Timer => {
   return typeof cancelAnimationFrame === typeof undefined;
-}
+};
 
 const clearRafTimeout = (handle: Handle) => {
   // 不支持 cancelAnimationFrame API，则通过 clearTimeout 清除
@@ -5866,10 +5973,7 @@ const clearRafTimeout = (handle: Handle) => {
   cancelAnimationFrame(handle.id);
 };
 
-const useRafTimeout = (
-  fn: () => void,
-  delay: number | undefined,
-) => {
+const useRafTimeout = (fn: () => void, delay: number | undefined) => {
   const fnRef = useLatest(fn);
   const timerRef = useRef<Handle>();
 
@@ -5896,7 +6000,7 @@ const useRafTimeout = (
   }, [delay]);
 
   return clear;
-}
+};
 
 export default useRafTimeout();
 ```
@@ -5918,15 +6022,15 @@ function useLockFn<P extends any[] = any[], V = any>(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| fn | 需要增加竞态锁的函数 | (…args: any[]) ⇒ Promise<any> | - |
+| 参数 | 说明                 | 类型                          | 默认值 |
+| ---- | -------------------- | ----------------------------- | ------ |
+| fn   | 需要增加竞态锁的函数 | (…args: any[]) ⇒ Promise<any> | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| fn | 增加了竞态锁的函数 | (…args: any[]) ⇒ Promise<any> |
+| 参数 | 说明               | 类型                          |
+| ---- | ------------------ | ----------------------------- |
+| fn   | 增加了竞态锁的函数 | (…args: any[]) ⇒ Promise<any> |
 
 #### 代码演示
 
@@ -5935,31 +6039,36 @@ function useLockFn<P extends any[] = any[], V = any>(
 #### 源码解析
 
 ```tsx
-import {useCallback, useRef} from "react";
+import { useCallback, useRef } from "react";
 
-const useLockFn = <P extends any[] = any[], V = any>(fn: (...args: P) => Promise<V>) => {
+const useLockFn = <P extends any[] = any[], V = any>(
+  fn: (...args: P) => Promise<V>
+) => {
   // 是否正处于一个锁中，即异步请求正在进行
   const lockRef = useRef(false);
 
-  return useCallback(async (...args: P) => {
-    // 请求正在进行，直接返回
-    if (lockRef.current) return;
-    // 上锁，表示请求正在进行
-    lockRef.current = true;
-    try {
-      // 执行异步请求
-      const ret = await fn(...args);
-      // 请求完毕，竞态锁状态设置为 false
-      lockRef.current = false;
-      // 返回
-      return ret;
-    } catch (e) {
-      // 请求失败，竞态锁状态设置为 false
-      lockRef.current = false;
-      // 抛出错误
-      throw e;
-    }
-  }, [fn]);
+  return useCallback(
+    async (...args: P) => {
+      // 请求正在进行，直接返回
+      if (lockRef.current) return;
+      // 上锁，表示请求正在进行
+      lockRef.current = true;
+      try {
+        // 执行异步请求
+        const ret = await fn(...args);
+        // 请求完毕，竞态锁状态设置为 false
+        lockRef.current = false;
+        // 返回
+        return ret;
+      } catch (e) {
+        // 请求失败，竞态锁状态设置为 false
+        lockRef.current = false;
+        // 抛出错误
+        throw e;
+      }
+    },
+    [fn]
+  );
 };
 
 export default useLockFn;
@@ -5991,7 +6100,7 @@ const update = useUpdate();
 #### 源码解析
 
 ```tsx
-import {useCallback, useState} from "react";
+import { useCallback, useState } from "react";
 
 const useUpdate = () => {
   const [, setState] = useState({});
@@ -6023,20 +6132,20 @@ useEventListener(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| eventName | 事件名称 | string | - |
-| handler | 处理函数 | (ev: Event) ⇒ void | - |
-| options | 设置(可选) | Options | - |
+| 参数      | 说明       | 类型               | 默认值 |
+| --------- | ---------- | ------------------ | ------ |
+| eventName | 事件名称   | string             | -      |
+| handler   | 处理函数   | (ev: Event) ⇒ void | -      |
+| options   | 设置(可选) | Options            | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| target | DOM 节点或者 ref | (() ⇒ Element) | Element | React.MutableRefObject<Element> | Window | Document | window |
-| capture | 可选项，listener 会在该类型的事情捕获阶段传播到该 EventTarget 时触发 | boolean | false |
-| once | 可选项，listener 在添加之后最多只调用一次。如果是 true，listener 会在其被调用之后自动移除 | boolean | false |
-| passive | 可选项，设置为 true 时，表示 listener 永远不会调用 preventDefault。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告 | boolean | false |
+| 参数    | 说明                                                                                                                                      | 类型           | 默认值  |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ------- | ------------------------------- | ------ | -------- | ------ |
+| target  | DOM 节点或者 ref                                                                                                                          | (() ⇒ Element) | Element | React.MutableRefObject<Element> | Window | Document | window |
+| capture | 可选项，listener 会在该类型的事情捕获阶段传播到该 EventTarget 时触发                                                                      | boolean        | false   |
+| once    | 可选项，listener 在添加之后最多只调用一次。如果是 true，listener 会在其被调用之后自动移除                                                 | boolean        | false   |
+| passive | 可选项，设置为 true 时，表示 listener 永远不会调用 preventDefault。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告 | boolean        | false   |
 
 #### 代码演示
 
@@ -6059,7 +6168,7 @@ useEventListener(
 ```tsx
 import { isFunction } from "./index";
 import isBrowser from "./isBrowser";
-import {MutableRefObject} from "react";
+import { MutableRefObject } from "react";
 
 type TargetValue<T> = T | undefined | null;
 
@@ -6070,7 +6179,10 @@ export type BasicTarget<T extends TargetType = Element> =
   | TargetValue<T>
   | MutableRefObject<TargetValue<T>>;
 
-export function getTargetElement<T extends TargetType>(target: BasicTarget<T>, defaultElement?: T): TargetValue<T> {
+export function getTargetElement<T extends TargetType>(
+  target: BasicTarget<T>,
+  defaultElement?: T
+): TargetValue<T> {
   if (!isBrowser) {
     return undefined;
   }
@@ -6085,7 +6197,7 @@ export function getTargetElement<T extends TargetType>(target: BasicTarget<T>, d
   if (isFunction(target)) {
     targetElement = target();
     // ref 对象
-  } else if ('current' in target) {
+  } else if ("current" in target) {
     targetElement = target.current;
   } else {
     targetElement = target;
@@ -6111,19 +6223,31 @@ export default depsAreSame;
 ```
 
 ```tsx
-import {DependencyList, EffectCallback, useEffect, useLayoutEffect, useRef} from "react";
-import {BasicTarget, getTargetElement} from "./domTarget";
-import depsAreSame from './depsAreSame';
+import {
+  DependencyList,
+  EffectCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+} from "react";
+import { BasicTarget, getTargetElement } from "./domTarget";
+import depsAreSame from "./depsAreSame";
 import useUnmount from "@/hooks/useUnmount";
 
-const createEffectWithTarget = (useEffectType: typeof useEffect | typeof useLayoutEffect) => {
+const createEffectWithTarget = (
+  useEffectType: typeof useEffect | typeof useLayoutEffect
+) => {
   /**
    *
    * @param effect
    * @param deps
    * @param target target should compare ref.current vs ref.current, dom vs dom, ()=>dom vs ()=>dom
    */
-  return (effect: EffectCallback, deps: DependencyList, target: BasicTarget<any> | BasicTarget<any>[]) => {
+  return (
+    effect: EffectCallback,
+    deps: DependencyList,
+    target: BasicTarget<any> | BasicTarget<any>[]
+  ) => {
     // 首次挂载
     const hasInitRef = useRef(false);
 
@@ -6137,7 +6261,7 @@ const createEffectWithTarget = (useEffectType: typeof useEffect | typeof useLayo
 
     useEffectType(() => {
       const targets = Array.isArray(target) ? target : [target];
-      const els = targets.map(item => getTargetElement(item));
+      const els = targets.map((item) => getTargetElement(item));
 
       if (!hasInitRef.current) {
         hasInitRef.current = true;
@@ -6148,7 +6272,11 @@ const createEffectWithTarget = (useEffectType: typeof useEffect | typeof useLayo
         return;
       }
 
-      if (els.length !== lastElementRef.current.length || !depsAreSame(els, lastElementRef.current) || !depsAreSame(deps, lastDepsRef.current)) {
+      if (
+        els.length !== lastElementRef.current.length ||
+        !depsAreSame(els, lastElementRef.current) ||
+        !depsAreSame(deps, lastDepsRef.current)
+      ) {
         unLoadRef.current?.(); // 清除副作用
 
         lastElementRef.current = els;
@@ -6160,16 +6288,16 @@ const createEffectWithTarget = (useEffectType: typeof useEffect | typeof useLayo
     useUnmount(() => {
       unLoadRef.current?.(); // 清除副作用
       hasInitRef.current = false;
-    })
+    });
   };
-}
+};
 
 export default createEffectWithTarget;
 ```
 
 ```tsx
-import useLatest from '../useLatest';
-import {BasicTarget, getTargetElement} from "../../../utils/domTarget";
+import useLatest from "../useLatest";
+import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
 import useEffectWithTarget from "../../../utils/useEffectWithTarget";
 
 type noop = (...p: any) => void;
@@ -6184,44 +6312,74 @@ type Options<T extends Target = Target> = {
 };
 
 // 重载
-function useEventListener<K extends keyof HTMLElementEventMap>(eventName: K, handler: (ev: HTMLElementEventMap[K]) => void, options?: Options<HTMLElement>): void;
-function useEventListener<K extends keyof ElementEventMap>(eventName: K, handler: (ev: ElementEventMap[K]) => void, options?: Options<Element>): void;
-function useEventListener<K extends keyof DocumentEventMap>(eventName: K, handler: (ev: DocumentEventMap[K]) => void, options?: Options<Document>): void;
-function useEventListener<K extends keyof WindowEventMap>(eventName: K, handler: (ev: WindowEventMap[K]) => void, options?: Options<Window>): void;
-function useEventListener(eventName: string, handler: noop, options: Options): void;
+function useEventListener<K extends keyof HTMLElementEventMap>(
+  eventName: K,
+  handler: (ev: HTMLElementEventMap[K]) => void,
+  options?: Options<HTMLElement>
+): void;
+function useEventListener<K extends keyof ElementEventMap>(
+  eventName: K,
+  handler: (ev: ElementEventMap[K]) => void,
+  options?: Options<Element>
+): void;
+function useEventListener<K extends keyof DocumentEventMap>(
+  eventName: K,
+  handler: (ev: DocumentEventMap[K]) => void,
+  options?: Options<Document>
+): void;
+function useEventListener<K extends keyof WindowEventMap>(
+  eventName: K,
+  handler: (ev: WindowEventMap[K]) => void,
+  options?: Options<Window>
+): void;
+function useEventListener(
+  eventName: string,
+  handler: noop,
+  options: Options
+): void;
 
-function useEventListener(eventName: string, handler: noop, options: Options = {}) {
+function useEventListener(
+  eventName: string,
+  handler: noop,
+  options: Options = {}
+) {
   const handleRef = useLatest(handler);
 
-  useEffectWithTarget(() => {
+  useEffectWithTarget(
+    () => {
+      const targetElement = getTargetElement(
+        options?.target as BasicTarget,
+        window
+      );
+      // 判断是否支持 addEventListener
+      if (!targetElement?.addEventListener) {
+        return;
+      }
 
-    const targetElement = getTargetElement(options?.target as BasicTarget, window);
-    // 判断是否支持 addEventListener
-    if (!targetElement?.addEventListener) {
-      return;
-    }
+      const eventListener = (event: Event) => {
+        return handleRef.current?.(event);
+      };
 
-    const eventListener = (event: Event) => {
-      return handleRef.current?.(event);
-    };
-
-    // 监听事件
-    targetElement.addEventListener(eventName, eventListener, {
-      // listener 会在该类型的事情捕获阶段传播到该 EventTarget 时触发
-      capture: options.capture,
-      // listener 在添加之后最多只调用一次。如果是 true，listener 会在其被调用之后自动移除
-      once: options.once,
-      // 设置为 true 时，表示 listener 永远不会调用 preventDefault。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告
-      passive: options.passive,
-    });
-
-    // 移除事件
-    return () => {
-      targetElement.removeEventListener(eventName, eventListener, {
+      // 监听事件
+      targetElement.addEventListener(eventName, eventListener, {
+        // listener 会在该类型的事情捕获阶段传播到该 EventTarget 时触发
         capture: options.capture,
+        // listener 在添加之后最多只调用一次。如果是 true，listener 会在其被调用之后自动移除
+        once: options.once,
+        // 设置为 true 时，表示 listener 永远不会调用 preventDefault。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告
+        passive: options.passive,
       });
-    };
-  }, [eventName, options.once, options.capture, options.passive], options.target);
+
+      // 移除事件
+      return () => {
+        targetElement.removeEventListener(eventName, eventListener, {
+          capture: options.capture,
+        });
+      };
+    },
+    [eventName, options.once, options.capture, options.passive],
+    options.target
+  );
 }
 
 export default useEventListener;
@@ -6249,11 +6407,11 @@ useClickAway<T extends Event = Event>(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| onClickAway | 触发函数 | (event: T) => void | - |
-| target | DOM 节点或者 Ref，支持数组 | Target | Target[] | - |
-| eventName | 指定需要监听的事件，支持数组 | DocumentEventKey | DocumentEventKey[] | click |
+| 参数        | 说明                         | 类型               | 默认值             |
+| ----------- | ---------------------------- | ------------------ | ------------------ | ----- |
+| onClickAway | 触发函数                     | (event: T) => void | -                  |
+| target      | DOM 节点或者 Ref，支持数组   | Target             | Target[]           | -     |
+| eventName   | 指定需要监听的事件，支持数组 | DocumentEventKey   | DocumentEventKey[] | click |
 
 #### 代码演示
 
@@ -6272,12 +6430,12 @@ useClickAway<T extends Event = Event>(
 #### 源码解析
 
 ```tsx
-import {BasicTarget, getTargetElement} from "./domTarget";
+import { BasicTarget, getTargetElement } from "./domTarget";
 
 declare type TargetValue<T> = T | undefined | null;
 
 const checkIfAllInShadow = (target: BasicTarget[]): boolean => {
-  return target.every(item => {
+  return target.every((item) => {
     const targetElement = getTargetElement(item);
     if (!targetElement) return false;
     if (targetElement.getRootNode() instanceof ShadowRoot) return true;
@@ -6291,7 +6449,9 @@ const getShadow = (node: TargetValue<Element>) => {
   return node.getRootNode();
 };
 
-const getDocumentOrShadow = (target: BasicTarget | BasicTarget[]): Document | Node => {
+const getDocumentOrShadow = (
+  target: BasicTarget | BasicTarget[]
+): Document | Node => {
   if (!target || !document.getRootNode) {
     return document;
   }
@@ -6309,7 +6469,7 @@ export default getDocumentOrShadow;
 ```
 
 ```tsx
-import {BasicTarget, getTargetElement} from "../../../utils/domTarget";
+import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
 import useLatest from "@/hooks/useLatest";
 import useEffectWithTarget from "../../../utils/useEffectWithTarget";
 import getDocumentOrShadow from "../../../utils/getDocumentOrShadow";
@@ -6322,38 +6482,48 @@ const useClickAway = <T extends Event = Event>(
   // DOM 节点或 Ref，支持数组
   target: BasicTarget | BasicTarget[],
   // 指定要监听的事件，支持数组
-  eventName: DocumentEventKey | DocumentEventKey[] = 'click',
+  eventName: DocumentEventKey | DocumentEventKey[] = "click"
 ) => {
   const onClickAwayRef = useLatest(onClickAway);
 
-  useEffectWithTarget(() => {
-    const handler = (event: any) => {
-      const targets = Array.isArray(target) ? target : [target];
-      if (targets.some(item => {
-        // 判断点击的 DOM Target 是否在定义的 DOM 元素（列表）中
-        const targetElement = getTargetElement(item);
-        return !targetElement || targetElement.contains(event.target);
-      })) {
-        return;
-      }
-      // 触发点击事件
-      onClickAwayRef.current(event);
-    };
+  useEffectWithTarget(
+    () => {
+      const handler = (event: any) => {
+        const targets = Array.isArray(target) ? target : [target];
+        if (
+          targets.some((item) => {
+            // 判断点击的 DOM Target 是否在定义的 DOM 元素（列表）中
+            const targetElement = getTargetElement(item);
+            return !targetElement || targetElement.contains(event.target);
+          })
+        ) {
+          return;
+        }
+        // 触发点击事件
+        onClickAwayRef.current(event);
+      };
 
-    // 事件代理 - 代理到 shadow root 或 document
-    const documentOrShadow = getDocumentOrShadow(target);
+      // 事件代理 - 代理到 shadow root 或 document
+      const documentOrShadow = getDocumentOrShadow(target);
 
-    // 事件列表
-    const eventNames = Array.isArray(eventName) ? eventName : [eventName];
+      // 事件列表
+      const eventNames = Array.isArray(eventName) ? eventName : [eventName];
 
-    // document.addEventListener 监听事件
-    eventNames.forEach(event => documentOrShadow.addEventListener(event, handler));
+      // document.addEventListener 监听事件
+      eventNames.forEach((event) =>
+        documentOrShadow.addEventListener(event, handler)
+      );
 
-    return () => {
-      // 组件卸载时清除事件监听
-      eventNames.forEach(event => documentOrShadow.removeEventListener(event, handler));
-    }
-  }, Array.isArray(eventName) ? eventName : [eventName], target);
+      return () => {
+        // 组件卸载时清除事件监听
+        eventNames.forEach((event) =>
+          documentOrShadow.removeEventListener(event, handler)
+        );
+      };
+    },
+    Array.isArray(eventName) ? eventName : [eventName],
+    target
+  );
 };
 
 export default useClickAway;
@@ -6369,13 +6539,13 @@ export default useClickAway;
 #### API
 
 ```tsx
-const documentVisibility = useDocumentVisibility()
+const documentVisibility = useDocumentVisibility();
 ```
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数               | 说明                           | 类型    |
+| ------------------ | ------------------------------ | ------- | ------ | --------- | --------- |
 | documentVisibility | 判断 document 是否处于可见状态 | visible | hidden | prerender | undefined |
 
 #### 代码演示
@@ -6386,7 +6556,7 @@ const documentVisibility = useDocumentVisibility()
 
 ```tsx
 import isBrowser from "../../../utils/isBrowser";
-import {useState} from "react";
+import { useState } from "react";
 import useEventListener from "@/hooks/useEventListener";
 
 /**
@@ -6394,11 +6564,11 @@ import useEventListener from "@/hooks/useEventListener";
  * 'visible': 页面内容至少部分可见。即文档处于前景标签页并且窗口没有最小化
  * 'prerender': 页面此时正在渲染中。文档只能从此状态开始，永远不能从其他值变为此状态
  * */
-type VisibilityState = 'hidden' | 'visible' | 'prerender' | undefined;
+type VisibilityState = "hidden" | "visible" | "prerender" | undefined;
 
 const getVisibility = () => {
   if (!isBrowser) {
-    return 'visible'
+    return "visible";
   }
 
   // 只读属性，返回 document 的可见性，即当前可见元素的上下文环境
@@ -6406,19 +6576,23 @@ const getVisibility = () => {
 };
 
 const useDocumentVisibility = (): VisibilityState => {
-  const [documentVisibility, setDocumentVisibility] = useState<VisibilityState>(() => getVisibility());
+  const [documentVisibility, setDocumentVisibility] = useState<VisibilityState>(
+    () => getVisibility()
+  );
 
   useEventListener(
     // 监听该事件
-    'visibilitychange',
+    "visibilitychange",
     () => {
       setDocumentVisibility(getVisibility());
-  }, {
+    },
+    {
       target: () => document,
-    });
+    }
+  );
 
   return documentVisibility;
-}
+};
 
 export default useDocumentVisibility;
 ```
@@ -6438,18 +6612,18 @@ const [value, { onChange, reset }] = useEventTarget<T, U>(Options<T, U>);
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| initialValue | 可选项，初始值 | T | - |
-| transformer | 可选项，可自定义回调值的转化 | (value: U) ⇒ T | - |
+| 参数         | 说明                         | 类型           | 默认值 |
+| ------------ | ---------------------------- | -------------- | ------ |
+| initialValue | 可选项，初始值               | T              | -      |
+| transformer  | 可选项，可自定义回调值的转化 | (value: U) ⇒ T | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| value | 表单控件的值 | T |
+| 参数     | 说明                       | 类型                              |
+| -------- | -------------------------- | --------------------------------- |
+| value    | 表单控件的值               | T                                 |
 | onChange | 表单控件值发生变化时的回调 | (e: { target: {value: T}}) ⇒ void |
-| reset | 重置函数 | () ⇒ void |
+| reset    | 重置函数                   | () ⇒ void                         |
 
 #### 代码演示
 
@@ -6460,9 +6634,9 @@ const [value, { onChange, reset }] = useEventTarget<T, U>(Options<T, U>);
 #### 源码解析
 
 ```tsx
-import {useCallback, useState} from "react";
+import { useCallback, useState } from "react";
 import useLatest from "@/hooks/useLatest";
-import {isFunction} from "../../../utils";
+import { isFunction } from "../../../utils";
 
 export interface Options<T, U> {
   initialValue?: T;
@@ -6494,9 +6668,9 @@ const useEventTarget = <T, U>(options?: Options<T, U>) => {
     {
       onChange,
       reset,
-    }
+    },
   ] as const;
-}
+};
 
 export default useEventTarget;
 ```
@@ -6516,23 +6690,23 @@ const status = useExternal(path: string, options?: Options)
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| path | 外部资源 url 地址 | string | - |
+| 参数 | 说明              | 类型   | 默认值 |
+| ---- | ----------------- | ------ | ------ |
+| path | 外部资源 url 地址 | string | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| type | 需引入外部资源的类型，支持 js/css，如果不传，则根据 path 推导 | string | - |
-| js | script 标签支持的属性 | HTMLScriptElement | - |
-| css | link 标签支持的属性 | HTMLStyleElement | - |
-| keepWhenUnused | 在不持有资源的引用后，仍然保留资源 | boolean | false |
+| 参数           | 说明                                                          | 类型              | 默认值 |
+| -------------- | ------------------------------------------------------------- | ----------------- | ------ |
+| type           | 需引入外部资源的类型，支持 js/css，如果不传，则根据 path 推导 | string            | -      |
+| js             | script 标签支持的属性                                         | HTMLScriptElement | -      |
+| css            | link 标签支持的属性                                           | HTMLStyleElement  | -      |
+| keepWhenUnused | 在不持有资源的引用后，仍然保留资源                            | boolean           | false  |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数   | 说明                                                                       | 类型   |
+| ------ | -------------------------------------------------------------------------- | ------ |
 | status | 加载状态，unset(未设置)，loading(加载中)，ready(加载完成)，error(加载失败) | string |
 
 #### 代码演示
@@ -6544,30 +6718,30 @@ const status = useExternal(path: string, options?: Options)
 #### 源码解析
 
 ```tsx
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 
 type JsOptions = {
-  type: 'js',
-  js?: Partial<HTMLScriptElement>,
-  keepWhenUnused?: boolean,
+  type: "js";
+  js?: Partial<HTMLScriptElement>;
+  keepWhenUnused?: boolean;
 };
 
 type CssOptions = {
-  type: 'css',
-  css?: Partial<HTMLStyleElement>,
+  type: "css";
+  css?: Partial<HTMLStyleElement>;
   keepWhenUnused?: boolean;
 };
 
 type DefaultOptions = {
-  type?: never,
-  js?: Partial<HTMLScriptElement>,
-  css?: Partial<HTMLStyleElement>,
+  type?: never;
+  js?: Partial<HTMLScriptElement>;
+  css?: Partial<HTMLStyleElement>;
   keepWhenUnused?: boolean;
 };
 
 export type Options = JsOptions | CssOptions | DefaultOptions;
 
-export type Status = 'unset' | 'loading' | 'ready' | 'error';
+export type Status = "unset" | "loading" | "ready" | "error";
 
 interface loadResult {
   ref: Element;
@@ -6584,30 +6758,30 @@ const loadingScript = (path: string, props = {}): loadResult => {
 
   // 没有，则创建
   if (!script) {
-    const newScript = document.createElement('script');
+    const newScript = document.createElement("script");
     newScript.src = path;
 
     // 设置属性
-    Object.keys(props).forEach(key => {
+    Object.keys(props).forEach((key) => {
       newScript[key] = props[key];
     });
 
     // 更新状态
-    newScript.setAttribute('data-status', 'loading');
+    newScript.setAttribute("data-status", "loading");
     // 在 body 标签中插入
     document.body.appendChild(newScript);
 
     return {
       ref: newScript,
-      status: 'loading',
+      status: "loading",
     };
   }
 
   // 有则直接返回，并取 data-status 中的值
   return {
     ref: script,
-    status: (script.getAttribute('data-status') as Status) || 'ready',
-  }
+    status: (script.getAttribute("data-status") as Status) || "ready",
+  };
 };
 
 const loadCss = (path: string, props = {}): loadResult => {
@@ -6616,13 +6790,13 @@ const loadCss = (path: string, props = {}): loadResult => {
 
   // 没有，则创建
   if (!css) {
-    const newCss = document.createElement('link');
+    const newCss = document.createElement("link");
 
-    newCss.rel = 'stylesheet';
+    newCss.rel = "stylesheet";
     newCss.href = path;
 
     // 设置属性
-    Object.keys(props).forEach(key => {
+    Object.keys(props).forEach((key) => {
       newCss[key] = props[key];
     });
 
@@ -6633,59 +6807,65 @@ const loadCss = (path: string, props = {}): loadResult => {
      * 将 newCss 元素的 as 属性设置为 'style'，告诉浏览器这是一个样式表资源
      * */
     // IE9+
-    const isLegacyIECss = 'hideFocus' in newCss;
+    const isLegacyIECss = "hideFocus" in newCss;
     // use preload in IE Edge (to detect load errors)
     if (isLegacyIECss && newCss.relList) {
-      newCss.rel = 'preload';
-      newCss.as = 'style';
+      newCss.rel = "preload";
+      newCss.as = "style";
     }
 
     // 更新状态
-    newCss.setAttribute('data-status', 'loading');
+    newCss.setAttribute("data-status", "loading");
     // 在 head 标签中插入
     document.head.appendChild(newCss);
 
     return {
       ref: css,
-      status: 'loading',
-    }
+      status: "loading",
+    };
   }
 
   // 有则直接返回，并取 data-status 中的值
   return {
     ref: css,
-    status: (css.getAttribute('data-status') as Status) || 'ready',
-  }
+    status: (css.getAttribute("data-status") as Status) || "ready",
+  };
 };
 
 const useExternal = (path?: string, options?: Options) => {
-  const [status, setStatus] = useState<Status>(path ? 'loading' : 'unset');
+  const [status, setStatus] = useState<Status>(path ? "loading" : "unset");
 
   const ref = useRef<Element>();
 
   useEffect(() => {
     if (!path) {
-      setStatus('unset');
+      setStatus("unset");
       return;
     }
 
     // 处理路径
-    const pathname = path.replace(/[|#].*$/, '');
+    const pathname = path.replace(/[|#].*$/, "");
 
     // 判断是 CSS 类型
-    if (options?.type === 'css' || (!options?.type && /(^css!|\.css$)/.test(pathname))) {
+    if (
+      options?.type === "css" ||
+      (!options?.type && /(^css!|\.css$)/.test(pathname))
+    ) {
       const result = loadCss(path, options?.css);
       ref.current = result.ref;
       setStatus(result.status);
       // 判断是 JS 类型
-    } else if (options?.type === 'js' || (!options?.type && /(^js!|\.js$)/.test(pathname))) {
+    } else if (
+      options?.type === "js" ||
+      (!options?.type && /(^js!|\.js$)/.test(pathname))
+    ) {
       const result = loadingScript(path, options?.js);
       ref.current = result.ref;
       setStatus(result.status);
     } else {
       console.error(
         "Cannot infer the type of external resource, and please provide a type ('js' | 'css'). " +
-        'Refer to the https://ahooks.js.org/hooks/dom/use-external/#options',
+          "Refer to the https://ahooks.js.org/hooks/dom/use-external/#options"
       );
     }
 
@@ -6702,18 +6882,18 @@ const useExternal = (path?: string, options?: Options) => {
 
     const handler = (event: Event) => {
       // 判断和设置加载状态
-      const targetStatus = event.type === 'load' ? 'ready' : 'error';
-      ref.current?.setAttribute('data-status', targetStatus);
+      const targetStatus = event.type === "load" ? "ready" : "error";
+      ref.current?.setAttribute("data-status", targetStatus);
       setStatus(targetStatus);
     };
 
     // / 监听文件加载情况
-    ref.current.addEventListener('load', handler);
-    ref.current.addEventListener('error', handler);
+    ref.current.addEventListener("load", handler);
+    ref.current.addEventListener("error", handler);
     return () => {
       // 清除副作用
-      ref.current?.removeEventListener('load', handler);
-      ref.current?.removeEventListener('error', handler);
+      ref.current?.removeEventListener("load", handler);
+      ref.current?.removeEventListener("error", handler);
 
       EXTERNAL_USED_COUNT[path] -= 1;
 
@@ -6723,7 +6903,7 @@ const useExternal = (path?: string, options?: Options) => {
       }
 
       ref.current = undefined;
-    }
+    };
   }, [path]);
 
   return status;
@@ -6747,15 +6927,15 @@ useTitle(title: string, options?: Options)
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| title | 页面标题 | string | - |
+| 参数  | 说明     | 类型   | 默认值 |
+| ----- | -------- | ------ | ------ |
+| title | 页面标题 | string | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| restoreOnUnmount | 组件卸载时，是否恢复上一个页面标题 | boolean | false |
+| 参数             | 说明                               | 类型    | 默认值 |
+| ---------------- | ---------------------------------- | ------- | ------ |
+| restoreOnUnmount | 组件卸载时，是否恢复上一个页面标题 | boolean | false  |
 
 #### 代码演示
 
@@ -6764,7 +6944,7 @@ useTitle(title: string, options?: Options)
 #### 源码解析
 
 ```tsx
-import {useEffect, useRef} from "react";
+import { useEffect, useRef } from "react";
 import isBrowser from "../../../utils/isBrowser";
 import useUnmount from "@/hooks/useUnmount";
 
@@ -6777,7 +6957,7 @@ const DEFAULT_OPTIONS: Options = {
 };
 
 const useTitle = (title: string, options: Options = DEFAULT_OPTIONS) => {
-  const titleRef = useRef(isBrowser ? document.title : '');
+  const titleRef = useRef(isBrowser ? document.title : "");
 
   useEffect(() => {
     // 通过 document.title 设置
@@ -6810,9 +6990,9 @@ useFavicon(href: string)
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| href | favicon 地址, 支持 svg/png/ico/gif 后缀的图片 | string | - |
+| 参数 | 说明                                            | 类型   | 默认值 |
+| ---- | ----------------------------------------------- | ------ | ------ |
+| href | favicon 地址, 支持  svg/png/ico/gif  后缀的图片 | string | -      |
 
 #### 代码演示
 
@@ -6821,13 +7001,13 @@ useFavicon(href: string)
 #### 源码解析
 
 ```tsx
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 const ImgTypeMap = {
-  SVG: 'image/svg+xml',
-  ICO: 'image/x-icon',
-  GIF: 'image/gif',
-  PNG: 'image/png',
+  SVG: "image/svg+xml",
+  ICO: "image/x-icon",
+  GIF: "image/gif",
+  PNG: "image/png",
 };
 
 type ImgTypes = keyof typeof ImgTypeMap;
@@ -6836,19 +7016,21 @@ const useFavicon = (href: string) => {
   useEffect(() => {
     if (!href) return;
 
-    const cutUrl = href.split('.');
+    const cutUrl = href.split(".");
     const imgSuffix = cutUrl[cutUrl.length - 1].toLocaleUpperCase() as ImgTypes;
 
     // 通过 link 标签设置 favicon
-    const link: HTMLLinkElement = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    const link: HTMLLinkElement =
+      document.querySelector("link[rel*='icon']") ||
+      document.createElement("link");
 
     link.type = ImgTypeMap[imgSuffix];
     link.href = href;
-    link.rel = 'shortcut icon';
+    link.rel = "shortcut icon";
 
-    document.getElementsByTagName('head')[0].appendChild(link);
+    document.getElementsByTagName("head")[0].appendChild(link);
   }, [href]);
-}
+};
 
 export default useFavicon;
 ```
@@ -6863,35 +7045,32 @@ export default useFavicon;
 #### API
 
 ```tsx
-const isHovering = useHover(
-	target,
-	{
-		onEnter,
-		onLeave,
-		onChange
-	}
-)
+const isHovering = useHover(target, {
+  onEnter,
+  onLeave,
+  onChange,
+});
 ```
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| target | DOM 节点或者 Ref 对象 | () ⇒ Element | Element | MultableRefObject<Element> | - |
-| options | 额外的配置项 | Options |  |
+| 参数    | 说明                  | 类型         | 默认值  |
+| ------- | --------------------- | ------------ | ------- | -------------------------- | --- |
+| target  | DOM 节点或者 Ref 对象 | () ⇒ Element | Element | MultableRefObject<Element> | -   |
+| options | 额外的配置项          | Options      |         |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| onEnter | hover 时触发 | () ⇒ void | - |
-| onLeave | 取消 hover 时触发 | () ⇒ void | - |
-| onChange | hover 状态变化时触发 | (isHovering: boolean) ⇒ void | - |
+| 参数     | 说明                 | 类型                         | 默认值 |
+| -------- | -------------------- | ---------------------------- | ------ |
+| onEnter  | hover 时触发         | () ⇒ void                    | -      |
+| onLeave  | 取消 hover 时触发    | () ⇒ void                    | -      |
+| onChange | hover 状态变化时触发 | (isHovering: boolean) ⇒ void | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数       | 说明                   | 类型    |
+| ---------- | ---------------------- | ------- |
 | isHovering | 鼠标元素是否处于 hover | boolean |
 
 #### 代码演示
@@ -6903,7 +7082,7 @@ const isHovering = useHover(
 #### 源码解析
 
 ```tsx
-import {BasicTarget} from "../../../utils/domTarget";
+import { BasicTarget } from "../../../utils/domTarget";
 import useBoolean from "@/hooks/useBoolean";
 import useEventListener from "@/hooks/useEventListener";
 
@@ -6916,11 +7095,11 @@ export interface Options {
 const useHover = (target: BasicTarget, options?: Options): boolean => {
   const { onEnter, onLeave, onChange } = options || {};
 
-  const [state, {setTrue, setFalse}] = useBoolean(false);
+  const [state, { setTrue, setFalse }] = useBoolean(false);
 
   // 监听 mouseenter 触发 onEnter 事件，切换状态为 true
   useEventListener(
-    'mouseenter',
+    "mouseenter",
     () => {
       onEnter?.();
       setTrue();
@@ -6933,7 +7112,7 @@ const useHover = (target: BasicTarget, options?: Options): boolean => {
 
   // 监听 mouseleave 触发 onLeave 事件，切换状态为 false
   useEventListener(
-    'mouseleave',
+    "mouseleave",
     () => {
       onLeave?.();
       setFalse();
@@ -6969,11 +7148,11 @@ useMutationObserver(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| callback | 触发的回调函数 | (mutations: MutationRecord[], observer: MutationObserver) ⇒ void | - |
-| target | DOM 节点或者 Ref 对象 | () ⇒ Element | Element | MultableRefObject<Element> | - |
-| options | 设置项 | MutationObserverInit | {} |
+| 参数     | 说明                  | 类型                                                             | 默认值  |
+| -------- | --------------------- | ---------------------------------------------------------------- | ------- | -------------------------- | --- |
+| callback | 触发的回调函数        | (mutations: MutationRecord[], observer: MutationObserver) ⇒ void | -       |
+| target   | DOM 节点或者 Ref 对象 | () ⇒ Element                                                     | Element | MultableRefObject<Element> | -   |
+| options  | 设置项                | MutationObserverInit                                             | {}      |
 
 ##### Options
 
@@ -6988,15 +7167,19 @@ useMutationObserver(
 #### 源码解析
 
 ```tsx
-import {DependencyList, EffectCallback, useRef} from "react";
-import {BasicTarget} from "./domTarget";
-import {depsEqual} from "./depsEqual";
+import { DependencyList, EffectCallback, useRef } from "react";
+import { BasicTarget } from "./domTarget";
+import { depsEqual } from "./depsEqual";
 import useEffectWithTarget from "./useEffectWithTarget";
 
 /**
  * 深度比较（对象值只比较属性）
  * */
-const useDeepCompareEffectWithTarget = (effect: EffectCallback, deps: DependencyList, target: BasicTarget<any> | BasicTarget<any>[]) => {
+const useDeepCompareEffectWithTarget = (
+  effect: EffectCallback,
+  deps: DependencyList,
+  target: BasicTarget<any> | BasicTarget<any>[]
+) => {
   const ref = useRef<DependencyList>();
   const signalRef = useRef<number>(0);
 
@@ -7012,31 +7195,39 @@ export default useDeepCompareEffectWithTarget;
 ```
 
 ```tsx
-import {BasicTarget, getTargetElement} from "../../../utils/domTarget";
+import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
 import useLatest from "@/hooks/useLatest";
 import useDeepCompareEffectWithTarget from "../../../utils/useDeepCompareWithTarget";
 
-const useMutationObserver = (callback: MutationCallback, target: BasicTarget, options: MutationObserverInit = {}): void => {
+const useMutationObserver = (
+  callback: MutationCallback,
+  target: BasicTarget,
+  options: MutationObserverInit = {}
+): void => {
   const callbackRef = useLatest(callback);
 
-  useDeepCompareEffectWithTarget(() => {
-    // 需要观察变动的节点
-    const element = getTargetElement(target);
-    if (!element) {
-      return;
-    }
+  useDeepCompareEffectWithTarget(
+    () => {
+      // 需要观察变动的节点
+      const element = getTargetElement(target);
+      if (!element) {
+        return;
+      }
 
-    // 创建一个观察器实例并传入回调函数
-    const observer = new MutationObserver(callbackRef.current);
+      // 创建一个观察器实例并传入回调函数
+      const observer = new MutationObserver(callbackRef.current);
 
-    // 根据配置开始观察目标节点
-    observer.observe(element, options);
+      // 根据配置开始观察目标节点
+      observer.observe(element, options);
 
-    // 停止观察
-    return () => {
-      observer.disconnect();
-    };
-  }, [options], target);
+      // 停止观察
+      return () => {
+        observer.disconnect();
+      };
+    },
+    [options],
+    target
+  );
 };
 
 export default useMutationObserver;
@@ -7060,27 +7251,27 @@ const [inViewport, ratio] = useInViewport(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| target | DOM 节点或者 Ref 对象 | () ⇒ Element | Element | MultableRefObject<Element> | - |
-| options | 设置 | Options | - |
+| 参数    | 说明                  | 类型         | 默认值  |
+| ------- | --------------------- | ------------ | ------- | -------------------------- | --- |
+| target  | DOM 节点或者 Ref 对象 | () ⇒ Element | Element | MultableRefObject<Element> | -   |
+| options | 设置                  | Options      | -       |
 
 ##### Options
 
-更多信息参考 [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API)。
+更多信息参考  [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API)。
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| threshold | 可以是单一的 numebr 也可以是 number 数组，target 元素和 root 元素相交程度达到该值的时候 ratio 会被更新 | number | number[] | - |
-| rootMargin | 根(root)元素的外边距 | string | - |
-| root | 指定根(root)元素，用于检查目标的可见性。必须是目标元素的父级元素，如果未指定或者为 null，则默认为浏览器视窗 | Element | Document | () ⇒ (Element/Document) | React.MutableRefObject<Element> | - |
+| 参数       | 说明                                                                                                        | 类型    | 默认值   |
+| ---------- | ----------------------------------------------------------------------------------------------------------- | ------- | -------- | ----------------------- | ------------------------------- | --- |
+| threshold  | 可以是单一的 numebr 也可以是 number 数组，target 元素和 root 元素相交程度达到该值的时候 ratio 会被更新      | number  | number[] | -                       |
+| rootMargin | 根(root)元素的外边距                                                                                        | string  | -        |
+| root       | 指定根(root)元素，用于检查目标的可见性。必须是目标元素的父级元素，如果未指定或者为 null，则默认为浏览器视窗 | Element | Document | () ⇒ (Element/Document) | React.MutableRefObject<Element> | -   |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| inViewport | 是否可见 | boolean | undefined |
-| ratio | 当前可见比例，在每次到达 options.threshold 设置节点时更新 | number | undefined |
+| 参数       | 说明                                                      | 类型    |
+| ---------- | --------------------------------------------------------- | ------- | --------- |
+| inViewport | 是否可见                                                  | boolean | undefined |
+| ratio      | 当前可见比例，在每次到达 options.threshold 设置节点时更新 | number  | undefined |
 
 #### 代码演示
 
@@ -7094,10 +7285,10 @@ const [inViewport, ratio] = useInViewport(
 /**
  * intersection-observer polyfill 处理
  * */
-import 'intersection-observer';
-import {BasicTarget} from "../../../utils/domTarget";
+import "intersection-observer";
+import { BasicTarget } from "../../../utils/domTarget";
 import { getTargetElement } from "../../../utils/domTarget";
-import {useState} from "react";
+import { useState } from "react";
 import useEffectWithTarget from "../../../utils/useEffectWithTarget";
 
 type CallbackType = (entry: IntersectionObserverEntry) => void;
@@ -7109,62 +7300,71 @@ export interface Options {
   callback?: CallbackType;
 }
 
-const useInViewport = (target: BasicTarget | BasicTarget[], options?: Options) => {
+const useInViewport = (
+  target: BasicTarget | BasicTarget[],
+  options?: Options
+) => {
   const { callback, ...option } = options || {};
 
   const [state, setState] = useState<boolean>();
   const [ratio, setRatio] = useState<number>();
 
-  useEffectWithTarget(() => {
-    const targets = Array.isArray(target) ? target : [target];
-    /**
-     * 移除所有的 false 类型的元素
-     * */
-    const els = targets.map((element) => getTargetElement(element)).filter(Boolean);
+  useEffectWithTarget(
+    () => {
+      const targets = Array.isArray(target) ? target : [target];
+      /**
+       * 移除所有的 false 类型的元素
+       * */
+      const els = targets
+        .map((element) => getTargetElement(element))
+        .filter(Boolean);
 
-    if (!els) {
-      return;
-    }
-
-    /**
-     * 创建交叉观察器
-     * */
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          /**
-           * 查看条目是否代表当前与根相交的元素
-           * */
-          setRatio(entry.intersectionRatio);
-          /**
-           * 返回比例值
-           * */
-          setState(entry.isIntersecting);
-          /**
-           * 执行回调
-           * */
-          callback?.(entry);
-        }
-      },
-      {
-        ...option,
-        root: getTargetElement(options?.root),
-      },
-    );
-
-    /**
-     * 定位要观察的元素，可以是多个元素
-     * */
-    els.forEach(el => {
-      if (el) {
-        observer.observe(el);
+      if (!els) {
+        return;
       }
-    });
 
-    return (() => {
-      observer.disconnect();
-    });
-  }, [options?.rootMargin, options?.threshold, callback], target);
+      /**
+       * 创建交叉观察器
+       * */
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            /**
+             * 查看条目是否代表当前与根相交的元素
+             * */
+            setRatio(entry.intersectionRatio);
+            /**
+             * 返回比例值
+             * */
+            setState(entry.isIntersecting);
+            /**
+             * 执行回调
+             * */
+            callback?.(entry);
+          }
+        },
+        {
+          ...option,
+          root: getTargetElement(options?.root),
+        }
+      );
+
+      /**
+       * 定位要观察的元素，可以是多个元素
+       * */
+      els.forEach((el) => {
+        if (el) {
+          observer.observe(el);
+        }
+      });
+
+      return () => {
+        observer.disconnect();
+      };
+    },
+    [options?.rootMargin, options?.threshold, callback],
+    target
+  );
   return [state, ratio] as const;
 };
 
@@ -7193,20 +7393,20 @@ useKeyPress(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| keyFilter | 支持 keyCode、别名、组合键、数组、自定义函数 | KeyType | KeyType[] | ((event: KeyboardEvent) => boolean) | - |
-| eventHandler | 回调函数 | (event: KeyboardEvent) => void | - |
-| options | 可选配置项 | Options | - |
+| 参数         | 说明                                         | 类型                           | 默认值    |
+| ------------ | -------------------------------------------- | ------------------------------ | --------- | ----------------------------------- | --- |
+| keyFilter    | 支持 keyCode、别名、组合键、数组、自定义函数 | KeyType                        | KeyType[] | ((event: KeyboardEvent) => boolean) | -   |
+| eventHandler | 回调函数                                     | (event: KeyboardEvent) => void | -         |
+| options      | 可选配置项                                   | Options                        | -         |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| events | 触发事件 | (’keydown’ | ‘keyup’)[] | [’keydown’] |
-| target | DOM 节点或者 ref | Element | () ⇒ Element | React.MutableRefObject<Element> | - |
-| exactMatch | 精确匹配。如果开启，则只有在按键完全匹配的情况下触发事件。比如按键[shift + c]不会触发[c] | boolean | false |
-| useCapture | 是否阻止事件冒泡 | boolean | false |
+| 参数       | 说明                                                                                     | 类型       | 默认值       |
+| ---------- | ---------------------------------------------------------------------------------------- | ---------- | ------------ | ------------------------------- | --- |
+| events     | 触发事件                                                                                 | (’keydown’ | ‘keyup’)[]   | [’keydown’]                     |
+| target     | DOM 节点或者 ref                                                                         | Element    | () ⇒ Element | React.MutableRefObject<Element> | -   |
+| exactMatch | 精确匹配。如果开启，则只有在按键完全匹配的情况下触发事件。比如按键[shift + c]不会触发[c] | boolean    | false        |
+| useCapture | 是否阻止事件冒泡                                                                         | boolean    | false        |
 
 #### Remarks
 
@@ -7215,10 +7415,10 @@ useKeyPress(
 2、修饰符
 
 ```tsx
-ctrl
-alt
-shift
-meta
+ctrl;
+alt;
+shift;
+meta;
 ```
 
 #### 代码演示
@@ -7260,9 +7460,14 @@ import isAppleDevice from "../../../utils/isAppleDevice";
  * type: 表示当前的事件类型，'keyup' 释放按键，'keydown' 按下按键
  * */
 export type KeyType = number | string;
-export type KeyPredicate = (event: KeyboardEvent) => KeyType | boolean | undefined;
-export type KeyFilter = KeyType | KeyType[] | ((event: KeyboardEvent) => boolean);
-export type KeyEvent = 'keydown' | 'keyup';
+export type KeyPredicate = (
+  event: KeyboardEvent
+) => KeyType | boolean | undefined;
+export type KeyFilter =
+  | KeyType
+  | KeyType[]
+  | ((event: KeyboardEvent) => boolean);
+export type KeyEvent = "keydown" | "keyup";
 export type Target = BasicTarget<HTMLElement | Document | Window>;
 export type Options = {
   target?: Target;
@@ -7273,16 +7478,16 @@ export type Options = {
 
 // 键盘事件 keyCode 别名
 const aliasKeyCodeMap = {
-  '0': 48,
-  '1': 49,
-  '2': 50,
-  '3': 51,
-  '4': 52,
-  '5': 53,
-  '6': 54,
-  '7': 55,
-  '8': 56,
-  '9': 57,
+  "0": 48,
+  "1": 49,
+  "2": 50,
+  "3": 51,
+  "4": 52,
+  "5": 53,
+  "6": 54,
+  "7": 55,
+  "8": 56,
+  "9": 57,
   backspace: 8,
   tab: 9,
   enter: 13,
@@ -7385,7 +7590,7 @@ const modifierKey = {
   alt: (event: KeyboardEvent) => event.altKey,
   meta: (event: KeyboardEvent) => {
     // meta 键被松开
-    if (event.type === 'keyup') {
+    if (event.type === "keyup") {
       return aliasKeyCodeMap.meta.includes(event.keyCode);
     }
     // 是否按下 metaKey 键
@@ -7394,20 +7599,22 @@ const modifierKey = {
 };
 
 // 判断合法的按键类型
-function isValidKeyType (value: unknown): value is string | number {
+function isValidKeyType(value: unknown): value is string | number {
   return isString(value) || isNumber(value);
 }
 
 // 根据 event 计算修饰键被按下的数量
-function countKeyByEvent (event: KeyboardEvent) {
+function countKeyByEvent(event: KeyboardEvent) {
   const countOfModifier = Object.keys(modifierKey).reduce((total, key) => {
     if (modifierKey[key](event)) {
       return total + 1;
     }
     return total;
   }, 0);
-// 16 17 18 91 92 是修饰键的 keyCode，如果 keyCode 是修饰键，那么激活数量就是修饰键的数量，如果不是，那么就需要 +1
-  return [16, 17, 18, 91, 92].includes(event.keyCode) ? countOfModifier : countOfModifier + 1;
+  // 16 17 18 91 92 是修饰键的 keyCode，如果 keyCode 是修饰键，那么激活数量就是修饰键的数量，如果不是，那么就需要 +1
+  return [16, 17, 18, 91, 92].includes(event.keyCode)
+    ? countOfModifier
+    : countOfModifier + 1;
 }
 /**
  * 判断按键是否激活
@@ -7415,24 +7622,31 @@ function countKeyByEvent (event: KeyboardEvent) {
  * @param [keyFilter: any] 当前键
  * @returns string | number | boolean
  */
-function getFilterKey (event: KeyboardEvent, keyFilter: KeyType, exactMatch: boolean) {
+function getFilterKey(
+  event: KeyboardEvent,
+  keyFilter: KeyType,
+  exactMatch: boolean
+) {
   // 浏览器自动补全输入时，会触发 keydown、keyup 事件，此时 event.key 可能为空
   if (!event.key) {
     return false;
   }
-// 数字类型直接匹配事件的 keyCode
+  // 数字类型直接匹配事件的 keyCode
   if (isNumber(keyFilter)) {
     return event.keyCode === keyFilter ? keyFilter : false;
   }
   // 字符串依次判断是否有组合键
-  const genArr = keyFilter.split('.');
+  const genArr = keyFilter.split(".");
   let genLen = 0;
   for (const key of genArr) {
     // 是否是修饰键
     const genModifier = modifierKey[key];
     // 是否是 keyCode 别名
     const aliasKeyCode: number | number[] = aliasKeyCodeMap[key.toLowerCase()];
-    if ((genModifier && genModifier(event)) || (aliasKeyCode && aliasKeyCode === event.keyCode)) {
+    if (
+      (genModifier && genModifier(event)) ||
+      (aliasKeyCode && aliasKeyCode === event.keyCode)
+    ) {
       genLen++;
     }
   }
@@ -7443,7 +7657,9 @@ function getFilterKey (event: KeyboardEvent, keyFilter: KeyType, exactMatch: boo
    * 主要用来防止按组合键其子集也会触发的情况，例如监听 ctrl+a 会触发监听 ctrl 和 a 两个键的事件。
    */
   if (exactMatch) {
-    return genLen === genArr.length && countKeyByEvent(event) === genArr.length ? keyFilter : false;
+    return genLen === genArr.length && countKeyByEvent(event) === genArr.length
+      ? keyFilter
+      : false;
   }
 
   return genLen === genArr.length ? keyFilter : false;
@@ -7453,7 +7669,10 @@ function getFilterKey (event: KeyboardEvent, keyFilter: KeyType, exactMatch: boo
  * @param [keyFilter: any] 当前键
  * @returns () => Boolean
  */
-function genKeyFormatter (keyFilter: KeyFilter, exactMath: boolean): KeyPredicate {
+function genKeyFormatter(
+  keyFilter: KeyFilter,
+  exactMath: boolean
+): KeyPredicate {
   // 支持自定义函数
   if (isFunction(keyFilter)) {
     return keyFilter;
@@ -7466,49 +7685,63 @@ function genKeyFormatter (keyFilter: KeyFilter, exactMath: boolean): KeyPredicat
 
   // 支持数组
   if (Array.isArray(keyFilter)) {
-    return (event: KeyboardEvent) => keyFilter.find(item => getFilterKey(event, item, exactMath));
+    return (event: KeyboardEvent) =>
+      keyFilter.find((item) => getFilterKey(event, item, exactMath));
   }
 
   return () => Boolean(keyFilter);
 }
 
-const defaultEvents: KeyEvent[] = ['keydown'];
+const defaultEvents: KeyEvent[] = ["keydown"];
 
-const useKeyPress = (keyFilter: KeyFilter, eventHandler: (event: KeyboardEvent, key: KeyType) => void, option?: Options) => {
-  const { events = defaultEvents, target, exactMatch = false, useCapture = false } = option || {};
+const useKeyPress = (
+  keyFilter: KeyFilter,
+  eventHandler: (event: KeyboardEvent, key: KeyType) => void,
+  option?: Options
+) => {
+  const {
+    events = defaultEvents,
+    target,
+    exactMatch = false,
+    useCapture = false,
+  } = option || {};
 
   const eventHandlerRef = useLatest(eventHandler);
   const keyFilterRef = useLatest(keyFilter);
 
-  useDeepCompareEffectWithTarget(() => {
-    const el = getTargetElement(target, window);
-    if (!el) {
-      return;
-    }
-
-    const callbackHandler = (event: KeyboardEvent) => {
-      const genGuard = genKeyFormatter(keyFilterRef.current, exactMatch);
-      const keyGuard = genGuard(event);
-      const firedKey = isValidKeyType(keyGuard) ? keyGuard : event.key;
-
-      // 判断是否触发配置 keyFilter 场景
-      if (keyGuard) {
-        return eventHandlerRef.current?.(event, firedKey);
+  useDeepCompareEffectWithTarget(
+    () => {
+      const el = getTargetElement(target, window);
+      if (!el) {
+        return;
       }
-    };
 
-    // 监听传入事件
-    for (const eventName of events) {
-      el?.addEventListener?.(eventName, callbackHandler, useCapture);
-    }
+      const callbackHandler = (event: KeyboardEvent) => {
+        const genGuard = genKeyFormatter(keyFilterRef.current, exactMatch);
+        const keyGuard = genGuard(event);
+        const firedKey = isValidKeyType(keyGuard) ? keyGuard : event.key;
 
-    // 取消监听
-    return () => {
+        // 判断是否触发配置 keyFilter 场景
+        if (keyGuard) {
+          return eventHandlerRef.current?.(event, firedKey);
+        }
+      };
+
+      // 监听传入事件
       for (const eventName of events) {
-        el?.removeEventListener?.(eventName, callbackHandler, useCapture);
+        el?.addEventListener?.(eventName, callbackHandler, useCapture);
       }
-    }
-  }, [events], target);
+
+      // 取消监听
+      return () => {
+        for (const eventName of events) {
+          el?.removeEventListener?.(eventName, callbackHandler, useCapture);
+        }
+      };
+    },
+    [events],
+    target
+  );
 };
 
 export default useKeyPress;
@@ -7538,20 +7771,20 @@ useLongPress(
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| onLongPress | 触发函数 | (event: MouseEvent | TouchEvent) => void | - |
-| target | DOM 节点或者 ref | Element | () ⇒ Element | React.MutableRefObject<Element> | - |
-| options | 可选配置项 | Options | - |
+| 参数        | 说明             | 类型               | 默认值              |
+| ----------- | ---------------- | ------------------ | ------------------- | ------------------------------- | --- |
+| onLongPress | 触发函数         | (event: MouseEvent | TouchEvent) => void | -                               |
+| target      | DOM 节点或者 ref | Element            | () ⇒ Element        | React.MutableRefObject<Element> | -   |
+| options     | 可选配置项       | Options            | -                   |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| delay | 长按时间 | number | 300 |
-| moveThreshold | 按下后移动阈值，超出则不触发长按事件 | {x?: number, y?: number} | - |
-| onClick | 点击事件 | (event: MouseEvent | TouchEvent) => void | false |
-| onLongPressEnd | 长按结束事件 | (event: MouseEvent | TouchEvent) => void | false |
+| 参数           | 说明                                 | 类型                     | 默认值              |
+| -------------- | ------------------------------------ | ------------------------ | ------------------- | ----- |
+| delay          | 长按时间                             | number                   | 300                 |
+| moveThreshold  | 按下后移动阈值，超出则不触发长按事件 | {x?: number, y?: number} | -                   |
+| onClick        | 点击事件                             | (event: MouseEvent       | TouchEvent) => void | false |
+| onLongPressEnd | 长按结束事件                         | (event: MouseEvent       | TouchEvent) => void | false |
 
 #### Remarks
 
@@ -7568,16 +7801,16 @@ useLongPress(
 #### 源码解析
 
 ```tsx
-import {BasicTarget, getTargetElement} from "../../../utils/domTarget";
+import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
 import useLatest from "@/hooks/useLatest";
-import {useRef} from "react";
+import { useRef } from "react";
 import useEffectWithTarget from "../../../utils/useEffectWithTarget";
 import isBrowser from "../../../utils/isBrowser";
 
 type EventType = MouseEvent | TouchEvent;
 export interface Options {
   delay?: number;
-  moveThreshold?: { x?: number; y?: number; };
+  moveThreshold?: { x?: number; y?: number };
   onClick?: (event: EventType) => void;
   onLongPressEnd?: (event: EventType) => void;
 }
@@ -7590,12 +7823,13 @@ export interface Options {
 const touchSupported =
   isBrowser &&
   // @ts-ignore
-  ('ontouchstart' in window || (window.DocumentTouch && document instanceof DocumentTouch));
+  ("ontouchstart" in window ||
+    (window.DocumentTouch && document instanceof DocumentTouch));
 
 const useLongPress = (
   onLongPress: (event: EventType) => void,
   target: BasicTarget,
-  { delay = 20, moveThreshold, onClick, onLongPressEnd }: Options = {},
+  { delay = 20, moveThreshold, onClick, onLongPressEnd }: Options = {}
 ) => {
   const onLongPressRef = useLatest(onLongPress);
   const onClickRef = useLatest(onClick);
@@ -7603,127 +7837,139 @@ const useLongPress = (
 
   const timeRef = useRef<ReturnType<typeof setTimeout>>();
   const isTriggeredRef = useRef(false);
-  const pervPositionRef = useRef({x: 0, y: 0});
+  const pervPositionRef = useRef({ x: 0, y: 0 });
   const hasMoveThreshold = !!(
     (moveThreshold?.x && moveThreshold.x > 0) ||
     (moveThreshold?.y && moveThreshold.y > 0)
   );
 
-  useEffectWithTarget(() => {
-    const targetElement = getTargetElement(target);
-    if (!targetElement?.addEventListener) {
-      return;
-    }
-
-    function getClientPosition (event: EventType) {
-      if (event instanceof TouchEvent) {
-        return {
-          clientX: event.touches[0].clientX,
-          clientY: event.touches[0].clientY,
-        };
+  useEffectWithTarget(
+    () => {
+      const targetElement = getTargetElement(target);
+      if (!targetElement?.addEventListener) {
+        return;
       }
 
-      if (event instanceof MouseEvent) {
-        return {
-          clientX: event.clientX,
-          clientY: event.clientY,
-        };
+      function getClientPosition(event: EventType) {
+        if (event instanceof TouchEvent) {
+          return {
+            clientX: event.touches[0].clientX,
+            clientY: event.touches[0].clientY,
+          };
+        }
+
+        if (event instanceof MouseEvent) {
+          return {
+            clientX: event.clientX,
+            clientY: event.clientY,
+          };
+        }
+
+        console.warn("Unsupported event type");
+
+        return { clientX: 0, clientY: 0 };
       }
 
-      console.warn('Unsupported event type');
-
-      return { clientX: 0, clientY: 0 };
-    }
-
-    const overThreshold = (event: EventType) => {
-      const { clientX, clientY } = getClientPosition(event);
-      const offsetX = Math.abs(clientX - pervPositionRef.current.x);
-      const offsetY = Math.abs(clientY - pervPositionRef.current.y);
-
-      return !!(
-        (moveThreshold?.x && offsetX > moveThreshold.x) ||
-        (moveThreshold?.y && offsetY > moveThreshold.y)
-      );
-    }
-
-    const onStart = (event: EventType) => {
-      if (hasMoveThreshold) {
-        // 按下后计算 clientX, clientY
+      const overThreshold = (event: EventType) => {
         const { clientX, clientY } = getClientPosition(event);
-        pervPositionRef.current.x = clientX;
-        pervPositionRef.current.y = clientY;
-      }
+        const offsetX = Math.abs(clientX - pervPositionRef.current.x);
+        const offsetY = Math.abs(clientY - pervPositionRef.current.y);
 
-      // 设置定时器
-      timeRef.current = setTimeout(() => {
-        onLongPressRef.current(event);
-        // 只有定时器执行完，isTriggeredRef.current 才会设置为 true，触发长按事件
-        isTriggeredRef.current = true;
-      }, delay);
-    }
+        return !!(
+          (moveThreshold?.x && offsetX > moveThreshold.x) ||
+          (moveThreshold?.y && offsetY > moveThreshold.y)
+        );
+      };
 
-    const onMove = (event: EventType) => {
-      // 按下后移动，如果超出移动阈值，则不触发长按事件
-      if (timeRef.current && overThreshold(event)) {
-        clearTimeout(timeRef.current);
-        timeRef.current = undefined;
-      }
-    }
+      const onStart = (event: EventType) => {
+        if (hasMoveThreshold) {
+          // 按下后计算 clientX, clientY
+          const { clientX, clientY } = getClientPosition(event);
+          pervPositionRef.current.x = clientX;
+          pervPositionRef.current.y = clientY;
+        }
 
-    const onEnd = (event: EventType, shouldTriggerClick: boolean = false) => {
-      // clear 开始的定时器
-      if (timeRef.current) {
-        clearTimeout(timeRef.current);
-      }
+        // 设置定时器
+        timeRef.current = setTimeout(() => {
+          onLongPressRef.current(event);
+          // 只有定时器执行完，isTriggeredRef.current 才会设置为 true，触发长按事件
+          isTriggeredRef.current = true;
+        }, delay);
+      };
 
-      // 判断是否达到长按时间（即触发过长按事件）
-      if (isTriggeredRef.current) {
-        onLongPressEndRef.current?.(event);
-      }
+      const onMove = (event: EventType) => {
+        // 按下后移动，如果超出移动阈值，则不触发长按事件
+        if (timeRef.current && overThreshold(event)) {
+          clearTimeout(timeRef.current);
+          timeRef.current = undefined;
+        }
+      };
 
-      // 是否触发 onClick 事件，只有 timeRef 定时器执行过，isTriggeredRef.current 才为 true
-      if (shouldTriggerClick && !isTriggeredRef.current && onClickRef.current) {
-        onClickRef.current(event);
-      }
+      const onEnd = (event: EventType, shouldTriggerClick: boolean = false) => {
+        // clear 开始的定时器
+        if (timeRef.current) {
+          clearTimeout(timeRef.current);
+        }
 
-      isTriggeredRef.current = false;
-    }
+        // 判断是否达到长按时间（即触发过长按事件）
+        if (isTriggeredRef.current) {
+          onLongPressEndRef.current?.(event);
+        }
 
-    const onEndWithClick = (event: EventType) => onEnd(event, true);
+        // 是否触发 onClick 事件，只有 timeRef 定时器执行过，isTriggeredRef.current 才为 true
+        if (
+          shouldTriggerClick &&
+          !isTriggeredRef.current &&
+          onClickRef.current
+        ) {
+          onClickRef.current(event);
+        }
 
-    /**
-     * 不支持 touch 事件
-     * */
-    if (!touchSupported) {
-      targetElement.addEventListener('mousedown', onStart);
-      targetElement.addEventListener('mouseup', onEndWithClick);
-      targetElement.addEventListener('mouseleave', onEnd);
-      if (hasMoveThreshold) targetElement.addEventListener('mousemove', onMove);
-    } else {
-      targetElement.addEventListener('touchstart', onStart);
-      targetElement.addEventListener('touchend', onEndWithClick);
-      if (hasMoveThreshold) targetElement.addEventListener('touchmove', onMove);
-    }
-
-    return () => {
-      // 清除定时器
-      if (timeRef.current) {
-        clearTimeout(timeRef.current);
         isTriggeredRef.current = false;
-      }
-      // 清除监听
+      };
+
+      const onEndWithClick = (event: EventType) => onEnd(event, true);
+
+      /**
+       * 不支持 touch 事件
+       * */
       if (!touchSupported) {
-        targetElement.removeEventListener('mousedown', onStart);
-        targetElement.removeEventListener('mouseup', onEndWithClick);
-        targetElement.removeEventListener('mouseleave', onEnd);
-        if (hasMoveThreshold) targetElement.removeEventListener('mousemove', onMove);
+        targetElement.addEventListener("mousedown", onStart);
+        targetElement.addEventListener("mouseup", onEndWithClick);
+        targetElement.addEventListener("mouseleave", onEnd);
+        if (hasMoveThreshold)
+          targetElement.addEventListener("mousemove", onMove);
       } else {
-        targetElement.removeEventListener('touchstart', onStart);
-        targetElement.removeEventListener('touchend', onEndWithClick);
-        if (hasMoveThreshold) targetElement.removeEventListener('touchmove', onMove);
+        targetElement.addEventListener("touchstart", onStart);
+        targetElement.addEventListener("touchend", onEndWithClick);
+        if (hasMoveThreshold)
+          targetElement.addEventListener("touchmove", onMove);
       }
-    }
-  }, [], target);
+
+      return () => {
+        // 清除定时器
+        if (timeRef.current) {
+          clearTimeout(timeRef.current);
+          isTriggeredRef.current = false;
+        }
+        // 清除监听
+        if (!touchSupported) {
+          targetElement.removeEventListener("mousedown", onStart);
+          targetElement.removeEventListener("mouseup", onEndWithClick);
+          targetElement.removeEventListener("mouseleave", onEnd);
+          if (hasMoveThreshold)
+            targetElement.removeEventListener("mousemove", onMove);
+        } else {
+          targetElement.removeEventListener("touchstart", onStart);
+          targetElement.removeEventListener("touchend", onEndWithClick);
+          if (hasMoveThreshold)
+            targetElement.removeEventListener("touchmove", onMove);
+        }
+      };
+    },
+    [],
+    target
+  );
 };
 
 export default useLongPress;
@@ -7757,24 +8003,24 @@ const state: {
 
 ##### Params
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数   | 说明             | 类型    |
+| ------ | ---------------- | ------- | ------------ | ------------------------------- |
 | target | DOM 节点或者 ref | Element | () ⇒ Element | React.MutableRefObject<Element> |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| screenX | 距离显示器左侧的距离 | number |
-| screenY | 距离显示器顶部的距离 | number |
-| clientX | 距离当前视窗左侧的距离 | number |
-| clientY | 距离当前视窗顶部的距离 | number |
-| pageX | 距离完整页面左侧的距离 | number |
-| pageY | 距离完整页面顶部的距离 | number |
-| elementX | 距离指定元素左侧的距离 | number |
-| elementY | 距离指定元素顶部的距离 | number |
-| elementH | 指定元素的高 | number |
-| elementW | 指定元素的宽 | number |
+| 参数        | 说明                           | 类型   |
+| ----------- | ------------------------------ | ------ |
+| screenX     | 距离显示器左侧的距离           | number |
+| screenY     | 距离显示器顶部的距离           | number |
+| clientX     | 距离当前视窗左侧的距离         | number |
+| clientY     | 距离当前视窗顶部的距离         | number |
+| pageX       | 距离完整页面左侧的距离         | number |
+| pageY       | 距离完整页面顶部的距离         | number |
+| elementX    | 距离指定元素左侧的距离         | number |
+| elementY    | 距离指定元素顶部的距离         | number |
+| elementH    | 指定元素的高                   | number |
+| elementW    | 指定元素的宽                   | number |
 | elementPosX | 指定元素距离完整页面左侧的距离 | number |
 | elementPosY | 指定元素距离完整页面顶部的距离 | number |
 
@@ -7787,7 +8033,7 @@ const state: {
 #### 源码解析
 
 ```tsx
-import {BasicTarget, getTargetElement} from "../../../utils/domTarget";
+import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
 import useRafState from "@/hooks/useRafState";
 import useEventListener from "@/hooks/useEventListener";
 
@@ -7834,14 +8080,14 @@ const initState: CursorState = {
   elementW: NaN,
   elementPosX: NaN,
   elementPosY: NaN,
-}
+};
 
 const useMouse = (target?: BasicTarget) => {
   const [state, setState] = useRafState(initState);
 
   // 监听 mousemove
   useEventListener(
-    'mousemove',
+    "mousemove",
     (event: MouseEvent) => {
       const { screenX, screenY, clientX, clientY, pageX, pageY } = event;
       const newState = {
@@ -7862,7 +8108,8 @@ const useMouse = (target?: BasicTarget) => {
       const targetElement = getTargetElement(target);
       if (targetElement) {
         // 目标元素的大小及其相对于当前视窗的位置
-        const { left, top, width, height } = targetElement.getBoundingClientRect();
+        const { left, top, width, height } =
+          targetElement.getBoundingClientRect();
         // 计算鼠标相对于目标元素的位置信息
         newState.elementPosX = left + window.pageXOffset;
         newState.elementPosY = top + window.pageYOffset;
@@ -7876,7 +8123,7 @@ const useMouse = (target?: BasicTarget) => {
     {
       target: () => document,
     }
-  )
+  );
 
   return state;
 };
@@ -7895,11 +8142,11 @@ export default useMouse;
 
 ```tsx
 interface ResponsiveConfig {
-	[key: string]: number;
+  [key: string]: number;
 }
 
 interface ResponsiveInfo {
-	[key: string]: boolean;
+  [key: string]: boolean;
 }
 
 function configResponsive(config: ResponsiveConfig): void;
@@ -7908,7 +8155,7 @@ function useResponsive(): ResponsiveInfo;
 
 #### 配置
 
-默认的响应式配置和 bootstrap 是一致的：  
+默认的响应式配置和 bootstrap 是一致的：
 
 ```tsx
 {
@@ -7920,16 +8167,16 @@ function useResponsive(): ResponsiveInfo;
 }
 ```
 
-如果你想配置自己的响应式断点，可以使用 configResponsive：  
+如果你想配置自己的响应式断点，可以使用 configResponsive：
 
-注意：只需配置一次，请勿在组件中重复调用该方法。  
+注意：只需配置一次，请勿在组件中重复调用该方法。
 
 ```tsx
 configResponsive({
-	small: 0,
+  small: 0,
   middle: 800,
   large: 1200,
-})
+});
 ```
 
 #### 代码演示
@@ -7940,7 +8187,7 @@ configResponsive({
 
 ```tsx
 import isBrowser from "../../../utils/isBrowser";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 type ResponsiveConfig = Record<string, number>;
 type ResponsiveInfo = Record<string, boolean>;
@@ -7965,7 +8212,7 @@ let responsiveConfig: ResponsiveConfig = {
 let listening = false;
 
 // 根据当前屏幕宽度与配置做比较，计算新的响应式信息对象
-function calculate () {
+function calculate() {
   const width = window.innerWidth;
   const newInfo = {} as ResponsiveInfo;
   let shouldUpdate = false;
@@ -7983,7 +8230,7 @@ function calculate () {
 }
 
 // resize 事件回调函数
-function handleResize () {
+function handleResize() {
   const oldInfo = info;
   // 计算新的响应式信息对象
   calculate();
@@ -7999,7 +8246,7 @@ function handleResize () {
 export const configResponsive = (config: ResponsiveConfig) => {
   responsiveConfig = config;
   if (info) calculate();
-}
+};
 
 export const useResponsive = () => {
   // listening 避免每个组件都监听 resize 事件，全局只需要拥有一个监听事件即可
@@ -8007,7 +8254,7 @@ export const useResponsive = () => {
     info = {};
     calculate();
     // 监听 resize 事件
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     listening = true;
   }
 
@@ -8019,7 +8266,7 @@ export const useResponsive = () => {
     // In React 18's StrictMode, useEffect perform twice, resize listener is remove, so handleResize is never perform.
     // https://github.com/alibaba/hooks/issues/1910
     if (!listening) {
-      window.addEventListener('resize', handleResize);
+      window.addEventListener("resize", handleResize);
     }
 
     const subscriber = () => setState(info);
@@ -8031,11 +8278,11 @@ export const useResponsive = () => {
       subscribers.delete(subscriber);
       // 当全局订阅器不再有订阅器，则移除 resize
       if (subscribers.size === 0) {
-        window.removeEventListener('resize', handleResize);
+        window.removeEventListener("resize", handleResize);
         // 移除 resize 方法
         listening = false;
       }
-    }
+    };
   }, []);
 
   return state;
@@ -8052,20 +8299,20 @@ export const useResponsive = () => {
 #### API
 
 ```tsx
-const position = useScroll(target, shouldUpdate)
+const position = useScroll(target, shouldUpdate);
 ```
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| target | DOM 节点或者 ref | Element | Document | () ⇒ Element | React.MutableRefObject<Element> | document |
+| 参数         | 说明                 | 类型                                      | 默认值    |
+| ------------ | -------------------- | ----------------------------------------- | --------- | ------------ | ------------------------------- | -------- |
+| target       | DOM 节点或者 ref     | Element                                   | Document  | () ⇒ Element | React.MutableRefObject<Element> | document |
 | shouldUpdate | 控制是否更新滚动信息 | ({ top: number, left: number }) ⇒ boolean | () ⇒ true |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数     | 说明                   | 类型                          |
+| -------- | ---------------------- | ----------------------------- | --------- |
 | position | 滚动容器当前的滚动位置 | { left: number, top: number } | undefined |
 
 #### 代码演示
@@ -8079,7 +8326,7 @@ const position = useScroll(target, shouldUpdate)
 #### 源码解析
 
 ```tsx
-import {BasicTarget, getTargetElement} from "../../../utils/domTarget";
+import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
 import useRafState from "@/hooks/useRafState";
 import useLatest from "@/hooks/useLatest";
 import useEffectWithTarget from "../../../utils/useEffectWithTarget";
@@ -8089,70 +8336,77 @@ type Position = { left: number; top: number };
 export type Target = BasicTarget<Element | Document>;
 export type ScrollListenController = (val: Position) => boolean;
 
-const useScroll = (target?: Target, shouldUpdate: ScrollListenController = () => true): Position | undefined => {
+const useScroll = (
+  target?: Target,
+  shouldUpdate: ScrollListenController = () => true
+): Position | undefined => {
   const [position, setPosition] = useRafState<Position>();
 
   const shouldUpdateRef = useLatest(shouldUpdate);
 
-  useEffectWithTarget(() => {
-    const el = getTargetElement(target, document);
-    if (!el) {
-      return;
-    }
+  useEffectWithTarget(
+    () => {
+      const el = getTargetElement(target, document);
+      if (!el) {
+        return;
+      }
 
-    const updatePosition = () => {
-      let newPosition: Position;
-      // 如果是 document
-      if (el === document) {
-        /**
-         * scrollingElement（Document 的只读属性）返回滚动文档的 Element 对象的引用
-         * 标准模式下，这是文档的根元素，document.documentElement
-         * */
-        if (document.scrollingElement) {
-          newPosition = {
-            left: document.scrollingElement.scrollLeft,
-            top: document.scrollingElement.scrollTop,
-          };
-        } else {
+      const updatePosition = () => {
+        let newPosition: Position;
+        // 如果是 document
+        if (el === document) {
           /**
-           * 怪异模式下，scrollingElement 属性返回 HTML body 元素（若不存在返回 null）
+           * scrollingElement（Document 的只读属性）返回滚动文档的 Element 对象的引用
+           * 标准模式下，这是文档的根元素，document.documentElement
            * */
-          // When in quirks mode, the scrollingElement attribute returns the HTML body element if it exists and is potentially scrollable, otherwise it returns null.
-          // https://developer.mozilla.org/zh-CN/docs/Web/API/Document/scrollingElement
-          // https://stackoverflow.com/questions/28633221/document-body-scrolltop-firefox-returns-0-only-js
+          if (document.scrollingElement) {
+            newPosition = {
+              left: document.scrollingElement.scrollLeft,
+              top: document.scrollingElement.scrollTop,
+            };
+          } else {
+            /**
+             * 怪异模式下，scrollingElement 属性返回 HTML body 元素（若不存在返回 null）
+             * */
+            // When in quirks mode, the scrollingElement attribute returns the HTML body element if it exists and is potentially scrollable, otherwise it returns null.
+            // https://developer.mozilla.org/zh-CN/docs/Web/API/Document/scrollingElement
+            // https://stackoverflow.com/questions/28633221/document-body-scrolltop-firefox-returns-0-only-js
+            newPosition = {
+              left: Math.max(
+                window.pageXOffset,
+                document.documentElement.scrollLeft,
+                document.body.scrollLeft
+              ),
+              top: Math.max(
+                window.pageYOffset,
+                document.documentElement.scrollTop,
+                document.body.scrollTop
+              ),
+            };
+          }
+        } else {
           newPosition = {
-            left: Math.max(
-              window.pageXOffset,
-              document.documentElement.scrollLeft,
-              document.body.scrollLeft,
-            ),
-            top: Math.max(
-              window.pageYOffset,
-              document.documentElement.scrollTop,
-              document.body.scrollTop,
-            ),
+            left: (el as Element).scrollLeft,
+            top: (el as Element).scrollTop,
           };
         }
-      } else {
-        newPosition = {
-          left: (el as Element).scrollLeft,
-          top: (el as Element).scrollTop,
-        };
-      }
-      if (shouldUpdateRef.current(newPosition)) {
-        setPosition(newPosition);
-      }
-    };
+        if (shouldUpdateRef.current(newPosition)) {
+          setPosition(newPosition);
+        }
+      };
 
-    updatePosition();
+      updatePosition();
 
-    // 监听 scroll
-    el.addEventListener('scroll', updatePosition);
-    return () => {
-      // 卸载监听器
-      el.removeEventListener('scroll', updatePosition);
-    }
-  }, [], target);
+      // 监听 scroll
+      el.addEventListener("scroll", updatePosition);
+      return () => {
+        // 卸载监听器
+        el.removeEventListener("scroll", updatePosition);
+      };
+    },
+    [],
+    target
+  );
   return position;
 };
 
@@ -8174,14 +8428,14 @@ const size = useSize(target);
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| target | DOM 节点或者 ref | Element | () ⇒ Element | React.MutableRefObject<Element> | - |
+| 参数   | 说明             | 类型    | 默认值       |
+| ------ | ---------------- | ------- | ------------ | ------------------------------- | --- |
+| target | DOM 节点或者 ref | Element | () ⇒ Element | React.MutableRefObject<Element> | -   |
 
 ##### Result
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
+| 参数 | 说明           | 类型                              | 默认值    |
+| ---- | -------------- | --------------------------------- | --------- | ---------------------------------------------------------- | --------- |
 | size | DOM 节点的尺寸 | { width: number, height: number } | undefined | { width: target.clientWidth, height: target.clientHeight } | undefined |
 
 #### 代码演示
@@ -8193,13 +8447,13 @@ const size = useSize(target);
 #### 源码解析
 
 ```tsx
-import ResizeObserver from 'resize-observer-polyfill';
-import {getTargetElement} from "../../../utils/domTarget";
-import type {BasicTarget} from "../../../utils/domTarget";
+import ResizeObserver from "resize-observer-polyfill";
+import { getTargetElement } from "../../../utils/domTarget";
+import type { BasicTarget } from "../../../utils/domTarget";
 import useRafState from "@/hooks/useRafState";
 import useIsomorphicLayoutEffectWithTarget from "../../../utils/useIsomorphicLayoutEffectWithTarget";
 
-type Size = { width: number, height: number };
+type Size = { width: number; height: number };
 
 const useSize = (target: BasicTarget): Size | undefined => {
   const [state, setState] = useRafState(() => {
@@ -8208,39 +8462,43 @@ const useSize = (target: BasicTarget): Size | undefined => {
     return el ? { width: el.clientWidth, height: el.clientHeight } : undefined;
   });
 
-  useIsomorphicLayoutEffectWithTarget(() => {
-    // 获取当前目标元素
-    const el = getTargetElement(target);
+  useIsomorphicLayoutEffectWithTarget(
+    () => {
+      // 获取当前目标元素
+      const el = getTargetElement(target);
 
-    if (!el) {
-      return;
-    }
+      if (!el) {
+        return;
+      }
 
-    /**
-     * 使用 ResizeObserver API 监听对应目标的尺寸变化
-     * 新建一个观察者，传入一个当尺寸发生变化时的回调函数
-     * entries 是 ResizeObserverEntry 的数组，包含两个属性：
-     * ResizeObserverEntry.contentRect: 包含尺寸信息（x, y, width, height, top, right, left, bottom)
-     * ResizeObserverEntry.target: 目标对象，即当前观察到尺寸变化的元素
-     * */
-    const resizeObserver = new ResizeObserver((entries) => {
-      entries.forEach(entry => {
-        const { clientWidth, clientHeight } = entry.target;
-        setState({width: clientWidth, height: clientHeight});
-      })
-    });
+      /**
+       * 使用 ResizeObserver API 监听对应目标的尺寸变化
+       * 新建一个观察者，传入一个当尺寸发生变化时的回调函数
+       * entries 是 ResizeObserverEntry 的数组，包含两个属性：
+       * ResizeObserverEntry.contentRect: 包含尺寸信息（x, y, width, height, top, right, left, bottom)
+       * ResizeObserverEntry.target: 目标对象，即当前观察到尺寸变化的元素
+       * */
+      const resizeObserver = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
+          const { clientWidth, clientHeight } = entry.target;
+          setState({ width: clientWidth, height: clientHeight });
+        });
+      });
 
-    // 监听目标元素
-    resizeObserver.observe(el);
+      // 监听目标元素
+      resizeObserver.observe(el);
 
-    return () => {
-      // 销毁
-      resizeObserver.disconnect();
-    };
-  }, [], target);
+      return () => {
+        // 销毁
+        resizeObserver.disconnect();
+      };
+    },
+    [],
+    target
+  );
 
   return state;
-}
+};
 
 export default useSize;
 ```
@@ -8255,35 +8513,32 @@ export default useSize;
 #### API
 
 ```tsx
-const isFocusWithin = useFocusWithin(
-	target,
-	{
-		onFocus,
-		onBlur,
-		onChange
-	}
-)
+const isFocusWithin = useFocusWithin(target, {
+  onFocus,
+  onBlur,
+  onChange,
+});
 ```
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| target | DOM 节点或者 ref | Element | () ⇒ Element | React.MutableRefObject<Element> | - |
-| options | 额外的配置项 | Options | - |
+| 参数    | 说明             | 类型    | 默认值       |
+| ------- | ---------------- | ------- | ------------ | ------------------------------- | --- |
+| target  | DOM 节点或者 ref | Element | () ⇒ Element | React.MutableRefObject<Element> | -   |
+| options | 额外的配置项     | Options | -            |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| onFocus | 获取焦点时触发 | (e: FocusEvent) ⇒ void | - |
-| onBlur | 失去焦点时触发 | (e: FocusEvent) ⇒ void | - |
-| onChange | 焦点变化时触发 | (isFocusWithin: boolean) ⇒ void | - |
+| 参数     | 说明           | 类型                            | 默认值 |
+| -------- | -------------- | ------------------------------- | ------ |
+| onFocus  | 获取焦点时触发 | (e: FocusEvent) ⇒ void          | -      |
+| onBlur   | 失去焦点时触发 | (e: FocusEvent) ⇒ void          | -      |
+| onChange | 焦点变化时触发 | (isFocusWithin: boolean) ⇒ void | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数          | 说明               | 类型    |
+| ------------- | ------------------ | ------- |
 | isFocusWithin | 焦点是否在当前区域 | boolean |
 
 #### 代码演示
@@ -8295,8 +8550,8 @@ const isFocusWithin = useFocusWithin(
 #### 源码解析
 
 ```tsx
-import {useState} from "react";
-import {BasicTarget} from "../../../utils/domTarget";
+import { useState } from "react";
+import { BasicTarget } from "../../../utils/domTarget";
 import useEventListener from "@/hooks/useEventListener";
 
 export interface Options {
@@ -8313,10 +8568,10 @@ export interface Options {
 const useFocusWithin = (target: BasicTarget, options?: Options) => {
   const [isFocusWithin, setIsFocusWithin] = useState(false);
 
-  const {onFocus, onBlur, onChange} = options || {};
+  const { onFocus, onBlur, onChange } = options || {};
 
   useEventListener(
-    'focusin',
+    "focusin",
     (e: FocusEvent) => {
       if (!isFocusWithin) {
         onFocus?.(e);
@@ -8330,13 +8585,16 @@ const useFocusWithin = (target: BasicTarget, options?: Options) => {
   );
 
   useEventListener(
-    'focusout',
+    "focusout",
     (e: FocusEvent) => {
       /**
        * e.currentTarget 表示当前正在处理事件的元素，即绑定了 focusout 事件监听器的元素
        * e.relatedTarget 表示与事件相关的目标元素，即导致元素失去焦点的元素。在 focusout 事件中，表示获取了焦点的新元素，如果焦点移出了文档，则为 null
        * */
-      if (isFocusWithin && !(e.currentTarget as Element)?.contains?.(e.relatedTarget as Element)) {
+      if (
+        isFocusWithin &&
+        !(e.currentTarget as Element)?.contains?.(e.relatedTarget as Element)
+      ) {
         onBlur?.(e);
         onChange?.(false);
         setIsFocusWithin(false);
@@ -8345,7 +8603,7 @@ const useFocusWithin = (target: BasicTarget, options?: Options) => {
     {
       target,
     }
-  )
+  );
   return isFocusWithin;
 };
 
@@ -8369,25 +8627,25 @@ const [state, setSate] = useControllableValue(props: Record<string, any>, option
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| props | 组件的 props | Record<string, any> | - |
-| options | 可选配置项 | Options | - |
+| 参数    | 说明         | 类型                | 默认值 |
+| ------- | ------------ | ------------------- | ------ |
+| props   | 组件的 props | Record<string, any> | -      |
+| options | 可选配置项   | Options             | -      |
 
 ##### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| defaultValue | 默认值，会被props.defaultValue 和 props.value 覆盖 | - | - |
-| defaultValuePropName | 默认值的属性名 | string | defaultValue |
-| valuePropName | 值的属性名 | string | value |
-| trigger | 修改值时，触发的函数 | string | onChange |
+| 参数                 | 说明                                                | 类型   | 默认值       |
+| -------------------- | --------------------------------------------------- | ------ | ------------ |
+| defaultValue         | 默认值，会被 props.defaultValue 和 props.value 覆盖 | -      | -            |
+| defaultValuePropName | 默认值的属性名                                      | string | defaultValue |
+| valuePropName        | 值的属性名                                          | string | value        |
+| trigger              | 修改值时，触发的函数                                | string | onChange     |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| state | 状态值 | - |
+| 参数     | 说明              | 类型        |
+| -------- | ----------------- | ----------- | -------------------------------- |
+| state    | 状态值            | -           |
 | setState | 修改 state 的函数 | (value: any | ((prevState: any) ⇒ any)) ⇒ void |
 
 #### 代码演示
@@ -8409,12 +8667,12 @@ const [state, setSate] = useControllableValue(props: Record<string, any>, option
 使用非受控组件，表单数据将交由 DOM 节点来处理，可以使用 ref 来从 DOM 节点中获取表单数据。
 
 ```tsx
-import { useMemo, useRef } from 'react';
-import type { SetStateAction } from 'react';
+import { useMemo, useRef } from "react";
+import type { SetStateAction } from "react";
 
-import useMemoizedFn from '../useMemoizedFn';
-import useUpdate from '../useUpdate';
-import {isFunction} from "../../../utils";
+import useMemoizedFn from "../useMemoizedFn";
+import useUpdate from "../useUpdate";
+import { isFunction } from "../../../utils";
 
 export interface Options<T> {
   defaultValue?: T;
@@ -8432,18 +8690,21 @@ export interface StandardProps<T> {
 }
 
 function useControllableValue<T = any>(
-  props: StandardProps<T>,
+  props: StandardProps<T>
 ): [T, (v: SetStateAction<T>) => void];
 function useControllableValue<T = any>(
   props?: Props,
-  options?: Options<T>,
+  options?: Options<T>
 ): [T, (v: SetStateAction<T>, ...args: any[]) => void];
-function useControllableValue<T = any>(props: Props = {}, options: Options<T> = {}) {
+function useControllableValue<T = any>(
+  props: Props = {},
+  options: Options<T> = {}
+) {
   const {
     defaultValue,
-    defaultValuePropName = 'defaultValue',
-    valuePropName = 'value',
-    trigger = 'onChange',
+    defaultValuePropName = "defaultValue",
+    valuePropName = "value",
+    trigger = "onChange",
   } = options;
 
   const value = props[valuePropName] as T;
@@ -8491,7 +8752,6 @@ function useControllableValue<T = any>(props: Props = {}, options: Options<T> = 
 export default useControllableValue;
 ```
 
-
 ### useCreation
 
 useCreation 是 useMemo 或 useRef 的替代品。
@@ -8499,7 +8759,6 @@ useCreation 是 useMemo 或 useRef 的替代品。
 因为 useMemo 不能保证 memo 的值一定不会被重新计算，而 useCreation 可以保证这一点。React 官方文档介绍：
 
 > **You may rely on useMemo as a performance optimization, not as a semantic guarantee.** In the future, React may choose to “forget” some previously memoized values and recalculate them on next render, e.g. to free memory for offscreen components. Write your code so that it still works without `useMemo` — and then add it to optimize performance.
->
 
 相比于 useRef，你可以使用 useCreation 创建一些常量，这些常量和 useRef 创建出来的 ref 有很多使用场景上的相似，但对于`复杂常量`的创建，useRef 却容易出现潜在的性能隐患。
 
@@ -8511,15 +8770,15 @@ const b = useCreation(() => new Subject(), []); // 通过 factory 函数，可�
 #### API
 
 ```tsx
-function useCreation<T>(factory: () => T, deps: any[]): T
+function useCreation<T>(factory: () => T, deps: any[]): T;
 ```
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| factory | 用来创建所需对象的函数 | () ⇒ any | - |
-| deps | 传入依赖变化的对象 | any[] | - |
+| 参数    | 说明                   | 类型     | 默认值 |
+| ------- | ---------------------- | -------- | ------ |
+| factory | 用来创建所需对象的函数 | () ⇒ any | -      |
+| deps    | 传入依赖变化的对象     | any[]    | -      |
 
 #### 代码演示
 
@@ -8528,13 +8787,11 @@ function useCreation<T>(factory: () => T, deps: any[]): T
 #### 源码解析
 
 ```tsx
-import {DependencyList, useRef} from "react";
+import { DependencyList, useRef } from "react";
 import depsAreSame from "../../../utils/depsAreSame";
 
-const useCreation = <T>(factory: () => T, deps: DependencyList): T => {
-  const {
-    current
-  } = useRef({
+const useCreation = <T,>(factory: () => T, deps: DependencyList): T => {
+  const { current } = useRef({
     deps,
     obj: undefined as undefined | T,
     initialized: false, // 初始化标志
@@ -8551,7 +8808,7 @@ const useCreation = <T>(factory: () => T, deps: DependencyList): T => {
   }
 
   return current.obj as T;
-}
+};
 
 export default useCreation;
 ```
@@ -8567,22 +8824,20 @@ const event$ = useEventEmitter();
 ```
 
 > 在组件多次渲染时，每次渲染调用 useEventEmitter 得到的返回值会保持不变，不会重复创建 EventEmitter 的实例。
->
 
 通过 props 或者 context，可以将 event$ 共享给其它组件。然后在其它组件中，可以调用 EventEmitter 的 emit 方法，推送一个事件，或是调用 useSubscription 方法，订阅事件。
 
 ```tsx
-event$.emit('hello');
+event$.emit("hello");
 ```
 
 ```tsx
-event$.useSubscription(val => {
-	console.log(val);
+event$.useSubscription((val) => {
+  console.log(val);
 });
 ```
 
 > useSubscription 会在组件创建时自动注册订阅，并在组件销毁时自动取消订阅。
->
 
 对于子组件通知父组件的情况，我们仍然推荐直接使用 props 传递一个 onEvent 函数。而对于父组件通知子组件的情况，可以使用 forwardRef 获取子组件的 ref，再进行子组件的方法调用。
 
@@ -8596,10 +8851,10 @@ const result: Result = useEventEmitter<T>();
 
 ##### Result
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| emit | 发送一个事件通知 | (val: T) ⇒ void | - |
-| useSubscription | 订阅事件 | (callback: (val: T) ⇒ void) ⇒ void | - |
+| 参数            | 说明             | 类型                               | 默认值 |
+| --------------- | ---------------- | ---------------------------------- | ------ |
+| emit            | 发送一个事件通知 | (val: T) ⇒ void                    | -      |
+| useSubscription | 订阅事件         | (callback: (val: T) ⇒ void) ⇒ void | -      |
 
 #### 代码演示
 
@@ -8608,7 +8863,7 @@ const result: Result = useEventEmitter<T>();
 #### 源码解析
 
 ```tsx
-import {useEffect, useRef} from "react";
+import { useEffect, useRef } from "react";
 
 type Subscription<T> = (val: T) => void;
 
@@ -8645,7 +8900,7 @@ export class EventEmitter<T> {
   };
 }
 
-const useEventEmitter = <T = void>() => {
+const useEventEmitter = <T = void,>() => {
   const ref = useRef<EventEmitter<T>>();
 
   if (!ref.current) {
@@ -8663,7 +8918,6 @@ export default useEventEmitter;
 在 SSR 模式下，使用 useLayoutEffect 时，会出现以下警告
 
 > ⚠️ Warning: useLayoutEffect does nothing on the server, because its effect cannot be encoded into the server renderer's output format. This will lead to a mismatch between the initial, non-hydrated UI and the intended UI. To avoid this, useLayoutEffect should only be used in components that render exclusively on the client. See [https://fb.me/react-uselayouteffect-ssr](https://fb.me/react-uselayouteffect-ssr) for common fixes.
->
 
 为了避免该警告，可以使用 useIsomorphicLayoutEffect 代替 useLayoutEffect。
 
@@ -8675,7 +8929,7 @@ const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
 
 在非浏览器环境返回 useEffect，在浏览器环境返回 useLayoutEffect。
 
-更多信息可以参考 [useLayoutEffect and SSR](https://medium.com/@alexandereardon/uselayouteffect-and-ssr-192986cdcf7a)
+更多信息可以参考  [useLayoutEffect and SSR](https://medium.com/@alexandereardon/uselayouteffect-and-ssr-192986cdcf7a)
 
 ### useLatest
 
@@ -8692,14 +8946,14 @@ const latestValueRef = useLatest<T>(value: T): MutableRefObject<T>;
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| value | 初始值 | T | - |
+| 参数  | 说明   | 类型 | 默认值 |
+| ----- | ------ | ---- | ------ |
+| value | 初始值 | T    | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数           | 说明   | 类型                |
+| -------------- | ------ | ------------------- |
 | latestValueRef | 最新值 | MutableRefObject<T> |
 
 #### 代码演示
@@ -8709,14 +8963,14 @@ const latestValueRef = useLatest<T>(value: T): MutableRefObject<T>;
 #### 源码解析
 
 ```tsx
-import {MutableRefObject, useRef} from "react";
+import { MutableRefObject, useRef } from "react";
 
-const useLatest = <T>(value: T): MutableRefObject<T> => {
+const useLatest = <T,>(value: T): MutableRefObject<T> => {
   const ref = useRef(value);
   ref.current = value;
 
   return ref;
-}
+};
 
 export default useLatest;
 ```
@@ -8731,22 +8985,22 @@ export default useLatest;
 在某些场景中，我们需要使用 useCallback 来记住一个函数，但是在第二个参数 deps 变化时，会重新生成函数，导致函数地址发生变化。
 
 ```tsx
-const [state, setState] = useState('');
+const [state, setState] = useState("");
 
 // 在 state 变化时，func 地址会变化
 const func = useCallback(() => {
-	console.log(state);
+  console.log(state);
 }, [state]);
 ```
 
 使用 useMemoizedFn，可以省略第二个参数 deps，同时保证函数地址永远不会变化。
 
 ```tsx
-const [state, setState] = useState('');
+const [state, setState] = useState("");
 
 // func 地址永远不会变化
 const func = useMemoizedFn(() => {
-	console.log(state);
+  console.log(state);
 });
 ```
 
@@ -8758,15 +9012,15 @@ const fn = useMemoizedFn<T>(fn: T): T;
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| fn | 需要持久化的函数 | (…args: any[]) ⇒ any | - |
+| 参数 | 说明             | 类型                 | 默认值 |
+| ---- | ---------------- | -------------------- | ------ |
+| fn   | 需要持久化的函数 | (…args: any[]) ⇒ any | -      |
 
 ##### Result
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| fn | 引用地址永远不会改变的 fn | (…args: any[]) ⇒ any |
+| 参数 | 说明                      | 类型                 |
+| ---- | ------------------------- | -------------------- |
+| fn   | 引用地址永远不会改变的 fn | (…args: any[]) ⇒ any |
 
 #### 代码演示
 
@@ -8777,34 +9031,39 @@ const fn = useMemoizedFn<T>(fn: T): T;
 #### 源码解析
 
 ```tsx
-import {useRef} from "react/index";
-import {useMemo} from "react";
-import {isFunction} from "../../../utils";
+import { useRef } from "react/index";
+import { useMemo } from "react";
+import { isFunction } from "../../../utils";
 
 type noop = (this: any, ...args: any[]) => any;
 
-type PickFunction<T extends noop> = (this: ThisParameterType<T>, ...args: Parameters<T>[]) => ReturnType<T>;
+type PickFunction<T extends noop> = (
+  this: ThisParameterType<T>,
+  ...args: Parameters<T>[]
+) => ReturnType<T>;
 
 const useMemoizedFn = <T extends noop>(fn: T): T => {
   if (!isFunction(fn)) {
-    console.error(`useMemoizedFn expected parameter is a function, but got ${typeof fn}`)
+    console.error(
+      `useMemoizedFn expected parameter is a function, but got ${typeof fn}`
+    );
   }
 
-	// 每次拿到最新的 fn 值，并把它更新到 fnRef 中。这可以保证此 ref 能够持有最新的 fn 引用。
+  // 每次拿到最新的 fn 值，并把它更新到 fnRef 中。这可以保证此 ref 能够持有最新的 fn 引用。
   const fnRef = useRef<T>(fn);
   fnRef.current = useMemo(() => fn, [fn]);
 
-	// 保证最后返回的函数引用是不变的-持久化函数
+  // 保证最后返回的函数引用是不变的-持久化函数
   const memoizedFn = useRef<PickFunction<T>>();
   if (!memoizedFn.current) {
-		// 每次调用时，因为没有 useCallback 的 deps 特性，所以都能拿到最新的 state
+    // 每次调用时，因为没有 useCallback 的 deps 特性，所以都能拿到最新的 state
     memoizedFn.current = function (this, ...args) {
       return fnRef.current.apply(this, args);
-    }
+    };
   }
 
   return memoizedFn.current as T;
-}
+};
 
 export default useMemoizedFn;
 ```
@@ -8824,9 +9083,9 @@ const state = useReactive(initialState: Record<string, any>);
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| initialState | 当前的数据对象 | Record<string, any>) | - |
+| 参数         | 说明           | 类型                 | 默认值 |
+| ------------ | -------------- | -------------------- | ------ |
+| initialState | 当前的数据对象 | Record<string, any>) | -      |
 
 #### 代码演示
 
@@ -8844,24 +9103,27 @@ useReactive 产生可操作的代理对象一直都是同一个引用，useEffec
 
 #### FAQ
 
-Q: useReactive 和 Map、Set 一起使用时报错或无效？
+Q: useReactive  和  Map、Set  一起使用时报错或无效？
 
-useReactive 目前不兼容 Map、Set。
+useReactive  目前不兼容  Map、Set。
 
 #### 源码解析
 
 ```tsx
 import useUpdate from "@/hooks/useUpdate";
-import {useRef} from "react";
+import { useRef } from "react";
 import useCreation from "@/hooks/useCreation";
-import {isPlainObject} from "lodash-es";
+import { isPlainObject } from "lodash-es";
 
 // k:v 原对象:代理过的对象
 const proxyMap = new WeakMap();
 // k:v 代理过的对象:原对象
 const rawMap = new WeakMap();
 
-function observer<T extends Record<string, any>>(initialVal: T, cb: () => void): T {
+function observer<T extends Record<string, any>>(
+  initialVal: T,
+  cb: () => void
+): T {
   const existingProxy = proxyMap.get(initialVal);
 
   // 添加缓存 防止重新构建proxy
@@ -8961,12 +9223,12 @@ API 与 React.useEffect 基本一致，不过第一个函数会接收 changes、
 #### 源码解析
 
 ```tsx
-import {DependencyList, useEffect, useRef} from "react";
+import { DependencyList, useEffect, useRef } from "react";
 
 type Effect<T extends DependencyList> = (
   changes?: number[],
   previousDeps?: T,
-  currentDeps?: T,
+  currentDeps?: T
 ) => void | (() => void);
 
 const diffTwoDeps = (deps1?: DependencyList, deps2?: DependencyList) => {
@@ -8975,14 +9237,17 @@ const diffTwoDeps = (deps1?: DependencyList, deps2?: DependencyList) => {
   // As this func is used only in this hook, we assume 2 deps always have same length.
   return deps1
     ? deps1
-        .map((_ele, idx) => !Object.is(deps1[idx], deps2?.[idx]) ? idx : -1)
-        .filter(ele => ele >= 0)
+        .map((_ele, idx) => (!Object.is(deps1[idx], deps2?.[idx]) ? idx : -1))
+        .filter((ele) => ele >= 0)
     : deps2
-      ? deps2.map((_ele, idx) => idx)
-      : [];
-}
+    ? deps2.map((_ele, idx) => idx)
+    : [];
+};
 
-const useTrackedEffect = <T extends DependencyList>(effect: Effect<T>, deps?: [...T]) => {
+const useTrackedEffect = <T extends DependencyList>(
+  effect: Effect<T>,
+  deps?: [...T]
+) => {
   const previousDepsRef = useRef<T>();
 
   useEffect(() => {
@@ -9015,10 +9280,10 @@ useWhyDidYouUpdate(componentName: string, props: IProps): void;
 
 ##### Params
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| componentName | 必填，观测组件的名称 | string | - |
-| props | 必填，需要观测的数据（当前组件 state 或者传入的 props 等可能导致 rerender 的数据） | object | - |
+| 参数          | 说明                                                                               | 类型   | 默认值 |
+| ------------- | ---------------------------------------------------------------------------------- | ------ | ------ |
+| componentName | 必填，观测组件的名称                                                               | string | -      |
+| props         | 必填，需要观测的数据（当前组件 state 或者传入的 props 等可能导致 rerender 的数据） | object | -      |
 
 #### 代码演示
 
@@ -9027,7 +9292,7 @@ useWhyDidYouUpdate(componentName: string, props: IProps): void;
 #### 源码解析
 
 ```tsx
-import {useEffect, useRef} from "react";
+import { useEffect, useRef } from "react";
 
 export type IProps = Record<string, any>;
 
@@ -9038,22 +9303,22 @@ const useWhyDidYouUpdate = (componentName: string, props: IProps) => {
   useEffect(() => {
     if (prevProps.current) {
       // 获取所有 props
-      const allKeys = Object.keys({...prevProps, ...props});
+      const allKeys = Object.keys({ ...prevProps, ...props });
       const changedProps: IProps = {};
 
-      allKeys.forEach(key => {
+      allKeys.forEach((key) => {
         // 看哪些 key 进行了更新
         if (!Object.is(prevProps[key], props[key])) {
           changedProps[key] = {
             from: prevProps.current[key],
             to: props[key],
-          }
+          };
         }
       });
 
       // 有 diff，控制台输出
       if (Object.keys(changedProps).length) {
-        console.log('[why-did-you-update]', componentName, changedProps);
+        console.log("[why-did-you-update]", componentName, changedProps);
       }
     }
 
