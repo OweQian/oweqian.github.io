@@ -4260,7 +4260,7 @@ import { useEffect, useState } from "react";
 import useDebounceFn from "@/hooks/useDebounceFn";
 import type { DebounceOptions } from "./debounceOptions";
 
-const useDebounce = <T>(value: T, options?: DebounceOptions) => {
+const useDebounce = <T,>(value: T, options?: DebounceOptions) => {
   const [debounced, setDebounced] = useState(value);
 
   // 依赖 useDebounceFn
@@ -4307,7 +4307,7 @@ const throttledValue = useThrottle(
 | 参数     | 说明                     | 类型    | 默认值 |
 | -------- | ------------------------ | ------- | ------ |
 | wait     | 等待时间，单位为毫秒     | number  | 1000   |
-| leading  | 是否在延迟开始前调用函数 | boolean | true  |
+| leading  | 是否在延迟开始前调用函数 | boolean | true   |
 | trailing | 是否在延迟结束后调用函数 | boolean | true   |
 
 #### 代码演示
@@ -4321,7 +4321,7 @@ import { useEffect, useState } from "react";
 import useThrottleFn from "@/hooks/useThrottleFn";
 import type { ThrottleOptions } from "./throttleOptions";
 
-const useThrottle = <T>(value: T, options?: ThrottleOptions) => {
+const useThrottle = <T,>(value: T, options?: ThrottleOptions) => {
   const [throttled, setThrottled] = useState(value);
 
   // 依赖 useThrottleFn
@@ -4819,25 +4819,25 @@ import type { useEffect, useLayoutEffect } from "react";
 
 type EffectHookType = typeof useEffect | typeof useLayoutEffect;
 
-export const createUpdateEffect =
-  (hook: EffectHookType): EffectHookType =>
-  (effect, deps) => {
-    // 初始化一个标识符，初始值为 false
+export const createUpdateEffect: (hook: EffectHookType) => EffectHookType =
+  (hook) => (effect, deps) => {
+    // 初始化一个标识符，判断组件是否已挂载，初始值为 false
     const isMounted = useRef<boolean>(false);
 
+    // for react-refresh
     hook(() => {
-      // 组件卸载时将标识符置为 false
+      // 组件卸载置为 false
       return () => {
         isMounted.current = false;
       };
     }, []);
 
     hook(() => {
-      // 首次执行，将标识符置为 true
+      // 首次执行，置为 true
       if (!isMounted.current) {
         isMounted.current = true;
       } else {
-        // 组件更新时，执行传入的 effect 回调函数
+        // 只有标识符为 true 时（组件更新），执行回调函数
         return effect();
       }
     }, deps);
@@ -4873,39 +4873,6 @@ import { useLayoutEffect } from "react";
 import { createUpdateEffect } from "@/hooks/createUpdateEffect";
 
 export default createUpdateEffect(useLayoutEffect);
-```
-
-```tsx
-import { useRef } from "react";
-import type { useEffect, useLayoutEffect } from "react";
-
-type EffectHookType = typeof useEffect | typeof useLayoutEffect;
-
-export const createUpdateEffect =
-  (hook: EffectHookType): EffectHookType =>
-  (effect, deps) => {
-    // 初始化一个标识符，初始值为 false
-    const isMounted = useRef<boolean>(false);
-
-    hook(() => {
-      // 组件卸载时将标识符置为 false
-      return () => {
-        isMounted.current = false;
-      };
-    }, []);
-
-    hook(() => {
-      // 首次执行，将标识符置为 true
-      if (!isMounted.current) {
-        isMounted.current = true;
-      } else {
-        // 组件更新时，执行传入的 effect 回调函数
-        return effect();
-      }
-    }, deps);
-  };
-
-export default createUpdateEffect;
 ```
 
 ### useAsyncEffect
@@ -4964,8 +4931,8 @@ useEffect(() => {
 - 自定义 hooks - useAsyncEffect
 
 ```tsx
-import { useEffect } from "react";
 import type { DependencyList } from "react";
+import { useEffect } from "react";
 import { isFunction } from "../../../utils";
 
 // 判断是否是 AsyncGenerator
@@ -4990,7 +4957,7 @@ const useAsyncEffect = (
         while (true) {
           // 如果是 Generator 异步函数，则通过 next() 的方式执行
           const result = await e.next();
-          // Generator function 全部执行完成，或者当前的 effect 被清理，则停止继续往下执行
+          // Generator function 全部执行完成，或者当前的 effect 已经被清理，则停止继续往下执行
           if (result.done || cancelled) {
             break;
           }
@@ -5439,29 +5406,13 @@ useDeepCompareEffect(
 #### 源码解析
 
 ```tsx
-import { DependencyList, useEffect, useLayoutEffect, useRef } from "react";
-import { depsEqual } from "../../../utils/depsEqual";
+import type { DependencyList } from "react";
+import { isEqual } from "lodash-es";
 
-type EffectHookType = typeof useEffect | typeof useLayoutEffect;
-type createUpdateEffect = (hook: EffectHookType) => EffectHookType;
-
-const createDeepCompareEffect: createUpdateEffect =
-  (hook) => (effect, deps) => {
-    // 通过 useRef 保存上一次的依赖的值
-    const ref = useRef<DependencyList>();
-    const signalRef = useRef<number>(0);
-
-    // 判断最新的依赖和旧的区别
-    // 如果不相等，则变更 signalRef.current，从而触发 useEffect/useLayoutEffect 中的回调
-    if (deps === undefined || !depsEqual(deps, ref.current)) {
-      ref.current = deps;
-      signalRef.current += 1;
-    }
-
-    hook(effect, [signalRef.current]);
-  };
-
-export default createDeepCompareEffect;
+export const depsEqual = (
+  aDeps: DependencyList = [],
+  bDeps: DependencyList = []
+) => isEqual(aDeps, bDeps);
 ```
 
 ```tsx
@@ -5469,6 +5420,35 @@ import { useEffect } from "react";
 import createDeepCompareEffect from "@/hooks/createDeepCompareEffect";
 
 export default createDeepCompareEffect(useEffect);
+```
+
+```tsx
+import { useRef } from "react";
+import type { DependencyList, useEffect, useLayoutEffect } from "react";
+import { depsEqual } from "../../../utils/depsEqual";
+
+type EffectHookType = typeof useEffect | typeof useLayoutEffect;
+type createUpdateEffect = (hook: EffectHookType) => EffectHookType;
+
+const createDeepCompareEffect: createUpdateEffect =
+  (hook) => (effect, deps) => {
+    // 通过 useRef 存储上一次的依赖项
+    const ref = useRef<DependencyList>();
+    // 创建一个信号值，用于触发 useEffect/useLayoutEffect 中的回调
+    const signalRef = useRef<number>(0);
+
+    // 判断最新的依赖项和上一次的依赖项是否相等
+    if (deps === undefined || !depsEqual(deps, ref.current)) {
+      // 不相等则更新信号值
+      ref.current = deps;
+      signalRef.current += 1;
+    }
+
+    // 信号值更新触发回调
+    hook(effect, [signalRef.current]);
+  };
+
+export default createDeepCompareEffect;
 ```
 
 ### useDeepCompareLayoutEffect
@@ -5492,32 +5472,6 @@ useDeepCompareLayoutEffect(
 [small-firefly-p7sffk - CodeSandbox](https://codesandbox.io/s/p7sffk)
 
 #### 源码解析
-
-```tsx
-import { DependencyList, useEffect, useLayoutEffect, useRef } from "react";
-import { depsEqual } from "../../../utils/depsEqual";
-
-type EffectHookType = typeof useEffect | typeof useLayoutEffect;
-type createUpdateEffect = (hook: EffectHookType) => EffectHookType;
-
-const createDeepCompareEffect: createUpdateEffect =
-  (hook) => (effect, deps) => {
-    // 通过 useRef 保存上一次的依赖的值
-    const ref = useRef<DependencyList>();
-    const signalRef = useRef<number>(0);
-
-    // 判断最新的依赖和旧的区别
-    // 如果不相等，则变更 signalRef.current，从而触发 useEffect/useLayoutEffect 中的回调
-    if (deps === undefined || !depsEqual(deps, ref.current)) {
-      ref.current = deps;
-      signalRef.current += 1;
-    }
-
-    hook(effect, [signalRef.current]);
-  };
-
-export default createDeepCompareEffect;
-```
 
 ```tsx
 import { useLayoutEffect } from "react";
@@ -5545,11 +5499,11 @@ useInterval(
 
 ##### Params
 
-| 参数    | 说明                                          | 类型      | 默认值    |
-| ------- | --------------------------------------------- | --------- | --------- | --- |
-| fn      | 要定时调用的函数                              | () ⇒ void | -         |
-| delay   | 间隔时间，当设置值为 undefined 时会停止计时器 | number    | undefined | -   |
-| options | 配置计时器的行为                              | Options   | -         |
+| 参数    | 说明                                          | 类型                | 默认值 |
+| ------- | --------------------------------------------- | ------------------- | ------ |
+| fn      | 要定时调用的函数                              | () ⇒ void           | -      |
+| delay   | 间隔时间，当设置值为 undefined 时会停止计时器 | number \| undefined | -      |
+| options | 配置计时器的行为                              | Options             | -      |
 
 ##### Options
 
@@ -5572,9 +5526,9 @@ useInterval(
 #### 源码解析
 
 ```tsx
-import { isNumber } from "../../../utils";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
 import { useCallback, useEffect, useRef } from "react";
+import useMemoizedFn from "@/hooks/useMemoizedFn";
+import { isNumber } from "../../../utils";
 
 const useInterval = (
   fn: () => void,
@@ -5582,7 +5536,7 @@ const useInterval = (
   options: { immediate?: boolean } = {}
 ) => {
   const timerCallback = useMemoizedFn(fn);
-  const timerRef = useRef<NodeJS.Timer | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // 暴露清除定时器的方法
   const clear = useCallback(() => {
@@ -5592,18 +5546,17 @@ const useInterval = (
   }, []);
 
   useEffect(() => {
-    // 当设置值为 undefined 时会停止计时器
+    // delay 不是数字或 delay 的值小于 0，直接返回，停止定时器
     if (!isNumber(delay) || delay < 0) {
       return;
     }
-    // 立即执行
+    // 立即执行一次回调函数
     if (options.immediate) {
       timerCallback();
     }
     // 开启新的定时器
     timerRef.current = setInterval(timerCallback, delay);
-    // 变更依赖项时，清除旧的定时器
-    // 通过 useEffect 的返回清除机制，开发者不需要关注清除定时器的逻辑，避免内存泄露
+    // 通过 useEffect 的返回清除机制，清除定时器，避免内存泄露
     return clear;
   }, [delay, options.immediate]);
 
@@ -5636,11 +5589,11 @@ useRafInterval(
 
 ##### Params
 
-| 参数    | 说明                                          | 类型      | 默认值    |
-| ------- | --------------------------------------------- | --------- | --------- | --- |
-| fn      | 要定时调用的函数                              | () ⇒ void | -         |
-| delay   | 间隔时间，当设置值为 undefined 时会停止计时器 | number    | undefined | -   |
-| options | 配置计时器的行为                              | Options   | -         |
+| 参数    | 说明                                          | 类型                | 默认值 |
+| ------- | --------------------------------------------- | ------------------- | ------ |
+| fn      | 要定时调用的函数                              | () ⇒ void           | -      |
+| delay   | 间隔时间，当设置值为 undefined 时会停止计时器 | number \| undefined | -      |
+| options | 配置计时器的行为                              | Options             | -      |
 
 ##### Options
 
@@ -5679,12 +5632,12 @@ window.requestAnimationFrame() 告诉浏览器，你希望执行一个动画，�
 为了提高性能和电池寿命，在大部分浏览器里，当 requestAnimationFrame() 运行在后台标签页或者隐藏的  `<iframe>`  里时，requestAnimationFrame() 会被暂停调用以提升性能和电池寿命。
 
 ```tsx
-import useLatest from "@/hooks/useLatest";
 import { useCallback, useEffect, useRef } from "react";
+import useLatest from "@/hooks/useLatest";
 import { isNumber } from "../../../utils";
 
 interface Handle {
-  id: number | NodeJS.Timer;
+  id: number | ReturnType<typeof setInterval>;
 }
 
 const setRafInterval = (callback: () => void, delay: number = 0): Handle => {
@@ -5694,28 +5647,32 @@ const setRafInterval = (callback: () => void, delay: number = 0): Handle => {
       id: setInterval(callback, delay),
     };
   }
-  // 开始时间
-  let start = new Date().getTime();
+  // 初始化开始时间
+  let start = Date.now();
+  // 初始化 handle
   const handle: Handle = {
     id: 0,
   };
   // 定义动画函数
   const loop = () => {
-    const current = new Date().getTime();
-    // 当前时间 - 开始时间，大于等于 delay，则执行 callback 并重置开始时间
+    const current = Date.now();
+    // 当前时间 - 开始时间 >= delay，则执行 callback 并重置开始时间
     if (current - start >= delay) {
       callback();
-      start = new Date().getTime();
+      start = Date.now();
     }
-    // 递归调用 requestAnimationFrame，请求下一帧
+    // 重置 handle，递归调用 requestAnimationFrame，请求下一帧（：此处请注意与 useRafTimeout 的区别
     handle.id = requestAnimationFrame(loop);
   };
   // 启动动画
   handle.id = requestAnimationFrame(loop);
+  // 返回 handle
   return handle;
 };
 
-const cancelAnimationFrameIsNotDefined = (t: any): t is NodeJS.Timer => {
+const cancelAnimationFrameIsNotDefined = (
+  t: any
+): t is ReturnType<typeof setInterval> => {
   return typeof cancelAnimationFrame === typeof undefined;
 };
 
@@ -5747,9 +5704,11 @@ const useRafInterval = (
   }, []);
 
   useEffect(() => {
-    // 当设置值为 undefined 时会停止计时器
-    if (!isNumber(delay) || delay < 0) return;
-    // 立即执行
+    // delay 不是数字或 delay 的值小于 0，直接返回，停止定时器
+    if (!isNumber(delay) || delay < 0) {
+      return;
+    }
+    // 立即执行一次回调函数
     if (immediate) {
       fnRef.current();
     }
@@ -5757,8 +5716,7 @@ const useRafInterval = (
     timerRef.current = setRafInterval(() => {
       fnRef.current();
     }, delay);
-    // 变更依赖项时，清除旧的定时器
-    // 通过 useEffect 的返回清除机制，开发者不需要关注清除定时器的逻辑，避免内存泄露
+    // 通过 useEffect 的返回清除机制，清除定时器，避免内存泄露
     return () => {
       if (timerRef.current) {
         clearRafInterval(timerRef.current);
@@ -5790,10 +5748,10 @@ useTimeout(
 
 ##### Params
 
-| 参数  | 说明                                          | 类型      | 默认值    |
-| ----- | --------------------------------------------- | --------- | --------- | --- |
-| fn    | 要定时调用的函数                              | () ⇒ void | -         |
-| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number    | undefined | -   |
+| 参数  | 说明                                          | 类型                | 默认值 |
+| ----- | --------------------------------------------- | ------------------- | ------ |
+| fn    | 要定时调用的函数                              | () ⇒ void           | -      |
+| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number \| undefined | -      |
 
 ##### Result
 
@@ -5810,13 +5768,13 @@ useTimeout(
 #### 源码解析
 
 ```tsx
-import useMemoizedFn from "@/hooks/useMemoizedFn";
 import { useCallback, useEffect, useRef } from "react";
+import useMemoizedFn from "@/hooks/useMemoizedFn";
 import { isNumber } from "../../../utils";
 
 const useTimeout = (fn: () => void, delay?: number) => {
   const timerCallback = useMemoizedFn(fn);
-  const timerRef = useRef<NodeJS.Timer | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // 暴露清除定时器的方法
   const clear = useCallback(() => {
@@ -5826,14 +5784,13 @@ const useTimeout = (fn: () => void, delay?: number) => {
   }, []);
 
   useEffect(() => {
-    // 当设置值为 undefined 时会停止计时器
+    // delay 不是数字或 delay 的值小于 0，直接返回，停止定时器
     if (!isNumber(delay) || delay < 0) {
       return;
     }
     // 开启新的定时器
     timerRef.current = setTimeout(timerCallback, delay);
-    // 变更依赖项时，清除旧的定时器
-    // 通过 useEffect 的返回清除机制，开发者不需要关注清除定时器的逻辑，避免内存泄露
+    // 通过 useEffect 的返回清除机制，清除定时器，避免内存泄露
     return clear;
   }, [delay]);
 
@@ -5860,10 +5817,10 @@ useRafTimeout(
 
 ##### Params
 
-| 参数  | 说明                                          | 类型      | 默认值    |
-| ----- | --------------------------------------------- | --------- | --------- | --- |
-| fn    | 要定时调用的函数                              | () ⇒ void | -         |
-| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number    | undefined | -   |
+| 参数  | 说明                                          | 类型                | 默认值 |
+| ----- | --------------------------------------------- | ------------------- | ------ |
+| fn    | 要定时调用的函数                              | () ⇒ void           | -      |
+| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number \| undefined | -      |
 
 ##### Result
 
@@ -5876,34 +5833,6 @@ useRafTimeout(
 [基础用法 - CodeSandbox](https://codesandbox.io/s/4tlwzv)
 
 [进阶使用 - CodeSandbox](https://codesandbox.io/s/7qwqz7)
-
-#### API
-
-```tsx
-useInterval(
-	fn: () => void,
-	delay?: number | undefined,
-): fn: () => void;
-```
-
-##### Params
-
-| 参数  | 说明                                          | 类型      | 默认值    |
-| ----- | --------------------------------------------- | --------- | --------- | --- |
-| fn    | 要定时调用的函数                              | () ⇒ void | -         |
-| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number    | undefined | -   |
-
-##### Result
-
-| 参数         | 说明       | 类型      |
-| ------------ | ---------- | --------- |
-| clearTimeout | 清除定时器 | () ⇒ void |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/8jdycx)
-
-[进阶使用 - CodeSandbox](https://codesandbox.io/s/qs3zz7)
 
 #### 源码解析
 
@@ -5924,12 +5853,12 @@ window.requestAnimationFrame() 告诉浏览器，你希望执行一个动画，�
 为了提高性能和电池寿命，在大部分浏览器里，当 requestAnimationFrame() 运行在后台标签页或者隐藏的  `<iframe>`  里时，requestAnimationFrame() 会被暂停调用以提升性能和电池寿命。
 
 ```tsx
-import useLatest from "@/hooks/useLatest";
 import { useCallback, useEffect, useRef } from "react";
+import useLatest from "@/hooks/useLatest";
 import { isNumber } from "../../../utils";
 
 interface Handle {
-  id: number | NodeJS.Timer;
+  id: number | ReturnType<typeof setTimeout>;
 }
 
 const setRafTimeout = (callback: () => void, delay: number = 0): Handle => {
@@ -5939,28 +5868,32 @@ const setRafTimeout = (callback: () => void, delay: number = 0): Handle => {
       id: setTimeout(callback, delay),
     };
   }
-  // 开始时间
-  let startTime = new Date().getTime();
+  // 初始化开始时间
+  let startTime = Date.now();
+  // 初始化 handle
   const handle: Handle = {
     id: 0,
   };
   // 定义动画函数
   const loop = () => {
-    const current = new Date().getTime();
-    // 当前时间 - 开始时间，大于等于 delay，则执行 callback
+    const current = Date.now();
+    // 当前时间 - 开始时间 >= delay，则执行 callback
     if (current - startTime >= delay) {
       callback();
     } else {
-      // 未到 delay，则递归调用 requestAnimationFrame，请求下一帧
+      // 否则，请求下一帧（：此处请注意与 useRafInterval 的区别
       handle.id = requestAnimationFrame(loop);
     }
   };
   // 启动动画
   handle.id = requestAnimationFrame(loop);
+  // 返回 handle
   return handle;
 };
 
-const cancelAnimationFrameIsNotDefined = (t: any): t is NodeJS.Timer => {
+const cancelAnimationFrameIsNotDefined = (
+  t: any
+): t is ReturnType<typeof setTimeout> => {
   return typeof cancelAnimationFrame === typeof undefined;
 };
 
@@ -5984,14 +5917,13 @@ const useRafTimeout = (fn: () => void, delay: number | undefined) => {
   }, []);
 
   useEffect(() => {
-    // 当设置值为 undefined 时会停止计时器
+    // delay 不是数字或 delay 的值小于 0，直接返回，停止定时器
     if (!isNumber(delay) || delay < 0) return;
     // 开启新的定时器
     timerRef.current = setRafTimeout(() => {
       fnRef.current();
     }, delay);
-    // 变更依赖项时，清除旧的定时器
-    // 通过 useEffect 的返回清除机制，开发者不需要关注清除定时器的逻辑，避免内存泄露
+    // 通过 useEffect 的返回清除机制，清除定时器，避免内存泄露
     return () => {
       if (timerRef.current) {
         clearRafTimeout(timerRef.current);
@@ -6002,7 +5934,7 @@ const useRafTimeout = (fn: () => void, delay: number | undefined) => {
   return clear;
 };
 
-export default useRafTimeout();
+export default useRafTimeout;
 ```
 
 ### useLockFn
