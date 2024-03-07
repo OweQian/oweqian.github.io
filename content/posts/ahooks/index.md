@@ -1,13 +1,13 @@
 ---
 title: "💻 ahooks@3.7.9 源码解读"
-date: 2024-02-25T01:05:14+08:00
+date: 2024-03-05T00:00:14+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
 
 2024.12 ~ 2024.03，历时 4 个月，在公司宣布 996 期间学习了 ahooks@3.7.9 官网和源码，以下是整理的笔记，欢迎您的指正以及贡献。
 
-😏 996.ICU 你值得拥有 (:不是，996 是打工人的福报！！！
+😏 996.ICU 这份打工人的福报，你值得拥有。
 
 <!--more-->
 
@@ -16,6 +16,8 @@ ahooks 官网地址：[ahooks](https://ahooks.js.org/zh-CN)
 React 官网地址：[react](https://ahooks.js.org/zh-CN)
 
 Github 项目地址： [ahooks-analysis](https://github.com/OweQian/ahooks-analysis.git)
+
+Notion 笔记预览地址： [ahooks@3.7.9 源码解读](https://bumpy-iodine-8d0.notion.site/b34798801d044b078133083931a8f732?v=b0b6b9a74a284af8bdb5006e2b32733e)
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ahooks/img-ahooks.jpeg" alt="" width="100%" />
 
@@ -6072,12 +6074,12 @@ useEventListener(
 
 ##### Options
 
-| 参数    | 说明                                                                                                                                      | 类型           | 默认值  |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ------- | ------------------------------- | ------ | -------- | ------ |
-| target  | DOM 节点或者 ref                                                                                                                          | (() ⇒ Element) | Element | React.MutableRefObject<Element> | Window | Document | window |
-| capture | 可选项，listener 会在该类型的事情捕获阶段传播到该 EventTarget 时触发                                                                      | boolean        | false   |
-| once    | 可选项，listener 在添加之后最多只调用一次。如果是 true，listener 会在其被调用之后自动移除                                                 | boolean        | false   |
-| passive | 可选项，设置为 true 时，表示 listener 永远不会调用 preventDefault。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告 | boolean        | false   |
+| 参数    | 说明                                                                                                                                      | 类型                                                                                 | 默认值 |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------ |
+| target  | DOM 节点或者 ref                                                                                                                          | (() ⇒ Element) \| Element \| React.MutableRefObject\<Element\> \| Window \| Document | window |
+| capture | 可选项，listener 会在该类型的事情捕获阶段传播到该 EventTarget 时触发                                                                      | boolean                                                                              | false  |
+| once    | 可选项，listener 在添加之后最多只调用一次。如果是 true，listener 会在其被调用之后自动移除                                                 | boolean                                                                              | false  |
+| passive | 可选项，设置为 true 时，表示 listener 永远不会调用 preventDefault。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告 | boolean                                                                              | false  |
 
 #### 代码演示
 
@@ -6098,12 +6100,16 @@ useEventListener(
 </aside>
 
 ```tsx
+import type { MutableRefObject } from "react";
 import { isFunction } from "./index";
 import isBrowser from "./isBrowser";
-import { MutableRefObject } from "react";
 
 type TargetValue<T> = T | undefined | null;
 
+/**
+ * HTMLElement 和 Element 是用于表示 HTML 元素和 DOM 元素的接口
+ * Window 和 Document 则是用于表示浏览器窗口和文档对象的接口
+ */
 type TargetType = HTMLElement | Element | Window | Document;
 
 export type BasicTarget<T extends TargetType = Element> =
@@ -6140,7 +6146,7 @@ export function getTargetElement<T extends TargetType>(
 ```
 
 ```tsx
-import { DependencyList } from "react";
+import type { DependencyList } from "react";
 
 // 判断依赖项数组是否相同
 function depsAreSame(oldDeps: DependencyList, deps: DependencyList): boolean {
@@ -6155,16 +6161,17 @@ export default depsAreSame;
 ```
 
 ```tsx
-import {
+import type {
   DependencyList,
   EffectCallback,
   useEffect,
   useLayoutEffect,
-  useRef,
 } from "react";
-import { BasicTarget, getTargetElement } from "./domTarget";
+import { useRef } from "react";
 import depsAreSame from "./depsAreSame";
 import useUnmount from "@/hooks/useUnmount";
+import type { BasicTarget } from "./domTarget";
+import { getTargetElement } from "./domTarget";
 
 const createEffectWithTarget = (
   useEffectType: typeof useEffect | typeof useLayoutEffect
@@ -6175,17 +6182,17 @@ const createEffectWithTarget = (
    * @param deps
    * @param target target should compare ref.current vs ref.current, dom vs dom, ()=>dom vs ()=>dom
    */
-  return (
+  const useEffectWithTarget = (
     effect: EffectCallback,
     deps: DependencyList,
     target: BasicTarget<any> | BasicTarget<any>[]
   ) => {
-    // 首次挂载
+    // 是否是首次挂载
     const hasInitRef = useRef(false);
 
-    // target element 数组
+    // 上一次的目标元素
     const lastElementRef = useRef<(Element | null)[]>([]);
-    // 依赖项数组
+    // 上一次的依赖项
     const lastDepsRef = useRef<DependencyList>([]);
 
     // 清除副作用函数
@@ -6195,11 +6202,13 @@ const createEffectWithTarget = (
       const targets = Array.isArray(target) ? target : [target];
       const els = targets.map((item) => getTargetElement(item));
 
+      // init run
       if (!hasInitRef.current) {
         hasInitRef.current = true;
-
         lastElementRef.current = els;
         lastDepsRef.current = deps;
+
+        // 执行回调函数
         unLoadRef.current = effect();
         return;
       }
@@ -6219,9 +6228,12 @@ const createEffectWithTarget = (
 
     useUnmount(() => {
       unLoadRef.current?.(); // 清除副作用
+      // for react-refresh
       hasInitRef.current = false;
     });
   };
+
+  return useEffectWithTarget;
 };
 
 export default createEffectWithTarget;
@@ -6229,7 +6241,8 @@ export default createEffectWithTarget;
 
 ```tsx
 import useLatest from "../useLatest";
-import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
+import type { BasicTarget } from "../../../utils/domTarget";
+import { getTargetElement } from "../../../utils/domTarget";
 import useEffectWithTarget from "../../../utils/useEffectWithTarget";
 
 type noop = (...p: any) => void;
@@ -6279,10 +6292,7 @@ function useEventListener(
 
   useEffectWithTarget(
     () => {
-      const targetElement = getTargetElement(
-        options?.target as BasicTarget,
-        window
-      );
+      const targetElement = getTargetElement(options?.target, window);
       // 判断是否支持 addEventListener
       if (!targetElement?.addEventListener) {
         return;
@@ -6292,17 +6302,17 @@ function useEventListener(
         return handleRef.current?.(event);
       };
 
-      // 监听事件
+      // 为指定元素添加事件监听器
       targetElement.addEventListener(eventName, eventListener, {
-        // listener 会在该类型的事情捕获阶段传播到该 EventTarget 时触发
+        // 指定事件是否在捕获阶段进行处理
         capture: options.capture,
-        // listener 在添加之后最多只调用一次。如果是 true，listener 会在其被调用之后自动移除
+        // 指定事件是否只触发一次
         once: options.once,
-        // 设置为 true 时，表示 listener 永远不会调用 preventDefault。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告
+        // 指定事件处理函数是否不会调用 preventDefault()
         passive: options.passive,
       });
 
-      // 移除事件
+      // 移除事件监听器
       return () => {
         targetElement.removeEventListener(eventName, eventListener, {
           capture: options.capture,
@@ -6327,7 +6337,7 @@ export default useEventListener;
 #### API
 
 ```tsx
-type Target = Element | (() => Element) | React.multableRefObject<Element>;
+type Target = Element | (() => Element) | React.MutableRefObject<Element>;
 type DocumentEventKey = keyof DocumentEventMap;
 
 useClickAway<T extends Event = Event>(
@@ -6339,11 +6349,11 @@ useClickAway<T extends Event = Event>(
 
 ##### Params
 
-| 参数        | 说明                         | 类型               | 默认值             |
-| ----------- | ---------------------------- | ------------------ | ------------------ | ----- |
-| onClickAway | 触发函数                     | (event: T) => void | -                  |
-| target      | DOM 节点或者 Ref，支持数组   | Target             | Target[]           | -     |
-| eventName   | 指定需要监听的事件，支持数组 | DocumentEventKey   | DocumentEventKey[] | click |
+| 参数        | 说明                         | 类型                                   | 默认值 |
+| ----------- | ---------------------------- | -------------------------------------- | ------ |
+| onClickAway | 触发函数                     | (event: T) => void                     | -      |
+| target      | DOM 节点或者 Ref，支持数组   | Target \| Target[]                     | -      |
+| eventName   | 指定需要监听的事件，支持数组 | DocumentEventKey \| DocumentEventKey[] | click  |
 
 #### 代码演示
 
@@ -6362,7 +6372,8 @@ useClickAway<T extends Event = Event>(
 #### 源码解析
 
 ```tsx
-import { BasicTarget, getTargetElement } from "./domTarget";
+import type { BasicTarget } from "./domTarget";
+import { getTargetElement } from "./domTarget";
 
 declare type TargetValue<T> = T | undefined | null;
 
@@ -6378,6 +6389,7 @@ const getShadow = (node: TargetValue<Element>) => {
   if (!node) {
     return document;
   }
+  // 返回该元素的根节点
   return node.getRootNode();
 };
 
@@ -6401,10 +6413,11 @@ export default getDocumentOrShadow;
 ```
 
 ```tsx
-import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
 import useLatest from "@/hooks/useLatest";
-import useEffectWithTarget from "../../../utils/useEffectWithTarget";
+import type { BasicTarget } from "../../../utils/domTarget";
+import { getTargetElement } from "../../../utils/domTarget";
 import getDocumentOrShadow from "../../../utils/getDocumentOrShadow";
+import useEffectWithTarget from "../../../utils/useEffectWithTarget";
 
 type DocumentEventKey = keyof DocumentEventMap;
 
@@ -6441,7 +6454,7 @@ const useClickAway = <T extends Event = Event>(
       // 事件列表
       const eventNames = Array.isArray(eventName) ? eventName : [eventName];
 
-      // document.addEventListener 监听事件
+      // 事件监听
       eventNames.forEach((event) =>
         documentOrShadow.addEventListener(event, handler)
       );
@@ -6461,6 +6474,338 @@ const useClickAway = <T extends Event = Event>(
 export default useClickAway;
 ```
 
+### useDrag & useDrop
+
+<aside>
+💡 处理元素拖拽的 Hook。
+
+</aside>
+
+useDrop 可以单独使用来接收文件、文字和网址的拖拽。
+
+useDrag 允许一个 DOM 节点被拖拽，需要配合 useDrop 的使用。
+
+向节点内触发粘贴动作也会被视为拖拽。
+
+#### API
+
+##### useDrag
+
+```tsx
+useDrag<T>(
+	data: any,
+	target: (() => Element)) | Element | MutableRefObject<Element>,
+	options?: DragOptions
+)
+```
+
+###### Params
+
+| 参数    | 说明                  | 类型                                                       | 默认值 |
+| ------- | --------------------- | ---------------------------------------------------------- | ------ |
+| data    | 拖拽的内容            | any                                                        | -      |
+| target  | DOM 节点或者 Ref 对象 | (() => Element)) \| Element \| MutableRefObject\<Element\> | -      |
+| options | 额外的配置项          | DragOptions                                                | -      |
+
+###### DragOptions
+
+| 参数        | 说明                               | 类型                        | 默认值 |
+| ----------- | ---------------------------------- | --------------------------- | ------ |
+| onDragStart | 开始拖拽的回调                     | (e: React.DragEvent) ⇒ void | -      |
+| onDragEnd   | 结束拖拽的回调                     | (e: React.DragEvent) ⇒ void | -      |
+| dragImage   | 自定义拖拽过程中跟随鼠标指针的图像 | DragImageOptions            | -      |
+
+###### DragImageOptions
+
+| 参数    | 说明                                                                                                | 类型              | 默认值 |
+| ------- | --------------------------------------------------------------------------------------------------- | ----------------- | ------ |
+| image   | 拖拽过程中跟随鼠标指针的图像。图像通常是一个 \<img\> 元素，但也可以是 \<canvas\> 或任何其他图像元素 | string \| Element | -      |
+| offsetX | 水平偏移                                                                                            | number            | 0      |
+| offsetY | 垂直偏移                                                                                            | number            | 0      |
+
+##### useDrop
+
+```tsx
+useDrop<T>(
+	target: (() => Element)) | Element | MutableRefObject<Element>,
+	options?: DropOptions
+)
+```
+
+###### Params
+
+| 参数    | 说明                  | 类型                                                     | 默认值 |
+| ------- | --------------------- | -------------------------------------------------------- | ------ |
+| target  | DOM 节点或者 Ref 对象 | (() => Element)) \| Element \| MutableRefObject<Element> | -      |
+| options | 额外的配置项          | DropOptions                                              | -      |
+
+###### DropOptions
+
+| 参数        | 说明                           | 类型                                       | 默认值 |
+| ----------- | ------------------------------ | ------------------------------------------ | ------ |
+| onText      | 拖拽/粘贴文字的回调            | (text: string, e: React.DragEvent) ⇒ void  | -      |
+| onFiles     | 拖拽/粘贴文件的回调            | (files: File[], e: React.DragEvent) ⇒ void | -      |
+| onUri       | 拖拽/粘贴链接的回调            | (text: string, e: React.DragEvent) ⇒ void  | -      |
+| onDom       | 拖拽/粘贴自定义 DOM 节点的回调 | (content: any, e: React.DragEvent) ⇒ void  | -      |
+| onDrop      | 拖拽任意内容的回调             | (e: React.DragEvent) ⇒ void                | -      |
+| onPaste     | 粘贴内容的回调                 | (e: React.ClipboardEvent) ⇒ void           | -      |
+| onDragEnter | 拖拽进入                       | (e: React.DragEvent) ⇒ void                | -      |
+| onDragOver  | 拖拽中                         | (e: React.DragEvent) ⇒ void                | -      |
+| onDragLeave | 拖拽出去                       | (e: React.DragEvent) ⇒ void                | -      |
+
+#### 代码演示
+
+[基础用法 - CodeSandbox](https://codesandbox.io/s/f72rwf)
+
+[自定义拖拽图像 - CodeSandbox](https://codesandbox.io/s/84tsvf)
+
+#### 源码解析
+
+##### useDrag
+
+```jsx
+import { useRef } from "react";
+import useLatest from "../useLatest";
+import useMount from "../useMount";
+import { isString } from "utils";
+import type { BasicTarget } from "utils/domTarget";
+import { getTargetElement } from "utils/domTarget";
+import useEffectWithTarget from "utils/useEffectWithTarget";
+
+export interface Options {
+  onDragStart?: (event: React.DragEvent) => void;
+  onDragEnd?: (event: React.DragEvent) => void;
+  dragImage?: {
+    image: string | Element;
+    offsetX?: number;
+    offsetY?: number;
+  };
+}
+
+const useDrag = <T>(data: T, target: BasicTarget, options: Options = {}) => {
+  // 额外的配置项
+  const optionsRef = useLatest(options);
+  // 拖拽的内容
+  const dataRef = useLatest(data);
+  // 拖拽过程中跟随鼠标指针的图像元素
+  const imageElementRef = useRef<Element>();
+
+  const { dragImage } = optionsRef.current;
+
+  useMount(() => {
+    // 判断 dragImage.image 的类型，将其存储在 imageElementRef.current 中
+    if (dragImage?.image) {
+      const { image } = dragImage;
+
+      if (isString(image)) {
+        // 如果是字符串，创建对应的图片元素
+        const imageElement = new Image();
+
+        imageElement.src = image;
+        imageElementRef.current = imageElement;
+      } else {
+        imageElementRef.current = image;
+      }
+    }
+  });
+
+  useEffectWithTarget(
+    () => {
+      const targetElement = getTargetElement(target);
+      if (!targetElement?.addEventListener) {
+        return;
+      }
+
+      const onDragStart = (event: React.DragEvent) => {
+        // 开始拖拽的回调
+        optionsRef.current.onDragStart?.(event);
+        // 设置拖拉事件中带有的数据
+        event.dataTransfer.setData("custom", JSON.stringify(dataRef.current));
+
+        // 设置拖拽过程中跟随鼠标指针的图像
+        if (dragImage?.image && imageElementRef.current) {
+          // 鼠标相对于图片的偏移量
+          const { offsetX = 0, offsetY = 0 } = dragImage;
+
+          event.dataTransfer.setDragImage(
+            imageElementRef.current,
+            offsetX,
+            offsetY
+          );
+        }
+      };
+
+      const onDragEnd = (event: React.DragEvent) => {
+        // 结束拖拽的回调
+        optionsRef.current.onDragEnd?.(event);
+      };
+
+      // 设置元素可拖拽
+      targetElement.setAttribute("draggable", "true");
+
+      // 注册开始拖拽事件监听器
+      targetElement.addEventListener("dragstart", onDragStart as any);
+      // 注册结束拖拽事件监听器
+      targetElement.addEventListener("dragend", onDragEnd as any);
+
+      return () => {
+        // 组件卸载清除事件监听器
+        targetElement.removeEventListener("dragstart", onDragStart as any);
+        targetElement.removeEventListener("dragend", onDragEnd as any);
+      };
+    },
+    [],
+    target
+  );
+};
+
+export default useDrag;
+```
+
+###### useDrop
+
+```jsx
+import React, { useRef } from "react";
+import useLatest from "../useLatest";
+import type { BasicTarget } from "utils/domTarget";
+import { getTargetElement } from "utils/domTarget";
+import useEffectWithTarget from "utils/useEffectWithTarget";
+
+export interface Options {
+  onFiles?: (files: File[], event?: React.DragEvent) => void;
+  onUri?: (url: string, event?: React.DragEvent) => void;
+  onDom?: (content: any, event?: React.DragEvent) => void;
+  onText?: (text: string, event?: React.ClipboardEvent) => void;
+  onDragEnter?: (event?: React.DragEvent) => void;
+  onDragOver?: (event?: React.DragEvent) => void;
+  onDragLeave?: (event?: React.DragEvent) => void;
+  onDrop?: (event?: React.DragEvent) => void;
+  onPaste?: (event?: React.ClipboardEvent) => void;
+}
+
+// 处理文件、文字和网址的拖放和粘贴事件
+const useDrop = <T>(target: BasicTarget, options: Options = {}) => {
+  // 额外的配置项
+  const optionsRef = useLatest(options);
+
+  // https://stackoverflow.com/a/26459269
+  // 跟踪拖拽进入的目标元素
+  const dragEnterTarget = useRef<any>();
+
+  useEffectWithTarget(
+    () => {
+      const targetElement = getTargetElement(target);
+      if (!targetElement?.addEventListener) {
+        return;
+      }
+
+      // 处理拖放和粘贴事件传输的数据，根据数据类型调用对应的回调函数
+      const onData = (
+        dataTransfer: DataTransfer,
+        event: React.DragEvent | React.ClipboardEvent
+      ) => {
+        const uri = dataTransfer.getData("text/uri-list");
+        const dom = dataTransfer.getData("custom");
+
+        // 拖拽/粘贴自定义 DOM 节点的回调
+        if (dom && optionsRef.current.onDom) {
+          let data = dom;
+          try {
+            data = JSON.parse(dom);
+          } catch (e) {
+            data = dom;
+          }
+          optionsRef.current.onDom(data, event as React.DragEvent);
+          return;
+        }
+
+        // 拖拽/粘贴链接的回调
+        if (uri && optionsRef.current.onUri) {
+          optionsRef.current.onUri(uri, event as React.DragEvent);
+          return;
+        }
+
+        // 拖拽/粘贴文件的回调
+        if (
+          dataTransfer.files &&
+          dataTransfer.files.length &&
+          optionsRef.current.onFiles
+        ) {
+          optionsRef.current.onFiles(
+            Array.from(dataTransfer.files),
+            event as React.DragEvent
+          );
+          return;
+        }
+
+        // 拖拽/粘贴文字的回调
+        if (
+          dataTransfer.items &&
+          dataTransfer.items.length &&
+          optionsRef.current.onText
+        ) {
+          dataTransfer.items[0].getAsString((text) => {
+            optionsRef.current.onText!(text, event as React.ClipboardEvent);
+          });
+        }
+      };
+
+      // 拖拽进入
+      const onDragEnter = (event: React.DragEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        dragEnterTarget.current = event.target;
+        optionsRef.current.onDragEnter?.(event);
+      };
+
+      // 拖拽悬停
+      const onDragOver = (event: React.DragEvent) => {
+        event.preventDefault();
+        optionsRef.current.onDragOver?.(event);
+      };
+
+      // 拖拽离开
+      const onDragLeave = (event: React.DragEvent) => {
+        if (event.target === dragEnterTarget.current) {
+          optionsRef.current.onDragLeave?.(event);
+        }
+      };
+
+      // 放置
+      const onDrop = (event: React.DragEvent) => {
+        event.preventDefault();
+        onData(event.dataTransfer, event);
+        optionsRef.current.onDrop?.(event);
+      };
+
+      // 粘贴
+      const onPaste = (event: React.ClipboardEvent) => {
+        onData(event.clipboardData, event);
+        optionsRef.current.onPaste?.(event);
+      };
+
+      targetElement.addEventListener("dragenter", onDragEnter as any);
+      targetElement.addEventListener("dragover", onDragOver as any);
+      targetElement.addEventListener("dragleave", onDragLeave as any);
+      targetElement.addEventListener("drop", onDrop as any);
+      targetElement.addEventListener("paste", onPaste as any);
+      return () => {
+        targetElement.removeEventListener("dragenter", onDragEnter as any);
+        targetElement.removeEventListener("dragover", onDragOver as any);
+        targetElement.removeEventListener("dragleave", onDragLeave as any);
+        targetElement.removeEventListener("drop", onDrop as any);
+        targetElement.removeEventListener("paste", onPaste as any);
+      };
+    },
+    [],
+    target
+  );
+};
+
+export default useDrop;
+```
+
 ### useDocumentVisibility
 
 <aside>
@@ -6476,9 +6821,9 @@ const documentVisibility = useDocumentVisibility();
 
 ##### Result
 
-| 参数               | 说明                           | 类型    |
-| ------------------ | ------------------------------ | ------- | ------ | --------- | --------- |
-| documentVisibility | 判断 document 是否处于可见状态 | visible | hidden | prerender | undefined |
+| 参数               | 说明                           | 类型                                        |
+| ------------------ | ------------------------------ | ------------------------------------------- |
+| documentVisibility | 判断 document 是否处于可见状态 | visible \| hidden \| prerender \| undefined |
 
 #### 代码演示
 
@@ -6487,9 +6832,9 @@ const documentVisibility = useDocumentVisibility();
 #### 源码解析
 
 ```tsx
-import isBrowser from "../../../utils/isBrowser";
 import { useState } from "react";
 import useEventListener from "@/hooks/useEventListener";
+import isBrowser from "../../../utils/isBrowser";
 
 /**
  * 'hidden': 页面对用户不可见。即文档处于背景标签页、或窗口处于最小化状态，或操作系统正处于"锁屏状态"
@@ -6508,12 +6853,10 @@ const getVisibility = () => {
 };
 
 const useDocumentVisibility = (): VisibilityState => {
-  const [documentVisibility, setDocumentVisibility] = useState<VisibilityState>(
-    () => getVisibility()
-  );
+  const [documentVisibility, setDocumentVisibility] = useState(getVisibility);
 
   useEventListener(
-    // 监听该事件
+    // 监听 'visibilitychange'
     "visibilitychange",
     () => {
       setDocumentVisibility(getVisibility());
@@ -6570,24 +6913,33 @@ import { useCallback, useState } from "react";
 import useLatest from "@/hooks/useLatest";
 import { isFunction } from "../../../utils";
 
+interface EventTarget<U> {
+  target: {
+    value: U;
+  };
+}
+
 export interface Options<T, U> {
   initialValue?: T;
   transformer?: (value: U) => T;
 }
 
-const useEventTarget = <T, U>(options?: Options<T, U>) => {
+const useEventTarget = <T, U = T>(options?: Options<T, U>) => {
   const { initialValue, transformer } = options || {};
 
   const [value, setValue] = useState(initialValue);
 
-  // 自定义转换函数
+  // 自定义回调值的转化
   const transformerRef = useLatest(transformer);
 
+  // 重置函数
   const reset = useCallback(() => setValue(initialValue), []);
 
+  // 表单控件值发生变化时的回调
   const onChange = useCallback((e: EventTarget<U>) => {
-    // 获取 e.target.value 的值，并进行设置
+    // 获取 e.target.value
     const _value = e.target.value;
+    // 判断自定义回调值的转化配置项是否存在并且为函数
     if (isFunction(transformerRef.current)) {
       return setValue(transformerRef.current(_value));
     }
@@ -6653,14 +7005,20 @@ const status = useExternal(path: string, options?: Options)
 import { useEffect, useRef, useState } from "react";
 
 type JsOptions = {
+  // 需引入外部资源的类型
   type: "js";
+  // script 标签支持的属性
   js?: Partial<HTMLScriptElement>;
+  // 在不持有资源的引用后，仍然保留资源
   keepWhenUnused?: boolean;
 };
 
 type CssOptions = {
+  // 需引入外部资源的类型
   type: "css";
+  // link 标签支持的属性
   css?: Partial<HTMLStyleElement>;
+  // 在不持有资源的引用后，仍然保留资源
   keepWhenUnused?: boolean;
 };
 
@@ -6673,6 +7031,13 @@ type DefaultOptions = {
 
 export type Options = JsOptions | CssOptions | DefaultOptions;
 
+/**
+ * 加载状态
+ * unset - 未设置
+ * loading - 加载中
+ * ready - 加载完成
+ * error - 加载失败
+ */
 export type Status = "unset" | "loading" | "ready" | "error";
 
 interface loadResult {
@@ -6685,7 +7050,7 @@ interface loadResult {
 const EXTERNAL_USED_COUNT: Record<string, number> = {};
 
 const loadingScript = (path: string, props = {}): loadResult => {
-  // 判断是否已经有 JS 资源
+  // 判断是否已经有该 JS 资源
   const script = document.querySelector(`script[src="${path}"]`);
 
   // 没有，则创建
@@ -6700,7 +7065,7 @@ const loadingScript = (path: string, props = {}): loadResult => {
 
     // 更新状态
     newScript.setAttribute("data-status", "loading");
-    // 在 body 标签中插入
+    // 在 body 中插入
     document.body.appendChild(newScript);
 
     return {
@@ -6717,7 +7082,7 @@ const loadingScript = (path: string, props = {}): loadResult => {
 };
 
 const loadCss = (path: string, props = {}): loadResult => {
-  // 判断是否已经有 CSS 资源
+  // 判断是否已经有该 CSS 资源
   const css = document.querySelector(`link[href="${path}"]`);
 
   // 没有，则创建
@@ -6752,7 +7117,7 @@ const loadCss = (path: string, props = {}): loadResult => {
     document.head.appendChild(newCss);
 
     return {
-      ref: css,
+      ref: newCss,
       status: "loading",
     };
   }
@@ -6767,6 +7132,7 @@ const loadCss = (path: string, props = {}): loadResult => {
 const useExternal = (path?: string, options?: Options) => {
   const [status, setStatus] = useState<Status>(path ? "loading" : "unset");
 
+  // DOM
   const ref = useRef<Element>();
 
   useEffect(() => {
@@ -6812,24 +7178,26 @@ const useExternal = (path?: string, options?: Options) => {
       EXTERNAL_USED_COUNT[path] += 1;
     }
 
+    // // 判断和设置加载状态
     const handler = (event: Event) => {
-      // 判断和设置加载状态
       const targetStatus = event.type === "load" ? "ready" : "error";
       ref.current?.setAttribute("data-status", targetStatus);
       setStatus(targetStatus);
     };
 
-    // / 监听文件加载情况
+    // 注册事件监听器
+    // 加载完成
     ref.current.addEventListener("load", handler);
+    // 加载失败
     ref.current.addEventListener("error", handler);
     return () => {
-      // 清除副作用
+      // 清除事件监听器
       ref.current?.removeEventListener("load", handler);
       ref.current?.removeEventListener("error", handler);
 
       EXTERNAL_USED_COUNT[path] -= 1;
 
-      // 在不持有资源的引用后，从 DOM 中移除 element
+      // 在不持有资源的引用后，从 DOM 中移除
       if (EXTERNAL_USED_COUNT[path] === 0 && !options?.keepWhenUnused) {
         ref.current?.remove();
       }
@@ -6877,8 +7245,8 @@ useTitle(title: string, options?: Options)
 
 ```tsx
 import { useEffect, useRef } from "react";
-import isBrowser from "../../../utils/isBrowser";
 import useUnmount from "@/hooks/useUnmount";
+import isBrowser from "../../../utils/isBrowser";
 
 export interface Options {
   restoreOnUnmount?: boolean;
@@ -6889,15 +7257,16 @@ const DEFAULT_OPTIONS: Options = {
 };
 
 const useTitle = (title: string, options: Options = DEFAULT_OPTIONS) => {
+  // 上一个页面标题
   const titleRef = useRef(isBrowser ? document.title : "");
 
   useEffect(() => {
-    // 通过 document.title 设置
+    // 通过 document.title 设置页面标题
     document.title = title;
   }, [title]);
 
   useUnmount(() => {
-    // 组件卸载后，恢复上一次的 title
+    // 组件卸载时，恢复上一个页面标题
     if (options.restoreOnUnmount) {
       document.title = titleRef.current;
     }
@@ -6935,6 +7304,7 @@ useFavicon(href: string)
 ```tsx
 import { useEffect } from "react";
 
+// 存储不同图片的 MIME 类型
 const ImgTypeMap = {
   SVG: "image/svg+xml",
   ICO: "image/x-icon",
@@ -6948,23 +7318,282 @@ const useFavicon = (href: string) => {
   useEffect(() => {
     if (!href) return;
 
+    // 获取图片后缀
     const cutUrl = href.split(".");
     const imgSuffix = cutUrl[cutUrl.length - 1].toLocaleUpperCase() as ImgTypes;
 
-    // 通过 link 标签设置 favicon
+    // 通过 link 标签设置 favicon，获取或新建
     const link: HTMLLinkElement =
       document.querySelector("link[rel*='icon']") ||
       document.createElement("link");
 
+    // 设置 link 标签的 type、href、rel 属性
     link.type = ImgTypeMap[imgSuffix];
     link.href = href;
     link.rel = "shortcut icon";
 
+    // 添加到 head 标签中
     document.getElementsByTagName("head")[0].appendChild(link);
   }, [href]);
 };
 
 export default useFavicon;
+```
+
+### useFullScreen
+
+<aside>
+💡 管理 DOM 全屏的 Hook。
+
+</aside>
+
+#### API
+
+```tsx
+const [isFullScreen, {
+	enterFullscreen,
+  exitFullscreen,
+  toggleFullscreen,
+  isEnabled,
+}] = useFullScreen(
+	target,
+	options?: Options
+)
+```
+
+##### Params
+
+| 参数    | 说明                  | 类型                                                 | 默认值 |
+| ------- | --------------------- | ---------------------------------------------------- | ------ |
+| target  | DOM 节点或者 Ref 对象 | Element \| () ⇒ Element \| MutableRefObject<Element> | -      |
+| options | 设置                  | Options                                              |        |
+
+##### Options
+
+| 参数           | 说明                                                                 | 类型                                             | 默认值 |
+| -------------- | -------------------------------------------------------------------- | ------------------------------------------------ | ------ |
+| onExit         | 退出全屏触发                                                         | () ⇒ void                                        | -      |
+| onEnter        | 全屏触发                                                             | () ⇒ void                                        | -      |
+| pageFullscreen | 是否是页面全屏。当参数类型为对象时，可以设置全屏元素的类名和 z-index | boolean \| { className?: sting, zIndex?: number} | false  |
+
+##### Result
+
+| 参数             | 说明         | 类型      |
+| ---------------- | ------------ | --------- |
+| isFullscreen     | 是否全屏     | boolean   |
+| enterFullscreen  | 设置全屏     | () ⇒ void |
+| exitFullscreen   | 退出全屏     | () ⇒ void |
+| toggleFullscreen | 切换全屏     | () ⇒ void |
+| isEnabled        | 是否支持全屏 | boolean   |
+
+#### 代码演示
+
+[基础用法 - CodeSandbox](https://codesandbox.io/s/hmjx1e)
+
+[图片全屏 - CodeSandbox](https://codesandbox.io/s/cy6lr9)
+
+[页面全屏 - CodeSandbox](https://codesandbox.io/s/9gbtef)
+
+[与其它全屏操作共存 - CodeSandbox](https://codesandbox.io/s/dtqj5h)
+
+#### 源码解析
+
+该 Hook 主要依赖 [screenfull](https://www.npmjs.com/package/screenfull) 的 npm 包，帮助开发者管理全屏模式。
+
+属性：
+
+- isEnabled: 只读属性，表示当前浏览器是否支持全屏功能
+- isFullscreen: 只读属性，表示当前是否处于全屏状态
+
+方法：
+
+- request(element): 请求进入全屏模式，可以传入一个 DOM 元素作为参数，该元素将被显示在全屏模式下
+- exit(): 退出全屏模式
+- toggle(element): 切换全屏状态，如果当前处于全屏状态，则退出全屏；如果不是全屏状态，则进入全屏
+- on(eventName, callback): 监听全屏状态变化事件，当全屏状态发生变化时触发回调函数
+- off(eventName, callback): 移除全屏状态变化事件的监听
+
+```jsx
+import { useEffect, useRef, useState } from "react";
+import screenfull from "screenfull";
+import useLatest from "@/hooks/useLatest";
+import useMemoizedFn from "@/hooks/useMemoizedFn";
+import type { BasicTarget } from "../../../utils/domTarget";
+import { getTargetElement } from "../../../utils/domTarget";
+import { isBoolean } from "../../../utils";
+
+export interface PageFullscreenOptions {
+  className?: string;
+  zIndex?: number;
+}
+
+export interface Options {
+  onExit?: () => void;
+  onEnter?: () => void;
+  pageFullscreen?: boolean | PageFullscreenOptions;
+}
+
+const useFullscreen = (target: BasicTarget, options?: Options) => {
+  const { onExit, onEnter, pageFullscreen = false } = options || {};
+
+  // 设置 className 和 zIndex 的默认值
+  const { className = "ahooks-page-fullscreen", zIndex = 999999 } =
+    isBoolean(pageFullscreen) || !pageFullscreen ? {} : pageFullscreen;
+
+  // 当前是否处于全屏状态
+  const getIsFullscreen = () =>
+    screenfull.isEnabled &&
+    !!screenfull.element &&
+    screenfull.element === getTargetElement(target);
+
+  const onExitRef = useLatest(onExit);
+  const onEnterRef = useLatest(onEnter);
+
+  const [state, setState] = useState(getIsFullscreen);
+  // 引用当前的全屏状态
+  const stateRef = useRef(getIsFullscreen());
+
+  // 根据全屏状态调用相应的回调函数
+  const invokeCallback = (fullscreen: boolean) => {
+    if (fullscreen) {
+      onEnterRef.current?.();
+    } else {
+      onExitRef.current?.();
+    }
+  };
+
+  // 更新全屏状态，触发相应的回调函数
+  const updateFullscreenState = (fullscreen: boolean) => {
+    if (stateRef.current !== fullscreen) {
+      invokeCallback(fullscreen);
+      setState(fullscreen);
+      stateRef.current = fullscreen;
+    }
+  };
+
+  // 监听全屏状态变化，更新全屏状态
+  const onScreenfullChange = () => {
+    const fullscreen = getIsFullscreen();
+    updateFullscreenState(fullscreen);
+  };
+
+  // 切换页面全屏状态
+  const togglePageFullscreen = (fullscreen: boolean) => {
+    const el = getTargetElement(target);
+    if (!el) {
+      return;
+    }
+
+    let styleElem = document.getElementById(className);
+
+    // 全屏
+    if (fullscreen) {
+      el.classList.add(className);
+
+      // 全屏样式
+      if (!styleElem) {
+        styleElem = document.createElement("style");
+        styleElem.setAttribute("id", className);
+        styleElem.textContent = `
+          .${className} {
+            position: fixed; left: 0; top: 0; right: 0; bottom: 0;
+            width: 100% !important; height: 100% !important;
+            z-index: ${zIndex};
+          }
+        `;
+        el.appendChild(styleElem);
+      }
+    } else {
+      // 退出全屏
+      el.classList.remove(className);
+
+      if (styleElem) {
+        styleElem.remove();
+      }
+    }
+
+    // 更新全屏状态
+    updateFullscreenState(fullscreen);
+  };
+
+  // 进入全屏状态
+  const enterFullscreen = () => {
+    const el = getTargetElement(target);
+
+    if (!el) {
+      return;
+    }
+
+    // 页面全屏
+    if (pageFullscreen) {
+      togglePageFullscreen(true);
+      return;
+    }
+    // 元素全屏
+    if (screenfull.isEnabled) {
+      try {
+        screenfull.request(el);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  // 退出全屏状态
+  const exitFullscreen = () => {
+    const el = getTargetElement(target);
+
+    if (!el) {
+      return;
+    }
+
+    // 页面退出全屏
+    if (pageFullscreen) {
+      togglePageFullscreen(false);
+      return;
+    }
+    // 元素退出全屏
+    if (screenfull.isEnabled && screenfull.element === el) {
+      screenfull.exit();
+    }
+  };
+
+  // 切换全屏状态
+  const toggleFullscreen = () => {
+    if (state) {
+      exitFullscreen();
+    } else {
+      enterFullscreen();
+    }
+  };
+
+  useEffect(() => {
+    // 当前环境是否支持全屏或页面已经处于全屏
+    if (!screenfull.isEnabled || pageFullscreen) {
+      return;
+    }
+
+    // 监听全屏状态变化
+    screenfull.on("change", onScreenfullChange);
+
+    return () => {
+      // 取消对全屏状态变化的监听
+      screenfull.off("change", onScreenfullChange);
+    };
+  }, []);
+
+  return [
+    state,
+    {
+      enterFullscreen: useMemoizedFn(enterFullscreen),
+      exitFullscreen: useMemoizedFn(exitFullscreen),
+      toggleFullscreen: useMemoizedFn(toggleFullscreen),
+      isEnabled: screenfull.isEnabled,
+    },
+  ] as const;
+};
+
+export default useFullscreen;
 ```
 
 ### useHover
@@ -6986,10 +7615,10 @@ const isHovering = useHover(target, {
 
 ##### Params
 
-| 参数    | 说明                  | 类型         | 默认值  |
-| ------- | --------------------- | ------------ | ------- | -------------------------- | --- |
-| target  | DOM 节点或者 Ref 对象 | () ⇒ Element | Element | MultableRefObject<Element> | -   |
-| options | 额外的配置项          | Options      |         |
+| 参数    | 说明                  | 类型                                                  | 默认值 |
+| ------- | --------------------- | ----------------------------------------------------- | ------ |
+| target  | DOM 节点或者 Ref 对象 | () ⇒ Element \| \Element \| MutableRefObject<Element> | -      |
+| options | 额外的配置项          | Options                                               |        |
 
 ##### Options
 
@@ -7081,9 +7710,9 @@ useMutationObserver(
 ##### Params
 
 | 参数     | 说明                  | 类型                                                             | 默认值  |
-| -------- | --------------------- | ---------------------------------------------------------------- | ------- | -------------------------- | --- |
+| -------- | --------------------- | ---------------------------------------------------------------- | ------- | ------------------------- | --- |
 | callback | 触发的回调函数        | (mutations: MutationRecord[], observer: MutationObserver) ⇒ void | -       |
-| target   | DOM 节点或者 Ref 对象 | () ⇒ Element                                                     | Element | MultableRefObject<Element> | -   |
+| target   | DOM 节点或者 Ref 对象 | () ⇒ Element                                                     | Element | MutableRefObject<Element> | -   |
 | options  | 设置项                | MutationObserverInit                                             | {}      |
 
 ##### Options
@@ -7184,8 +7813,8 @@ const [inViewport, ratio] = useInViewport(
 ##### Params
 
 | 参数    | 说明                  | 类型         | 默认值  |
-| ------- | --------------------- | ------------ | ------- | -------------------------- | --- |
-| target  | DOM 节点或者 Ref 对象 | () ⇒ Element | Element | MultableRefObject<Element> | -   |
+| ------- | --------------------- | ------------ | ------- | ------------------------- | --- |
+| target  | DOM 节点或者 Ref 对象 | () ⇒ Element | Element | MutableRefObject<Element> | -   |
 | options | 设置                  | Options      | -       |
 
 ##### Options
@@ -9261,3 +9890,125 @@ const useWhyDidYouUpdate = (componentName: string, props: IProps) => {
 
 export default useWhyDidYouUpdate;
 ```
+
+## 计划
+
+### 二期计划列表
+
+- 补充所有 Hook Demo
+- 补充所有 Hook 单测源码
+
+### 一期计划列表
+
+主要完成所有 Hook 源码阅读初稿
+
+#### DOM
+
+- [x] useEventListener
+- [x] useClickAway
+- [x] useDocumentVisibility
+- [x] useTitle
+- [x] useFavicon
+- [x] useEventTarget
+- [x] useExternal
+- [x] useHover
+- [x] useMutationObserver
+- [x] useInViewport
+- [x] useKeyPress
+- [x] useLongPress
+- [x] useMouse
+- [x] useResponsive
+- [x] useScroll
+- [x] useFocusWithin
+- [x] useSize
+- [x] useDrop & useDrag
+- [x] useFullscreen
+
+#### Advanced
+
+- [x] useLatest
+- [x] useMemoizedFn
+- [x] useIsomorphicLayoutEffect
+- [x] useCreation
+- [x] useControllableValue
+- [x] useEventEmitter
+- [x] useReactive
+
+#### State
+
+- [x] useSetState
+- [x] useBoolean
+- [x] useToggle
+- [x] useLocalStorageState
+- [x] useSessionStorageState
+- [x] useMap
+- [x] useSet
+- [x] usePrevious
+- [x] useRafState
+- [x] useGetState
+- [x] useResetState
+- [x] useSafeState
+- [x] useUrlState
+- [x] useCookieState
+- [x] useDebounce
+- [x] useThrottle
+
+#### Effect
+
+- [x] useUpdateEffect
+- [x] useUpdateLayoutEffect
+- [x] useUpdate
+- [x] useDebounceEffect
+- [x] useDebounceFn
+- [x] useThrottleFn
+- [x] useThrottleEffect
+- [x] useInterval
+- [x] useTimeout
+- [x] useDeepCompareEffect
+- [x] useDeepCompareLayoutEffect
+- [x] useRafInterval
+- [x] useRafTimeout
+- [x] useLockFn
+- [x] useAsyncEffect
+
+#### Scene
+
+- [x] useHistoryTravel
+- [x] useNetwork
+- [x] useSelections
+- [x] useCountDown
+- [x] useCounter
+- [x] useTextSelection
+- [x] useWebSocket
+- [x] usePagination
+- [x] useFusionTable
+- [ ] useAntdTable
+- [ ] useInfiniteScroll
+- [ ] useDynamicList
+- [ ] useVirtualList
+
+#### LifeCycle
+
+- [x] useMount
+- [x] useUnMount
+- [x] useUnmountedRef
+
+#### Dev
+
+- [x] useTrackedEffect
+- [x] useWhyDidYouUpdate
+
+#### useRequest
+
+- [x] 核心原理
+- [x] Loading delay
+- [x] 轮询
+- [x] Ready
+- [x] 依赖更新
+- [x] 屏幕聚焦重新请求
+- [x] 防抖
+- [x] 节流
+- [x] 缓存
+- [x] 错误重试
+
+## 总结
