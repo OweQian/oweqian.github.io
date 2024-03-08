@@ -7398,7 +7398,7 @@ const [isFullScreen, {
 
 #### 源码解析
 
-该 Hook 主要依赖 [screenfull](https://www.npmjs.com/package/screenfull) 的 npm 包，帮助开发者管理全屏模式。
+该 Hook 主要依赖  [screenfull](https://www.npmjs.com/package/screenfull)  的 npm 包，帮助开发者管理全屏模式。
 
 属性：
 
@@ -7615,10 +7615,10 @@ const isHovering = useHover(target, {
 
 ##### Params
 
-| 参数    | 说明                  | 类型                                                  | 默认值 |
-| ------- | --------------------- | ----------------------------------------------------- | ------ |
-| target  | DOM 节点或者 Ref 对象 | () ⇒ Element \| \Element \| MutableRefObject<Element> | -      |
-| options | 额外的配置项          | Options                                               |        |
+| 参数    | 说明                  | 类型                                                   | 默认值 |
+| ------- | --------------------- | ------------------------------------------------------ | ------ |
+| target  | DOM 节点或者 Ref 对象 | () ⇒ Element \| Element \| MutableRefObject\<Element\> | -      |
+| options | 额外的配置项          | Options                                                |        |
 
 ##### Options
 
@@ -7643,9 +7643,9 @@ const isHovering = useHover(target, {
 #### 源码解析
 
 ```tsx
-import { BasicTarget } from "../../../utils/domTarget";
 import useBoolean from "@/hooks/useBoolean";
 import useEventListener from "@/hooks/useEventListener";
+import type { BasicTarget } from "../../../utils/domTarget";
 
 export interface Options {
   onEnter?: () => void;
@@ -7658,7 +7658,7 @@ const useHover = (target: BasicTarget, options?: Options): boolean => {
 
   const [state, { setTrue, setFalse }] = useBoolean(false);
 
-  // 监听 mouseenter 触发 onEnter 事件，切换状态为 true
+  // 监听 mouseenter 事件
   useEventListener(
     "mouseenter",
     () => {
@@ -7671,7 +7671,7 @@ const useHover = (target: BasicTarget, options?: Options): boolean => {
     }
   );
 
-  // 监听 mouseleave 触发 onLeave 事件，切换状态为 false
+  // 监听 mouseleave 事件
   useEventListener(
     "mouseleave",
     () => {
@@ -7709,11 +7709,11 @@ useMutationObserver(
 
 ##### Params
 
-| 参数     | 说明                  | 类型                                                             | 默认值  |
-| -------- | --------------------- | ---------------------------------------------------------------- | ------- | ------------------------- | --- |
-| callback | 触发的回调函数        | (mutations: MutationRecord[], observer: MutationObserver) ⇒ void | -       |
-| target   | DOM 节点或者 Ref 对象 | () ⇒ Element                                                     | Element | MutableRefObject<Element> | -   |
-| options  | 设置项                | MutationObserverInit                                             | {}      |
+| 参数     | 说明                  | 类型                                                             | 默认值 |
+| -------- | --------------------- | ---------------------------------------------------------------- | ------ |
+| callback | 触发的回调函数        | (mutations: MutationRecord[], observer: MutationObserver) ⇒ void | -      |
+| target   | DOM 节点或者 Ref 对象 | () ⇒ Element \| Element \| MutableRefObject\<Element\>           | -      |
+| options  | 设置项                | MutationObserverInit                                             | {}     |
 
 ##### Options
 
@@ -7726,6 +7726,16 @@ useMutationObserver(
 [基础用法 - CodeSandbox](https://codesandbox.io/s/4zfvzp)
 
 #### 源码解析
+
+```tsx
+import type { DependencyList } from "react";
+import { isEqual } from "lodash-es";
+
+export const depsEqual = (
+  aDeps: DependencyList = [],
+  bDeps: DependencyList = []
+) => isEqual(aDeps, bDeps);
+```
 
 ```tsx
 import { DependencyList, EffectCallback, useRef } from "react";
@@ -7756,7 +7766,8 @@ export default useDeepCompareEffectWithTarget;
 ```
 
 ```tsx
-import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
+import { getTargetElement } from "../../../utils/domTarget";
+import type { BasicTarget } from "../../../utils/domTarget";
 import useLatest from "@/hooks/useLatest";
 import useDeepCompareEffectWithTarget from "../../../utils/useDeepCompareWithTarget";
 
@@ -7804,41 +7815,46 @@ export default useMutationObserver;
 #### API
 
 ```tsx
+type Target = Element | (() => Element) | React.MutableRefObject<Element>;
+
 const [inViewport, ratio] = useInViewport(
-	target,
-	options?: Options
-)
+  target: Target | Target[],
+  options?: Options
+);
 ```
 
 ##### Params
 
-| 参数    | 说明                  | 类型         | 默认值  |
-| ------- | --------------------- | ------------ | ------- | ------------------------- | --- |
-| target  | DOM 节点或者 Ref 对象 | () ⇒ Element | Element | MutableRefObject<Element> | -   |
-| options | 设置                  | Options      | -       |
+| 参数    | 说明                       | 类型                 | 默认值 |
+| ------- | -------------------------- | -------------------- | ------ |
+| target  | DOM 节点或者 Ref，支持数组 | Target \| Target[]   | -      |
+| options | 设置                       | Options \| undefined | -      |
 
 ##### Options
 
 更多信息参考  [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API)。
 
-| 参数       | 说明                                                                                                        | 类型    | 默认值   |
-| ---------- | ----------------------------------------------------------------------------------------------------------- | ------- | -------- | ----------------------- | ------------------------------- | --- |
-| threshold  | 可以是单一的 numebr 也可以是 number 数组，target 元素和 root 元素相交程度达到该值的时候 ratio 会被更新      | number  | number[] | -                       |
-| rootMargin | 根(root)元素的外边距                                                                                        | string  | -        |
-| root       | 指定根(root)元素，用于检查目标的可见性。必须是目标元素的父级元素，如果未指定或者为 null，则默认为浏览器视窗 | Element | Document | () ⇒ (Element/Document) | React.MutableRefObject<Element> | -   |
+| 参数       | 说明                                                                                                        | 类型                                                                                | 默认值 |
+| ---------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------ |
+| threshold  | 可以是单一的 numebr 也可以是 number 数组，target 元素和 root 元素相交程度达到该值的时候 ratio 会被更新      | number \| number[]                                                                  | -      |
+| rootMargin | 根(root)元素的外边距                                                                                        | string                                                                              | -      |
+| root       | 指定根(root)元素，用于检查目标的可见性。必须是目标元素的父级元素，如果未指定或者为 null，则默认为浏览器视窗 | Element \| Document \| () ⇒ (Element/Document) \| React.MutableRefObject\<Element\> | -      |
+| callback   | IntersectionObserver  的回调被调用时触发                                                                    | (entry: IntersectionObserverEntry) => void                                          |        |
 
 ##### Result
 
-| 参数       | 说明                                                      | 类型    |
-| ---------- | --------------------------------------------------------- | ------- | --------- |
-| inViewport | 是否可见                                                  | boolean | undefined |
-| ratio      | 当前可见比例，在每次到达 options.threshold 设置节点时更新 | number  | undefined |
+| 参数       | 说明                                                      | 类型                 |
+| ---------- | --------------------------------------------------------- | -------------------- |
+| inViewport | 是否可见                                                  | boolean \| undefined |
+| ratio      | 当前可见比例，在每次到达 options.threshold 设置节点时更新 | number \| undefined  |
 
 #### 代码演示
 
-[基础用法 - CodeSandbox](https://codesandbox.io/s/dubu6i)
+[基础用法 - CodeSandbox](https://codesandbox.io/s/q3sgf2)
 
-[监听元素可见区域比例 - CodeSandbox](https://codesandbox.io/s/qznp5m)
+[监听元素可见区域比例 - CodeSandbox](https://codesandbox.io/s/9gh8lv)
+
+[监听内容滚动选中菜单 - CodeSandbox](https://codesandbox.io/s/lmhgrw)
 
 #### 源码解析
 
@@ -7847,17 +7863,17 @@ const [inViewport, ratio] = useInViewport(
  * intersection-observer polyfill 处理
  * */
 import "intersection-observer";
-import { BasicTarget } from "../../../utils/domTarget";
-import { getTargetElement } from "../../../utils/domTarget";
 import { useState } from "react";
+import type { BasicTarget } from "../../../utils/domTarget";
+import { getTargetElement } from "../../../utils/domTarget";
 import useEffectWithTarget from "../../../utils/useEffectWithTarget";
 
 type CallbackType = (entry: IntersectionObserverEntry) => void;
 
 export interface Options {
   rootMargin?: string;
-  root?: BasicTarget;
   threshold?: number | number[];
+  root?: BasicTarget<Element>;
   callback?: CallbackType;
 }
 
@@ -7873,14 +7889,11 @@ const useInViewport = (
   useEffectWithTarget(
     () => {
       const targets = Array.isArray(target) ? target : [target];
-      /**
-       * 移除所有的 false 类型的元素
-       * */
       const els = targets
         .map((element) => getTargetElement(element))
         .filter(Boolean);
 
-      if (!els) {
+      if (!els.length) {
         return;
       }
 
@@ -7891,11 +7904,11 @@ const useInViewport = (
         (entries) => {
           for (const entry of entries) {
             /**
-             * 查看条目是否代表当前与根相交的元素
+             * 返回比例值
              * */
             setRatio(entry.intersectionRatio);
             /**
-             * 返回比例值
+             * 查看条目是否代表当前与根相交的元素
              * */
             setState(entry.isIntersecting);
             /**
@@ -7911,13 +7924,9 @@ const useInViewport = (
       );
 
       /**
-       * 定位要观察的元素，可以是多个元素
+       * 监控多个元素
        * */
-      els.forEach((el) => {
-        if (el) {
-          observer.observe(el);
-        }
-      });
+      els.forEach((el) => observer.observe(el!));
 
       return () => {
         observer.disconnect();
