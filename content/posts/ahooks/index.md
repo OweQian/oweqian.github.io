@@ -8573,9 +8573,9 @@ const state: {
 
 ##### Params
 
-| 参数   | 说明             | 类型    |
-| ------ | ---------------- | ------- | ------------ | ------------------------------- |
-| target | DOM 节点或者 ref | Element | () ⇒ Element | React.MutableRefObject<Element> |
+| 参数   | 说明             | 类型                                                         |
+| ------ | ---------------- | ------------------------------------------------------------ |
+| target | DOM 节点或者 ref | Element \| () ⇒ Element \| React.MutableRefObject\<Element\> |
 
 ##### Result
 
@@ -8603,23 +8603,26 @@ const state: {
 #### 源码解析
 
 ```tsx
-import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
 import useRafState from "@/hooks/useRafState";
 import useEventListener from "@/hooks/useEventListener";
+import type { BasicTarget } from "../../../utils/domTarget";
+import { getTargetElement } from "../../../utils/domTarget";
 
 /**
- * screenX: 距离显示器左侧的距离（电脑屏幕）
- * screenY: 距离显示器顶部的距离（电脑屏幕）
- * clientX: 距离当前视窗左侧的距离（浏览器窗口）
- * clientY: 距离当前视窗顶部的距离（浏览器窗口）
- * pageX: 距离完整页面左侧的距离（clientX + 横向滚动条距离）
- * pageY: 距离完整页面顶部的距离（clientY + 横向滚动条距离）
+ * screenX: 距离显示器左侧的距离（屏幕）
+ * screenY: 距离显示器顶部的距离（屏幕）
+ * clientX: 距离当前视窗左侧的距离（视窗）
+ * clientY: 距离当前视窗顶部的距离（视窗）
+ * pageX: 距离完整页面左侧的距离（clientX + 文档在水平方向上已经滚动的像素数）
+ * pageY: 距离完整页面顶部的距离（clientY + 文档在垂直方向上已经滚动的像素数）
+ * elementX: 距离指定元素左侧的距离
+ * elementY: 距离指定元素顶部的距离
  * elementH: 指定元素的高
  * elementW: 指定元素的宽
  * elementPosX: 指定元素距离完整页面左侧的距离（：left + window.pageXOffset)
- * elementPosY: 指定元素距离完整页面顶部的距离（：left + window.pageYOffset)
- * elementX: 距离指定元素左侧的距离
- * elementY: 距离指定元素顶部的距离
+ * elementPosY: 指定元素距离完整页面顶部的距离（：top + window.pageYOffset)
+ * window.pageXOffset: 表示文档在水平方向上已经滚动的像素数
+ * window.pageYOffset: 表示文档在垂直方向上已经滚动的像素数
  * */
 
 export interface CursorState {
@@ -8677,7 +8680,7 @@ const useMouse = (target?: BasicTarget) => {
 
       const targetElement = getTargetElement(target);
       if (targetElement) {
-        // 目标元素的大小及其相对于当前视窗的位置
+        // 获取目标元素的位置信息
         const { left, top, width, height } =
           targetElement.getBoundingClientRect();
         // 计算鼠标相对于目标元素的位置信息
@@ -8759,13 +8762,13 @@ configResponsive({
 import isBrowser from "../../../utils/isBrowser";
 import { useEffect, useState } from "react";
 
-type ResponsiveConfig = Record<string, number>;
-type ResponsiveInfo = Record<string, boolean>;
-
 type Subscriber = () => void;
 
 // 全局订阅器
 const subscribers = new Set<Subscriber>();
+
+type ResponsiveConfig = Record<string, number>;
+type ResponsiveInfo = Record<string, boolean>;
 
 // 全局响应式信息对象
 let info: ResponsiveInfo;
@@ -8779,47 +8782,47 @@ let responsiveConfig: ResponsiveConfig = {
   xl: 1200,
 };
 
-let listening = false;
-
-// 根据当前屏幕宽度与配置做比较，计算新的响应式信息对象
-function calculate() {
-  const width = window.innerWidth;
-  const newInfo = {} as ResponsiveInfo;
-  let shouldUpdate = false;
-  for (const key of Object.keys(responsiveConfig)) {
-    // 如果宽度大于配置值，则为 true
-    newInfo[key] = width >= responsiveConfig[key];
-    if (newInfo[key] !== info[key]) {
-      shouldUpdate = true;
-    }
-  }
-  // 如果有更新，则更新 info 的值，性能优化
-  if (shouldUpdate) {
-    info = newInfo;
-  }
-}
-
 // resize 事件回调函数
 function handleResize() {
   const oldInfo = info;
   // 计算新的响应式信息对象
   calculate();
-  // 假如没有更新，直接返回
+  // 没有更新，直接返回
   if (oldInfo === info) return;
-  // 遍历订阅者集合，依次执行订阅者的回调函数
+  // 遍历订阅者集合，执行回调
   for (const subscriber of subscribers) {
     subscriber();
   }
 }
 
-// 设置响应式信息配置
+// 用来避免每个组件都监听 resize 事件，全局只需要拥有一个监听事件即可
+let listening = false;
+
+// 根据当前视窗可见宽度和响应式断点配置，计算新的响应式信息对象
+function calculate() {
+  const width = window.innerWidth;
+  const newInfo = {} as ResponsiveInfo;
+  let shouldUpdate = false;
+  for (const key of Object.keys(responsiveConfig)) {
+    // 如果视窗可视宽度大于响应式断点配置值，则置为 true
+    newInfo[key] = width >= responsiveConfig[key];
+    if (newInfo[key] !== info[key]) {
+      shouldUpdate = true;
+    }
+  }
+  // 如果有更新，则更新 info 的值
+  if (shouldUpdate) {
+    info = newInfo;
+  }
+}
+
+// 自定义响应式断点配置函数
 export const configResponsive = (config: ResponsiveConfig) => {
   responsiveConfig = config;
   if (info) calculate();
 };
 
 export const useResponsive = () => {
-  // listening 避免每个组件都监听 resize 事件，全局只需要拥有一个监听事件即可
   if (isBrowser && !listening) {
     info = {};
     calculate();
@@ -8832,24 +8835,27 @@ export const useResponsive = () => {
 
   useEffect(() => {
     if (!isBrowser) return;
-    // listening 避免每个组件都监听 resize 事件，全局只需要拥有一个监听事件即可
+
     // In React 18's StrictMode, useEffect perform twice, resize listener is remove, so handleResize is never perform.
     // https://github.com/alibaba/hooks/issues/1910
     if (!listening) {
       window.addEventListener("resize", handleResize);
     }
 
-    const subscriber = () => setState(info);
+    const subscriber = () => {
+      setState(info);
+    };
 
+    // 添加订阅
     subscribers.add(subscriber);
 
     return () => {
-      // 组件销毁取消订阅
+      // 取消订阅
       subscribers.delete(subscriber);
-      // 当全局订阅器不再有订阅器，则移除 resize
+      // 当全局订阅器为空，则清除 resize 事件监听器
       if (subscribers.size === 0) {
         window.removeEventListener("resize", handleResize);
-        // 移除 resize 方法
+        // listening 置为 false
         listening = false;
       }
     };
@@ -8874,10 +8880,10 @@ const position = useScroll(target, shouldUpdate);
 
 ##### Params
 
-| 参数         | 说明                 | 类型                                      | 默认值    |
-| ------------ | -------------------- | ----------------------------------------- | --------- | ------------ | ------------------------------- | -------- |
-| target       | DOM 节点或者 ref     | Element                                   | Document  | () ⇒ Element | React.MutableRefObject<Element> | document |
-| shouldUpdate | 控制是否更新滚动信息 | ({ top: number, left: number }) ⇒ boolean | () ⇒ true |
+| 参数         | 说明                 | 类型                                                                     | 默认值    |
+| ------------ | -------------------- | ------------------------------------------------------------------------ | --------- |
+| target       | DOM 节点或者 ref     | Element \| Document \| () ⇒ Element \| React.MutableRefObject\<Element\> | document  |
+| shouldUpdate | 控制是否更新滚动信息 | ({ top: number, left: number }) ⇒ boolean                                | () ⇒ true |
 
 ##### Result
 
@@ -8896,9 +8902,10 @@ const position = useScroll(target, shouldUpdate);
 #### 源码解析
 
 ```tsx
-import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
 import useRafState from "@/hooks/useRafState";
 import useLatest from "@/hooks/useLatest";
+import type { BasicTarget } from "../../../utils/domTarget";
+import { getTargetElement } from "../../../utils/domTarget";
 import useEffectWithTarget from "../../../utils/useEffectWithTarget";
 
 type Position = { left: number; top: number };
@@ -8923,7 +8930,7 @@ const useScroll = (
 
       const updatePosition = () => {
         let newPosition: Position;
-        // 如果是 document
+        // document
         if (el === document) {
           /**
            * scrollingElement（Document 的只读属性）返回滚动文档的 Element 对象的引用
@@ -8955,6 +8962,7 @@ const useScroll = (
             };
           }
         } else {
+          // DOM 元素
           newPosition = {
             left: (el as Element).scrollLeft,
             top: (el as Element).scrollTop,
@@ -8967,10 +8975,10 @@ const useScroll = (
 
       updatePosition();
 
-      // 监听 scroll
+      // 注册 scroll 事件监听器
       el.addEventListener("scroll", updatePosition);
       return () => {
-        // 卸载监听器
+        // 清除事件监听器
         el.removeEventListener("scroll", updatePosition);
       };
     },
@@ -8998,15 +9006,15 @@ const size = useSize(target);
 
 ##### Params
 
-| 参数   | 说明             | 类型    | 默认值       |
-| ------ | ---------------- | ------- | ------------ | ------------------------------- | --- |
-| target | DOM 节点或者 ref | Element | () ⇒ Element | React.MutableRefObject<Element> | -   |
+| 参数   | 说明             | 类型                                                         | 默认值 |
+| ------ | ---------------- | ------------------------------------------------------------ | ------ |
+| target | DOM 节点或者 ref | Element \| () ⇒ Element \| React.MutableRefObject\<Element\> | -      |
 
 ##### Result
 
-| 参数 | 说明           | 类型                              | 默认值    |
-| ---- | -------------- | --------------------------------- | --------- | ---------------------------------------------------------- | --------- |
-| size | DOM 节点的尺寸 | { width: number, height: number } | undefined | { width: target.clientWidth, height: target.clientHeight } | undefined |
+| 参数 | 说明           | 类型                                           | 默认值                                                                  |
+| ---- | -------------- | ---------------------------------------------- | ----------------------------------------------------------------------- |
+| size | DOM 节点的尺寸 | { width: number, height: number } \| undefined | { width: target.clientWidth, height: target.clientHeight } \| undefined |
 
 #### 代码演示
 
@@ -9018,23 +9026,23 @@ const size = useSize(target);
 
 ```tsx
 import ResizeObserver from "resize-observer-polyfill";
-import { getTargetElement } from "../../../utils/domTarget";
-import type { BasicTarget } from "../../../utils/domTarget";
 import useRafState from "@/hooks/useRafState";
+import type { BasicTarget } from "../../../utils/domTarget";
+import { getTargetElement } from "../../../utils/domTarget";
 import useIsomorphicLayoutEffectWithTarget from "../../../utils/useIsomorphicLayoutEffectWithTarget";
 
 type Size = { width: number; height: number };
 
 const useSize = (target: BasicTarget): Size | undefined => {
   const [state, setState] = useRafState(() => {
-    // 获取当前目标元素
+    // 目标元素
     const el = getTargetElement(target);
     return el ? { width: el.clientWidth, height: el.clientHeight } : undefined;
   });
 
   useIsomorphicLayoutEffectWithTarget(
     () => {
-      // 获取当前目标元素
+      // 目标元素
       const el = getTargetElement(target);
 
       if (!el) {
@@ -9055,7 +9063,7 @@ const useSize = (target: BasicTarget): Size | undefined => {
         });
       });
 
-      // 监听目标元素
+      // 监听
       resizeObserver.observe(el);
 
       return () => {
@@ -9092,10 +9100,10 @@ const isFocusWithin = useFocusWithin(target, {
 
 ##### Params
 
-| 参数    | 说明             | 类型    | 默认值       |
-| ------- | ---------------- | ------- | ------------ | ------------------------------- | --- |
-| target  | DOM 节点或者 ref | Element | () ⇒ Element | React.MutableRefObject<Element> | -   |
-| options | 额外的配置项     | Options | -            |
+| 参数    | 说明             | 类型                                                         | 默认值 |
+| ------- | ---------------- | ------------------------------------------------------------ | ------ |
+| target  | DOM 节点或者 ref | Element \| () ⇒ Element \| React.MutableRefObject\<Element\> | -      |
+| options | 额外的配置项     | Options                                                      | -      |
 
 ##### Options
 
@@ -9121,7 +9129,7 @@ const isFocusWithin = useFocusWithin(target, {
 
 ```tsx
 import { useState } from "react";
-import { BasicTarget } from "../../../utils/domTarget";
+import type { BasicTarget } from "../../../utils/domTarget";
 import useEventListener from "@/hooks/useEventListener";
 
 export interface Options {
@@ -9159,7 +9167,8 @@ const useFocusWithin = (target: BasicTarget, options?: Options) => {
     (e: FocusEvent) => {
       /**
        * e.currentTarget 表示当前正在处理事件的元素，即绑定了 focusout 事件监听器的元素
-       * e.relatedTarget 表示与事件相关的目标元素，即导致元素失去焦点的元素。在 focusout 事件中，表示获取了焦点的新元素，如果焦点移出了文档，则为 null
+       * e.relatedTarget 表示与事件相关的目标元素，即导致元素失去焦点的元素
+       * 在 focusout 事件中，表示 e.relatedTarget 获取了焦点的新元素，如果焦点移出了文档，则为 null
        * */
       if (
         isFocusWithin &&
