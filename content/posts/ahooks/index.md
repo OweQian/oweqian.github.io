@@ -9198,7 +9198,7 @@ export default useFocusWithin;
 
 </aside>
 
-##### API
+#### API
 
 ```tsx
 const [state, setSate] = useControllableValue(props: Record<string, any>, options?: Options);)
@@ -9206,10 +9206,10 @@ const [state, setSate] = useControllableValue(props: Record<string, any>, option
 
 ##### Params
 
-| 参数    | 说明         | 类型                | 默认值 |
-| ------- | ------------ | ------------------- | ------ |
-| props   | 组件的 props | Record<string, any> | -      |
-| options | 可选配置项   | Options             | -      |
+| 参数    | 说明         | 类型                  | 默认值 |
+| ------- | ------------ | --------------------- | ------ |
+| props   | 组件的 props | Record\<string, any\> | -      |
+| options | 可选配置项   | Options               | -      |
 
 ##### Options
 
@@ -9222,10 +9222,10 @@ const [state, setSate] = useControllableValue(props: Record<string, any>, option
 
 ##### Result
 
-| 参数     | 说明              | 类型        |
-| -------- | ----------------- | ----------- | -------------------------------- |
-| state    | 状态值            | -           |
-| setState | 修改 state 的函数 | (value: any | ((prevState: any) ⇒ any)) ⇒ void |
+| 参数     | 说明              | 类型                                            |
+| -------- | ----------------- | ----------------------------------------------- |
+| state    | 状态值            | -                                               |
+| setState | 修改 state 的函数 | (value: any \| ((prevState: any) ⇒ any)) ⇒ void |
 
 #### 代码演示
 
@@ -9248,10 +9248,9 @@ const [state, setSate] = useControllableValue(props: Record<string, any>, option
 ```tsx
 import { useMemo, useRef } from "react";
 import type { SetStateAction } from "react";
-
+import { isFunction } from "../../../utils";
 import useMemoizedFn from "../useMemoizedFn";
 import useUpdate from "../useUpdate";
-import { isFunction } from "../../../utils";
 
 export interface Options<T> {
   defaultValue?: T;
@@ -9287,18 +9286,20 @@ function useControllableValue<T = any>(
   } = options;
 
   const value = props[valuePropName] as T;
-  // 如果 props 中有 value 属性，则是受控组件
+  // 如果 props 中存在值的属性名，则为受控组件
   const isControlled = props.hasOwnProperty(valuePropName);
 
   // 初始值
   const initialValue = useMemo(() => {
+    // 受控组件
     if (isControlled) {
       return value;
     }
-    // 处理默认值
+    // props defaultValue
     if (props.hasOwnProperty(defaultValuePropName)) {
       return props[defaultValuePropName];
     }
+    // options defaultValue
     return defaultValue;
   }, []);
 
@@ -9314,7 +9315,7 @@ function useControllableValue<T = any>(
   function setState(v: SetStateAction<T>, ...args: any[]) {
     const r = isFunction(v) ? v(stateRef.current) : v;
 
-    // 如果是非受控组件，则手动更新状态，并强制更新
+    // 如果是非受控组件，则手动更新状态，强制组件重新渲染
     if (!isControlled) {
       stateRef.current = r;
       update();
@@ -9335,11 +9336,11 @@ export default useControllableValue;
 
 useCreation 是 useMemo 或 useRef 的替代品。
 
-因为 useMemo 不能保证 memo 的值一定不会被重新计算，而 useCreation 可以保证这一点。React 官方文档介绍：
+因为 useMemo 不能保证被 memo 的值一定不会被重新计算，而 useCreation 可以保证这一点。以下为 React 官方文档中的介绍：
 
 > **You may rely on useMemo as a performance optimization, not as a semantic guarantee.** In the future, React may choose to “forget” some previously memoized values and recalculate them on next render, e.g. to free memory for offscreen components. Write your code so that it still works without `useMemo` — and then add it to optimize performance.
 
-相比于 useRef，你可以使用 useCreation 创建一些常量，这些常量和 useRef 创建出来的 ref 有很多使用场景上的相似，但对于`复杂常量`的创建，useRef 却容易出现潜在的性能隐患。
+而相比于 useRef，你可以使用 useCreation 创建一些常量，这些常量和 useRef 创建出来的 ref 有很多使用场景上的相似，但对于`复杂常量`的创建，useRef 却容易出现潜在的性能隐患。
 
 ```tsx
 const a = useRef(new Subject()); // 每次重渲染，都会执行实例化 Subject 的过程，即便这个实例立刻就被扔掉了
@@ -9366,10 +9367,11 @@ function useCreation<T>(factory: () => T, deps: any[]): T;
 #### 源码解析
 
 ```tsx
-import { DependencyList, useRef } from "react";
+import type { DependencyList } from "react";
+import { useRef } from "react";
 import depsAreSame from "../../../utils/depsAreSame";
 
-const useCreation = <T,>(factory: () => T, deps: DependencyList): T => {
+const useCreation = <T,>(factory: () => T, deps: DependencyList) => {
   const { current } = useRef({
     deps,
     obj: undefined as undefined | T,
@@ -9404,7 +9406,7 @@ const event$ = useEventEmitter();
 
 > 在组件多次渲染时，每次渲染调用 useEventEmitter 得到的返回值会保持不变，不会重复创建 EventEmitter 的实例。
 
-通过 props 或者 context，可以将 event$ 共享给其它组件。然后在其它组件中，可以调用 EventEmitter 的 emit 方法，推送一个事件，或是调用 useSubscription 方法，订阅事件。
+通过 props 或者 Context，可以将 event$ 共享给其它组件。然后在其它组件中，可以调用 EventEmitter 的 emit 方法，推送一个事件，或是调用 useSubscription 方法，订阅事件。
 
 ```tsx
 event$.emit("hello");
@@ -9447,7 +9449,7 @@ import { useEffect, useRef } from "react";
 type Subscription<T> = (val: T) => void;
 
 export class EventEmitter<T> {
-  // 存放事件列表
+  // 订阅器列表
   private subscriptions = new Set<Subscription<T>>();
 
   // 推送事件
@@ -9502,8 +9504,13 @@ export default useEventEmitter;
 
 useIsomorphicLayoutEffect 源码如下：
 
-```tsx
+```ts
+import { useEffect, useLayoutEffect } from "react";
+import isBrowser from "../../../utils/isBrowser";
+
 const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
+
+export default useIsomorphicLayoutEffect;
 ```
 
 在非浏览器环境返回 useEffect，在浏览器环境返回 useLayoutEffect。
@@ -9523,18 +9530,6 @@ const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
 const latestValueRef = useLatest<T>(value: T): MutableRefObject<T>;
 ```
 
-##### Params
-
-| 参数  | 说明   | 类型 | 默认值 |
-| ----- | ------ | ---- | ------ |
-| value | 初始值 | T    | -      |
-
-##### Result
-
-| 参数           | 说明   | 类型                |
-| -------------- | ------ | ------------------- |
-| latestValueRef | 最新值 | MutableRefObject<T> |
-
 #### 代码演示
 
 [基础用法 - CodeSandbox](https://codesandbox.io/s/x51xzc)
@@ -9542,9 +9537,9 @@ const latestValueRef = useLatest<T>(value: T): MutableRefObject<T>;
 #### 源码解析
 
 ```tsx
-import { MutableRefObject, useRef } from "react";
+import { useRef } from "react";
 
-const useLatest = <T,>(value: T): MutableRefObject<T> => {
+const useLatest = <T,>(value: T) => {
   const ref = useRef(value);
   ref.current = value;
 
@@ -9557,11 +9552,11 @@ export default useLatest;
 ### useMemoizedFn
 
 <aside>
-💡 持久化 function 的 Hook，理论上，可以使用 useMemoizedFn 完全替代 useCallback。
+持久化 function 的 Hook，一般情况下，可以使用 useMemoizedFn 完全代替 useCallback，特殊情况见 FAQ。
 
 </aside>
 
-在某些场景中，我们需要使用 useCallback 来记住一个函数，但是在第二个参数 deps 变化时，会重新生成函数，导致函数地址发生变化。
+在某些场景中，我们需要使用 useCallback 来记住一个函数，但是在第二个参数 deps 变化时，会重新生成函数，导致函数地址变化。
 
 ```tsx
 const [state, setState] = useState("");
@@ -9597,9 +9592,9 @@ const fn = useMemoizedFn<T>(fn: T): T;
 
 ##### Result
 
-| 参数 | 说明                      | 类型                 |
-| ---- | ------------------------- | -------------------- |
-| fn   | 引用地址永远不会改变的 fn | (…args: any[]) ⇒ any |
+| 参数       | 说明                       | 类型                 |
+| ---------- | -------------------------- | -------------------- |
+| memoizedFn | 引用地址永远不会改变的函数 | (…args: any[]) ⇒ any |
 
 #### 代码演示
 
@@ -9607,36 +9602,46 @@ const fn = useMemoizedFn<T>(fn: T): T;
 
 [useMemoizedFn 函数地址不会变化，可以用于性能优化 - CodeSandbox](https://codesandbox.io/s/lpy82s)
 
+#### **FAQ**
+
+useMemoizedFn 返回的函数没有继承 fn 自身的属性？
+
+useMemoizedFn 返回的函数与传入的 fn 的引用完全不同，且没有继承 fn 自身的属性。如果想要持久化后函数自身的属性不丢失，目前 useMemoizedFn 满足不了，请降级使用 useCallback、useMemo。
+
+Related issues: [2273](https://github.com/alibaba/hooks/issues/2273)
+
 #### 源码解析
 
 ```tsx
-import { useRef } from "react/index";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { isFunction } from "../../../utils";
+import isDev from "utils/isDev";
 
 type noop = (this: any, ...args: any[]) => any;
 
 type PickFunction<T extends noop> = (
   this: ThisParameterType<T>,
-  ...args: Parameters<T>[]
+  ...args: Parameters<T>
 ) => ReturnType<T>;
 
 const useMemoizedFn = <T extends noop>(fn: T): T => {
-  if (!isFunction(fn)) {
-    console.error(
-      `useMemoizedFn expected parameter is a function, but got ${typeof fn}`
-    );
+  if (isDev) {
+    if (!isFunction(fn)) {
+      console.error(
+        `useMemoizedFn expected parameter is a function, but got ${typeof fn}`
+      );
+    }
   }
 
-  // 每次拿到最新的 fn 值，并把它更新到 fnRef 中。这可以保证此 ref 能够持有最新的 fn 引用。
+  // 每次拿到最新的 fn 值，把它更新到 fnRef，保证此 fnRef 能够持有最新的 fn 引用
   const fnRef = useRef<T>(fn);
   fnRef.current = useMemo(() => fn, [fn]);
 
-  // 保证最后返回的函数引用是不变的-持久化函数
+  // 保证最后返回的函数引用是不变的
   const memoizedFn = useRef<PickFunction<T>>();
   if (!memoizedFn.current) {
-    // 每次调用时，因为没有 useCallback 的 deps 特性，所以都能拿到最新的 state
     memoizedFn.current = function (this, ...args) {
+      // 每次调用时，因为没有 useCallback 的 deps 特性，所以都能拿到最新的 state
       return fnRef.current.apply(this, args);
     };
   }
@@ -9662,9 +9667,9 @@ const state = useReactive(initialState: Record<string, any>);
 
 ##### Params
 
-| 参数         | 说明           | 类型                 | 默认值 |
-| ------------ | -------------- | -------------------- | ------ |
-| initialState | 当前的数据对象 | Record<string, any>) | -      |
+| 参数         | 说明           | 类型                  | 默认值 |
+| ------------ | -------------- | --------------------- | ------ |
+| initialState | 当前的数据对象 | Record\<string, any\> | -      |
 
 #### 代码演示
 
@@ -9682,17 +9687,17 @@ useReactive 产生可操作的代理对象一直都是同一个引用，useEffec
 
 #### FAQ
 
-Q: useReactive  和  Map、Set  一起使用时报错或无效？
+Q: useReactive  和 Map、Set  一起使用时报错或无效？
 
-useReactive  目前不兼容  Map、Set。
+useReactive 目前不兼容 Map、Set。
 
 #### 源码解析
 
 ```tsx
-import useUpdate from "@/hooks/useUpdate";
 import { useRef } from "react";
-import useCreation from "@/hooks/useCreation";
 import { isPlainObject } from "lodash-es";
+import useCreation from "@/hooks/useCreation";
+import useUpdate from "@/hooks/useUpdate";
 
 // k:v 原对象:代理过的对象
 const proxyMap = new WeakMap();
