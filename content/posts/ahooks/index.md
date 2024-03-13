@@ -1841,10 +1841,514 @@ export default useRetryPlugin;
 
 ## Scene
 
+### useAntdTable
+
+useAntdTable  基于  useRequest  实现，封装了常用的  [Ant Design Form](https://ant.design/components/form-cn/)  与  [Ant Design Table](https://ant.design/components/table-cn/)  联动逻辑，并且同时支持 antd v3 和 v4。
+
+在使用之前，你需要了解它与 useRequest 不同的几个点：
+
+1、service 接受两个参数，第一个参数为分页数据 { current, pageSize, sorter, filters, extra }，第二个参数为表单数据
+
+2、service 返回的数据结构为 { total: number, list: Item[] }
+
+3、会额外返回 totalProps 和 search 字段，管理表格和表单
+
+4、refreshDeps 变化，会重置 current 到第一页，并重新发起请求
+
+#### API
+
+useRequest 所有参数和返回结果均适用于 useAntdTable，此处不再赘述。
+
+```tsx
+type Data = { total: number; list: any[] };
+type Params = [{ current: number; pageSize: number; filter?: any; sorter?: any; extra?: any; }, { [key: string]: any }];
+
+const {
+	...,
+	tableProps: {
+		dataSource: TData['list'],
+		loading: boolean;
+		onChange: (
+			pagination: any;
+			filters?: any;
+			sorter?: any;
+			extra?: any;
+		) => void;
+		pagination: {
+			current: number;
+			pageSize: number;
+			total: number;
+		}
+	};
+	search: {
+		type: 'simple' | 'advance';
+		changeType: () => void;
+		submit: () => void;
+		reset: () => void;
+	}
+} = useAntdTable<TData extends Data, TParams extends Params>(
+	service: (...args: TParams) => Promise<TData>,
+	{
+		...,
+		form?: any;
+		defaultType?: 'simple' | 'advance';
+		defaultParams?: TParams;
+		defaultPageSize?: number;
+		refreshDeps?: any[];
+	}
+)
+```
+
+##### Params
+
+| 参数            | 说明                                                      | 类型                   | 默认值            |
+| --------------- | --------------------------------------------------------- | ---------------------- | ----------------- |
+| form            | Form 实例                                                 | -                      | -                 |
+| defaultType     | 默认表单类型                                              | simple                 | advance \| simple |
+| defaultParams   | 默认参数，第一项为分页数据，第二项为表单数据              | [pagination, formData] | -                 |
+| defaultPageSize | 默认分页数量                                              | number                 | 10                |
+| refreshDeps     | refreshDeps 变化，会重置 current 到第一页，并重新发起请求 | React.DependencyList   | []                |
+
+##### Result
+
+| 参数              | 说明                                            | 类型              |
+| ----------------- | ----------------------------------------------- | ----------------- |
+| tableProps        | Table 组件需要的数据，直接透传给 Table 组件即可 | -                 |
+| search.type       | 当前表单类型                                    | simple \| advance |
+| search.changeType | 切换表单类型                                    | () ⇒ void         |
+| search.submit     | 提交表单                                        | () ⇒ void         |
+| search.reset      | 重置当前表单                                    | () ⇒ void         |
+
+#### 代码演示
+
+以下展示的是 antd v4 的 demo，v3 请参考：[https://ahooks-v2.js.org/hooks/table/use-antd-table](https://ahooks-v2.js.org/hooks/table/use-antd-table)。
+
+##### Table 管理
+
+useAntdTable  会自动管理  Table  分页数据，你只需要把返回的  tableProps  传递给  Table  组件就可以了。
+
+```jsx
+<Table columns={columns} rowKey="email" {...tableProps} />
+```
+
+[frosty-goldberg-dklw8h](https://codesandbox.io/p/sandbox/frosty-goldberg-dklw8h?file=/index.html)
+
+##### Form 与 Table 联动
+
+useAntdTable 接收 form 实例后，会返回 search 对象，用来处理表单相关事件。
+
+- search.type 支持 simple 和 advance 两个表单切换
+- search.changeType，切换表单类型
+- search.submit，提交表单行为
+- search.reset，重置当前表单
+
+[jovial-sara-pp2v7n - CodeSandbox](https://codesandbox.io/s/pp2v7n)
+
+##### 初始化数据
+
+useAntdTable 通过 defaultParams 设置初始化值，defaultParams 是一个数组，第一项为分页相关参数，第二项为表单相关数据。如果有第二个值，我们会帮您初始化表单。
+
+需要注意的是，初始化的表单数据可以填写 simple 和 advance 全量的表单数据，我们会帮您挑选当前激活的类型中的表单数据。
+
+[exciting-dream-3g4ys2](https://codesandbox.io/p/sandbox/exciting-dream-3g4ys2?file=/index.html)
+
+##### 表单验证
+
+表单提交之前，我们会调用 form.validateFields 来校验表单数据，如果验证不通过，则不会发起请求。
+
+[pensive-wu-m2xvcp](https://codesandbox.io/p/sandbox/pensive-wu-m2xvcp?file=/index.html)
+
+##### 缓存
+
+通过设置 cacheKey，我们可以实现 Form 与 Table 数据缓存。
+
+[amazing-faraday-sdfmr3 - CodeSandbox](https://codesandbox.io/s/sdfmr3)
+
+#### 源码解析
+
+```jsx
+import type {
+  PaginationOptions,
+  PaginationResult,
+} from "../usePagination/types";
+
+export type Data = { total: number; list: any[] };
+
+export type Params = [
+  {
+    current: number;
+    pageSize: number;
+    sorter?: any;
+    filter?: any;
+    extra?: any;
+    [key: string]: any;
+  },
+  ...any[]
+];
+
+export type Service<TData extends Data, TParams extends Params> = (
+  ...args: TParams
+) => Promise<TData>;
+
+export type Antd3ValidateFields = (
+  fieldNames: string[],
+  callback: (errors, values: Record<string, any>) => void
+) => void;
+
+export type Antd4ValidateFields = (
+  fieldNames?: string[]
+) => Promise<Record<string, any>>;
+
+export interface AntdFormUtils {
+  getFieldInstance?: (name: string) => Record<string, any>;
+  setFieldsValue: (value: Record<string, any>) => void;
+  getFieldsValue: (...args: any) => Record<string, any>;
+  resetFields: (...args: any) => void;
+  validateFields: Antd3ValidateFields | Antd4ValidateFields;
+  getInternalHooks?: any;
+  [key: string]: any;
+}
+
+export interface AntdTableResult<TData extends Data, TParams extends Params>
+  extends PaginationResult<TData, TParams> {
+  tableProps: {
+    dataSource: TData["list"];
+    loading: boolean;
+    onChange: (pagination: any, filters?: any, sorter?: any) => void;
+    pagination: any;
+    [key: string]: any;
+  };
+  search: {
+    type: "simple" | "advance";
+    changeType: () => void;
+    submit: () => void;
+    reset: () => void;
+  };
+}
+
+export interface AntdTableOptions<TData extends Data, TParams extends Params>
+  extends PaginationOptions<TData, TParams> {
+  form?: AntdFormUtils;
+  defaultType?: "simple" | "advance";
+}
+```
+
+```jsx
+import { useEffect, useRef, useState } from "react";
+import useMemoizedFn from "../useMemoizedFn";
+import usePagination from "../usePagination";
+import useUpdateEffect from "../useUpdateEffect";
+
+import type {
+  Antd4ValidateFields,
+  AntdTableOptions,
+  AntdTableResult,
+  Data,
+  Params,
+  Service,
+} from "./types";
+
+const useAntdTable = <TData extends Data, TParams extends Params>(
+  service: Service<TData, TParams>,
+  options: AntdTableOptions<TData, TParams> = {}
+) => {
+  const {
+    // form 实例
+    form,
+    // 默认表单类型
+    defaultType = "simple",
+    // 默认参数，第一项为分页数据，第二项为表单数据
+    defaultParams,
+    manual = false,
+    refreshDeps = [],
+    ready = true,
+    ...rest
+  } = options;
+
+  // 分页
+  const result = usePagination<TData, TParams>(service, {
+    manual: true,
+    ...rest,
+    onSuccess(...args) {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      runSuccessRef.current = true;
+      rest.onSuccess?.(...args);
+    },
+  });
+
+  const { params = [], run } = result;
+
+  const cacheFormTableData = params[2] || ({} as any);
+
+  const [type, setType] = useState(cacheFormTableData?.type || defaultType);
+
+  const allFormDataRef = useRef<Record<string, any>>({});
+  const defaultDataSourceRef = useRef([]);
+  const runSuccessRef = useRef(false);
+
+  // 判断是否为 antd v4
+  const isAntdV4 = !!form?.getInternalHooks;
+
+  // get current active field values
+  // 获取表单值
+  const getActiveFieldValues = () => {
+    if (!form) {
+      return {};
+    }
+
+    // antd v4
+    if (isAntdV4) {
+      return form.getFieldsValue(null, () => true);
+    }
+
+    // antd v3
+    const allFieldsValue = form.getFieldsValue();
+    const activeFieldsValue = {};
+    Object.keys(allFieldsValue).forEach((key: string) => {
+      if (form.getFieldInstance ? form.getFieldInstance(key) : true) {
+        activeFieldsValue[key] = allFieldsValue[key];
+      }
+    });
+    return activeFieldsValue;
+  };
+
+  // 校验表单
+  const validateFields = (): Promise<Record<string, any>> => {
+    if (!form) {
+      return Promise.resolve({});
+    }
+
+    const activeFieldsValue = getActiveFieldValues();
+    const fields = Object.keys(activeFieldsValue);
+
+    // antd v4
+    if (isAntdV4) {
+      return (form.validateFields as Antd4ValidateFields)(fields);
+    }
+
+    // antd v3
+    return new Promise((resolve, reject) => {
+      form.validateFields(fields, (errors, values) => {
+        if (errors) {
+          reject(errors);
+        } else {
+          resolve(values);
+        }
+      });
+    });
+  };
+
+  // 重置表单
+  const restoreForm = () => {
+    if (!form) {
+      return;
+    }
+
+    // antd v4
+    if (isAntdV4) {
+      return form.setFieldsValue(allFormDataRef.current);
+    }
+
+    // antd v3
+    const activeFieldsValue = {};
+    Object.keys(allFormDataRef.current).forEach((key) => {
+      if (form.getFieldInstance ? form.getFieldInstance(key) : true) {
+        activeFieldsValue[key] = allFormDataRef.current[key];
+      }
+    });
+    form.setFieldsValue(activeFieldsValue);
+  };
+
+  // 修改表单类型
+  const changeType = () => {
+    // 获取表单值
+    const activeFieldsValue = getActiveFieldValues();
+    // 修改表单值
+    allFormDataRef.current = {
+      ...allFormDataRef.current,
+      ...activeFieldsValue,
+    };
+    setType((t) => (t === "simple" ? "advance" : "simple"));
+  };
+
+  // change search type, restore form data
+  // 修改 type，重置 form 表单数据
+  useUpdateEffect(() => {
+    if (!ready) {
+      return;
+    }
+    restoreForm();
+  }, [type]);
+
+  const _submit = (initPagination?: TParams[0]) => {
+    if (!ready) {
+      return;
+    }
+
+    setTimeout(() => {
+      // 表单校验
+      validateFields()
+        .then((values = {}) => {
+          // 分页逻辑
+          const pagination = initPagination || {
+            pageSize: options.defaultPageSize || 10,
+            ...(params?.[0] || {}),
+            current: 1,
+          };
+          // 如果没有 form，直接根据分页逻辑进行请求
+          if (!form) {
+            // @ts-ignore
+            run(pagination);
+            return;
+          }
+
+          // 获取到当前所有的 form Data
+          // record all form data
+          allFormDataRef.current = {
+            ...allFormDataRef.current,
+            ...values,
+          };
+
+          // @ts-ignore
+          run(pagination, values, {
+            allFormData: allFormDataRef.current,
+            type,
+          });
+        })
+        .catch((err) => err);
+    });
+  };
+
+  // 重置表单
+  const reset = () => {
+    if (form) {
+      form.resetFields();
+    }
+
+    _submit({
+      ...(defaultParams?.[0] || {}),
+      pageSize:
+        options.defaultPageSize || options.defaultParams?.[0]?.pageSize || 10,
+      current: 1,
+    });
+  };
+
+  // 提交表单
+  const submit = (e?: any) => {
+    e?.preventDefault?.();
+    _submit(
+      runSuccessRef.current
+        ? undefined
+        : {
+            pageSize:
+              options.defaultPageSize ||
+              options.defaultParams?.[0]?.pageSize ||
+              10,
+            current: 1,
+            ...(defaultParams?.[0] || {}),
+          }
+    );
+  };
+
+  // 分页、排序、筛选变化时触发
+  const onTableChange = (
+    pagination: any,
+    filters: any,
+    sorter: any,
+    extra: any
+  ) => {
+    const [oldPaginationParams, ...restParams] = params || [];
+    run(
+      // @ts-ignore
+      {
+        ...oldPaginationParams,
+        current: pagination.current,
+        pageSize: pagination.pageSize,
+        filters,
+        sorter,
+        extra,
+      },
+      ...restParams
+    );
+  };
+
+  // init
+  useEffect(() => {
+    // if has cache, use cached params. ignore manual and ready.
+    if (params.length > 0) {
+      allFormDataRef.current = cacheFormTableData?.allFormData || {};
+      restoreForm();
+      // @ts-ignore
+      run(...params);
+      return;
+    }
+
+    if (!manual && ready) {
+      allFormDataRef.current = defaultParams?.[1] || {};
+      restoreForm();
+      _submit(defaultParams?.[0]);
+    }
+  }, []);
+
+  // refresh & ready change on the same time
+  const hasAutoRun = useRef(false);
+  hasAutoRun.current = false;
+
+  // ready 状态变化时的副作用
+  useUpdateEffect(() => {
+    if (!manual && ready) {
+      hasAutoRun.current = true;
+      if (form) {
+        form.resetFields();
+      }
+      allFormDataRef.current = defaultParams?.[1] || {};
+      restoreForm();
+      _submit(defaultParams?.[0]);
+    }
+  }, [ready]);
+
+  // 依赖项变化时的副作用
+  useUpdateEffect(() => {
+    if (hasAutoRun.current) {
+      return;
+    }
+
+    if (!ready) {
+      return;
+    }
+
+    if (!manual) {
+      hasAutoRun.current = true;
+      result.pagination.changeCurrent(1);
+    }
+  }, [...refreshDeps]);
+
+  return {
+    ...result,
+    tableProps: {
+      dataSource: result.data?.list || defaultDataSourceRef.current,
+      loading: result.loading,
+      onChange: useMemoizedFn(onTableChange),
+      pagination: {
+        current: result.pagination.current,
+        pageSize: result.pagination.pageSize,
+        total: result.pagination.total,
+      },
+    },
+    search: {
+      submit: useMemoizedFn(submit),
+      type,
+      changeType: useMemoizedFn(changeType),
+      reset: useMemoizedFn(reset),
+    },
+  } as AntdTableResult<TData, TParams>;
+};
+```
+
 ### useFusionTable
 
 <aside>
-🤪 没用过 Fusion，此篇省略。
+没用过 Fusion，此篇省略。
 
 </aside>
 
@@ -1909,46 +2413,92 @@ const {
 
 #### 代码演示
 
+##### **基础用法**
+
+默认用法与  useRequest  一致，但会多返回一个  pagination  参数，包含所有分页信息，及操作分页的函数。
+
 [great-joliot-pqjpfm - CodeSandbox](https://codesandbox.io/s/pqjpfm)
+
+##### **更多参数**
+
+下面的代码演示了，增加了性别参数，在修改性别时，重置分页到第一页，并重新请求数据。
 
 [elated-fast-kc3y98 - CodeSandbox](https://codesandbox.io/s/kc3y98)
 
+##### **refreshDeps**
+
+refreshDeps  是一个语法糖，当它变化时，会重置分页到第一页，并重新请求数据，一般你可以把依赖的条件放这里。以下示例通过  refreshDeps  更方便的实现了上一个功能。
+
 [purple-hill-g7tr3r - CodeSandbox](https://codesandbox.io/s/g7tr3r)
+
+##### **缓存**
+
+通过  useRequest  的  params  缓存能力，我们可以缓存分页数据和其它条件。
 
 [strange-smoke-fjnggp - CodeSandbox](https://codesandbox.io/s/fjnggp)
 
 #### 源码解析
 
+```jsx
+import type { Result, Options } from "../useRequest/src/types";
+
+export type Data = { total: number; list: any[] };
+
+export type Params = [
+  { current: number; pageSize: number; [key: string]: any },
+  ...any[]
+];
+
+export type Service<TData extends Data, TParams extends Params> = (
+  ...args: TParams
+) => Promise<TData>;
+
+export interface PaginationResult<TData extends Data, TParams extends Params>
+  extends Result<TData, TParams> {
+  pagination: {
+    current: number;
+    pageSize: number;
+    total: number;
+    totalPage: number;
+    onChange: (current: number, pageSize: number) => void;
+    changeCurrent: (current: number) => void;
+    changePageSize: (pageSize: number) => void;
+  };
+}
+
+export interface PaginationOptions<TData extends Data, TParams extends Params>
+  extends Options<TData, TParams> {
+  defaultPageSize?: number;
+  defaultCurrent?: number;
+}
+```
+
 ```tsx
+import { useMemo } from "react";
+import useMemoizedFn from "@/hooks/useMemoizedFn";
+import useRequest from "@/hooks/useRequest";
+
 import type {
   Data,
   PaginationOptions,
   PaginationResult,
   Params,
   Service,
-} from "./type";
-import useRequest from "@/hooks/useRequest";
-import { useMemo } from "react";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
+} from "./types";
 
 /**
  * 基于 useRequest，封装了常见的分页逻辑
  * */
 const usePagination = <TData extends Data, TParams extends Params>(
   service: Service<TData, TParams>,
-  options: PaginationOptions<TData, TParams>
+  options: PaginationOptions<TData, TParams> = {}
 ) => {
   const { defaultPageSize = 10, defaultCurrent = 1, ...rest } = options;
 
   // // service 约定返回的数据结构为 { total: number, list: Item[] }
   const result = useRequest(service, {
     // service 的默认参数为 { current: number, pageSize: number }
-    defaultParams: [
-      {
-        current: defaultCurrent,
-        pageSize: defaultPageSize,
-      },
-    ],
+    defaultParams: [{ current: defaultCurrent, pageSize: defaultPageSize }],
     // refreshDeps 变化，会重置 current 到第一页，并重新发起请求
     refreshDepsAction: () => {
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -9798,7 +10348,7 @@ API 与 React.useEffect 基本一致，不过第一个函数会接收 changes、
 
 - changes：变化的依赖 index 数组
 - previousDeps：上一个依赖
-- • currentDeps：当前依赖
+- currentDeps：当前依赖
 
 #### 代码演示
 
@@ -9807,7 +10357,8 @@ API 与 React.useEffect 基本一致，不过第一个函数会接收 changes、
 #### 源码解析
 
 ```tsx
-import { DependencyList, useEffect, useRef } from "react";
+import type { DependencyList } from "react";
+import { useEffect, useRef } from "react";
 
 type Effect<T extends DependencyList> = (
   changes?: number[],
@@ -9832,13 +10383,15 @@ const useTrackedEffect = <T extends DependencyList>(
   effect: Effect<T>,
   deps?: [...T]
 ) => {
+  // 保存上一次的依赖
   const previousDepsRef = useRef<T>();
 
   useEffect(() => {
+    // 变化的依赖 index 数组
     const changes = diffTwoDeps(previousDepsRef.current, deps);
-    // 上次的依赖项对应的值的数组
+    // 上一次的依赖
     const previousDeps = previousDepsRef.current;
-    // 更新依赖项对应的值的数组
+    // 当前依赖
     previousDepsRef.current = deps;
     return effect(changes, previousDeps, deps);
   }, deps);
@@ -9850,7 +10403,7 @@ export default useTrackedEffect;
 ### useWhyDidYouUpdate
 
 <aside>
-💡 追踪是哪个依赖变化触发了 useEffect 的执行。
+💡 帮助开发者排查是哪个属性改变导致了组件的 rerender。
 
 </aside>
 
@@ -9868,6 +10421,10 @@ useWhyDidYouUpdate(componentName: string, props: IProps): void;
 | ------------- | ---------------------------------------------------------------------------------- | ------ | ------ |
 | componentName | 必填，观测组件的名称                                                               | string | -      |
 | props         | 必填，需要观测的数据（当前组件 state 或者传入的 props 等可能导致 rerender 的数据） | object | -      |
+
+##### Result
+
+打开控制台，可以看到改变的属性。
 
 #### 代码演示
 
@@ -9891,7 +10448,7 @@ const useWhyDidYouUpdate = (componentName: string, props: IProps) => {
       const changedProps: IProps = {};
 
       allKeys.forEach((key) => {
-        // 看哪些 key 进行了更新
+        // 哪些 key 进行了更新
         if (!Object.is(prevProps[key], props[key])) {
           changedProps[key] = {
             from: prevProps.current[key],
@@ -10005,7 +10562,7 @@ export default useWhyDidYouUpdate;
 - [x] useWebSocket
 - [x] usePagination
 - [x] useFusionTable
-- [ ] useAntdTable
+- [x] useAntdTable
 - [ ] useInfiniteScroll
 - [ ] useDynamicList
 - [ ] useVirtualList
