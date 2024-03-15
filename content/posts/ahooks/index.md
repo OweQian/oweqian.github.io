@@ -1,13 +1,11 @@
 ---
 title: "💻 ahooks@3.7.9 源码解读"
-date: 2024-03-05T00:00:14+08:00
+date: 2024-03-15T12:55:14+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
 
 2024.12 ~ 2024.03，历时 4 个月，在公司宣布 996 期间学习了 ahooks@3.7.9 官网和源码，以下是整理的笔记，欢迎您的指正以及贡献。
-
-😏 996.ICU 这份打工人的福报，你值得拥有。
 
 <!--more-->
 
@@ -2343,6 +2341,8 @@ const useAntdTable = <TData extends Data, TParams extends Params>(
     },
   } as AntdTableResult<TData, TParams>;
 };
+
+export default useAntdTable;
 ```
 
 ### useFusionTable
@@ -2355,6 +2355,362 @@ const useAntdTable = <TData extends Data, TParams extends Params>(
 文档地址：[https://ahooks.js.org/zh-CN/hooks/use-fusion-table](https://ahooks.js.org/zh-CN/hooks/use-fusion-table)
 
 详细代码：[https://github.com/alibaba/hooks/tree/master/packages/hooks/src/useFusionTable](https://github.com/alibaba/hooks/tree/master/packages/hooks/src/useFusionTable)
+
+### useInfiniteScroll
+
+useInfiniteScroll 封装了常见的无限滚动逻辑。
+
+```jsx
+const { data, loading, loadingMore, loadMore } = useInfiniteScroll(service);
+```
+
+useInfiniteScroll 的第一个参数 service 是一个异步函数，对这个函数的入参和出参有如下约定：
+
+1、service 返回的数据必须包含 list 数组，类型为 { list: any[], …rest }
+
+2、service 的入参为整合后的最新 data
+
+假如第一次请求返回数据为 { list: [1, 2, 3], nextId: 4 }，第二次返回的数据为 { list: [4, 5, 6], nextId: 7 }，则我们会自动合并 list，整合后的 data 为 { list: [1, 2, 3, 4, 5, 6], nextId: 7 }。
+
+#### API
+
+```jsx
+export type Data = { list: any[];[key: string]: any; };
+export type Service<TData extends Data> = (currentData?: TData) => Promise<TData>;
+
+const {
+  data: TData;
+  loading: boolean;
+  loadingMore: boolean;
+  noMore: boolean;
+  loadMore: () => void;
+  loadMoreAsync: () => Promise<TData>;
+  reload: () => void;
+  reloadAsync: () => Promise<TData>;
+  cancel: () => void;
+  mutate: (data?: TData) => void;
+} = useInfiniteScroll<TData extends Data>(
+  service: (currentData?: TData) => Promise<TData>,
+  {
+    target?: BasicTarget;
+    isNoMore?: (data?: TData) => boolean;
+    threshold?: number;
+    manual?: boolean;
+    reloadDeps?: DependencyList;
+    onBefore?: () => void;
+    onSuccess?: (data: TData) => void;
+    onError?: (e: Error) => void;
+    onFinally?: (data?: TData, e?: Error) => void;
+  }
+);
+```
+
+##### Options
+
+| 参数       | 说明                                                                                                                                                      | 类型                                                         | 默认值 |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------ |
+| target     | 父级容器，如果存在，则在滚动到底部时，自动触发 loadMore。需要配合 isNoMore 使用，以便知道什么时候到最后一页了。当 target 为 document 时，定义为整个视口。 | () ⇒ Element \| Element \| React.MutableRefObject\<Element\> | -      |
+| isNoMore   | 是否有最后一页的判断逻辑，入参为当前聚合后的 data                                                                                                         | (data?: TData) ⇒ boolean                                     | -      |
+| threshold  | 下拉自动加载，距离底部距离阈值                                                                                                                            | number                                                       | 100    |
+| manual     | 默认 fasle，即在初始化时自动执行 service。如果设置为 true，则需要手动调用 reload 或 reloadAsync 触发执行。                                                | boolean                                                      | false  |
+| reloadDeps | 变化后，会自动触发 reload                                                                                                                                 | any[]                                                        | -      |
+| onBefore   | service 执行前触发                                                                                                                                        | () => void                                                   | -      |
+| onSuccess  | service resolve 时触发                                                                                                                                    | (data: TData) => void                                        | -      |
+| onError    | service reject 时触发                                                                                                                                     | (e: Error) => void                                           | -      |
+| onFinally  | service 执行完成时触发                                                                                                                                    | (data?: TData, e?: Error) => void                            | -      |
+
+##### Result
+
+| 参数          | 说明                                                                       | 类型                   |
+| ------------- | -------------------------------------------------------------------------- | ---------------------- |
+| data          | service 返回的数据，其中的 list 属性为聚合后数据                           | TData \| undefined     |
+| loading       | 是否正在进行首次请求                                                       | boolean                |
+| loadingMore   | 是否正在进行更多数据请求                                                   | boolean                |
+| noMore        | 是否没有更多数据了，配置 options.isNoMore 后生效                           | boolean                |
+| error         | 请求错误消息                                                               | Error                  |
+| loadMore      | 加载更多数据，会自动捕获异常，通过  options.onError  处理                  | () => void             |
+| loadMoreAsync | 加载更多数据，与  loadMore  行为一致，但返回的是 Promise，需要自行处理异常 | () => Promise\<TData\> |
+| reload        | 加载第一页数据，会自动捕获异常，通过  options.onError  处理                | () => void             |
+| reloadAsync   | 加载第一页数据，与  reload  行为一致，但返回的是 Promise，需要自行处理异常 | () => Promise\<TData\> |
+| mutate        | 直接修改 data                                                              | (data: TData) ⇒ void   |
+| cancel        | 忽略当前 Promise 的响应                                                    | () ⇒ void              |
+
+#### 代码演示
+
+##### 基础用法
+
+第一个例子我们演示最基本的无限滚动写法。
+
+[staging-glade-2mwr4n - CodeSandbox](https://codesandbox.io/s/2mwr4n)
+
+##### 分页
+
+在数据固定场景下，我们有时候会用  page  和  pageSize  来请求新的分页数据。
+
+[eloquent-snow-trqyjy - CodeSandbox](https://codesandbox.io/s/trqyjy)
+
+##### 滚动加载
+
+在无限滚动场景中，我们最常见的是滚动到底部时自动加载。通过配置以下几个属性，即可实现滚动自动加载。
+
+- options.target  指定父级元素（父级元素需设置固定高度，且支持内部滚动）
+- options.isNoMore  判断是不是没有更多数据了
+
+[pensive-tharp-hwkrw5 - CodeSandbox](https://codesandbox.io/s/hwkrw5)
+
+##### **数据重置**
+
+通过  reload  即可实现数据重置，下面示例我们演示在  filter  变化后，重置数据到第一页。
+
+[cocky-dew-222wdn - CodeSandbox](https://codesandbox.io/s/222wdn)
+
+##### 数据突变
+
+通过  mutate，我们可以直接修改当前  data。下面示例演示了删除某条数据。
+
+[friendly-meadow-29fmqd - CodeSandbox](https://codesandbox.io/s/29fmqd)
+
+#### 源码解析
+
+```jsx
+import type { DependencyList } from "react";
+import type { BasicTarget } from "utils/domTarget";
+
+export type Data = { list: any[]; [key: string]: any };
+
+export type Service<TData extends Data> = (
+  currentData?: TData
+) => Promise<TData>;
+
+export interface InfiniteScrollResult<TData extends Data> {
+  Data: TData;
+  loading: boolean;
+  loadingMore: boolean;
+  error?: Error;
+  noMore: boolean;
+
+  loadMore: () => void;
+  loadMoreAsync: () => Promise<TData>;
+  reload: () => void;
+  reloadAsync: () => Promise<TData>;
+  cancel: () => void;
+  mutate: (data?: TData) => void;
+}
+
+export interface InfiniteScrollOptions<TData extends Data> {
+  target?: BasicTarget<Element | Document>;
+  isNoMore?: (data?: TData) => boolean;
+  threshold?: number;
+
+  manual?: boolean;
+  reloadDeps?: DependencyList;
+
+  onBefore?: () => void;
+  onSuccess?: (data: TData) => void;
+  onError?: (e: Error) => void;
+  onFinally?: (data?: TData, e?: Error) => void;
+}
+```
+
+```jsx
+/**
+ * scrollTop: 表示一个元素的垂直滚动条滚动的距离
+ * scrollHeight: 表示一个元素的内容的总高度，包括不可见部分
+ * clientHeight: 表示一个元素在视窗中可见部分的高度
+ */
+
+const getScrollTop = (el: Document | Element) => {
+  if (
+    el === document ||
+    el === document.documentElement ||
+    el === document.body
+  ) {
+    return Math.max(
+      window.pageYOffset,
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
+  }
+  return (el as Element).scrollTop;
+};
+
+const getScrollHeight = (el: Document | Element) => {
+  return (
+    (el as Element).scrollHeight ||
+    Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)
+  );
+};
+
+const getClientHeight = (el: Document | Element) => {
+  return (
+    (el as Element).clientHeight ||
+    Math.max(document.documentElement.clientHeight, document.body.clientHeight)
+  );
+};
+
+export { getClientHeight, getScrollHeight, getScrollTop };
+
+```
+
+```jsx
+import { useMemo, useState } from "react";
+import type { Data, InfiniteScrollOptions, Service } from "./types";
+import useRequest from "../useRequest";
+import useMemoizedFn from "../useMemoizedFn";
+import useUpdateEffect from "../useUpdateEffect";
+import useEventListener from "../useEventListener";
+import { getTargetElement } from "utils/domTarget";
+import { getClientHeight, getScrollHeight, getScrollTop } from "utils/rect";
+
+const useInfiniteScroll = <TData extends Data>(
+  service: Service<TData>,
+  options: InfiniteScrollOptions<TData> = {}
+) => {
+  const {
+    // 父级容器
+    target,
+    // 是否有最后一页的判断逻辑
+    isNoMore,
+    // 下拉自动加载，距离底部距离阈值
+    threshold = 100,
+    // 变化后，会自动触发 reload
+    reloadDeps = [],
+    manual,
+    onBefore,
+    onSuccess,
+    onError,
+    onFinally,
+  } = options;
+
+  // 聚合后的数据
+  const [finalData, setFinalData] = useState<TData>();
+  // 加载更多 loading
+  const [loadingMore, setLoadingMore] = useState(false);
+
+  const { loading, error, run, runAsync, cancel } = useRequest(
+    // 入参，将上次请求返回的数据整合到新的参数中
+    async (lastData?: TData) => {
+      const currentData = await service(lastData);
+      // 首次请求，直接设置
+      if (!lastData) {
+        setFinalData({
+          ...currentData,
+          list: [...(currentData.list ?? [])],
+        });
+      } else {
+        setFinalData({
+          ...currentData,
+          list: [...(lastData.list ?? []), ...currentData.list],
+        });
+      }
+      return currentData;
+    },
+    {
+      manual,
+      onFinally: (_, d, e) => {
+        // 设置 loadingMore 为 false
+        setLoadingMore(false);
+        onFinally?.(d, e);
+      },
+      onBefore: () => onBefore?.(),
+      onSuccess: (d) => {
+        setTimeout(() => {
+          // eslint-disable-next-line @typescript-eslint/no-use-before-define
+          scrollMethod();
+        });
+        onSuccess?.(d);
+      },
+      onError: (e) => onError?.(e),
+    }
+  );
+
+  // 是否没有更多数据了，配置 options.isNoMore 后生效
+  const noMore = useMemo(() => {
+    if (!isNoMore) return false;
+    return isNoMore(finalData);
+  }, [finalData]);
+
+  // 同步加载更多
+  const loadMore = useMemoizedFn(() => {
+    if (noMore) return;
+    setLoadingMore(true);
+    run(finalData);
+  });
+
+  // 异步加载更多
+  const loadMoreAsync = useMemoizedFn(() => {
+    if (noMore) return Promise.reject();
+    setLoadingMore(true);
+    return runAsync(finalData);
+  });
+
+  // 同步加载第一页数据
+  const reload = () => {
+    setLoadingMore(false);
+    return run();
+  };
+
+  // 异步加载第一页数据
+  const reloadAsync = () => {
+    setLoadingMore(false);
+    return runAsync();
+  };
+
+  // 监听 reloadDeps，变化后，自动触发 reload
+  useUpdateEffect(() => {
+    run();
+  }, [...reloadDeps]);
+
+  // 滚动
+  const scrollMethod = () => {
+    let el = getTargetElement(target);
+    if (!el) {
+      return;
+    }
+
+    el = el === document ? document.documentElement : el;
+
+    const scrollTop = getScrollTop(el);
+    const scrollHeight = getScrollHeight(el);
+    const clientHeight = getClientHeight(el);
+
+    // 判断滚动条是否到达底部或即将到达底部
+    if (scrollHeight - scrollTop <= clientHeight + threshold) {
+      // 加载更多
+      loadMore();
+    }
+  };
+
+  // 监听滚动事件
+  useEventListener(
+    "scroll",
+    () => {
+      if (loading || loadingMore) {
+        return;
+      }
+      scrollMethod();
+    },
+    { target }
+  );
+
+  return {
+    data: finalData,
+    loaading: !loadMore && loading,
+    loadingMore,
+    error,
+    noMore,
+
+    loadMore,
+    loadMoreAsync,
+    reload: useMemoizedFn(reload),
+    reloadAsync: useMemoizedFn(reloadAsync),
+    mutate: setFinalData,
+    cancel,
+  };
+};
+
+export default useInfiniteScroll;
+```
 
 ### usePagination
 
@@ -2568,6 +2924,244 @@ const usePagination = <TData extends Data, TParams extends Params>(
 };
 
 export default usePagination;
+```
+
+### useVirtualList
+
+提供虚拟化列表能力的 Hook，用于解决展示海量数据渲染时首屏渲染缓慢和滚动卡顿问题。
+
+#### API
+
+```jsx
+const [list, scrollTo] = useVirtualList<T>(
+	originalList: T[],
+	options: {
+		containerTarget: (() => Element)) | Element | MutableRefObject<Element>,
+    wrapperTarget: (() => Element)) | Element | MutableRefObject<Element>,
+    itemHeight: number | ((index: number, data: T) => number)),
+    overscan?: number,
+	}
+)
+```
+
+##### Params
+
+| 参数         | 说明                                                                      | 类型    | 默认值 |
+| ------------ | ------------------------------------------------------------------------- | ------- | ------ |
+| originalList | 包含大量数据的列表。注意：必须经过 useMemo 处理或者永不变化，否则会死循环 | T[]     | []     |
+| options      | 配置项                                                                    | Options | -      |
+
+##### Options
+
+| 参数            | 说明                                                   | 类型                                                      | 默认值 |
+| --------------- | ------------------------------------------------------ | --------------------------------------------------------- | ------ |
+| containerTarget | 外部容器，支持 DOM 节点或者 Ref 对象                   | (() => Element) \| Element \| MutableRefObject\<Element\> |        |
+| wrapperTarget   | 内部容器，支持 DOM 节点或者 Ref 对象                   | (() => Element) \| Element \| MutableRefObject\<Element\> |        |
+| itemHeight      | 行高度，静态高度可以直接写入像素值，动态高度可传入函数 | number \| ((index: number, data: T) => number)            |        |
+| overscan        | 视区上、下额外展示的 DOM 节点数量                      | number                                                    | 5      |
+
+##### Result
+
+| 参数     | 说明                   | 类型                       |
+| -------- | ---------------------- | -------------------------- |
+| list     | 当前需要展示的列表内容 | {data: T, index: number}[] |
+| scrollTo | 快速滚动到指定 index   | (index: number) ⇒ void     |
+
+#### 代码演示
+
+[基础用法 - CodeSandbox](https://codesandbox.io/s/h7kxzj)
+
+[动态元素高度 - CodeSandbox](https://codesandbox.io/s/hzvzj9)
+
+#### 源码解析
+
+```tsx
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+import useEventListener from "../useEventListener";
+import useUpdateEffect from "../useUpdateEffect";
+import useLatest from "../useLatest";
+import useSize from "../useSize";
+import useMemoizedFn from "../useMemoizedFn";
+import { getTargetElement } from "utils/domTarget";
+import type { BasicTarget } from "utils/domTarget";
+import { isNumber } from "utils";
+
+type ItemHeight<T> = (index: number, data: T) => number;
+
+export interface Options<T> {
+  containerTarget: BasicTarget;
+  wrapperTarget: BasicTarget;
+  itemHeight: number | ItemHeight<T>;
+  overscan?: number;
+}
+
+const useVirtualList = <T = any,>(list: T[], options: Options<T>) => {
+  const { containerTarget, wrapperTarget, itemHeight, overscan = 5 } = options;
+
+  const itemHeightRef = useLatest(itemHeight);
+
+  // 外部容器尺寸
+  const size = useSize(containerTarget);
+
+  // 标记滚动是否由滚动函数触发
+  const scrollTriggerByScrollToFunc = useRef(false);
+
+  // 当前需要展示的列表内容
+  const [targetList, setTargetList] = useState<{ index: number; data: T }[]>(
+    []
+  );
+
+  // 内部容器样式
+  const [wrapperStyle, setWrapperStyle] = useState<CSSProperties>({});
+
+  // 根据滚动位置计算偏移量
+  const getOffset = (scrollTop: number) => {
+    if (isNumber(itemHeightRef.current)) {
+      return Math.floor(scrollTop / itemHeightRef.current) + 1;
+    }
+    let sum = 0;
+    let offset = 0;
+    for (let i = 0; i < list.length; i++) {
+      const height = itemHeightRef.current(i, list[i]);
+      sum += height;
+      if (sum >= scrollTop) {
+        offset = i;
+        break;
+      }
+    }
+    return offset + 1;
+  };
+
+  // 根据容器高度和起始索引计算可见的列表项数量
+  const getVisibleCount = (containerHeight: number, fromIndex: number) => {
+    if (isNumber(itemHeightRef.current)) {
+      return Math.ceil(containerHeight / itemHeightRef.current);
+    }
+    let sum = 0;
+    let endIndex = 0;
+    for (let i = fromIndex; i < list.length; i++) {
+      const height = itemHeightRef.current(i, list[i]);
+      sum += height;
+      endIndex = i;
+      if (sum >= containerHeight) {
+        break;
+      }
+    }
+    return endIndex - fromIndex;
+  };
+
+  // 根据索引计算顶部的高度，前面所有列表项的高度总和
+  const getDistanceTop = (index: number) => {
+    if (isNumber(itemHeightRef.current)) {
+      const height = index * itemHeightRef.current;
+      return height;
+    }
+    const height = list
+      .slice(0, index)
+      .reduce(
+        (sum, _, i) =>
+          sum + (itemHeightRef.current as ItemHeight<T>)(i, list[i]),
+        0
+      );
+    return height;
+  };
+
+  // 内部容器的高度
+  const totalHeight = useMemo(() => {
+    if (isNumber(itemHeightRef.current)) {
+      return list.length * itemHeightRef.current;
+    }
+    return list.reduce(
+      (sum, _, index) =>
+        sum + (itemHeightRef.current as ItemHeight<T>)(index, list[index]),
+      0
+    );
+  }, [list]);
+
+  // 计算可见范围内的列表项，并设置内部容器的高度和样式
+  const calculateRange = () => {
+    const container = getTargetElement(containerTarget);
+
+    if (container) {
+      const { scrollTop, clientHeight } = container;
+
+      // 根据 scrollTop 计算已经 "滚过" 多少项
+      const offset = getOffset(scrollTop);
+      // 根据外部容器可视高度和当前的开始索引，计算外部容器能承载的项数
+      const visibleCount = getVisibleCount(clientHeight, offset);
+
+      // 根据 overscan (视区上、下额外展示的 DOM 节点数量) 计算开始索引和结束索引
+      const start = Math.max(0, offset - overscan);
+      const end = Math.min(list.length, offset + visibleCount + overscan);
+
+      // 根据开始索引计算其距离最开始的距离
+      const offfsetTop = getDistanceTop(start);
+
+      // 设置内部容器的 height 和 marginTop
+      setWrapperStyle({
+        height: totalHeight - offfsetTop + "px",
+        marginTop: offfsetTop + "px",
+      });
+
+      setTargetList(
+        list.slice(start, end).map((ele, index) => ({
+          data: ele,
+          index: index + start,
+        }))
+      );
+    }
+  };
+
+  // 监听容器尺寸、原列表项变化，变化时重新计算
+  useEffect(() => {
+    if (!size?.width || !size?.height) {
+      return;
+    }
+    calculateRange();
+  }, [size?.width, size?.height, list]);
+
+  // 监听外部容器 scroll 事件
+  useEventListener(
+    "scroll",
+    (e) => {
+      // 如果滚动是由滚动函数触发，则不需要重新计算
+      if (scrollTriggerByScrollToFunc.current) {
+        scrollTriggerByScrollToFunc.current = false;
+        return;
+      }
+      e.preventDefault();
+      calculateRange();
+    },
+    {
+      target: containerTarget,
+    }
+  );
+
+  // 将 wrapperStyle 应用到内部容器
+  useUpdateEffect(() => {
+    const wrapper = getTargetElement(wrapperTarget) as HTMLElement;
+    if (wrapper) {
+      Object.keys(wrapperStyle).forEach(
+        (key) => (wrapper.style[key] = wrapperStyle[key])
+      );
+    }
+  }, [wrapperStyle]);
+
+  // 快速滚动到指定 index
+  const scrollTo = (index: number) => {
+    const container = getTargetElement(containerTarget);
+    if (container) {
+      scrollTriggerByScrollToFunc.current = true;
+      container.scrollTop = getDistanceTop(index);
+      calculateRange();
+    }
+  };
+
+  return [targetList, useMemoizedFn(scrollTo)] as const;
+};
+
+export default useVirtualList;
 ```
 
 ### useHistoryTravel
@@ -10563,9 +11157,9 @@ export default useWhyDidYouUpdate;
 - [x] usePagination
 - [x] useFusionTable
 - [x] useAntdTable
-- [ ] useInfiniteScroll
+- [x] useInfiniteScroll
 - [ ] useDynamicList
-- [ ] useVirtualList
+- [x] useVirtualList
 
 #### LifeCycle
 
