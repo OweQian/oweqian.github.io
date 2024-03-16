@@ -2926,6 +2926,258 @@ const usePagination = <TData extends Data, TParams extends Params>(
 export default usePagination;
 ```
 
+### useDynamicList
+
+一个帮助你管理动态列表状态，并能生成唯一 key 的 Hook。
+
+#### API
+
+```jsx
+const result: Result = useDynamicList(initialList?: T[]);
+```
+
+##### Params
+
+| 参数        | 说明         | 类型 | 默认值 |
+| ----------- | ------------ | ---- | ------ |
+| initialList | 列表的初始值 | T[]  | []     |
+
+##### Result
+
+| 参数      | 说明                   | 类型                                        | 备注   |
+| --------- | ---------------------- | ------------------------------------------- | ------------ |
+| list      | 当前的列表             | T[]                                         | -                                                                                                                                                                      |
+| resetList | 重新设置 list 的值     | (list: T[]) ⇒ void                          | -                                                                                                                                                                      |
+| insert    | 在指定位置插入元素     | (index: number, item: T) ⇒ void             | -                                                                                                                                                                      |
+| merge     | 在指定位置插入多个元素 | (index: number, items: T[]) ⇒ void          | -                                                                                                                                                                      |
+| replace   | 替换指定元素           | (index: number, item: T) ⇒ void             | -                                                                                                                                                                      |
+| remove    | 删除指定元素           | (index: number) ⇒ void                      | -                                                                                                                                                                      |
+| move      | 移动元素               | (oldIndex: number, newIndex: number) ⇒ void | -                                                                                                                                                                      |
+| getKey    | 获得某个元素的 uuid    | (index: number) ⇒ number                    | -                                                                                                                                                                      |
+| getIndex  | 获得某个 key 的 index  | (key: number) ⇒ number                      | -                                                                                                                                                                      |
+| push      | 在列表末尾添加元素     | (item: T) ⇒ void                            | -                                                                                                                                                                      |
+| pop       | 移除末尾元素           | () ⇒ void                                   | -                                                                                                                                                                      |
+| unshift   | 在列表起始位置添加元素 | (item: T) ⇒ void                            | -                                                                                                                                                                      |
+| shift     | 移除起始位置元素       | () ⇒ void                                   | -                                                                                                                                                                      |
+| sortList  | 校准排序               | (list: T[]) ⇒ T[]                           | - |
+
+#### 代码演示
+
+[基础用法 - CodeSandbox](https://codesandbox.io/s/2pn7wf)
+
+[在 antd Form 中使用 - CodeSandbox](https://codesandbox.io/s/tvy5h4)
+
+[在 antd Form 中使用的另一种写法 - CodeSandbox](https://codesandbox.io/s/hn6p94)
+
+[可拖拽的动态表格 - CodeSandbox](https://codesandbox.io/s/fzhnp8)
+
+#### 源码解析
+
+```jsx
+/**
+ * Array.prototype.splice()
+ * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+ * const months = ['Jan', 'March', 'April', 'June'];
+ * months.splice(1, 0, 'Feb'); // 从索引 1 位置开始，不删除元素，插入 ’Feb‘
+ * // Inserts at index 1
+ * console.log(months);
+ * // Expected output: Array ["Jan", "Feb", "March", "April", "June"]
+
+ * months.splice(4, 1, 'May'); // 从索引 4 位置开始，删除一个元素，并插入 'May'
+ * // Replaces 1 element at index 4
+ * console.log(months);
+ * // Expected output: Array ["Jan", "Feb", "March", "April", "May"]
+ */
+
+import { useCallback, useRef, useState } from "react";
+
+const useDynamicList = <T>(initialList: T[] = []) => {
+  // 计数
+  const counterRef = useRef(-1);
+
+  // uuid list
+  const keyList = useRef<number[]>([]);
+
+  // 根据 index 为某个元素设置 uuid
+  const setKey = useCallback((index: number) => {
+    counterRef.current += 1;
+    keyList.current.splice(index, 0, counterRef.current);
+  }, []);
+
+  // 当前列表
+  const [list, setList] = useState(() => {
+    initialList.forEach((_, index) => {
+      setKey(index);
+    });
+    return initialList;
+  });
+
+  // 重新设置 list 的值
+  const resetList = useCallback((newList: T[]) => {
+    keyList.current = [];
+    setList(() => {
+      newList.forEach((_, index) => {
+        setKey(index);
+      });
+      return newList;
+    });
+  }, []);
+
+  // 在指定位置插入元素
+  const insert = useCallback((index: number, item: T) => {
+    setList((l) => {
+      const temp = [...l];
+      temp.splice(index, 0, item);
+      setKey(index);
+      return temp;
+    });
+  }, []);
+
+  // 获得某个元素的 uuid
+  const getKey = useCallback((index: number) => keyList.current[index], []);
+
+  // 获得某个 key 的index
+  const getIndex = useCallback(
+    (key: number) => keyList.current.findIndex((ele) => ele === key),
+    []
+  );
+
+  // 在指定位置插入多个元素
+  const merge = useCallback((index: number, items: T[]) => {
+    setList((l) => {
+      const temp = [...l];
+      items.forEach((_, i) => {
+        setKey(index + i);
+      });
+      temp.splice(index, 0, ...items);
+      return temp;
+    });
+  }, []);
+
+  // 替换指定元素
+  const replace = useCallback((index: number, item: T) => {
+    setList((l) => {
+      const temp = [...l];
+      temp[index] = item;
+      return temp;
+    });
+  }, []);
+
+  // 删除指定元素
+  const remove = useCallback((index: number) => {
+    setList((l) => {
+      const temp = [...l];
+      temp.splice(index, 1);
+
+      // remove keys if necessary
+      try {
+        keyList.current.splice(index, 1);
+      } catch (e) {
+        console.error(e);
+      }
+      return temp;
+    });
+  }, []);
+
+  // 移动元素
+  const move = useCallback((oldIndex: number, newIndex: number) => {
+    if (oldIndex === newIndex) {
+      return;
+    }
+    setList((l) => {
+      const newList = [...l];
+      // 根据 oldIndex 把元素过滤掉
+      const temp = newList.filter((_, index: number) => index !== oldIndex);
+      // 根据 newIndex 把过滤掉的元素插入进去
+      temp.splice(newIndex, 0, newList[oldIndex]);
+
+      // move keys if necessary
+      try {
+        const keyTemp = keyList.current.filter(
+          (_, index: number) => index !== oldIndex
+        );
+        keyTemp.splice(newIndex, 0, keyList.current[oldIndex]);
+        keyList.current = keyTemp;
+      } catch (e) {
+        console.error(e);
+      }
+
+      return temp;
+    });
+  }, []);
+
+  // 在列表末尾添加元素
+  const push = useCallback((item: T) => {
+    setList((l) => {
+      setKey(l.length);
+      return l.concat([item]);
+    });
+  }, []);
+
+  // 移除末尾元素
+  const pop = useCallback(() => {
+    // remove keys if necessary
+    try {
+      keyList.current = keyList.current.slice(0, keyList.current.length - 1);
+    } catch (e) {
+      console.error(e);
+    }
+
+    setList((l) => l.slice(0, l.length - 1));
+  }, []);
+
+  // 在列表起始位置添加元素
+  const unshift = useCallback((item: T) => {
+    setList((l) => {
+      setKey(0);
+      return [item].concat(l);
+    });
+  }, []);
+
+  // 移除起始位置元素
+  const shift = useCallback(() => {
+    // remove keys if necessary
+    try {
+      keyList.current = keyList.current.slice(1, keyList.current.length);
+    } catch (e) {
+      console.error(e);
+    }
+    setList((l) => l.slice(1, l.length));
+  }, []);
+
+  // 校准排序
+  const sortList = useCallback(
+    (result: T[]) =>
+      result
+        .map((item, index) => ({ key: index, item })) // add index into obj
+        .sort((a, b) => getIndex(a.key) - getIndex(b.key)) // sort based on the index of table
+        .filter((item) => !!item.item) // remove undefined(s)
+        .map((item) => item.item), // retrive the data
+    []
+  );
+
+  return {
+    list,
+    insert,
+    merge,
+    replace,
+    remove,
+    getKey,
+    getIndex,
+    move,
+    push,
+    pop,
+    unshift,
+    shift,
+    sortList,
+    resetList,
+  };
+};
+
+export default useDynamicList;
+
+```
+
 ### useVirtualList
 
 提供虚拟化列表能力的 Hook，用于解决展示海量数据渲染时首屏渲染缓慢和滚动卡顿问题。
