@@ -1,6 +1,6 @@
 ---
 title: "💻 ahooks@3.7.9 源码解读"
-date: 2024-03-15T12:55:14+08:00
+date: 2024-03-21T22:45:14+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
@@ -173,16 +173,16 @@ const {
 ##### Result
 
 | 参数         | 说明                                                                               | 类型                                |
-| ------------ | ---------------------------------------------------------------------------------- | ----------------------------------- | --------------------------- | ------------------- |
+| ------------ | ---------------------------------------------------------------------------------- | ----------------------------------- | 
 | loading      | service 是否正在执行                                                               | boolean                             |
-| data         | service 返回的数据                                                                 | TData                               | undefined                   |
-| error        | service 抛出的异常                                                                 | Error                               | undefined                   |
-| params       | 当次执行的 service 的参数数组。比如你触发了 run(1, 2, 3)，则 params 等于 [1, 2, 3] | TParams                             | []                          |
+| data         | service 返回的数据                                                                 | TData                               \| undefined                   |
+| error        | service 抛出的异常                                                                 | Error                               \| undefined                   |
+| params       | 当次执行的 service 的参数数组。比如你触发了 run(1, 2, 3)，则 params 等于 [1, 2, 3] | TParams                             \| []                          |
 | run          | 手动触发 service 执行，参数会传递给 service。异常自动处理，通过 onError 反馈。     | (…params: TParams) ⇒ void           |
-| runAsync     | 与 run 用法一致，但返回的是 Promise，需要自行处理异常。                            | (…params: TParams) ⇒ Promise<TData> |
+| runAsync     | 与 run 用法一致，但返回的是 Promise，需要自行处理异常。                            | (…params: TParams) ⇒ Promise\<TData\> |
 | refresh      | 使用上一次的 params，重新调用 run                                                  | () ⇒ void                           |
-| refreshAsync | 使用上一次的 params，重新调用 runAsync                                             | () ⇒ Promise<TData>                 |
-| mutate       | 直接修改 data                                                                      | (data? TData                        | ((oldData?: TData) ⇒ (TData | undefined))) ⇒ void |
+| refreshAsync | 使用上一次的 params，重新调用 runAsync                                             | () ⇒ Promise\<TData\>                 |
+| mutate       | 直接修改 data                                                                      | (data?: TData                        \| ((oldData?: TData) ⇒ (TData \| undefined))) ⇒ void |
 | cancel       | 忽略当前 Promise 的响应                                                            | () ⇒ void                           |
 
 ### 核心原理
@@ -3647,15 +3647,15 @@ const result: NetworkState = useNetwork();
 ##### Result
 
 | 参数          | 说明                                   | 类型      |
-| ------------- | -------------------------------------- | --------- | -------- | -------- | ---- | ---- | ----- | ----- | ------- |
+| ------------- | -------------------------------------- | --------- |
 | online        | 网络是否为在线                         | boolean   |
 | since         | online 最后改变时间                    | Date      |
 | rtt           | 当前连接下评估的往返时延               | number    |
-| type          | 设备使用与所述网络进行通信的连接的类型 | bluetooth | cellular | ethernet | none | wifi | wimax | other | unknown |
+| type          | 设备使用与所述网络进行通信的连接的类型 | bluetooth \| cellular \| ethernet \| none \| wifi \| wimax \| other \| unknown |
 | downlink      | 有效带宽估算(单位：兆比特/秒)          | number    |
 | downlinkMax   | 最大下行速度(单位：兆比特/秒)          | number    |
 | saveData      | 用户代理是否设置了减少数据使用的选项   | boolean   |
-| effectiveType | 网络连接的类型                         | slow-2g   | 2g       | 3g       | 4g   |
+| effectiveType | 网络连接的类型                         | slow-2g   \| 2g       \| 3g       \| 4g   |
 
 更多信息参考：[MDN NetworkInformation](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation)
 
@@ -3789,13 +3789,13 @@ const result: Result = useSelections<T>(items: T[], defaultSelected?: T[]);
 ##### Result
 
 | 参数              | 说明                                                                                                                                                  | 类型                 |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | -------------------------------------- |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
 | selected          | 已经选择的元素                                                                                                                                        | T[]                  |
 | allSelected       | 是否全选                                                                                                                                              | boolean              |
 | noneSelected      | 是否一个都没有选择                                                                                                                                    | boolean              |
 | partiallySelected | 是否半选                                                                                                                                              | boolean              |
 | isSelected        | 是否被选择                                                                                                                                            | (value: T) ⇒ boolean |
-| setSelected       | 选择多个元素。多次执行时，后面的返回值会覆盖前面的，因此如果希望合并多次操作的结果，需要手动处理：setSelected((oldArray) ⇒ oldArray.concat(newArray)) | (value: T[]) ⇒ void  | (value: (prevState: T[]) ⇒ T[]) ⇒ void |
+| setSelected       | 选择多个元素。多次执行时，后面的返回值会覆盖前面的，因此如果希望合并多次操作的结果，需要手动处理：setSelected((oldArray) ⇒ oldArray.concat(newArray)) | (value: T[]) ⇒ void  \| (value: (prevState: T[]) ⇒ T[]) ⇒ void |
 | select            | 选择单个元素                                                                                                                                          | (value: T) ⇒ void    |
 | unSelect          | 取消选择单个元素                                                                                                                                      | (value: T) ⇒ void    |
 | toggle            | 反选单个元素                                                                                                                                          | (value: T) ⇒ void    |
@@ -4093,11 +4093,11 @@ const [current, { inc, dec, set, reset }] = useCounter(initialValue, {
 ##### Result
 
 | 参数    | 说明         | 类型                    |
-| ------- | ------------ | ----------------------- | ------------------------------ |
+| ------- | ------------ | ----------------------- | 
 | current | 当前值       | number                  |
 | inc     | 加，默认加 1 | (delta?: number) ⇒ void |
 | dec     | 减，默认减 1 | (delta?: number) ⇒ void |
-| set     | 设置 current | (value: number          | ((c: number) ⇒ number)) ⇒ void |
+| set     | 设置 current | (value: number          \| ((c: number) ⇒ number)) ⇒ void |
 | reset   | 重置为默认值 | () ⇒ void               |
 
 #### 代码演示
@@ -4213,8 +4213,8 @@ const state = useTextSelection(target?)
 ##### Params
 
 | 参数   | 说明               | 类型    | 默认值   |
-| ------ | ------------------ | ------- | -------- | ------------- | --------- | ------------------------- | -------- |
-| target | DOM element or ref | Element | Document | (() ⇒ Element | Document) | MutableRefObject<Element> | document |
+| ------ | ------------------ | ------- | -------- | 
+| target | DOM element or ref | Element \| Document \| (() ⇒ Element \| Document) \| MutableRefObject<Element> | document |
 
 ##### Result
 
@@ -4302,6 +4302,7 @@ function getRectFromSelection(selection: Selection | null): Rect {
     bottom,
   };
 }
+
 const useTextSelection = (target?: BasicTarget<Document | Element>): State => {
   const [state, setState] = useState(initState);
 
@@ -4430,7 +4431,7 @@ useWebSocket(socketUrl: string, options?: Options): Result;
 ##### Options
 
 | 参数              | 说明                   | 类型                                                                 | 默认值   |
-| ----------------- | ---------------------- | -------------------------------------------------------------------- | -------- | --- |
+| ----------------- | ---------------------- | -------------------------------------------------------------------- | -------- | 
 | onOpen            | webSocket 连接成功回调 | (event: WebSocketEventMap['open'], instance: WebSocket) => void      | -        |
 | onClose           | webSocket 关闭回调     | (event: WebSocketEventMap['close'], instance: WebSocket) => void     | -        |
 | onMessage         | webSocket 收到消息回调 | (message: WebSocketEventMap['message'], instance: WebSocket) => void | -        |
@@ -4438,7 +4439,7 @@ useWebSocket(socketUrl: string, options?: Options): Result;
 | reconnectLimit    | 重试次数               | number                                                               | 3        |
 | reconnectInterval | 重试时间间隔 (ms)      | number                                                               | 3000     |
 | manual            | 手动启动连接           | boolean                                                              | false    |
-| protocols         | 子协议                 | string                                                               | string[] | -   |
+| protocols         | 子协议                 | string                                                               \| string[] | -   |
 
 ##### Result
 
@@ -9360,17 +9361,17 @@ useKeyPress(
 ##### Params
 
 | 参数         | 说明                                         | 类型                           | 默认值    |
-| ------------ | -------------------------------------------- | ------------------------------ | --------- | ----------------------------------- | --- |
-| keyFilter    | 支持 keyCode、别名、组合键、数组、自定义函数 | KeyType                        | KeyType[] | ((event: KeyboardEvent) => boolean) | -   |
+| ------------ | -------------------------------------------- | ------------------------------ | --------- | 
+| keyFilter    | 支持 keyCode、别名、组合键、数组、自定义函数 | KeyType                        \| KeyType[] \| ((event: KeyboardEvent) => boolean) | -   |
 | eventHandler | 回调函数                                     | (event: KeyboardEvent) => void | -         |
 | options      | 可选配置项                                   | Options                        | -         |
 
 ##### Options
 
 | 参数       | 说明                                                                                     | 类型       | 默认值       |
-| ---------- | ---------------------------------------------------------------------------------------- | ---------- | ------------ | ------------------------------- | --- |
-| events     | 触发事件                                                                                 | (’keydown’ | ‘keyup’)[]   | [’keydown’]                     |
-| target     | DOM 节点或者 ref                                                                         | Element    | () ⇒ Element | React.MutableRefObject<Element> | -   |
+| ---------- | ---------------------------------------------------------------------------------------- | ---------- | ------------ | 
+| events     | 触发事件                                                                                 | (’keydown’ \| ‘keyup’)[]   | [’keydown’]                     |
+| target     | DOM 节点或者 ref                                                                         | Element    \| () ⇒ Element \| React.MutableRefObject\<Element\> | -   |
 | exactMatch | 精确匹配。如果开启，则只有在按键完全匹配的情况下触发事件。比如按键[shift + c]不会触发[c] | boolean    | false        |
 | useCapture | 是否阻止事件冒泡                                                                         | boolean    | false        |
 
@@ -9738,19 +9739,19 @@ useLongPress(
 ##### Params
 
 | 参数        | 说明             | 类型               | 默认值              |
-| ----------- | ---------------- | ------------------ | ------------------- | ------------------------------- | --- |
-| onLongPress | 触发函数         | (event: MouseEvent | TouchEvent) => void | -                               |
-| target      | DOM 节点或者 ref | Element            | () ⇒ Element        | React.MutableRefObject<Element> | -   |
+| ----------- | ---------------- | ------------------ | ------------------- | 
+| onLongPress | 触发函数         | (event: MouseEvent \| TouchEvent) => void | -                               |
+| target      | DOM 节点或者 ref | Element            \| () ⇒ Element        \| React.MutableRefObject\<Element\> | -   |
 | options     | 可选配置项       | Options            | -                   |
 
 ##### Options
 
 | 参数           | 说明                                 | 类型                     | 默认值              |
-| -------------- | ------------------------------------ | ------------------------ | ------------------- | ----- |
+| -------------- | ------------------------------------ | ------------------------ | ---|
 | delay          | 长按时间                             | number                   | 300                 |
 | moveThreshold  | 按下后移动阈值，超出则不触发长按事件 | {x?: number, y?: number} | -                   |
-| onClick        | 点击事件                             | (event: MouseEvent       | TouchEvent) => void | false |
-| onLongPressEnd | 长按结束事件                         | (event: MouseEvent       | TouchEvent) => void | false |
+| onClick        | 点击事件                             | (event: MouseEvent       \| TouchEvent) => void | - |
+| onLongPressEnd | 长按结束事件                         | (event: MouseEvent       \| TouchEvent) => void | - |
 
 #### Remarks
 
@@ -11437,4 +11438,3 @@ export default useWhyDidYouUpdate;
 - [x] 缓存
 - [x] 错误重试
 
-## 总结
