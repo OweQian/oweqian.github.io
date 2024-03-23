@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-03-01T14:10:47+08:00
+date: 2024-03-23T23:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,98 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-03
+
+#### 03-23
+
+咯咯哒。
+
+#### 03-22
+
+失眠。
+
+#### 03-21
+
+头一次感受到算法的重要性。
+
+#### 03-20
+
+😭 接雨水问题怎么解。
+
+#### 03-19
+
+😭 好想撂挑子。
+
+#### 03-18
+
+忠武路的男演员们。
+
+#### 03-17
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_22.jpg" alt="" width="400" />
+
+#### 03-16
+
+修福报半天。
+
+#### 03-15
+
+没发工资。
+
+#### 03-14
+
+哈哈哈，丑陋版罗小黑。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_21.jpg" alt="" width="400" />
+
+#### 03-13
+
+2023 年哈啰出行报告...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_20.jpg" alt="" width="400" />
+
+#### 03-12
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_19.jpg" alt="" width="400" />
+
+#### 03-11
+
+😴
+
+#### 03-10
+
+🎂 又老一岁。
+
+#### 03-09
+
+😄 宫廷糕点，好吃。
+
+#### 03-08
+
+放假咯。
+
+#### 03-07
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_18.jpg" alt="" width="400" />
+
+#### 03-06
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_17.jpg" alt="" width="400" />
+
+#### 03-05
+
+不加班就给你介绍到其它公司，666。
+
+#### 03-04
+
+椒麻鸡，好吃 😋。
+
+#### 03-03
+
+油菜花。
+
+#### 03-02
+
+修福报。
 
 #### 03-01
 
