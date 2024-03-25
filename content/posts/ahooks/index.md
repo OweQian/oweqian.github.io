@@ -4739,30 +4739,20 @@ export default useMount;
 import { renderHook } from "@testing-library/react";
 import useMount from "./index";
 
-// 定义测试套件
 describe("useMount", () => {
-  // 定义测试用例
   it("test mount", async () => {
-    //  创建一个 mock 函数 fn
     const fn = jest.fn();
-    // 渲染 useMount Hook，并将 fn 作为参数传递给 useMount
+
     const hook = renderHook(() => useMount(fn));
-    // 断言验证函数 fn 被调用的次数是否为 1
     expect(fn).toHaveBeenCalledTimes(1);
 
-    // 重新渲染
     hook.rerender();
-    // 断言验证函数 fn 被调用的次数是否为 1
     expect(fn).toHaveBeenCalledTimes(1);
 
-    // 卸载
     hook.unmount();
-    // 断言验证函数 fn 被调用的次数是否为 1
     expect(fn).toHaveBeenCalledTimes(1);
 
-    // 再次渲染 useMount Hook，并立即卸载
     renderHook(() => useMount(fn)).unmount();
-    // 断言验证函数 fn 被调用的次数是否为 2
     expect(fn).toHaveBeenCalledTimes(2);
   });
 });
@@ -4821,25 +4811,17 @@ export default useUnmount;
 import { renderHook } from "@testing-library/react";
 import useUnmount from "./index";
 
-// 定义测试套件
 describe("useUnmount", () => {
-  // 定义测试用例
-  it("useUnmount", async () => {
-    //  创建一个 mock 函数 fn
+  it("useUnmount should work", async () => {
     const fn = jest.fn();
-    // 渲染 useUnmount Hook，并将 fn 作为参数传递给 useUnmount
+
     const hook = renderHook(() => useUnmount(fn));
-    // 断言验证函数 fn 被调用的次数是否为 0
     expect(fn).toHaveBeenCalledTimes(0);
 
-    // 重新渲染
     hook.rerender();
-    // 断言验证函数 fn 被调用的次数是否为 0
     expect(fn).toHaveBeenCalledTimes(0);
 
-    // 卸载
     hook.unmount();
-    // 断言验证函数 fn 被调用的次数是否为 1
     expect(fn).toHaveBeenCalledTimes(1);
   });
 });
@@ -4896,23 +4878,15 @@ export default useUnmountedRef;
 import { renderHook } from "@testing-library/react";
 import useUnmountedRef from "./index";
 
-// 定义测试套件
 describe("useUnmountedRef", () => {
-  // 定义测试用例
   it("useUnmountedRef", async () => {
-    // 渲染 useUnmountedRef Hook
     const hook = renderHook(() => useUnmountedRef());
-    // 断言组件是否已经卸载
     expect(hook.result.current.current).toBe(false);
 
-    // 重新渲染
     hook.rerender();
-    // 断言组件是否已经卸载
     expect(hook.result.current.current).toBe(false);
 
-    // 卸载
     hook.unmount();
-    // 断言组件是否已经卸载
     expect(hook.result.current.current).toBe(true);
   });
 });
@@ -4985,6 +4959,51 @@ const useSetState = <S extends Record<string, any>>(
 };
 
 export default useSetState;
+```
+
+#### 单测
+
+```ts
+import { act, renderHook } from "@testing-library/react";
+import useSetState from "./index";
+
+describe("useSetState", () => {
+  const setUp = <T extends object>(initialValue: T) =>
+    renderHook(() => {
+      const [state, setState] = useSetState<T>(initialValue);
+      return {
+        state,
+        setState,
+      } as const;
+    });
+
+  it("should support initialValue", () => {
+    const hook = setUp({
+      hello: "world",
+    });
+    expect(hook.result.current.state).toEqual({ hello: "world" });
+  });
+
+  it("should support object", () => {
+    const hook = setUp<any>({
+      hello: "world",
+    });
+    act(() => {
+      hook.result.current.setState({ foo: "bar" });
+    });
+    expect(hook.result.current.state).toEqual({ hello: "world", foo: "bar" });
+  });
+
+  it("should support function update", () => {
+    const hook = setUp({
+      count: 0,
+    });
+    act(() => {
+      hook.result.current.setState((prev) => ({ count: prev.count + 1 }));
+    });
+    expect(hook.result.current.state).toEqual({ count: 1 });
+  });
+});
 ```
 
 ### useBoolean
@@ -5061,6 +5080,85 @@ const useBoolean = (defaultValue = false): [boolean, Actions] => {
 };
 
 export default useBoolean;
+```
+
+#### 单测
+
+```ts
+import { act, renderHook } from "@testing-library/react";
+import useBoolean from "./index";
+
+const setUp = (defaultValue?: boolean) =>
+  renderHook(() => useBoolean(defaultValue));
+
+describe("useBoolean", () => {
+  it("test on methods", async () => {
+    const { result } = setUp();
+    expect(result.current[0]).toBe(false);
+
+    act(() => {
+      result.current[1].setTrue();
+    });
+    expect(result.current[0]).toBe(true);
+
+    act(() => {
+      result.current[1].setFalse();
+    });
+    expect(result.current[0]).toBe(false);
+
+    act(() => {
+      result.current[1].toggle();
+    });
+    expect(result.current[0]).toBe(true);
+
+    act(() => {
+      result.current[1].toggle();
+    });
+    expect(result.current[0]).toBe(false);
+
+    act(() => {
+      result.current[1].set(false);
+    });
+    expect(result.current[0]).toBe(false);
+
+    act(() => {
+      result.current[1].set(true);
+    });
+    expect(result.current[0]).toBe(true);
+
+    act(() => {
+      // @ts-ignore
+      result.current[1].set(0);
+    });
+    expect(result.current[0]).toBe(false);
+
+    act(() => {
+      // @ts-ignore
+      result.current[1].set("a");
+    });
+    expect(result.current[0]).toBe(true);
+  });
+
+  it("test on default value", () => {
+    const hook1 = setUp(true);
+    expect(hook1.result.current[0]).toBe(true);
+
+    const hook2 = setUp();
+    expect(hook2.result.current[0]).toBe(false);
+
+    // @ts-ignore
+    const hook3 = setUp(0);
+    expect(hook3.result.current[0]).toBe(false);
+
+    // @ts-ignore
+    const hook4 = setUp("");
+    expect(hook4.result.current[0]).toBe(false);
+
+    // @ts-ignore
+    const hook5 = setUp("hello");
+    expect(hook5.result.current[0]).toBe(true);
+  });
+});
 ```
 
 ### useToggle
