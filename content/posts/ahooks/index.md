@@ -5267,6 +5267,53 @@ function useToggle<D, R>(
 export default useToggle;
 ```
 
+#### 单测
+
+```ts
+import { act, renderHook } from "@testing-library/react";
+import useToggle from "./index";
+
+const callToggle = (hook: any) => {
+  act(() => {
+    hook.result.current[1].toggle();
+  });
+};
+
+describe("useToggle", () => {
+  it("test on init", async () => {
+    const hook = renderHook(() => useToggle());
+    expect(hook.result.current[0]).toBeFalsy();
+  });
+
+  it("test on methods", async () => {
+    const hook = renderHook(() => useToggle("Hello"));
+    expect(hook.result.current[0]).toBe("Hello");
+    callToggle(hook);
+    expect(hook.result.current[0]).toBeFalsy();
+    act(() => {
+      hook.result.current[1].setLeft();
+    });
+    expect(hook.result.current[0]).toBe("Hello");
+    act(() => {
+      hook.result.current[1].setRight();
+    });
+    expect(hook.result.current[0]).toBeFalsy();
+  });
+
+  it("test on optional", async () => {
+    const hook = renderHook(() => useToggle("Hello", "World"));
+    callToggle(hook);
+    expect(hook.result.current[0]).toBe("World");
+    act(() => {
+      hook.result.current[1].set("World");
+    });
+    expect(hook.result.current[0]).toBe("World");
+    callToggle(hook);
+    expect(hook.result.current[0]).toBe("Hello");
+  });
+});
+```
+
 ### useUrlState
 
 <aside>
@@ -5288,7 +5335,7 @@ npm i @ahooksjs/use-url-state -S
 import useUrlState from "@ahooksjs/use-url-state";
 ```
 
-#### 在线演示
+##### 在线演示
 
 React Router V5：[https://codesandbox.io/s/suspicious-feather-cz4e0?file=/App.tsx](https://codesandbox.io/s/suspicious-feather-cz4e0?file=/App.tsx)
 
@@ -5601,6 +5648,113 @@ function useCookieState(cookieKey: string, options: Options = {}) {
 }
 
 export default useCookieState;
+```
+
+#### 单测
+
+```ts
+import { renderHook, act } from "@testing-library/react";
+import useCookieState from "./index";
+import type { Options } from "./index";
+import Cookies from "js-cookie";
+
+describe("useCookieState", () => {
+  const setUp = (key: string, options: Options) =>
+    renderHook(() => {
+      const [state, setState] = useCookieState(key, options);
+      return {
+        state,
+        setState,
+      } as const;
+    });
+
+  it("getKey should work", () => {
+    const COOKIE = "test-key";
+    const hook = setUp(COOKIE, {
+      defaultValue: "A",
+    });
+    expect(hook.result.current.state).toBe("A");
+    act(() => {
+      hook.result.current.setState("B");
+    });
+    expect(hook.result.current.state).toBe("B");
+    const anotherHook = setUp(COOKIE, {
+      defaultValue: "A",
+    });
+    expect(anotherHook.result.current.state).toBe("B");
+    act(() => {
+      anotherHook.result.current.setState("C");
+    });
+    expect(anotherHook.result.current.state).toBe("C");
+    expect(hook.result.current.state).toBe("B");
+    expect(Cookies.get(COOKIE)).toBe("C");
+  });
+
+  it("should support undefined", () => {
+    const COOKIE = "test-boolean-key-with-undefined";
+    const hook = setUp(COOKIE, {
+      defaultValue: "undefined",
+    });
+    expect(hook.result.current.state).toBe("undefined");
+    act(() => {
+      hook.result.current.setState(undefined);
+    });
+    expect(hook.result.current.state).toBeUndefined();
+    const anotherHook = setUp(COOKIE, {
+      defaultValue: "false",
+    });
+    expect(anotherHook.result.current.state).toBe("false");
+    expect(Cookies.get(COOKIE)).toBeUndefined();
+    act(() => {
+      // @ts-ignore
+      hook.result.current.setState();
+    });
+    expect(hook.result.current.state).toBeUndefined();
+    expect(Cookies.get(COOKIE)).toBeUndefined();
+  });
+
+  it("should support empty string", () => {
+    Cookies.set("test-key-empty-string", "");
+    expect(Cookies.get("test-key-empty-string")).toBe("");
+    const COOKIE = "test-key-empty-string";
+    const hook = setUp(COOKIE, {
+      defaultValue: "hello",
+    });
+    expect(hook.result.current.state).toBe("");
+  });
+
+  it("should support function updater", () => {
+    const COOKIE = "test-func-updater";
+    const hook = setUp(COOKIE, {
+      defaultValue: () => "hello world",
+    });
+    expect(hook.result.current.state).toBe("hello world");
+    act(() => {
+      hook.result.current.setState((state) => `${state}, zhangsan`);
+    });
+    expect(hook.result.current.state).toBe("hello world, zhangsan");
+  });
+
+  it("using the same cookie name", () => {
+    const COOKIE_NAME = "test-same-cookie-name";
+    const { result: result1 } = setUp(COOKIE_NAME, { defaultValue: "A" });
+    const { result: result2 } = setUp(COOKIE_NAME, { defaultValue: "B" });
+    expect(result1.current.state).toBe("A");
+    expect(result2.current.state).toBe("B");
+    act(() => {
+      result1.current.setState("C");
+    });
+    expect(result1.current.state).toBe("C");
+    expect(result2.current.state).toBe("B");
+    expect(Cookies.get(COOKIE_NAME)).toBe("C");
+    act(() => {
+      result2.current.setState("D");
+    });
+    expect(result1.current.state).toBe("C");
+    expect(result2.current.state).toBe("D");
+    expect(Cookies.get(COOKIE_NAME)).toBe("D");
+  });
+});
 ```
 
 ### useLocalStorageState
