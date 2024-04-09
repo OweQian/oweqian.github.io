@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-04-01T23:30:47+08:00
+date: 2024-04-09T22:20:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,38 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-04
+
+#### 04-09
+
+😴 睡了一天。
+
+#### 04-08
+
+炸鸡能瞬间让人快乐起来。
+
+#### 04-07
+
+练字。
+
+#### 04-06
+
+从无中来，到无中去。
+
+#### 04-05
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_26.jpg" alt="" width="400" />
+
+#### 04-04
+
+🤔 可算知道啥叫敏捷了。
+
+#### 04-03
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_25.jpg" alt="" width="400" />
+
+#### 04-02
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_24.jpg" alt="" width="400" />
 
 #### 04-01
 
