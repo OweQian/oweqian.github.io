@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-04-09T22:20:47+08:00
+date: 2024-04-16T16:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,36 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-04
+
+#### 04-15
+
+哈哈哈，烧烤真好吃。
+
+#### 04-14
+
+不开灯，静静地坐一会，看一会蜡烛，然后睡觉。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_28.jpg" alt="" width="400" />
+
+#### 04-13
+
+看了一天鱿鱼怪，还行。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_29.jpg" alt="" width="400" />
+
+#### 04-12
+
+😒 再也不来了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_27.jpeg" alt="" width="400" />
+
+#### 04-11
+
+😠 工资都不发的，还要干活，忙的水都没时间喝。
+
+#### 04-10
+
+2024.04.10，江湖再见。
 
 #### 04-09
 
