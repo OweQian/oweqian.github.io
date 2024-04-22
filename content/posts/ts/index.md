@@ -1,6 +1,7 @@
 ---
 title: "📒 Typescript 手册"
 date: 2024-04-17T16:10:22+08:00
+draft: true
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---

@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-04-16T16:00:47+08:00
+date: 2024-04-22T15:10:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,32 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-04
+
+#### 04-21
+
+《本杰明·巴顿奇事》
+
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=238865321&bvid=BV1we41117tb&cid=1409086356&p=1autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+#### 04-20
+
+焦虑地磕一晚上瓜子。
+
+#### 04-19
+
+工作只是生存的手段，而不是人生的目的。
+
+#### 04-18
+
+"帕金森定律"，哈哈哈。
+
+#### 04-17
+
+钱来钱来钱来。
+
+#### 04-16
+
+😠 偷吃鲜花的猫。
 
 #### 04-15
 
