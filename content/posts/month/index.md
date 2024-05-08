@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-04-22T15:10:47+08:00
+date: 2024-05-08T17:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -11,6 +11,51 @@ categories: ["碎碎念"]
 <!--more-->
 
 ## 2024
+
+### 2024-05
+
+#### 05-08
+
+为什么想要花钱去考个 PMP 啊。。。唉。。
+
+#### 05-07
+
+疯狂刷步数的一天。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_35.jpg" alt="" width="400" />
+
+#### 05-06
+
+今年的骑行目标。  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_34.jpg" alt="" width="400" />
+
+#### 05-05
+
+哈哈，把朋友的鸡圈起来自己养了。  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_33.jpg" alt="" width="400" />
+
+#### 05-04
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_32.jpg" alt="" width="400" />
+
+#### 05-03
+
+如果你的心情生病了，
+那就先当个植物，
+吃吃喝喝，
+好好睡觉，
+晒晒太阳，
+慢慢长大。
+
+#### 05-02
+
+抓到一只海星。<br/>  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_31.jpg" alt="" width="400" />
+
+#### 05-01
+
+海上日出。  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_30.jpg" alt="" width="400" />
 
 ### 2024-04
 
