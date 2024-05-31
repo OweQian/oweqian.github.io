@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-05-26T12:30:47+08:00
+date: 2024-05-31T16:50:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,34 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-05
+
+#### 05-31
+
+蒙特卡洛分析。
+
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?isOutside=true&aid=866867672&bvid=BV1hV4y1Q7TR&cid=1077510170&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+#### 05-30
+
+哈哈哈，是的，我又要跑。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_40.jpg" alt="" width="400" />
+
+#### 05-29
+
+😊 PMP，脑子没点毛病的谁去考这个。
+
+#### 05-28
+
+饺子不错。
+
+#### 05-27
+
+图书馆的免费空调虽好，但也不能多吹。
+
+#### 05-26
+
+嘻嘻，前雇主的破事又耽误一天，什么时候还钱！！
 
 #### 05-25
 
