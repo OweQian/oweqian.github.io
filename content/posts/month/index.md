@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-06-05T17:10:47+08:00
+date: 2024-06-08T09:40:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,20 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-06
+
+#### 06-07
+
+有人喜欢独居，有人喜欢群居。  
+不管你适应与否，成年人都得学会妥善安置自己的肉身和灵魂。  
+😄 很喜欢直子小姐对待生活的态度。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_43.jpg" alt="" width="400" />
+
+#### 06-06
+
+😠 对得起我吗？退钱。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_42.jpg" alt="" width="400" />
 
 #### 06-05
 
