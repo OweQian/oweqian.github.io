@@ -1,13 +1,13 @@
 ---
-title: "💻 ahooks@3.7.9 源码解读"
-date: 2024-03-23T23:30:14+08:00
+title: "💻 ahooks@3.8.0 源码解读"
+date: 2023-11-23T23:30:14+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
 
 ahooks，发音 [eɪ hʊks]，是一套高质量可靠的 React Hooks 库。它有很多特性，易学易用、支持 SSR、对输入输出函数做了特殊处理且避免闭包问题等。
 
-本篇文章主要对 ahooks@3.7.9 的源码进行解读，欢迎您的指正和点赞。
+本篇文章主要对 ahooks@3.8.0 的源码进行解读，欢迎您的指正和点赞。
 
 <!--more-->
 
@@ -17,7 +17,7 @@ React 官网地址：[react](https://ahooks.js.org/zh-CN)
 
 Github 项目地址： [ahooks-analysis](https://github.com/OweQian/ahooks-analysis.git)
 
-Notion 笔记预览地址： [ahooks@3.7.9 源码解读](https://bumpy-iodine-8d0.notion.site/b34798801d044b078133083931a8f732?v=b0b6b9a74a284af8bdb5006e2b32733e)
+Notion 笔记预览地址： [ahooks@3.8.0 源码解读](https://bumpy-iodine-8d0.notion.site/b34798801d044b078133083931a8f732?v=b0b6b9a74a284af8bdb5006e2b32733e)
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/ahooks/img-ahooks.jpeg" alt="" width="100%" />
 
@@ -4690,43 +4690,25 @@ export default useWebSocket;
 
 ### useMount
 
-<aside>
-💡 只在组件初始化时执行的 Hook。
-</aside>
+[文档地址](https://ahooks.pages.dev/zh-CN/hooks/use-mount)
 
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useMount/index.ts)
 
 ```tsx
-useMount(fn: () => void);
-```
-
-##### Params
-
-| 参数 | 说明               | 类型      | 默认值 |
-| ---- | ------------------ | --------- | ------ |
-| fn   | 初始化时执行的函数 | () ⇒ void | -      |
-
-#### 代码演示
-
-[基础用法](https://codesandbox.io/p/sandbox/ji-chu-yong-fa-uo4cml?file=/index.tsx)
-
-#### 源码解析
-
-```tsx
-import isDev from "../../../utils/isDev";
-import { isFunction } from "../../../utils";
+import { isFunction } from "@/utils";
+import isDev from "@/utils/isDev";
 import { useEffect } from "react";
 
 const useMount = (fn: () => void) => {
   if (isDev) {
     if (!isFunction(fn)) {
       console.error(
-        `useMount expected parameter is a function, but got ${typeof fn}`
+        `useMount: parameter \`fn\` expected to be a function, but got "${typeof fn}".`
       );
     }
   }
 
-  // 组件挂载执行函数
+  // 在组件首次渲染时，执行方法
   useEffect(() => {
     fn?.();
   }, []);
@@ -4735,123 +4717,46 @@ const useMount = (fn: () => void) => {
 export default useMount;
 ```
 
-#### 单测
-
-```ts
-import { renderHook } from "@testing-library/react";
-import useMount from "./index";
-
-describe("useMount", () => {
-  it("test mount", async () => {
-    const fn = jest.fn();
-
-    const hook = renderHook(() => useMount(fn));
-    expect(fn).toHaveBeenCalledTimes(1);
-
-    hook.rerender();
-    expect(fn).toHaveBeenCalledTimes(1);
-
-    hook.unmount();
-    expect(fn).toHaveBeenCalledTimes(1);
-
-    renderHook(() => useMount(fn)).unmount();
-    expect(fn).toHaveBeenCalledTimes(2);
-  });
-});
-```
-
 ### useUnmount
 
-<aside>
-💡 只在组件卸载时执行的 Hook。
-</aside>
+[文档地址](https://ahooks.pages.dev/zh-CN/hooks/use-unmount)
 
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUnmount/index.ts)
 
 ```tsx
-useUnmount(fn: () => void);
-```
-
-##### Params
-
-| 参数 | 说明             | 类型      | 默认值 |
-| ---- | ---------------- | --------- | ------ |
-| fn   | 卸载时执行的函数 | () ⇒ void | -      |
-
-#### 代码演示
-
-[基础用法](https://codesandbox.io/p/sandbox/ji-chu-yong-fa-sjlkco)
-
-#### 源码解析
-
-```tsx
-import { isFunction } from "../../../utils";
-import isDev from "../../../utils/isDev";
+import { isFunction } from "@/utils";
+import isDev from "@/utils/isDev";
+import useLatest from "../useLatest";
 import { useEffect } from "react";
-import useLatest from "@/hooks/useLatest";
 
 const useUnmount = (fn: () => void) => {
   if (isDev) {
     if (!isFunction(fn)) {
       console.error(
-        `useUnmount expected parameter is a function, but got ${typeof fn}`
+        `useUnmount expected parameter is a function, got ${typeof fn}`
       );
     }
   }
 
   const fnRef = useLatest(fn);
-  // 组件卸载执行函数
-  useEffect(() => () => fnRef.current?.(), []);
+
+  useEffect(
+    // 组件卸载时，执行函数
+    () => () => {
+      fnRef.current();
+    },
+    []
+  );
 };
 
 export default useUnmount;
 ```
 
-#### 单测
-
-```ts
-import { renderHook } from "@testing-library/react";
-import useUnmount from "./index";
-
-describe("useUnmount", () => {
-  it("useUnmount should work", async () => {
-    const fn = jest.fn();
-
-    const hook = renderHook(() => useUnmount(fn));
-    expect(fn).toHaveBeenCalledTimes(0);
-
-    hook.rerender();
-    expect(fn).toHaveBeenCalledTimes(0);
-
-    hook.unmount();
-    expect(fn).toHaveBeenCalledTimes(1);
-  });
-});
-```
-
 ### useUnmountedRef
 
-<aside>
-💡 获取当前组件是否已经卸载的 Hook。
-</aside>
+[文档地址](https://ahooks.pages.dev/zh-CN/hooks/use-unmounted-ref)
 
-#### API
-
-```tsx
-const unmountRef: { current: boolean } = useUnmountedRef();
-```
-
-##### Result
-
-| 参数       | 说明             | 类型                 |
-| ---------- | ---------------- | -------------------- |
-| unmountRef | 组件是否已经卸载 | { current: boolean } |
-
-#### 代码演示
-
-[基础用法](https://codesandbox.io/p/sandbox/ji-chu-yong-fa-z9ufgq)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUnmountedRef/index.tsx)
 
 ```tsx
 import { useEffect, useRef } from "react";
@@ -11269,30 +11174,17 @@ export default useIsomorphicLayoutEffect;
 
 ### useLatest
 
-<aside>
-💡 返回当前最新值的 Hook，可以避免闭包问题。
+[文档地址](https://ahooks.pages.dev/zh-CN/hooks/use-latest)
 
-</aside>
-
-#### API
-
-```tsx
-const latestValueRef = useLatest<T>(value: T): MutableRefObject<T>;
-```
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/x51xzc)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useLatest/index.ts)
 
 ```tsx
 import { useRef } from "react";
 
 const useLatest = <T,>(value: T) => {
   const ref = useRef(value);
+  // 拿到最新值
   ref.current = value;
-
   return ref;
 };
 
