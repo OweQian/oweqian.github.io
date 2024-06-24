@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-06-19T18:50:47+08:00
+date: 2024-06-24T14:25:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -11,6 +11,29 @@ categories: ["碎碎念"]
 <!--more-->
 
 ## 2024
+
+#### 06-24
+
+半夜用双脚丈量兴隆湖。  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_46.jpg" alt="" width="400" />
+
+#### 06-23
+
+摘下动物头，彷佛就是你我。  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_45.jpg" alt="" width="400" />
+
+#### 06-22
+
+多读书，多思考，多听公开课，向优秀的人学习。  
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_47.jpg" alt="" width="400" />
+
+#### 06-21
+
+定投纳指。
+
+#### 06-20
+
+德国的球衣不错。
 
 #### 06-19
 
