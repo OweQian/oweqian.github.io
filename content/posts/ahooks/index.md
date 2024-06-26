@@ -4779,61 +4779,13 @@ const useUnmountedRef = () => {
 export default useUnmountedRef;
 ```
 
-#### 单测
-
-```ts
-import { renderHook } from "@testing-library/react";
-import useUnmountedRef from "./index";
-
-describe("useUnmountedRef", () => {
-  it("useUnmountedRef", async () => {
-    const hook = renderHook(() => useUnmountedRef());
-    expect(hook.result.current.current).toBe(false);
-
-    hook.rerender();
-    expect(hook.result.current.current).toBe(false);
-
-    hook.unmount();
-    expect(hook.result.current.current).toBe(true);
-  });
-});
-```
-
 ## State
 
 ### useSetState
 
-<aside>
-💡 管理 object 类型 state 的 Hook，用法与 class 组件的 this.setState 基本一致。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-set-state)
 
-</aside>
-
-#### API
-
-```tsx
-const [state, setState] = useSetState<T>(initialState);
-```
-
-##### Params
-
-| 参数         | 说明     | 类型        | 默认值 |
-| ------------ | -------- | ----------- | ------ |
-| initialState | 初始状态 | T \| () ⇒ T | -      |
-
-##### Result
-
-| 参数     | 说明         | 类型                                                                                   | 默认值 |
-| -------- | ------------ | -------------------------------------------------------------------------------------- | ------ |
-| state    | 当前状态     | T                                                                                      | -      |
-| setState | 设置当前状态 | (state: Partial\<T\> \| null) ⇒ void \| ((prevState: T) ⇒ Partial\<T\> \| null) ⇒ void | -      |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/2nls5x?file=/App.tsx)
-
-[使用回调更新 - CodeSandbox](https://codesandbox.io/s/4rdkil)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useSetState/index.ts)
 
 <aside>
 💡 在 React 中，状态被认为是只读的，对于对象或数组类型的状态，**你应该创建一个新的对象或数组来替换它而不是改变现有对象**。
@@ -4841,11 +4793,11 @@ const [state, setState] = useSetState<T>(initialState);
 </aside>
 
 ```tsx
+import { isFunction } from "@/utils";
 import { useCallback, useState } from "react";
-import { isFunction } from "../../../utils";
 
 export type SetState<S extends Record<string, any>> = <K extends keyof S>(
-  state: Pick<S, K> | null | ((prevState: Readonly<S>) => Pick<S, K> | null | S)
+  state: Pick<S, K> | null | ((prevState: Readonly<S>) => Pick<S, K> | S | null)
 ) => void;
 
 const useSetState = <S extends Record<string, any>>(
@@ -4853,10 +4805,10 @@ const useSetState = <S extends Record<string, any>>(
 ): [S, SetState<S>] => {
   const [state, setState] = useState<S>(initialState);
 
-  // 合并操作，并返回一个全新的值
+  // 合并操作，返回一个全新的状态值
   const setMergeState = useCallback((patch) => {
     setState((prevState) => {
-      // 判断新状态是否是函数
+      // 判断新状态值是否为函数
       const newState = isFunction(patch) ? patch(prevState) : patch;
       return newState ? { ...prevState, ...newState } : prevState;
     });
@@ -4868,95 +4820,15 @@ const useSetState = <S extends Record<string, any>>(
 export default useSetState;
 ```
 
-#### 单测
-
-```ts
-import { act, renderHook } from "@testing-library/react";
-import useSetState from "./index";
-
-describe("useSetState", () => {
-  const setUp = <T extends object>(initialValue: T) =>
-    renderHook(() => {
-      const [state, setState] = useSetState<T>(initialValue);
-      return {
-        state,
-        setState,
-      } as const;
-    });
-
-  it("should support initialValue", () => {
-    const hook = setUp({
-      hello: "world",
-    });
-    expect(hook.result.current.state).toEqual({ hello: "world" });
-  });
-
-  it("should support object", () => {
-    const hook = setUp<any>({
-      hello: "world",
-    });
-    act(() => {
-      hook.result.current.setState({ foo: "bar" });
-    });
-    expect(hook.result.current.state).toEqual({ hello: "world", foo: "bar" });
-  });
-
-  it("should support function update", () => {
-    const hook = setUp({
-      count: 0,
-    });
-    act(() => {
-      hook.result.current.setState((prev) => ({ count: prev.count + 1 }));
-    });
-    expect(hook.result.current.state).toEqual({ count: 1 });
-  });
-});
-```
-
 ### useBoolean
 
-<aside>
-💡 优雅的管理 boolean 状态的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-boolean)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useBoolean/index.ts)
 
 ```tsx
-const [state, {toggle, set, setTrue, setFalse}] = useToggle(defaultValue?: boolean);
-```
-
-##### Params
-
-| 参数         | 说明                     | 类型    | 默认值 |
-| ------------ | ------------------------ | ------- | ------ |
-| defaultValue | 可选项，传入默认的状态值 | boolean | false  |
-
-##### Result
-
-| 参数    | 说明     | 类型    |
-| ------- | -------- | ------- |
-| state   | 状态值   | boolean |
-| actions | 操作集合 | Actions |
-
-##### Actions
-
-| 参数     | 说明         | 类型                    |
-| -------- | ------------ | ----------------------- |
-| toggle   | 切换 state   | () ⇒ void               |
-| set      | 修改 state   | (state: boolean) ⇒ void |
-| setTrue  | 设置为 true  | () ⇒ void               |
-| setFalse | 设置为 false | () ⇒ void               |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/nsy5b6)
-
-#### 源码解析
-
-```tsx
-import useToggle from "../useToggle";
 import { useMemo } from "react";
+import useToggle from "../useToggle";
 
 export interface Actions {
   setTrue: () => void;
@@ -4966,15 +4838,16 @@ export interface Actions {
 }
 
 const useBoolean = (defaultValue = false): [boolean, Actions] => {
+  // 基于 useToggle
   const [state, { toggle, set }] = useToggle(!!defaultValue);
 
   const actions: Actions = useMemo(() => {
     const setTrue = () => set(true);
     const setFalse = () => set(false);
     return {
-      // 切换 state
+      // 切换
       toggle,
-      // 修改 state
+      // 修改
       set: (v) => set(!!v),
       // 设置为 true
       setTrue,
@@ -4989,132 +4862,11 @@ const useBoolean = (defaultValue = false): [boolean, Actions] => {
 export default useBoolean;
 ```
 
-#### 单测
-
-```ts
-import { act, renderHook } from "@testing-library/react";
-import useBoolean from "./index";
-
-const setUp = (defaultValue?: boolean) =>
-  renderHook(() => useBoolean(defaultValue));
-
-describe("useBoolean", () => {
-  it("test on methods", async () => {
-    const { result } = setUp();
-    expect(result.current[0]).toBe(false);
-
-    act(() => {
-      result.current[1].setTrue();
-    });
-    expect(result.current[0]).toBe(true);
-
-    act(() => {
-      result.current[1].setFalse();
-    });
-    expect(result.current[0]).toBe(false);
-
-    act(() => {
-      result.current[1].toggle();
-    });
-    expect(result.current[0]).toBe(true);
-
-    act(() => {
-      result.current[1].toggle();
-    });
-    expect(result.current[0]).toBe(false);
-
-    act(() => {
-      result.current[1].set(false);
-    });
-    expect(result.current[0]).toBe(false);
-
-    act(() => {
-      result.current[1].set(true);
-    });
-    expect(result.current[0]).toBe(true);
-
-    act(() => {
-      // @ts-ignore
-      result.current[1].set(0);
-    });
-    expect(result.current[0]).toBe(false);
-
-    act(() => {
-      // @ts-ignore
-      result.current[1].set("a");
-    });
-    expect(result.current[0]).toBe(true);
-  });
-
-  it("test on default value", () => {
-    const hook1 = setUp(true);
-    expect(hook1.result.current[0]).toBe(true);
-
-    const hook2 = setUp();
-    expect(hook2.result.current[0]).toBe(false);
-
-    // @ts-ignore
-    const hook3 = setUp(0);
-    expect(hook3.result.current[0]).toBe(false);
-
-    // @ts-ignore
-    const hook4 = setUp("");
-    expect(hook4.result.current[0]).toBe(false);
-
-    // @ts-ignore
-    const hook5 = setUp("hello");
-    expect(hook5.result.current[0]).toBe(true);
-  });
-});
-```
-
 ### useToggle
 
-<aside>
-💡 用于在两个状态值间切换的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-toggle)
 
-</aside>
-
-#### API
-
-```tsx
-const [state, {toggle, set, setLeft, setRight}] = useToggle(defaultValue?: boolean);
-
-const [state, {toggle, set, setLeft, setRight}] = useToggle<T>(defaultValue: T);
-
-const [state, {toggle, set, setLeft, setRight}] = useToggle<T, U>(defaultValue: T, reverseValue: U);
-```
-
-##### Params
-
-| 参数         | 说明                     | 类型 | 默认值 |
-| ------------ | ------------------------ | ---- | ------ |
-| defaultValue | 可选项，传入默认的状态值 | T    | false  |
-| reverseValue | 可选项，传入取反的状态值 | U    | -      |
-
-##### Result
-
-| 参数    | 说明     | 类型    |
-| ------- | -------- | ------- |
-| state   | 状态值   | -       |
-| actions | 操作集合 | Actions |
-
-##### Actions
-
-| 参数     | 说明                                                                           | 类型                   |
-| -------- | ------------------------------------------------------------------------------ | ---------------------- |
-| toggle   | 切换 state                                                                     | () ⇒ void              |
-| set      | 修改 state                                                                     | (state: T \| U) ⇒ void |
-| setLeft  | 设置为 defaultValue                                                            | () ⇒ void              |
-| setRight | 如果传入了 reverseValue，则设置为 reverseValue。否则设置为 defaultValue 的反值 | () ⇒ void              |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/jtqgd1)
-
-[在任意两个值之间切换 - CodeSandbox](https://codesandbox.io/s/3y6c6r)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useToggle/index.ts)
 
 ```tsx
 import { useMemo, useState } from "react";
@@ -5126,23 +4878,21 @@ export interface Actions<T> {
   toggle: () => void;
 }
 
-// TS 函数重载声明入参和出参类型，根据不同的入参会返回不同的结果
 /**
- * 入参可能有两个值，第一个为默认值（认为是左值），第二个是取反之后的值（认为是右值），不传右值时，根据默认值取反 !defaultValue
+ * 函数重载，声明入参和出参类型，根据不同的入参返回不同的结果
+ * 入参可能有两个值，第一个为默认值（左值），第二个为取反之后的值（右值）
+ * 不传右值时，根据默认值取反 !defaultValue
  */
 function useToggle<T = boolean>(): [boolean, Actions<T>];
-
 function useToggle<T>(defaultValue: T): [T, Actions<T>];
-
 function useToggle<T, U>(
   defaultValue: T,
   reverseValue: U
 ): [T | U, Actions<T | U>];
-
 function useToggle<D, R>(
   defaultValue: D = false as unknown as D,
   reverseValue?: R
-) {
+): [D | R, Actions<D | R>] {
   const [state, setState] = useState<D | R>(defaultValue);
 
   const actions = useMemo(() => {
@@ -5150,14 +4900,14 @@ function useToggle<D, R>(
       reverseValue === undefined ? !defaultValue : reverseValue
     ) as D | R;
 
-    // 切换 state
+    // 切换
     const toggle = () =>
       setState((s) => (s === defaultValue ? reverseValueOrigin : defaultValue));
-    // 修改 state
+    // 修改
     const set = (value: D | R) => setState(value);
-    // 设置为 defaultValue
+    // 设为左值
     const setLeft = () => setState(defaultValue);
-    // 如果传入了 reverseValue, 则设置为 reverseValue。 否则设置为 defautValue 的反值
+    // 设为右值
     const setRight = () => setState(reverseValueOrigin);
 
     return {
@@ -5174,119 +4924,11 @@ function useToggle<D, R>(
 export default useToggle;
 ```
 
-#### 单测
-
-```ts
-import { act, renderHook } from "@testing-library/react";
-import useToggle from "./index";
-
-const callToggle = (hook: any) => {
-  act(() => {
-    hook.result.current[1].toggle();
-  });
-};
-
-describe("useToggle", () => {
-  it("test on init", async () => {
-    const hook = renderHook(() => useToggle());
-    expect(hook.result.current[0]).toBeFalsy();
-  });
-
-  it("test on methods", async () => {
-    const hook = renderHook(() => useToggle("Hello"));
-    expect(hook.result.current[0]).toBe("Hello");
-    callToggle(hook);
-    expect(hook.result.current[0]).toBeFalsy();
-    act(() => {
-      hook.result.current[1].setLeft();
-    });
-    expect(hook.result.current[0]).toBe("Hello");
-    act(() => {
-      hook.result.current[1].setRight();
-    });
-    expect(hook.result.current[0]).toBeFalsy();
-  });
-
-  it("test on optional", async () => {
-    const hook = renderHook(() => useToggle("Hello", "World"));
-    callToggle(hook);
-    expect(hook.result.current[0]).toBe("World");
-    act(() => {
-      hook.result.current[1].set("World");
-    });
-    expect(hook.result.current[0]).toBe("World");
-    callToggle(hook);
-    expect(hook.result.current[0]).toBe("Hello");
-  });
-});
-```
-
 ### useUrlState
 
-<aside>
-💡 通过 url query 来管理 state 的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-set-state)
 
-</aside>
-
-#### 安装
-
-```tsx
-npm i @ahooksjs/use-url-state -S
-```
-
-> 该 Hooks 基于 react-router 的 useLocation & useHistory & useNavigate 进行 query 管理，所以使用该 Hooks 之前，你需要保证：你的项目正在使用 react-router 5.x 或 6.x 版本来管理路由；独立安装了 @ahooksjs/use-url-state。
-
-#### 使用
-
-```tsx
-import useUrlState from "@ahooksjs/use-url-state";
-```
-
-##### 在线演示
-
-React Router V5：[https://codesandbox.io/s/suspicious-feather-cz4e0?file=/App.tsx](https://codesandbox.io/s/suspicious-feather-cz4e0?file=/App.tsx)
-
-React Router V6：[https://codesandbox.io/s/autumn-shape-odrt9?file=/App.tsx](https://codesandbox.io/s/autumn-shape-odrt9?file=/App.tsx)
-
-#### API
-
-```tsx
-const [state, setState] = useUrlState(initialState, options);
-```
-
-##### Params
-
-| 参数         | 说明     | 类型        | 默认值 |
-| ------------ | -------- | ----------- | ------ |
-| initialState | 初始状态 | S \| () ⇒ S | false  |
-| options      | url 配置 | Options     | -      |
-
-##### Options
-
-| 参数             | 说明                          | 类型             | 默认值              |
-| ---------------- | ----------------------------- | ---------------- | ------------------- |
-| navigateMode     | 状态变更时切换 history 的方式 | ‘push’           | ‘replace’ \| ‘push’ |
-| parseOptions     | query-string parse 的配置     | ParseOptions     | -                   |
-| stringifyOptions | query-string stringify 的配置 | StringifyOptions | -                   |
-
-##### Result
-
-| 参数     | 说明                                    | 类型                                         |
-| -------- | --------------------------------------- | -------------------------------------------- |
-| state    | url query 对象                          | object                                       |
-| setState | 用法同 setState，但 state 需要是 object | (state: S) ⇒ void \| (() ⇒ ((state: S) ⇒ S)) |
-
-#### 代码演示
-
-[ahooks 3.0](https://ahooks.js.org/~demos/use-url-state-demo1/)
-
-[ahooks 3.0](https://ahooks.js.org/~demos/use-url-state-demo2)
-
-[ahooks 3.0](https://ahooks.js.org/~demos/use-url-state-demo4)
-
-[ahooks 3.0](https://ahooks.js.org/~demos/use-url-state-demo3)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useSetState/index.ts)
 
 ahooks 项目是一个  monorepo，它的项目管理是通过  [lerna](https://www.lernajs.cn/)  进行管理。源码中的 useUrlState 是一个独立仓库。
 
@@ -7671,22 +7313,9 @@ export default useLockFn;
 
 ### useUpdate
 
-<aside>
-💡 useUpdate 会返回一个函数，调用该函数会强制组件重新渲染。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-update)
 
-</aside>
-
-#### API
-
-```tsx
-const update = useUpdate();
-```
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/xnll83)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUpdate/index.ts)
 
 ```tsx
 import { useCallback, useState } from "react";
