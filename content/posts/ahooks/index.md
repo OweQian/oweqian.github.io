@@ -4926,9 +4926,9 @@ export default useToggle;
 
 ### useUrlState
 
-[文档地址](https://ahooks.js.org/zh-CN/hooks/use-set-state)
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-url-state)
 
-[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useSetState/index.ts)
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/use-url-state/src/index.ts)
 
 ahooks 项目是一个  monorepo，它的项目管理是通过  [lerna](https://www.lernajs.cn/)  进行管理。源码中的 useUrlState 是一个独立仓库。
 
@@ -4945,19 +4945,19 @@ import useUrlState from "@ahooksjs/use-url-state";
 ```tsx
 import qs from "query-string";
 import type { ParseOptions, StringifyOptions } from "query-string";
-import * as tmp from "react-router";
-import useUpdate from "@/hooks/useUpdate";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
-import { useMemo, useRef } from "react";
 import type * as React from "react";
+import * as tmp from "react-router";
+import useUpdate from "../useUpdate";
+import { useMemo, useRef } from "react";
+import useMemoizedFn from "../useMemoizedFn";
 
 // ignore waring `"export 'useNavigate' (imported as 'rc') was not found in 'react-router'`
 const rc = tmp as any;
 
 /**
  * navigateMode: 状态变更时切换 history 的方式
- * parseOptions: query-string parse 的配置
- * stringifyOptions: query-string stringify 的配置
+ * parseOptions: parse 配置
+ * stringifyOptions: stringify 配置
  * */
 export interface Options {
   navigateMode?: "push" | "replace";
@@ -4982,7 +4982,6 @@ const useUrlState = <S extends UrlState = UrlState>(
   options?: Options
 ) => {
   type State = Partial<{ [key in keyof S]: any }>;
-
   const {
     navigateMode = "push",
     parseOptions,
@@ -5008,10 +5007,10 @@ const useUrlState = <S extends UrlState = UrlState>(
   // react-router v6
   const navigate = rc.useNavigate?.();
 
-  // 强制渲染函数
+  // 强制渲染
   const update = useUpdate();
 
-  // 初始状态对象
+  // 初始状态
   const initialStateRef = useRef(
     typeof initialState === "function"
       ? (initialState as () => S)()
@@ -5025,18 +5024,18 @@ const useUrlState = <S extends UrlState = UrlState>(
 
   // 组合查询参数对象
   // 多状态管理（拆分）
-  const targetQuery: State = useMemo(() => {
-    return {
+  const targetQuery: State = useMemo(
+    () => ({
       ...initialStateRef.current,
       ...queryFromUrl,
-    };
-  }, [queryFromUrl]);
+    }),
+    [queryFromUrl]
+  );
 
   const setState = (s: React.SetStateAction<State>) => {
-    // 计算新的状态对象 newQuery
+    // 计算新的状态对象
     const newQuery = typeof s === "function" ? s(targetQuery) : s;
 
-    // 强制更新组件
     // 1. 如果 setState 后，search 没变化，就需要 update 来触发一次更新。比如 demo1 直接点击 clear，就需要 update 来触发更新。
     // 2. update 和 history 的更新会合并，不会造成多次更新
     update();
@@ -5081,75 +5080,15 @@ export default useUrlState;
 
 ### useCookieState
 
-<aside>
-💡 一个可以将状态存储在 Cookie 中的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-cookie-state)
 
-</aside>
-
-#### API
-
-```tsx
-type State = string | undefined;
-
-type SetState = (
-	newValue?: State | ((prevState: State) => State),
-	options?: Cookies.CookieAttributes,
-) => void;
-
-const [state, setState]: [State, SetState] = useCookieState(
-	cookieKey: string,
-	options?: Options,
-);
-```
-
-注意：如果想从 document.cookie 中删除这条数据，可以使用 setState() 或 setState(undefined)。
-
-##### Params
-
-| 参数      | 说明                     | 类型    | 默认值 |
-| --------- | ------------------------ | ------- | ------ |
-| cookieKey | Cookie 中的 key 值       | string  | -      |
-| options   | 可选项，配置 Cookie 属性 | Options | -      |
-
-##### Options
-
-| 参数         | 说明                                                 | 类型                                                | 默认值    |
-| ------------ | ---------------------------------------------------- | --------------------------------------------------- | --------- |
-| defaultValue | 可选，定义 Cookie 默认值，但不同步到本地 Cookie      | string \| undefined \| (() ⇒ (string \| undefined)) | undefined |
-| expires      | 可选，定义 Cookie 存储有效时间                       | number \| Date                                      | -         |
-| path         | 可选，定义 Cookie 可用的路径                         | string                                              | /         |
-| domain       | 可选，定义 Cookie 可用的域，默认为 Cookie 创建的域名 | string                                              | -         |
-| secure       | 可选，Cookie 传输是否需要 https 安全协议             | boolean                                             | false     |
-| sameSite     | 可选，Cookie 不能与跨域请求一起发送                  | strict \| lax \| none                               | -         |
-
-Options 与  [js-cookie attributes](https://github.com/js-cookie/js-cookie#cookie-attributes)  保持一致。
-
-##### Result
-
-| 参数     | 说明           | 类型                |
-| -------- | -------------- | ------------------- |
-| state    | 本地 Cookie 值 | string \| undefined |
-| setState | 设置 Cookie 值 | SetState            |
-
-setState 可以更新 cookie options，会与 useCookieState 设置的 options 进行 merge 操作。
-
-const targetOptions = {…options, …updateOptions}
-
-#### 代码演示
-
-[将 state 存储在 Cookie 中 - CodeSandbox](https://codesandbox.io/s/nlts7z)
-
-[setState 可以接收函数 - CodeSandbox](https://codesandbox.io/s/xmqjmc)
-
-[使用 option 配置 Cookie - CodeSandbox](https://codesandbox.io/s/pldhqq)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useCookieState/index.ts)
 
 ```tsx
 import Cookies from "js-cookie";
 import { useState } from "react";
+import { isFunction, isString } from "@/utils";
 import useMemoizedFn from "../useMemoizedFn";
-import { isFunction, isString } from "../../../utils";
 
 export type State = string | undefined;
 
@@ -5157,11 +5096,10 @@ export interface Options extends Cookies.CookieAttributes {
   defaultValue?: State | (() => State);
 }
 
-function useCookieState(cookieKey: string, options: Options = {}) {
+const useCookieState = (cookieKey: string, options: Options = {}) => {
   const [state, setState] = useState<State>(() => {
-    // 本地 Cookie 已有 cookieKey 对应的 cookie 值，则直接返回
+    // 本地已有 cookieKey 对应的 cookie 值，直接返回
     const cookieValue = Cookies.get(cookieKey);
-
     if (isString(cookieValue)) return cookieValue;
 
     // options.defaultValue 存在并且为函数
@@ -5177,14 +5115,14 @@ function useCookieState(cookieKey: string, options: Options = {}) {
       newValue: State | ((prevState: State) => State),
       newOptions: Cookies.CookieAttributes = {}
     ) => {
-      // setState 可以更新 cookie options，会与 useCookieState 设置的 options 进行 merge 操作
+      // newOptions 与 options 合并
       const { defaultValue, ...restOptions } = { ...options, ...newOptions };
-      // 判断传入的值，如果是函数，则取执行后返回的结果，否则直接取该值
+      // 如果是函数，则取执行后返回的结果，否则直接取该值
       const value = isFunction(newValue) ? newValue(state) : newValue;
 
       setState(value);
 
-      // 如果值为 undefined，则清除 cookie。否则，调用 js-cookie 的 set 方法
+      // 如果值为 undefined，则清除 cookie。否则，调用 set 方法
       if (value === undefined) {
         Cookies.remove(cookieKey);
       } else {
@@ -5194,177 +5132,16 @@ function useCookieState(cookieKey: string, options: Options = {}) {
   );
 
   return [state, updateState] as const;
-}
+};
 
 export default useCookieState;
 ```
 
-#### 单测
-
-```ts
-import { renderHook, act } from "@testing-library/react";
-import useCookieState from "./index";
-import type { Options } from "./index";
-import Cookies from "js-cookie";
-
-describe("useCookieState", () => {
-  const setUp = (key: string, options: Options) =>
-    renderHook(() => {
-      const [state, setState] = useCookieState(key, options);
-      return {
-        state,
-        setState,
-      } as const;
-    });
-
-  it("getKey should work", () => {
-    const COOKIE = "test-key";
-    const hook = setUp(COOKIE, {
-      defaultValue: "A",
-    });
-    expect(hook.result.current.state).toBe("A");
-    act(() => {
-      hook.result.current.setState("B");
-    });
-    expect(hook.result.current.state).toBe("B");
-    const anotherHook = setUp(COOKIE, {
-      defaultValue: "A",
-    });
-    expect(anotherHook.result.current.state).toBe("B");
-    act(() => {
-      anotherHook.result.current.setState("C");
-    });
-    expect(anotherHook.result.current.state).toBe("C");
-    expect(hook.result.current.state).toBe("B");
-    expect(Cookies.get(COOKIE)).toBe("C");
-  });
-
-  it("should support undefined", () => {
-    const COOKIE = "test-boolean-key-with-undefined";
-    const hook = setUp(COOKIE, {
-      defaultValue: "undefined",
-    });
-    expect(hook.result.current.state).toBe("undefined");
-    act(() => {
-      hook.result.current.setState(undefined);
-    });
-    expect(hook.result.current.state).toBeUndefined();
-    const anotherHook = setUp(COOKIE, {
-      defaultValue: "false",
-    });
-    expect(anotherHook.result.current.state).toBe("false");
-    expect(Cookies.get(COOKIE)).toBeUndefined();
-    act(() => {
-      // @ts-ignore
-      hook.result.current.setState();
-    });
-    expect(hook.result.current.state).toBeUndefined();
-    expect(Cookies.get(COOKIE)).toBeUndefined();
-  });
-
-  it("should support empty string", () => {
-    Cookies.set("test-key-empty-string", "");
-    expect(Cookies.get("test-key-empty-string")).toBe("");
-    const COOKIE = "test-key-empty-string";
-    const hook = setUp(COOKIE, {
-      defaultValue: "hello",
-    });
-    expect(hook.result.current.state).toBe("");
-  });
-
-  it("should support function updater", () => {
-    const COOKIE = "test-func-updater";
-    const hook = setUp(COOKIE, {
-      defaultValue: () => "hello world",
-    });
-    expect(hook.result.current.state).toBe("hello world");
-    act(() => {
-      hook.result.current.setState((state) => `${state}, zhangsan`);
-    });
-    expect(hook.result.current.state).toBe("hello world, zhangsan");
-  });
-
-  it("using the same cookie name", () => {
-    const COOKIE_NAME = "test-same-cookie-name";
-    const { result: result1 } = setUp(COOKIE_NAME, { defaultValue: "A" });
-    const { result: result2 } = setUp(COOKIE_NAME, { defaultValue: "B" });
-    expect(result1.current.state).toBe("A");
-    expect(result2.current.state).toBe("B");
-    act(() => {
-      result1.current.setState("C");
-    });
-    expect(result1.current.state).toBe("C");
-    expect(result2.current.state).toBe("B");
-    expect(Cookies.get(COOKIE_NAME)).toBe("C");
-    act(() => {
-      result2.current.setState("D");
-    });
-    expect(result1.current.state).toBe("C");
-    expect(result2.current.state).toBe("D");
-    expect(Cookies.get(COOKIE_NAME)).toBe("D");
-  });
-});
-```
-
 ### useLocalStorageState
 
-<aside>
-💡 将状态存储在 localStorage 中的 hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-local-storage-state)
 
-</aside>
-
-#### API
-
-```tsx
-type SetState<S> = S | ((prevState?: S) => S);
-
-interface Options<T> {
-	defaultValue?: T | (() => T);
-	serializer?: (value: T) => string;
-	deserializer?: (value: string) => T;
-	onError?: (error: unknown) => void;
-}
-
-const [state, setState] = useLocalStorageState<T>(
-	key: string,
-	options: Options<T>
-): [T?, (value?: SetState<T>) => void];
-```
-
-<aside>
-⚠️ 如果想从 localStorage 中删除这条数据，可以使用 setState() 或 setState(undefined)。
-
-</aside>
-
-##### **Options**
-
-| 参数         | 说明               | 类型                    | 默认值                      |
-| ------------ | ------------------ | ----------------------- | --------------------------- |
-| defaultValue | 默认值             | T \| (() ⇒ T)           | -                           |
-| serializer   | 自定义序列化方法   | (value: T) ⇒ string     | JSON.stringify              |
-| deserializer | 自定义反序列化方法 | (value: string) ⇒ T     | JSON.parse                  |
-| onError      | 错误回调函数       | (error: unknown) ⇒ void | (e) => { console.error(e) } |
-
-##### Result
-
-| 参数     | 说明                 | 类型                         |
-| -------- | -------------------- | ---------------------------- |
-| state    | 本地 localStorage 值 | T                            |
-| setState | 设置 localStorage 值 | (value?: SetState<T>) ⇒ void |
-
-#### 备注
-
-useLocalStorageState 在往 localStorage 写入数据前，会先调用一次 serializer，在读取数据之后，会先调用一次 deserializer。
-
-#### 代码演示
-
-[将 state 存储在 localStorage 中 - CodeSandbox](https://codesandbox.io/s/yvzxgc)
-
-[存储数组或对象等复杂类型 - CodeSandbox](https://codesandbox.io/s/3mq58m)
-
-[自定义序列化和反序列化函数 - CodeSandbox](https://codesandbox.io/s/786m8p)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useLocalStorageState/index.ts)
 
 ```tsx
 const isBrowser = !!(
@@ -5377,30 +5154,20 @@ export default isBrowser;
 ```
 
 ```tsx
-import { createUseStorageState } from "@/hooks/createUseStorageState";
-import isBrowser from "../../../utils/isBrowser";
-
-/**
- * 调用 createUseStorageState
- * 入参判断是否为浏览器环境
- * */
-const useLocalStorageState = createUseStorageState(() =>
-  isBrowser ? localStorage : undefined
-);
-
-export default useLocalStorageState;
-```
-
-```tsx
+import { isFunction, isUndef } from "@/utils";
 import { useState } from "react";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
-import useUpdateEffect from "@/hooks/useUpdateEffect";
-import { isFunction, isUndef } from "../../../utils";
+import useUpdateEffect from "../useUpdateEffect";
+import useMemoizedFn from "../useMemoizedFn";
+import useEventListener from "../useEventListener";
+
+export const SYNC_STORAGE_EVENT_NAME = "AHOOKS_SYNC_STORAGE_EVENT_NAME";
 
 export type SetState<S> = S | ((prevState?: S) => S);
 
 export interface Options<T> {
   defaultValue?: T | (() => T);
+  // 是否监听存储变化
+  listenStorageChange?: boolean;
   serializer?: (value: T) => string;
   deserializer?: (value: string) => T;
   onError?: (error: unknown) => void;
@@ -5409,24 +5176,28 @@ export interface Options<T> {
 export const createUseStorageState = (
   getStorage: () => Storage | undefined
 ) => {
-  function useStorageState<T>(key: string, options: Options<T> = {}) {
+  const useStorageState = <T,>(key: string, options: Options<T> = {}) => {
     let storage: Storage | undefined;
-    const { onError = (e) => console.error(e) } = options;
+    const {
+      listenStorageChange = false,
+      onError = (e) => {
+        console.error(e);
+      },
+    } = options;
 
     /**
      * 🐞
      * getStorage 可以返回 localStorage/sessionStorage/undefined
      * 当 cookie 被 disabled 时，访问不了 localStorage/sessionStorage
      * */
-    // https://github.com/alibaba/hooks/issues/800
     try {
       storage = getStorage();
-    } catch (e) {
-      onError(e);
+    } catch (err) {
+      onError(err);
     }
 
     // 支持自定义序列化方法，默认 JSON.stringify
-    const serializer = (value: T): string => {
+    const serializer = (value: T) => {
       if (options.serializer) {
         return options.serializer(value);
       }
@@ -5441,7 +5212,7 @@ export const createUseStorageState = (
       return JSON.parse(value);
     };
 
-    const getStoredValue = () => {
+    function getStoredValue() {
       try {
         const raw = storage?.getItem(key);
         if (raw) {
@@ -5450,13 +5221,11 @@ export const createUseStorageState = (
       } catch (e) {
         onError(e);
       }
-
-      // options.defaultValue 默认值处理
       if (isFunction(options.defaultValue)) {
-        return (options.defaultValue as () => T)();
+        return options.defaultValue();
       }
       return options.defaultValue;
-    };
+    }
 
     const [state, setState] = useState(getStoredValue);
 
@@ -5466,49 +5235,100 @@ export const createUseStorageState = (
     }, [key]);
 
     const updateState = (value?: SetState<T>) => {
-      // 如果为函数，则取执行后结果；否则，直接取值
+      // 如果 value 为函数，则取执行后结果；否则，直接取值
       const currentState = isFunction(value) ? value(state) : value;
-      setState(currentState);
 
-      // 如果是值为 undefined，则 removeItem
-      if (isUndef(currentState)) {
-        storage?.removeItem(key);
-      } else {
-        try {
+      // 不监听存储变化
+      if (!listenStorageChange) {
+        setState(currentState);
+      }
+
+      try {
+        let newValue: string | null;
+        const oldValue = storage?.getItem(key);
+
+        // 如果值为 undefined，则 removeItem
+        if (isUndef(currentState)) {
+          newValue = null;
+          storage?.removeItem(key);
+        } else {
           // setItem
-          storage?.setItem(key, serializer(currentState));
-        } catch (e) {
-          console.error(e);
+          newValue = serializer(currentState);
+          storage?.setItem(key, newValue);
         }
+
+        // 触发自定义事件 SYNC_STORAGE_EVENT_NAME
+        dispatchEvent(
+          // send custom event to communicate within same page
+          // importantly this should not be a StorageEvent since those cannot
+          // be constructed with a non-built-in storage area
+          new CustomEvent(SYNC_STORAGE_EVENT_NAME, {
+            detail: {
+              key,
+              newValue,
+              oldValue,
+              storageArea: storage,
+            },
+          })
+        );
+      } catch (e) {
+        onError(e);
       }
     };
 
+    // 处理 storage 事件
+    const syncState = (event: StorageEvent) => {
+      if (event.key !== key || event.storageArea !== storage) {
+        return;
+      }
+
+      // 更新状态
+      setState(getStoredValue());
+    };
+
+    // 处理自定义事件 SYNC_STORAGE_EVENT_NAME
+    const syncStateFromCustomEvent = (event: CustomEvent<StorageEvent>) => {
+      syncState(event.detail);
+    };
+
+    // from another document
+    useEventListener("storage", syncState, {
+      enable: listenStorageChange,
+    });
+
+    // from the same document but different hooks
+    useEventListener(SYNC_STORAGE_EVENT_NAME, syncStateFromCustomEvent, {
+      enable: listenStorageChange,
+    });
+
     return [state, useMemoizedFn(updateState)] as const;
-  }
+  };
 
   return useStorageState;
 };
 ```
 
+```tsx
+import isBrowser from "@/utils/isBrowser";
+import { createUseStorageState } from "../createUseStorageState";
+
+const useLocalStorageState = createUseStorageState(() =>
+  isBrowser ? localStorage : undefined
+);
+
+export default useLocalStorageState;
+```
+
 ### useSessionStorageState
 
-<aside>
-💡 将状态存储在 sessionStorage 中的 hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-session-storage-state)
 
-</aside>
-
-用法与  [useLocalStorageState](https://ahooks.js.org/zh-CN/hooks/use-local-storage-state)  一致。
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useSessionStorageState/index.ts)
 
 ```tsx
-import { createUseStorageState } from "@/hooks/createUseStorageState";
-import isBrowser from "../../../utils/isBrowser";
+import isBrowser from "@/utils/isBrowser";
+import { createUseStorageState } from "../createUseStorageState";
 
-/**
- * 调用 createUseStorageState
- * 入参判断是否为浏览器环境
- * */
 const useSessionStorageState = createUseStorageState(() =>
   isBrowser ? sessionStorage : undefined
 );
@@ -6085,87 +5905,51 @@ export default useResetState;
 
 ### useUpdateEffect
 
-<aside>
-💡 useUpdateEffect 用法等同于 useEffect，但是会忽略首次执行，只在依赖更新时执行。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-update-effect)
 
-</aside>
-
-#### API
-
-```tsx
-useUpdateEffect(
-	effect: React.EffectCallback,
-	deps?: React.DependencyList
-)
-```
-
-#### 代码演示
-
-[基础用法](https://codesandbox.io/p/sandbox/ji-chu-yong-fa-fh4ydl)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUpdateEffect/index.ts)
 
 ```tsx
 import { useEffect } from "react";
-import { createUpdateEffect } from "@/hooks/createUpdateEffect";
+import { createUpdateEffect } from "../createUpdateEffect";
 
 export default createUpdateEffect(useEffect);
 ```
 
 ```tsx
-import { useRef } from "react";
-import type { useEffect, useLayoutEffect } from "react";
+import { useRef, type useEffect, type useLayoutEffect } from "react";
 
 type EffectHookType = typeof useEffect | typeof useLayoutEffect;
 
 export const createUpdateEffect: (hook: EffectHookType) => EffectHookType =
   (hook) => (effect, deps) => {
-    // 初始化一个标识符，判断组件是否已挂载，初始值为 false
-    const isMounted = useRef<boolean>(false);
+    // isMounted 标识符，判断组件是否已经挂载
+    const isMounted = useRef(false);
 
     // for react-refresh
     hook(() => {
-      // 组件卸载置为 false
       return () => {
         isMounted.current = false;
       };
     }, []);
 
     hook(() => {
-      // 首次执行，置为 true
+      // 首次挂载，isMounted 置为 true
       if (!isMounted.current) {
         isMounted.current = true;
       } else {
-        // 只有标识符为 true 时（组件更新），执行回调函数
+        // 只有 isMounted 为 true 时（更新），执行回调函数
         return effect();
       }
     }, deps);
   };
-
-export default createUpdateEffect;
 ```
 
 ### useUpdateLayoutEffect
 
-<aside>
-💡 useUpdateLayoutEffect 用法等同于 useLayoutEffect，但是会忽略首次执行，只在依赖更新时执行。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-update-layout-effect)
 
-</aside>
-
-#### API
-
-```tsx
-useUpdateLayoutEffect(
-	effect: React.EffectCallback,
-	deps?: React.DependencyList
-)
-```
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/kxybun)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUpdateLayoutEffect/index.ts)
 
 ```tsx
 import { useLayoutEffect } from "react";
@@ -7333,45 +7117,9 @@ export default useUpdate;
 
 ### useEventListener
 
-<aside>
-💡 优雅的使用 addEventListener。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-event-listener)
 
-</aside>
-
-#### API
-
-```tsx
-useEventListener(
-	eventName: string,
-	handler: (ev: Event) => void;
-	options?: Options;
-)
-```
-
-##### Params
-
-| 参数      | 说明       | 类型               | 默认值 |
-| --------- | ---------- | ------------------ | ------ |
-| eventName | 事件名称   | string             | -      |
-| handler   | 处理函数   | (ev: Event) ⇒ void | -      |
-| options   | 设置(可选) | Options            | -      |
-
-##### Options
-
-| 参数    | 说明                                                                                                                                      | 类型                                                                                 | 默认值 |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------ |
-| target  | DOM 节点或者 ref                                                                                                                          | (() ⇒ Element) \| Element \| React.MutableRefObject\<Element\> \| Window \| Document | window |
-| capture | 可选项，listener 会在该类型的事情捕获阶段传播到该 EventTarget 时触发                                                                      | boolean                                                                              | false  |
-| once    | 可选项，listener 在添加之后最多只调用一次。如果是 true，listener 会在其被调用之后自动移除                                                 | boolean                                                                              | false  |
-| passive | 可选项，设置为 true 时，表示 listener 永远不会调用 preventDefault。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告 | boolean                                                                              | false  |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/flqhmr)
-
-[监听 keydown 事件 - CodeSandbox](https://codesandbox.io/s/rfjqdw)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useEventListener/index.ts)
 
 <aside>
 🐞 addEventListener：EventTarget.addEventListener() 方法将指定的监听器注册到 EventTarget 上，当该对象触发指定的事件时，指定的回调函数就会被执行。
@@ -7379,46 +7127,46 @@ useEventListener(
 </aside>
 
 <aside>
-🐞 EventTarget：可以是 HTMLElement、Document、Window、Element 或者任何其他支持事件的对象。
+🐞 EventTarget：可以是 Window、Document、HTMLElement、Element 或者任何其他支持事件的对象。
 
 </aside>
 
 ```tsx
 import type { MutableRefObject } from "react";
-import { isFunction } from "./index";
 import isBrowser from "./isBrowser";
+import { isFunction } from ".";
 
 type TargetValue<T> = T | undefined | null;
 
 /**
- * HTMLElement 和 Element 是用于表示 HTML 元素和 DOM 元素的接口
- * Window 和 Document 则是用于表示浏览器窗口和文档对象的接口
+ * Window: 表示浏览器窗口的接口
+ * Document: 表示文档的接口
+ * HTMLElement 表示 HTML 元素的接口
+ * Element: 表示 DOM 元素的接口
  */
-type TargetType = HTMLElement | Element | Window | Document;
+
+type TargetType = Window | Document | HTMLElement | Element;
 
 export type BasicTarget<T extends TargetType = Element> =
   | (() => TargetValue<T>)
   | TargetValue<T>
   | MutableRefObject<TargetValue<T>>;
 
-export function getTargetElement<T extends TargetType>(
+export const getTargetElement = <T extends TargetType>(
   target: BasicTarget<T>,
   defaultElement?: T
-): TargetValue<T> {
+) => {
   if (!isBrowser) {
     return undefined;
   }
-
   if (!target) {
     return defaultElement;
   }
 
   let targetElement: TargetValue<T>;
 
-  // 函数
   if (isFunction(target)) {
     targetElement = target();
-    // ref 对象
   } else if ("current" in target) {
     targetElement = target.current;
   } else {
@@ -7426,36 +7174,37 @@ export function getTargetElement<T extends TargetType>(
   }
 
   return targetElement;
-}
+};
 ```
 
 ```tsx
 import type { DependencyList } from "react";
 
-// 判断依赖项数组是否相同
-function depsAreSame(oldDeps: DependencyList, deps: DependencyList): boolean {
+const depsAreSame = (
+  oldDeps: DependencyList,
+  deps: DependencyList
+): boolean => {
   if (oldDeps === deps) return true;
   for (let i = 0; i < oldDeps.length; i++) {
     if (!Object.is(oldDeps[i], deps[i])) return false;
   }
   return true;
-}
+};
 
 export default depsAreSame;
 ```
 
 ```tsx
-import type {
-  DependencyList,
-  EffectCallback,
-  useEffect,
-  useLayoutEffect,
+import {
+  useRef,
+  type DependencyList,
+  type EffectCallback,
+  type useEffect,
+  type useLayoutEffect,
 } from "react";
-import { useRef } from "react";
-import depsAreSame from "./depsAreSame";
+import { type BasicTarget, getTargetElement } from "./domTarget";
 import useUnmount from "@/hooks/useUnmount";
-import type { BasicTarget } from "./domTarget";
-import { getTargetElement } from "./domTarget";
+import depsAreSame from "./depsAreSame";
 
 const createEffectWithTarget = (
   useEffectType: typeof useEffect | typeof useLayoutEffect
@@ -7471,7 +7220,7 @@ const createEffectWithTarget = (
     deps: DependencyList,
     target: BasicTarget<any> | BasicTarget<any>[]
   ) => {
-    // 是否是首次挂载
+    // 是否首次挂载
     const hasInitRef = useRef(false);
 
     // 上一次的目标元素
@@ -7499,10 +7248,11 @@ const createEffectWithTarget = (
 
       if (
         els.length !== lastElementRef.current.length ||
-        !depsAreSame(els, lastElementRef.current) ||
-        !depsAreSame(deps, lastDepsRef.current)
+        !depsAreSame(lastElementRef.current, els) ||
+        !depsAreSame(lastDepsRef.current, deps)
       ) {
-        unLoadRef.current?.(); // 清除副作用
+        // 清除副作用
+        unLoadRef.current?.();
 
         lastElementRef.current = els;
         lastDepsRef.current = deps;
@@ -7511,7 +7261,7 @@ const createEffectWithTarget = (
     });
 
     useUnmount(() => {
-      unLoadRef.current?.(); // 清除副作用
+      unLoadRef.current?.();
       // for react-refresh
       hasInitRef.current = false;
     });
@@ -7524,23 +7274,42 @@ export default createEffectWithTarget;
 ```
 
 ```tsx
+import { useEffect } from "react";
+import createEffectWithTarget from "./createEffectWithTarget";
+
+const useEffectWithTarget = createEffectWithTarget(useEffect);
+
+export default useEffectWithTarget;
+```
+
+```tsx
+import { getTargetElement, type BasicTarget } from "@/utils/domTarget";
 import useLatest from "../useLatest";
-import type { BasicTarget } from "../../../utils/domTarget";
-import { getTargetElement } from "../../../utils/domTarget";
-import useEffectWithTarget from "../../../utils/useEffectWithTarget";
+import useEffectWithTarget from "@/utils/useEffectWithTarget";
 
 type noop = (...p: any) => void;
 
-export type Target = BasicTarget<HTMLElement | Element | Window | Document>;
+export type Target = BasicTarget<Window | Document | HTMLElement | Element>;
 
 type Options<T extends Target = Target> = {
   target?: T;
   capture?: boolean;
   once?: boolean;
   passive?: boolean;
+  // 可选项，是否开启监听
+  enable?: boolean;
 };
 
-// 重载
+function useEventListener<K extends keyof WindowEventMap>(
+  eventName: K,
+  handler: (ev: WindowEventMap[K]) => void,
+  options?: Options<Window>
+): void;
+function useEventListener<K extends keyof DocumentEventMap>(
+  eventName: K,
+  handler: (ev: DocumentEventMap[K]) => void,
+  options?: Options<Document>
+): void;
 function useEventListener<K extends keyof HTMLElementEventMap>(
   eventName: K,
   handler: (ev: HTMLElementEventMap[K]) => void,
@@ -7551,14 +7320,9 @@ function useEventListener<K extends keyof ElementEventMap>(
   handler: (ev: ElementEventMap[K]) => void,
   options?: Options<Element>
 ): void;
-function useEventListener<K extends keyof DocumentEventMap>(
-  eventName: K,
-  handler: (ev: DocumentEventMap[K]) => void,
-  options?: Options<Document>
-): void;
-function useEventListener<K extends keyof WindowEventMap>(
-  eventName: K,
-  handler: (ev: WindowEventMap[K]) => void,
+function useEventListener(
+  eventName: string,
+  handler: (ev: Event) => void,
   options?: Options<Window>
 ): void;
 function useEventListener(
@@ -7566,26 +7330,32 @@ function useEventListener(
   handler: noop,
   options: Options
 ): void;
-
 function useEventListener(
   eventName: string,
   handler: noop,
   options: Options = {}
 ) {
-  const handleRef = useLatest(handler);
+  // 默认开启监听
+  const { enable = true } = options;
+
+  const handlerRef = useLatest(handler);
 
   useEffectWithTarget(
     () => {
-      const targetElement = getTargetElement(options?.target, window);
-      // 判断是否支持 addEventListener
+      // 是否开启监听
+      if (!enable) {
+        return;
+      }
+
+      const targetElement = getTargetElement(options.target, window);
+      // 是否支持 addEventListener
       if (!targetElement?.addEventListener) {
         return;
       }
 
       const eventListener = (event: Event) => {
-        return handleRef.current?.(event);
+        return handlerRef.current(event);
       };
-
       // 为指定元素添加事件监听器
       targetElement.addEventListener(eventName, eventListener, {
         // 指定事件是否在捕获阶段进行处理
@@ -7603,11 +7373,10 @@ function useEventListener(
         });
       };
     },
-    [eventName, options.once, options.capture, options.passive],
+    [eventName, options.capture, options.once, options.passive, enable],
     options.target
   );
 }
-
 export default useEventListener;
 ```
 
@@ -10822,71 +10591,14 @@ export default useLatest;
 
 ### useMemoizedFn
 
-<aside>
-持久化 function 的 Hook，一般情况下，可以使用 useMemoizedFn 完全代替 useCallback，特殊情况见 FAQ。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-memoized-fn)
 
-</aside>
-
-在某些场景中，我们需要使用 useCallback 来记住一个函数，但是在第二个参数 deps 变化时，会重新生成函数，导致函数地址变化。
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUnmount/index.ts)
 
 ```tsx
-const [state, setState] = useState("");
-
-// 在 state 变化时，func 地址会变化
-const func = useCallback(() => {
-  console.log(state);
-}, [state]);
-```
-
-使用 useMemoizedFn，可以省略第二个参数 deps，同时保证函数地址永远不会变化。
-
-```tsx
-const [state, setState] = useState("");
-
-// func 地址永远不会变化
-const func = useMemoizedFn(() => {
-  console.log(state);
-});
-```
-
-#### API
-
-```tsx
-const fn = useMemoizedFn<T>(fn: T): T;
-```
-
-##### Params
-
-| 参数 | 说明             | 类型                 | 默认值 |
-| ---- | ---------------- | -------------------- | ------ |
-| fn   | 需要持久化的函数 | (…args: any[]) ⇒ any | -      |
-
-##### Result
-
-| 参数       | 说明                       | 类型                 |
-| ---------- | -------------------------- | -------------------- |
-| memoizedFn | 引用地址永远不会改变的函数 | (…args: any[]) ⇒ any |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/qmykev)
-
-[useMemoizedFn 函数地址不会变化，可以用于性能优化 - CodeSandbox](https://codesandbox.io/s/lpy82s)
-
-#### **FAQ**
-
-useMemoizedFn 返回的函数没有继承 fn 自身的属性？
-
-useMemoizedFn 返回的函数与传入的 fn 的引用完全不同，且没有继承 fn 自身的属性。如果想要持久化后函数自身的属性不丢失，目前 useMemoizedFn 满足不了，请降级使用 useCallback、useMemo。
-
-Related issues: [2273](https://github.com/alibaba/hooks/issues/2273)
-
-#### 源码解析
-
-```tsx
+import { isFunction } from "@/utils";
+import isDev from "@/utils/isDev";
 import { useMemo, useRef } from "react";
-import { isFunction } from "../../../utils";
-import isDev from "utils/isDev";
 
 type noop = (this: any, ...args: any[]) => any;
 
@@ -10895,24 +10607,27 @@ type PickFunction<T extends noop> = (
   ...args: Parameters<T>
 ) => ReturnType<T>;
 
-const useMemoizedFn = <T extends noop>(fn: T): T => {
+const useMemoizedFn = <T extends noop>(fn: T) => {
   if (isDev) {
     if (!isFunction(fn)) {
       console.error(
-        `useMemoizedFn expected parameter is a function, but got ${typeof fn}`
+        `useMemoizedFn expected parameter is a function, got ${typeof fn}`
       );
     }
   }
 
-  // 每次拿到最新的 fn 值，把它更新到 fnRef，保证此 fnRef 能够持有最新的 fn 引用
+  // 每次拿到最新的 fn，把它更新到 fnRef，保证 fnRef 能够持有最新的 fn 引用
   const fnRef = useRef<T>(fn);
+
+  // why not write `fnRef.current = fn`?
+  // https://github.com/alibaba/hooks/issues/728
   fnRef.current = useMemo(() => fn, [fn]);
 
   // 保证最后返回的函数引用是不变的
   const memoizedFn = useRef<PickFunction<T>>();
   if (!memoizedFn.current) {
     memoizedFn.current = function (this, ...args) {
-      // 每次调用时，因为没有 useCallback 的 deps 特性，所以都能拿到最新的 state
+      // 每次调用时，都能拿到最新的 args
       return fnRef.current.apply(this, args);
     };
   }
