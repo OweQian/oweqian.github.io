@@ -5338,45 +5338,13 @@ export default useSessionStorageState;
 
 ### useDebounce
 
-<aside>
-💡 用来处理防抖值的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-debounce)
 
-</aside>
-
-#### API
-
-```tsx
-const debouncedValue = useDebounce(
-	value: any,
-	options?: Options
-);
-```
-
-##### Params
-
-| 参数    | 说明           | 类型    | 默认值 |
-| ------- | -------------- | ------- | ------ |
-| value   | 需要防抖的值   | any     | -      |
-| options | 配置防抖的行为 | Options | -      |
-
-##### Options
-
-| 参数     | 说明                     | 类型    | 默认值 |
-| -------- | ------------------------ | ------- | ------ |
-| wait     | 等待时间，单位为毫秒     | number  | 1000   |
-| leading  | 是否在延迟开始前调用函数 | boolean | false  |
-| trailing | 是否在延迟结束后调用函数 | boolean | true   |
-| maxWait  | 最大等待时间，单位为毫秒 | number  | -      |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/jdqwdp)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useDebounce/index.ts)
 
 ```tsx
 import { useEffect, useState } from "react";
-import useDebounceFn from "@/hooks/useDebounceFn";
+import useDebounceFn from "../useDebounceFn";
 import type { DebounceOptions } from "./debounceOptions";
 
 const useDebounce = <T,>(value: T, options?: DebounceOptions) => {
@@ -5387,7 +5355,7 @@ const useDebounce = <T,>(value: T, options?: DebounceOptions) => {
     setDebounced(value);
   }, options);
 
-  // 监听 value 变化，执行防抖函数，更新 debounced
+  // 监听 value 变化，立即执行防抖函数，更新 debounced 值
   useEffect(() => {
     run();
   }, [value]);
@@ -5400,45 +5368,14 @@ export default useDebounce;
 
 ### useThrottle
 
-<aside>
-💡 用来处理节流值的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-throttle)
 
-</aside>
-
-#### API
-
-```tsx
-const throttledValue = useThrottle(
-	value: any,
-	options?: Options
-);
-```
-
-##### Params
-
-| 参数    | 说明           | 类型    | 默认值 |
-| ------- | -------------- | ------- | ------ |
-| value   | 需要节流的值   | any     | -      |
-| options | 配置节流的行为 | Options | -      |
-
-##### Options
-
-| 参数     | 说明                     | 类型    | 默认值 |
-| -------- | ------------------------ | ------- | ------ |
-| wait     | 等待时间，单位为毫秒     | number  | 1000   |
-| leading  | 是否在延迟开始前调用函数 | boolean | true   |
-| trailing | 是否在延迟结束后调用函数 | boolean | true   |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/3y56py)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useThrottle/index.ts)
 
 ```tsx
 import { useEffect, useState } from "react";
-import useThrottleFn from "@/hooks/useThrottleFn";
 import type { ThrottleOptions } from "./throttleOptions";
+import useThrottleFn from "../useThrottleFn";
 
 const useThrottle = <T,>(value: T, options?: ThrottleOptions) => {
   const [throttled, setThrottled] = useState(value);
@@ -5448,7 +5385,7 @@ const useThrottle = <T,>(value: T, options?: ThrottleOptions) => {
     setThrottled(value);
   }, options);
 
-  // 监听 value 变化，执行节流函数，更新 throttled
+  // 监听 value 变化，立即执行节流函数，更新 throttled 值
   useEffect(() => {
     run();
   }, [value]);
@@ -6063,70 +6000,40 @@ export default useAsyncEffect;
 
 ### useDebounceEffect
 
-<aside>
-💡 为 useEffect 增加防抖能力。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-debounce-effect)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useDebounceEffect/index.ts)
 
 ```tsx
-useDebounceEffect(
-	effect: EffectCallback,
-	deps?: DependencyList,
-	options?: Options
-);
-```
-
-##### Params
-
-| 参数    | 说明           | 类型           | 默认值 |
-| ------- | -------------- | -------------- | ------ |
-| effect  | 执行函数       | EffectCallback | -      |
-| deps    | 依赖数组       | DependencyList | -      |
-| options | 配置防抖的行为 | Options        | -      |
-
-##### Options
-
-| 参数     | 说明                     | 类型    | 默认值 |
-| -------- | ------------------------ | ------- | ------ |
-| wait     | 等待时间，单位为毫秒     | number  | 1000   |
-| leading  | 是否在延迟开始前调用函数 | boolean | false  |
-| trailing | 是否在延迟结束后调用函数 | boolean | true   |
-| maxWait  | 最大等待时间，单位为毫秒 | number  | -      |
-
-#### 代码演示
-
-[ecstatic-field-fpwfk4 - CodeSandbox](https://codesandbox.io/s/fpwfk4)
-
-#### 源码解析
-
-```tsx
-import { useEffect, useState } from "react";
-import type { DependencyList, EffectCallback } from "react";
+import {
+  useEffect,
+  type DependencyList,
+  type EffectCallback,
+  useState,
+} from "react";
 import type { DebounceOptions } from "../useDebounce/debounceOptions";
-import useDebounceFn from "@/hooks/useDebounceFn";
-import useUpdateEffect from "@/hooks/useUpdateEffect";
+import useDebounceFn from "../useDebounceFn";
+import useUpdateEffect from "../useUpdateEffect";
 
 const useDebounceEffect = (
   effect: EffectCallback,
   deps?: DependencyList,
   options?: DebounceOptions
 ) => {
-  // 设置 flag 标识
+  // flag 标识
   const [flag, setFlag] = useState({});
 
-  // 对 flag 标识设置防抖功能
+  // 对 flag 设置防抖功能
   const { run } = useDebounceFn(() => {
     setFlag({});
   }, options);
 
-  // 监听 deps，调用 run 函数更新 flag 标识
+  // 监听 deps，立即调用 run 更新 flag
   useEffect(() => {
     return run();
   }, deps);
 
-  // 监听 flag 标识的变化，执行 effect 回调函数
+  // 监听 flag，执行 effect 回调函数
   useUpdateEffect(effect, [flag]);
 };
 
@@ -6135,53 +6042,9 @@ export default useDebounceEffect;
 
 ### useDebounceFn
 
-<aside>
-💡 用来处理防抖函数的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-debounce-fn)
 
-</aside>
-
-#### API
-
-```tsx
-const {
-	run,
-	cancel,
-	flush
-} = useDebounceFn(
-	fn: (...args: any[]) => any,
-	options?: Options,
-)
-```
-
-##### Params
-
-| 参数    | 说明               | 类型                 | 默认值 |
-| ------- | ------------------ | -------------------- | ------ |
-| fn      | 需要防抖执行的函数 | (…args: any[]) ⇒ any | -      |
-| options | 配置防抖的行为     | Options              | -      |
-
-##### Options
-
-| 参数     | 说明                     | 类型    | 默认值 |
-| -------- | ------------------------ | ------- | ------ |
-| wait     | 等待时间，单位为毫秒     | number  | 1000   |
-| leading  | 是否在延迟开始前调用函数 | boolean | false  |
-| trailing | 是否在延迟结束后调用函数 | boolean | true   |
-| maxWait  | 最大等待时间，单位为毫秒 | number  | -      |
-
-##### Result
-
-| 参数   | 说明                               | 类型                 |
-| ------ | ---------------------------------- | -------------------- |
-| run    | 触发执行 fn，函数参数将会传递给 fn | (…args: any[]) ⇒ any |
-| cancel | 取消当前防抖                       | () ⇒ void            |
-| flush  | 立即调用当前防抖函数               | () ⇒ void            |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/556tjy)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useDebounceFn/index.ts)
 
 防抖(Debounce)是指在一段时间内，如果事件持续触发，则只执行一次事件处理函数。
 
@@ -6194,26 +6057,21 @@ const {
 设置一个定时器，在事件触发后延迟一定时间再执行事件处理函数，如果在延迟时间内再次触发事件，则重新计时。
 
 ```tsx
-const isDev =
-  process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
+import debounce from "lodash/debounce";
 
-export default isDev;
-```
-
-```tsx
-import { debounce } from "lodash-es";
-
-// 判断当前环境是 Node.js 还是 Web 浏览器环境
-function isNodeOrWeb() {
+// 判断当前环境是 Node 还是 Web
+const isNodeOrWeb = () => {
   const freeGlobal =
-    (typeof global === "undefined" ? "undefined" : typeof global) == "object" &&
-    global &&
-    global.Object === Object &&
-    global;
+    typeof global === "undefined"
+      ? "undefined"
+      : typeof global === "object" &&
+        global &&
+        global.Object === Object &&
+        global;
   const freeSelf =
-    typeof self == "object" && self && self.Object === Object && self;
+    typeof self === "object" && self && self.Object === Object && self;
   return freeGlobal || freeSelf;
-}
+};
 
 if (!isNodeOrWeb()) {
   global.Date = Date;
@@ -6223,13 +6081,13 @@ export { debounce };
 ```
 
 ```tsx
-import { debounce } from "../../../utils/lodash-polyfill";
-import { useMemo } from "react";
+import isDev from "@/utils/isDev";
 import type { DebounceOptions } from "../useDebounce/debounceOptions";
-import useLatest from "@/hooks/useLatest";
-import useUnmount from "@/hooks/useUnmount";
-import { isFunction } from "../../../utils";
-import isDev from "../../../utils/isDev";
+import { isFunction } from "@/utils";
+import { debounce } from "@/utils/lodash-polyfill";
+import useLatest from "../useLatest";
+import { useMemo } from "react";
+import useUnmount from "../useUnmount";
 
 type noop = (...args: any[]) => any;
 
@@ -6244,13 +6102,15 @@ const useDebounceFn = <T extends noop>(fn: T, options?: DebounceOptions) => {
 
   const fnRef = useLatest(fn);
 
-  // 默认 1000 毫秒
+  // 默认需要延迟的毫秒为 1000 毫秒
   const wait = options?.wait ?? 1000;
 
+  /**
+   * 调用 lodash 的 debounce 方法
+   * https://www.lodashjs.com/docs/lodash.debounce#_debouncefunc-wait0-options
+   */
   const debounced = useMemo(
     () =>
-      // 调用 lodash 的 debounce 方法
-      // https://www.lodashjs.com/docs/lodash.debounce#_debouncefunc-wait0-options
       debounce(
         (...args: Parameters<T>): ReturnType<T> => {
           return fnRef.current(...args);
@@ -6281,52 +6141,9 @@ export default useDebounceFn;
 
 ### useThrottleFn
 
-<aside>
-💡 用来处理函数节流的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-throttle-fn)
 
-</aside>
-
-#### API
-
-```tsx
-const {
-	run,
-	cancel,
-	flush
-} = useThrottleFn(
-	fn: (...args: any[]) => any,
-	options?: Options,
-)
-```
-
-##### Params
-
-| 参数    | 说明           | 类型                 | 默认值 |
-| ------- | -------------- | -------------------- | ------ |
-| fn      | 需要节流的函数 | (…args: any[]) ⇒ any | -      |
-| options | 配置节流的行为 | Options              | -      |
-
-##### Options
-
-| 参数     | 说明                     | 类型    | 默认值 |
-| -------- | ------------------------ | ------- | ------ |
-| wait     | 等待时间，单位为毫秒     | number  | 1000   |
-| leading  | 是否在延迟开始前调用函数 | boolean | true   |
-| trailing | 是否在延迟结束后调用函数 | boolean | true   |
-
-##### Result
-
-| 参数   | 说明                               | 类型                 |
-| ------ | ---------------------------------- | -------------------- |
-| run    | 触发执行 fn，函数参数将会传递给 fn | (…args: any[]) ⇒ any |
-| cancel | 取消当前节流                       | () ⇒ void            |
-| flush  | 当前节流立即调用                   | () ⇒ void            |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/564mmt)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useThrottleFn/index.ts)
 
 节流(Throttle)是指在一段时间内，无论事件触发多少次，则只执行一次事件处理函数。
 
@@ -6339,19 +6156,19 @@ const {
 设置一个时间间隔，在事件触发后判断当前时间与上次执行事件处理函数的时间间隔是否大于设定的时间间隔，如果大于则执行事件处理函数。
 
 ```tsx
-import { throttle } from "lodash-es";
+import isDev from "@/utils/isDev";
+import { isFunction } from "@/utils";
+import useLatest from "../useLatest";
 import { useMemo } from "react";
-import useLatest from "@/hooks/useLatest";
+import useUnmount from "../useUnmount";
 import type { ThrottleOptions } from "../useThrottle/throttleOptions";
-import useUnmount from "@/hooks/useUnmount";
-import { isFunction } from "../../../utils";
-import isDev from "../../../utils/isDev";
+import throttle from "lodash/throttle";
 
 type noop = (...args: any[]) => any;
 
 const useThrottleFn = <T extends noop>(fn: T, options?: ThrottleOptions) => {
   if (isDev) {
-    if (!isFunction) {
+    if (!isFunction(fn)) {
       console.error(
         `useThrottleFn expected parameter is a function, got ${typeof fn}`
       );
@@ -6360,13 +6177,15 @@ const useThrottleFn = <T extends noop>(fn: T, options?: ThrottleOptions) => {
 
   const fnRef = useLatest(fn);
 
-  // 默认 1000 毫秒
+  // 默认需要节流的毫秒为 1000 毫秒
   const wait = options?.wait ?? 1000;
 
+  /**
+   * 调用 lodash 的 throttle 方法
+   * https://www.lodashjs.com/docs/lodash.throttle
+   */
   const throttled = useMemo(
     () =>
-      // 调用 lodash 的 throttle 方法
-      // https://www.lodashjs.com/docs/lodash.throttle
       throttle(
         (...args: Parameters<T>): ReturnType<T> => {
           return fnRef.current(...args);
@@ -6397,69 +6216,40 @@ export default useThrottleFn;
 
 ### useThrottleEffect
 
-<aside>
-💡 为 useEffect 增加节流能力。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-throttle-effect)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useThrottleEffect/index.ts)
 
 ```tsx
-useThrottleEffect(
-	effect: EffectCallback,
-	deps?: DependencyList,
-	options?: Options
-);
-```
-
-##### Params
-
-| 参数    | 说明           | 类型           | 默认值 |
-| ------- | -------------- | -------------- | ------ |
-| effect  | 执行函数       | EffectCallback | -      |
-| deps    | 依赖数组       | DependencyList | -      |
-| options | 配置节流的行为 | Options        | -      |
-
-##### Options
-
-| 参数     | 说明                     | 类型    | 默认值 |
-| -------- | ------------------------ | ------- | ------ |
-| wait     | 等待时间，单位为毫秒     | number  | 1000   |
-| leading  | 是否在延迟开始前调用函数 | boolean | true   |
-| trailing | 是否在延迟结束后调用函数 | boolean | true   |
-
-#### 代码演示
-
-[small-firefly-8rwvtv - CodeSandbox](https://codesandbox.io/s/8rwvtv)
-
-#### 源码解析
-
-```tsx
-import { useEffect, useState } from "react";
-import type { DependencyList, EffectCallback } from "react";
+import {
+  useEffect,
+  type DependencyList,
+  type EffectCallback,
+  useState,
+} from "react";
+import useUpdateEffect from "../useUpdateEffect";
 import type { ThrottleOptions } from "../useThrottle/throttleOptions";
-import useThrottleFn from "@/hooks/useThrottleFn";
-import useUpdateEffect from "@/hooks/useUpdateEffect";
+import useThrottleFn from "../useThrottleFn";
 
 const useThrottleEffect = (
   effect: EffectCallback,
   deps?: DependencyList,
   options?: ThrottleOptions
 ) => {
-  // 设置 flag 标识
+  // flag 标识
   const [flag, setFlag] = useState({});
 
-  // 对 flag 标识设置节流功能
+  // 对 flag 设置节流功能
   const { run } = useThrottleFn(() => {
     setFlag({});
   }, options);
 
-  // 监听 deps，调用 run 函数更新 flag 标识
+  // 监听 deps，立即调用 run 更新 flag
   useEffect(() => {
     return run();
   }, deps);
 
-  // 监听 flag 标识的变化，执行 effect 回调函数
+  // 监听 flag，执行 effect 回调函数
   useUpdateEffect(effect, [flag]);
 };
 
