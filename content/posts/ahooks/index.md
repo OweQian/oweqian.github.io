@@ -5398,47 +5398,18 @@ export default useThrottle;
 
 ### useMap
 
-<aside>
-💡 管理 Map 类型状态的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-map)
 
-</aside>
-
-#### API
-
-```tsx
-const [map, { set, setAll, remove, reset, get }] = useMap<K, V>(initialValue);
-```
-
-##### Params
-
-| 参数         | 说明                        | 类型             | 默认值 |
-| ------------ | --------------------------- | ---------------- | ------ |
-| initialValue | 可选项，传入默认的 Map 参数 | Iterable<[K, V]> | -      |
-
-##### Result
-
-| 参数   | 说明                  | 类型                      |
-| ------ | --------------------- | ------------------------- |
-| map    | Map 对象              | Map<K, V>                 |
-| set    | 添加元素              | (key: K, value: V) ⇒ void |
-| setAll | 生成一个新的 Map 对象 | Iterable<[K, V]> ⇒ void   |
-| get    | 获取元素              | (key: K) ⇒ V \| undefined |
-| remove | 移除元素              | (key: K) ⇒ void           |
-| reset  | 重置为默认值          | () ⇒ void                 |
-
-#### 代码演示
-
-[fancy-rgb-yb9j1v](https://codesandbox.io/p/sandbox/fancy-rgb-yb9j1v?file=/index.tsx:11,25)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useMap/index.ts)
 
 ```tsx
 import { useState } from "react";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
+import useMemoizedFn from "../useMemoizedFn";
 
 const useMap = <K, T>(initialValue?: Iterable<readonly [K, T]>) => {
-  // 初始值
+  // 初始化
   const getInitValue = () => new Map(initialValue);
+
   const [map, setMap] = useState<Map<K, T>>(getInitValue);
 
   // 添加元素
@@ -5464,7 +5435,7 @@ const useMap = <K, T>(initialValue?: Iterable<readonly [K, T]>) => {
     });
   };
 
-  // 重置为默认值
+  // 重置
   const reset = () => setMap(getInitValue());
 
   // 获取元素
@@ -5487,50 +5458,24 @@ export default useMap;
 
 ### useSet
 
-<aside>
-💡 管理 Set 类型状态的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-set)
 
-</aside>
-
-#### API
-
-```tsx
-const [set, { add, remove, reset }] = useSet<K>(initialValue);
-```
-
-##### Params
-
-| 参数         | 说明                        | 类型          | 默认值 |
-| ------------ | --------------------------- | ------------- | ------ |
-| initialValue | 可选项，传入默认的 Set 参数 | Iterable\<K\> | -      |
-
-##### Result
-
-| 参数   | 说明         | 类型            |
-| ------ | ------------ | --------------- |
-| set    | Set 对象     | Set\<K\>        |
-| add    | 添加元素     | (key: K) ⇒ void |
-| remove | 移除元素     | (key: K) ⇒ void |
-| reset  | 重置为默认值 | () ⇒ void       |
-
-#### 代码演示
-
-[blissful-bose-fu2jcg](https://codesandbox.io/p/sandbox/blissful-bose-fu2jcg?file=/index.tsx)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useSet/index.ts)
 
 ```tsx
 import { useState } from "react";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
+import useMemoizedFn from "../useMemoizedFn";
 
 const useSet = <K,>(initialValue?: Iterable<K>) => {
-  // 默认值
   const getInitValue = () => new Set(initialValue);
+
   const [set, setSet] = useState<Set<K>>(getInitValue);
 
   // 添加元素
   const add = (key: K) => {
-    if (set.has(key)) return;
+    if (set.has(key)) {
+      return;
+    }
     setSet((prevSet) => {
       const temp = new Set(prevSet);
       temp.add(key);
@@ -5540,7 +5485,9 @@ const useSet = <K,>(initialValue?: Iterable<K>) => {
 
   // 移除元素
   const remove = (key: K) => {
-    if (!set.has(key)) return;
+    if (!set.has(key)) {
+      return;
+    }
     setSet((prevSet) => {
       const temp = new Set(prevSet);
       temp.delete(key);
@@ -5548,7 +5495,7 @@ const useSet = <K,>(initialValue?: Iterable<K>) => {
     });
   };
 
-  // 重置为默认值
+  // 重置
   const reset = () => setSet(getInitValue());
 
   return [
@@ -5566,40 +5513,9 @@ export default useSet;
 
 ### usePrevious
 
-<aside>
-💡 保存上一次状态的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-previous)
 
-</aside>
-
-#### API
-
-```tsx
-const previousState: T = usePrevious<T>(
-	state: T,
-	shouldUpdate?: (prev: T | undefined, next: T) => boolean;
-)
-```
-
-##### Params
-
-| 参数         | 说明                       | 类型                                      | 默认值                     |
-| ------------ | -------------------------- | ----------------------------------------- | -------------------------- |
-| state        | 需要记录变化的值           | T                                         | -                          |
-| shouldUpdate | 可选，自定义判断值是否变化 | (prev: T \| undefined, next: T) ⇒ boolean | (a, b) ⇒ !Object.is(a, b); |
-
-##### Result
-
-| 参数          | 说明            | 类型 |
-| ------------- | --------------- | ---- |
-| previousState | 上次 state 的值 | T    |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/tjccgb)
-
-[自定义 shouldUpdate 函数 - CodeSandbox](https://codesandbox.io/s/m7hzxk)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/usePrevious/index.ts)
 
 ```tsx
 import { useRef } from "react";
@@ -5613,21 +5529,20 @@ const usePrevious = <T,>(
   shouldUpdate: ShouldUpdateFunc<T> = defaultShouldUpdate
 ): T | undefined => {
   /**
-   * 维护两个状态 prevRef 和 curRef
-   * prevRef: 上一次的状态值
-   * curRef: 当前的状态值
+   * 维护两个值 prevRef.current 和 curRef.current
+   * prevRef.current: 上一次的状态值
+   * curRef.current: 当前的状态值
    * */
   const prevRef = useRef<T>();
   const curRef = useRef<T>();
 
   /**
-   * 使用 shouldUpdate 判断是否发生变化，默认通过 Object.is 判断
+   * 使用 shouldUpdate 判断 state 是否发生变化
    * */
-  // 状态发生变化
   if (shouldUpdate(curRef.current, state)) {
-    // 手动更新 prevRef 的值为上一个状态值
+    // 手动更新 prevRef.current 的值为上一个状态值
     prevRef.current = curRef.current;
-    // 手动更新 curRef 的值为最新的状态值
+    // 手动更新 curRef.current 的值为最新的状态值
     curRef.current = state;
   }
 
@@ -5640,27 +5555,21 @@ export default usePrevious;
 
 ### useRafState
 
-<aside>
-💡 只在 requestAnimationFrame callback 时更新 state，一般用于性能优化。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-raf-state)
 
-</aside>
-
-#### API
-
-与 React.useState  一致。
-
-#### 代码演示
-
-[基础用法](https://codesandbox.io/p/sandbox/ji-chu-yong-fa-bcc2m0)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useRafState/index.ts)
 
 window.requestAnimationFrame()，你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行。
 
 ```tsx
-import { useCallback, useRef, useState } from "react";
-import type { Dispatch, SetStateAction } from "react";
-import useUnmount from "@/hooks/useUnmount";
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
+import useUnmount from "../useUnmount";
 
 function useRafState<S>(
   initialState: S | (() => S)
@@ -5669,16 +5578,15 @@ function useRafState<S = undefined>(): [
   S | undefined,
   Dispatch<SetStateAction<S | undefined>>
 ];
-
 function useRafState<S>(initialState?: S | (() => S)) {
   const ref = useRef(0);
   const [state, setState] = useState(initialState);
 
-  const setRafState = useCallback((value: SetStateAction<S | undefined>) => {
+  const setRafState = useCallback((value: S | ((prevState: S) => S)) => {
     // 取消上一次的 requestAnimationFrame
     cancelAnimationFrame(ref.current);
 
-    // 重新通过 requestAnimationFrame 控制 setState 的执行时机
+    // 通过 requestAnimationFrame 控制 setState 的执行时机
     ref.current = requestAnimationFrame(() => {
       setState(value);
     });
@@ -5697,51 +5605,32 @@ export default useRafState;
 
 ### useSafeState
 
-<aside>
-💡 用法与 React.useState 完全一样，但是在组件卸载后异步回调内的 setState 不再执行，避免因组件卸载后更新状态而导致的内存泄漏。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-safe-state)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useSafeState/index.ts)
 
 ```tsx
-const [state, setState] = useSafeState(initialState);
-```
-
-#### 代码演示
-
-[wild-http-lmdz44](https://codesandbox.io/p/sandbox/wild-http-lmdz44)
-
-#### 源码解析
-
-```tsx
-import { useCallback, useState } from "react";
-import type { Dispatch, SetStateAction } from "react";
-import useUnmountedRef from "@/hooks/useUnmountedRef";
+import { useCallback, type Dispatch, type SetStateAction, useState } from "react";
+import useUnmountedRef from "../useUnmountedRef";
 
 function useSafeState<S>(
   initialState: S | (() => S)
 ): [S, Dispatch<SetStateAction<S>>];
+function useSafeState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>];
 
-function useSafeState<S = undefined>(): [
-  S | undefined,
-  Dispatch<SetStateAction<S | undefined>>
-];
-
-function useSafeState<S>(initialState?: S | (() => S)) {
-  // 组件是否卸载
+function useSafeState<S>(
+  initialState?: S | (() => S)
+) {
   const unmountedRef = useUnmountedRef();
   const [state, setState] = useState(initialState);
 
-  const setCurrentState = useCallback(
-    (currentState: SetStateAction<S | undefined>) => {
-      // 如果组件已经卸载，则停止更新
-      if (unmountedRef.current) return;
-      // 否则更新状态
-      setState(currentState);
-    },
-    []
-  );
+  const setCurrentState = useCallback((currentState) => {
+    /** if component is unmounted, stop update */
+     // 如果组件已经卸载，则停止更新状态
+    if (unmountedRef.current) return;
+     // 更新状态
+    setState(currentState);
+  }, []);
 
   return [state, setCurrentState] as const;
 }
@@ -5751,23 +5640,18 @@ export default useSafeState;
 
 ### useGetState
 
-<aside>
-💡 给 React.useState 增加了一个 getter 方法，以获取当前最新值。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-get-state)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useGetState/index.ts)
 
 ```tsx
-const [state, setState, getState] = useGetState<S>(initialState);
-```
-
-#### 类型定义
-
-```tsx
-import { useCallback, useRef, useState } from "react";
-import type { Dispatch, SetStateAction } from "react";
-import useLatest from "@/hooks/useLatest";
+import {
+  type Dispatch,
+  type SetStateAction,
+  useState,
+  useCallback,
+} from "react";
+import useLatest from "../useLatest";
 
 type GetStateAction<S> = () => S;
 
@@ -5779,13 +5663,12 @@ function useGetState<S = undefined>(): [
   Dispatch<SetStateAction<S | undefined>>,
   GetStateAction<S | undefined>
 ];
-
 function useGetState<S>(initialState?: S) {
   const [state, setState] = useState(initialState);
-  // 记录最新的 state 值
+  // 最新的 state 值
   const stateRef = useLatest(state);
 
-  // 暴露一个 getState 方法获取到最新的
+  // 暴露一个 getState 方法获取到最新的 state 值
   const getState = useCallback(() => stateRef.current, []);
 
   return [state, setState, getState];
@@ -5796,40 +5679,33 @@ export default useGetState;
 
 ### useResetState
 
-<aside>
-💡 提供重置 state 方法的 Hooks，用法与 React.useState 基本一致。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-reset-state)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useResetState/index.ts)
 
 ```tsx
-const [state, setState, resetState] = useResetState<S>(
-	initialState: S | (() => S),
-): [S, Dispatch<SetStateAction<S>>, () => void]
-```
-
-#### 代码演示
-
-[amazing-thunder-hkmsg2 - CodeSandbox](https://codesandbox.io/s/hkmsg2)
-
-#### 源码解析
-
-```tsx
-import { useState } from "react";
-import type { Dispatch, SetStateAction } from "react";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
-
+import { type Dispatch, type SetStateAction, useRef, useState } from "react";
+import useCreation from "../useCreation";
+import { isFunction } from "lodash";
+import useMemoizedFn from "../useMemoizedFn";
 type ResetState = () => void;
 
 const useResetState = <S,>(
   initialState: S | (() => S)
 ): [S, Dispatch<SetStateAction<S>>, ResetState] => {
-  const [state, setState] = useState(initialState);
+  const initialStateRef = useRef(initialState);
+  const initialStateMemo = useCreation(
+    () =>
+      isFunction(initialStateRef.current)
+        ? initialStateRef.current()
+        : initialStateRef.current,
+    []
+  );
 
+  const [state, setState] = useState(initialStateMemo);
   // 暴露一个 resetState 方法重置 state 为 initialState
   const resetState = useMemoizedFn(() => {
-    setState(initialState);
+    setState(initialStateMemo);
   });
 
   return [state, setState, resetState];
@@ -10177,57 +10053,25 @@ export default useControllableValue;
 
 ### useCreation
 
-useCreation 是 useMemo 或 useRef 的替代品。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-creation/)
 
-因为 useMemo 不能保证被 memo 的值一定不会被重新计算，而 useCreation 可以保证这一点。以下为 React 官方文档中的介绍：
-
-> **You may rely on useMemo as a performance optimization, not as a semantic guarantee.** In the future, React may choose to “forget” some previously memoized values and recalculate them on next render, e.g. to free memory for offscreen components. Write your code so that it still works without `useMemo` — and then add it to optimize performance.
-
-而相比于 useRef，你可以使用 useCreation 创建一些常量，这些常量和 useRef 创建出来的 ref 有很多使用场景上的相似，但对于`复杂常量`的创建，useRef 却容易出现潜在的性能隐患。
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useCreation/index.ts)
 
 ```tsx
-const a = useRef(new Subject()); // 每次重渲染，都会执行实例化 Subject 的过程，即便这个实例立刻就被扔掉了
-const b = useCreation(() => new Subject(), []); // 通过 factory 函数，可以避免性能隐患
-```
-
-#### API
-
-```tsx
-function useCreation<T>(factory: () => T, deps: any[]): T;
-```
-
-##### Params
-
-| 参数    | 说明                   | 类型     | 默认值 |
-| ------- | ---------------------- | -------- | ------ |
-| factory | 用来创建所需对象的函数 | () ⇒ any | -      |
-| deps    | 传入依赖变化的对象     | any[]    | -      |
-
-#### 代码演示
-
-[确保实例不会被重复创建 - CodeSandbox](https://codesandbox.io/s/225x9c)
-
-#### 源码解析
-
-```tsx
-import type { DependencyList } from "react";
-import { useRef } from "react";
-import depsAreSame from "../../../utils/depsAreSame";
-
+import depsAreSame from "@/utils/depsAreSame";
+import { useRef, type DependencyList } from "react";
 const useCreation = <T,>(factory: () => T, deps: DependencyList) => {
   const { current } = useRef({
     deps,
     obj: undefined as undefined | T,
-    initialized: false, // 初始化标志
+    initialized: false,
   });
 
-  // 初始化或依赖项列表前后不相等时（通过 Object.is 进行判断）
+  // 未初始化或新旧依赖项不相等
   if (current.initialized === false || !depsAreSame(current.deps, deps)) {
-    // 更新依赖
     current.deps = deps;
     // 执行工厂函数
     current.obj = factory();
-    // 初始化标志设置为 true
     current.initialized = true;
   }
 
