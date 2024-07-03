@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-07-01T15:10:47+08:00
+date: 2024-07-03T14:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -14,9 +14,21 @@ categories: ["碎碎念"]
 
 ### 2024-07
 
+#### 07-03
+
+过了，3A，哈哈哈。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_50.jpg" alt="" width="400" />
+
+#### 07-02
+
+😄 今日份惊喜：朋友给推荐的炒鸡好看的 React 项目，视频贼棒。
+
+[SurrealDB](https://surrealdb.com/surrealist)
+
 #### 07-01
 
-😄 7月的第一天，收到私活中期款 + 成功办理低保，就差一份牛马工作了。
+😄 7 月的第一天，收到私活中期款 + 成功办理低保，就差一份牛马工作了。
 
 ### 2024-06
 
