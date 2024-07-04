@@ -5773,27 +5773,9 @@ export default createUpdateEffect(useLayoutEffect);
 
 ### useAsyncEffect
 
-<aside>
-💡 useEffect 支持异步函数。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-async-effect)
 
-</aside>
-
-#### API
-
-```tsx
-function useAsyncEffect(
-  effect: () => AsyncGenerator | Promise,
-  deps: DependencyList
-);
-```
-
-#### 代码演示
-
-[基础用法](https://codesandbox.io/p/sandbox/ji-chu-yong-fa-538fdg)
-
-[中断执行](https://codesandbox.io/p/sandbox/zhong-duan-zhi-xing-2wqf82)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useAsyncEffect/index.ts)
 
 useEffect 的回调函数中使用 async … await … 时，会报错。
 
@@ -5801,7 +5783,7 @@ effect function 应该返回一个销毁函数（effect：是指 return 返回�
 
 这个返回值是异步的，这样无法预知代码的执行情况，很容易出现难以定位的 Bug。所以 React 就直接限制在 useEffect 回调函数中使用 async...await…
 
-##### useEffect 怎么支持 async…await…
+❓ useEffect 怎么支持 async…await…
 
 - 创建一个异步函数，然后执行该函数
 
@@ -5827,18 +5809,16 @@ useEffect(() => {
 - 自定义 hooks - useAsyncEffect
 
 ```tsx
-import type { DependencyList } from "react";
-import { useEffect } from "react";
-import { isFunction } from "../../../utils";
+import { isFunction } from "@/utils";
+import { type DependencyList, useEffect } from "react";
 
-// 判断是否是 AsyncGenerator
-function isAsyncGenerator(
+const isAsyncGenerator = (
   val: AsyncGenerator<void, void, void> | Promise<void>
-): val is AsyncGenerator<void, void, void> {
+): val is AsyncGenerator<void, void, void> => {
   // Symbol.asyncIterator: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator
   // Symbol.asyncIterator 符号指定了一个对象的默认异步迭代器。如果一个对象设置了这个属性，它就是异步可迭代对象，可用于 for await...of 循环。
   return isFunction(val[Symbol.asyncIterator]);
-}
+};
 
 const useAsyncEffect = (
   effect: () => AsyncGenerator<void, void, void> | Promise<void>,
@@ -5847,7 +5827,6 @@ const useAsyncEffect = (
   useEffect(() => {
     const e = effect();
     let cancelled = false;
-    // 定义异步函数
     async function execute() {
       if (isAsyncGenerator(e)) {
         while (true) {
@@ -5862,7 +5841,6 @@ const useAsyncEffect = (
         await e;
       }
     }
-    // 执行函数
     execute();
     return () => {
       // 当前 effect 已被清理
@@ -6134,30 +6112,15 @@ export default useThrottleEffect;
 
 ### useDeepCompareEffect
 
-<aside>
-💡 用法与 useEffect 一致，但 deps 通过 [lodash isEqual](https://lodash.com/docs/4.17.15#isEqual) 进行深比较。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-deep-compare-effect)
 
-</aside>
-
-#### API
-
-```tsx
-useDeepCompareEffect(
-	effect: EffectCallback,
-	deps: DependencyList
-);
-```
-
-#### 代码演示
-
-[eloquent-stonebraker-qjdkfy - CodeSandbox](https://codesandbox.io/s/qjdkfy)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useDeepCompareEffect/index.tsx)
 
 ```tsx
 import type { DependencyList } from "react";
-import { isEqual } from "lodash-es";
+import isEqual from "react-fast-compare";
 
+// deps 通过 react-fast-compare 进行深比较
 export const depsEqual = (
   aDeps: DependencyList = [],
   bDeps: DependencyList = []
@@ -6165,124 +6128,68 @@ export const depsEqual = (
 ```
 
 ```tsx
-import { useEffect } from "react";
-import createDeepCompareEffect from "@/hooks/createDeepCompareEffect";
-
-export default createDeepCompareEffect(useEffect);
-```
-
-```tsx
-import { useRef } from "react";
-import type { DependencyList, useEffect, useLayoutEffect } from "react";
-import { depsEqual } from "../../../utils/depsEqual";
+import { depsEqual } from "@/utils/depsEqual";
+import { type DependencyList, useEffect, useLayoutEffect, useRef } from "react";
 
 type EffectHookType = typeof useEffect | typeof useLayoutEffect;
-type createUpdateEffect = (hook: EffectHookType) => EffectHookType;
+type CreateUpdateEffect = (hook: EffectHookType) => EffectHookType;
 
-const createDeepCompareEffect: createUpdateEffect =
+export const createDeepCompareEffect: CreateUpdateEffect =
   (hook) => (effect, deps) => {
-    // 通过 useRef 存储上一次的依赖项
+    // 存储上一次的依赖项
     const ref = useRef<DependencyList>();
-    // 创建一个信号值，用于触发 useEffect/useLayoutEffect 中的回调
+    // 创建一个信号值
     const signalRef = useRef<number>(0);
 
     // 判断最新的依赖项和上一次的依赖项是否相等
     if (deps === undefined || !depsEqual(deps, ref.current)) {
-      // 不相等则更新信号值
       ref.current = deps;
+      // 不相等则更新信号值
       signalRef.current += 1;
     }
 
     // 信号值更新触发回调
     hook(effect, [signalRef.current]);
   };
+```
 
-export default createDeepCompareEffect;
+```tsx
+import { useEffect } from "react";
+import { createDeepCompareEffect } from "../createDeepCompareEffect";
+
+export default createDeepCompareEffect(useEffect);
 ```
 
 ### useDeepCompareLayoutEffect
 
-<aside>
-💡 用法与 useLayoutEffect 一致，但 deps 通过 [lodash isEqual](https://lodash.com/docs/4.17.15#isEqual) 进行深比较。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-deep-compare-layout-effect)
 
-</aside>
-
-#### API
-
-```tsx
-useDeepCompareLayoutEffect(
-	effect: EffectCallback,
-	deps: DependencyList
-);
-```
-
-#### 代码演示
-
-[small-firefly-p7sffk - CodeSandbox](https://codesandbox.io/s/p7sffk)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useDeepCompareLayoutEffect/index.tsx)
 
 ```tsx
 import { useLayoutEffect } from "react";
-import createDeepCompareEffect from "@/hooks/createDeepCompareEffect";
+import { createDeepCompareEffect } from "../createDeepCompareEffect";
 
 export default createDeepCompareEffect(useLayoutEffect);
 ```
 
 ### useInterval
 
-<aside>
-💡 一个可以处理 setInterval 的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-interval)
 
-</aside>
-
-#### API
-
-```tsx
-useInterval(
-	fn: () => void,
-	delay?: number | undefined,
-	options?: Options,
-): fn: () => void;
-```
-
-##### Params
-
-| 参数    | 说明                                          | 类型                | 默认值 |
-| ------- | --------------------------------------------- | ------------------- | ------ |
-| fn      | 要定时调用的函数                              | () ⇒ void           | -      |
-| delay   | 间隔时间，当设置值为 undefined 时会停止计时器 | number \| undefined | -      |
-| options | 配置计时器的行为                              | Options             | -      |
-
-##### Options
-
-| 参数      | 说明                     | 类型    | 默认值 |
-| --------- | ------------------------ | ------- | ------ |
-| immediate | 是否在首次渲染时立即执行 | boolean | false  |
-
-##### Result
-
-| 参数          | 说明       | 类型      |
-| ------------- | ---------- | --------- |
-| clearInterval | 清除定时器 | () ⇒ void |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/t8w9cy)
-
-[进阶使用 - CodeSandbox](https://codesandbox.io/s/8qz6sw)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useInterval/index.ts)
 
 ```tsx
 import { useCallback, useEffect, useRef } from "react";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
-import { isNumber } from "../../../utils";
+import useMemoizedFn from "../useMemoizedFn";
+import { isNumber } from "@/utils";
 
 const useInterval = (
   fn: () => void,
   delay?: number,
-  options: { immediate?: boolean } = {}
+  options: {
+    immediate?: boolean;
+  } = {}
 ) => {
   const timerCallback = useMemoizedFn(fn);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -6299,13 +6206,16 @@ const useInterval = (
     if (!isNumber(delay) || delay < 0) {
       return;
     }
+
     // 立即执行一次回调函数
     if (options.immediate) {
       timerCallback();
     }
+
     // 开启新的定时器
     timerRef.current = setInterval(timerCallback, delay);
-    // 通过 useEffect 的返回清除机制，清除定时器，避免内存泄露
+
+    // 清除定时器，避免内存泄露
     return clear;
   }, [delay, options.immediate]);
 
@@ -6317,52 +6227,9 @@ export default useInterval;
 
 ### useRafInterval
 
-用 requestAnimationFrame 模拟实现 setInterval，API 和 useInterval 保持一致，好处是可以在页面不渲染的时候停止执行定时器，比如页面隐藏或最小化等。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-raf-interval)
 
-请注意，如下两种情况下很可能是不适用的，优先考虑 useInterval：
-
-- 时间间隔小于 16ms
-- 希望页面不渲染的情况下依然执行定时器
-
-> Node 环境下 requestAnimationFrame 会自动降级到 setInterval
-
-#### API
-
-```tsx
-useRafInterval(
-	fn: () => void,
-	delay?: number | undefined,
-	options?: Options,
-): fn: () => void;
-```
-
-##### Params
-
-| 参数    | 说明                                          | 类型                | 默认值 |
-| ------- | --------------------------------------------- | ------------------- | ------ |
-| fn      | 要定时调用的函数                              | () ⇒ void           | -      |
-| delay   | 间隔时间，当设置值为 undefined 时会停止计时器 | number \| undefined | -      |
-| options | 配置计时器的行为                              | Options             | -      |
-
-##### Options
-
-| 参数      | 说明                     | 类型    | 默认值 |
-| --------- | ------------------------ | ------- | ------ |
-| immediate | 是否在首次渲染时立即执行 | boolean | false  |
-
-##### Result
-
-| 参数          | 说明       | 类型      |
-| ------------- | ---------- | --------- |
-| clearInterval | 清除定时器 | () ⇒ void |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/8jdycx)
-
-[进阶使用 - CodeSandbox](https://codesandbox.io/s/qs3zz7)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useRafInterval/index.ts)
 
 首先，setInterval 作为事件循环中宏任务的 “主力”，它的执行时机并不能跟预期的一样准确，需要等待前面的任务的执行。比如第二个参数设置为 0，并不会立即执行。
 
@@ -6481,45 +6348,14 @@ export default useRafInterval;
 
 ### useTimeout
 
-<aside>
-💡 一个可以处理 setTimeout 的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-timeout)
 
-</aside>
-
-#### API
-
-```tsx
-useTimeout(
-	fn: () => void,
-	delay?: number | undefined,
-): fn: () => void;
-```
-
-##### Params
-
-| 参数  | 说明                                          | 类型                | 默认值 |
-| ----- | --------------------------------------------- | ------------------- | ------ |
-| fn    | 要定时调用的函数                              | () ⇒ void           | -      |
-| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number \| undefined | -      |
-
-##### Result
-
-| 参数         | 说明       | 类型      |
-| ------------ | ---------- | --------- |
-| clearTimeout | 清除定时器 | () ⇒ void |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/t686kg)
-
-[进阶使用 - CodeSandbox](https://codesandbox.io/s/yrx66s)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useTimeout/index.ts)
 
 ```tsx
 import { useCallback, useEffect, useRef } from "react";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
-import { isNumber } from "../../../utils";
+import useMemoizedFn from "../useMemoizedFn";
+import { isNumber } from "@/utils";
 
 const useTimeout = (fn: () => void, delay?: number) => {
   const timerCallback = useMemoizedFn(fn);
@@ -6537,9 +6373,11 @@ const useTimeout = (fn: () => void, delay?: number) => {
     if (!isNumber(delay) || delay < 0) {
       return;
     }
+
     // 开启新的定时器
     timerRef.current = setTimeout(timerCallback, delay);
-    // 通过 useEffect 的返回清除机制，清除定时器，避免内存泄露
+
+    // 清除定时器，避免内存泄露
     return clear;
   }, [delay]);
 
@@ -6551,39 +6389,9 @@ export default useTimeout;
 
 ### useRafTimeout
 
-用 requestAnimationFrame 模拟实现 setTimeout，API 和 useTimout 保持一致，好处是可以在页面不渲染的时候不触发函数执行，比如页面隐藏或最小化等。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-raf-interval)
 
-> Node 环境下 requestAnimationFrame 会自动降级到 setTimeout
-
-#### API
-
-```tsx
-useRafTimeout(
-	fn: () => void,
-	delay?: number | undefined,
-): fn: () => void;
-```
-
-##### Params
-
-| 参数  | 说明                                          | 类型                | 默认值 |
-| ----- | --------------------------------------------- | ------------------- | ------ |
-| fn    | 要定时调用的函数                              | () ⇒ void           | -      |
-| delay | 间隔时间，当设置值为 undefined 时会停止计时器 | number \| undefined | -      |
-
-##### Result
-
-| 参数         | 说明       | 类型      |
-| ------------ | ---------- | --------- |
-| clearTimeout | 清除定时器 | () ⇒ void |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/4tlwzv)
-
-[进阶使用 - CodeSandbox](https://codesandbox.io/s/7qwqz7)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useRafInterval/index.ts)
 
 首先，setTimeout 作为事件循环中宏任务的 “主力”，它的执行时机并不能跟预期的一样准确，需要等待前面的任务的执行。比如第二个参数设置为 0，并不会立即执行。
 
