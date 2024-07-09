@@ -6249,23 +6249,22 @@ window.requestAnimationFrame() 告诉浏览器，你希望执行一个动画，�
 
 ```tsx
 import { useCallback, useEffect, useRef } from "react";
-import useLatest from "@/hooks/useLatest";
-import { isNumber } from "../../../utils";
+import useLatest from "../useLatest";
+import { isNumber } from "@/utils";
 
 interface Handle {
   id: number | ReturnType<typeof setInterval>;
 }
 
 const setRafInterval = (callback: () => void, delay: number = 0): Handle => {
-  // 如果不支持 requestAnimationFrame API，则改用 setInterval
+  // 不支持 requestAnimationFrame API，则改用 setInterval
   if (typeof requestAnimationFrame === typeof undefined) {
     return {
       id: setInterval(callback, delay),
     };
   }
-  // 初始化开始时间
+
   let start = Date.now();
-  // 初始化 handle
   const handle: Handle = {
     id: 0,
   };
@@ -6277,7 +6276,7 @@ const setRafInterval = (callback: () => void, delay: number = 0): Handle => {
       callback();
       start = Date.now();
     }
-    // 重置 handle，递归调用 requestAnimationFrame，请求下一帧（：此处请注意与 useRafTimeout 的区别
+    // 重置 handle.id，递归调用 requestAnimationFrame，请求下一帧
     handle.id = requestAnimationFrame(loop);
   };
   // 启动动画
@@ -6297,7 +6296,7 @@ const clearRafInterval = (handle: Handle) => {
   if (cancelAnimationFrameIsNotDefined(handle.id)) {
     return clearInterval(handle.id);
   }
-  // 使用 cancelAnimationFrame API 清除
+  // cancelAnimationFrame API 清除
   cancelAnimationFrame(handle.id);
 };
 
@@ -6320,7 +6319,6 @@ const useRafInterval = (
   }, []);
 
   useEffect(() => {
-    // delay 不是数字或 delay 的值小于 0，直接返回，停止定时器
     if (!isNumber(delay) || delay < 0) {
       return;
     }
@@ -6328,16 +6326,12 @@ const useRafInterval = (
     if (immediate) {
       fnRef.current();
     }
-    // 开启新的定时器
+
     timerRef.current = setRafInterval(() => {
       fnRef.current();
     }, delay);
-    // 通过 useEffect 的返回清除机制，清除定时器，避免内存泄露
-    return () => {
-      if (timerRef.current) {
-        clearRafInterval(timerRef.current);
-      }
-    };
+
+    return clear;
   }, [delay]);
 
   return clear;
@@ -6411,23 +6405,22 @@ window.requestAnimationFrame() 告诉浏览器，你希望执行一个动画，�
 
 ```tsx
 import { useCallback, useEffect, useRef } from "react";
-import useLatest from "@/hooks/useLatest";
-import { isNumber } from "../../../utils";
+import useLatest from "../useLatest";
+import { isNumber } from "@/utils";
 
 interface Handle {
   id: number | ReturnType<typeof setTimeout>;
 }
 
 const setRafTimeout = (callback: () => void, delay: number = 0): Handle => {
-  // 如果不支持 requestAnimationFrame API，则改用 setTimeout
+  // 不支持 requestAnimationFrame API，则改用 setTimeout
   if (typeof requestAnimationFrame === typeof undefined) {
     return {
       id: setTimeout(callback, delay),
     };
   }
-  // 初始化开始时间
-  let startTime = Date.now();
-  // 初始化 handle
+
+  let start = Date.now();
   const handle: Handle = {
     id: 0,
   };
@@ -6435,10 +6428,10 @@ const setRafTimeout = (callback: () => void, delay: number = 0): Handle => {
   const loop = () => {
     const current = Date.now();
     // 当前时间 - 开始时间 >= delay，则执行 callback
-    if (current - startTime >= delay) {
+    if (current - start >= delay) {
       callback();
     } else {
-      // 否则，请求下一帧（：此处请注意与 useRafInterval 的区别
+      // 请求下一帧
       handle.id = requestAnimationFrame(loop);
     }
   };
@@ -6455,11 +6448,11 @@ const cancelAnimationFrameIsNotDefined = (
 };
 
 const clearRafTimeout = (handle: Handle) => {
-  // 不支持 cancelAnimationFrame API，则通过 clearTimeout 清除
+  // 不支持 cancelAnimationFrame API，则通过 clearInterval 清除
   if (cancelAnimationFrameIsNotDefined(handle.id)) {
     return clearTimeout(handle.id);
   }
-  // 使用 cancelAnimationFrame API 清除
+  // cancelAnimationFrame API 清除
   cancelAnimationFrame(handle.id);
 };
 
@@ -6474,18 +6467,15 @@ const useRafTimeout = (fn: () => void, delay: number | undefined) => {
   }, []);
 
   useEffect(() => {
-    // delay 不是数字或 delay 的值小于 0，直接返回，停止定时器
-    if (!isNumber(delay) || delay < 0) return;
-    // 开启新的定时器
+    if (!isNumber(delay) || delay < 0) {
+      return;
+    }
+
     timerRef.current = setRafTimeout(() => {
       fnRef.current();
     }, delay);
-    // 通过 useEffect 的返回清除机制，清除定时器，避免内存泄露
-    return () => {
-      if (timerRef.current) {
-        clearRafTimeout(timerRef.current);
-      }
-    };
+
+    return clear;
   }, [delay]);
 
   return clear;
@@ -6496,36 +6486,9 @@ export default useRafTimeout;
 
 ### useLockFn
 
-<aside>
-💡 用于给一个异步函数增加竞态锁，防止并发执行。
+[文档地址](https://ahooks.pages.dev/zh-CN/hooks/use-lock-fn)
 
-</aside>
-
-#### API
-
-```tsx
-function useLockFn<P extends any[] = any[], V = any>(
-	fn: (...args: P) => Promise<V>
-): fn: (...args: P) => Promise<V | undefined>;
-```
-
-##### Params
-
-| 参数 | 说明                 | 类型                          | 默认值 |
-| ---- | -------------------- | ----------------------------- | ------ |
-| fn   | 需要增加竞态锁的函数 | (…args: any[]) ⇒ Promise<any> | -      |
-
-##### Result
-
-| 参数 | 说明               | 类型                          |
-| ---- | ------------------ | ----------------------------- |
-| fn   | 增加了竞态锁的函数 | (…args: any[]) ⇒ Promise<any> |
-
-#### 代码演示
-
-[防止重复提交 - CodeSandbox](https://codesandbox.io/s/2x5knt)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useLockFn/index.ts)
 
 ```tsx
 import { useCallback, useRef } from "react";
@@ -6533,27 +6496,26 @@ import { useCallback, useRef } from "react";
 const useLockFn = <P extends any[] = any[], V = any>(
   fn: (...args: P) => Promise<V>
 ) => {
-  // 是否正处于一个锁中，即异步请求正在进行
+  // 竞态锁
   const lockRef = useRef(false);
 
   return useCallback(
     async (...args: P) => {
       // 请求正在进行，直接返回
       if (lockRef.current) return;
-      // 上锁，表示请求正在进行
+      // 上锁
       lockRef.current = true;
       try {
         // 执行异步请求
         const ret = await fn(...args);
-        // 请求完毕，竞态锁状态设置为 false
-        lockRef.current = false;
-        // 返回
+        // 返回结果
         return ret;
       } catch (e) {
-        // 请求失败，竞态锁状态设置为 false
-        lockRef.current = false;
-        // 抛出错误
+        // 抛出异常
         throw e;
+      } finally {
+        // 竞态锁重置为 false
+        lockRef.current = false;
       }
     },
     [fn]
