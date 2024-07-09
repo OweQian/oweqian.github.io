@@ -6383,9 +6383,9 @@ export default useTimeout;
 
 ### useRafTimeout
 
-[文档地址](https://ahooks.js.org/zh-CN/hooks/use-raf-interval)
+[文档地址](https://ahooks.pages.dev/zh-CN/hooks/use-raf-timeout)
 
-[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useRafInterval/index.ts)
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useRafTimeout/index.ts)
 
 首先，setTimeout 作为事件循环中宏任务的 “主力”，它的执行时机并不能跟预期的一样准确，需要等待前面的任务的执行。比如第二个参数设置为 0，并不会立即执行。
 
@@ -6816,59 +6816,21 @@ export default useEventListener;
 
 ### useClickAway
 
-<aside>
-💡 监听目标元素外的点击事件。
+[文档地址](https://ahooks.pages.dev/zh-CN/hooks/use-click-away)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useClickAway/index.ts)
 
 ```tsx
-type Target = Element | (() => Element) | React.MutableRefObject<Element>;
-type DocumentEventKey = keyof DocumentEventMap;
+import { type BasicTarget, getTargetElement } from "./domTarget";
 
-useClickAway<T extends Event = Event>(
-	onClickAway: (event: T) => void;
-	target: Target | Target[];
-	eventName?: DocumentEventKey | DocumentEventKey[]
-)
-```
+type TargetValue<T> = T | undefined | null;
 
-##### Params
-
-| 参数        | 说明                         | 类型                                   | 默认值 |
-| ----------- | ---------------------------- | -------------------------------------- | ------ |
-| onClickAway | 触发函数                     | (event: T) => void                     | -      |
-| target      | DOM 节点或者 Ref，支持数组   | Target \| Target[]                     | -      |
-| eventName   | 指定需要监听的事件，支持数组 | DocumentEventKey \| DocumentEventKey[] | click  |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/fyqrwr)
-
-[支持传入 DOM - CodeSandbox](https://codesandbox.io/s/7mvdkp)
-
-[支持多个 DOM 对象 - CodeSandbox](https://codesandbox.io/s/r6fc3n)
-
-[监听其它事件 - CodeSandbox](https://codesandbox.io/s/cv9fvz)
-
-[支持传入多个事件名称 - CodeSandbox](https://codesandbox.io/s/ydtpyk)
-
-[支持 shadow DOM - CodeSandbox](https://codesandbox.io/s/dp8vkx)
-
-#### 源码解析
-
-```tsx
-import type { BasicTarget } from "./domTarget";
-import { getTargetElement } from "./domTarget";
-
-declare type TargetValue<T> = T | undefined | null;
-
-const checkIfAllInShadow = (target: BasicTarget[]): boolean => {
-  return target.every((item) => {
+const checkIfAllInShadow = (targets: BasicTarget[]): boolean => {
+  return targets.every((item) => {
     const targetElement = getTargetElement(item);
     if (!targetElement) return false;
     if (targetElement.getRootNode() instanceof ShadowRoot) return true;
+    return false;
   });
 };
 
@@ -6900,20 +6862,16 @@ export default getDocumentOrShadow;
 ```
 
 ```tsx
-import useLatest from "@/hooks/useLatest";
-import type { BasicTarget } from "../../../utils/domTarget";
-import { getTargetElement } from "../../../utils/domTarget";
-import getDocumentOrShadow from "../../../utils/getDocumentOrShadow";
-import useEffectWithTarget from "../../../utils/useEffectWithTarget";
+import { getTargetElement, type BasicTarget } from "@/utils/domTarget";
+import useLatest from "../useLatest";
+import useEffectWithTarget from "@/utils/useEffectWithTarget";
+import getDocumentOrShadow from "@/utils/getDocumentOrShadow";
 
 type DocumentEventKey = keyof DocumentEventMap;
 
 const useClickAway = <T extends Event = Event>(
-  // 触发函数
   onClickAway: (event: T) => void,
-  // DOM 节点或 Ref，支持数组
   target: BasicTarget | BasicTarget[],
-  // 指定要监听的事件，支持数组
   eventName: DocumentEventKey | DocumentEventKey[] = "click"
 ) => {
   const onClickAwayRef = useLatest(onClickAway);
@@ -6922,11 +6880,12 @@ const useClickAway = <T extends Event = Event>(
     () => {
       const handler = (event: any) => {
         const targets = Array.isArray(target) ? target : [target];
+
         if (
           targets.some((item) => {
-            // 判断点击的 DOM Target 是否在定义的 DOM 元素（列表）中
             const targetElement = getTargetElement(item);
-            return !targetElement || targetElement.contains(event.target);
+            // 判断点击的 DOM Target 是否在定义的 DOM 元素（列表）中
+            return !targetElement || targetElement.contains(event.Target);
           })
         ) {
           return;
@@ -6947,7 +6906,7 @@ const useClickAway = <T extends Event = Event>(
       );
 
       return () => {
-        // 组件卸载时清除事件监听
+        // 清除事件监听
         eventNames.forEach((event) =>
           documentOrShadow.removeEventListener(event, handler)
         );
@@ -6959,6 +6918,51 @@ const useClickAway = <T extends Event = Event>(
 };
 
 export default useClickAway;
+```
+
+### useDocumentVisibility
+
+[文档地址](https://ahooks.pages.dev/zh-CN/hooks/use-document-visibility)
+
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useDocumentVisibility/index.ts)
+
+```tsx
+import isBrowser from "@/utils/isBrowser";
+import useEventListener from "../useEventListener";
+import { useState } from "react";
+
+/**
+ * hidden: 页面对用户不可见。即文档处于背景标签页、或窗口处于最小化状态，或操作系统正处于"锁屏状态"
+ * visible: 页面内容至少部分可见。即文档处于前景标签页并且窗口没有最小化
+ * prerender: 页面此时正在渲染中。文档只能从此状态开始，永远不能从其他值变为此状态
+ * */
+type VisibilityState = "hidden" | "visible" | "prerender" | undefined;
+
+const getVisibility = () => {
+  if (!isBrowser) {
+    return "visible";
+  }
+  // 只读属性，返回 document 的可见性，即当前可见元素的上下文环境
+  return document.visibilityState;
+};
+
+const useDocumentVisibility = (): VisibilityState => {
+  const [documentVisibility, setDocumentVisibility] = useState(getVisibility);
+
+  useEventListener(
+    "visibilitychange",
+    () => {
+      setDocumentVisibility(getVisibility());
+    },
+    {
+      target: () => document,
+    }
+  );
+
+  return documentVisibility;
+};
+
+export default useDocumentVisibility;
 ```
 
 ### useDrag & useDrop
@@ -7291,72 +7295,6 @@ const useDrop = <T>(target: BasicTarget, options: Options = {}) => {
 };
 
 export default useDrop;
-```
-
-### useDocumentVisibility
-
-<aside>
-💡 监听页面是否可见。
-
-</aside>
-
-#### API
-
-```tsx
-const documentVisibility = useDocumentVisibility();
-```
-
-##### Result
-
-| 参数               | 说明                           | 类型                                        |
-| ------------------ | ------------------------------ | ------------------------------------------- |
-| documentVisibility | 判断 document 是否处于可见状态 | visible \| hidden \| prerender \| undefined |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/75cmnf)
-
-#### 源码解析
-
-```tsx
-import { useState } from "react";
-import useEventListener from "@/hooks/useEventListener";
-import isBrowser from "../../../utils/isBrowser";
-
-/**
- * 'hidden': 页面对用户不可见。即文档处于背景标签页、或窗口处于最小化状态，或操作系统正处于"锁屏状态"
- * 'visible': 页面内容至少部分可见。即文档处于前景标签页并且窗口没有最小化
- * 'prerender': 页面此时正在渲染中。文档只能从此状态开始，永远不能从其他值变为此状态
- * */
-type VisibilityState = "hidden" | "visible" | "prerender" | undefined;
-
-const getVisibility = () => {
-  if (!isBrowser) {
-    return "visible";
-  }
-
-  // 只读属性，返回 document 的可见性，即当前可见元素的上下文环境
-  return document.visibilityState;
-};
-
-const useDocumentVisibility = (): VisibilityState => {
-  const [documentVisibility, setDocumentVisibility] = useState(getVisibility);
-
-  useEventListener(
-    // 监听 'visibilitychange'
-    "visibilitychange",
-    () => {
-      setDocumentVisibility(getVisibility());
-    },
-    {
-      target: () => document,
-    }
-  );
-
-  return documentVisibility;
-};
-
-export default useDocumentVisibility;
 ```
 
 ### useEventTarget
@@ -9995,7 +9933,7 @@ export default useLatest;
 
 [文档地址](https://ahooks.js.org/zh-CN/hooks/use-memoized-fn)
 
-[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUnmount/index.ts)
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useMemoizedFn/index.ts)
 
 ```tsx
 import { isFunction } from "@/utils";
