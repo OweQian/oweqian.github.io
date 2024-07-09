@@ -6525,8 +6525,6 @@ const useLockFn = <P extends any[] = any[], V = any>(
 export default useLockFn;
 ```
 
-#### 总结
-
 虽然实用，但缺点也很明显，需要给每一个需要添加竞态锁的请求异步函数都手动加一遍。
 
 通过 axios 可以自动取消重复请求，参考： [Axios 如何取消重复请求？](https://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&mid=2651576212&idx=2&sn=b1c3fac9534f01f4d7c68f7b88800d5c&chksm=80250055b75289430570c54ba104675cbc6e5cf15cd35154a63f1d89b9f7211fb2f88f232e0f&scene=21#wechat_redirect)
