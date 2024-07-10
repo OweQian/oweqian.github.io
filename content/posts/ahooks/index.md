@@ -6965,103 +6965,19 @@ const useDocumentVisibility = (): VisibilityState => {
 export default useDocumentVisibility;
 ```
 
-### useDrag & useDrop
+### useDrag
 
-<aside>
-💡 处理元素拖拽的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-drop/#usedrag)
 
-</aside>
-
-useDrop 可以单独使用来接收文件、文字和网址的拖拽。
-
-useDrag 允许一个 DOM 节点被拖拽，需要配合 useDrop 的使用。
-
-向节点内触发粘贴动作也会被视为拖拽。
-
-#### API
-
-##### useDrag
-
-```tsx
-useDrag<T>(
-	data: any,
-	target: (() => Element)) | Element | MutableRefObject<Element>,
-	options?: DragOptions
-)
-```
-
-###### Params
-
-| 参数    | 说明                  | 类型                                                       | 默认值 |
-| ------- | --------------------- | ---------------------------------------------------------- | ------ |
-| data    | 拖拽的内容            | any                                                        | -      |
-| target  | DOM 节点或者 Ref 对象 | (() => Element)) \| Element \| MutableRefObject\<Element\> | -      |
-| options | 额外的配置项          | DragOptions                                                | -      |
-
-###### DragOptions
-
-| 参数        | 说明                               | 类型                        | 默认值 |
-| ----------- | ---------------------------------- | --------------------------- | ------ |
-| onDragStart | 开始拖拽的回调                     | (e: React.DragEvent) ⇒ void | -      |
-| onDragEnd   | 结束拖拽的回调                     | (e: React.DragEvent) ⇒ void | -      |
-| dragImage   | 自定义拖拽过程中跟随鼠标指针的图像 | DragImageOptions            | -      |
-
-###### DragImageOptions
-
-| 参数    | 说明                                                                                                | 类型              | 默认值 |
-| ------- | --------------------------------------------------------------------------------------------------- | ----------------- | ------ |
-| image   | 拖拽过程中跟随鼠标指针的图像。图像通常是一个 \<img\> 元素，但也可以是 \<canvas\> 或任何其他图像元素 | string \| Element | -      |
-| offsetX | 水平偏移                                                                                            | number            | 0      |
-| offsetY | 垂直偏移                                                                                            | number            | 0      |
-
-##### useDrop
-
-```tsx
-useDrop<T>(
-	target: (() => Element)) | Element | MutableRefObject<Element>,
-	options?: DropOptions
-)
-```
-
-###### Params
-
-| 参数    | 说明                  | 类型                                                     | 默认值 |
-| ------- | --------------------- | -------------------------------------------------------- | ------ |
-| target  | DOM 节点或者 Ref 对象 | (() => Element)) \| Element \| MutableRefObject<Element> | -      |
-| options | 额外的配置项          | DropOptions                                              | -      |
-
-###### DropOptions
-
-| 参数        | 说明                           | 类型                                       | 默认值 |
-| ----------- | ------------------------------ | ------------------------------------------ | ------ |
-| onText      | 拖拽/粘贴文字的回调            | (text: string, e: React.DragEvent) ⇒ void  | -      |
-| onFiles     | 拖拽/粘贴文件的回调            | (files: File[], e: React.DragEvent) ⇒ void | -      |
-| onUri       | 拖拽/粘贴链接的回调            | (text: string, e: React.DragEvent) ⇒ void  | -      |
-| onDom       | 拖拽/粘贴自定义 DOM 节点的回调 | (content: any, e: React.DragEvent) ⇒ void  | -      |
-| onDrop      | 拖拽任意内容的回调             | (e: React.DragEvent) ⇒ void                | -      |
-| onPaste     | 粘贴内容的回调                 | (e: React.ClipboardEvent) ⇒ void           | -      |
-| onDragEnter | 拖拽进入                       | (e: React.DragEvent) ⇒ void                | -      |
-| onDragOver  | 拖拽中                         | (e: React.DragEvent) ⇒ void                | -      |
-| onDragLeave | 拖拽出去                       | (e: React.DragEvent) ⇒ void                | -      |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/f72rwf)
-
-[自定义拖拽图像 - CodeSandbox](https://codesandbox.io/s/84tsvf)
-
-#### 源码解析
-
-##### useDrag
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useDrag/index.ts)
 
 ```jsx
 import { useRef } from "react";
 import useLatest from "../useLatest";
 import useMount from "../useMount";
-import { isString } from "utils";
-import type { BasicTarget } from "utils/domTarget";
-import { getTargetElement } from "utils/domTarget";
-import useEffectWithTarget from "utils/useEffectWithTarget";
+import { isString } from "@/utils";
+import useEffectWithTarget from "@/utils/useEffectWithTarget";
+import { getTargetElement, type BasicTarget } from "@/utils/domTarget";
 
 export interface Options {
   onDragStart?: (event: React.DragEvent) => void;
@@ -7110,7 +7026,7 @@ const useDrag = <T>(data: T, target: BasicTarget, options: Options = {}) => {
       const onDragStart = (event: React.DragEvent) => {
         // 开始拖拽的回调
         optionsRef.current.onDragStart?.(event);
-        // 设置拖拉事件中带有的数据
+        // 设置拖拽事件中带有的数据
         event.dataTransfer.setData("custom", JSON.stringify(dataRef.current));
 
         // 设置拖拽过程中跟随鼠标指针的图像
@@ -7134,13 +7050,13 @@ const useDrag = <T>(data: T, target: BasicTarget, options: Options = {}) => {
       // 设置元素可拖拽
       targetElement.setAttribute("draggable", "true");
 
-      // 注册开始拖拽事件监听器
+      // 开始拖拽事件监听器
       targetElement.addEventListener("dragstart", onDragStart as any);
-      // 注册结束拖拽事件监听器
+      // 结束拖拽事件监听器
       targetElement.addEventListener("dragend", onDragEnd as any);
 
       return () => {
-        // 组件卸载清除事件监听器
+        // 清除事件监听器
         targetElement.removeEventListener("dragstart", onDragStart as any);
         targetElement.removeEventListener("dragend", onDragEnd as any);
       };
@@ -7153,14 +7069,17 @@ const useDrag = <T>(data: T, target: BasicTarget, options: Options = {}) => {
 export default useDrag;
 ```
 
-###### useDrop
+### useDrop
+
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-drop/#usedrop)
+
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useDrop/index.ts)
 
 ```jsx
-import React, { useRef } from "react";
+import useEffectWithTarget from "@/utils/useEffectWithTarget";
 import useLatest from "../useLatest";
-import type { BasicTarget } from "utils/domTarget";
-import { getTargetElement } from "utils/domTarget";
-import useEffectWithTarget from "utils/useEffectWithTarget";
+import { useRef } from "react";
+import { type BasicTarget, getTargetElement } from "@/utils/domTarget";
 
 export interface Options {
   onFiles?: (files: File[], event?: React.DragEvent) => void;
@@ -7174,8 +7093,7 @@ export interface Options {
   onPaste?: (event?: React.ClipboardEvent) => void;
 }
 
-// 处理文件、文字和网址的拖放和粘贴事件
-const useDrop = <T>(target: BasicTarget, options: Options = {}) => {
+const useDrop = (target: BasicTarget, options: Options = {}) => {
   // 额外的配置项
   const optionsRef = useLatest(options);
 
@@ -7299,44 +7217,14 @@ export default useDrop;
 
 ### useEventTarget
 
-<aside>
-💡 常见表单控件（通过 e.target.value 获取表单值）的 onChange 跟 value 逻辑封装，支持自定义值转换和重置功能。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-event-target)
 
-</aside>
-
-#### API
-
-```tsx
-const [value, { onChange, reset }] = useEventTarget<T, U>(Options<T, U>);
-```
-
-##### Options
-
-| 参数         | 说明                         | 类型           | 默认值 |
-| ------------ | ---------------------------- | -------------- | ------ |
-| initialValue | 可选项，初始值               | T              | -      |
-| transformer  | 可选项，可自定义回调值的转化 | (value: U) ⇒ T | -      |
-
-##### Result
-
-| 参数     | 说明                       | 类型                              |
-| -------- | -------------------------- | --------------------------------- |
-| value    | 表单控件的值               | T                                 |
-| onChange | 表单控件值发生变化时的回调 | (e: { target: {value: T}}) ⇒ void |
-| reset    | 重置函数                   | () ⇒ void                         |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/5wc5wk)
-
-[自定义转换函数 - CodeSandbox](https://codesandbox.io/s/tcw63d)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useEventTarget/index.ts)
 
 ```tsx
 import { useCallback, useState } from "react";
-import useLatest from "@/hooks/useLatest";
-import { isFunction } from "../../../utils";
+import useLatest from "../useLatest";
+import { isFunction } from "lodash";
 
 interface EventTarget<U> {
   target: {
@@ -7351,22 +7239,19 @@ export interface Options<T, U> {
 
 const useEventTarget = <T, U = T>(options?: Options<T, U>) => {
   const { initialValue, transformer } = options || {};
-
   const [value, setValue] = useState(initialValue);
 
-  // 自定义回调值的转化
-  const transformerRef = useLatest(transformer);
+  const transfomerRef = useLatest(transformer);
 
   // 重置函数
   const reset = useCallback(() => setValue(initialValue), []);
 
-  // 表单控件值发生变化时的回调
+  // 值发生变化时的回调
   const onChange = useCallback((e: EventTarget<U>) => {
-    // 获取 e.target.value
     const _value = e.target.value;
     // 判断自定义回调值的转化配置项是否存在并且为函数
-    if (isFunction(transformerRef.current)) {
-      return setValue(transformerRef.current(_value));
+    if (isFunction(transfomerRef.current)) {
+      return setValue(transfomerRef.current(_value));
     }
     // no transformer => U and T should be the same
     return setValue(_value as unknown as T);
@@ -7386,64 +7271,22 @@ export default useEventTarget;
 
 ### useExternal
 
-<aside>
-💡 动态注入 JS 或 CSS 资源，useExternal 可以保证资源全局唯一。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-external)
 
-</aside>
-
-#### API
-
-```tsx
-const status = useExternal(path: string, options?: Options)
-```
-
-##### Params
-
-| 参数 | 说明              | 类型   | 默认值 |
-| ---- | ----------------- | ------ | ------ |
-| path | 外部资源 url 地址 | string | -      |
-
-##### Options
-
-| 参数           | 说明                                                          | 类型              | 默认值 |
-| -------------- | ------------------------------------------------------------- | ----------------- | ------ |
-| type           | 需引入外部资源的类型，支持 js/css，如果不传，则根据 path 推导 | string            | -      |
-| js             | script 标签支持的属性                                         | HTMLScriptElement | -      |
-| css            | link 标签支持的属性                                           | HTMLStyleElement  | -      |
-| keepWhenUnused | 在不持有资源的引用后，仍然保留资源                            | boolean           | false  |
-
-##### Result
-
-| 参数   | 说明                                                                       | 类型   |
-| ------ | -------------------------------------------------------------------------- | ------ |
-| status | 加载状态，unset(未设置)，loading(加载中)，ready(加载完成)，error(加载失败) | string |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/9kmve0)
-
-[动态加载样式 - CodeSandbox](https://codesandbox.io/s/fn3sjp)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useExternal/index.ts)
 
 ```tsx
 import { useEffect, useRef, useState } from "react";
 
 type JsOptions = {
-  // 需引入外部资源的类型
   type: "js";
-  // script 标签支持的属性
   js?: Partial<HTMLScriptElement>;
-  // 在不持有资源的引用后，仍然保留资源
   keepWhenUnused?: boolean;
 };
 
 type CssOptions = {
-  // 需引入外部资源的类型
   type: "css";
-  // link 标签支持的属性
   css?: Partial<HTMLStyleElement>;
-  // 在不持有资源的引用后，仍然保留资源
   keepWhenUnused?: boolean;
 };
 
@@ -7456,6 +7299,10 @@ type DefaultOptions = {
 
 export type Options = JsOptions | CssOptions | DefaultOptions;
 
+// {[path]: count}
+// remove external when no used
+const EXTERNAL_USED_COUNT: Record<string, number> = {};
+
 /**
  * 加载状态
  * unset - 未设置
@@ -7465,30 +7312,24 @@ export type Options = JsOptions | CssOptions | DefaultOptions;
  */
 export type Status = "unset" | "loading" | "ready" | "error";
 
-interface loadResult {
+interface LoadResult {
   ref: Element;
   status: Status;
 }
 
-// {[path]: count}
-// remove external when no used
-const EXTERNAL_USED_COUNT: Record<string, number> = {};
+type LoadExternal = <T>(path: string, props?: Partial<T>) => LoadResult;
 
-const loadingScript = (path: string, props = {}): loadResult => {
-  // 判断是否已经有该 JS 资源
+const loadScript: LoadExternal = (path, props = {}) => {
   const script = document.querySelector(`script[src="${path}"]`);
 
-  // 没有，则创建
   if (!script) {
     const newScript = document.createElement("script");
     newScript.src = path;
 
-    // 设置属性
     Object.keys(props).forEach((key) => {
       newScript[key] = props[key];
     });
 
-    // 更新状态
     newScript.setAttribute("data-status", "loading");
     // 在 body 中插入
     document.body.appendChild(newScript);
@@ -7499,44 +7340,38 @@ const loadingScript = (path: string, props = {}): loadResult => {
     };
   }
 
-  // 有则直接返回，并取 data-status 中的值
   return {
     ref: script,
     status: (script.getAttribute("data-status") as Status) || "ready",
   };
 };
 
-const loadCss = (path: string, props = {}): loadResult => {
-  // 判断是否已经有该 CSS 资源
+const loadCss: LoadExternal = (path, props = {}) => {
   const css = document.querySelector(`link[href="${path}"]`);
 
-  // 没有，则创建
   if (!css) {
     const newCss = document.createElement("link");
 
     newCss.rel = "stylesheet";
     newCss.href = path;
 
-    // 设置属性
     Object.keys(props).forEach((key) => {
       newCss[key] = props[key];
     });
 
+    // IE9+
     /**
      * 在旧版本的 IE 浏览器中，hideFocus 属性用于控制元素在获得焦点时是否显示虚拟框
      * relList 是一个新的属性，允许开发者访问和操作元素的 rel 属性列表
      * 如果条件满足，将 newCss 元素的 rel 属性设置为 preload(预加载)
      * 将 newCss 元素的 as 属性设置为 'style'，告诉浏览器这是一个样式表资源
      * */
-    // IE9+
     const isLegacyIECss = "hideFocus" in newCss;
     // use preload in IE Edge (to detect load errors)
     if (isLegacyIECss && newCss.relList) {
       newCss.rel = "preload";
       newCss.as = "style";
     }
-
-    // 更新状态
     newCss.setAttribute("data-status", "loading");
     // 在 head 标签中插入
     document.head.appendChild(newCss);
@@ -7547,7 +7382,6 @@ const loadCss = (path: string, props = {}): loadResult => {
     };
   }
 
-  // 有则直接返回，并取 data-status 中的值
   return {
     ref: css,
     status: (css.getAttribute("data-status") as Status) || "ready",
@@ -7557,7 +7391,6 @@ const loadCss = (path: string, props = {}): loadResult => {
 const useExternal = (path?: string, options?: Options) => {
   const [status, setStatus] = useState<Status>(path ? "loading" : "unset");
 
-  // DOM
   const ref = useRef<Element>();
 
   useEffect(() => {
@@ -7565,10 +7398,7 @@ const useExternal = (path?: string, options?: Options) => {
       setStatus("unset");
       return;
     }
-
-    // 处理路径
     const pathname = path.replace(/[|#].*$/, "");
-
     // 判断是 CSS 类型
     if (
       options?.type === "css" ||
@@ -7582,46 +7412,42 @@ const useExternal = (path?: string, options?: Options) => {
       options?.type === "js" ||
       (!options?.type && /(^js!|\.js$)/.test(pathname))
     ) {
-      const result = loadingScript(path, options?.js);
+      const result = loadScript(path, options?.js);
       ref.current = result.ref;
       setStatus(result.status);
     } else {
+      // do nothing
       console.error(
         "Cannot infer the type of external resource, and please provide a type ('js' | 'css'). " +
           "Refer to the https://ahooks.js.org/hooks/dom/use-external/#options"
       );
     }
-
     if (!ref.current) {
       return;
     }
 
-    // 记录资源引用数量
     if (EXTERNAL_USED_COUNT[path] === undefined) {
       EXTERNAL_USED_COUNT[path] = 1;
     } else {
       EXTERNAL_USED_COUNT[path] += 1;
     }
 
-    // // 判断和设置加载状态
     const handler = (event: Event) => {
       const targetStatus = event.type === "load" ? "ready" : "error";
       ref.current?.setAttribute("data-status", targetStatus);
       setStatus(targetStatus);
     };
 
-    // 注册事件监听器
     // 加载完成
     ref.current.addEventListener("load", handler);
     // 加载失败
     ref.current.addEventListener("error", handler);
     return () => {
-      // 清除事件监听器
+      // 清除
       ref.current?.removeEventListener("load", handler);
       ref.current?.removeEventListener("error", handler);
 
       EXTERNAL_USED_COUNT[path] -= 1;
-
       // 在不持有资源的引用后，从 DOM 中移除
       if (EXTERNAL_USED_COUNT[path] === 0 && !options?.keepWhenUnused) {
         ref.current?.remove();
@@ -7639,39 +7465,14 @@ export default useExternal;
 
 ### useTitle
 
-<aside>
-💡 用于设置页面标题。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-title)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useTitle/index.ts)
 
 ```tsx
-useTitle(title: string, options?: Options)
-```
-
-##### Params
-
-| 参数  | 说明     | 类型   | 默认值 |
-| ----- | -------- | ------ | ------ |
-| title | 页面标题 | string | -      |
-
-##### Options
-
-| 参数             | 说明                               | 类型    | 默认值 |
-| ---------------- | ---------------------------------- | ------- | ------ |
-| restoreOnUnmount | 组件卸载时，是否恢复上一个页面标题 | boolean | false  |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/8b7dbh)
-
-#### 源码解析
-
-```tsx
+import isBrowser from "@/utils/isBrowser";
 import { useEffect, useRef } from "react";
-import useUnmount from "@/hooks/useUnmount";
-import isBrowser from "../../../utils/isBrowser";
+import useUnmount from "../useUnmount";
 
 export interface Options {
   restoreOnUnmount?: boolean;
@@ -7682,9 +7483,7 @@ const DEFAULT_OPTIONS: Options = {
 };
 
 const useTitle = (title: string, options: Options = DEFAULT_OPTIONS) => {
-  // 上一个页面标题
   const titleRef = useRef(isBrowser ? document.title : "");
-
   useEffect(() => {
     // 通过 document.title 设置页面标题
     document.title = title;
