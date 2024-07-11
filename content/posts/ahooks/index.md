@@ -7502,28 +7502,9 @@ export default useTitle;
 
 ### useFavicon
 
-<aside>
-💡 设置页面的 favicon。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-favicon)
 
-</aside>
-
-#### API
-
-```tsx
-useFavicon(href: string)
-```
-
-##### Params
-
-| 参数 | 说明                                            | 类型   | 默认值 |
-| ---- | ----------------------------------------------- | ------ | ------ |
-| href | favicon 地址, 支持  svg/png/ico/gif  后缀的图片 | string | -      |
-
-#### 代码演示
-
-[基础用法](https://codesandbox.io/p/sandbox/ji-chu-yong-fa-fk8yvh)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useFavicon/index.ts)
 
 ```tsx
 import { useEffect } from "react";
@@ -7540,13 +7521,14 @@ type ImgTypes = keyof typeof ImgTypeMap;
 
 const useFavicon = (href: string) => {
   useEffect(() => {
-    if (!href) return;
+    if (!href) {
+      return;
+    }
 
     // 获取图片后缀
     const cutUrl = href.split(".");
     const imgSuffix = cutUrl[cutUrl.length - 1].toLocaleUpperCase() as ImgTypes;
 
-    // 通过 link 标签设置 favicon，获取或新建
     const link: HTMLLinkElement =
       document.querySelector("link[rel*='icon']") ||
       document.createElement("link");
@@ -7566,61 +7548,9 @@ export default useFavicon;
 
 ### useFullScreen
 
-<aside>
-💡 管理 DOM 全屏的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-fullscreen)
 
-</aside>
-
-#### API
-
-```tsx
-const [isFullScreen, {
-	enterFullscreen,
-  exitFullscreen,
-  toggleFullscreen,
-  isEnabled,
-}] = useFullScreen(
-	target,
-	options?: Options
-)
-```
-
-##### Params
-
-| 参数    | 说明                  | 类型                                                 | 默认值 |
-| ------- | --------------------- | ---------------------------------------------------- | ------ |
-| target  | DOM 节点或者 Ref 对象 | Element \| () ⇒ Element \| MutableRefObject<Element> | -      |
-| options | 设置                  | Options                                              |        |
-
-##### Options
-
-| 参数           | 说明                                                                 | 类型                                             | 默认值 |
-| -------------- | -------------------------------------------------------------------- | ------------------------------------------------ | ------ |
-| onExit         | 退出全屏触发                                                         | () ⇒ void                                        | -      |
-| onEnter        | 全屏触发                                                             | () ⇒ void                                        | -      |
-| pageFullscreen | 是否是页面全屏。当参数类型为对象时，可以设置全屏元素的类名和 z-index | boolean \| { className?: sting, zIndex?: number} | false  |
-
-##### Result
-
-| 参数             | 说明         | 类型      |
-| ---------------- | ------------ | --------- |
-| isFullscreen     | 是否全屏     | boolean   |
-| enterFullscreen  | 设置全屏     | () ⇒ void |
-| exitFullscreen   | 退出全屏     | () ⇒ void |
-| toggleFullscreen | 切换全屏     | () ⇒ void |
-| isEnabled        | 是否支持全屏 | boolean   |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/hmjx1e)
-
-[图片全屏 - CodeSandbox](https://codesandbox.io/s/cy6lr9)
-
-[页面全屏 - CodeSandbox](https://codesandbox.io/s/9gbtef)
-
-[与其它全屏操作共存 - CodeSandbox](https://codesandbox.io/s/dtqj5h)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useFullscreen/index.ts)
 
 该 Hook 主要依赖  [screenfull](https://www.npmjs.com/package/screenfull)  的 npm 包，帮助开发者管理全屏模式。
 
@@ -7638,14 +7568,12 @@ const [isFullScreen, {
 - off(eventName, callback): 移除全屏状态变化事件的监听
 
 ```jsx
-import { useEffect, useRef, useState } from "react";
+import { isBoolean } from "@/utils";
+import { getTargetElement, type BasicTarget } from "@/utils/domTarget";
 import screenfull from "screenfull";
-import useLatest from "@/hooks/useLatest";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
-import type { BasicTarget } from "../../../utils/domTarget";
-import { getTargetElement } from "../../../utils/domTarget";
-import { isBoolean } from "../../../utils";
-
+import useLatest from "../useLatest";
+import { useEffect, useRef, useState } from "react";
+import useMemoizedFn from "../useMemoizedFn";
 export interface PageFullscreenOptions {
   className?: string;
   zIndex?: number;
@@ -7688,6 +7616,7 @@ const useFullscreen = (target: BasicTarget, options?: Options) => {
 
   // 更新全屏状态，触发相应的回调函数
   const updateFullscreenState = (fullscreen: boolean) => {
+    // Prevent repeated calls when the state is not changed.
     if (stateRef.current !== fullscreen) {
       invokeCallback(fullscreen);
       setState(fullscreen);
@@ -7822,54 +7751,14 @@ export default useFullscreen;
 
 ### useHover
 
-<aside>
-💡 监听 DOM 元素是否有鼠标悬停。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-hover)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useHover/index.ts)
 
 ```tsx
-const isHovering = useHover(target, {
-  onEnter,
-  onLeave,
-  onChange,
-});
-```
-
-##### Params
-
-| 参数    | 说明                  | 类型                                                   | 默认值 |
-| ------- | --------------------- | ------------------------------------------------------ | ------ |
-| target  | DOM 节点或者 Ref 对象 | () ⇒ Element \| Element \| MutableRefObject\<Element\> | -      |
-| options | 额外的配置项          | Options                                                |        |
-
-##### Options
-
-| 参数     | 说明                 | 类型                         | 默认值 |
-| -------- | -------------------- | ---------------------------- | ------ |
-| onEnter  | hover 时触发         | () ⇒ void                    | -      |
-| onLeave  | 取消 hover 时触发    | () ⇒ void                    | -      |
-| onChange | hover 状态变化时触发 | (isHovering: boolean) ⇒ void | -      |
-
-##### Result
-
-| 参数       | 说明                   | 类型    |
-| ---------- | ---------------------- | ------- |
-| isHovering | 鼠标元素是否处于 hover | boolean |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/ivzvsz)
-
-[传入 DOM 元素 - CodeSandbox](https://codesandbox.io/s/tsn2du)
-
-#### 源码解析
-
-```tsx
-import useBoolean from "@/hooks/useBoolean";
-import useEventListener from "@/hooks/useEventListener";
-import type { BasicTarget } from "../../../utils/domTarget";
+import type { BasicTarget } from "@/utils/domTarget";
+import useBoolean from "../useBoolean";
+import useEventListener from "../useEventListener";
 
 export interface Options {
   onEnter?: () => void;
@@ -7877,8 +7766,8 @@ export interface Options {
   onChange?: (isHovering: boolean) => void;
 }
 
-const useHover = (target: BasicTarget, options?: Options): boolean => {
-  const { onEnter, onLeave, onChange } = options || {};
+const useHover = (target: BasicTarget, options?: Options) => {
+  const { onEnter, onChange, onLeave } = options || {};
 
   const [state, { setTrue, setFalse }] = useBoolean(false);
 
@@ -7916,84 +7805,14 @@ export default useHover;
 
 ### useMutationObserver
 
-<aside>
-💡 一个监听指定的 DOM 树发生变化的 Hook，参考 [MutationObserver](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver)。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-mutation-observer/)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useMutationObserver/index.ts)
 
 ```tsx
-useMutationObserver(
-	callback: MutationCallback,
-	target: Target,
-	options?: MutationObserverInit,
-)
-```
-
-##### Params
-
-| 参数     | 说明                  | 类型                                                             | 默认值 |
-| -------- | --------------------- | ---------------------------------------------------------------- | ------ |
-| callback | 触发的回调函数        | (mutations: MutationRecord[], observer: MutationObserver) ⇒ void | -      |
-| target   | DOM 节点或者 Ref 对象 | () ⇒ Element \| Element \| MutableRefObject\<Element\>           | -      |
-| options  | 设置项                | MutationObserverInit                                             | {}     |
-
-##### Options
-
-配置项参考：
-
-[MutationObserver: observe() method - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver/observe#parameters)
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/4zfvzp)
-
-#### 源码解析
-
-```tsx
-import type { DependencyList } from "react";
-import { isEqual } from "lodash-es";
-
-export const depsEqual = (
-  aDeps: DependencyList = [],
-  bDeps: DependencyList = []
-) => isEqual(aDeps, bDeps);
-```
-
-```tsx
-import { DependencyList, EffectCallback, useRef } from "react";
-import { BasicTarget } from "./domTarget";
-import { depsEqual } from "./depsEqual";
-import useEffectWithTarget from "./useEffectWithTarget";
-
-/**
- * 深度比较（对象值只比较属性）
- * */
-const useDeepCompareEffectWithTarget = (
-  effect: EffectCallback,
-  deps: DependencyList,
-  target: BasicTarget<any> | BasicTarget<any>[]
-) => {
-  const ref = useRef<DependencyList>();
-  const signalRef = useRef<number>(0);
-
-  if (!depsEqual(deps, ref.current)) {
-    ref.current = deps;
-    signalRef.current += 1;
-  }
-
-  useEffectWithTarget(effect, [signalRef.current], target);
-};
-
-export default useDeepCompareEffectWithTarget;
-```
-
-```tsx
-import { getTargetElement } from "../../../utils/domTarget";
-import type { BasicTarget } from "../../../utils/domTarget";
-import useLatest from "@/hooks/useLatest";
-import useDeepCompareEffectWithTarget from "../../../utils/useDeepCompareWithTarget";
+import { getTargetElement, type BasicTarget } from "@/utils/domTarget";
+import useLatest from "../useLatest";
+import useDeepCompareWithTarget from "@/utils/useDeepCompareWithTarget";
 
 const useMutationObserver = (
   callback: MutationCallback,
@@ -8002,9 +7821,8 @@ const useMutationObserver = (
 ): void => {
   const callbackRef = useLatest(callback);
 
-  useDeepCompareEffectWithTarget(
+  useDeepCompareWithTarget(
     () => {
-      // 需要观察变动的节点
       const element = getTargetElement(target);
       if (!element) {
         return;
@@ -8012,13 +7830,12 @@ const useMutationObserver = (
 
       // 创建一个观察器实例并传入回调函数
       const observer = new MutationObserver(callbackRef.current);
-
       // 根据配置开始观察目标节点
       observer.observe(element, options);
 
-      // 停止观察
       return () => {
-        observer.disconnect();
+        // 停止观察
+        observer?.disconnect();
       };
     },
     [options],
@@ -8031,66 +7848,18 @@ export default useMutationObserver;
 
 ### useInViewport
 
-<aside>
-💡 观察元素是否在可见区域，以及元素可见比例，更多信息参考 [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API)。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-in-viewport)
 
-</aside>
-
-#### API
-
-```tsx
-type Target = Element | (() => Element) | React.MutableRefObject<Element>;
-
-const [inViewport, ratio] = useInViewport(
-  target: Target | Target[],
-  options?: Options
-);
-```
-
-##### Params
-
-| 参数    | 说明                       | 类型                 | 默认值 |
-| ------- | -------------------------- | -------------------- | ------ |
-| target  | DOM 节点或者 Ref，支持数组 | Target \| Target[]   | -      |
-| options | 设置                       | Options \| undefined | -      |
-
-##### Options
-
-更多信息参考  [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API)。
-
-| 参数       | 说明                                                                                                        | 类型                                                                                | 默认值 |
-| ---------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------ |
-| threshold  | 可以是单一的 numebr 也可以是 number 数组，target 元素和 root 元素相交程度达到该值的时候 ratio 会被更新      | number \| number[]                                                                  | -      |
-| rootMargin | 根(root)元素的外边距                                                                                        | string                                                                              | -      |
-| root       | 指定根(root)元素，用于检查目标的可见性。必须是目标元素的父级元素，如果未指定或者为 null，则默认为浏览器视窗 | Element \| Document \| () ⇒ (Element/Document) \| React.MutableRefObject\<Element\> | -      |
-| callback   | IntersectionObserver  的回调被调用时触发                                                                    | (entry: IntersectionObserverEntry) => void                                          |        |
-
-##### Result
-
-| 参数       | 说明                                                      | 类型                 |
-| ---------- | --------------------------------------------------------- | -------------------- |
-| inViewport | 是否可见                                                  | boolean \| undefined |
-| ratio      | 当前可见比例，在每次到达 options.threshold 设置节点时更新 | number \| undefined  |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/q3sgf2)
-
-[监听元素可见区域比例 - CodeSandbox](https://codesandbox.io/s/9gh8lv)
-
-[监听内容滚动选中菜单 - CodeSandbox](https://codesandbox.io/s/lmhgrw)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useInViewport/index.ts)
 
 ```tsx
 /**
  * intersection-observer polyfill 处理
  * */
 import "intersection-observer";
+import { getTargetElement, type BasicTarget } from "@/utils/domTarget";
 import { useState } from "react";
-import type { BasicTarget } from "../../../utils/domTarget";
-import { getTargetElement } from "../../../utils/domTarget";
-import useEffectWithTarget from "../../../utils/useEffectWithTarget";
+import useEffectWithTarget from "@/utils/useEffectWithTarget";
 
 type CallbackType = (entry: IntersectionObserverEntry) => void;
 
@@ -8120,24 +7889,14 @@ const useInViewport = (
       if (!els.length) {
         return;
       }
-
       /**
        * 创建交叉观察器
        * */
       const observer = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
-            /**
-             * 返回比例值
-             * */
             setRatio(entry.intersectionRatio);
-            /**
-             * 查看条目是否代表当前与根相交的元素
-             * */
             setState(entry.isIntersecting);
-            /**
-             * 执行回调
-             * */
             callback?.(entry);
           }
         },
@@ -8156,7 +7915,7 @@ const useInViewport = (
         observer.disconnect();
       };
     },
-    [options?.rootMargin, options?.threshold, callback],
+    [callback, options?.rootMargin, options?.threshold],
     target
   );
   return [state, ratio] as const;
