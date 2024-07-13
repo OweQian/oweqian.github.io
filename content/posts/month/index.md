@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-07-09T21:20:47+08:00
+date: 2024-07-13T23:25:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,28 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-07
+
+#### 07-13
+
+😴 继续。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_54.jpg" alt="" width="400" />
+
+#### 07-12
+
+大早上起来跑步，一整天困成傻狗。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_53.jpg" alt="" width="400" />
+
+#### 07-11
+
+震惊 😱。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_52.jpg" alt="" width="400" />
+
+#### 07-10
+
+重读《认知觉醒》。
 
 #### 07-09
 
