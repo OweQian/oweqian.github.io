@@ -7926,17 +7926,16 @@ export default useInViewport;
 
 ### useKeyPress
 
-[文档地址](https://ahooks.pages.dev/zh-CN/hooks/use-unmount)
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-key-press)
 
-[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUnmount/index.ts)
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useKeyPress/index.ts)
 
 ```tsx
-import useLatest from "@/hooks/useLatest";
-import { isFunction, isNumber, isString } from "../../../utils";
-import type { BasicTarget } from "../../../utils/domTarget";
-import { getTargetElement } from "../../../utils/domTarget";
-import useDeepCompareEffectWithTarget from "../../../utils/useDeepCompareWithTarget";
-import isAppleDevice from "../../../utils/isAppleDevice";
+import { isFunction, isNumber, isString } from "@/utils";
+import { getTargetElement, type BasicTarget } from "@/utils/domTarget";
+import useLatest from "../useLatest";
+import useDeepCompareWithTarget from "@/utils/useDeepCompareWithTarget";
+import isAppleDevice from "@/utils/isAppleDevice";
 
 /**
  * KeyboardEvent 键盘操作时生成的事件对象
@@ -8120,7 +8119,7 @@ function getFilterKey(
   keyFilter: KeyType,
   exactMatch: boolean
 ) {
-  // 浏览器自动补全输入时，会触发 keydown、keyup 事件，此时 event.key 可能为空
+  // 浏览器自动补全 input 的时候，会触发 keyDown、keyUp 事件，但此时 event.key 等为空
   if (!event.key) {
     return false;
   }
@@ -8202,7 +8201,7 @@ const useKeyPress = (
   const eventHandlerRef = useLatest(eventHandler);
   const keyFilterRef = useLatest(keyFilter);
 
-  useDeepCompareEffectWithTarget(
+  useDeepCompareWithTarget(
     () => {
       const el = getTargetElement(target, window);
       if (!el) {
@@ -8220,12 +8219,12 @@ const useKeyPress = (
         }
       };
 
-      // 监听传入事件
+      // 监听 'keydown' | 'keyup'
       for (const eventName of events) {
         el?.addEventListener?.(eventName, callbackHandler, useCapture);
       }
 
-      // 取消监听
+      // 取消监听 'keydown' | 'keyup'
       return () => {
         for (const eventName of events) {
           el?.removeEventListener?.(eventName, callbackHandler, useCapture);
@@ -8242,16 +8241,16 @@ export default useKeyPress;
 
 ### useLongPress
 
-[文档地址](https://ahooks.pages.dev/zh-CN/hooks/use-unmount)
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-long-press)
 
-[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUnmount/index.ts)
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useLongPress/index.ts)
 
 ```tsx
-import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
-import useLatest from "@/hooks/useLatest";
+import { type BasicTarget, getTargetElement } from "@/utils/domTarget";
+import isBrowser from "@/utils/isBrowser";
+import useLatest from "../useLatest";
 import { useRef } from "react";
-import useEffectWithTarget from "../../../utils/useEffectWithTarget";
-import isBrowser from "../../../utils/isBrowser";
+import useEffectWithTarget from "@/utils/useEffectWithTarget";
 
 type EventType = MouseEvent | TouchEvent;
 export interface Options {
@@ -8263,15 +8262,14 @@ export interface Options {
 
 /**
  * 判断是否支持 touch 事件
- * 如果支持，则监听 touchstart - 触摸开始、touchend - 触摸结束、touchmove - 触摸移动 事件
- * 如果不支持，则监听 mousedown - 按下鼠标、mouseup - 松开鼠标、mousemove - 鼠标移动、mouseleave - 鼠标离开元素 事件
+ * 如果支持，则监听 touchstart - 触摸开始、touchend - 触摸结束、touchmove - 触摸移动
+ * 如果不支持，则监听 mousedown - 按下鼠标、mouseup - 松开鼠标、mousemove - 鼠标移动、mouseleave - 鼠标离开元素
  * */
 const touchSupported =
   isBrowser &&
-  // @ts-ignore
   ("ontouchstart" in window ||
+    // @ts-ignore
     (window.DocumentTouch && document instanceof DocumentTouch));
-
 const useLongPress = (
   onLongPress: (event: EventType) => void,
   target: BasicTarget,
@@ -8873,7 +8871,7 @@ export default useFocusWithin;
 
 [文档地址](https://ahooks.js.org/zh-CN/hooks/use-controllable-value)
 
-[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useTrackedEffect/index.ts)
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useControllableValue/index.ts)
 
 受控组件和非受控组件的解释：
 
@@ -8884,11 +8882,10 @@ export default useFocusWithin;
 使用非受控组件，表单数据将交由 DOM 节点来处理，可以使用 ref 来从 DOM 节点中获取表单数据。
 
 ```tsx
-import { useMemo, useRef } from "react";
-import type { SetStateAction } from "react";
-import { isFunction } from "../../../utils";
-import useMemoizedFn from "../useMemoizedFn";
+import { useMemo, type SetStateAction, useRef } from "react";
 import useUpdate from "../useUpdate";
+import { isFunction } from "@/utils";
+import useMemoizedFn from "../useMemoizedFn";
 
 export interface Options<T> {
   defaultValue?: T;
