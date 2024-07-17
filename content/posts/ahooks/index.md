@@ -1843,128 +1843,9 @@ export default useRetryPlugin;
 
 ### useAntdTable
 
-useAntdTable  基于  useRequest  实现，封装了常用的  [Ant Design Form](https://ant.design/components/form-cn/)  与  [Ant Design Table](https://ant.design/components/table-cn/)  联动逻辑，并且同时支持 antd v3 和 v4。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-antd-table)
 
-在使用之前，你需要了解它与 useRequest 不同的几个点：
-
-1、service 接受两个参数，第一个参数为分页数据 { current, pageSize, sorter, filters, extra }，第二个参数为表单数据
-
-2、service 返回的数据结构为 { total: number, list: Item[] }
-
-3、会额外返回 totalProps 和 search 字段，管理表格和表单
-
-4、refreshDeps 变化，会重置 current 到第一页，并重新发起请求
-
-#### API
-
-useRequest 所有参数和返回结果均适用于 useAntdTable，此处不再赘述。
-
-```tsx
-type Data = { total: number; list: any[] };
-type Params = [{ current: number; pageSize: number; filter?: any; sorter?: any; extra?: any; }, { [key: string]: any }];
-
-const {
-	...,
-	tableProps: {
-		dataSource: TData['list'],
-		loading: boolean;
-		onChange: (
-			pagination: any;
-			filters?: any;
-			sorter?: any;
-			extra?: any;
-		) => void;
-		pagination: {
-			current: number;
-			pageSize: number;
-			total: number;
-		}
-	};
-	search: {
-		type: 'simple' | 'advance';
-		changeType: () => void;
-		submit: () => void;
-		reset: () => void;
-	}
-} = useAntdTable<TData extends Data, TParams extends Params>(
-	service: (...args: TParams) => Promise<TData>,
-	{
-		...,
-		form?: any;
-		defaultType?: 'simple' | 'advance';
-		defaultParams?: TParams;
-		defaultPageSize?: number;
-		refreshDeps?: any[];
-	}
-)
-```
-
-##### Params
-
-| 参数            | 说明                                                      | 类型                   | 默认值            |
-| --------------- | --------------------------------------------------------- | ---------------------- | ----------------- |
-| form            | Form 实例                                                 | -                      | -                 |
-| defaultType     | 默认表单类型                                              | simple                 | advance \| simple |
-| defaultParams   | 默认参数，第一项为分页数据，第二项为表单数据              | [pagination, formData] | -                 |
-| defaultPageSize | 默认分页数量                                              | number                 | 10                |
-| refreshDeps     | refreshDeps 变化，会重置 current 到第一页，并重新发起请求 | React.DependencyList   | []                |
-
-##### Result
-
-| 参数              | 说明                                            | 类型              |
-| ----------------- | ----------------------------------------------- | ----------------- |
-| tableProps        | Table 组件需要的数据，直接透传给 Table 组件即可 | -                 |
-| search.type       | 当前表单类型                                    | simple \| advance |
-| search.changeType | 切换表单类型                                    | () ⇒ void         |
-| search.submit     | 提交表单                                        | () ⇒ void         |
-| search.reset      | 重置当前表单                                    | () ⇒ void         |
-
-#### 代码演示
-
-以下展示的是 antd v4 的 demo，v3 请参考：[https://ahooks-v2.js.org/hooks/table/use-antd-table](https://ahooks-v2.js.org/hooks/table/use-antd-table)。
-
-##### Table 管理
-
-useAntdTable  会自动管理  Table  分页数据，你只需要把返回的  tableProps  传递给  Table  组件就可以了。
-
-```jsx
-<Table columns={columns} rowKey="email" {...tableProps} />
-```
-
-[frosty-goldberg-dklw8h](https://codesandbox.io/p/sandbox/frosty-goldberg-dklw8h?file=/index.html)
-
-##### Form 与 Table 联动
-
-useAntdTable 接收 form 实例后，会返回 search 对象，用来处理表单相关事件。
-
-- search.type 支持 simple 和 advance 两个表单切换
-- search.changeType，切换表单类型
-- search.submit，提交表单行为
-- search.reset，重置当前表单
-
-[jovial-sara-pp2v7n - CodeSandbox](https://codesandbox.io/s/pp2v7n)
-
-##### 初始化数据
-
-useAntdTable 通过 defaultParams 设置初始化值，defaultParams 是一个数组，第一项为分页相关参数，第二项为表单相关数据。如果有第二个值，我们会帮您初始化表单。
-
-需要注意的是，初始化的表单数据可以填写 simple 和 advance 全量的表单数据，我们会帮您挑选当前激活的类型中的表单数据。
-
-[exciting-dream-3g4ys2](https://codesandbox.io/p/sandbox/exciting-dream-3g4ys2?file=/index.html)
-
-##### 表单验证
-
-表单提交之前，我们会调用 form.validateFields 来校验表单数据，如果验证不通过，则不会发起请求。
-
-[pensive-wu-m2xvcp](https://codesandbox.io/p/sandbox/pensive-wu-m2xvcp?file=/index.html)
-
-##### 缓存
-
-通过设置 cacheKey，我们可以实现 Form 与 Table 数据缓存。
-
-[amazing-faraday-sdfmr3 - CodeSandbox](https://codesandbox.io/s/sdfmr3)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useAntdTable/index.tsx)
 
 ```jsx
 import type {
@@ -2360,119 +2241,9 @@ export default useAntdTable;
 
 ### useInfiniteScroll
 
-useInfiniteScroll 封装了常见的无限滚动逻辑。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-infinite-scroll)
 
-```jsx
-const { data, loading, loadingMore, loadMore } = useInfiniteScroll(service);
-```
-
-useInfiniteScroll 的第一个参数 service 是一个异步函数，对这个函数的入参和出参有如下约定：
-
-1、service 返回的数据必须包含 list 数组，类型为 { list: any[], …rest }
-
-2、service 的入参为整合后的最新 data
-
-假如第一次请求返回数据为 { list: [1, 2, 3], nextId: 4 }，第二次返回的数据为 { list: [4, 5, 6], nextId: 7 }，则我们会自动合并 list，整合后的 data 为 { list: [1, 2, 3, 4, 5, 6], nextId: 7 }。
-
-#### API
-
-```jsx
-export type Data = { list: any[];[key: string]: any; };
-export type Service<TData extends Data> = (currentData?: TData) => Promise<TData>;
-
-const {
-  data: TData;
-  loading: boolean;
-  loadingMore: boolean;
-  noMore: boolean;
-  loadMore: () => void;
-  loadMoreAsync: () => Promise<TData>;
-  reload: () => void;
-  reloadAsync: () => Promise<TData>;
-  cancel: () => void;
-  mutate: (data?: TData) => void;
-} = useInfiniteScroll<TData extends Data>(
-  service: (currentData?: TData) => Promise<TData>,
-  {
-    target?: BasicTarget;
-    isNoMore?: (data?: TData) => boolean;
-    threshold?: number;
-    manual?: boolean;
-    reloadDeps?: DependencyList;
-    onBefore?: () => void;
-    onSuccess?: (data: TData) => void;
-    onError?: (e: Error) => void;
-    onFinally?: (data?: TData, e?: Error) => void;
-  }
-);
-```
-
-##### Options
-
-| 参数       | 说明                                                                                                                                                      | 类型                                                         | 默认值 |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------ |
-| target     | 父级容器，如果存在，则在滚动到底部时，自动触发 loadMore。需要配合 isNoMore 使用，以便知道什么时候到最后一页了。当 target 为 document 时，定义为整个视口。 | () ⇒ Element \| Element \| React.MutableRefObject\<Element\> | -      |
-| isNoMore   | 是否有最后一页的判断逻辑，入参为当前聚合后的 data                                                                                                         | (data?: TData) ⇒ boolean                                     | -      |
-| threshold  | 下拉自动加载，距离底部距离阈值                                                                                                                            | number                                                       | 100    |
-| manual     | 默认 fasle，即在初始化时自动执行 service。如果设置为 true，则需要手动调用 reload 或 reloadAsync 触发执行。                                                | boolean                                                      | false  |
-| reloadDeps | 变化后，会自动触发 reload                                                                                                                                 | any[]                                                        | -      |
-| onBefore   | service 执行前触发                                                                                                                                        | () => void                                                   | -      |
-| onSuccess  | service resolve 时触发                                                                                                                                    | (data: TData) => void                                        | -      |
-| onError    | service reject 时触发                                                                                                                                     | (e: Error) => void                                           | -      |
-| onFinally  | service 执行完成时触发                                                                                                                                    | (data?: TData, e?: Error) => void                            | -      |
-
-##### Result
-
-| 参数          | 说明                                                                       | 类型                   |
-| ------------- | -------------------------------------------------------------------------- | ---------------------- |
-| data          | service 返回的数据，其中的 list 属性为聚合后数据                           | TData \| undefined     |
-| loading       | 是否正在进行首次请求                                                       | boolean                |
-| loadingMore   | 是否正在进行更多数据请求                                                   | boolean                |
-| noMore        | 是否没有更多数据了，配置 options.isNoMore 后生效                           | boolean                |
-| error         | 请求错误消息                                                               | Error                  |
-| loadMore      | 加载更多数据，会自动捕获异常，通过  options.onError  处理                  | () => void             |
-| loadMoreAsync | 加载更多数据，与  loadMore  行为一致，但返回的是 Promise，需要自行处理异常 | () => Promise\<TData\> |
-| reload        | 加载第一页数据，会自动捕获异常，通过  options.onError  处理                | () => void             |
-| reloadAsync   | 加载第一页数据，与  reload  行为一致，但返回的是 Promise，需要自行处理异常 | () => Promise\<TData\> |
-| mutate        | 直接修改 data                                                              | (data: TData) ⇒ void   |
-| cancel        | 忽略当前 Promise 的响应                                                    | () ⇒ void              |
-
-#### 代码演示
-
-##### 基础用法
-
-第一个例子我们演示最基本的无限滚动写法。
-
-[staging-glade-2mwr4n - CodeSandbox](https://codesandbox.io/s/2mwr4n)
-
-##### 分页
-
-在数据固定场景下，我们有时候会用  page  和  pageSize  来请求新的分页数据。
-
-[eloquent-snow-trqyjy - CodeSandbox](https://codesandbox.io/s/trqyjy)
-
-##### 滚动加载
-
-在无限滚动场景中，我们最常见的是滚动到底部时自动加载。通过配置以下几个属性，即可实现滚动自动加载。
-
-- options.target  指定父级元素（父级元素需设置固定高度，且支持内部滚动）
-- options.isNoMore  判断是不是没有更多数据了
-
-[pensive-tharp-hwkrw5 - CodeSandbox](https://codesandbox.io/s/hwkrw5)
-
-##### **数据重置**
-
-通过  reload  即可实现数据重置，下面示例我们演示在  filter  变化后，重置数据到第一页。
-
-[cocky-dew-222wdn - CodeSandbox](https://codesandbox.io/s/222wdn)
-
-##### 数据突变
-
-通过  mutate，我们可以直接修改当前  data。下面示例演示了删除某条数据。
-
-[friendly-meadow-29fmqd - CodeSandbox](https://codesandbox.io/s/29fmqd)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useInfiniteScroll/index.tsx)
 
 ```jsx
 import type { DependencyList } from "react";
@@ -2716,86 +2487,9 @@ export default useInfiniteScroll;
 
 ### usePagination
 
-usePagination 基于 useRequest 实现，封装了常见的分页逻辑。与 useRequest 不同的点有以下几点：
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-pagination)
 
-1、service 的第一个参数为 { current: number, pageSize: number }
-
-2、service 返回的数据结构为 { total: number, list: Item[] }
-
-3、会额外返回 pagination 字段，包含所有分页信息，及操作分页的函数
-
-4、refreshDeps 变化，会重置 current 到第一页，并重新发起请求，一般你可以把 pagination 依赖的条件放这里
-
-#### API
-
-useRequest 所有参数和返回结果均适用于 usePagination，此处不再赘述。
-
-```tsx
-type Data<T> = { total: number; list: T[]};
-type Params = [{ current: number; pageSize: number; [key: string]: any}, ...any[]];
-
-const {
-	...,
-	pagination: {
-		current: number;
-		pageSize: number;
-		total: number;
-		totalPage: number;
-		onChange: (current: number, pageSize: number) => void;
-		changeCurrent: (current: number) => void;
-		changePageSize: (pageSize: number) => void;
-	}
-} = usePagination<TData extends Data, TParams extends Params>(
-	service: (...args: TParams) => Promise<TData>,
-	{
-		...,
-		defaultPageSize?: number;
-		refreshDeps?: any[];
-	}
-)
-```
-
-##### Params
-
-| 参数            | 说明                                                                                      | 类型                 | 默认值 |
-| --------------- | ----------------------------------------------------------------------------------------- | -------------------- | ------ |
-| defaultPageSize | 默认分页数量                                                                              | number               | 10     |
-| defaultCurrent  | 初次请求时的页数                                                                          | number               | 1      |
-| refreshDeps     | refreshDeps 变化，会重置 current 到第一页，并重新发起请求，一般你可以把依赖的条件放这里。 | React.DependencyList | []     |
-
-##### Result
-
-| 参数       | 说明                     | 类型 |
-| ---------- | ------------------------ | ---- |
-| pagination | 分页数据及操作分页的方法 | -    |
-
-#### 代码演示
-
-##### **基础用法**
-
-默认用法与  useRequest  一致，但会多返回一个  pagination  参数，包含所有分页信息，及操作分页的函数。
-
-[great-joliot-pqjpfm - CodeSandbox](https://codesandbox.io/s/pqjpfm)
-
-##### **更多参数**
-
-下面的代码演示了，增加了性别参数，在修改性别时，重置分页到第一页，并重新请求数据。
-
-[elated-fast-kc3y98 - CodeSandbox](https://codesandbox.io/s/kc3y98)
-
-##### **refreshDeps**
-
-refreshDeps  是一个语法糖，当它变化时，会重置分页到第一页，并重新请求数据，一般你可以把依赖的条件放这里。以下示例通过  refreshDeps  更方便的实现了上一个功能。
-
-[purple-hill-g7tr3r - CodeSandbox](https://codesandbox.io/s/g7tr3r)
-
-##### **缓存**
-
-通过  useRequest  的  params  缓存能力，我们可以缓存分页数据和其它条件。
-
-[strange-smoke-fjnggp - CodeSandbox](https://codesandbox.io/s/fjnggp)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/usePagination/index.ts)
 
 ```jsx
 import type { Result, Options } from "../useRequest/src/types";
@@ -2930,48 +2624,9 @@ export default usePagination;
 
 ### useDynamicList
 
-一个帮助你管理动态列表状态，并能生成唯一 key 的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-dynamic-list)
 
-#### API
-
-```jsx
-const result: Result = useDynamicList(initialList?: T[]);
-```
-
-##### Params
-
-| 参数        | 说明         | 类型 | 默认值 |
-| ----------- | ------------ | ---- | ------ |
-| initialList | 列表的初始值 | T[]  | []     |
-
-##### Result
-
-| 参数      | 说明                   | 类型                                        | 备注 |
-| --------- | ---------------------- | ------------------------------------------- | ---- |
-| list      | 当前的列表             | T[]                                         | -    |
-| resetList | 重新设置 list 的值     | (list: T[]) ⇒ void                          | -    |
-| insert    | 在指定位置插入元素     | (index: number, item: T) ⇒ void             | -    |
-| merge     | 在指定位置插入多个元素 | (index: number, items: T[]) ⇒ void          | -    |
-| replace   | 替换指定元素           | (index: number, item: T) ⇒ void             | -    |
-| remove    | 删除指定元素           | (index: number) ⇒ void                      | -    |
-| move      | 移动元素               | (oldIndex: number, newIndex: number) ⇒ void | -    |
-| getKey    | 获得某个元素的 uuid    | (index: number) ⇒ number                    | -    |
-| getIndex  | 获得某个 key 的 index  | (key: number) ⇒ number                      | -    |
-| push      | 在列表末尾添加元素     | (item: T) ⇒ void                            | -    |
-| pop       | 移除末尾元素           | () ⇒ void                                   | -    |
-| unshift   | 在列表起始位置添加元素 | (item: T) ⇒ void                            | -    |
-| shift     | 移除起始位置元素       | () ⇒ void                                   | -    |
-| sortList  | 校准排序               | (list: T[]) ⇒ T[]                           | -    |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/2pn7wf)
-
-[在 antd Form 中使用 - CodeSandbox](https://codesandbox.io/s/tvy5h4)
-
-[在 antd Form 中使用的另一种写法 - CodeSandbox](https://codesandbox.io/s/hn6p94)
-
-[可拖拽的动态表格 - CodeSandbox](https://codesandbox.io/s/fzhnp8)
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useDynamicList/index.ts)
 
 #### 源码解析
 
@@ -3177,69 +2832,29 @@ const useDynamicList = <T>(initialList: T[] = []) => {
 };
 
 export default useDynamicList;
-
 ```
 
 ### useVirtualList
 
-提供虚拟化列表能力的 Hook，用于解决展示海量数据渲染时首屏渲染缓慢和滚动卡顿问题。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-virtual-list)
 
-#### API
-
-```jsx
-const [list, scrollTo] = useVirtualList<T>(
-	originalList: T[],
-	options: {
-		containerTarget: (() => Element)) | Element | MutableRefObject<Element>,
-    wrapperTarget: (() => Element)) | Element | MutableRefObject<Element>,
-    itemHeight: number | ((index: number, data: T) => number)),
-    overscan?: number,
-	}
-)
-```
-
-##### Params
-
-| 参数         | 说明                                                                      | 类型    | 默认值 |
-| ------------ | ------------------------------------------------------------------------- | ------- | ------ |
-| originalList | 包含大量数据的列表。注意：必须经过 useMemo 处理或者永不变化，否则会死循环 | T[]     | []     |
-| options      | 配置项                                                                    | Options | -      |
-
-##### Options
-
-| 参数            | 说明                                                   | 类型                                                      | 默认值 |
-| --------------- | ------------------------------------------------------ | --------------------------------------------------------- | ------ |
-| containerTarget | 外部容器，支持 DOM 节点或者 Ref 对象                   | (() => Element) \| Element \| MutableRefObject\<Element\> |        |
-| wrapperTarget   | 内部容器，支持 DOM 节点或者 Ref 对象                   | (() => Element) \| Element \| MutableRefObject\<Element\> |        |
-| itemHeight      | 行高度，静态高度可以直接写入像素值，动态高度可传入函数 | number \| ((index: number, data: T) => number)            |        |
-| overscan        | 视区上、下额外展示的 DOM 节点数量                      | number                                                    | 5      |
-
-##### Result
-
-| 参数     | 说明                   | 类型                       |
-| -------- | ---------------------- | -------------------------- |
-| list     | 当前需要展示的列表内容 | {data: T, index: number}[] |
-| scrollTo | 快速滚动到指定 index   | (index: number) ⇒ void     |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/h7kxzj)
-
-[动态元素高度 - CodeSandbox](https://codesandbox.io/s/hzvzj9)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useVirtualList/index.ts)
 
 ```tsx
-import { useEffect, useMemo, useRef, useState } from "react";
-import type { CSSProperties } from "react";
-import useEventListener from "../useEventListener";
+import { type BasicTarget, getTargetElement } from "@/utils/domTarget";
+import useMemoizedFn from "../useMemoizedFn";
 import useUpdateEffect from "../useUpdateEffect";
+import useEventListener from "../useEventListener";
+import {
+  type CSSProperties,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { isNumber } from "@/utils";
 import useLatest from "../useLatest";
 import useSize from "../useSize";
-import useMemoizedFn from "../useMemoizedFn";
-import { getTargetElement } from "utils/domTarget";
-import type { BasicTarget } from "utils/domTarget";
-import { isNumber } from "utils";
 
 type ItemHeight<T> = (index: number, data: T) => number;
 
@@ -3420,60 +3035,14 @@ export default useVirtualList;
 
 ### useHistoryTravel
 
-<aside>
-💡 监控状态历史变化记录，方便在历史记录中前进与后退。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-history-travel)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useHistoryTravel/index.ts)
 
 ```tsx
-const {
-	value,
-	setValue,
-	backLength,
-	forwardLength,
-	go,
-	back,
-	forward,
-	reset,
-} = useHistoryTravel<T>(initialValue?: T, maxLength: number = 0);
-```
-
-##### Params
-
-| 参数         | 说明                                                       | 类型   | 默认值   |
-| ------------ | ---------------------------------------------------------- | ------ | -------- |
-| initialValue | 可选，初始值                                               | any    | -        |
-| maxLength    | 可选，限制历史记录最大长度，超过最大长度后将删除第一个记录 | number | 0 不限制 |
-
-##### Result
-
-| 参数          | 说明                                       | 类型                         |
-| ------------- | ------------------------------------------ | ---------------------------- |
-| value         | 当前值                                     | T                            |
-| setValue      | 设置 value                                 | (value: T) ⇒ void            |
-| backLength    | 可回退历史长度                             | number                       |
-| forwardLength | 可前进历史长度                             | number                       |
-| go            | 前进步数，step < 0 为后退，step > 0 为前进 | (step: number) ⇒ void        |
-| back          | 向后回退一步                               | () ⇒ void                    |
-| forward       | 向前前进一步                               | () ⇒ void                    |
-| reset         | 重置到初始值，或提供一个新的初始值         | (newInitialValue?: T) ⇒ void |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/g33xgy)
-
-[可撤销恢复的 Todo List - CodeSandbox](https://codesandbox.io/s/p85fc9)
-
-[限制历史记录最大长度](https://codesandbox.io/p/sandbox/xian-zhi-li-shi-ji-lu-zui-da-chang-du-7rrh5h)
-
-#### 源码解析
-
-```tsx
+import { isNumber } from "@/utils";
+import useMemoizedFn from "../useMemoizedFn";
 import { useRef, useState } from "react";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
-import { isNumber } from "../../../utils";
 
 /**
  * past - 过去的状态队列
@@ -3624,52 +3193,13 @@ export default useHistoryTravel;
 
 ### useNetwork
 
-<aside>
-💡 管理网络连接状态的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-network)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useNetwork/index.ts)
 
 ```tsx
-interface NetworkState {
-  online?: boolean;
-  since?: Date;
-  rtt?: number;
-  type?: string;
-  downlink?: number;
-  saveData?: boolean;
-  downlinkMax?: number;
-  effectiveType?: string;
-}
-
-const result: NetworkState = useNetwork();
-```
-
-##### Result
-
-| 参数          | 说明                                   | 类型                                                                           |
-| ------------- | -------------------------------------- | ------------------------------------------------------------------------------ |
-| online        | 网络是否为在线                         | boolean                                                                        |
-| since         | online 最后改变时间                    | Date                                                                           |
-| rtt           | 当前连接下评估的往返时延               | number                                                                         |
-| type          | 设备使用与所述网络进行通信的连接的类型 | bluetooth \| cellular \| ethernet \| none \| wifi \| wimax \| other \| unknown |
-| downlink      | 有效带宽估算(单位：兆比特/秒)          | number                                                                         |
-| downlinkMax   | 最大下行速度(单位：兆比特/秒)          | number                                                                         |
-| saveData      | 用户代理是否设置了减少数据使用的选项   | boolean                                                                        |
-| effectiveType | 网络连接的类型                         | slow-2g \| 2g \| 3g \| 4g                                                      |
-
-更多信息参考：[MDN NetworkInformation](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation)
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/kc6mnv)
-
-#### 源码解析
-
-```tsx
+import { isObject } from "@/utils";
 import { useEffect, useState } from "react";
-import { isObject } from "../../../utils";
 
 /**
  * since: online 最后改变时间
@@ -3755,7 +3285,7 @@ const useNetwork = (): NetworkState => {
     // 监听网络 offline 事件
     window.addEventListener(NetworkEventType.OFFLINE, onOffline);
 
-    // 监听 navigator 的 connection 的 change 事件
+    // 监听 nav.connection || nav.mozConnection || nav.webkitConnection 的 change 事件
     const connection = getConnection();
     connection?.addEventListener(NetworkEventType.CHANGE, onConnectionChange);
 
@@ -3777,65 +3307,73 @@ export default useNetwork;
 
 ### useSelections
 
-<aside>
-💡 常见联动 Checkbox 逻辑封装，支持多选、单选、全选逻辑，还提供了是否选择，是否全选，是否半选的状态。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-selections)
 
-</aside>
-
-#### API
-
-```tsx
-const result: Result = useSelections<T>(items: T[], defaultSelected?: T[]);
-```
-
-##### Result
-
-| 参数              | 说明                                                                                                                                                  | 类型                                                          |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| selected          | 已经选择的元素                                                                                                                                        | T[]                                                           |
-| allSelected       | 是否全选                                                                                                                                              | boolean                                                       |
-| noneSelected      | 是否一个都没有选择                                                                                                                                    | boolean                                                       |
-| partiallySelected | 是否半选                                                                                                                                              | boolean                                                       |
-| isSelected        | 是否被选择                                                                                                                                            | (value: T) ⇒ boolean                                          |
-| setSelected       | 选择多个元素。多次执行时，后面的返回值会覆盖前面的，因此如果希望合并多次操作的结果，需要手动处理：setSelected((oldArray) ⇒ oldArray.concat(newArray)) | (value: T[]) ⇒ void \| (value: (prevState: T[]) ⇒ T[]) ⇒ void |
-| select            | 选择单个元素                                                                                                                                          | (value: T) ⇒ void                                             |
-| unSelect          | 取消选择单个元素                                                                                                                                      | (value: T) ⇒ void                                             |
-| toggle            | 反选单个元素                                                                                                                                          | (value: T) ⇒ void                                             |
-| selectAll         | 选择全部元素                                                                                                                                          | () ⇒ void                                                     |
-| unSelectAll       | 取消选择全部元素                                                                                                                                      | () ⇒ void                                                     |
-| toggleAll         | 反选全部元素                                                                                                                                          | () ⇒ void                                                     |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/st4wh7)
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useSelections/index.ts)
 
 ```tsx
 import { useMemo, useState } from "react";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
+import type { Key } from "react";
+import useMemoizedFn from "../useMemoizedFn";
+import { isPlainObject } from "lodash";
+import { isFunction, isString } from "@/utils";
 
-const useSelections = <T,>(items: T[], defaultSelected: T[] = []) => {
-  // 维护被选中的数组
+export interface Options<T> {
+  defaultSelected?: T[];
+  itemKey?: string | ((item: T) => Key);
+}
+
+const useSelections = <T,>(items: T[], options?: T[] | Options<T>) => {
+  let defaultSelected: T[] = [];
+  let itemKey: Options<T>["itemKey"];
+
+  if (Array.isArray(options)) {
+    defaultSelected = options;
+  } else if (isPlainObject(options)) {
+    defaultSelected = options?.defaultSelected ?? defaultSelected;
+    itemKey = options?.itemKey ?? itemKey;
+  }
+
+  const getKey = (item: T): Key => {
+    if (isFunction(itemKey)) {
+      return itemKey(item);
+    }
+    if (isString(itemKey) && isPlainObject(item)) {
+      return item[itemKey];
+    }
+
+    return item as Key;
+  };
+
   const [selected, setSelected] = useState<T[]>(defaultSelected);
 
-  // 维护被选中的 Set 集合
-  const selectedSet = useMemo(() => new Set(selected), [selected]);
+  const selectedMap = useMemo(() => {
+    const keyToItemMap = new Map();
 
-  // 判断是否选中
-  const isSelected = (item: T) => selectedSet.has(item);
+    if (!Array.isArray(selected)) {
+      return keyToItemMap;
+    }
+
+    selected.forEach((item) => {
+      keyToItemMap.set(getKey(item), item);
+    });
+
+    return keyToItemMap;
+  }, [selected]);
+
+  // 是否被选择
+  const isSelected = (item: T) => selectedMap.has(getKey(item));
 
   // 选择单个元素
   const select = (item: T) => {
-    selectedSet.add(item);
-    // Array.from 将 Set 转换成数组
-    return setSelected(Array.from(selectedSet));
+    selectedMap.set(getKey(item), item);
+    setSelected(Array.from(selectedMap.values()));
   };
 
   // 取消选择单个元素
   const unSelect = (item: T) => {
-    selectedSet.delete(item);
-    return setSelected(Array.from(selectedSet));
+    selectedMap.delete(getKey(item));
+    setSelected(Array.from(selectedMap.values()));
   };
 
   // 反选单个元素
@@ -3849,30 +3387,30 @@ const useSelections = <T,>(items: T[], defaultSelected: T[] = []) => {
 
   // 选择全部元素
   const selectAll = () => {
-    items.forEach((o) => {
-      selectedSet.add(o);
+    items.forEach((item) => {
+      selectedMap.set(getKey(item), item);
     });
-    setSelected(Array.from(selectedSet));
+    setSelected(Array.from(selectedMap.values()));
   };
 
   // 取消选择全部元素
   const unSelectAll = () => {
-    items.forEach((o) => {
-      selectedSet.delete(o);
+    items.forEach((item) => {
+      selectedMap.delete(getKey(item));
     });
-    setSelected(Array.from(selectedSet));
+    setSelected(Array.from(selectedMap.values()));
   };
 
   // 是否一个都没有选择
   const noneSelected = useMemo(
-    () => items.every((o) => !selectedSet.has(o)),
-    [items, selectedSet]
+    () => items.every((item) => !selectedMap.has(getKey(item))),
+    [items, selectedMap]
   );
 
   // 是否全选
   const allSelected = useMemo(
-    () => items.every((o) => selectedSet.has(o)) && !noneSelected,
-    [items, selectedSet, noneSelected]
+    () => items.every((item) => selectedMap.has(getKey(item))) && !noneSelected,
+    [items, selectedMap, noneSelected]
   );
 
   // 是否半选
@@ -3882,8 +3420,12 @@ const useSelections = <T,>(items: T[], defaultSelected: T[] = []) => {
   );
 
   // 反选全部元素
-  const toggleAll = () => {
-    allSelected ? unSelectAll() : selectAll();
+  const toggleAll = () => (allSelected ? unSelectAll() : selectAll());
+
+  // 清除所有选中元素
+  const clearAll = () => {
+    selectedMap.clear();
+    setSelected([]);
   };
 
   return {
@@ -3898,6 +3440,7 @@ const useSelections = <T,>(items: T[], defaultSelected: T[] = []) => {
     toggle: useMemoizedFn(toggle),
     selectAll: useMemoizedFn(selectAll),
     unSelectAll: useMemoizedFn(unSelectAll),
+    clearAll: useMemoizedFn(clearAll),
     toggleAll: useMemoizedFn(toggleAll),
   } as const;
 };
@@ -3907,72 +3450,9 @@ export default useSelections;
 
 ### useCountDown
 
-<aside>
-💡 一个用于管理倒计时的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-count-down)
 
-</aside>
-
-#### API
-
-```tsx
-type TDate = Date | number | string | undefined;
-
-interface FormattedRes {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-  milliseconds: number;
-}
-
-const [countdown, formattedRes] = useCountDown({
-  leftTime,
-  targetDate,
-  interval,
-  onEnd,
-});
-```
-
-##### Params
-
-| 参数       | 说明                 | 类型      | 默认值 |
-| ---------- | -------------------- | --------- | ------ |
-| leftTime   | 剩余时间（毫秒）     | number    | -      |
-| targetDate | 目标时间             | TDate     | -      |
-| interval   | 变化时间间隔（毫秒） | number    | 1000   |
-| onEnd      | 倒计时结束触发       | () ⇒ void |        |
-
-##### Result
-
-| 参数         | 说明                 | 类型         |
-| ------------ | -------------------- | ------------ |
-| countdown    | 倒计时时间戳（毫秒） | number       |
-| formattedRes | 格式化后的倒计时     | FormattedRes |
-
-#### 备注
-
-leftTime、targetDate、interval、onEnd 支持动态变化
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/6f78tq)
-
-[进阶使用 - CodeSandbox](https://codesandbox.io/s/wmt6cx)
-
-[剩余时间 - CodeSandbox](https://codesandbox.io/s/dk4dwf)
-
-说明：
-
-useCountDown 的精度为毫秒，可能会造成以下几个问题
-
-- 即使设置 interval 时间为 1000 毫秒，useCountDown 每次更新间隔也不一定正好是 1000 毫秒，而是 1000 毫秒左右。
-- 在第二个 demo 中，countdown 开始一般是 499x 毫秒，因为程序执行有延迟。
-
-如果你的精度只要到秒就好了，可以这样用 Math.round(countdown / 1000)。
-
-如果同时传了 leftTime 和 targetDate，则会忽略 targetDate，以 leftTime 为主。
-
-#### 源码解析
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useCountDown/index.ts)
 
 ```tsx
 import dayjs from "dayjs";
@@ -4070,48 +3550,14 @@ export default useCountDown;
 
 ### useCounter
 
-<aside>
-💡 管理计数器的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-counter)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useCounter/index.ts)
 
 ```tsx
-const [current, { inc, dec, set, reset }] = useCounter(initialValue, {
-  min,
-  max,
-});
-```
-
-##### Params
-
-| 参数         | 说明   | 类型   | 默认值 |
-| ------------ | ------ | ------ | ------ |
-| initialValue | 默认值 | number | 0      |
-| min          | 最小值 | number | -      |
-| max          | 最大值 | number | -      |
-
-##### Result
-
-| 参数    | 说明         | 类型                                             |
-| ------- | ------------ | ------------------------------------------------ |
-| current | 当前值       | number                                           |
-| inc     | 加，默认加 1 | (delta?: number) ⇒ void                          |
-| dec     | 减，默认减 1 | (delta?: number) ⇒ void                          |
-| set     | 设置 current | (value: number \| ((c: number) ⇒ number)) ⇒ void |
-| reset   | 重置为默认值 | () ⇒ void                                        |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/w5g96z)
-
-#### 源码解析
-
-```tsx
+import { isNumber } from "@/utils";
+import useMemoizedFn from "../useMemoizedFn";
 import { useState } from "react";
-import { isNumber } from "../../../utils";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
 
 export interface Options {
   min?: number;
@@ -4201,55 +3647,14 @@ export default useCounter;
 
 ### useTextSelection
 
-<aside>
-💡 实时获取用户当前选取的文本内容及位置。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-text-selection)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useTextSelection/index.ts)
 
 ```tsx
-const state = useTextSelection(target?)
-```
-
-##### Params
-
-| 参数   | 说明               | 类型                                                                           | 默认值   |
-| ------ | ------------------ | ------------------------------------------------------------------------------ | -------- |
-| target | DOM element or ref | Element \| Document \| (() ⇒ Element \| Document) \| MutableRefObject<Element> | document |
-
-##### Result
-
-| 参数  | 说明                           | 类型  |
-| ----- | ------------------------------ | ----- |
-| state | DOM 节点内选取文本的内容和位置 | State |
-
-##### State
-
-| 参数   | 说明             | 类型   |
-| ------ | ---------------- | ------ |
-| text   | 用户选取的文本值 | string |
-| left   | 文本的左坐标     | number |
-| right  | 文本的右坐标     | number |
-| top    | 文本的顶坐标     | number |
-| bottom | 文本的底坐标     | number |
-| height | 文本的高度       | number |
-| width  | 文本的宽度       | number |
-
-#### 代码演示
-
-[基础用法 - CodeSandbox](https://codesandbox.io/s/pfpnx3)
-
-[监听特定区域文本选择 - CodeSandbox](https://codesandbox.io/s/cjx52k)
-
-[划词翻译 - CodeSandbox](https://codesandbox.io/s/jf3x45)
-
-#### 源码解析
-
-```tsx
-import { BasicTarget, getTargetElement } from "../../../utils/domTarget";
+import { getTargetElement, type BasicTarget } from "@/utils/domTarget";
+import useEffectWithTarget from "@/utils/useEffectWithTarget";
 import { useRef, useState } from "react";
-import useEffectWithTarget from "../../../utils/useEffectWithTarget";
 
 interface Rect {
   top: number;
@@ -4385,92 +3790,21 @@ export default useTextSelection;
 
 ### useWebSocket
 
-<aside>
-💡 用于处理 Websocket 的 Hook。
+[文档地址](https://ahooks.js.org/zh-CN/hooks/use-web-socket)
 
-</aside>
-
-#### API
+[详细代码](https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useWebSocket/index.ts)
 
 ```tsx
-enum ReadyState {
-  Connecting = 0,
-  Open = 1,
-  Closing = 2,
-  Closed = 3,
-}
-
-interface Options {
-  reconnectLimit?: number;
-  reconnectInterval?: number;
-	manual?: boolean;
-  onOpen?: (event: WebSocketEventMap['open'], instance: WebSocket) => void;
-  onClose?: (event: WebSocketEventMap['close'], instance: WebSocket) => void;
-  onMessage?: (message: WebSocketEventMap['message'], instance: WebSocket) => void;
-  onError?: (event: WebSocketEventMap['error'], instance: WebSocket) => void;
-  protocols?: string | string[];
-}
-
-interface Result {
-  latestMessage?: WebSocketEventMap['message'];
-  sendMessage: WebSocket['send'];
-  disconnect: () => void;
-  connect: () => void;
-  readyState: ReadyState;
-  webSocketIns?: WebSocket;
-}
-
-useWebSocket(socketUrl: string, options?: Options): Result;
-```
-
-##### Params
-
-| 参数      | 说明                 | 类型    | 默认值 |
-| --------- | -------------------- | ------- | ------ |
-| socketUrl | 必填，webSocket 地址 | string  | -      |
-| options   | 可选，连接配置项     | Options | -      |
-
-##### Options
-
-| 参数              | 说明                   | 类型                                                                 | 默认值 |
-| ----------------- | ---------------------- | -------------------------------------------------------------------- | ------ |
-| onOpen            | webSocket 连接成功回调 | (event: WebSocketEventMap['open'], instance: WebSocket) => void      | -      |
-| onClose           | webSocket 关闭回调     | (event: WebSocketEventMap['close'], instance: WebSocket) => void     | -      |
-| onMessage         | webSocket 收到消息回调 | (message: WebSocketEventMap['message'], instance: WebSocket) => void | -      |
-| onError           | webSocket 错误回调     | (event: WebSocketEventMap['error'], instance: WebSocket) => void     | -      |
-| reconnectLimit    | 重试次数               | number                                                               | 3      |
-| reconnectInterval | 重试时间间隔 (ms)      | number                                                               | 3000   |
-| manual            | 手动启动连接           | boolean                                                              | false  |
-| protocols         | 子协议                 | string \| string[]                                                   | -      |
-
-##### Result
-
-| 参数          | 说明                                                   | 类型                         |
-| ------------- | ------------------------------------------------------ | ---------------------------- |
-| latestMessage | 最新消息                                               | WebSocketEventMap[’Message’] |
-| sendMessage   | 发送消息函数                                           | WebSocket[’send’]            |
-| disconnect    | 手动断开 webSocket 连接                                | () ⇒ void                    |
-| connect       | 手动连接 webSocket，如果当前已有连接，则关闭后重新连接 | () ⇒ void                    |
-| readyState    | 当前 webSocket 连接状态                                | ReadyState                   |
-| webSocketIns  | webSocket 实例                                         | WebSocket                    |
-
-#### 代码演示
-
-[trusting-dust-gmtws6](https://codesandbox.io/p/sandbox/trusting-dust-gmtws6)
-
-#### 源码解析
-
-```tsx
-import useLatest from "@/hooks/useLatest";
-import { useEffect, useRef, useState } from "react";
-import useUnmount from "@/hooks/useUnmount";
-import useMemoizedFn from "@/hooks/useMemoizedFn";
+iimport { useEffect, useRef, useState } from "react";
+import useLatest from "../useLatest";
+import useUnmount from "../useUnmount";
+import useMemoizedFn from "../useMemoizedFn";
 
 /**
- * ReadyState.Connecting: 正在连接中
- * ReadyState.Open: 已经连接并可以通讯
- * ReadyState.Closing: 连接正在关闭
- * ReadyState.Closed: 连接已关闭或没有连接成功
+ * Connecting: 正在连接中
+ * Open: 已经连接并可以通讯
+ * Closing: 连接正在关闭
+ * Closed: 连接已关闭或没有连接成功
  * */
 export enum ReadyState {
   Connecting = 0,
@@ -4547,17 +3881,17 @@ const useWebSocket = (socketUrl: string, options: Options = {}): Result => {
 
   // 重试
   const reconnect = () => {
-    // 没有超过重试次数并且当前 webSocket 实例状态不是 ReadyState.Open
+    // 没有超过重试次数并且当前 webSocket 实例状态不是 Open
     if (
       reconnectTimesRef.current < reconnectLimit &&
       websocketRef.current?.readyState !== ReadyState.Open
     ) {
-      // 如果存在重试逻辑，则清除掉计定时器
+      // 如果已经存在重试逻辑，则清除掉计定时器
       if (reconnectTimerRef.current) {
         clearTimeout(reconnectTimerRef.current);
       }
 
-      // 定时重连
+      // 重连
       reconnectTimerRef.current = setTimeout(() => {
         connectWs();
         reconnectTimesRef.current++;
@@ -4567,7 +3901,7 @@ const useWebSocket = (socketUrl: string, options: Options = {}): Result => {
 
   // 创建连接
   const connectWs = () => {
-    // 如果存在重试逻辑，则清除掉计定时器
+    // 如果已经存在重试逻辑，则清除掉计定时器
     if (reconnectTimerRef.current) {
       clearTimeout(reconnectTimerRef.current);
     }
@@ -4644,7 +3978,7 @@ const useWebSocket = (socketUrl: string, options: Options = {}): Result => {
     }
   };
 
-  // 手动连接 webSocket，如果当前已有连接，则关闭后重新连接
+  // 连接 webSocket，如果当前已有连接，则关闭后重新连接
   const connect = () => {
     reconnectTimesRef.current = 0;
     connectWs();
