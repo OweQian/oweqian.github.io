@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-07-18T15:50:47+08:00
+date: 2024-07-21T18:15:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,22 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-07
+
+#### 07-21
+
+《认知觉醒》第二遍读完。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_56.jpg" alt="" width="400" />
+
+#### 07-20
+
+😄 烤鸡腿真好吃。
+
+#### 07-19
+
+冲进 5 公里！！！
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_55.jpg" alt="" width="400" />
 
 #### 07-18
 
@@ -415,7 +431,7 @@ Hakuna matata.
 
 《本杰明·巴顿奇事》
 
-<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=238865321&bvid=BV1we41117tb&cid=1409086356&p=1autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?aid=238865321&bvid=BV1we41117tb&cid=1409086356&p=1autoplay=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 #### 04-20
 
