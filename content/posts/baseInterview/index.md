@@ -1,11 +1,11 @@
 ---
-title: "💻 前端基础技术面试题汇总"
+title: "💻 前端基础面试题汇总"
 date: 2024-08-08T13:51:55+08:00
 tags: ["第一技能"]
 categories: ["第一技能"]
 ---
 
-本篇文章旨在利用一天时间，剖析经典面试题，带你快速建立前端基础技术知识体系，让面试更加 "有底气"，欢迎您的指正和点赞。
+本篇文章旨在利用一天时间，剖析经典前端基础面试题，带你快速建立前端基础知识体系，让面试更加 "有底气"，欢迎您的指正和点赞。
 
 <!--more-->
 
@@ -157,7 +157,7 @@ BFC 的常见应用
 - 判断是数组还是对象
 - 递归
 
-```jsx
+```javascript
 function deepClone(obj = {}) {
   if (typeof obj !== "object" || obj == null) {
     return obj;
@@ -196,7 +196,7 @@ class 实际上是函数，语法糖
 
 #### 手写一个简易的 jQuery，考虑插件和扩展性
 
-```jsx
+```javascript
 class jQuery {
   constructor(selector) {
     const result = document.querySelectorAll(selector);
@@ -257,7 +257,7 @@ class MyJQuery extends jQuery {
 
 #### 手写 bind 函数 ⭐️
 
-```jsx
+```javascript
 Function.prototype.bind = function () {
   // 将参数拆解为数组
   const args = Array.prototype.slice.call(arguments);
@@ -279,7 +279,7 @@ Function.prototype.bind = function () {
 
 - 隐藏数据，只提供 API
 
-```jsx
+```javascript
 function createCache() {
   const data = {};
   return {
@@ -309,7 +309,7 @@ function createCache() {
 
 #### 手写用 Promise 加载一张图片 ⭐️
 
-```jsx
+```javascript
 function loadImg(src) {
   return new Promise((resolve, reject) => {
     const img = document.createElement("img");
@@ -394,7 +394,7 @@ Callback Hell
 - then catch 链式调用
 - API .resolve .reject .all .race
 
-```jsx
+```javascript
 class MyPromise {
   state = "pending";
   value = undefined;
@@ -588,7 +588,7 @@ then 和 catch 改变状态：
 
 #### 编写一个通用的事件监听函数
 
-```jsx
+```javascript
 function bindEvent(elem, type, selector, fn) {
   if (fn == null) {
     fn = selector;
@@ -625,7 +625,7 @@ function bindEvent(elem, type, selector, fn) {
 
 #### 手写一个简易的 ajax
 
-```jsx
+```javascript
 function ajax(url) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -792,7 +792,7 @@ Etag
 
 ### webpack
 
-```jsx
+```javascript
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -826,7 +826,7 @@ module.exports = {
 };
 ```
 
-```jsx
+```javascript
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -858,9 +858,9 @@ module.exports = {
 
 ### babel
 
-```markdown
+```json
 {
-"presets": ["@babel/preset-env"]
+  "presets": ["@babel/preset-env"]
 }
 ```
 
@@ -937,7 +937,7 @@ module.exports = {
 
 - 用户输入结束或暂停时，才会触发 change 事件
 
-```jsx
+```javascript
 function debounce(fn, delay = 500) {
   let timer = null;
   return function () {
@@ -956,7 +956,7 @@ function debounce(fn, delay = 500) {
 
 - 无论拖拽速度多快，都会每隔 delay 触发一次
 
-```jsx
+```javascript
 function throttle(fn, delay = 500) {
   let timer = null;
   return function () {
@@ -1022,7 +1022,7 @@ xsrf 预防：
 
 ### **手写深度比较，模拟 lodash isEqual**
 
-```jsx
+```javascript
 function isObject(obj) {
   return typeof obj === "object" && obj !== null;
 }
@@ -1068,7 +1068,7 @@ function isEqual(obj1, obj2) {
 - 返回值是什么
 - 是否会对原数组造成影响
 
-```
+```javascript
 // const arr = [10, 20, 30, 40]
 
 // // pop
@@ -1086,12 +1086,11 @@ function isEqual(obj1, obj2) {
 // // unshift
 // const unshiftRes = arr.unshift(5) // 返回 length
 // console.log(unshiftRes, arr)
-
 ```
 
 #### 数组的 API，有哪些是纯函数
 
-```
+```javascript
 // // 纯函数：1. 不改变源数组（没有副作用）；2. 返回一个新的数组
 // const arr = [10, 20, 30, 40]
 
@@ -1103,18 +1102,16 @@ function isEqual(obj1, obj2) {
 // const arr3 = arr.filter(num => num > 25)
 // // slice
 // const arr4 = arr.slice()
-
 ```
 
 #### 数组的 API，有哪些是非纯函数
 
-```
+```javascript
 // // push pop shift unshift
 // // forEach
 // // some every
 // // reduce
 // splice
-
 ```
 
 ### 数组 slice 和 splice 区别
@@ -1123,32 +1120,29 @@ function isEqual(obj1, obj2) {
 - 参数和返回值
 - 是否是纯函数
 
-```
+```javascript
 // const arr = [10, 20, 30, 40, 50]
 
 // // slice 纯函数
 // const arr1 = arr.slice()
 // const arr2 = arr.slice(1, 4) // startIndex endIndex
 // const arr4 = arr.slice(-3) // 从最后开始截取
-
 ```
 
-```
-var myFish = ['angel', 'clown', 'drum', 'mandarin', 'sturgeon'];
-var removed = myFish.splice(3, 1) // 从索引3位置开始删除1个元素
+```javascript
+var myFish = ["angel", "clown", "drum", "mandarin", "sturgeon"];
+var removed = myFish.splice(3, 1); // 从索引3位置开始删除1个元素
 
-var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
-var removed = myFish.splice(2, 0, 'drum', 'guitar') // 从索引2位置开始添加两个元素
-
+var myFish = ["angel", "clown", "mandarin", "sturgeon"];
+var removed = myFish.splice(2, 0, "drum", "guitar"); // 从索引2位置开始添加两个元素
 ```
 
 ### [10, 20, 30].map(parseInt) 返回结果是什么
 
-```
+```javascript
 [10, 20, 30].map((num, index) => {
-    return parseInt(num, index)
-})
-
+  return parseInt(num, index);
+});
 ```
 
 答案：[10, NaN, NaN]
@@ -1236,7 +1230,7 @@ var removed = myFish.splice(2, 0, 'drum', 'guitar') // 从索引2位置开始添
 
 答案：/^[a-zA-Z]\w{5, 29}$/ \w 字母数字下划线 \. 字符.
 
-```
+```javascript
 // 邮政编码
 /\d{6}/
 
@@ -1287,18 +1281,17 @@ var removed = myFish.splice(2, 0, 'drum', 'guitar') // 从索引2位置开始添
 - 传统方式 location.search
 - 新 API，URLSearchParams
 
-```
+```javascript
 function query(name) {
-    const search =location.search.substr(1) // 类似 array.slice(1)
-    // search: 'a=10&b=20&c=30'
-    const reg = newRegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i')
-    const res = search.match(reg)
-    if (res === null) {
-        return null
-    }
-    return res[2]
+  const search = location.search.substr(1); // 类似 array.slice(1)
+  // search: 'a=10&b=20&c=30'
+  const reg = newRegExp(`(^|&)${name}=([^&]*)(&|$)`, "i");
+  const res = search.match(reg);
+  if (res === null) {
+    return null;
+  }
+  return res[2];
 }
-
 ```
 
 ### 将 url 参数解析为 JS 对象
@@ -1309,15 +1302,15 @@ function query(name) {
 
 ### 手写数组 flatern，考虑多层级
 
-```
+```javascript
 function flat(arr) {
   // 验证 arr 中，还有没有深层数组
-  const isDeep = arr.some(item => item instanceof Array)
+  const isDeep = arr.some((item) => item instanceof Array);
   if (!isDeep) {
-    return arr
+    return arr;
   }
-  const res = Array.prototype.concat.apply([], arr)
-  return flat(res)
+  const res = Array.prototype.concat.apply([], arr);
+  return flat(res);
 }
 ```
 
@@ -1326,25 +1319,23 @@ function flat(arr) {
 - 传统方式，遍历元素挨个比较、去重
 - 使用 Set
 
-```
+```javascript
 function unique(arr) {
-    const res = []
-    arr.forEach(item => {
-        if (res.indexOf(item) === -1) {
-            res.push(item)
-        }
-    })
-    return res
+  const res = [];
+  arr.forEach((item) => {
+    if (res.indexOf(item) === -1) {
+      res.push(item);
+    }
+  });
+  return res;
 }
-
 ```
 
-```
+```javascript
 function unique(arr) {
-    const set = newSet(arr)
-    return [...set]
+  const set = newSet(arr);
+  return [...set];
 }
-
 ```
 
 ### 手写深拷贝
@@ -1357,13 +1348,13 @@ function unique(arr) {
 - setTimeout 要手动控制频率，RFA 浏览器会自动控制
 - 后台标签或隐藏 iframe 中，RFA 会暂停，而 setTimeout 依然执行
 
-```
+```javascript
 // 3s 把宽度从 100px 变为 640px ，即增加 540px
 // 60帧/s ，3s 180 帧 ，每次变化 3px
 
-const $div1 = $('#div1')
-let curWidth = 100
-const maxWidth = 640
+const $div1 = $("#div1");
+let curWidth = 100;
+const maxWidth = 640;
 
 // // setTimeout
 // function animate() {
@@ -1377,14 +1368,13 @@ const maxWidth = 640
 
 // RAF
 function animate() {
-	curWidth = curWidth + 5
-	$div1.css('width', curWidth)
+  curWidth = curWidth + 5;
+  $div1.css("width", curWidth);
   if (curWidth < maxWidth) {
-		window.requestAnimationFrame(animate) // 时间不用自己控制
+    window.requestAnimationFrame(animate); // 时间不用自己控制
   }
 }
-animate()
-
+animate();
 ```
 
 ### 前端性能如何优化？一般从几个地方考虑
@@ -1421,34 +1411,31 @@ animate()
 
 - 求和
 
-```
-constarr= [10, 20, 30, 40, 50]
-constres=arr.reduce((sum, curVal) => sum + curVal, 0)
-
+```javascript
+constarr = [10, 20, 30, 40, 50];
+constres = arr.reduce((sum, curVal) => sum + curVal, 0);
 ```
 
 - 计数
 
-```
-constarr= [10, 20, 30, 40, 50, 10, 20, 30, 20]
-constn= 30
-constcount=arr.reduce((count, val) => {
-    return val ===n? count + 1 : count
-}, 0)
-
+```javascript
+constarr = [10, 20, 30, 40, 50, 10, 20, 30, 20];
+constn = 30;
+constcount = arr.reduce((count, val) => {
+  return val === n ? count + 1 : count;
+}, 0);
 ```
 
 - 输出字符串
 
-```
-constarr= [
-    { name: '张三', age: '20' },
-    { name: '李四', age: '21' },
-    { name: '小明', age: '22' },
-]
-conststr=arr.reduce((s, item) => {
-    return `${s}${item.name} - ${item.age}\n`
-}, '')
-console.log(str)
-
+```javascript
+constarr = [
+  { name: "张三", age: "20" },
+  { name: "李四", age: "21" },
+  { name: "小明", age: "22" },
+];
+conststr = arr.reduce((s, item) => {
+  return `${s}${item.name} - ${item.age}\n`;
+}, "");
+console.log(str);
 ```
