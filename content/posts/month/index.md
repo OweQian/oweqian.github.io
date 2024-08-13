@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-08-06T13:00:47+08:00
+date: 2024-08-13T17:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,44 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-08
+
+#### 08-13
+
+😄 即将开始旅行。
+
+#### 08-12
+
+《何以中国》还挺好看的。
+
+#### 08-11
+
+给自己做了清蒸鲈鱼。
+
+#### 08-10
+
+跑步跑步跑步。
+
+#### 08-09
+
+西红柿炒蛋 - 这辈子最爱的菜。
+
+#### 08-08
+
+图书馆越来越人性化了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_63.jpg" alt="" width="400" />
+
+#### 08-07
+
+垫子到了，开心。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_62.jpg" alt="" width="400" />
+
+#### 08-06
+
+好天气。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_61.jpg" alt="" width="400" />
 
 #### 08-05
 
