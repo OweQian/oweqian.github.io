@@ -1,8 +1,8 @@
 ---
 title: "🔥 LeetCode HOT 100"
 date: 2023-05-09T09:50:47+08:00
-tags: ["算法"]
-categories: ["算法"]
+tags: ["LeetCode"]
+categories: ["LeetCode"]
 ---
 
 脑子越来越不好使，刷点算法题提高点智商。       

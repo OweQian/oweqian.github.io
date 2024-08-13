@@ -1,8 +1,8 @@
 ---
 title: "‍💻 基于 Electron + Vue3 的桌面应用开发实战"
 date: 2023-02-07T10:20:47+08:00
-tags: ["第一技能"]
-categories: ["第一技能"]
+tags: ["Electron、Vue3"]
+categories: ["Electron、Vue3"]
 ---
 
 项目地址： [ElectronVue3](https://github.com/OweQian/ElectronVue3)

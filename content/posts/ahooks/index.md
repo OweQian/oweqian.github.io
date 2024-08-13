@@ -1,8 +1,8 @@
 ---
 title: "💻 ahooks@3.8.0 源码解读"
 date: 2023-11-23T23:30:14+08:00
-tags: ["第一技能"]
-categories: ["第一技能"]
+tags: ["ahooks"]
+categories: ["ahooks"]
 ---
 
 ahooks，发音 [eɪ hʊks]，是一套高质量可靠的 React Hooks 库。它有很多特性，易学易用、支持 SSR、对输入输出函数做了特殊处理且避免闭包问题等。

@@ -1,8 +1,8 @@
 ---
 title: "🌲 Git 入门操作手册"
 date: 2023-10-26T10:55:47+08:00
-tags: ["第一技能"]
-categories: ["第一技能"]
+tags: ["Git"]
+categories: ["Git"]
 ---
 
 项目地址： [git-practice](https://github.com/OweQian/git-practice.git)
