@@ -171,7 +171,7 @@ const registrationNameModules = {
 
 registrationNameModules 记录了 react 事件和之对应的处理插件的映射，应用于事件触发阶段，根据不同事件使用不同的插件。
 
-❓ 为什么要用不同的事件插件处理不同的 react 事件？
+❓ 为什么要用不同的事件插件处理不同的 react 事件？  
 💡 对于不同的事件，有不同的处理逻辑，对应的事件源对象也有所不同，react 的事件和事件源都是自己合成的，所以对于不同事件需要不同的事件插件处理。
 
 - registrationNameDependencies：
