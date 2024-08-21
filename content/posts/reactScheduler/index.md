@@ -1,11 +1,11 @@
 ---
-title: "📝 react 原理篇 - 调度与时间分片"
+title: "📝 react 原理篇 - 异步调度原理"
 date: 2024-06-21T11:04:41+08:00
 tags: ["react"]
 categories: ["react"]
 ---
 
-本篇是 react 原理系列的第三篇 - 调度与时间分片，你将理解 react 异步调度的原理、流程，解决面试中遇到的调度问题。
+本篇是 react 原理系列的第三篇 - 异步调度原理，你将理解 react 异步调度的原理和流程，解决面试中遇到的调度问题。
 
 <!--more-->
 
@@ -374,4 +374,4 @@ function unstable_shouldYield() {
 
 ## 总结
 
-本篇学习了 react 调度原理和流程，下一篇将学习 react 调和原理和流程。
+本篇学习了 react 异步调度原理和流程，下一篇将学习 react 调和原理和流程。
