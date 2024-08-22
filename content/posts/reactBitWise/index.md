@@ -64,6 +64,8 @@ if (value === A) {
 
 但如果在实际场景中，value 可能是好几个枚举常量的集合，也就是一对多的关系，此时 value 可能同时代表 A 和 B 两个状态常量。
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_30.png" alt="" width="100%" />
+
 那么如何用一个 value 来表示 A 和 B 两个状态常量的集合呢？
 
 这个时候位运算就派上用场了，把一些状态常量用 32 位的二进制来表示（也可以用其他进制），比如：
@@ -271,6 +273,8 @@ if (lane === SyncLane) {
 经历了更新优先级 lane 来判断是否更新，又通过更新上下文 executionContext 来判断更新的方向，那么到底更新什么？又有哪些种类的更新？
 
 这就涉及到了 react fiber 中的另一个状态 - flags，这个状态证明了当前 fiber 存在什么种类的更新。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_31.png" alt="" width="100%" />
 
 flags 种类：
 
