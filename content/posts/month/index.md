@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-08-21T16:50:47+08:00
+date: 2024-08-23T23:35:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,20 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-08
+
+#### 08-23
+
+"善良、勇敢、坦率、真诚、努力、有自知之明" 的金三顺...  
+"努力烤蛋糕、努力去爱人、就像今天是末日一样，就像从没有受过伤害一样"  
+不知道从什么时候开始，丢了初心，越来越不快乐，讨厌各种关系，甚至讨厌自己...  
+一边刷剧，一边反思自己，看完好像被彻底治愈了  
+🌻 不要回头看着过去，也不要急着担心未来，努力地过好每一天就好
+
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?isOutside=true&aid=963564000&bvid=BV14H4y1q7EU&cid=1337594743&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+#### 08-22
+
+😭 跑步前不要吃辣菜，5 公里差点没坚持下来。
 
 #### 08-21
 
