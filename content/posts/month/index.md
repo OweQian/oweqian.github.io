@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-08-23T23:35:47+08:00
+date: 2024-08-24T22:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,13 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-08
+
+#### 08-24
+
+这里是 2024 年，互联网红利时期已经过去...  
+蛮喜欢其中一位老哥的做事态度：脚踏实地，一步一个脚印，老老实实做开发...
+
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?isOutside=true&aid=88670311&bvid=BV1z7411373h&cid=151469549&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 
 #### 08-23
 
