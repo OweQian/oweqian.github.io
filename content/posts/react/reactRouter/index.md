@@ -1,11 +1,11 @@
 ---
-title: "📜 解读 react 源码系列 - react-router 篇"
+title: "📜 解读 react 原理系列 - react-router 篇"
 date: 2024-03-02T15:02:23+08:00
 tags: ["react"]
 categories: ["react"]
 ---
 
-本篇文章是解读 react 源码系列的第六篇 - react-router 篇，一起走进 react router 的世界。
+本篇文章是解读 react 原理系列的第六篇 - react-router 篇，一起走进 react router 的世界。
 
 <!--more-->
 
