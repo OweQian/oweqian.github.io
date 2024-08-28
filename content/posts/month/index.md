@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-08-24T22:00:47+08:00
+date: 2024-08-29T00:20:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,28 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-08
+
+#### 08-28
+
+大不列颠点子王。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_65.jpg" alt="" width="400" />
+
+#### 08-27
+
+😭 写简历真的很痛苦。
+
+#### 08-26
+
+希望此生能有机会和一群志同道合的小伙伴一起齐心协力搞事。
+
+--- 来自 "黑悟空" 的感悟。
+
+#### 08-25
+
+😄 开吃！
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_64.jpg" alt="" width="400" />
 
 #### 08-24
 
