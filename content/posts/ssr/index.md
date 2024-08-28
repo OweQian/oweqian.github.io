@@ -1,11 +1,11 @@
 ---
 title: "💻 基于 Nextjs + Strapi 的官网开发实战"
-date: 2023-02-20T11:25:47+08:00
+date: 2022-07-20T11:25:47+08:00
 tags: ["Nextjs、Strapi"]
 categories: ["Nextjs、Strapi"]
 ---
 
-项目地址： [SSR](https://github.com/OweQian/SSR.git)
+本篇文章旨在带你基于 Nextjs + Strapi 完成一个官网项目的开发，欢迎您的指正和点赞。
 
 <!--more-->
 

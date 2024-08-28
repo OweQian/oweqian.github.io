@@ -1,6 +1,6 @@
 ---
 title: "💻 从 0 到 1 封装一个前端脚手架"
-date: 2023-12-28T13:50:24+08:00
+date: 2022-12-28T13:50:24+08:00
 tags: ["脚手架"]
 categories: ["脚手架"]
 ---
@@ -8,8 +8,6 @@ categories: ["脚手架"]
 本篇文章旨在带你从 0 到 1 围绕项目 “创建、运行、测试、提交、发布” 的常规流程进行前端脚手架工具的封装，满足大中小项目开发所需，欢迎您的指正和点赞。
 
 <!--more-->
-
-Github 项目地址： [cli-oweqian](https://github.com/OweQian/cli-oweqian)
 
 ## 理解脚手架
 
@@ -3377,5 +3375,3 @@ export default Commit;
 ## 写在最后
 
 Everything will be okay in the end. If it's not okay, it's not the end.
-
-<iframe width="100%" height="400" src="https://www.youtube.com/embed/NtuplEYZcrM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
