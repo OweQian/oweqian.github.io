@@ -1,11 +1,11 @@
 ---
-title: "📝 react 原理篇 - hooks 原理"
-date: 2024-06-13T10:27:35+08:00
+title: "📜 解读 react 源码系列 - hooks 篇"
+date: 2024-02-16T10:27:35+08:00
 tags: ["react"]
 categories: ["react"]
 ---
 
-本篇是 react 原理系列的第一篇 - hooks 原理，输入 -> 思考 + 实践 -> 输出，牢牢巩固你学到的知识。
+本篇文章是解读 react 源码系列的第四篇 - hooks 篇，请带着问题来阅读，效果更佳。
 
 <!--more-->
 

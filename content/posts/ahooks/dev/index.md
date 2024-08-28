@@ -5,7 +5,7 @@ tags: ["ahooks"]
 categories: ["ahooks"]
 ---
 
-本篇文章是 ahooks@3.8.0 源码系列的第八篇 - Dev 篇，欢迎您的指正和点赞。
+本篇文章是解读 ahooks@3.8.0 源码系列的第八篇 - Dev 篇，欢迎您的指正和点赞。
 
 <!--more-->
 
