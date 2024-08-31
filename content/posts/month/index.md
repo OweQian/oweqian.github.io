@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-08-30T22:20:47+08:00
+date: 2024-08-31T18:50:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-08
+
+#### 08-31
+
+😭 泪目，lisa, we've got a pet cow!!!
+
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?isOutside=true&aid=864226507&bvid=BV1F54y1K76g&cid=1096662533&p=8&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 
 #### 08-30
 
