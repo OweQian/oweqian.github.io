@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-09-02T12:35:47+08:00
+date: 2024-09-06T00:25:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,30 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-09
+
+#### 09-05
+
+😭 黑猴好难玩。
+
+#### 09-04
+
+🌧 后跑步感觉非常不错。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_69.jpg" alt="" width="400" />
+
+#### 09-03
+
+😄 看点厚黑学长长脑子。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_68.jpg" alt="" width="400" />
+
+#### 09-02
+
+😄 终于用 21 天的时间读完了，谁说毛姆是二流作家？
+
+> 你想编织一块由出生、工作、婚姻、生育、死亡组成的最简单或许也是最完美的形状的波斯地毯吗？
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_67.jpg" alt="" width="400" />
 
 #### 09-01
 
