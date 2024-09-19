@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-09-12T12:30:47+08:00
+date: 2024-09-19T09:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,38 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-09
+
+#### 09-19
+
+早起跑步累成傻子。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_73.jpg" alt="" width="400" />
+
+#### 09-18
+
+卷。
+
+#### 09-17
+
+《大宅门》堪称神剧。
+
+#### 09-16
+
+泪目。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_72.jpg" alt="" width="400" />
+
+#### 09-15
+
+大院河鲜的拍黄瓜很好吃，比鱼好吃。
+
+#### 09-14
+
+放假 🥮!!!
+
+#### 09-13
+
+😄 又找到写代码的乐趣了，用 AI 写个 vue3 项目。
 
 #### 09-12
 
