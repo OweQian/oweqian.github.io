@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-09-19T09:30:47+08:00
+date: 2024-09-25T09:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,36 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-09
+
+#### 09-24
+
+神剧。
+
+<iframe width="100%" height="400" src="//player.bilibili.com/player.html?isOutside=true&aid=113169116824902&bvid=BV1pQtZeaEcJ&cid=25933250747&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+#### 09-23
+
+食谱。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_77.jpg" alt="" width="400" />
+
+#### 09-22
+
+📷 🐱。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_76.jpg" alt="" width="400" />
+
+#### 09-21
+
+📷 🐱。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_75.jpg" alt="" width="400" />
+
+#### 09-20
+
+不错。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_74.jpg" alt="" width="400" />
 
 #### 09-19
 
