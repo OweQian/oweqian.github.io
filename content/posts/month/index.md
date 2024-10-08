@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-09-25T09:30:47+08:00
+date: 2024-10-08T09:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -12,7 +12,69 @@ categories: ["碎碎念"]
 
 ## 2024
 
+### 2024-10
+
+#### 10-07
+
+😭 《菊次郎的夏天》。
+
+#### 10-06
+
+回去当牛马。
+
+#### 10-05
+
+永远都是小孩。
+
+#### 10-04
+
+北动走一圈。
+
+#### 10-03
+
+跑到找不到家。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_81.jpg" alt="" width="400" />
+
+#### 10-02
+
+回家 ✈️。
+
+#### 10-01
+
+放假啦放假啦。
+
 ### 2024-09
+
+#### 09-30
+
+沈腾马丽，光是站那儿就加分了。
+
+#### 09-29
+
+ChatGPT 是个好工具。
+
+#### 09-28
+
+还行。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_80.jpg" alt="" width="400" />
+
+#### 09-27
+
+真·怪才。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_79.jpg" alt="" width="400" />
+
+#### 09-26
+
+🔥 火人节，长见识了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_78.jpg" alt="" width="400" />
+
+#### 09-25
+
+😠 顺丰 AI 客服，除了激怒用户外没有任何帮助！
 
 #### 09-24
 
