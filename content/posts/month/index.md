@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-10-14T10:10:47+08:00
+date: 2024-10-21T15:45:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,53 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-10
+
+#### 10-21
+
+一旦你开始讨厌它，你就会越来越讨厌它...  
+👋🏻 再见，哈啰单车。
+
+#### 10-20
+
+宅在家里，玩玩游戏，看看书。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_87.jpg" alt="" width="400" />
+
+#### 10-19
+
+路转粉。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_86.jpg" alt="" width="400" />
+
+#### 10-18
+
+这就是我想要的。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_85.jpg" alt="" width="400" />
+
+#### 10-17
+
+🏃🏻‍♀️。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_84.jpg" alt="" width="400" />
+
+#### 10-16
+
+整体看下来最喜欢斯内普和卢娜。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_83.jpg" alt="" width="400" />
+
+#### 10-15
+
+😏 等待易畅数字上诉，等待一审、等待二审...  
+欠薪的老赖成了原告，上百号被欠薪的员工成了被告...  
+我倒要看看法院会怎么判!!!
+
+#### 10-14
+
+😭 跑步前不要吃 🌶。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_82.jpg" alt="" width="400" />
 
 #### 10-13
 
