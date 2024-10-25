@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-10-21T15:45:47+08:00
+date: 2024-10-25T14:25:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,30 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-10
+
+#### 10-25
+
+吃着日式拌面，看着《海贼王》，忽然想去日本转一圈了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_90.jpg" alt="" width="400" />
+
+#### 10-24
+
+节日快乐，牛马们。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_89.jpg" alt="" width="400" />
+
+#### 10-23
+
+Excuse me?  
+Yes?  
+Is this your handbag?
+
+#### 10-22
+
+😭，虽然但是，一瞬间感觉心里暖暖的...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_88.png" alt="" width="400" />
 
 #### 10-21
 
