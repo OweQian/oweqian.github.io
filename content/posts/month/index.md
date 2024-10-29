@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-10-25T14:25:47+08:00
+date: 2024-10-29T15:25:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,26 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-10
+
+#### 10-29
+
+😄 小米充气宝到了，又可以卷骑车了。
+
+#### 10-28
+
+想回到狩猎采集社会，四海为家，到处漂泊，每天花一两个小时采集，采到什么吃什么，剩下的时间就是做工具、睡觉...
+
+#### 10-27
+
+😳 真的不好喝...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_92.jpg" alt="" width="400" />
+
+#### 10-26
+
+出发。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_91.jpg" alt="" width="400" />
 
 #### 10-25
 
