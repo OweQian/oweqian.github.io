@@ -438,6 +438,8 @@ ChatGPT 是个好工具。
 
 深圳这个天气真的是又闷热又潮湿。
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/shenzhen.jpg" alt="" width="400" />
+
 #### 08-16
 
 😢 人生中第一次品尝到贫穷带来的 "羞辱"。
@@ -445,6 +447,8 @@ ChatGPT 是个好工具。
 #### 08-15
 
 🇭🇰 Hong Kong。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/hongkong.jpg" alt="" width="400" />
 
 #### 08-14
 
