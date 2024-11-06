@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-11-01T18:25:47+08:00
+date: 2024-11-06T09:45:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,30 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-11
+
+#### 11-05
+
+一早一晚一归宿。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_96.jpg" alt="" width="400" />
+
+#### 11-04
+
+以后可以挑战跑 6KM 了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_95.jpg" alt="" width="400" />
+
+#### 11-03
+
+下樱花雪了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_94.jpg" alt="" width="400" />
+
+#### 11-02
+
+傻子三人组。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_93.jpg" alt="" width="400" />
 
 #### 11-01
 
