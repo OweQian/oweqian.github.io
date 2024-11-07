@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-11-06T09:45:47+08:00
+date: 2024-11-07T14:05:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,16 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-11
+
+#### 11-07
+
+网络乞丐。
+
+#### 11-06
+
+晚安，帕恰狗。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_97.jpg" alt="" width="100%" />
 
 #### 11-05
 
