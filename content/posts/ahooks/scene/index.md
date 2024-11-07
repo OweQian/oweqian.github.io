@@ -1,11 +1,11 @@
 ---
-title: "📝 解读 ahooks 源码系列 - Scene 篇"
+title: "📝 解读 ahooks 源码系列 - Scene"
 date: 2023-09-11T15:57:04+08:00
 tags: ["ahooks"]
 categories: ["ahooks"]
 ---
 
-本篇文章是解读 ahooks@3.8.0 源码系列的第二篇 - Scene 篇，欢迎您的指正和点赞。
+本篇文章是解读 ahooks@3.8.0 源码系列的第二篇 - Scene，欢迎您的指正和点赞。
 
 <!--more-->
 

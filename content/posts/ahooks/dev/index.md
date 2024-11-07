@@ -1,11 +1,11 @@
 ---
-title: "📝 解读 ahooks 源码系列 - Dev 篇"
+title: "📝 解读 ahooks 源码系列 - Dev"
 date: 2023-11-10T14:20:04+08:00
 tags: ["ahooks"]
 categories: ["ahooks"]
 ---
 
-本篇文章是解读 ahooks@3.8.0 源码系列的第八篇 - Dev 篇，欢迎您的指正和点赞。
+本篇文章是解读 ahooks@3.8.0 源码系列的第八篇 - Dev，欢迎您的指正和点赞。
 
 <!--more-->
 

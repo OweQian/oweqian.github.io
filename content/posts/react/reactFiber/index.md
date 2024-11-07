@@ -1,11 +1,11 @@
 ---
-title: "📜 解读 react 原理系列 - fiber 与调和篇"
+title: "📜 解读 react 原理系列 - fiber 与调和"
 date: 2024-02-11T16:36:58+08:00
 tags: ["react"]
 categories: ["react"]
 ---
 
-本篇文章是解读 react 原理系列的第三篇 - fiber 与调和篇，请带着问题来阅读，效果更佳。
+本篇文章是解读 react 原理系列的第三篇 - fiber 与调和，请带着问题来阅读，效果更佳。
 
 <!--more-->
 

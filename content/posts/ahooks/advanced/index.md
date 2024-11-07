@@ -1,11 +1,11 @@
 ---
-title: "📝 解读 ahooks 源码系列 - Advanced 篇"
+title: "📝 解读 ahooks 源码系列 - Advanced"
 date: 2023-11-01T19:20:04+08:00
 tags: ["ahooks"]
 categories: ["ahooks"]
 ---
 
-本篇文章是解读 ahooks@3.8.0 源码系列的第七篇 - Advanced 篇，欢迎您的指正和点赞。
+本篇文章是解读 ahooks@3.8.0 源码系列的第七篇 - Advanced，欢迎您的指正和点赞。
 
 <!--more-->
 

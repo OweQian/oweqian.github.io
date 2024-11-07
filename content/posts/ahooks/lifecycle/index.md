@@ -1,11 +1,11 @@
 ---
-title: "📝 解读 ahooks 源码系列 - LifeCycle 篇"
+title: "📝 解读 ahooks 源码系列 - LifeCycle"
 date: 2023-09-17T11:00:04+08:00
 tags: ["ahooks"]
 categories: ["ahooks"]
 ---
 
-本篇文章是解读 ahooks@3.8.0 源码系列的第三篇 - LifeCycle 篇，欢迎您的指正和点赞。
+本篇文章是解读 ahooks@3.8.0 源码系列的第三篇 - LifeCycle，欢迎您的指正和点赞。
 
 <!--more-->
 

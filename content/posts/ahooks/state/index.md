@@ -1,11 +1,11 @@
 ---
-title: "📝 解读 ahooks 源码系列 - State 篇"
+title: "📝 解读 ahooks 源码系列 - State"
 date: 2023-09-19T18:00:04+08:00
 tags: ["ahooks"]
 categories: ["ahooks"]
 ---
 
-本篇文章是解读 ahooks@3.8.0 源码系列的第四篇 - State 篇，欢迎您的指正和点赞。
+本篇文章是解读 ahooks@3.8.0 源码系列的第四篇 - State，欢迎您的指正和点赞。
 
 <!--more-->
 

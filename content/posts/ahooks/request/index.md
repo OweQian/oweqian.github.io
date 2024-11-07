@@ -1,11 +1,11 @@
 ---
-title: "📝 解读 ahooks 源码系列 - Request 篇"
+title: "📝 解读 ahooks 源码系列 - Request"
 date: 2023-09-01T23:20:04+08:00
 tags: ["ahooks"]
 categories: ["ahooks"]
 ---
 
-本篇文章是解读 ahooks@3.8.0 源码系列的第一篇 - Request 篇，欢迎您的指正和点赞。
+本篇文章是解读 ahooks@3.8.0 源码系列的第一篇 - Request，欢迎您的指正和点赞。
 
 <!--more-->
 

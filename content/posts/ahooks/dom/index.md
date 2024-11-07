@@ -1,11 +1,11 @@
 ---
-title: "📝 解读 ahooks 源码系列 - DOM 篇"
+title: "📝 解读 ahooks 源码系列 - DOM"
 date: 2023-10-11T20:20:04+08:00
 tags: ["ahooks"]
 categories: ["ahooks"]
 ---
 
-本篇文章是解读 ahooks@3.8.0 源码系列的第六篇 - DOM 篇，欢迎您的指正和点赞。
+本篇文章是解读 ahooks@3.8.0 源码系列的第六篇 - DOM，欢迎您的指正和点赞。
 
 <!--more-->
 
