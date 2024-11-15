@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-11-08T11:45:47+08:00
+date: 2024-11-15T15:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,38 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-11
+
+#### 11-15
+
+😠 天天晚上折腾，来呀，都别活了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_101.png" alt="" width="100%" />
+
+#### 11-14
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_100.jpg" alt="" width="100%" />
+
+#### 11-13
+
+😭《机器人之梦》。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_99.jpg" alt="" width="100%" />
+
+#### 11-12
+
+上周卷名著，这周卷电影。
+
+#### 11-11
+
+发讨口费了。
+
+#### 11-10
+
+采耳有点疼。
+
+#### 11-09
+
+(\_ \_)( - . - )(~O~)……( - . - ) 空岛篇有点无聊。
 
 #### 11-08
 
