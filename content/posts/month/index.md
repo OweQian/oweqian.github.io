@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-11-20T10:00:47+08:00
+date: 2024-11-26T13:45:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,34 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-11
+
+#### 11-26
+
+今日份快乐。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_107.jpg" alt="" width="100%" />
+
+#### 11-25
+
+最近班味儿有点重，得想想办法了。
+
+#### 11-24
+
+😄 穷批牛马准备入门 🎹。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_106.jpg" alt="" width="100%" />
+
+#### 11-23
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_105.jpg" alt="" width="100%" />
+
+#### 11-22
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_104.jpg" alt="" width="100%" />
+
+#### 11-21
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_103.jpg" alt="" width="100%" />
 
 #### 11-20
 
