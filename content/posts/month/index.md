@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-11-27T15:35:47+08:00
+date: 2024-12-04T10:55:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -12,7 +12,41 @@ categories: ["碎碎念"]
 
 ## 2024
 
+### 2024-12
+
+#### 12-03
+
+> 尼采：更高级的哲人独处着，这并不是因为他想孤独，而是因为在他的周围找不到他的同类。
+
+#### 12-02
+
+云村又整活儿...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_111.jpg" alt="" width="100%" />
+
+#### 12-01
+
+😠 退钱。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_110.jpg" alt="" width="100%" />
+
 ### 2024-11
+
+#### 11-30
+
+窝在家里吃了一天煮火锅，终于吃腻了...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_109.jpg" alt="" width="100%" />
+
+#### 11-29
+
+😴 发版。
+
+#### 11-28
+
+😳 放眼望去全是辣椒。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_108.jpg" alt="" width="100%" />
 
 #### 11-27
 
