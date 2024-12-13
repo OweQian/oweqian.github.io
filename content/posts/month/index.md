@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-12-04T10:55:47+08:00
+date: 2024-12-13T15:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,52 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-12
+
+#### 12-12
+
+> 世界上最可怕的事情，莫过于有眼睛却发现不了美，有耳朵却不会欣赏音乐，有心灵却无法理解什么是真。不会感动，也不会充满激情……
+
+#### 12-11
+
+再也不想吃 🍎 了，真的要吃吐了。
+
+#### 12-10
+
+"21 世纪有三大毒品：海洛因、碳水化合物、每月发一次的工资。"
+
+#### 12-09
+
+Aragorn.
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_117.jpg" alt="" width="100%" />
+
+#### 12-08
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_116.jpg" alt="" width="100%" />
+
+#### 12-07
+
+"为了跟你握手道别，我认识了所有记者"
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_115.jpg" alt="" width="100%" />
+
+#### 12-06
+
+开始生根了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_114.jpg" alt="" width="100%" />
+
+#### 12-05
+
+海贼之歌与小 🐳。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_113.jpg" alt="" width="100%" />
+
+#### 12-04
+
+🎄 快长大。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_112.jpg" alt="" width="100%" />
 
 #### 12-03
 
