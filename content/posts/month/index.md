@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-12-17T23:10:47+08:00
+date: 2024-12-25T19:15:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,48 @@ categories: ["碎碎念"]
 ## 2024
 
 ### 2024-12
+
+#### 12-25
+
+🌲 + 🌟 = 🎄。
+
+#### 12-24
+
+《好东西》比《机器人之梦》、《泳者之心》、《首尔之春》评分都要高，好吧，是我不懂得欣赏了。
+
+#### 12-23
+
+哈哈哈哈哈。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_124.jpg" alt="" width="100%" />
+
+#### 12-22
+
+《照明商店》，前面有多恐怖，后面就有多温情。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_123.jpg" alt="" width="100%" />
+
+#### 12-21
+
+话剧《患者》，还是不够疯。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_122.jpg" alt="" width="100%" />
+
+#### 12-20
+
+公司发了 🥟。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_121.jpg" alt="" width="100%" />
+
+#### 12-19
+
+😭 为什么中文不是国际通用语言啊。
+
+#### 12-18
+
+动感单车，第三天打卡 ✅。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_120.jpg" alt="" width="100%" />
 
 #### 12-17
 
