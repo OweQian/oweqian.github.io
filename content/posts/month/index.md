@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2024-12-25T19:15:47+08:00
+date: 2025-01-02T18:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -10,9 +10,51 @@ categories: ["碎碎念"]
 
 <!--more-->
 
+## 2025
+
+### 2025-01
+
+#### 01-01
+
+新年第一天，打卡 ✅。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_01.jpg" alt="" width="100%" />
+
 ## 2024
 
 ### 2024-12
+
+#### 12-31
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_129.jpg" alt="" width="100%" />
+
+#### 12-30
+
+小李子年轻时候真的帅。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_128.jpg" alt="" width="100%" />
+
+#### 12-29
+
+致敬。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_127.jpg" alt="" width="100%" />
+
+#### 12-28
+
+从不放弃希望的斯嘉丽。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_126.jpg" alt="" width="100%" />
+
+#### 12-27
+
+2024 年过得真快。
+
+#### 12-26
+
+哈哈。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2024/img_125.jpg" alt="" width="100%" />
 
 #### 12-25
 
