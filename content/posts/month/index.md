@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2025-01-13T10:55:47+08:00
+date: 2025-01-14T18:20:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-01
+
+#### 01-14
+
+😏 准备玩玩 [langchainjs](https://github.com/langchain-ai/langchainjs)
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_06.jpg" alt="" width="100%" />
 
 #### 01-13
 
