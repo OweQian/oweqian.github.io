@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2025-01-14T18:20:47+08:00
+date: 2025-01-20T10:50:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,36 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-01
+
+#### 01-19
+
+如果你的生命只剩下 6 个月，你想做些什么呢？
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_09.jpg" alt="" width="100%" />
+
+#### 01-18
+
+沃特的白日梦远不及现实壮丽。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_08.jpg" alt="" width="100%" />
+
+#### 01-17
+
+你见过磕长头的人吗？他们的脸和手特别脏，但他们的心特别干净。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_07.jpg" alt="" width="100%" />
+
+#### 01-16
+
+> 人类最伟大的地方就在于总能想出办法解决问题，明朝的官员们在这个矛盾上充分体现出了这一特点。他们想出了一个很绝的方法 - 装疯。
+
+🤔 网传《明朝那些事儿》的作者当年明月疯了。
+
+#### 01-15
+
+哈哈哈，拼完 1/4 了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_10.jpg" alt="" width="100%" />
 
 #### 01-14
 
