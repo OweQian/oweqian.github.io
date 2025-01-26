@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2025-01-20T10:50:47+08:00
+date: 2025-01-26T14:15:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,48 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-01
+
+#### 01-26
+
+> 谁掌握了过去，谁就掌握了未来；谁掌握了现在，谁就掌握了过去。
+
+#### 01-25
+
+😄 这才是我想看的《患者》。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_15.jpg" alt="" width="100%" />
+
+#### 01-24
+
+《模仿游戏》。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_14.jpg" alt="" width="100%" />
+
+#### 01-23
+
+2025 Checklist - 1。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_13.jpg" alt="" width="100%" />
+
+#### 01-22
+
+😏 我也是有发财竹的人了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_12.jpg" alt="" width="100%" />
+
+#### 01-21
+
+🤔 小学生的报纸还是能读懂，虽然也有很多词不认识。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_11.png" alt="" width="100%" />
+
+#### 01-20
+
+2024 年 1 月 4 日，我说 "😊 给老赖打工能有好下场吗？"
+
+结果是被欠薪 4 个月 + 2 个月赔偿金，又是举报投诉，又是劳动仲裁，一毛钱都没拿到。
+
+今年我要说：😊 给格局小得可怜的老板打工能有好下场吗？
 
 #### 01-19
 
