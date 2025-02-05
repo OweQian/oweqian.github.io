@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2025-01-26T14:15:47+08:00
+date: 2025-02-05T11:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -12,7 +12,61 @@ categories: ["碎碎念"]
 
 ## 2025
 
+### 2025-02
+
+#### 02-05
+
+🧧 开工大吉。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_21.jpg" alt="" width="100%" />
+
+#### 02-04
+
+「可是我撞了一辆车」「有什么关系，那是沃尔沃」
+
+#### 02-03
+
+海豚的微笑，是大自然最高明的伪装，这微笑让你误以为它们一直很快乐。
+
+#### 02-02
+
+"没关系，爸爸，没关系。不要难过，我是幸运的，别人的爸爸都不会带孩子去公园。"
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_20.jpg" alt="" width="100%" />
+
+#### 02-01
+
+致敬。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_19.jpg" alt="" width="100%" />
+
 ### 2025-01
+
+#### 01-31
+
+哪吒 2 真心不错，看出来制作团队很用心地打磨作品了，某些吃爱国快餐的制作团队能不能好好学学。。。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_18.jpg" alt="" width="100%" />
+
+#### 01-30
+
+整个过程让我感动！
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_17.jpg" alt="" width="100%" />
+
+#### 01-29
+
+🎆 新年快乐。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_16.jpg" alt="" width="100%" />
+
+#### 01-28
+
+回家第一天，睡到自然醒。
+
+#### 01-27
+
+😄 回家喽。
 
 #### 01-26
 
