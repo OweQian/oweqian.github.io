@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2025-02-05T11:00:47+08:00
+date: 2025-02-12T16:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,44 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-02
+
+#### 02-12
+
+> 无人问津也好，技不如人也罢，你都要试着安静下来，去做自己该做的事，而不是让内心的烦躁、焦虑毁掉你本就不多的热情和定力。
+
+#### 02-11
+
+第二天 ✅。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_26.jpg" alt="" width="100%" />
+
+#### 02-10
+
+第一天 ✅。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_25.jpg" alt="" width="100%" />
+
+#### 02-09
+
+龙泉仰天窝 ✅。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_24.jpg" alt="" width="100%" />
+
+#### 02-08
+
+😭 再也不去推拿了，好痛，还是自己搞点运动器材锻炼吧。
+
+#### 02-07
+
+公司开年宴，只能吃三分饱。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_23.jpg" alt="" width="100%" />
+
+#### 02-06
+
+贾玲：“活着，像一个全新的人”。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_22.jpg" alt="" width="100%" />
 
 #### 02-05
 
