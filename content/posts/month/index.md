@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2025-02-12T16:30:47+08:00
+date: 2025-02-14T17:20:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,20 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-02
+
+#### 02-14
+
+CopyCoder + VS Code + Cursor...
+
+截一张图放到 CopyCoder，打开 VS Code，VS Codecommand/ctrl ＋ C、command/ctrl ＋ V，一连串的 ’yes‘，你就拥有了一个超赞的后台管理系统。
+
+😱 surprise~
+
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/iezDhaTXlcw?si=llMbkpTW7Prvd8bi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+#### 02-13
+
+😏 杂志买好了，英语报纸买好了，英语书买好了，健身器材买好了，要开始悄摸摸变厉害了。
 
 #### 02-12
 
