@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2025-02-14T17:20:47+08:00
+date: 2025-02-21T17:10:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,42 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-02
+
+#### 02-21
+
+一招不行，再换一招，只要精神不退缩，办法总比困难多。
+
+#### 02-20
+
+😏 开卷开卷，[前端 + AI 转型探索营](https://doc.iamkasong.com/index.html)。
+
+#### 02-19
+
+😴。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_29.jpg" alt="" width="100%" />
+
+#### 02-18
+
+细品。
+
+> 改而不革，是为改革
+
+#### 02-17
+
+收拾房子，打包了三大袋准备捐掉的书和衣服，扔掉了两大袋废品（赠送的化妆品小样、只用过一次的跳绳垫、各种纸箱...）、接下来得补点 “极简生活” 的知识了。
+
+#### 02-16
+
+😳 吃到了 ¥98 的蟹黄面套餐。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_28.jpg" alt="" width="100%" />
+
+#### 02-15
+
+😫 累了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_27.jpg" alt="" width="100%" />
 
 #### 02-14
 
