@@ -1,31 +1,87 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Tags - Tag - 我的全新 Hugo 网站</title>
-        <link>http://oweqian.xyz/tags/</link>
-        <description>Tags - Tag - 我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian)</webMaster><atom:link href="http://oweqian.xyz/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>内容</title>
-    <link>http://oweqian.xyz/tags/content/</link>
-    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/tags/content/</guid>
+        <title>Tags - 标签 - OweQian 的精神角落</title>
+        <link>http://localhost:1313/tags/</link>
+        <description>Tags - 标签 - OweQian 的精神角落</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian 的精神角落)</managingEditor>
+            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Fri, 21 Feb 2025 17:10:47 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>碎碎念</title>
+    <link>http://localhost:1313/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</link>
+    <pubDate>Fri, 21 Feb 2025 17:10:47 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>安装</title>
-    <link>http://oweqian.xyz/tags/installation/</link>
-    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/tags/installation/</guid>
+    <title>Antd</title>
+    <link>http://localhost:1313/tags/antd/</link>
+    <pubDate>Fri, 08 Nov 2024 10:00:30 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/tags/antd/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>配置</title>
-    <link>http://oweqian.xyz/tags/configuration/</link>
-    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
-    <author>OweQian</author>
-    <guid>http://oweqian.xyz/tags/configuration/</guid>
+    <title>React</title>
+    <link>http://localhost:1313/tags/react/</link>
+    <pubDate>Sat, 02 Mar 2024 15:02:23 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/tags/react/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Ahooks</title>
+    <link>http://localhost:1313/tags/ahooks/</link>
+    <pubDate>Fri, 10 Nov 2023 14:20:04 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/tags/ahooks/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>LeetCode</title>
+    <link>http://localhost:1313/tags/leetcode/</link>
+    <pubDate>Tue, 09 May 2023 09:50:47 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/tags/leetcode/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Electron、Vue3</title>
+    <link>http://localhost:1313/tags/electronvue3/</link>
+    <pubDate>Tue, 07 Feb 2023 10:20:47 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/tags/electronvue3/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>脚手架</title>
+    <link>http://localhost:1313/tags/%E8%84%9A%E6%89%8B%E6%9E%B6/</link>
+    <pubDate>Wed, 28 Dec 2022 13:50:24 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/tags/%E8%84%9A%E6%89%8B%E6%9E%B6/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Nextjs、Strapi</title>
+    <link>http://localhost:1313/tags/nextjsstrapi/</link>
+    <pubDate>Wed, 20 Jul 2022 11:25:47 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/tags/nextjsstrapi/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Git</title>
+    <link>http://localhost:1313/tags/git/</link>
+    <pubDate>Thu, 26 May 2022 10:55:47 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/tags/git/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>面试</title>
+    <link>http://localhost:1313/tags/%E9%9D%A2%E8%AF%95/</link>
+    <pubDate>Sun, 10 Apr 2022 10:00:39 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/tags/%E9%9D%A2%E8%AF%95/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

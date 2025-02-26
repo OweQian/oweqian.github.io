@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>📝 解读 ahooks 源码系列 - Advanced - OweQian 的精神角落</title><meta name="Description" content="OweQian&#39;s blog"><meta property="og:url" content="http://localhost:1313/advanced/">
+  <meta property="og:site_name" content="OweQian 的精神角落">
+  <meta property="og:title" content="📝 解读 ahooks 源码系列 - Advanced">
+  <meta property="og:description" content="本篇文章是解读 ahooks@3.8.0 源码系列的第七篇 - Advanced，欢迎您的指正和点赞。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-11-01T19:20:04+08:00">
+    <meta property="article:modified_time" content="2024-11-07T18:22:20+08:00">
+    <meta property="article:tag" content="Ahooks">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="📝 解读 ahooks 源码系列 - Advanced">
+  <meta name="twitter:description" content="本篇文章是解读 ahooks@3.8.0 源码系列的第七篇 - Advanced，欢迎您的指正和点赞。">
+      <meta name="twitter:site" content="@xxxx">
+<meta name="application-name" content="OweQian 的精神角落">
+<meta name="apple-mobile-web-app-title" content="OweQian 的精神角落"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/img.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/advanced/" /><link rel="prev" href="http://localhost:1313/dom/" /><link rel="next" href="http://localhost:1313/dev/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "📝 解读 ahooks 源码系列 - Advanced",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/advanced\/"
+        },"genre": "posts","keywords": "ahooks","wordcount":  1770 ,
+        "url": "http:\/\/localhost:1313\/advanced\/","datePublished": "2023-11-01T19:20:04+08:00","dateModified": "2024-11-07T18:22:20+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "OweQian 的精神角落"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">📝 解读 ahooks 源码系列 - Advanced</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ahooks/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Ahooks</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-11-01">2023-11-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1770 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#usecontrollablevalue">useControllableValue</a></li>
+    <li><a href="#usecreation">useCreation</a></li>
+    <li><a href="#useeventemitter">useEventEmitter</a></li>
+    <li><a href="#useisomorphiclayouteffect">useIsomorphicLayoutEffect</a></li>
+    <li><a href="#uselatest">useLatest</a></li>
+    <li><a href="#usememoizedfn">useMemoizedFn</a></li>
+    <li><a href="#usereactive">useReactive</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本篇文章是解读 <a href="mailto:ahooks@3.8.0" rel="">ahooks@3.8.0</a> 源码系列的第七篇 - Advanced，欢迎您的指正和点赞。</p>
+<p>本文主要解读 useControllableValue、useCreation、useEventEmitter、useIsomorphicLayoutEffect、useLatest、useMemoizedFn、useReactive 的源码实现。</p>
+<h2 id="usecontrollablevalue">useControllableValue</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-controllable-value" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useControllableValue/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<p>受控组件和非受控组件的解释：</p>
+<p>受控组件：在 HTML 中，表单元素 (如 <code>&lt;input&gt;</code>、<code>&lt;textarea&gt;</code>、<code>&lt;select&gt;</code> 等) 通常自己维护 state，并根据用户输入进行更新。而在 React 中，可变状态 (mutable state) 通常保存在组件的 state 属性中，并且只能通过 setSate 来更新。</p>
+<p>对于受控组件，输入的值始终由 React 的 state 驱动，你可以将 value 传递给其它 UI 元素，或者通过其他事件处理函数重置，但这意味着你需要编写更多的代码。</p>
+<p>使用非受控组件，表单数据将交由 DOM 节点来处理，可以使用 ref 来从 DOM 节点中获取表单数据。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useMemo</span><span class="p">,</span> <span class="kr">type</span> <span class="nx">SetStateAction</span><span class="p">,</span> <span class="nx">useRef</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useUpdate</span> <span class="kr">from</span> <span class="s2">&#34;../useUpdate&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">isFunction</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/utils&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useMemoizedFn</span> <span class="kr">from</span> <span class="s2">&#34;../useMemoizedFn&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Options</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">defaultValue?</span>: <span class="kt">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">defaultValuePropName?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">valuePropName?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">trigger?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">Props</span> <span class="o">=</span> <span class="nx">Record</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">,</span> <span class="na">any</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">StandardProps</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">value</span>: <span class="kt">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">defaultValue?</span>: <span class="kt">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onChange</span><span class="o">:</span> <span class="p">(</span><span class="nx">val</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useControllableValue</span><span class="p">&lt;</span><span class="nt">T</span> <span class="err">=</span> <span class="na">any</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">props</span>: <span class="kt">StandardProps</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="nx">T</span><span class="p">,</span> <span class="p">(</span><span class="nx">v</span>: <span class="kt">SetStateAction</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useControllableValue</span><span class="p">&lt;</span><span class="nt">T</span> <span class="err">=</span> <span class="na">any</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">props?</span>: <span class="kt">Props</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">options?</span>: <span class="kt">Options</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="nx">T</span><span class="p">,</span> <span class="p">(</span><span class="nx">v</span>: <span class="kt">SetStateAction</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;,</span> <span class="p">...</span><span class="nx">args</span>: <span class="kt">any</span><span class="p">[])</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useControllableValue</span><span class="p">&lt;</span><span class="nt">T</span> <span class="err">=</span> <span class="na">any</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">props</span>: <span class="kt">Props</span> <span class="o">=</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">options</span>: <span class="kt">Options</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">defaultValue</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">defaultValuePropName</span> <span class="o">=</span> <span class="s2">&#34;defaultValue&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">valuePropName</span> <span class="o">=</span> <span class="s2">&#34;value&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">trigger</span> <span class="o">=</span> <span class="s2">&#34;onChange&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="o">=</span> <span class="nx">options</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">props</span><span class="p">[</span><span class="nx">valuePropName</span><span class="p">]</span> <span class="kr">as</span> <span class="nx">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 如果 props 中存在值的属性名，则为受控组件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">isControlled</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">valuePropName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 初始值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">initialValue</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 受控组件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">isControlled</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// props defaultValue
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">defaultValuePropName</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">props</span><span class="p">[</span><span class="nx">defaultValuePropName</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// options defaultValue
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nx">defaultValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">stateRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span><span class="nx">initialValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 如果是受控组件，则由外部传入的 value 来更新 state
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">isControlled</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">stateRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">update</span> <span class="o">=</span> <span class="nx">useUpdate</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">setState</span><span class="p">(</span><span class="nx">v</span>: <span class="kt">SetStateAction</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;,</span> <span class="p">...</span><span class="nx">args</span>: <span class="kt">any</span><span class="p">[])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">isFunction</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="o">?</span> <span class="nx">v</span><span class="p">(</span><span class="nx">stateRef</span><span class="p">.</span><span class="nx">current</span><span class="p">)</span> <span class="o">:</span> <span class="nx">v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 如果是非受控组件，则手动更新状态，强制组件重新渲染
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isControlled</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">stateRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">update</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 触发 trigger
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">props</span><span class="p">[</span><span class="nx">trigger</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">props</span><span class="p">[</span><span class="nx">trigger</span><span class="p">](</span><span class="nx">r</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">stateRef</span><span class="p">.</span><span class="nx">current</span><span class="p">,</span> <span class="nx">useMemoizedFn</span><span class="p">(</span><span class="nx">setState</span><span class="p">)]</span> <span class="kr">as</span> <span class="kr">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useControllableValue</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="usecreation">useCreation</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-creation/" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useCreation/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">depsAreSame</span> <span class="kr">from</span> <span class="s2">&#34;@/utils/depsAreSame&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useRef</span><span class="p">,</span> <span class="kr">type</span> <span class="nx">DependencyList</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useCreation</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">T</span><span class="p">,&gt;(</span><span class="nx">factory</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">T</span><span class="p">,</span> <span class="nx">deps</span>: <span class="kt">DependencyList</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">current</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">deps</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">obj</span>: <span class="kt">undefined</span> <span class="kr">as</span> <span class="kc">undefined</span> <span class="o">|</span> <span class="nx">T</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">initialized</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 未初始化或新旧依赖项不相等
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">current</span><span class="p">.</span><span class="nx">initialized</span> <span class="o">===</span> <span class="kc">false</span> <span class="o">||</span> <span class="o">!</span><span class="nx">depsAreSame</span><span class="p">(</span><span class="nx">current</span><span class="p">.</span><span class="nx">deps</span><span class="p">,</span> <span class="nx">deps</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">current</span><span class="p">.</span><span class="nx">deps</span> <span class="o">=</span> <span class="nx">deps</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 执行工厂函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">current</span><span class="p">.</span><span class="nx">obj</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">current</span><span class="p">.</span><span class="nx">initialized</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">current</span><span class="p">.</span><span class="nx">obj</span> <span class="kr">as</span> <span class="nx">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useCreation</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="useeventemitter">useEventEmitter</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-event-emitter" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useEventEmitter/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useRef</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Subscription</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">(</span><span class="nx">val</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">EventEmitter</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 订阅器列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">private</span> <span class="nx">subscriptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">&lt;</span><span class="nt">Subscription</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;&gt;();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 推送事件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">emit</span> <span class="o">=</span> <span class="p">(</span><span class="nx">val</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">subscription</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">subscription</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 订阅事件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">useSubscription</span> <span class="o">=</span> <span class="p">(</span><span class="nx">callback</span>: <span class="kt">Subscription</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// eslint-disable-next-line react-hooks/rules-of-hooks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">callbackRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">&lt;</span><span class="nt">Subscription</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">callbackRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">callback</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// eslint-disable-next-line react-hooks/rules-of-hooks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">function</span> <span class="nx">subscription</span><span class="p">(</span><span class="nx">val</span>: <span class="kt">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">callbackRef</span><span class="p">.</span><span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">callbackRef</span><span class="p">.</span><span class="nx">current</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 组件创建时自动注册订阅
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">this</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">subscription</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 组件销毁时自动取消订阅
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">subscription</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useEventEmitter</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">T</span> <span class="err">=</span> <span class="na">void</span><span class="p">,&gt;()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">&lt;</span><span class="nt">EventEmitter</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;&gt;();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ref</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useEventEmitter</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="useisomorphiclayouteffect">useIsomorphicLayoutEffect</h2>
+<p>在 SSR 模式下，使用 useLayoutEffect 时，会出现以下警告</p>
+<blockquote>
+<p>⚠️ Warning: useLayoutEffect does nothing on the server, because its effect cannot be encoded into the server renderer&rsquo;s output format. This will lead to a mismatch between the initial, non-hydrated UI and the intended UI. To avoid this, useLayoutEffect should only be used in components that render exclusively on the client. See <a href="https://fb.me/react-uselayouteffect-ssr" target="_blank" rel="noopener noreffer ">https://fb.me/react-uselayouteffect-ssr</a> for common fixes.</p></blockquote>
+<p>为了避免该警告，可以使用 useIsomorphicLayoutEffect 代替 useLayoutEffect。</p>
+<p>useIsomorphicLayoutEffect 源码如下：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useLayoutEffect</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">isBrowser</span> <span class="kr">from</span> <span class="s2">&#34;../../../utils/isBrowser&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useIsomorphicLayoutEffect</span> <span class="o">=</span> <span class="nx">isBrowser</span> <span class="o">?</span> <span class="nx">useLayoutEffect</span> : <span class="kt">useEffect</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useIsomorphicLayoutEffect</span><span class="p">;</span></span></span></code></pre></div></div><p>在非浏览器环境返回 useEffect，在浏览器环境返回 useLayoutEffect。</p>
+<p>更多信息可以参考  <a href="https://medium.com/@alexandereardon/uselayouteffect-and-ssr-192986cdcf7a" target="_blank" rel="noopener noreffer ">useLayoutEffect and SSR</a></p>
+<h2 id="uselatest">useLatest</h2>
+<p><a href="https://ahooks.pages.dev/zh-CN/hooks/use-latest" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useLatest/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useRef</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useLatest</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">T</span><span class="p">,&gt;(</span><span class="nx">value</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 拿到最新值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">ref</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">ref</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useLatest</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="usememoizedfn">useMemoizedFn</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-memoized-fn" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useMemoizedFn/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">isFunction</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/utils&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">isDev</span> <span class="kr">from</span> <span class="s2">&#34;@/utils/isDev&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useMemo</span><span class="p">,</span> <span class="nx">useRef</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">noop</span> <span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="o">:</span> <span class="kt">any</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span>: <span class="kt">any</span><span class="p">[])</span> <span class="o">=&gt;</span> <span class="kt">any</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PickFunction</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">noop</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="o">:</span> <span class="nx">ThisParameterType</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span><span class="nx">args</span>: <span class="kt">Parameters</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">ReturnType</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useMemoizedFn</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">noop</span><span class="p">&gt;(</span><span class="nx">fn</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">isDev</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">fn</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="sb">`useMemoizedFn expected parameter is a function, got </span><span class="si">${</span><span class="k">typeof</span> <span class="nx">fn</span><span class="si">}</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">      <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 每次拿到最新的 fn，把它更新到 fnRef，保证 fnRef 能够持有最新的 fn 引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">fnRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;(</span><span class="nx">fn</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// why not write `fnRef.current = fn`?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// https://github.com/alibaba/hooks/issues/728
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">fnRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">fn</span><span class="p">,</span> <span class="p">[</span><span class="nx">fn</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 保证最后返回的函数引用是不变的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">memoizedFn</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">&lt;</span><span class="nt">PickFunction</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;&gt;();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">memoizedFn</span><span class="p">.</span><span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">memoizedFn</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 每次调用时，都能拿到最新的 args
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="nx">fnRef</span><span class="p">.</span><span class="nx">current</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">memoizedFn</span><span class="p">.</span><span class="nx">current</span> <span class="kr">as</span> <span class="nx">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useMemoizedFn</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="usereactive">useReactive</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-reactive" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useReactive/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useRef</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useCreation</span> <span class="kr">from</span> <span class="s2">&#34;../useCreation&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useUpdate</span> <span class="kr">from</span> <span class="s2">&#34;../useUpdate&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">isPlainObject</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;lodash&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// k:v 原对象:代理过的对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">proxyMap</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WeakMap</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// k:v 代理过的对象:原对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">rawMap</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WeakMap</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">observer</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">Record</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">,</span> <span class="na">any</span><span class="p">&gt;&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">initialVal</span>: <span class="kt">T</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">cb</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="nx">T</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">existingProxy</span> <span class="o">=</span> <span class="nx">proxyMap</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="nx">initialVal</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 添加缓存 防止重新构建proxy
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">existingProxy</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">existingProxy</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 防止代理已经代理过的对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// https://github.com/alibaba/hooks/issues/839
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">rawMap</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">initialVal</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">initialVal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 代理对象，定义拦截对代理对象的操作方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">proxy</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Proxy</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;(</span><span class="nx">initialVal</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 访问代理对象的属性时触发
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">receiver</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 获取目标对象上指定的属性的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">Reflect</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">receiver</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// https://github.com/alibaba/hooks/issues/1317
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kr">const</span> <span class="nx">descriptor</span> <span class="o">=</span> <span class="nx">Reflect</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 属性不可读且不可写，直接返回原始的属性值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">descriptor</span><span class="o">?</span><span class="p">.</span><span class="nx">configurable</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">descriptor</span><span class="o">?</span><span class="p">.</span><span class="nx">writable</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Only proxy plain object or array,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// otherwise it will cause: https://github.com/alibaba/hooks/issues/2080
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// 属性值是普通对象或数组，调用 observer 方法对其观察，并返回观察后的结果；否则直接返回原始的属性值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="nx">isPlainObject</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="o">||</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="o">?</span> <span class="nx">observer</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="o">:</span> <span class="nx">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 给代理对象的属性赋值时触发
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">set</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">ret</span> <span class="o">=</span> <span class="nx">Reflect</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">cb</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 删除代理对象的属性时触发
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">deleteProperty</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">ret</span> <span class="o">=</span> <span class="nx">Reflect</span><span class="p">.</span><span class="nx">deleteProperty</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">cb</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">proxyMap</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span><span class="nx">initialVal</span><span class="p">,</span> <span class="nx">proxy</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">rawMap</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span><span class="nx">proxy</span><span class="p">,</span> <span class="nx">initialVal</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">proxy</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useReactive</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">S</span> <span class="na">extends</span> <span class="na">Record</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">,</span> <span class="na">any</span><span class="p">&gt;&gt;(</span><span class="nx">initialState</span>: <span class="kt">S</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">update</span> <span class="o">=</span> <span class="nx">useUpdate</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">stateRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;(</span><span class="nx">initialState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">useCreation</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">observer</span><span class="p">(</span><span class="nx">stateRef</span><span class="p">.</span><span class="nx">current</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">update</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useReactive</span><span class="p">;</span></span></span></code></pre></div></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-11-07&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/f620fc752e2fee7842cb85fc6727ccfd9f2cb469" target="_blank" title="commit by OweQian(1510106069@qq.com) f620fc752e2fee7842cb85fc6727ccfd9f2cb469: fix: update blog">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>f620fc7</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/advanced/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/advanced/" data-title="📝 解读 ahooks 源码系列 - Advanced" data-via="xxxx" data-hashtags="ahooks"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/advanced/" data-hashtag="ahooks"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/advanced/" data-title="📝 解读 ahooks 源码系列 - Advanced"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/advanced/" data-title="📝 解读 ahooks 源码系列 - Advanced"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/advanced/" data-title="📝 解读 ahooks 源码系列 - Advanced"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ahooks/">Ahooks</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/dom/" class="prev" rel="prev" title="📝 解读 ahooks 源码系列 - DOM"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>📝 解读 ahooks 源码系列 - DOM</a>
+            <a href="/dev/" class="next" rel="next" title="📝 解读 ahooks 源码系列 - Dev">📝 解读 ahooks 源码系列 - Dev<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.144.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/OweQian" target="_blank">OweQian 的精神角落</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js"></script></body>
+</html>

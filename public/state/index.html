@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>📝 解读 ahooks 源码系列 - State - OweQian 的精神角落</title><meta name="Description" content="OweQian&#39;s blog"><meta property="og:url" content="http://localhost:1313/state/">
+  <meta property="og:site_name" content="OweQian 的精神角落">
+  <meta property="og:title" content="📝 解读 ahooks 源码系列 - State">
+  <meta property="og:description" content="本篇文章是解读 ahooks@3.8.0 源码系列的第四篇 - State，欢迎您的指正和点赞。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-09-19T18:00:04+08:00">
+    <meta property="article:modified_time" content="2024-11-07T18:22:20+08:00">
+    <meta property="article:tag" content="Ahooks">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="📝 解读 ahooks 源码系列 - State">
+  <meta name="twitter:description" content="本篇文章是解读 ahooks@3.8.0 源码系列的第四篇 - State，欢迎您的指正和点赞。">
+      <meta name="twitter:site" content="@xxxx">
+<meta name="application-name" content="OweQian 的精神角落">
+<meta name="apple-mobile-web-app-title" content="OweQian 的精神角落"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/img.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/state/" /><link rel="prev" href="http://localhost:1313/lifecycle/" /><link rel="next" href="http://localhost:1313/effect/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "📝 解读 ahooks 源码系列 - State",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/state\/"
+        },"genre": "posts","keywords": "ahooks","wordcount":  3591 ,
+        "url": "http:\/\/localhost:1313\/state\/","datePublished": "2023-09-19T18:00:04+08:00","dateModified": "2024-11-07T18:22:20+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "OweQian 的精神角落"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">📝 解读 ahooks 源码系列 - State</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ahooks/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Ahooks</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-09-19">2023-09-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3591 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#usesetstate">useSetState</a></li>
+    <li><a href="#useboolean">useBoolean</a></li>
+    <li><a href="#usetoggle">useToggle</a></li>
+    <li><a href="#useurlstate">useUrlState</a></li>
+    <li><a href="#usecookiestate">useCookieState</a></li>
+    <li><a href="#uselocalstoragestate">useLocalStorageState</a></li>
+    <li><a href="#usesessionstoragestate">useSessionStorageState</a></li>
+    <li><a href="#usedebounce">useDebounce</a></li>
+    <li><a href="#usethrottle">useThrottle</a></li>
+    <li><a href="#usemap">useMap</a></li>
+    <li><a href="#useset">useSet</a></li>
+    <li><a href="#useprevious">usePrevious</a></li>
+    <li><a href="#userafstate">useRafState</a></li>
+    <li><a href="#usesafestate">useSafeState</a></li>
+    <li><a href="#usegetstate">useGetState</a></li>
+    <li><a href="#useresetstate">useResetState</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本篇文章是解读 <a href="mailto:ahooks@3.8.0" rel="">ahooks@3.8.0</a> 源码系列的第四篇 - State，欢迎您的指正和点赞。</p>
+<p>本文主要解读 useSetState、useBoolean、useToggle、useUrlState、useCookieState、useLocalStorageState、useSessionStorageState、useDebounce、useThrottle、useMap、useSet、usePrevious、useRafState、useSafeState、useGetState、useResetState 的源码实现。</p>
+<h2 id="usesetstate">useSetState</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-set-state" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useSetState/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<aside>
+💡 在 React 中，状态被认为是只读的，对于对象或数组类型的状态，**你应该创建一个新的对象或数组来替换它而不是改变现有对象**。
+</aside>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">isFunction</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/utils&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useCallback</span><span class="p">,</span> <span class="nx">useState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">SetState</span><span class="p">&lt;</span><span class="nt">S</span> <span class="na">extends</span> <span class="na">Record</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">,</span> <span class="na">any</span><span class="p">&gt;&gt;</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">K</span> <span class="na">extends</span> <span class="na">keyof</span> <span class="na">S</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">state</span>: <span class="kt">Pick</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">,</span> <span class="na">K</span><span class="p">&gt;</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">|</span> <span class="p">((</span><span class="nx">prevState</span>: <span class="kt">Readonly</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="nx">Pick</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">,</span> <span class="na">K</span><span class="p">&gt;</span> <span class="o">|</span> <span class="nx">S</span> <span class="o">|</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useSetState</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">S</span> <span class="na">extends</span> <span class="na">Record</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">,</span> <span class="na">any</span><span class="p">&gt;&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">initialState</span>: <span class="kt">S</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">S</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="nx">S</span><span class="p">,</span> <span class="nx">SetState</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;]</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;(</span><span class="nx">initialState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 合并操作，返回一个全新的状态值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">setMergeState</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">((</span><span class="nx">patch</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setState</span><span class="p">((</span><span class="nx">prevState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 判断新状态值是否为函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kr">const</span> <span class="nx">newState</span> <span class="o">=</span> <span class="nx">isFunction</span><span class="p">(</span><span class="nx">patch</span><span class="p">)</span> <span class="o">?</span> <span class="nx">patch</span><span class="p">(</span><span class="nx">prevState</span><span class="p">)</span> <span class="o">:</span> <span class="nx">patch</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">newState</span> <span class="o">?</span> <span class="p">{</span> <span class="p">...</span><span class="nx">prevState</span><span class="p">,</span> <span class="p">...</span><span class="nx">newState</span> <span class="p">}</span> <span class="o">:</span> <span class="nx">prevState</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setMergeState</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useSetState</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="useboolean">useBoolean</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-boolean" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useBoolean/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useMemo</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useToggle</span> <span class="kr">from</span> <span class="s2">&#34;../useToggle&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Actions</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">setTrue</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">setFalse</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">set</span><span class="o">:</span> <span class="p">(</span><span class="nx">value</span>: <span class="kt">boolean</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">toggle</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useBoolean</span> <span class="o">=</span> <span class="p">(</span><span class="nx">defaultValue</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="kr">boolean</span><span class="p">,</span> <span class="nx">Actions</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 基于 useToggle
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="p">{</span> <span class="nx">toggle</span><span class="p">,</span> <span class="kr">set</span> <span class="p">}]</span> <span class="o">=</span> <span class="nx">useToggle</span><span class="p">(</span><span class="o">!!</span><span class="nx">defaultValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">actions</span>: <span class="kt">Actions</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">setTrue</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">set</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">setFalse</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">set</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 切换
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">toggle</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 修改
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kr">set</span><span class="o">:</span> <span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kr">set</span><span class="p">(</span><span class="o">!!</span><span class="nx">v</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 设置为 true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">setTrue</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 设置为 false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">setFalse</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">actions</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useBoolean</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="usetoggle">useToggle</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-toggle" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useToggle/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useMemo</span><span class="p">,</span> <span class="nx">useState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Actions</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">setLeft</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">setRight</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">set</span><span class="o">:</span> <span class="p">(</span><span class="nx">value</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">toggle</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 函数重载，声明入参和出参类型，根据不同的入参返回不同的结果
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 入参可能有两个值，第一个为默认值（左值），第二个为取反之后的值（右值）
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 不传右值时，根据默认值取反 !defaultValue
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useToggle</span><span class="p">&lt;</span><span class="nt">T</span> <span class="err">=</span> <span class="na">boolean</span><span class="p">&gt;()</span><span class="o">:</span> <span class="p">[</span><span class="kr">boolean</span><span class="p">,</span> <span class="nx">Actions</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useToggle</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;(</span><span class="nx">defaultValue</span>: <span class="kt">T</span><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="nx">T</span><span class="p">,</span> <span class="nx">Actions</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useToggle</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">,</span> <span class="na">U</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">defaultValue</span>: <span class="kt">T</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">reverseValue</span>: <span class="kt">U</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="nx">T</span> <span class="o">|</span> <span class="nx">U</span><span class="p">,</span> <span class="nx">Actions</span><span class="p">&lt;</span><span class="nt">T</span> <span class="err">|</span> <span class="na">U</span><span class="p">&gt;];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useToggle</span><span class="p">&lt;</span><span class="nt">D</span><span class="p">,</span> <span class="na">R</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">defaultValue</span>: <span class="kt">D</span> <span class="o">=</span> <span class="kc">false</span> <span class="kr">as</span> <span class="kt">unknown</span> <span class="kr">as</span> <span class="nx">D</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">reverseValue?</span>: <span class="kt">R</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="nx">D</span> <span class="o">|</span> <span class="nx">R</span><span class="p">,</span> <span class="nx">Actions</span><span class="p">&lt;</span><span class="nt">D</span> <span class="err">|</span> <span class="na">R</span><span class="p">&gt;]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">&lt;</span><span class="nt">D</span> <span class="err">|</span> <span class="na">R</span><span class="p">&gt;(</span><span class="nx">defaultValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">actions</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">reverseValueOrigin</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">reverseValue</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="o">!</span><span class="nx">defaultValue</span> : <span class="kt">reverseValue</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="kr">as</span> <span class="nx">D</span> <span class="o">|</span> <span class="nx">R</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 切换
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">toggle</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">setState</span><span class="p">((</span><span class="nx">s</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">s</span> <span class="o">===</span> <span class="nx">defaultValue</span> <span class="o">?</span> <span class="nx">reverseValueOrigin</span> : <span class="kt">defaultValue</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 修改
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="kr">set</span> <span class="o">=</span> <span class="p">(</span><span class="nx">value</span>: <span class="kt">D</span> <span class="o">|</span> <span class="nx">R</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">setState</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 设为左值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">setLeft</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setState</span><span class="p">(</span><span class="nx">defaultValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 设为右值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">setRight</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setState</span><span class="p">(</span><span class="nx">reverseValueOrigin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">toggle</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">set</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">setLeft</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">setRight</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">actions</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useToggle</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="useurlstate">useUrlState</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-url-state" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/use-url-state/src/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<p>ahooks 项目是一个  monorepo，它的项目管理是通过  <a href="https://www.lernajs.cn/" target="_blank" rel="noopener noreffer ">lerna</a>  进行管理。源码中的 useUrlState 是一个独立仓库。</p>
+<p>你必须单独安装：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useUrlState</span> <span class="kr">from</span> <span class="s2">&#34;@ahooksjs/use-url-state&#34;</span><span class="p">;</span></span></span></code></pre></div></div><p>这样做的理由可能是 useUrlState 基于 react-router 的 useLocation &amp; useHistory &amp; useNavigate，你的项目必须要安装 react-router 的 5.x 或者 6.x 版本，但其实很多项目不一定使用 react-router，假如将这个 hook 内置到 ahooks 中的话，可能会导致包体积变大。</p>
+<p>另外，该 hook 依赖于 <a href="https://www.npmjs.com/package/query-string" target="_blank" rel="noopener noreffer ">query-string</a> 包，主要用到 qs.parse(string, [options]) 和 qs.stringify(object, [options]) 这两个方法。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">qs</span> <span class="kr">from</span> <span class="s2">&#34;query-string&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="p">{</span> <span class="nx">ParseOptions</span><span class="p">,</span> <span class="nx">StringifyOptions</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;query-string&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="o">*</span> <span class="kr">as</span> <span class="nx">React</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="o">*</span> <span class="kr">as</span> <span class="nx">tmp</span> <span class="kr">from</span> <span class="s2">&#34;react-router&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useUpdate</span> <span class="kr">from</span> <span class="s2">&#34;../useUpdate&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useMemo</span><span class="p">,</span> <span class="nx">useRef</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useMemoizedFn</span> <span class="kr">from</span> <span class="s2">&#34;../useMemoizedFn&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ignore waring `&#34;export &#39;useNavigate&#39; (imported as &#39;rc&#39;) was not found in &#39;react-router&#39;`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">rc</span> <span class="o">=</span> <span class="nx">tmp</span> <span class="kr">as</span> <span class="kt">any</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * navigateMode: 状态变更时切换 history 的方式
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * parseOptions: parse 配置
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * stringifyOptions: stringify 配置
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Options</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">navigateMode</span><span class="o">?:</span> <span class="s2">&#34;push&#34;</span> <span class="o">|</span> <span class="s2">&#34;replace&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">parseOptions?</span>: <span class="kt">ParseOptions</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">stringifyOptions?</span>: <span class="kt">StringifyOptions</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">baseParseConfig</span>: <span class="kt">ParseOptions</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">parseNumbers</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">parseBooleans</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">baseStringifyConfig</span>: <span class="kt">StringifyOptions</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">skipNull</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">skipEmptyString</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">UrlState</span> <span class="o">=</span> <span class="nx">Record</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">,</span> <span class="na">any</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useUrlState</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">S</span> <span class="na">extends</span> <span class="na">UrlState </span><span class="o">=</span> <span class="na">UrlState</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">initialState?</span>: <span class="kt">S</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">S</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">options?</span>: <span class="kt">Options</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">type</span> <span class="nx">State</span> <span class="o">=</span> <span class="nx">Partial</span><span class="o">&lt;</span><span class="p">{</span> <span class="p">[</span><span class="nx">key</span> <span class="k">in</span> <span class="k">keyof</span> <span class="nx">S</span><span class="p">]</span><span class="o">:</span> <span class="kt">any</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">navigateMode</span> <span class="o">=</span> <span class="s2">&#34;push&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">parseOptions</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">stringifyOptions</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">mergedParseOptions</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">baseParseConfig</span><span class="p">,</span> <span class="p">...</span><span class="nx">parseOptions</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">mergedStringifyOptions</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span><span class="nx">baseStringifyConfig</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span><span class="nx">stringifyOptions</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 返回表示当前 URL 的 location 对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// https://reactrouter.com/en/main/hooks/use-location
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">location</span> <span class="o">=</span> <span class="nx">rc</span><span class="p">.</span><span class="nx">useLocation</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 浏览器的曾经在标签页或者框架里访问的会话历史记录
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// https://v5.reactrouter.com/web/api/Hooks/usehistory
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// react-router v5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">history</span> <span class="o">=</span> <span class="nx">rc</span><span class="p">.</span><span class="nx">useHistory</span><span class="o">?</span><span class="p">.();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// https://reactrouter.com/en/main/hooks/use-navigate
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// react-router v6
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">navigate</span> <span class="o">=</span> <span class="nx">rc</span><span class="p">.</span><span class="nx">useNavigate</span><span class="o">?</span><span class="p">.();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 强制渲染
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">update</span> <span class="o">=</span> <span class="nx">useUpdate</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 初始状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">initialStateRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typeof</span> <span class="nx">initialState</span> <span class="o">===</span> <span class="s2">&#34;function&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">?</span> <span class="p">(</span><span class="nx">initialState</span> <span class="kr">as</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">S</span><span class="p">)()</span>
+</span></span><span class="line"><span class="cl">      <span class="o">:</span> <span class="nx">initialState</span> <span class="o">||</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 从 URL 中解析查询参数对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">queryFromUrl</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">qs</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">,</span> <span class="nx">mergedParseOptions</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 组合查询参数对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 多状态管理（拆分）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">targetQuery</span>: <span class="kt">State</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="p">...</span><span class="nx">initialStateRef</span><span class="p">.</span><span class="nx">current</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">...</span><span class="nx">queryFromUrl</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nx">queryFromUrl</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">setState</span> <span class="o">=</span> <span class="p">(</span><span class="nx">s</span>: <span class="kt">React.SetStateAction</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 计算新的状态对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">newQuery</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">s</span> <span class="o">===</span> <span class="s2">&#34;function&#34;</span> <span class="o">?</span> <span class="nx">s</span><span class="p">(</span><span class="nx">targetQuery</span><span class="p">)</span> <span class="o">:</span> <span class="nx">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 1. 如果 setState 后，search 没变化，就需要 update 来触发一次更新。比如 demo1 直接点击 clear，就需要 update 来触发更新。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 2. update 和 history 的更新会合并，不会造成多次更新
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">update</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 根据路由版本，更新 URL 中的查询参数，保持 URL 和状态同步
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">history</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">history</span><span class="p">[</span><span class="nx">navigateMode</span><span class="p">](</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">hash</span>: <span class="kt">location.hash</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">search</span>:
+</span></span><span class="line"><span class="cl">            <span class="kt">qs.stringify</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">              <span class="p">{</span> <span class="p">...</span><span class="nx">queryFromUrl</span><span class="p">,</span> <span class="p">...</span><span class="nx">newQuery</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">mergedStringifyOptions</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span> <span class="o">||</span> <span class="s2">&#34;?&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">location</span><span class="p">.</span><span class="nx">state</span>
+</span></span><span class="line"><span class="cl">      <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">navigate</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">navigate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">hash</span>: <span class="kt">location.hash</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">search</span>:
+</span></span><span class="line"><span class="cl">            <span class="kt">qs.stringify</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">              <span class="p">{</span> <span class="p">...</span><span class="nx">queryFromUrl</span><span class="p">,</span> <span class="p">...</span><span class="nx">newQuery</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">mergedStringifyOptions</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span> <span class="o">||</span> <span class="s2">&#34;?&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">replace</span>: <span class="kt">navigateMode</span> <span class="o">===</span> <span class="s2">&#34;replace&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">state</span>: <span class="kt">location.state</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">targetQuery</span><span class="p">,</span> <span class="nx">useMemoizedFn</span><span class="p">(</span><span class="nx">setState</span><span class="p">)]</span> <span class="kr">as</span> <span class="kr">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useUrlState</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="usecookiestate">useCookieState</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-cookie-state" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useCookieState/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Cookies</span> <span class="kr">from</span> <span class="s2">&#34;js-cookie&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">isFunction</span><span class="p">,</span> <span class="nx">isString</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/utils&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useMemoizedFn</span> <span class="kr">from</span> <span class="s2">&#34;../useMemoizedFn&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">State</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">|</span> <span class="kc">undefined</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Options</span> <span class="kr">extends</span> <span class="nx">Cookies</span><span class="p">.</span><span class="nx">CookieAttributes</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">defaultValue?</span>: <span class="kt">State</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">State</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useCookieState</span> <span class="o">=</span> <span class="p">(</span><span class="nx">cookieKey</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">options</span>: <span class="kt">Options</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 本地已有 cookieKey 对应的 cookie 值，直接返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">cookieValue</span> <span class="o">=</span> <span class="nx">Cookies</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="nx">cookieKey</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">isString</span><span class="p">(</span><span class="nx">cookieValue</span><span class="p">))</span> <span class="k">return</span> <span class="nx">cookieValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// options.defaultValue 存在并且为函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultValue</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">options</span><span class="p">.</span><span class="nx">defaultValue</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">options</span><span class="p">.</span><span class="nx">defaultValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">updateState</span> <span class="o">=</span> <span class="nx">useMemoizedFn</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">newValue</span>: <span class="kt">State</span> <span class="o">|</span> <span class="p">((</span><span class="nx">prevState</span>: <span class="kt">State</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">State</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">newOptions</span>: <span class="kt">Cookies.CookieAttributes</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// newOptions 与 options 合并
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kr">const</span> <span class="p">{</span> <span class="nx">defaultValue</span><span class="p">,</span> <span class="p">...</span><span class="nx">restOptions</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">options</span><span class="p">,</span> <span class="p">...</span><span class="nx">newOptions</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 如果是函数，则取执行后返回的结果，否则直接取该值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kr">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">isFunction</span><span class="p">(</span><span class="nx">newValue</span><span class="p">)</span> <span class="o">?</span> <span class="nx">newValue</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="o">:</span> <span class="nx">newValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nx">setState</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// 如果值为 undefined，则清除 cookie。否则，调用 set 方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Cookies</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">cookieKey</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Cookies</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span><span class="nx">cookieKey</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">restOptions</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">updateState</span><span class="p">]</span> <span class="kr">as</span> <span class="kr">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useCookieState</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="uselocalstoragestate">useLocalStorageState</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-local-storage-state" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useLocalStorageState/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">isBrowser</span> <span class="o">=</span> <span class="o">!!</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="k">typeof</span> <span class="nb">window</span> <span class="o">!==</span> <span class="s2">&#34;undefined&#34;</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">window</span><span class="p">.</span><span class="nb">document</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">isBrowser</span><span class="p">;</span></span></span></code></pre></div></div><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">isFunction</span><span class="p">,</span> <span class="nx">isUndef</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/utils&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useUpdateEffect</span> <span class="kr">from</span> <span class="s2">&#34;../useUpdateEffect&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useMemoizedFn</span> <span class="kr">from</span> <span class="s2">&#34;../useMemoizedFn&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useEventListener</span> <span class="kr">from</span> <span class="s2">&#34;../useEventListener&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">SYNC_STORAGE_EVENT_NAME</span> <span class="o">=</span> <span class="s2">&#34;AHOOKS_SYNC_STORAGE_EVENT_NAME&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">SetState</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">S</span> <span class="o">|</span> <span class="p">((</span><span class="nx">prevState?</span>: <span class="kt">S</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">S</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Options</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">defaultValue?</span>: <span class="kt">T</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">T</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 是否监听存储变化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">listenStorageChange?</span>: <span class="kt">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">serializer</span><span class="o">?:</span> <span class="p">(</span><span class="nx">value</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">deserializer</span><span class="o">?:</span> <span class="p">(</span><span class="nx">value</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onError</span><span class="o">?:</span> <span class="p">(</span><span class="nx">error</span>: <span class="kt">unknown</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">createUseStorageState</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">getStorage</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">Storage</span> <span class="o">|</span> <span class="kc">undefined</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">useStorageState</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">T</span><span class="p">,&gt;(</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">options</span>: <span class="kt">Options</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">storage</span>: <span class="kt">Storage</span> <span class="o">|</span> <span class="kc">undefined</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">listenStorageChange</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">onError</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="o">=</span> <span class="nx">options</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 🐞
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * getStorage 可以返回 localStorage/sessionStorage/undefined
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 当 cookie 被 disabled 时，访问不了 localStorage/sessionStorage
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">storage</span> <span class="o">=</span> <span class="nx">getStorage</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">onError</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 支持自定义序列化方法，默认 JSON.stringify
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">serializer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">value</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">serializer</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">options</span><span class="p">.</span><span class="nx">serializer</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 支持自定义反序列化方法，默认 JSON.parse
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">deserializer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">value</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">T</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">deserializer</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">options</span><span class="p">.</span><span class="nx">deserializer</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">getStoredValue() {</span>
+</span></span><span class="line"><span class="cl">      <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">storage</span><span class="o">?</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">raw</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="nx">deserializer</span><span class="p">(</span><span class="nx">raw</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onError</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultValue</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">options</span><span class="p">.</span><span class="nx">defaultValue</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">options</span><span class="p">.</span><span class="nx">defaultValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">getStoredValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// key 更新时执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">useUpdateEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">setState</span><span class="p">(</span><span class="nx">getStoredValue</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">updateState</span> <span class="o">=</span> <span class="p">(</span><span class="nx">value?</span>: <span class="kt">SetState</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 如果 value 为函数，则取执行后结果；否则，直接取值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kr">const</span> <span class="nx">currentState</span> <span class="o">=</span> <span class="nx">isFunction</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">?</span> <span class="nx">value</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="o">:</span> <span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// 不监听存储变化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">listenStorageChange</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">setState</span><span class="p">(</span><span class="nx">currentState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">newValue</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">oldValue</span> <span class="o">=</span> <span class="nx">storage</span><span class="o">?</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 如果值为 undefined，则 removeItem
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">isUndef</span><span class="p">(</span><span class="nx">currentState</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">newValue</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">storage</span><span class="o">?</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// setItem
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="nx">newValue</span> <span class="o">=</span> <span class="nx">serializer</span><span class="p">(</span><span class="nx">currentState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">storage</span><span class="o">?</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">newValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 触发自定义事件 SYNC_STORAGE_EVENT_NAME
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">dispatchEvent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// send custom event to communicate within same page
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="c1">// importantly this should not be a StorageEvent since those cannot
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="c1">// be constructed with a non-built-in storage area
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="k">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="nx">SYNC_STORAGE_EVENT_NAME</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">detail</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">key</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">newValue</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">oldValue</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">storageArea</span>: <span class="kt">storage</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onError</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 处理 storage 事件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">syncState</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">StorageEvent</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span> <span class="o">!==</span> <span class="nx">key</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">storageArea</span> <span class="o">!==</span> <span class="nx">storage</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// 更新状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">setState</span><span class="p">(</span><span class="nx">getStoredValue</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 处理自定义事件 SYNC_STORAGE_EVENT_NAME
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">syncStateFromCustomEvent</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span>: <span class="kt">CustomEvent</span><span class="p">&lt;</span><span class="nt">StorageEvent</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">syncState</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">detail</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// from another document
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">useEventListener</span><span class="p">(</span><span class="s2">&#34;storage&#34;</span><span class="p">,</span> <span class="nx">syncState</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">enable</span>: <span class="kt">listenStorageChange</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// from the same document but different hooks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">useEventListener</span><span class="p">(</span><span class="nx">SYNC_STORAGE_EVENT_NAME</span><span class="p">,</span> <span class="nx">syncStateFromCustomEvent</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">enable</span>: <span class="kt">listenStorageChange</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">useMemoizedFn</span><span class="p">(</span><span class="nx">updateState</span><span class="p">)]</span> <span class="kr">as</span> <span class="kr">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">useStorageState</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">isBrowser</span> <span class="kr">from</span> <span class="s2">&#34;@/utils/isBrowser&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createUseStorageState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;../createUseStorageState&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useLocalStorageState</span> <span class="o">=</span> <span class="nx">createUseStorageState</span><span class="p">(()</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">isBrowser</span> <span class="o">?</span> <span class="nx">localStorage</span> : <span class="kt">undefined</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useLocalStorageState</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="usesessionstoragestate">useSessionStorageState</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-session-storage-state" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useSessionStorageState/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">isBrowser</span> <span class="kr">from</span> <span class="s2">&#34;@/utils/isBrowser&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createUseStorageState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;../createUseStorageState&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useSessionStorageState</span> <span class="o">=</span> <span class="nx">createUseStorageState</span><span class="p">(()</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">isBrowser</span> <span class="o">?</span> <span class="nx">sessionStorage</span> : <span class="kt">undefined</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useSessionStorageState</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="usedebounce">useDebounce</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-debounce" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useDebounce/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useDebounceFn</span> <span class="kr">from</span> <span class="s2">&#34;../useDebounceFn&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="p">{</span> <span class="nx">DebounceOptions</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./debounceOptions&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useDebounce</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">T</span><span class="p">,&gt;(</span><span class="nx">value</span>: <span class="kt">T</span><span class="p">,</span> <span class="nx">options?</span>: <span class="kt">DebounceOptions</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">debounced</span><span class="p">,</span> <span class="nx">setDebounced</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 依赖 useDebounceFn
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="p">{</span> <span class="nx">run</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useDebounceFn</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setDebounced</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="nx">options</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 监听 value 变化，立即执行防抖函数，更新 debounced 值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">run</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[</span><span class="nx">value</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">debounced</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useDebounce</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="usethrottle">useThrottle</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-throttle" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useThrottle/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="p">{</span> <span class="nx">ThrottleOptions</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./throttleOptions&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useThrottleFn</span> <span class="kr">from</span> <span class="s2">&#34;../useThrottleFn&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useThrottle</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">T</span><span class="p">,&gt;(</span><span class="nx">value</span>: <span class="kt">T</span><span class="p">,</span> <span class="nx">options?</span>: <span class="kt">ThrottleOptions</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">throttled</span><span class="p">,</span> <span class="nx">setThrottled</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 依赖 useThrottleFn
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="p">{</span> <span class="nx">run</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useThrottleFn</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setThrottled</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="nx">options</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 监听 value 变化，立即执行节流函数，更新 throttled 值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">run</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[</span><span class="nx">value</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">throttled</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useThrottle</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="usemap">useMap</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-map" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useMap/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useMemoizedFn</span> <span class="kr">from</span> <span class="s2">&#34;../useMemoizedFn&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useMap</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">K</span><span class="p">,</span> <span class="na">T</span><span class="p">&gt;(</span><span class="nx">initialValue?</span>: <span class="kt">Iterable</span><span class="p">&lt;</span><span class="nt">readonly</span> <span class="err">[</span><span class="na">K</span><span class="p">,</span> <span class="na">T</span><span class="err">]</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">getInitValue</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">(</span><span class="nx">initialValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">map</span><span class="p">,</span> <span class="nx">setMap</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">&lt;</span><span class="nt">Map</span><span class="p">&lt;</span><span class="nt">K</span><span class="p">,</span> <span class="na">T</span><span class="p">&gt;&gt;(</span><span class="nx">getInitValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 添加元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="kr">set</span> <span class="o">=</span> <span class="p">(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">,</span> <span class="nx">entry</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setMap</span><span class="p">((</span><span class="nx">prev</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">(</span><span class="nx">prev</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">temp</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">entry</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 生成一个新的 Map 对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">setAll</span> <span class="o">=</span> <span class="p">(</span><span class="nx">newMap</span>: <span class="kt">Iterable</span><span class="p">&lt;</span><span class="nt">readonly</span> <span class="err">[</span><span class="na">K</span><span class="p">,</span> <span class="na">T</span><span class="err">]</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setMap</span><span class="p">(</span><span class="k">new</span> <span class="nx">Map</span><span class="p">(</span><span class="nx">newMap</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 移除元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">remove</span> <span class="o">=</span> <span class="p">(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setMap</span><span class="p">((</span><span class="nx">prev</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">(</span><span class="nx">prev</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">temp</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 重置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">reset</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setMap</span><span class="p">(</span><span class="nx">getInitValue</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 获取元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="kr">get</span> <span class="o">=</span> <span class="p">(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">map</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">map</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">set</span><span class="o">:</span> <span class="nx">useMemoizedFn</span><span class="p">(</span><span class="kr">set</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">setAll</span>: <span class="kt">useMemoizedFn</span><span class="p">(</span><span class="nx">setAll</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">remove</span>: <span class="kt">useMemoizedFn</span><span class="p">(</span><span class="nx">remove</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">reset</span>: <span class="kt">useMemoizedFn</span><span class="p">(</span><span class="nx">reset</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">get</span><span class="o">:</span> <span class="nx">useMemoizedFn</span><span class="p">(</span><span class="kr">get</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span> <span class="kr">as</span> <span class="kr">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useMap</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="useset">useSet</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-set" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useSet/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useMemoizedFn</span> <span class="kr">from</span> <span class="s2">&#34;../useMemoizedFn&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useSet</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">K</span><span class="p">,&gt;(</span><span class="nx">initialValue?</span>: <span class="kt">Iterable</span><span class="p">&lt;</span><span class="nt">K</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">getInitValue</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="nx">initialValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="kr">set</span><span class="p">,</span> <span class="nx">setSet</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">&lt;</span><span class="nt">Set</span><span class="p">&lt;</span><span class="nt">K</span><span class="p">&gt;&gt;(</span><span class="nx">getInitValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 添加元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">add</span> <span class="o">=</span> <span class="p">(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="kr">set</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setSet</span><span class="p">((</span><span class="nx">prevSet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="nx">prevSet</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">temp</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 移除元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">remove</span> <span class="o">=</span> <span class="p">(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="kr">set</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setSet</span><span class="p">((</span><span class="nx">prevSet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="nx">prevSet</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">temp</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 重置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">reset</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setSet</span><span class="p">(</span><span class="nx">getInitValue</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">set</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">add</span>: <span class="kt">useMemoizedFn</span><span class="p">(</span><span class="nx">add</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">remove</span>: <span class="kt">useMemoizedFn</span><span class="p">(</span><span class="nx">remove</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">reset</span>: <span class="kt">useMemoizedFn</span><span class="p">(</span><span class="nx">reset</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span> <span class="kr">as</span> <span class="kr">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useSet</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="useprevious">usePrevious</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-previous" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/usePrevious/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useRef</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">ShouldUpdateFunc</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">(</span><span class="nx">prev</span>: <span class="kt">T</span> <span class="o">|</span> <span class="kc">undefined</span><span class="p">,</span> <span class="nx">next</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kr">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">defaultShouldUpdate</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">T</span><span class="p">,&gt;(</span><span class="nx">a?</span>: <span class="kt">T</span><span class="p">,</span> <span class="nx">b?</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="o">!</span><span class="nb">Object</span><span class="p">.</span><span class="k">is</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">usePrevious</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">T</span><span class="p">,&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">state</span>: <span class="kt">T</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">shouldUpdate</span>: <span class="kt">ShouldUpdateFunc</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=</span> <span class="nx">defaultShouldUpdate</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="nx">T</span> <span class="o">|</span> <span class="kc">undefined</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 维护两个值 prevRef.current 和 curRef.current
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * prevRef.current: 上一次的状态值
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * curRef.current: 当前的状态值
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * */</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">prevRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">curRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 使用 shouldUpdate 判断 state 是否发生变化
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">shouldUpdate</span><span class="p">(</span><span class="nx">curRef</span><span class="p">.</span><span class="nx">current</span><span class="p">,</span> <span class="nx">state</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 手动更新 prevRef.current 的值为上一个状态值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">prevRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">curRef</span><span class="p">.</span><span class="nx">current</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 手动更新 curRef.current 的值为最新的状态值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">curRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 返回上一次的状态值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nx">prevRef</span><span class="p">.</span><span class="nx">current</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">usePrevious</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="userafstate">useRafState</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-raf-state" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useRafState/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<p>window.requestAnimationFrame()，你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">type</span> <span class="nx">Dispatch</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">type</span> <span class="nx">SetStateAction</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useCallback</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useRef</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useState</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useUnmount</span> <span class="kr">from</span> <span class="s2">&#34;../useUnmount&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useRafState</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">initialState</span>: <span class="kt">S</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">S</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="nx">S</span><span class="p">,</span> <span class="nx">Dispatch</span><span class="p">&lt;</span><span class="nt">SetStateAction</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;&gt;];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useRafState</span><span class="p">&lt;</span><span class="nt">S</span> <span class="err">=</span> <span class="na">undefined</span><span class="p">&gt;()</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">S</span> <span class="o">|</span> <span class="kc">undefined</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Dispatch</span><span class="p">&lt;</span><span class="nt">SetStateAction</span><span class="p">&lt;</span><span class="nt">S</span> <span class="err">|</span> <span class="na">undefined</span><span class="p">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useRafState</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;(</span><span class="nx">initialState?</span>: <span class="kt">S</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">S</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">setRafState</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">((</span><span class="nx">value</span>: <span class="kt">S</span> <span class="o">|</span> <span class="p">((</span><span class="nx">prevState</span>: <span class="kt">S</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">S</span><span class="p">))</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 取消上一次的 requestAnimationFrame
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">cancelAnimationFrame</span><span class="p">(</span><span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 通过 requestAnimationFrame 控制 setState 的执行时机
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ref</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">requestAnimationFrame</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">setState</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">useUnmount</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 组件卸载时，取消 requestAnimationFrame，避免内存泄露
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">cancelAnimationFrame</span><span class="p">(</span><span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setRafState</span><span class="p">]</span> <span class="kr">as</span> <span class="kr">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useRafState</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="usesafestate">useSafeState</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-safe-state" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useSafeState/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useCallback</span><span class="p">,</span> <span class="kr">type</span> <span class="nx">Dispatch</span><span class="p">,</span> <span class="kr">type</span> <span class="nx">SetStateAction</span><span class="p">,</span> <span class="nx">useState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useUnmountedRef</span> <span class="kr">from</span> <span class="s2">&#34;../useUnmountedRef&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useSafeState</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">initialState</span>: <span class="kt">S</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">S</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="nx">S</span><span class="p">,</span> <span class="nx">Dispatch</span><span class="p">&lt;</span><span class="nt">SetStateAction</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;&gt;];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useSafeState</span><span class="p">&lt;</span><span class="nt">S</span> <span class="err">=</span> <span class="na">undefined</span><span class="p">&gt;()</span><span class="o">:</span> <span class="p">[</span><span class="nx">S</span> <span class="o">|</span> <span class="kc">undefined</span><span class="p">,</span> <span class="nx">Dispatch</span><span class="p">&lt;</span><span class="nt">SetStateAction</span><span class="p">&lt;</span><span class="nt">S</span> <span class="err">|</span> <span class="na">undefined</span><span class="p">&gt;</span><span class="err">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">function</span> <span class="na">useSafeState</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;</span><span class="err">(</span>
+</span></span><span class="line"><span class="cl">  <span class="na">initialState</span><span class="err">?:</span> <span class="na">S</span> <span class="err">|</span> <span class="err">(()</span> <span class="err">=</span><span class="p">&gt;</span> <span class="nx">S</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">unmountedRef</span> <span class="o">=</span> <span class="nx">useUnmountedRef</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">setCurrentState</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">((</span><span class="nx">currentState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** if component is unmounted, stop update */</span>
+</span></span><span class="line"><span class="cl">     <span class="c1">// 如果组件已经卸载，则停止更新状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">unmountedRef</span><span class="p">.</span><span class="nx">current</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     <span class="c1">// 更新状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">setState</span><span class="p">(</span><span class="nx">currentState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setCurrentState</span><span class="p">]</span> <span class="kr">as</span> <span class="kr">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useSafeState</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="usegetstate">useGetState</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-get-state" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useGetState/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">type</span> <span class="nx">Dispatch</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">type</span> <span class="nx">SetStateAction</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useState</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useCallback</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useLatest</span> <span class="kr">from</span> <span class="s2">&#34;../useLatest&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">GetStateAction</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">S</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useGetState</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">initialState</span>: <span class="kt">S</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">S</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="nx">S</span><span class="p">,</span> <span class="nx">Dispatch</span><span class="p">&lt;</span><span class="nt">SetStateAction</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;&gt;,</span> <span class="nx">GetStateAction</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useGetState</span><span class="p">&lt;</span><span class="nt">S</span> <span class="err">=</span> <span class="na">undefined</span><span class="p">&gt;()</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">S</span> <span class="o">|</span> <span class="kc">undefined</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Dispatch</span><span class="p">&lt;</span><span class="nt">SetStateAction</span><span class="p">&lt;</span><span class="nt">S</span> <span class="err">|</span> <span class="na">undefined</span><span class="p">&gt;&gt;,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">GetStateAction</span><span class="p">&lt;</span><span class="nt">S</span> <span class="err">|</span> <span class="na">undefined</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useGetState</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;(</span><span class="nx">initialState?</span>: <span class="kt">S</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 最新的 state 值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">stateRef</span> <span class="o">=</span> <span class="nx">useLatest</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 暴露一个 getState 方法获取到最新的 state 值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">getState</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">stateRef</span><span class="p">.</span><span class="nx">current</span><span class="p">,</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">,</span> <span class="nx">getState</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useGetState</span><span class="p">;</span></span></span></code></pre></div></div><h2 id="useresetstate">useResetState</h2>
+<p><a href="https://ahooks.js.org/zh-CN/hooks/use-reset-state" target="_blank" rel="noopener noreffer ">文档地址</a></p>
+<p><a href="https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useResetState/index.ts" target="_blank" rel="noopener noreffer ">详细代码</a></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="kr">type</span> <span class="nx">Dispatch</span><span class="p">,</span> <span class="kr">type</span> <span class="nx">SetStateAction</span><span class="p">,</span> <span class="nx">useRef</span><span class="p">,</span> <span class="nx">useState</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useCreation</span> <span class="kr">from</span> <span class="s2">&#34;../useCreation&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">isFunction</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;lodash&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">useMemoizedFn</span> <span class="kr">from</span> <span class="s2">&#34;../useMemoizedFn&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">ResetState</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">useResetState</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">S</span><span class="p">,&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">initialState</span>: <span class="kt">S</span> <span class="o">|</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">S</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="nx">S</span><span class="p">,</span> <span class="nx">Dispatch</span><span class="p">&lt;</span><span class="nt">SetStateAction</span><span class="p">&lt;</span><span class="nt">S</span><span class="p">&gt;&gt;,</span> <span class="nx">ResetState</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">initialStateRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span><span class="nx">initialState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">initialStateMemo</span> <span class="o">=</span> <span class="nx">useCreation</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">()</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">isFunction</span><span class="p">(</span><span class="nx">initialStateRef</span><span class="p">.</span><span class="nx">current</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">?</span> <span class="nx">initialStateRef</span><span class="p">.</span><span class="nx">current</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="nx">initialStateRef</span><span class="p">.</span><span class="nx">current</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialStateMemo</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 暴露一个 resetState 方法重置 state 为 initialState
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">resetState</span> <span class="o">=</span> <span class="nx">useMemoizedFn</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setState</span><span class="p">(</span><span class="nx">initialStateMemo</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">,</span> <span class="nx">resetState</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">useResetState</span><span class="p">;</span></span></span></code></pre></div></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-11-07&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/f620fc752e2fee7842cb85fc6727ccfd9f2cb469" target="_blank" title="commit by OweQian(1510106069@qq.com) f620fc752e2fee7842cb85fc6727ccfd9f2cb469: fix: update blog">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>f620fc7</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/state/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/state/" data-title="📝 解读 ahooks 源码系列 - State" data-via="xxxx" data-hashtags="ahooks"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/state/" data-hashtag="ahooks"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/state/" data-title="📝 解读 ahooks 源码系列 - State"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/state/" data-title="📝 解读 ahooks 源码系列 - State"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/state/" data-title="📝 解读 ahooks 源码系列 - State"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ahooks/">Ahooks</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/lifecycle/" class="prev" rel="prev" title="📝 解读 ahooks 源码系列 - LifeCycle"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>📝 解读 ahooks 源码系列 - LifeCycle</a>
+            <a href="/effect/" class="next" rel="next" title="📝 解读 ahooks 源码系列 - Effect">📝 解读 ahooks 源码系列 - Effect<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.144.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/OweQian" target="_blank">OweQian 的精神角落</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>📜 解读 react 原理系列 - 位运算 - OweQian 的精神角落</title><meta name="Description" content="OweQian&#39;s blog"><meta property="og:url" content="http://localhost:1313/reactbitwise/">
+  <meta property="og:site_name" content="OweQian 的精神角落">
+  <meta property="og:title" content="📜 解读 react 原理系列 - 位运算">
+  <meta property="og:description" content="本篇文章是解读 react 原理系列的第五篇 - 位运算，请带着问题来阅读，效果更佳。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-02-23T11:43:43+08:00">
+    <meta property="article:modified_time" content="2024-11-07T18:22:20+08:00">
+    <meta property="article:tag" content="React">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="📜 解读 react 原理系列 - 位运算">
+  <meta name="twitter:description" content="本篇文章是解读 react 原理系列的第五篇 - 位运算，请带着问题来阅读，效果更佳。">
+      <meta name="twitter:site" content="@xxxx">
+<meta name="application-name" content="OweQian 的精神角落">
+<meta name="apple-mobile-web-app-title" content="OweQian 的精神角落"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/img.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/reactbitwise/" /><link rel="prev" href="http://localhost:1313/reacthooks/" /><link rel="next" href="http://localhost:1313/reactrouter/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "📜 解读 react 原理系列 - 位运算",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/reactbitwise\/"
+        },"genre": "posts","keywords": "react","wordcount":  3396 ,
+        "url": "http:\/\/localhost:1313\/reactbitwise\/","datePublished": "2024-02-23T11:43:43+08:00","dateModified": "2024-11-07T18:22:20+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "OweQian 的精神角落"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">📜 解读 react 原理系列 - 位运算</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/react/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>React</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-23">2024-02-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3396 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是位运算">什么是位运算</a></li>
+    <li><a href="#位运算的使用场景">位运算的使用场景</a></li>
+    <li><a href="#react-位掩码场景">react 位掩码场景</a>
+      <ul>
+        <li><a href="#更新优先级">更新优先级</a></li>
+        <li><a href="#更新上下文">更新上下文</a></li>
+        <li><a href="#更新标识-flag">更新标识 flag</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本篇文章是解读 react 原理系列的第五篇 - 位运算，请带着问题来阅读，效果更佳。</p>
+<p>react 中有很多运用位运算的场景，比如在更新优先级模型中采用新的 lane 架构模型、判断更新类型中的 context 模型、更新标志 flags 模型。</p>
+<p>本篇让我们一起来弄明白 react 架构设计为什么要使用位运算和 react 底层源码中如何使用位运算。</p>
+<p>首先我们来思考几个问题：</p>
+<p>🤔 Q1: 什么是位运算？<br>
+🤔 Q2: 位运算的使用场景？<br>
+🤔 Q3: 什么是位掩码？<br>
+🤔 Q4: 位运算在 react 中的应用？</p>
+<h2 id="什么是位运算">什么是位运算</h2>
+<p>计算机专业的同学都知道，程序中的所有数在计算机内存中都是以二进制的形式存储的，位运算就是直接对整数在内存中的二进制位进行操作 (💡：Q1)。</p>
+<p>比如：</p>
+<ul>
+<li>0 在二进制中用 0 表示，我们用 0000 代表</li>
+<li>1 在二进制中用 1 表示，我们用 0001 代表</li>
+</ul>
+<p>接下来看两个位元算符号 &amp; 和 |：</p>
+<ul>
+<li>&amp; 对于每一个比特位，两个操作数都为 1 时，结果为 1，否则为 0</li>
+<li>| 对于每一个比特位，两个操作数都为 0 时，结果为 0，否则为 1</li>
+</ul>
+<p>举个 🌰：</p>
+<p>1 &amp; 0 = 0,1 | 0 = 1；</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_29.png" alt="" width="100%" />
+<p>常用的位运算：</p>
+<table>
+  <thead>
+      <tr>
+          <th>运算符</th>
+          <th>用法</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>与 &amp;</td>
+          <td>a &amp; b</td>
+          <td>如果两位都是 1 则设置每位为 1</td>
+      </tr>
+      <tr>
+          <td>或 |</td>
+          <td>a | b</td>
+          <td>如果两位之一为 1 则设置每位为 1</td>
+      </tr>
+      <tr>
+          <td>异或 ^</td>
+          <td>a ^ b</td>
+          <td>如果两位只有一位为 1 则设置每位为 1</td>
+      </tr>
+      <tr>
+          <td>非 ~</td>
+          <td>~a</td>
+          <td>反转所有位</td>
+      </tr>
+      <tr>
+          <td>零填充左位移 (&laquo;)</td>
+          <td>a &laquo; b</td>
+          <td>通过从右推入零向左位移，并使最左边的位脱落</td>
+      </tr>
+      <tr>
+          <td>有符号右位移 (&raquo;)</td>
+          <td>a &raquo; b</td>
+          <td>通过从左推入最左位的拷贝来向右位移，并使最右边的位脱落</td>
+      </tr>
+      <tr>
+          <td>零填充右位移 (&raquo;&gt;)</td>
+          <td>a &raquo;&gt; b</td>
+          <td>通过从左推入零来向右位移，并使最右边的位脱落</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="位运算的使用场景">位运算的使用场景</h2>
+<p>比如有这样一个场景，它有很多状态常量 A、B、C&hellip;这些状态常量被用来在整个应用中的一些关键节点做流程控制 (💡：Q2)，如：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="nx">A</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// TODO...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div><p>如上判断 value 等于常量 A，就进入到 if 的条件语句中，此时 value 和 常量值是一对一的关系。</p>
+<p>但如果在实际场景中，value 可能是好几个枚举常量的集合，也就是一对多的关系，此时 value 可能同时代表 A 和 B 两个状态常量。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_30.png" alt="" width="100%" />
+<p>那么如何用一个 value 来表示 A 和 B 两个状态常量的集合呢？</p>
+<p>这个时候位运算就派上用场了，把一些状态常量用 32 位的二进制来表示（也可以用其他进制），比如：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">A</span> <span class="o">=</span> <span class="mb">0b0000000000000000000000000000001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">B</span> <span class="o">=</span> <span class="mb">0b0000000000000000000000000000010</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">C</span> <span class="o">=</span> <span class="mb">0b0000000000000000000000000000100</span><span class="p">;</span></span></span></code></pre></div></div><p>通过移位的方式让每一个常量都单独占一位，在判断一个属性是否为常量时，可以根据当前位数的 1 和 0 来判断。</p>
+<p>如果一个值既代表 A 又代表 B，那么就可以通过位运算的 | 来处理。</p>
+<p>AB = A | B = 0b0000000000000000000000000000011</p>
+<p>如果把 AB 的值赋给 value，此时的 value 就可以用来代表 A 和 B。</p>
+<p>那么如何判断 value 是否为 A 或者 B？我们可以通过 &amp; 来判断。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">A</span> <span class="o">=</span> <span class="mb">0b0000000000000000000000000000001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">B</span> <span class="o">=</span> <span class="mb">0b0000000000000000000000000000010</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">C</span> <span class="o">=</span> <span class="mb">0b0000000000000000000000000000100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">N</span> <span class="o">=</span> <span class="mb">0b0000000000000000000000000000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">A</span> <span class="o">|</span> <span class="nx">B</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="nx">value</span> <span class="o">&amp;</span> <span class="nx">A</span><span class="p">)</span> <span class="o">!==</span> <span class="nx">N</span><span class="p">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="nx">value</span> <span class="o">&amp;</span> <span class="nx">B</span><span class="p">)</span> <span class="o">!==</span> <span class="nx">N</span><span class="p">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="nx">value</span> <span class="o">&amp;</span> <span class="nx">C</span><span class="p">)</span> <span class="o">!==</span> <span class="nx">N</span><span class="p">);</span> <span class="c1">// false
+</span></span></span></code></pre></div></div><p>引入一个新的常量 N，它所有的位数都是 0，它本身的数值也是 0。</p>
+<p>通过 (value &amp; A ) !== 0 为 true 来判断 value 中是否含有 A；同样通过 (value &amp; B ) !== 0 为 true 来判断 value 中是否含有 B；value 中没有属性 C，所以 (value &amp; C ) !== 0 为 false。</p>
+<p>位掩码：对于常量的声明（如上述的 A、B、C）必须满足只有一个 1 位，而且每一个常量二进制 1 的所在位数都不同，如下所示：</p>
+<p>0b0000000000000000000000000000001 = 1<br>
+0b0000000000000000000000000000010 = 2<br>
+0b0000000000000000000000000000100 = 4<br>
+0b0000000000000000000000000001000 = 8<br>
+0b0000000000000000000000000010000 = 16<br>
+0b0000000000000000000000000100000 = 32<br>
+0b0000000000000000000000001000000 = 64<br>
+&hellip;</p>
+<p>二进制满足的情况都是 2 的幂数，如果我们声明的常量都满足如上情况，我们就可以用不同的变量来比较、合并这些变量。</p>
+<p>这种通过二进制存储，通过位运算计算的方式，在计算机中作为位掩码 (💡：Q3)。</p>
+<h2 id="react-位掩码场景">react 位掩码场景</h2>
+<p>react 中有很多运用位运算的场景，比如更新优先级 - lane、更新上下文状态 — ExecutionContext、更新标识 - flag (💡：Q4)。</p>
+<h3 id="更新优先级">更新优先级</h3>
+<p>react 中的更新任务会被赋予不同的优先级。在一次用户交互中，如果仅出现一个更新任务，react 只需要公平对待这个更新就可以了。</p>
+<p>如果存在多个更新任务，比如：远程搜索功能，用户输入内容，触发列表内容变化，这时如果把输入表单和列表更新放在同一个优先级，无论 js 执行还是浏览器绘制，列表更新需要的时间远大于一个输入框更新的时间，所以输入框频繁改变内容，会造成列表频繁更新，列表的更新会阻塞到表单内容的呈现，这样就造成了用户不能及时看到输入的内容，造成了很差的用户体验。</p>
+<p>react 的解决方案就是当存在多个更新优先级任务时，高优先级的任务先执行，等到执行完高优先级任务，再回头来执行低优先级的任务，保证良好的用户体验。</p>
+<p>那么 react 用什么来标记更新任务的优先级呢？在 react v17 及以上版本，引入 lane 属性来表示更新任务的优先级。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">NoLanes</span> <span class="o">=</span> <span class="cm">/*                        */</span> <span class="mb">0b0000000000000000000000000000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">SyncLane</span> <span class="o">=</span> <span class="cm">/*                        */</span> <span class="mb">0b0000000000000000000000000000001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">InputContinuousHydrationLane</span> <span class="o">=</span> <span class="cm">/*    */</span> <span class="mb">0b0000000000000000000000000000010</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">InputContinuousLane</span> <span class="o">=</span> <span class="cm">/*             */</span> <span class="mb">0b0000000000000000000000000000100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">DefaultHydrationLane</span> <span class="o">=</span> <span class="cm">/*            */</span> <span class="mb">0b0000000000000000000000000001000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">DefaultLane</span> <span class="o">=</span> <span class="cm">/*                     */</span> <span class="mb">0b0000000000000000000000000010000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">TransitionHydrationLane</span> <span class="o">=</span> <span class="cm">/*                */</span> <span class="mb">0b0000000000000000000000000100000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">TransitionLane</span> <span class="o">=</span> <span class="cm">/*                        */</span> <span class="mb">0b0000000000000000000000001000000</span><span class="p">;</span></span></span></code></pre></div></div><p>SyncLane 代表的数值是 1，它是最高的优先级，也就是说 lane 代表的数值越小，此次更新任务的优先级就越大。</p>
+<p>新版 react 中，render 阶段可能被中断，在这期间会产生一个更高优先级的任务，就会再次更新 lane 属性，这样多个更新就会合并，一个 lane 可能需要表现出多个更新优先级。</p>
+<p>通过位运算让多个优先级的任务合并，分离出高优先级和低优先级的任务。</p>
+<p>那么 react 如何通过位运算分离出高优先级任务呢？</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getHighestPriorityLanes</span><span class="p">(</span><span class="nx">lanes</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 通过 getHighestPriorityLane 分离出优先级高的任务 */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="p">(</span><span class="nx">getHighestPriorityLane</span><span class="p">(</span><span class="nx">lanes</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">SyncLane</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">SyncLane</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">InputContinuousHydrationLane</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">InputContinuousHydrationLane</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>通过 getHighestPriorityLane 分离出高优先级的任务：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getHighestPriorityLane</span><span class="p">(</span><span class="nx">lanes</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">lanes</span> <span class="o">&amp;</span> <span class="o">-</span><span class="nx">lanes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>比如 SyncLane 和 InputContinuousLane 合并之后的任务优先级 lanes 为：</p>
+<p>SyncLane = 0b0000000000000000000000000000001<br>
+InputContinuousLane = 0b0000000000000000000000000000100</p>
+<p>lanes = SyncLane ｜ InputContinuousLane<br>
+lanes = 0b0000000000000000000000000000101</p>
+<p>首先我们看一下 -lanes，在二进制中需要用补码来表示：</p>
+<p>-lanes = 0b1111111111111111111111111111011</p>
+<p>接下来看一下 lanes &amp; -lanes：</p>
+<p>lanes &amp; -lanes = 0b0000000000000000000000000000001</p>
+<p>可以看到 lanes &amp; -lanes 的结果是 SyncLane，这样就能分离出最高优先级的任务。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">SyncLane</span> <span class="o">=</span> <span class="mb">0b0000000000000000000000000000001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">InputContinuousLane</span> <span class="o">=</span> <span class="mb">0b0000000000000000000000000000100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">lane</span> <span class="o">=</span> <span class="nx">SyncLane</span> <span class="o">|</span> <span class="nx">InputContinuousLane</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="nx">lane</span> <span class="o">&amp;</span> <span class="o">-</span><span class="nx">lane</span><span class="p">)</span> <span class="o">===</span> <span class="nx">SyncLane</span><span class="p">);</span> <span class="c1">// true
+</span></span></span></code></pre></div></div><h3 id="更新上下文">更新上下文</h3>
+<p>lane 决定了更新任务的优先级，高优任务进入更新阶段，react 中有一个属性用来判断当前更新上下文的状态，这个属性就是 ExecutionContext。</p>
+<p>为什么要用一个状态表示当前更新上下文呢？</p>
+<p>举个 🌰，比如 react 批量更新，在一次点击中，多次更新 state，react 就会把这些更新合并为一次更新，这就存在一个问题，react 怎么知道当前的上下文中需要合并更新呢？</p>
+<p>这个时候更新上下文状态 ExecutionContext 就派上用场了，通过给 ExecutionContext 赋不同的状态值，来证明当前上下文的状态，点击事件里面的上下文会被赋予独立的上下文状态值。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">batchedEventUpdates</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">prevExecutionContext</span> <span class="o">=</span> <span class="nx">executionContext</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">executionContext</span> <span class="o">|=</span> <span class="nx">EventContext</span><span class="p">;</span> <span class="c1">// 赋值事件上下文 EventContext
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">fn</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// 执行函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">executionContext</span> <span class="o">=</span> <span class="nx">prevExecutionContext</span><span class="p">;</span> <span class="c1">// 重置之前的状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>在 react 事件系统中给 executionContext 赋值 EventContext，在执行完事件后，再重置到之前的状态。这样在事件系统中的更新就能感知到目前的更新上下文是 EventContext，在这里的更新就是可控的，就可以实现批量更新的逻辑了。</p>
+<p>常用的更新上下文，这里和最新的 React 源码有一些出入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">NoContext</span> <span class="o">=</span> <span class="cm">/*             */</span> <span class="mb">0b0000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">BatchedContext</span> <span class="o">=</span> <span class="cm">/*               */</span> <span class="mb">0b0000001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">EventContext</span> <span class="o">=</span> <span class="cm">/*                 */</span> <span class="mb">0b0000010</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">DiscreteEventContext</span> <span class="o">=</span> <span class="cm">/*         */</span> <span class="mb">0b0000100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">LegacyUnbatchedContext</span> <span class="o">=</span> <span class="cm">/*       */</span> <span class="mb">0b0001000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">RenderContext</span> <span class="o">=</span> <span class="cm">/*                */</span> <span class="mb">0b0010000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CommitContext</span> <span class="o">=</span> <span class="cm">/*                */</span> <span class="mb">0b0100000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">RetryAfterError</span> <span class="o">=</span> <span class="cm">/*       */</span> <span class="mb">0b1000000</span><span class="p">;</span></span></span></code></pre></div></div><p>和 lanes 的定义不同, ExecutionContext 类型的变量, 在定义时采取的是 8 位二进制。</p>
+<p>在最新的源码中，ExecutionContext 类型变量采用 4 位的二进制：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">NoContext</span> <span class="o">=</span> <span class="cm">/*             */</span> <span class="mb">0b000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">BatchedContext</span> <span class="o">=</span> <span class="cm">/*               */</span> <span class="mb">0b001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">RenderContext</span> <span class="o">=</span> <span class="cm">/*                */</span> <span class="mb">0b010</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CommitContext</span> <span class="o">=</span> <span class="cm">/*                */</span> <span class="mb">0b100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">executionContext</span> <span class="o">=</span> <span class="nx">NoContext</span><span class="p">;</span></span></span></code></pre></div></div><p>executionContext 作为一个全局状态，指引 react 更新的方向。</p>
+<p>在 react 运行时上下文中，无论是初始化还是更新，都会走一个入口函数 scheduleUpdateOnFiber，这个函数会使用更新上下文来判别更新的下一步走向。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">lane</span> <span class="o">===</span> <span class="nx">SyncLane</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nx">executionContext</span> <span class="o">&amp;</span> <span class="nx">LegacyUnbatchedContext</span><span class="p">)</span> <span class="o">!==</span> <span class="nx">NoContext</span> <span class="o">&amp;&amp;</span> <span class="c1">// unbatch 情况，比如初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="nx">executionContext</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nx">RenderContext</span> <span class="o">|</span> <span class="nx">CommitContext</span><span class="p">))</span> <span class="o">===</span> <span class="nx">NoContext</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//直接更新
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">executionContext</span> <span class="o">===</span> <span class="nx">NoContext</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">//放入到调度更新
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>如上就是通过 executionContext 以及位运算来判断是否直接更新还是放入到调度中去更新。</p>
+<h3 id="更新标识-flag">更新标识 flag</h3>
+<p>经历了更新优先级 lane 来判断是否更新，又通过更新上下文 executionContext 来判断更新的方向，那么到底更新什么？又有哪些种类的更新？</p>
+<p>这就涉及到了 react fiber 中的另一个状态 - flags，这个状态证明了当前 fiber 存在什么种类的更新。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_31.png" alt="" width="100%" />
+<p>flags 种类：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">NoFlags</span> <span class="o">=</span> <span class="cm">/*                      */</span> <span class="mb">0b00000000000000000000000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">PerformedWork</span> <span class="o">=</span> <span class="cm">/*                */</span> <span class="mb">0b00000000000000000000000001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">Placement</span> <span class="o">=</span> <span class="cm">/*                    */</span> <span class="mb">0b00000000000000000000000010</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">Update</span> <span class="o">=</span> <span class="cm">/*                       */</span> <span class="mb">0b00000000000000000000000100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">Deletion</span> <span class="o">=</span> <span class="cm">/*                     */</span> <span class="mb">0b00000000000000000000001000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">ChildDeletion</span> <span class="o">=</span> <span class="cm">/*                */</span> <span class="mb">0b00000000000000000000010000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">ContentReset</span> <span class="o">=</span> <span class="cm">/*                 */</span> <span class="mb">0b00000000000000000000100000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">Callback</span> <span class="o">=</span> <span class="cm">/*                     */</span> <span class="mb">0b00000000000000000001000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">DidCapture</span> <span class="o">=</span> <span class="cm">/*                   */</span> <span class="mb">0b00000000000000000010000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">ForceClientRender</span> <span class="o">=</span> <span class="cm">/*            */</span> <span class="mb">0b00000000000000000100000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">Ref</span> <span class="o">=</span> <span class="cm">/*                          */</span> <span class="mb">0b00000000000000001000000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">Snapshot</span> <span class="o">=</span> <span class="cm">/*                     */</span> <span class="mb">0b00000000000000010000000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">Passive</span> <span class="o">=</span> <span class="cm">/*                      */</span> <span class="mb">0b00000000000000100000000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">Hydrating</span> <span class="o">=</span> <span class="cm">/*                    */</span> <span class="mb">0b00000000000001000000000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">Visibility</span> <span class="o">=</span> <span class="cm">/*                   */</span> <span class="mb">0b00000000000010000000000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">StoreConsistency</span> <span class="o">=</span> <span class="cm">/*             */</span> <span class="mb">0b00000000000100000000000000</span><span class="p">;</span></span></span></code></pre></div></div><p>react 的更新流程分为两个阶段，第一个阶段是找到待更新的地方，设置更新标志 flags；第二个阶段是通过 flags 来证明当前 fiber 发生了什么类型的更新，然后执行这些更新：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">NoFlags</span> <span class="o">=</span> <span class="mb">0b00000000000000000000000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">PerformedWork</span> <span class="o">=</span> <span class="mb">0b00000000000000000000000001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Placement</span> <span class="o">=</span> <span class="mb">0b00000000000000000000000010</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Update</span> <span class="o">=</span> <span class="mb">0b00000000000000000000000100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">flag</span> <span class="o">=</span> <span class="nx">NoFlags</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 发现更新，打更新标志
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">flag</span> <span class="o">=</span> <span class="nx">flag</span> <span class="o">|</span> <span class="nx">PerformedWork</span> <span class="o">|</span> <span class="nx">Update</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 判断是否有 PerformedWork 种类的更新
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">flag</span> <span class="o">&amp;</span> <span class="nx">PerformedWork</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;执行 PerformedWork&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 判断是否有 Update 种类的更新
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">flag</span> <span class="o">&amp;</span> <span class="nx">Update</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// s执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;执行 Update&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">flag</span> <span class="o">&amp;</span> <span class="nx">Placement</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;执行 Placement&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><h2 id="总结">总结</h2>
+<p>本篇学习了 react 对位运算的应用，领会到了二进制的魅力，希望以后能在项目中用到。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-11-07&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/f620fc752e2fee7842cb85fc6727ccfd9f2cb469" target="_blank" title="commit by OweQian(1510106069@qq.com) f620fc752e2fee7842cb85fc6727ccfd9f2cb469: fix: update blog">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>f620fc7</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/reactbitwise/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/reactbitwise/" data-title="📜 解读 react 原理系列 - 位运算" data-via="xxxx" data-hashtags="react"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/reactbitwise/" data-hashtag="react"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/reactbitwise/" data-title="📜 解读 react 原理系列 - 位运算"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/reactbitwise/" data-title="📜 解读 react 原理系列 - 位运算"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/reactbitwise/" data-title="📜 解读 react 原理系列 - 位运算"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/react/">React</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/reacthooks/" class="prev" rel="prev" title="📜 解读 react 原理系列 - hooks"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>📜 解读 react 原理系列 - hooks</a>
+            <a href="/reactrouter/" class="next" rel="next" title="📜 解读 react 原理系列 - react-router">📜 解读 react 原理系列 - react-router<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.144.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/OweQian" target="_blank">OweQian 的精神角落</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js"></script></body>
+</html>

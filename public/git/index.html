@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>🌲 Git 入门操作手册 - OweQian 的精神角落</title><meta name="Description" content="OweQian&#39;s blog"><meta property="og:url" content="http://localhost:1313/git/">
+  <meta property="og:site_name" content="OweQian 的精神角落">
+  <meta property="og:title" content="🌲 Git 入门操作手册">
+  <meta property="og:description" content="本篇文章旨在带你了解 Git 的基本操作，欢迎您的指正和点赞。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-05-26T10:55:47+08:00">
+    <meta property="article:modified_time" content="2024-08-28T17:03:31+08:00">
+    <meta property="article:tag" content="Git">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="🌲 Git 入门操作手册">
+  <meta name="twitter:description" content="本篇文章旨在带你了解 Git 的基本操作，欢迎您的指正和点赞。">
+      <meta name="twitter:site" content="@xxxx">
+<meta name="application-name" content="OweQian 的精神角落">
+<meta name="apple-mobile-web-app-title" content="OweQian 的精神角落"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/img.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/git/" /><link rel="prev" href="http://localhost:1313/frameinterview/" /><link rel="next" href="http://localhost:1313/ssr/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "🌲 Git 入门操作手册",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/git\/"
+        },"genre": "posts","keywords": "Git","wordcount":  8026 ,
+        "url": "http:\/\/localhost:1313\/git\/","datePublished": "2022-05-26T10:55:47+08:00","dateModified": "2024-08-28T17:03:31+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "OweQian 的精神角落"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🌲 Git 入门操作手册</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Git</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-26">2022-05-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 8026 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 17 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#准备工作">准备工作</a>
+      <ul>
+        <li><a href="#安装-git">安装 Git</a></li>
+        <li><a href="#新建-project">新建 Project</a></li>
+        <li><a href="#克隆-repository">克隆 Repository</a></li>
+        <li><a href="#写个提交">写个提交</a></li>
+        <li><a href="#再写个提交">再写个提交</a></li>
+        <li><a href="#提交到中央仓库">提交到中央仓库</a></li>
+      </ul>
+    </li>
+    <li><a href="#角色扮演">角色扮演</a>
+      <ul>
+        <li><a href="#假装有一位美女同事">假装有一位美女同事</a></li>
+        <li><a href="#她写代码并-push-到中央仓库">她写代码并 push 到中央仓库</a></li>
+        <li><a href="#把她-push-的新代码拉取下来">把她 push 的新代码拉取下来</a></li>
+        <li><a href="#push-发生冲突">push 发生冲突</a></li>
+      </ul>
+    </li>
+    <li><a href="#引用">引用</a></li>
+    <li><a href="#branch">branch</a>
+      <ul>
+        <li><a href="#创建">创建</a></li>
+        <li><a href="#切换">切换</a></li>
+        <li><a href="#删除">删除</a></li>
+        <li><a href="#mainmaster">main/master</a></li>
+      </ul>
+    </li>
+    <li><a href="#head">HEAD</a>
+      <ul>
+        <li><a href="#指向当前-commit">指向当前 commit</a></li>
+        <li><a href="#指向-branch">指向 branch</a></li>
+      </ul>
+    </li>
+    <li><a href="#add">add</a></li>
+    <li><a href="#log">log</a>
+      <ul>
+        <li><a href="#log--p">log -p</a></li>
+        <li><a href="#log-stat">log &ndash;stat</a></li>
+      </ul>
+    </li>
+    <li><a href="#show">show</a>
+      <ul>
+        <li><a href="#当前-commit">当前 commit</a></li>
+        <li><a href="#某一个-commit">某一个 commit</a></li>
+        <li><a href="#指定-commit-中的指定文件">指定 commit 中的指定文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#diff">diff</a>
+      <ul>
+        <li><a href="#比对工作目录和暂存区">比对工作目录和暂存区</a></li>
+        <li><a href="#比对暂存区和上一条提交">比对暂存区和上一条提交</a></li>
+        <li><a href="#比对工作目录和上一条提交">比对工作目录和上一条提交</a></li>
+      </ul>
+    </li>
+    <li><a href="#stash">stash</a></li>
+    <li><a href="#push">push</a></li>
+    <li><a href="#checkout">checkout</a></li>
+    <li><a href="#reflog">reflog</a></li>
+    <li><a href="#pull">pull</a></li>
+    <li><a href="#merge">merge</a>
+      <ul>
+        <li><a href="#适用场景">适用场景</a></li>
+        <li><a href="#冲突">冲突</a></li>
+        <li><a href="#head-领先于目标-commit">HEAD 领先于目标 commit</a></li>
+        <li><a href="#commit-fast-forward">commit-fast-forward</a></li>
+      </ul>
+    </li>
+    <li><a href="#rebase">rebase</a>
+      <ul>
+        <li><a href="#解惑">解惑</a></li>
+      </ul>
+    </li>
+    <li><a href="#commit">commit</a></li>
+    <li><a href="#gitignore">.gitignore</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本篇文章旨在带你了解 Git 的基本操作，欢迎您的指正和点赞。</p>
+<h2 id="准备工作">准备工作</h2>
+<h3 id="安装-git">安装 Git</h3>
+<p>点击<a href="https://git-scm.com/" target="_blank" rel="noopener noreffer ">这里</a>去下载个 Git ，安装到你的机器上。</p>
+<p>装好以后，就可以正式开始上手 Git 了。</p>
+<h3 id="新建-project">新建 Project</h3>
+<p>在 GitHub 上建一个自己的练习项目。</p>
+<ol>
+<li>访问 GitHub</li>
+<li>注册或登录您的账号</li>
+<li>点击右上角的「New Repository」来新建远程仓库</li>
+<li>进入仓库设置页面填写信息</li>
+</ol>
+<h3 id="克隆-repository">克隆 Repository</h3>
+<p>把远程仓库取到本地。在 Terminal 或 cmd 中切换到你希望放置项目的目录中，然后输入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone 仓库地址</span></span></code></pre></div></div><p>Git 就会把你的远程仓库 clone 到本地。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img.png" alt="" />
+<p>进入目录，发现这里除了刚才添加的 LICENSE 和 .gitignore 文件外，还有一个叫做 .git 的隐藏目录。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_1.png" alt="" />
+<p>这个 .git 目录，就是你的本地仓库，所有版本信息都会存在这里。</p>
+<p>.git 所在的这个根目录，称为 Git 的工作目录，它保存了当前从仓库中签出（checkout）的内容。</p>
+<p>在项目的目录下输入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git log</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_2.png" alt="" />
+<p>这里只能看到一个提交，这个提交是 GitHub 帮你做的，它的内容是创建你的初始 .gitignore 和 LICENSE 这两个文件。</p>
+<p>第一行中的 commit 右边的那一大串字符，是这个 commit 的 SHA-1 校验和 (可以理解为这个 commit 的 ID)。</p>
+<p>第一行的下面，依次是这个 commit 的作者、提交日期和提交信息，其中提交信息记录了这个提交做了什么。</p>
+<h3 id="写个提交">写个提交</h3>
+<p>在工作目录下创建一个文本文件，list.txt。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_3.png" alt="" />
+<p>在 Terminal 输入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git status</span></span></code></pre></div></div><p>status 是用来查看工作目录当前状态的指令：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_4.png" alt="" />
+<p>这段文字表述了很多信息：</p>
+<ol>
+<li>你在 main branch</li>
+<li>当前 branch 没有落后于 origin/main</li>
+<li>有未提交文件 list.txt</li>
+</ol>
+<p>现在想提交这个文件，首先需要用 add 指令来让 Git 开始跟踪它：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git add list.txt</span></span></code></pre></div></div><p>输入这行代码，Terminal 不会给你反馈信息。</p>
+<p>这时再执行一次 git status，会发现显示内容变了：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_5.png" alt="" />
+<p>list.txt 的文字变成了绿色，它的前面多了「new file:」的标记，意思是这个文件中被改动的部分（也就是这整个文件）被记录进了 staging area（暂存区）。</p>
+<blockquote>
+<p>stage：暂存，在 Git 里表示集中收集改动以待提交。staging area：暂存区，在 Git 里表示汇集待提交的文件改动的地方。</p></blockquote>
+<p>现在文件已经放进了暂存区，就可以提交了。</p>
+<p>提交的方式是用 commit 指令：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git commit</span></span></code></pre></div></div><p>然后你会进入这样一个界面，这个界面是用来填写提交信息（commit message）的。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_6.png" alt="" />
+<ul>
+<li>初始状态下处于命令模式，不能编辑这个文件，需要按一下 &ldquo;i&rdquo;（小写）来切换到插入模式，然后就可以输入你的提交信息了：</li>
+</ul>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_7.png" alt="" />
+<ul>
+<li>输入完成后别按回车，按 ESC 键返回到命令模式，然后连续输入两个大写的 &ldquo;Z&rdquo;，就保存并退出了。</li>
+</ul>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_07.png" alt="" />
+<p>这样，一次提交就完成了。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_08.png" alt="" />
+<p>再执行一次 git log：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git log</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_8.png" alt="" />
+<p>刚才这条提交被列在了最上面，现在你的提交历史中有两条记录了。</p>
+<p>这说明，你已经成功做了一次提交到本地仓库，它已经被保存在了 .git 这个目录里的某个地方了。</p>
+<h3 id="再写个提交">再写个提交</h3>
+<p>写个总结：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_9.png" alt="" />
+<p>提交前先看看工作目录的当前状态是个好习惯：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_10.png" alt="" />
+<p>list.txt 变红了，不过这次它左边的文字不是 &ldquo;New file:&rdquo; 而是 &ldquo;modified:&quot;。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git add list.txt</span></span></code></pre></div></div><p>再 status 一下，就会看到 list.txt 已经 staged 了：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git status</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_11.png" alt="" />
+<p>最后一步，commit：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git commit</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_12.png" alt="" />
+<p>再看看 log，你已经有三条 commits 了：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git log</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_13.png" alt="" />
+<h3 id="提交到中央仓库">提交到中央仓库</h3>
+<p>已经写了两条提交，但它们都还在本地仓库。</p>
+<p>为了把代码分享出去，你还需要把这些提交上传到中央仓库。</p>
+<p>使用 git push 来把你的本地提交发布（即上传到中央仓库）。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_14.png" alt="" />
+<p>这时你再去你的 GitHub 仓库页面看一下，你会发现 list.txt 文件已经在上面了，并且 commits 的数量从 1 个变成了 3 个。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_15.png" alt="" />
+<h2 id="角色扮演">角色扮演</h2>
+<p>对于 Git 来说，团队合作和个人独立工作最大的不同在于，你会提交代码，别人也会提交；你会 push，别人也会 push。</p>
+<h3 id="假装有一位美女同事">假装有一位美女同事</h3>
+<p>这时候，你自己一个人玩儿就显得有点无趣，那不如给自己安排一位美女同事吧，毕竟男女搭配，干活不累！</p>
+<p>为了模拟同事的操作，你需要在你的 /git-practice 目录旁再 clone 一次中央仓库到本地，来当做你的模拟同事的本地仓库：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone git@github.com:OweQian/git-practice.git git-pracetice-another</span></span></code></pre></div></div><p>为了目录名称不冲突，这次的 clone 需要加一个额外参数（git-practice-another）来手动指定本地仓库的根目录名称。</p>
+<p>这条指令执行完成后，你就有了两个内容相同的本地仓库：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_16.png" alt="" />
+<p>现在，你就可以假装 git-practice 这个目录是你的电脑上的工作目录，而那个新建的 git-practice-another 是你同事的电脑上的工作目录。</p>
+<blockquote>
+<p>Git 的管理是目录级别，而不是设备级别。也就是说，git-practice 目录内的 .git 只管理 git-practice 里的内容，git-practice-another 目录内的 .git 也只管理 git-practice-another 里的内容，它们之间互不知晓，也互不影响。</p></blockquote>
+<h3 id="她写代码并-push-到中央仓库">她写代码并 push 到中央仓库</h3>
+<p>现在你的身份就是你的同事了，帮她写点代码吧！嗯，写点什么好呢？</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_17.png" alt="" />
+<p>嗯，看起来不错，帮她提交吧：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git add list2.txt
+</span></span><span class="line"><span class="cl">git commit</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_18.png" alt="" />
+<p>提交完成以后，push 到 GitHub：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_19.png" alt="" />
+<h3 id="把她-push-的新代码拉取下来">把她 push 的新代码拉取下来</h3>
+<p>GitHub 上有了同事的新代码以后，你就可以变回自己，把「她」刚 push 上去的代码拉取到你的仓库了。</p>
+<p>回到你自己的目录 git-practice，然后，把同事的代码取下来吧！</p>
+<p>从远程仓库更新内容，用的是一个新的指令：pull。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git pull</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_20.png" alt="" />
+<p>这时候再看看你的本地目录，可以看到，同事提交的 list2.txt 已经同步到本地了。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_21.png" alt="" />
+<h3 id="push-发生冲突">push 发生冲突</h3>
+<p>你写了代码，commit，push 到 GitHub，然后她 pull 到她的本地；她再写代码，commit, push 到 GitHub，然后你再 pull 到你的本地。你来我往，配合得不亦乐乎。</p>
+<p>但是，这种合作有一个严重的问题：同一时间内，只能有一个人在工作。你和同事其中一个人写代码的时候，另一个人不能做事，必须等着她把工作做完，代码 push 到 GitHub 以后，自己才能把 push 上去的代码 pull 到自己的本地。</p>
+<p>如果同时做事，就会发生冲突：当一个人先于另一个人 push 代码，那么后 push 的这个人就会由于中央仓库上含有本地没有的提交而导致 push 失败。</p>
+<p>Git 的 push 其实是用本地仓库的 commits 记录去覆盖远端仓库的 commits 记录，而如果在远端仓库含有本地没有的 commits 的时候，push （如果成功）将会导致远端的 commits 被擦掉。这种结果当然是不可行的，因此 Git 会在 push 的时候进行检查，如果出现这样的情况，push 就会失败。</p>
+<ol>
+<li>切到 git-practice-another 去，假扮你的同事做一个 commit，然后 push 到 GitHub。</li>
+<li>切回 git-practice 变回你自己，做一个不一样的 commit。</li>
+</ol>
+<p>这时远端中央仓库已经有了别人 push 的 commit，现在你如果 push 的话：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_22.png" alt="" />
+<p>从图中的提示语可以看出，由于 GitHub 的远端仓库上含有本地仓库没有的内容，所以这次 push 被拒绝了。</p>
+<p>这种冲突的解决方式其实很简单：先用 pull 把远端仓库上的新内容取回到本地和本地合并，然后再把合并后的本地仓库向远端仓库推送。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git pull</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_23.png" alt="" />
+<p>这次的 git pull 并没有像之前的那样直接结束，而是进入了上图这样的一个输入提交信息的界面。</p>
+<p>这是因为当 pull 操作发现不仅远端仓库包含本地没有的 commits，而且本地仓库也包含远端没有的 commits 时，这时它就会把远端和本地的独有 commits 进行合并，自动生成一个新的 commit ，而图上的这个界面，就是这个自动生成的 commit 的提交信息界面。</p>
+<p>与手动的 commit 不同，这种 commit 会自动填入一个默认的提交信息，简单说明了这条 commit 的来由。你可以直接退出界面来使用这个自动填写的提交信息，也可以修改它来填入自己提交信息。</p>
+<blockquote>
+<p>git pull 的内部实现就是把远程仓库使用 git fetch 取下来以后再进行 merge 操作。</p></blockquote>
+<p>退出提交信息的界面后，这次 pull 就完成了：远端仓库被取到了本地，并和本地仓库进行了合并。</p>
+<p>这时就可以再 push 一次了。由于现在本地仓库已经包含了所有远端仓库的 commits，所以这次 push 不会再失败：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_24.png" alt="" />
+<h2 id="引用">引用</h2>
+<p>使用固定的字符串作为引用，指向某个 commit，作为操作 commit 时的快捷方式。</p>
+<p>首先，再看一次 log：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git log</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_25.png" alt="" />
+<p>第一行的 commit 后面括号里的 HEAD -&gt; main, origin/main, origin/HEAD ，是几个指向这个 commit 的引用。</p>
+<p>在 Git 中，经常会需要对指定的 commit 进行操作。每一个 commit 都有一个它唯一的指定方式——它的 SHA-1 校验和，也就是上图中每个黄色的 commit 右边的那一长串字符。</p>
+<p>两个 SHA-1 值的重复概率极低，所以你可以使用这个 SHA-1 值来指代 commit，也可以只使用它的前几位来指代它。</p>
+<h2 id="branch">branch</h2>
+<p>除了 HEAD 外，Git 还有一种引用，叫做 branch（分支）。</p>
+<p>你可以把一个 branch 理解为从初始 commit 到 branch 所指向的<strong>当前 commit</strong> 之间的所有 commits 的一个「串」。</p>
+<p>例如下面这张图：</p>
+<img width="100%" src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_26.jpg" alt="" />
+<p>master 的本质是一个指向 3 的引用，但也可以把 master 理解为是 1 2 3 三个 commit 的「串」，它的起点是 1，终点是 3。</p>
+<ul>
+<li>所有的 branch 之间都是平等的。</li>
+</ul>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_27.png" alt="" />
+<p>例如上图 branch1 是 1 2 5 6 的串，而不要理解为 2 5 6 或者 5 6。上图中的 master 和 branch1 之间是平等的。</p>
+<ul>
+<li>branch 包含了从初始 commit 到它的所有路径，而不是一条路径。</li>
+</ul>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_28.png" alt="" />
+<p>如上图 master 在合并了 branch1 之后，从初始 commit 到 master 有了两条路径。这时，master 的串就包含了 1 2 3 4 7 和 1 2 5 6 7 这两条路径。</p>
+<h3 id="创建">创建</h3>
+<p>如果你想创建 branch ，只需要输入一行 git branch 名称。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git branch feature1</span></span></code></pre></div></div><p>你的 branch 就创建好了：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_29.png" alt="" />    
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_30.png" alt="" />
+<h3 id="切换">切换</h3>
+<p>新建的 branch 并不会自动切换，你的 HEAD 在这时依然是指向 main 的。</p>
+<p>你需要用 checkout 来主动切换到你的新 branch 去：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git checkout feature1</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_31.png" alt="" />
+<blockquote>
+<p>git checkout -b 名称 指令可以把上面两步操作合并执行。这行指令可以帮你用指定的名称创建 branch 后，再直接切换过去。</p></blockquote>
+<h3 id="删除">删除</h3>
+<p>删除 branch 的方法非常简单：git branch -d 名称。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git branch -d feature1</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_32.png" alt="" />
+<p>需要说明的有两点：</p>
+<ul>
+<li>HEAD 指向的 branch 不能删除。如果要删除 HEAD 指向的 branch，需要先用 checkout 把 HEAD 指向其他地方。</li>
+<li>Git 中的 branch 只是一个引用，所以删除 branch 的操作也只会删掉这个引用，并不会删除任何的 commit。</li>
+</ul>
+<h3 id="mainmaster">main/master</h3>
+<p>main/master 是一个特殊的 branch：它是 Git 的默认 branch（俗称主 branch / 主分支）。</p>
+<p>它主要有两个特点：</p>
+<ul>
+<li>新创建的 repository 是没有任何 commit 的。但它创建第一个 commit 时，会把 main/master 指向它，并把 HEAD 指向 main/master。</li>
+<li>当有人使用 git clone 时，除了从远程仓库把 .git 这个仓库目录下载到工作目录中，还会 checkout main/master。</li>
+</ul>
+<blockquote>
+<p>checkout 的意思就是把某个 commit 作为当前 commit，把 HEAD 移动过去，并把工作目录的文件内容替换成这个 commit 所对应的内容。</p></blockquote>
+<h2 id="head">HEAD</h2>
+<h3 id="指向当前-commit">指向当前 commit</h3>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_25.png" alt="" />
+<p>上面提到图中括号里的是指向这个 commit 的引用。</p>
+<p>其中这个括号里的 HEAD 是引用中最特殊的一个：它是指向<strong>当前 commit</strong> 的引用，每个仓库中只有一个 HEAD。</p>
+<blockquote>
+<p><strong>当前 commit</strong> 指的就是当前工作目录所对应的 commit。</p></blockquote>
+<p>上图中的<strong>当前 commit</strong> 就是第一行中的那个最新的 commit。</p>
+<p>每当有新的 commit 的时候，工作目录自动与最新的 commit 对应，与此同时，HEAD 也会转而指向最新的 commit。</p>
+<p>当使用 checkout、reset 等指令手动指定改变<strong>当前 commit</strong> 的时候，HEAD 也会一起跟过去。</p>
+<p><strong>当前 commit</strong> 在哪里，HEAD 就在哪里，这是一个永远自动指向当前 commit 的引用，你永远可以用 HEAD 来操作<strong>当前 commit</strong>。</p>
+<h3 id="指向-branch">指向 branch</h3>
+<p>HEAD 除了可以指向<strong>当前 commit</strong>，还可以指向一个 branch，当它指向某个 branch 的时候，会通过这个 branch 来间接地指向某个 commit；</p>
+<p>当 HEAD 在提交时自动向前移动的时候，它会像一个拖钩一样带着它所指向的 branch 一起移动。</p>
+<p>例如上图中的 HEAD -&gt; main 中的 main 就是一个 branch 的名字，而它左边的箭头 -&gt; 表示 HEAD 正指向它（当然，也会间接地指向它所指向的 commit）。</p>
+<p>如果在这时创建一个 commit，那么 HEAD 会带着 main 一起移动到最新的 commit。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git commit</span></span></code></pre></div></div><p>通过查看 log 对逻辑进行验证：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git log</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_33.png" alt="" />
+<p>最新的 commit 被创建后，HEAD 和 main 这两个引用都指向了它，而上图中的后两个引用 origin/main 和 origin/HEAD 则依然停留在原先的位置。</p>
+<h2 id="add">add</h2>
+<p>通过 add 来把改动的内容放进暂存区。</p>
+<ul>
+<li>git add 文件名：表示把某个改动的文件内容放进暂存区。</li>
+<li>git add .：表示把全部改动的文件内容放进暂存区。</li>
+</ul>
+<blockquote>
+<p>add 添加的是具体的文件改动内容，而不是文件名。</p></blockquote>
+<h2 id="log">log</h2>
+<p>通过 git log 可以查看历史记录。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git log</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_33.png" alt="" />
+<p>如果你希望看到更多细节，比如你想看看每条 commit 具体都有哪些改动，可以在 log 后面添加参数。</p>
+<h3 id="log--p">log -p</h3>
+<p>查看详细历史，-p 是 &ndash;patch 的缩写，通过 -p 参数可以看到具体每个 commit 的改动细节。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git log -p</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_34.png" alt="" />
+<h3 id="log-stat">log &ndash;stat</h3>
+<p>查看简要统计，如果你只想大致看一下改动内容，并不想深入每一行的细节，可以把选项换成 &ndash;stat。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git log --stat</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_35.png" alt="" />
+<h2 id="show">show</h2>
+<p>如果你想看某个具体的 commit 的改动内容，可以用 show。</p>
+<h3 id="当前-commit">当前 commit</h3>
+<p>直接输入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git show</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_36.png" alt="" />
+<h3 id="某一个-commit">某一个 commit</h3>
+<p>show 后面加上这个 commit 的引用（branch 或 HEAD 标记）或它的 SHA-1 码：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git show c31510fd</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_37.png" alt="" />
+<h3 id="指定-commit-中的指定文件">指定 commit 中的指定文件</h3>
+<p>在 commit 的引用或 SHA-1 后输入文件名：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git show c31510fd list.txt</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_38.png" alt="" />
+<h2 id="diff">diff</h2>
+<p>如果你想看未提交的内容，可以用 diff。</p>
+<h3 id="比对工作目录和暂存区">比对工作目录和暂存区</h3>
+<p>使用 git diff 可以显示工作目录和暂存区之间的不同。</p>
+<p>换句话说，这条指令可以让你看到「如果你现在把所有文件都 add，你会向暂存区中增加哪些内容」。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git diff</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_39.png" alt="" />
+<h3 id="比对暂存区和上一条提交">比对暂存区和上一条提交</h3>
+<p>使用 git diff &ndash;staged 可以显示暂存区和上一条提交之间的不同。</p>
+<p>换句话说，这条指令可以让你看到「如果你立即输入 git commit，你将会提交什么」。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git diff --staged</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_40.png" alt="" />
+<h3 id="比对工作目录和上一条提交">比对工作目录和上一条提交</h3>
+<p>使用 git diff HEAD 可以显示工作目录和上一条提交之间的不同，它是上面这二者的内容相加。</p>
+<p>换句话说，这条指令可以让你看到「如果你现在把所有文件都 add 然后 git commit，你将会提交什么」。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git diff HEAD</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_41.png" alt="" />
+<blockquote>
+<p>如果你把 HEAD 换成别的 commit，也可以显示当前工作目录和这条 commit 的区别。</p></blockquote>
+<h2 id="stash">stash</h2>
+<p>帮你把工作目录的内容存放在你本地的一个独立的地方，不会被提交也不会被删除，把东西放起来之后就可以去做你的临时工作，做完以后再来取走。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git stash</span></span></code></pre></div></div><p>当你做完临时工作，切回你的分支，然后：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git stash pop</span></span></code></pre></div></div><p>你之前存储的东西就回来了。</p>
+<h2 id="push">push</h2>
+<p>push：把当前 branch 指向的 commit 上传到远端仓库，并把它的路径上的 commits 一并上传。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_42.png" alt="" />
+<p>这时再切到 feature1 去修改一些东西，再执行一次 push，却发现失败了。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git checkout feature1
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m &#34;update list.txt&#34;
+</span></span><span class="line"><span class="cl">git push</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_44.png" alt="" />
+<p>在 Git 中（2.0 及它之后的版本），默认情况下，你用不加参数的 git push 只能上传那些之前从远端 clone 下来或者 pull 下来的分支。</p>
+<p>如果需要 push 你本地的自己创建的分支，则需要手动指定目标仓库和目标分支。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push origin feature1</span></span></code></pre></div></div><p>现在成功把 feature1 push 到远程仓库了。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_43.png" alt="" />
+<p>在 feature1 分支下的项目目录中输入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git log</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_45.png" alt="" />
+<p>你会发现在 feature1 被 push 时，远程仓库的 HEAD 并没有和本地仓库的 HEAD 一样指向 feature1。</p>
+<p>这是因为 push 时只会上传当前的 branch 的指向，并不会把本地的 HEAD 的指向也一起上传到远程仓库。</p>
+<p>远程仓库的 HEAD 是永远指向它的默认分支（即 main/master），并会随着默认分支的移动而移动。</p>
+<h2 id="checkout">checkout</h2>
+<p>checkout 本质是签出指定的 commit。</p>
+<p>[git checkout branch] 的本质是把 HEAD 指向指定的 branch，然后签出这个 branch 所对应的 commit 的工作目录。</p>
+<p>checkout 的目标可以是 branch，也可以指定某个 commit：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git checkout HEAD^^</span></span></code></pre></div></div><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git checkout master~5</span></span></code></pre></div></div><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git checkout 78a4bc</span></span></code></pre></div></div><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git checkout 78a4bc^</span></span></code></pre></div></div><h2 id="reflog">reflog</h2>
+<p>有时候不小心手残删了一个还有用的 branch，或者把一个 branch 删了才想起来它还有用，怎么办？</p>
+<p>reflog 是 &ldquo;reference log&rdquo; 的缩写，它可以查看 Git 仓库中的引用的移动记录。</p>
+<p>如果不指定引用，默认显示 HEAD 的移动记录，除此之外，可以手动加上名称来查看其他引用的移动历史，例如某个 branch：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git reflog master</span></span></code></pre></div></div><p>现在我在 git-practice 项目中手误删除了 feature1 分支。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_46.png" alt="" />
+<p>查看一下 HEAD 的移动历史：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_47.png" alt="" />
+<p>HEAD 的最后一次移动行为是 [从 feature1 移动到 main]，在这之后，feature1 就被删除了。</p>
+<p>所以它之前的那个 commit 就是 feature1 被删除之前的位置，也就是第二行的 fe9f77c。</p>
+<p>现在切换回 fe9f77c，然后重新创建 feature1：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git checkout fe9f77c
+</span></span><span class="line"><span class="cl">git checkout -b feature1</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_48.png" alt="" />
+<p>刚刚删除的 feature1 就找回来了。</p>
+<blockquote>
+<p>不再被引用直接或间接指向的 commit 会在一定时间后被 Git 回收，所以使用 reflog 来找回删除的 branch 的操作一定要及时，不然有可能会由于 commit 被回收而再也找不回来</p></blockquote>
+<h2 id="pull">pull</h2>
+<p>把远程仓库的代码合并到本地。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git pull</span></span></code></pre></div></div><p>pull 的内部操作其实是把远程仓库取到本地后 (fetch)，再用一次 merge 来把远程仓库的新 commits 合并到本地。</p>
+<h2 id="merge">merge</h2>
+<p>merge 的意思是 [合并]，指定一个 commit，把它合并到当前的 commit 来。</p>
+<p>从目标 commit 和当前 commit(即 HEAD 所指向的 commit) 分叉的位置起，把目标 commit 的路径上的所有 commit 的内容一并应用到当前 commit，自动生成一个新的 commit。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git checkout main
+</span></span><span class="line"><span class="cl">git merge feature1</span></span></code></pre></div></div><h3 id="适用场景">适用场景</h3>
+<p>merge 最常用的场景有两处：</p>
+<ul>
+<li>合并分支</li>
+</ul>
+<p>当一个 branch 开发完成，需要把内容合并回去时，用 merge 来进行合并。</p>
+<ul>
+<li>pull 的内部操作</li>
+</ul>
+<p>pull 的内部操作是把远端仓库的内容用 fetch 取下来，用 merge 来合并。</p>
+<h3 id="冲突">冲突</h3>
+<p>merge 在做合并时，具有一定的自动合并能力。</p>
+<p>如果一个分支改了 A 文件，另一个分支改了 B 文件，那么合并后就是既改 A 又改 B，这个动作会自动完成。</p>
+<p>如果两个分支都改了同一个文件，但一个改的是第 1 行，另一个改的是第 2 行，那么合并后就是第 1 行和第 2 行都改，也是自动完成。</p>
+<p>但如果两个分支修改了同一部分内容，merge 的自动算法就搞不赢了，它不知道以哪个为准，就会把问题交给你自己来处理。这种情况称为：冲突 (Conflict)。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git merge main</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_49.png" alt="" />
+<p>提示信息说，在 list.txt 中出现了 &ldquo;merge conflict&rdquo;，自动合并失败，要求 &ldquo;fix conflicts and then commit the result&rdquo;（把冲突解决掉后提交）。</p>
+<p>现在你需要做两件事：</p>
+<ul>
+<li>解决冲突</li>
+</ul>
+<p>打开 list.txt，会发现它的内容变了：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_50.png" alt="" />
+<p>Git 虽然没有帮你完成自动 merge，但它对文件还是做了一些工作：</p>
+<p>把两个分支冲突的内容放在了一起，并用符号标记出了它们的边界以及它们的出处。</p>
+<p>HEAD 中的内容是 [成年男人的崩溃往往在一瞬间&hellip;😭。]，而 main 中的内容则是 [成年男人的崩溃往往不在一瞬间&hellip;😭。]。</p>
+<p>这两个改动 Git 不知道应该怎样合并，于是把它们放在一起，由你来决定。</p>
+<p>假设你决定保留 HEAD 的修改，那么只要删除掉 main 的修改，再把 Git 添加的那三行 &laquo;&lt; === &raquo;&gt; 辅助文字也删掉，保存文件退出，所谓的「解决掉冲突」就完成了。</p>
+<ul>
+<li>手动提交</li>
+</ul>
+<p>解决完冲突后，开始进行第二步&mdash;commit。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_52.png" alt="" />
+<p>被冲突中断的 merge，在手动 commit 的时候依然会自动填写提交信息。因为在发生冲突后，Git 仓库处于一个「merge 冲突待解决」的中间状态，在这种状态下 commit，Git 就会自动地帮你添加「这是一个 merge commit」的提交信息。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_51.png" alt="" />
+<ul>
+<li>放弃解决冲突，取消 merge</li>
+</ul>
+<p>由于现在 Git 仓库处于冲突待解决的中间状态，所以如果你最终决定放弃这次 merge，也需要来手动取消它：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git merge --abort</span></span></code></pre></div></div><p>输入这行代码，你的 Git 仓库就会回到 merge 前的状态。</p>
+<h3 id="head-领先于目标-commit">HEAD 领先于目标 commit</h3>
+<p>如果 merge 时的目标 commit 和 HEAD 处的 commit 并不存在分叉，而是 HEAD 领先于目标 commit，那么 merge 就没必要再创建一个新的 commit 来进行合并操作，因为并没有什么需要合并的。</p>
+<p>在这种情况下，Git 什么也不会做，merge 是一个空操作。</p>
+<h3 id="commit-fast-forward">commit-fast-forward</h3>
+<p>如果 HEAD 和目标 commit 依然是不存在分叉，但 HEAD 不是领先于目标 commit，而是落后于目标 commit，那么 Git 会直接把 HEAD（以及它所指向的 branch，如果有的话）移动到目标 commit，这种操作有一个专有称谓，叫做 &ldquo;fast-forward&rdquo;（快速前移）。</p>
+<h2 id="rebase">rebase</h2>
+<p>有些人不喜欢 merge，因为在 merge 之后，commit 历史可能会出现分叉，这种分叉再汇合的结构让人觉得混乱而难以管理。</p>
+<p>如果你不希望 commit 历史出现分叉，可以用 rebase 来代替 merge。</p>
+<p>rebase，给你的 commit 序列重新设置基础点（也就是父 commit），把你指定的 commit 以及它所在的 commit 串，以指定的目标 commit 为基础，依次重新提交一次。</p>
+<p>例如下面这个 merge:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git merge branch1</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_53.png" alt="" />
+<p>如果把 merge 换成 rebase，可以这样操作：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git checkout branch1
+</span></span><span class="line"><span class="cl">git rebase master</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_55.png" alt="" />     
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_54.png" alt="" />
+<p>通过 rebase，5 和 6 两条 commits 把基础点从 2 换成了 4。通过这样的方式，就让本来分叉了的提交历史重新回到了一条线。</p>
+<p>这种 [重新设置基础点] 的操作，就是 rebase 的含义。</p>
+<p>在 rebase 之后，记得切回 master 再 merge 一下，把 master 移到最新的 commit：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git checkout master
+</span></span><span class="line"><span class="cl">git merge branch1</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_56.png" alt="" />
+<h3 id="解惑">解惑</h3>
+<p>为什么要从 branch1 来 rebase，然后再切回 master 再 merge 一下这么麻烦，而不是直接在 master 上执行 rebase？</p>
+<p>rebase 后的 commit 虽然内容和 rebase 之前相同，但它们已经是不同的 commits 了。</p>
+<p>如果直接从 master 执行 rebase 的话，就会是下面这样：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_57.png" alt="" />
+<p>这就导致 master 上之前的两个最新 commit 被剔除了。</p>
+<p>如果这两个 commit 之前已经在中央仓库存在，这就会导致没法 push 了：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_58.png" alt="" />
+<p>为了避免和远端仓库发生冲突，一般不要从 master 向其他 branch 执行 rebase 操作。</p>
+<p>如果是 master 以外的 branch 之间的 rebase（比如 branch1 和 branch2 之间），直接 rebase 就好。</p>
+<h2 id="commit">commit</h2>
+<p>commit 命令不仅可以用来将要提交的内容保存到暂存区，还可以用来修复错误。</p>
+<p>刚提交了代码，发现有字写错了：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m &#34;feat: fix list&#34;</span></span></code></pre></div></div><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">老婆：我变成毛毛虫你还会爱窝吗？</span></span></code></pre></div></div><p>怎么修复？</p>
+<p>在提交时，如果加上 &ndash;amend 参数，Git 不会在当前 commit 上增加 commit，而是会把当前 commit 里的内容和暂存区（stageing area）里的内容合并起来后创建一个新的 commit，用这个新的 commit 把当前 commit 替换掉。所以 commit &ndash;amend 做的事就是它的字面意思：对最新一条 commit 进行修正。</p>
+<p>对于上面这个错误，你就可以把文件中的错别字修改好之后，输入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit --amend</span></span></code></pre></div></div><p>Git 会把你带到提交信息编辑界面。提交信息默认是当前提交的提交信息。你可以修改或者保留它，然后保存退出。然后，你的最新 commit 就被更新了。</p>
+<h2 id="gitignore">.gitignore</h2>
+<p>记录了所有你希望被 Git 忽略的目录和文件。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Build and Release Folders
+</span></span><span class="line"><span class="cl">bin-debug/
+</span></span><span class="line"><span class="cl">bin-release/
+</span></span><span class="line"><span class="cl">[Oo]bj/
+</span></span><span class="line"><span class="cl">[Bb]in/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Other files and folders
+</span></span><span class="line"><span class="cl">.settings/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Executables
+</span></span><span class="line"><span class="cl">*.swf
+</span></span><span class="line"><span class="cl">*.air
+</span></span><span class="line"><span class="cl">*.ipa
+</span></span><span class="line"><span class="cl">*.apk
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+</span></span><span class="line"><span class="cl"># should NOT be excluded as they contain compiler settings and other important
+</span></span><span class="line"><span class="cl"># information for Eclipse / Flash Builder.</span></span></code></pre></div></div><h2 id="总结">总结</h2>
+<p>💪🏻 加油，加油。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/git/img_01.jpg" alt="" width="400" /></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-08-28&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/99f720fdfb83b5d0230938d14dbe6c41aa521499" target="_blank" title="commit by OweQian(1510106069@qq.com) 99f720fdfb83b5d0230938d14dbe6c41aa521499: fix: update blog">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>99f720f</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/git/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/git/" data-title="🌲 Git 入门操作手册" data-via="xxxx" data-hashtags="Git"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/git/" data-hashtag="Git"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/git/" data-title="🌲 Git 入门操作手册"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/git/" data-title="🌲 Git 入门操作手册"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/git/" data-title="🌲 Git 入门操作手册"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/git/">Git</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/frameinterview/" class="prev" rel="prev" title="📝 前端面试题汇总"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>📝 前端面试题汇总</a>
+            <a href="/ssr/" class="next" rel="next" title="💻 基于 Nextjs &#43; Strapi 的官网开发实战">💻 基于 Nextjs + Strapi 的官网开发实战<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.144.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/OweQian" target="_blank">OweQian 的精神角落</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js"></script></body>
+</html>

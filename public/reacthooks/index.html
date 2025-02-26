@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>📜 解读 react 原理系列 - hooks - OweQian 的精神角落</title><meta name="Description" content="OweQian&#39;s blog"><meta property="og:url" content="http://localhost:1313/reacthooks/">
+  <meta property="og:site_name" content="OweQian 的精神角落">
+  <meta property="og:title" content="📜 解读 react 原理系列 - hooks">
+  <meta property="og:description" content="本篇文章是解读 react 原理系列的第四篇 - hooks，请带着问题来阅读，效果更佳。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-02-16T10:27:35+08:00">
+    <meta property="article:modified_time" content="2024-11-07T18:22:20+08:00">
+    <meta property="article:tag" content="React">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="📜 解读 react 原理系列 - hooks">
+  <meta name="twitter:description" content="本篇文章是解读 react 原理系列的第四篇 - hooks，请带着问题来阅读，效果更佳。">
+      <meta name="twitter:site" content="@xxxx">
+<meta name="application-name" content="OweQian 的精神角落">
+<meta name="apple-mobile-web-app-title" content="OweQian 的精神角落"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/img.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/reacthooks/" /><link rel="prev" href="http://localhost:1313/reactfiber/" /><link rel="next" href="http://localhost:1313/reactbitwise/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "📜 解读 react 原理系列 - hooks",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/reacthooks\/"
+        },"genre": "posts","keywords": "react","wordcount":  4973 ,
+        "url": "http:\/\/localhost:1313\/reacthooks\/","datePublished": "2024-02-16T10:27:35+08:00","dateModified": "2024-11-07T18:22:20+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "OweQian 的精神角落"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">📜 解读 react 原理系列 - hooks</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/react/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>React</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-16">2024-02-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4973 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#hooks-与-fiber">hooks 与 fiber</a>
+      <ul>
+        <li><a href="#函数组件触发">函数组件触发</a></li>
+        <li><a href="#hooks-初始化">hooks 初始化</a></li>
+        <li><a href="#hooks-更新">hooks 更新</a></li>
+      </ul>
+    </li>
+    <li><a href="#状态派发">状态派发</a></li>
+    <li><a href="#处理副作用">处理副作用</a>
+      <ul>
+        <li><a href="#初始化">初始化</a></li>
+        <li><a href="#更新">更新</a></li>
+        <li><a href="#不同的-effect">不同的 effect</a></li>
+      </ul>
+    </li>
+    <li><a href="#状态获取与状态缓存">状态获取与状态缓存</a>
+      <ul>
+        <li><a href="#对于-ref-的处理">对于 ref 的处理</a>
+          <ul>
+            <li><a href="#初始化-1">初始化</a></li>
+            <li><a href="#更新-1">更新</a></li>
+          </ul>
+        </li>
+        <li><a href="#对于-usememo-的处理">对于 useMemo 的处理</a>
+          <ul>
+            <li><a href="#初始化-2">初始化</a></li>
+            <li><a href="#更新-2">更新</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本篇文章是解读 react 原理系列的第四篇 - hooks，请带着问题来阅读，效果更佳。</p>
+<p>首先我们来思考几个问题：</p>
+<p>🤔 Q1: react 为什么会造出 hooks？<br>
+🤔 Q2: react hooks 为什么必须在函数组件内部执行？<br>
+🤔 Q3: react 如何能够监听 react hooks 在外部执行并抛出异常？<br>
+🤔 Q4: react hooks 如何把状态保存起来？保存在哪里？<br>
+🤔 Q5: react hooks 为什么要放在函数顶部，为什么不能写在条件语句中？<br>
+🤔 Q6: 为什么 useState 改变相同的值，组件不更新？<br>
+🤔 Q7: useMemo 内部引用 useRef 为什么不需要添加依赖项，而引用 useState 就要添加依赖项？<br>
+🤔 Q8: useEffect 添加依赖项 props.a，为什么 props.a 改变，useEffect 回调函数 create 重新执行？<br>
+🤔 Q9: react 内部如何区分 useEffect 和 useLayoutEffect，执行时机有什么不同？</p>
+<p>想一下，react 为什么会造出 hooks(💡：Q1)？</p>
+<p>先设想一下，如果没有 hooks，函数组件能够做的只是接受 Props、渲染 UI、触发父组件传过来的事件。</p>
+<p>所有的处理逻辑都只能在类组件中写，这样会使类组件内部错综复杂，每一个类组件都有一套独特的状态，相互之间不能复用。</p>
+<p>本质上来说，类组件是一种面向对象思想的体现，类组件之间的状态会随着功能增强而变得越来越臃肿，代码维护成本也会越来越高。所以有必要做出一套函数组件代替类组件的方案，于是 hooks 也就理所当然的诞生了 (💡：Q2)。</p>
+<p>所以，hooks 出现的原因是：</p>
+<ul>
+<li>让函数组件也能做类组件的事，有自己的状态、可以处理副作用等</li>
+<li>放弃面向对象编程，拥抱函数式编程</li>
+<li>解决逻辑复用难得问题</li>
+</ul>
+<h2 id="hooks-与-fiber">hooks 与 fiber</h2>
+<p>我们可以把 hooks 看做函数组件本身与函数组件对应的 fiber 之间的沟通桥梁：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_01.png" alt="" width="100%" />
+<p>hooks 对象主要以三种处理策略存在 react 中：</p>
+<ul>
+<li>
+<p>ContextOnlyDispatcher：第一种形态是防止开发者在函数组件外部调用 hooks，只要开发者调用了这个形态下的 hooks，就会抛出异常。</p>
+</li>
+<li>
+<p>HooksDispatcherOnMount：第二种形态是函数组件初始化 mount，这个形态的 hooks 的作用是建立这个桥梁，初次建立函数组件本身与函数组件对应的 fiber 之间的关系。</p>
+</li>
+<li>
+<p>HooksDispatcherOnUpdate：第三种形态是函数组件的更新 update，这个形态的 hooks 的作用是组件更新，需要 hooks 去获取或者更新维护状态。</p>
+</li>
+</ul>
+<p>一个 hooks 对象应该长这样：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ContextOnlyDispatcher</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 当 hooks 不是函数内部调用的时候，调用这个 hooks 对象下的 hook，报错。 */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useEffect</span><span class="o">:</span> <span class="nx">throwInvalidHookError</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useState</span><span class="o">:</span> <span class="nx">throwInvalidHookError</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">HooksDispatcherOnMount</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 函数组件初始化用的 hooks */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useState</span><span class="o">:</span> <span class="nx">mountState</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useEffect</span><span class="o">:</span> <span class="nx">mountEffect</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">HooksDispatcherOnUpdate</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 函数组件更新用的 hooks */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useState</span><span class="o">:</span> <span class="nx">updateState</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useEffect</span><span class="o">:</span> <span class="nx">updateEffect</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div><h3 id="函数组件触发">函数组件触发</h3>
+<p>在 fiber 调和过程中，遇到 FunctionComponent 类型的 fiber，就会用 updateFunctionComponent 更新 fiber，在 updateFunctionComponent 内部就会调用 renderWithHooks。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">currentlyRenderingFiber</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">renderWithHooks</span><span class="p">(</span><span class="nx">current</span><span class="p">,</span> <span class="nx">workInProgress</span><span class="p">,</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">currentlyRenderingFiber</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 每一次执行函数组件之前，先清空状态 （用于存放 hooks 列表）*/</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 清空状态（用于存放 effect list） */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">updateQueue</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 判断是初始化组件还是更新组件 */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">ReactCurrentDispatcher</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">current</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">current</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">===</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">      <span class="o">?</span> <span class="nx">HooksDispatcherOnMount</span>
+</span></span><span class="line"><span class="cl">      <span class="o">:</span> <span class="nx">HooksDispatcherOnUpdate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 执行真正的函数组件，所有的 hooks 将依次执行。 */</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">children</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">secondArg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 将 hooks 变成第一种，防止 hooks 在函数组件外部调用，调用直接报错。 */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">ReactCurrentDispatcher</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">ContextOnlyDispatcher</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>workInProgress 正在调和更新函数组件对应的 fiber 树：</p>
+<ul>
+<li>对于函数组件 fiber，用 memoizedState 保存 hooks 信息。</li>
+<li>对于函数组件 fiber，updateQueue 存放每个 useEffect/useLayoutEffect 产生的副作用组成的链表，在 commit 阶段更新这些副作用。</li>
+<li>判断函数组件是初始化流程还是更新流程。如果是初始化流程，用 HooksDispatcherOnMount 对象；如果是更新流程，用 HooksDispatcherOnUpdate 对象；</li>
+<li>函数组件执行完毕，将 hooks 赋值给 ContextOnlyDispatcher 对象。</li>
+</ul>
+<ul>
+<li>引用的 react hooks 都是从 ReactCurrentDispatcher.current 中获取的，react 就是通过赋予 ReactCurrentDispatcher.current 不同的 hooks 对象达到监控 hooks 是否在函数组件内部调用 (💡：Q3)。</li>
+<li>Component(props, secondArg) 表示函数组件被真正执行，里面的每一个 hooks 也将依次执行。</li>
+<li>每个 hooks 内部为什么能读取当前 fiber 信息，因为 currentlyRenderingFiber，函数组件初始化时已经把当前 fiber 赋值给 currentlyRenderingFiber，每个 hooks 内部读取的就是 currentlyRenderingFiber 的内容。</li>
+</ul>
+<h3 id="hooks-初始化">hooks 初始化</h3>
+<p>hooks 初始化流程使用的是 mountState、mountEffect 等初始化节点的 hooks，将 hooks 与 fiber 建立起联系。</p>
+<p>那么，如何建立起联系呢？每一个 hooks 初始化都会执行 mountWorkInProgressHook。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">mountWorkInProgressHook</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">hook</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">memoizedState</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">baseState</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">baseQueue</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queue</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">next</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">workInProgressHook</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">currentlyRenderingFiber</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="nx">workInProgressHook</span> <span class="o">=</span> <span class="nx">hook</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 有多个 hooks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">workInProgressHook</span> <span class="o">=</span> <span class="nx">workInProgressHook</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">hook</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">workInProgressHook</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>函数组件对应的 fiber 用 memoizedState 保存 hooks 信息，每一个 hooks 执行都会产生一个 hooks 对象，在这个 hooks 对象中，保存着当前 hooks 的信息，不同的 hooks 保存的形式不同，每一个 hooks 通过 next 链表建立起联系 (💡：Q4)。</p>
+<p>举个 🌰，假设在一个组件中这样写：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Index</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 第一个 hooks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="p">[</span><span class="nx">number</span><span class="p">,</span> <span class="nx">setNumber</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 第二个 hooks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="p">[</span><span class="nx">num</span><span class="p">,</span> <span class="nx">setNum</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 第三个 hooks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">dom</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useRef</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 第四个 hooks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dom</span><span class="p">.</span><span class="nx">current</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">dom</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">setNumber</span><span class="p">(</span><span class="nx">number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)}</span><span class="o">&gt;</span> <span class="p">{</span><span class="nx">number</span><span class="p">}</span> <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">setNum</span><span class="p">(</span><span class="nx">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)}</span><span class="o">&gt;</span> <span class="p">{</span><span class="nx">num</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>上述代码中的四个 hooks，组件初始化，每个 hooks 内部执行 mountWorkInProgressHook，然后每一个 hooks 通过 next 和下一个 hooks 建立联系，最后 fiber 上的结构会变成这样：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_02.png" alt="" width="100%" />
+<h3 id="hooks-更新">hooks 更新</h3>
+<p>更新 hooks 逻辑，会首先取出 workInProgress.alternate (即 current) 里面对应的 hooks，然后根据这个之前的 hooks 复制一份，形成新的 hooks 链表关系。</p>
+<p>这个过程解释了一个问题，就是 hooks 规则，hooks 为什么通常要放在函数顶部，hooks 不能写在 if 条件语句中，因为在更新过程中，如果通过 if 条件语句，增加或删除 hooks，在复用之前的 hooks 时，会产生复用 hooks 状态和当前 hooks 不一致的问题 (💡：Q5)。</p>
+<p>举个 🌰，将第一个 hooks 变成条件判断形式，具体如下：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Index</span><span class="p">({</span> <span class="nx">showNumber</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">setNumber</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 第一个 hooks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">showNumber</span> <span class="o">&amp;&amp;</span> <span class="p">([</span><span class="nx">number</span><span class="p">,</span> <span class="nx">setNumber</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>第一次渲染时，showNumber = true，第一个 hooks 会渲染。</p>
+<p>第二次渲染时，父组件将 showNumber 设置为 false，第一个 hooks 将不再执行，那么更新逻辑就会变成这样：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_03.png" alt="" width="100%" />
+<p>第二次复用时发现 hooks 类型不同 useState !== useRef，直接报错了。所以开发时一定要注意 hooks 顺序一致性：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_04.png" alt="" width="100%" />
+<h2 id="状态派发">状态派发</h2>
+<p>useState 解决了函数组件没有 state 的问题，让无状态函数组件有了自己的状态，useState 和 useReducer 原理大同小异，本质上都是通过触发更新函数 (dispatchAction)。</p>
+<p>举个 🌰，比如一段代码这么写：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">[</span><span class="nx">number</span><span class="p">,</span> <span class="nx">setNumber</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span></span></span></code></pre></div></div><p>setNumber 本质上就是 dispatchAction。</p>
+<p>首先看一下执行 useState(0) 做了什么？</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">mountState</span><span class="p">(</span><span class="nx">initialState</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">hook</span> <span class="o">=</span> <span class="nx">mountWorkInProgressHook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 如果 useState 第一个参数为函数，执行函数得到初始化 state
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">initialState</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="nx">initialState</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="nx">hook</span><span class="p">.</span><span class="nx">baseState</span> <span class="o">=</span> <span class="nx">initialState</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 负责记录更新的各种状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">queue</span> <span class="o">=</span> <span class="p">(</span><span class="nx">hook</span><span class="p">.</span><span class="nx">queue</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// dispatchAction 为更新调度的主要函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">dispatch</span> <span class="o">=</span> <span class="p">(</span><span class="nx">queue</span><span class="p">.</span><span class="nx">dispatch</span> <span class="o">=</span> <span class="p">(</span><span class="nx">dispatchAction</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">currentlyRenderingFiber</span><span class="p">,</span> <span class="nx">queue</span><span class="p">,)))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><ul>
+<li>state 会被当前 hooks 的 memoizedState 保存下来，每一个 useState 都会创建一个 queue 里面保存了更新的信息。</li>
+<li>每一个 useState 都会创建一个更新函数，当前的 fiber 和 queue 被 bind 绑定了固定的参数传入 dispatchAction，当用户触发 setNumber 时，能够直观反映出来自哪个 fiber 的更新。</li>
+<li>最后把 memoizedState、dispatch 返回给开发者使用。</li>
+</ul>
+<p>接下来重点研究 dispatchAction，看看底层是怎么处理更新逻辑的。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">dispatchAction</span><span class="p">(</span><span class="nx">fiber</span><span class="p">,</span> <span class="nx">queue</span><span class="p">,</span> <span class="nx">action</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 第一步：创建一个 update */</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">pending</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">pending</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 第一个待更新任务 */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">pending</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">update</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">update</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  <span class="cm">/* 已经有待更新任务 */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">update</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">pending</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">pending</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">update</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="nx">fiber</span> <span class="o">===</span> <span class="nx">currentlyRenderingFiber</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 说明当前 fiber 正在发生调和渲染更新，那么不需要更新 */</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">fiber</span><span class="p">.</span><span class="nx">expirationTime</span> <span class="o">===</span> <span class="nx">NoWork</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">alternate</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">alternate</span><span class="p">.</span><span class="nx">expirationTime</span> <span class="o">===</span> <span class="nx">NoWork</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">lastRenderedReducer</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">lastRenderedReducer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="cm">/* 上一次的 state */</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">currentState</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">lastRenderedState</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="cm">/* 这一次新的 state */</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">eagerState</span> <span class="o">=</span> <span class="nx">lastRenderedReducer</span><span class="p">(</span><span class="nx">currentState</span><span class="p">,</span> <span class="nx">action</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="cm">/* 如果每一个都改变相同的state，那么组件不更新 */</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">is</span><span class="p">(</span><span class="nx">eagerState</span><span class="p">,</span> <span class="nx">currentState</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 发起调度更新 */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">scheduleUpdateOnFiber</span><span class="p">(</span><span class="nx">fiber</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><ul>
+<li>每一次调用 dispatchAction(比如 setNumber) 都会先创建一个 update，然后把它放入待更新 pending 队列中。</li>
+<li>判断如果当前的 fiber 正在更新，那么也就不需要在更新了。</li>
+<li>反之，说明当前 fiber 没有更新任务，会拿出上一次 state 和这一次 state 进行对比，如果相同，直接退出更新；如果不相同，发起调度任务(💡：Q6)。</li>
+</ul>
+<p>举个 🌰，我们模拟一个更新场景：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Index</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">number</span><span class="p">,</span> <span class="nx">setNumber</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setNumber</span><span class="p">((</span><span class="nx">num</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// num = 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">setNumber</span><span class="p">((</span><span class="nx">num</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">num</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// num = 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">setNumber</span><span class="p">((</span><span class="nx">num</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">num</span> <span class="o">+</span> <span class="mi">3</span><span class="p">);</span> <span class="c1">// num = 6
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">handleClick</span><span class="p">()}</span><span class="o">&gt;</span><span class="nx">点击</span> <span class="p">{</span><span class="nx">number</span><span class="p">}</span> <span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>点击一次按钮，触发了三次 setNumber，等于触发了三次 dispatchAction，那么这三次 update 会在当前 hooks 的 pending 队列中，由于批量更新的概念，会统一合成一次更新。</p>
+<p>接下来是组件渲染，上一次 state 和这一次 state 进行对比不相同，发起调动任务，再一次执行 useState，此时走的是更新流程。</p>
+<p>试想一下点击 handleClick 最后 state 被更新成 6，那么在更新逻辑中 useState 内部要做的事，就是得到最新的 state。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">updateReducer</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 第一步把待更新的 pending 队列取出来。合并到 baseQueue
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">first</span> <span class="o">=</span> <span class="nx">baseQueue</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">update</span> <span class="o">=</span> <span class="nx">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 得到新的 state */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">newState</span> <span class="o">=</span> <span class="nx">reducer</span><span class="p">(</span><span class="nx">newState</span><span class="p">,</span> <span class="nx">action</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nx">update</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">update</span> <span class="o">!==</span> <span class="nx">first</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="nx">newState</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[</span><span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>再次执行 useState 时，会触发更新 hooks 的逻辑，本质上调用的是 updateReducer，把待更新的队列 pendingQueue 拿出来，合并到 baseQueue，循环进行更新，得到新的 state。</p>
+<p>循环更新的流程，说白了就是执行每一个 num =&gt; num + 1，得到最新的 state。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_05.png" alt="" width="100%" />
+<h2 id="处理副作用">处理副作用</h2>
+<h3 id="初始化">初始化</h3>
+<p>在 render 阶段，没有进行真正的 DOM 元素的增加、删除等操作，react 把想要做的不同操作打上不同的 effectTag，等到 commit 阶段，统一处理这些副作用，包括 DOM 元素的增删改、执行一些生命周期等。</p>
+<p>接下来以 effect 为例，看看 react 是如何处理 useEffect/useLayoutEffect 副作用的。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">mountEffect</span><span class="p">(</span><span class="nx">create</span><span class="p">,</span> <span class="nx">deps</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">hook</span> <span class="o">=</span> <span class="nx">mountWorkInProgressHook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">nextDeps</span> <span class="o">=</span> <span class="nx">deps</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="kc">null</span> <span class="o">:</span> <span class="nx">deps</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">currentlyRenderingFiber</span><span class="p">.</span><span class="nx">effectTag</span> <span class="o">|=</span> <span class="nx">UpdateEffect</span> <span class="o">|</span> <span class="nx">PassiveEffect</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="nx">pushEffect</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">HookHasEffect</span> <span class="o">|</span> <span class="nx">hookEffectTag</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// useEffect 第一个参数，就是副作用函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">create</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kc">undefined</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// useEffect 第二个参数，deps
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">nextDeps</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><ul>
+<li>通过 pushEffect 创建一个 effect，保存到当前 hooks 的 memoizedState 属性下。</li>
+<li>pushEffect 除了创建一个 effect，还有一个重要作用是，如果存在多个 effect 或 layoutEffect 会形成一个副作用链表，绑定在函数组件对应的 fiber 的 updateQueue 上。</li>
+</ul>
+<p>对于函数组件，可能存在多个 useEffect/useLayoutEffect，hooks 把这些 effect 形成链表结构，在 commit 阶段统一处理。</p>
+<p>如果在一个函数组中这样写：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;第一个effect&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">[</span><span class="nx">props</span><span class="p">.</span><span class="nx">a</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">React</span><span class="p">.</span><span class="nx">useLayoutEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;第二个effect&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;第三个effect&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">[]);</span></span></span></code></pre></div></div><p>在 updateQueue 中，副作用链表会变成如下样子：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_06.png" alt="" width="100%" />
+<h3 id="更新">更新</h3>
+<p>更新流程对于 effect 来说也很简单，首先设想一下 useEffect 更新流程，无非判断是否执行下一次的 effect 副作用函数。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">updateEffect</span><span class="p">(</span><span class="nx">create</span><span class="p">,</span> <span class="nx">deps</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">hook</span> <span class="o">=</span> <span class="nx">updateWorkInProgressHook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">areHookInputsEqual</span><span class="p">(</span><span class="nx">nextDeps</span><span class="p">,</span> <span class="nx">prevDeps</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 如果 deps 项没有发生变化，那么更新 effect list 就可以了，无须设置 HookHasEffect */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">pushEffect</span><span class="p">(</span><span class="nx">hookEffectTag</span><span class="p">,</span> <span class="nx">create</span><span class="p">,</span> <span class="nx">destroy</span><span class="p">,</span> <span class="nx">nextDeps</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 如果 deps 依赖项发生改变，赋予 effectTag ，在 commit 阶段，就会再次执行 effect  */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">currentlyRenderingFiber</span><span class="p">.</span><span class="nx">effectTag</span> <span class="o">|=</span> <span class="nx">fiberEffectTag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="nx">pushEffect</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">HookHasEffect</span> <span class="o">|</span> <span class="nx">hookEffectTag</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">create</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">destroy</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">nextDeps</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>判断 deps 有没有发生变化，如果没有发生变化，更新副作用链表就可以了；如果发生变化，更新副作用链表的同时，打执行副作用标签：fiber =&gt; fiberEffectTag，hook =&gt; HookHasEffect，在 commit 阶段就会根据这些标签，重新执行副作用 (💡：Q8)。</p>
+<h3 id="不同的-effect">不同的 effect</h3>
+<ul>
+<li>
+<p>react 会用不同的 effectTag 来标记不同的 effect，HookPassive 是 useEffect 的标识符，HookLayout 是 useLayoutEffect 的标识符。</p>
+</li>
+<li>
+<p>react 在 commit 阶段，通过标识符 effectTag，来区分是 useEffect 还是 useLayoutEffect，接下来 react 会同步处理 useLayoutEffect，异步处理 useEffect (💡：Q9)。</p>
+</li>
+<li>
+<p>如果函数组件需要更新副作用，会标记 UpdateEffect，至于哪个 effect 需要更新，那就看哪个 hooks 上有 HookHasEffect 标记。</p>
+</li>
+</ul>
+<h2 id="状态获取与状态缓存">状态获取与状态缓存</h2>
+<h3 id="对于-ref-的处理">对于 ref 的处理</h3>
+<p>useRef 就是创建并维护一个 ref 原始对象，用于获取原生 DOM 或者组件实例、或者保存一些状态等。</p>
+<h4 id="初始化-1">初始化</h4>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">mountRef</span><span class="p">(</span><span class="nx">initialValue</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">hook</span> <span class="o">=</span> <span class="nx">mountWorkInProgressHook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 创建 ref 对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">current</span><span class="o">:</span> <span class="nx">initialValue</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">ref</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><h4 id="更新-1">更新</h4>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">updateRef</span><span class="p">(</span><span class="nx">initialValue</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">hook</span> <span class="o">=</span> <span class="nx">updateWorkInProgressHook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 取出复用 ref 对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>ref 创建和更新的过程，就是 ref 对象的创建和复用的过程。</p>
+<h3 id="对于-usememo-的处理">对于 useMemo 的处理</h3>
+<p>对于 useMemo，逻辑比 useRef 复杂，但是相对于 useState、useEffect 简单的多。</p>
+<h4 id="初始化-2">初始化</h4>
+<p>useMemo 初始化会执行第一个函数得到想要缓存的值，将值缓存到 hooks 的 memoizedState 上。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">mountMemo</span><span class="p">(</span><span class="nx">nextCreate</span><span class="p">,</span> <span class="nx">deps</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">hook</span> <span class="o">=</span> <span class="nx">mountWorkInProgressHook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">nextDeps</span> <span class="o">=</span> <span class="nx">deps</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="kc">null</span> <span class="o">:</span> <span class="nx">deps</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">nextValue</span> <span class="o">=</span> <span class="nx">nextCreate</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 数组形式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="p">[</span><span class="nx">nextValue</span><span class="p">,</span> <span class="nx">nextDeps</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">nextValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><h4 id="更新-2">更新</h4>
+<p>useMemo 更新流程就是对比两次的 deps 是否发生变化，如果没有发生变化，直接返回缓存值；如果发生变化，执行第一个参数函数，重新生成缓存值，缓存下来，供开发者使用。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">updateMemo</span><span class="p">(</span><span class="nx">nextCreate</span><span class="p">,</span> <span class="nx">nextDeps</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">hook</span> <span class="o">=</span> <span class="nx">updateWorkInProgressHook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">prevState</span> <span class="o">=</span> <span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 之前保存的 deps 值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">prevDeps</span> <span class="o">=</span> <span class="nx">prevState</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 判断两次 deps 值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">areHookInputsEqual</span><span class="p">(</span><span class="nx">nextDeps</span><span class="p">,</span> <span class="nx">prevDeps</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">prevState</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 如果 deps，发生改变，重新执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">nextValue</span> <span class="o">=</span> <span class="nx">nextCreate</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="p">[</span><span class="nx">nextValue</span><span class="p">,</span> <span class="nx">nextDeps</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">nextValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>通过 useRef 和 useMemo 的源码来看，useRef 本质上就是一个 { current：xx } 对象，更新阶段直接拿过来这个对象进行复用。改变 ref 值也只是对 current 属性值发生变化，而对象地址还是没有变化。</p>
+<p>更新的判断是否变化对依赖值是进行浅比较的，所以添不添加都没什么影响。而 useState 每次更新之后的 state 是重新计算出来的，所以需要添加依赖 (💡：Q7)。</p>
+<h2 id="总结">总结</h2>
+<p>本篇讲了 react hooks 原理，吃透这篇，完全可以应对 react hooks 各种面试题。希望一次没有读明白的同学，可以多看几次，不积硅步无以至千里，你学废了吗？</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-11-07&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/f620fc752e2fee7842cb85fc6727ccfd9f2cb469" target="_blank" title="commit by OweQian(1510106069@qq.com) f620fc752e2fee7842cb85fc6727ccfd9f2cb469: fix: update blog">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>f620fc7</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/reacthooks/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/reacthooks/" data-title="📜 解读 react 原理系列 - hooks" data-via="xxxx" data-hashtags="react"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/reacthooks/" data-hashtag="react"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/reacthooks/" data-title="📜 解读 react 原理系列 - hooks"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/reacthooks/" data-title="📜 解读 react 原理系列 - hooks"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/reacthooks/" data-title="📜 解读 react 原理系列 - hooks"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/react/">React</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/reactfiber/" class="prev" rel="prev" title="📜 解读 react 原理系列 - fiber 与调和"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>📜 解读 react 原理系列 - fiber 与调和</a>
+            <a href="/reactbitwise/" class="next" rel="next" title="📜 解读 react 原理系列 - 位运算">📜 解读 react 原理系列 - 位运算<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.144.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/OweQian" target="_blank">OweQian 的精神角落</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js"></script></body>
+</html>

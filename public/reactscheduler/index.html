@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>📜 解读 react 原理系列 - 异步调度 - OweQian 的精神角落</title><meta name="Description" content="OweQian&#39;s blog"><meta property="og:url" content="http://localhost:1313/reactscheduler/">
+  <meta property="og:site_name" content="OweQian 的精神角落">
+  <meta property="og:title" content="📜 解读 react 原理系列 - 异步调度">
+  <meta property="og:description" content="本篇文章是解读 react 原理系列的第二篇 - 异步调度，请带着问题来阅读，效果更佳。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-02-01T11:04:41+08:00">
+    <meta property="article:modified_time" content="2024-11-07T18:22:20+08:00">
+    <meta property="article:tag" content="React">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="📜 解读 react 原理系列 - 异步调度">
+  <meta name="twitter:description" content="本篇文章是解读 react 原理系列的第二篇 - 异步调度，请带着问题来阅读，效果更佳。">
+      <meta name="twitter:site" content="@xxxx">
+<meta name="application-name" content="OweQian 的精神角落">
+<meta name="apple-mobile-web-app-title" content="OweQian 的精神角落"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/img.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/reactscheduler/" /><link rel="prev" href="http://localhost:1313/reactevent/" /><link rel="next" href="http://localhost:1313/reactfiber/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "📜 解读 react 原理系列 - 异步调度",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/reactscheduler\/"
+        },"genre": "posts","keywords": "react","wordcount":  3408 ,
+        "url": "http:\/\/localhost:1313\/reactscheduler\/","datePublished": "2024-02-01T11:04:41+08:00","dateModified": "2024-11-07T18:22:20+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "OweQian 的精神角落"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">📜 解读 react 原理系列 - 异步调度</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/react/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>React</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-01">2024-02-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3408 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#何为异步调度">何为异步调度</a>
+      <ul>
+        <li><a href="#时间分片">时间分片</a></li>
+        <li><a href="#模拟-requestidlecallback">模拟 requestIdleCallback</a>
+          <ul>
+            <li><a href="#settimeoutfn-0">setTimeout(fn, 0)</a></li>
+            <li><a href="#messagechannel">MessageChannel</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#异步调度原理">异步调度原理</a>
+      <ul>
+        <li><a href="#schedulecallback">scheduleCallback</a></li>
+        <li><a href="#requesthosttimeout">requestHostTimeout</a></li>
+        <li><a href="#handletimeout">handleTimeout</a></li>
+        <li><a href="#advancetimers">advanceTimers</a></li>
+        <li><a href="#flushwork-和-workloop">flushWork 和 workloop</a></li>
+        <li><a href="#shouldyield-中止-workloop">shouldYield 中止 workloop</a></li>
+      </ul>
+    </li>
+    <li><a href="#调度流程图">调度流程图</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本篇文章是解读 react 原理系列的第二篇 - 异步调度，请带着问题来阅读，效果更佳。</p>
+<p>首先我们来思考几个问题：</p>
+<p>🤔 Q1: react 异步调度原理？<br>
+🤔 Q2: react 为什么不用 setTimeout?<br>
+🤔 Q3: 时间分片是什么？<br>
+🤔 Q4: react 如何模拟 requestIdleCallback？<br>
+🤔 Q5: 简述一下调度流程？</p>
+<h2 id="何为异步调度">何为异步调度</h2>
+<p>GUI 渲染线程和 JS 引擎线程是相互排斥的，比如开发者用 JS 写了一个遍历大量数据的循环，JS 一直执行，这会阻塞浏览器的渲染绘制，给用户带来的最直观的感受就是页面卡顿。</p>
+<p>react v15 就面临上述问题，对于大型的 react 应用，存在一次更新，递归遍历大量组件的问题，阻塞了浏览器的渲染绘制，伴随着项目越来越大，页面也越来越卡顿。</p>
+<p>如何解决这个问题呢？解铃还须系铃人，既然更新过程阻塞了浏览器的绘制，那么把 react 的更新交给浏览器自己控制不就行了吗？如果浏览器有绘制任务，就执行绘制任务，空闲时间执行更新任务，这样就能解决卡顿问题了。</p>
+<h3 id="时间分片">时间分片</h3>
+<p>页面的内容是一帧一帧绘制出来的，浏览器刷新频率代表浏览器一秒绘制多少帧。原则上说 1s 内绘制的帧数越多，页面表现越细腻。</p>
+<p>目前浏览器大多是 60Hz(60 帧/s)，每一帧耗时在 16.6 ms 左右。在一帧的过程中，浏览器会经过下面这几个过程：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_17.png" alt="" width="100%" />
+<p>一帧执行后，如果没有其它事件，浏览器就会进入休息时间。此时如果有不是特别紧急的 react 更新，就可以执行了。</p>
+<p>❓ 如何知道浏览器有空闲时间？</p>
+<p>requestIdleCallback 是谷歌浏览器提供的一个 API，只有在一帧的 16.6ms 中做完了前面 6 件事且还有剩余时间才会执行。首先看一下 requestIdleCallback 的基本用法：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">requestIdleCallback</span><span class="p">(</span><span class="nx">callback</span><span class="p">,</span> <span class="p">{</span> <span class="nx">timeout</span> <span class="p">});</span></span></span></code></pre></div></div><ul>
+<li>callback 回调，浏览器有剩余时间执行回调函数</li>
+<li>timeout 超时时间，如果浏览器长时间没有空闲，回调就不会执行</li>
+</ul>
+<p>react 为了防止 requestIdleCallback 中的任务由于浏览器没有空闲时间而卡死，设置了 5 个优先级：</p>
+<ul>
+<li>Immediate -1，需要立刻执行</li>
+<li>UserBlocking 超时时间 250ms，一般指用户交互</li>
+<li>Normal 超时时间 5000ms，一般指网络请求</li>
+<li>Low 超时时间 10000ms，肯定要执行的任务，但可以放到最后</li>
+<li>Idle 一些不太重要的任务，可能不会执行</li>
+</ul>
+<p>react 就是通过类似 requestIdleCallback 向浏览器做一帧一帧请求，将时间无脑的分片成 5ms，5ms 一过就停止更新任务的执行，让出控制权，将剩余的更新任务放到下一个宏任务，继续 5ms 一个分片执行，保证页面的流畅 (💡：Q3)。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_18.png" alt="" width="100%" />
+<h3 id="模拟-requestidlecallback">模拟 requestIdleCallback</h3>
+<p>requestIdleCallback 目前只有谷歌浏览器支持，为了兼容每个浏览器，react 需要自己实现一个 requestIdleCallback，这就需要具备两个条件：</p>
+<ul>
+<li>实现的这个 requestIdleCallback，可以主动让出控制权，让浏览器去渲染视图</li>
+<li>一次事件循环只执行一次，执行一次后，请求下一次的时间片</li>
+</ul>
+<p>能够满足上述条件的，只有宏任务，在下次事件循环中执行，一次只执行一个宏任务，不会阻塞浏览器更新。</p>
+<h4 id="settimeoutfn-0">setTimeout(fn, 0)</h4>
+<p>setTimeout(fn, 0) 可以满足上述条件，为什么 react 没有选择用它实现调度呢？原因是递归执行 setTimeout(fn, 0)，最后间隔时间会变成 4ms 左右，而不是最初的 0ms (💡：Q2)。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">time</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">nowTime</span> <span class="o">=</span> <span class="o">+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">timer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">poll</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">lastTime</span> <span class="o">=</span> <span class="nx">nowTime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">nowTime</span> <span class="o">=</span> <span class="o">+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;递归setTimeout(fn,0)产生时间差：&#34;</span><span class="p">,</span> <span class="nx">nowTime</span> <span class="o">-</span> <span class="nx">lastTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">poll</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">time</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">time</span> <span class="o">===</span> <span class="mi">20</span><span class="p">)</span> <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nx">poll</span><span class="p">();</span></span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_19.png" alt="" width="100%" />
+<h4 id="messagechannel">MessageChannel</h4>
+<p>react 团队可能是注意到 setTimeout 的这 4ms 有点过于铺张浪费，采用了一种新的方式去实现：MessageChannel (💡：Q4)。</p>
+<p>MessageChannel 允许开发者创建一个新的消息通道，并通过它的两个 MessagePort 属性发送数据。</p>
+<ul>
+<li>MessagePort.port1 只读返回 channel 的 port1</li>
+<li>MessagePort.port2 只读返回 channel 的 port2</li>
+</ul>
+<p>模拟 MessageChannel 触发异步宏任务：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">scheduledHostCallback</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 建立一个消息通道 */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MessageChannel</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 建立一个 port 发送消息 */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">channel</span><span class="p">.</span><span class="nx">port2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">channel</span><span class="p">.</span><span class="nx">port1</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 执行任务 */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">scheduledHostCallback</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 执行完毕，清空任务 */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">scheduledHostCallback</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 向浏览器请求执行更新任务 */</span>
+</span></span><span class="line"><span class="cl"><span class="nx">requestHostCallback</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">scheduledHostCallback</span> <span class="o">=</span> <span class="nx">callback</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isMessageLoopRunning</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isMessageLoopRunning</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">port</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div><ul>
+<li>在一次更新中，react 会调用 requestHostCallback，把更新任务赋值给 scheduledHostCallback，然后 port2 向 port1 发起 postMessage 通知</li>
+<li>port1 会通过 onmessage 接收来自 port2 的消息，执行更新任务 scheduledHostCallback，执行完毕清空任务，借此达到异步执行的目的</li>
+</ul>
+<h2 id="异步调度原理">异步调度原理</h2>
+<p>react 发生一次更新，会统一走 ensureRootIsScheduled(调度应用) (💡：Q1)。</p>
+<ul>
+<li>对于正常的同步更新会走 performSyncWorkOnRoot 逻辑，最后会走 workLoopSync</li>
+<li>对于低优的异步更新会走 performConcurrentWorkOnRoot 逻辑，最后会走 workLoopConcurrent</li>
+</ul>
+<p>workLoopSync：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">workLoopSync</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="nx">workInProgress</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">workInProgress</span> <span class="o">=</span> <span class="nx">performUnitOfWork</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>workLoopConcurrent：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">workLoopConcurrent</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="nx">workInProgress</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">shouldYield</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">workInProgress</span> <span class="o">=</span> <span class="nx">performUnitOfWork</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>在一次更新调度中，workLoop 会更新执行每一个待更新的 fiber。</p>
+<p>区别是异步模式会调用一个 shouldYield 函数，如果浏览器当前没有空闲时间，shouldYield 会跳出循环，直到浏览器有空闲时间后再继续遍历，从而达到终止渲染的目的。</p>
+<p>这样就解决了一次性遍历大量的 fiber，导致浏览器没有时间执行渲染任务，造成页面卡顿。</p>
+<h3 id="schedulecallback">scheduleCallback</h3>
+<p>无论是正常的同步更新任务 workLoopSync 还是低优的异步更新任务 workLoopConcurrent，都是由调度器 scheduleCallback 统一调度，那么两者在进入调度器时有什么区别呢？</p>
+<p>对于正常的同步更新任务：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">scheduleCallback</span><span class="p">(</span><span class="nx">Immediate</span><span class="p">,</span> <span class="nx">workLoopSync</span><span class="p">);</span></span></span></code></pre></div></div><p>对于低优的异步更新任务：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="cm">/* 计算超时等级，就是上面那五个等级 */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">priorityLevel</span> <span class="o">=</span> <span class="nx">inferPriorityFromExpirationTime</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">currentTime</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">expirationTime</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">scheduleCallback</span><span class="p">(</span><span class="nx">priorityLevel</span><span class="p">,</span> <span class="nx">workLoopConcurrent</span><span class="p">);</span></span></span></code></pre></div></div><p>低优的异步更新任务的处理，会比正常更新任务多一个超时等级的概念。</p>
+<p>scheduleCallback 做了什么呢？</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">scheduleCallback</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 计算过期时间：超时时间  = 开始时间（现在时间） + 任务超时的时间（上述设置那五个等级） */</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">expirationTime</span> <span class="o">=</span> <span class="nx">startTime</span> <span class="o">+</span> <span class="nx">timeout</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 创建一个新任务 */</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">newTask</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* do something */</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">startTime</span> <span class="o">&gt;</span> <span class="nx">currentTime</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 通过开始时间排序 */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">newTask</span><span class="p">.</span><span class="nx">sortIndex</span> <span class="o">=</span> <span class="nx">startTime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 把任务放在 timerQueue 中 */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">push</span><span class="p">(</span><span class="nx">timerQueue</span><span class="p">,</span> <span class="nx">newTask</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/*  执行 setTimeout */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">requestHostTimeout</span><span class="p">(</span><span class="nx">handleTimeout</span><span class="p">,</span> <span class="nx">startTime</span> <span class="o">-</span> <span class="nx">currentTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 通过 expirationTime 排序  */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">newTask</span><span class="p">.</span><span class="nx">sortIndex</span> <span class="o">=</span> <span class="nx">expirationTime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 把任务放入 taskQueue */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">push</span><span class="p">(</span><span class="nx">taskQueue</span><span class="p">,</span> <span class="nx">newTask</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 没有处于调度中的任务，向浏览器请求一帧，浏览器空闲执行 flushWork */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isHostCallbackScheduled</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">isPerformingWork</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">isHostCallbackScheduled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">requestHostCallback</span><span class="p">(</span><span class="nx">flushWork</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>对于调度本身：</p>
+<ul>
+<li>timerQueue：里面存的都是没有过期的任务，根据任务的开始时间排序，在调度 workLoop 中会用 advanceTimers 检查任务是否过期，如果过期了，放入 taskQueue</li>
+<li>taskQueue：里面存的都是过期的任务，根据任务的过期时间排序，需要在调度的 workLoop 中循环执行这些任务</li>
+</ul>
+<p>scheduleCallback 流程如下：</p>
+<ul>
+<li>创建一个新的任务 newTask</li>
+<li>通过任务的开始时间和当前时间进行比较，如果开始时间大于当前时间，则说明未过期，存到 timerQueue；否则说明任务已过期，存到 taskQueue</li>
+<li>如果任务过期并且没有调度中的任务，那么调度 requestHostCallback，本质上调度的是 flushWork</li>
+<li>如果任务没有过期，调用 requestHostTimeout 延时执行 handleTimeout</li>
+</ul>
+<h3 id="requesthosttimeout">requestHostTimeout</h3>
+<p>当一个任务没有过期，react 会把它存到 timerQueue，但是它什么时候过期呢？</p>
+<p>Scheduler 用 requestHostTimeout 来让一个处于未过期状态的任务恰好达到过期的状态，只需要延迟 startTime - currentTime 毫秒就可以了。</p>
+<p>requestHostTimeout 就是通过 setTimeout 来进行延迟指定时间的：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">requestHostTimeout</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cb</span><span class="p">,</span> <span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">_timeoutID</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">cb</span><span class="p">,</span> <span class="nx">ms</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">cancelHostTimeout</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">_timeoutID</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div><ul>
+<li>requestHostTimeout 用于延时执行 handleTimeout</li>
+<li>cancelHostTimeout 用于清除当前的定时器</li>
+</ul>
+<h3 id="handletimeout">handleTimeout</h3>
+<p>延时指定时间后，调用 handleTimeout，handleTimeout 会把任务重新放在 requestHostCallback 中调度。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">handleTimeout</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">isHostTimeoutScheduled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 将 timerQueue 中过期的任务，放在 taskQueue 中 */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">advanceTimers</span><span class="p">(</span><span class="nx">currentTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 如果没有处于调度中的任务 */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isHostCallbackScheduled</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 判断有没有过期的任务 */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">peek</span><span class="p">(</span><span class="nx">taskQueue</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">isHostCallbackScheduled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="cm">/* 开启调度任务 */</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">requestHostCallback</span><span class="p">(</span><span class="nx">flushWork</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><ul>
+<li>通过 advanceTimers 将 timerQueue 中的过期任务转移到 taskQueue</li>
+<li>然后调用 requestHostCallback 调度过期的任务</li>
+</ul>
+<h3 id="advancetimers">advanceTimers</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">advanceTimers</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">peek</span><span class="p">(</span><span class="nx">timerQueue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="nx">timer</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">timer</span><span class="p">.</span><span class="nx">callback</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pop</span><span class="p">(</span><span class="nx">timerQueue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">timer</span><span class="p">.</span><span class="nx">startTime</span> <span class="o">&lt;=</span> <span class="nx">currentTime</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="cm">/* 如果任务已经过期，那么将 timerQueue 中的过期任务，放入 taskQueue */</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pop</span><span class="p">(</span><span class="nx">timerQueue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 排序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">timer</span><span class="p">.</span><span class="nx">sortIndex</span> <span class="o">=</span> <span class="nx">timer</span><span class="p">.</span><span class="nx">expirationTime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">push</span><span class="p">(</span><span class="nx">taskQueue</span><span class="p">,</span> <span class="nx">timer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>如果任务已经过期，那么将 timerQueue 中的过期任务放入到 taskQueue。</p>
+<h3 id="flushwork-和-workloop">flushWork 和 workloop</h3>
+<p>通过上面的所有信息，要搞清楚两件事：</p>
+<ul>
+<li>第一件事是 react 中的更新任务最后都是放在 taskQueue 中的</li>
+<li>第二件事是 requestHostCallback 放入 MessageChannel 中的回调函数是 flushWork</li>
+</ul>
+<p>flushWork：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">flushWork</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 如果有延时任务执行，那么先暂停延时任务 */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">isHostTimeoutScheduled</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isHostTimeoutScheduled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cancelHostTimeout</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="cm">/* workLoop 执行超时的更新任务  */</span>
+</span></span><span class="line"><span class="cl">     <span class="nx">workLoop</span><span class="p">(</span><span class="nx">hasTimeRemaining</span><span class="p">,</span> <span class="nx">initialTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>flushWork 如果有延时任务执行的话，那么先暂停延时任务，调用 workLoop，去真正执行超时的更新任务</p>
+<p>workLoop：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">workLoop</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">currentTime</span> <span class="o">=</span> <span class="nx">initialTime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">advanceTimers</span><span class="p">(</span><span class="nx">currentTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 获取任务列表中的第一个 */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">currentTask</span> <span class="o">=</span> <span class="nx">peek</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="nx">currentTask</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 真正的更新函数 callback */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">callback</span> <span class="o">=</span> <span class="nx">currentTask</span><span class="p">.</span><span class="nx">callback</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">callback</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="cm">/* 执行更新 */</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">callback</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="cm">/* 再看一下 timerQueue 中有没有过期任务 */</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">advanceTimers</span><span class="p">(</span><span class="nx">currentTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 再一次获取任务，循环执行 */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">currentTask</span> <span class="o">=</span> <span class="nx">peek</span><span class="p">(</span><span class="nx">taskQueue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>workLoop 会依次执行 taskQueue 中的更新任务，到此为止，完成整个调度过程。</p>
+<h3 id="shouldyield-中止-workloop">shouldYield 中止 workloop</h3>
+<p>在 fiber 的异步更新任务 workLoopConcurrent，每一个 fiber 的 workLoop 都会调用 shouldYield 来判断是否有超时更新的任务，如果有，则停止 workLoop。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">unstable_shouldYield</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">currentTime</span> <span class="o">=</span> <span class="nx">exports</span><span class="p">.</span><span class="nx">unstable_now</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">advanceTimers</span><span class="p">(</span><span class="nx">currentTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 获取第一个任务 */</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">firstTask</span> <span class="o">=</span> <span class="nx">peek</span><span class="p">(</span><span class="nx">taskQueue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nx">firstTask</span> <span class="o">!==</span> <span class="nx">currentTask</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">currentTask</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">firstTask</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">firstTask</span><span class="p">.</span><span class="nx">callback</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">firstTask</span><span class="p">.</span><span class="nx">startTime</span> <span class="o">&lt;=</span> <span class="nx">currentTime</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">firstTask</span><span class="p">.</span><span class="nx">expirationTime</span> <span class="o">&lt;</span> <span class="nx">currentTask</span><span class="p">.</span><span class="nx">expirationTime</span><span class="p">)</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">shouldYieldToHost</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>如果存在第一个更新任务并且已经超时了，shouldYield 会返回 true，这会中止 fiber 的 workLoop。</p>
+<h2 id="调度流程图">调度流程图</h2>
+<p>整个调度流程，用一张图来表示 (💡：Q5)：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/hooks/img_20.png" alt="" width="100%" />
+<h2 id="总结">总结</h2>
+<p>本篇学习了 react 异步调度原理和流程，下一篇将学习 react 调和原理和流程。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-11-07&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/f620fc752e2fee7842cb85fc6727ccfd9f2cb469" target="_blank" title="commit by OweQian(1510106069@qq.com) f620fc752e2fee7842cb85fc6727ccfd9f2cb469: fix: update blog">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>f620fc7</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/reactscheduler/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/reactscheduler/" data-title="📜 解读 react 原理系列 - 异步调度" data-via="xxxx" data-hashtags="react"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/reactscheduler/" data-hashtag="react"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/reactscheduler/" data-title="📜 解读 react 原理系列 - 异步调度"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/reactscheduler/" data-title="📜 解读 react 原理系列 - 异步调度"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/reactscheduler/" data-title="📜 解读 react 原理系列 - 异步调度"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/react/">React</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/reactevent/" class="prev" rel="prev" title="📜 解读 react 原理系列 - 事件（v16/v17/v18）"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>📜 解读 react 原理系列 - 事件（v16/v17/v18）</a>
+            <a href="/reactfiber/" class="next" rel="next" title="📜 解读 react 原理系列 - fiber 与调和">📜 解读 react 原理系列 - fiber 与调和<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.144.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/OweQian" target="_blank">OweQian 的精神角落</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js"></script></body>
+</html>
