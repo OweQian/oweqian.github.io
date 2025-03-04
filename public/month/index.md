@@ -7,7 +7,37 @@
 
 ## 2025
 
+### 2025-03
+
+#### 03-03
+
+呸，恶心！
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_33.jpg" alt="" width="100%" />
+
+#### 03-02
+
+今年的小目标，多出去走一走。
+
+📌 德阳。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_32.jpg" alt="" width="100%" />
+
+#### 03-01
+
+🕯️。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_31.jpg" alt="" width="100%" />
+
 ### 2025-02
+
+#### 02-28
+
+🎂 又老一岁。
+
+#### 02-27
+
+😞 看来 PPT 这碗饭真不是一般人能吃的，做转正述职 PPT，真是要了老命了。
 
 #### 02-26
 
