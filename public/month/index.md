@@ -9,6 +9,36 @@
 
 ### 2025-03
 
+#### 03-18
+
+😠 废了，玩两个小时抓大鹅，想干的事也没有干。
+
+#### 03-17
+
+听说老赖联系之前的产研团队做外包，真是因吹斯汀，脸都不要了。
+
+#### 03-16
+
+龙泉山，再也不来了，吹感冒了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_38.jpg" alt="" width="100%" />
+
+#### 03-15
+
+节目不错，演员不错，看节目的人不行（：此处指我自己。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_37.jpg" alt="" width="100%" />
+
+#### 03-14
+
+😄 还是火锅好吃。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_36.jpg" alt="" width="100%" />
+
+#### 03-13
+
+忘记干啥了。
+
 #### 03-12
 
 > 永远不要告诉别人怎么做。告诉他们做什么，他们自然会发挥天赋，给你惊喜。 --乔治·史密斯·巴顿
