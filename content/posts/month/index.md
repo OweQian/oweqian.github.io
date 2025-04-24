@@ -1,6 +1,6 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
-date: 2025-04-19T22:10:47+08:00
+date: 2025-04-24T12:40:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,36 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-04
+
+#### 04-24
+
+发现我司某位同事的情商好高啊，事事有回应，件件有着落，不管这件事情有多小...好喜欢这样的人啊。
+
+#### 04-23
+
+😞 还有这么多书要看，冲啊。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_48.jpg" alt="" width="100%" />
+
+#### 04-22
+
+大佬的小站都是这么朴实无华吗？
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_47.png" alt="" width="100%" />
+
+#### 04-21
+
+主打一个听说读写，全都不会。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_46.jpg" alt="" width="100%" />
+
+#### 04-20
+
+坦然接受人生的残缺和遗憾，和志同道合的朋友一起前进，
+
+感谢朋友推荐的剧 - 《四重奏》。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_45.jpg" alt="" width="100%" />
 
 #### 04-19
 
