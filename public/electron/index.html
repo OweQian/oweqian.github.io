@@ -424,7 +424,7 @@
 </span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">optimizer</span> <span class="kr">from</span> <span class="s2">&#34;vite-plugin-optimizer&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// https://vitejs.dev/config/
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">export</span> <span class="k">default</span> <span class="nx">defineConfig</span><span class="p">({</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">export</span> <span class="nx">default</span> <span class="nx">defineConfig</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span><span class="nx">optimizer</span><span class="p">(</span><span class="nx">getReplacer</span><span class="p">()),</span> <span class="nx">devPlugin</span><span class="p">(),</span> <span class="nx">vue</span><span class="p">()],</span>
 </span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></div></div><p>vite-plugin-optimizer 插件会创建一个临时目录：node_modules.vite-plugin-optimizer。</p>
 <p>然后把类似 const fs = require(&lsquo;fs&rsquo;); export { fs as default } 这样的代码写入这个目录下的 fs.js 文件中。</p>
