@@ -1,7 +1,7 @@
 ---
 title: "🤯 蠢 Q 碎碎念"
 date: 2025-06-03T20:25:47+08:00
-weight: 1
+weight: 2
 tags: ["碎碎念"]
 categories: ["碎碎念"]
 ---
