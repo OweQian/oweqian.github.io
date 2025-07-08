@@ -4,23 +4,25 @@
         <link>http://localhost:1313/</link>
         <description>OweQian&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian 的精神角落)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Tue, 27 May 2025 17:25:47 &#43;0800</lastBuildDate>
+            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Tue, 08 Jul 2025 15:47:36 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>2025 年 7 月·生活这件小事</title>
+    <link>http://localhost:1313/202507/</link>
+    <pubDate>Tue, 08 Jul 2025 15:47:36 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/202507/</guid>
+    <description><![CDATA[<h3 id="07-08">07-08</h3>
+<p>🤔 看许知远采访姜文，许知远问姜文如何应对自己的人生？</p>
+<p>姜文说：&ldquo;你担心什么，人没多大力量，人毁不了地球，你也救不了地球，你瞎耽误工夫，你能把自己收拾好就不错。你像鲁迅就够牛的吧，已经算很有本事的人了，跟我这么大岁数，也就走了，好多事也没料理明白，还能怎么着，那再说没他那么觉醒的人，稀里糊涂来稀里糊涂走，不是大多数吗？&rdquo;</p>]]></description>
+</item>
+<item>
     <title>🤯 蠢 Q 碎碎念</title>
     <link>http://localhost:1313/month/</link>
-    <pubDate>Tue, 27 May 2025 17:25:47 &#43;0800</pubDate>
+    <pubDate>Tue, 03 Jun 2025 20:25:47 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
     <guid>http://localhost:1313/month/</guid>
     <description><![CDATA[<p>每天都像开盲盒，今天开到的是什么呢？</p>]]></description>
-</item>
-<item>
-    <title>🗒 解读 antd 源码系列 - Button 按钮</title>
-    <link>http://localhost:1313/button/</link>
-    <pubDate>Fri, 08 Nov 2024 10:00:30 &#43;0800</pubDate>
-    <author>OweQian 的精神角落</author>
-    <guid>http://localhost:1313/button/</guid>
-    <description><![CDATA[<p>本篇文章是解读 <a href="mailto:antd@5.21.6" rel="">antd@5.21.6</a> 源码系列的第一篇 - Button 按钮，欢迎您的指正和点赞。</p>]]></description>
 </item>
 <item>
     <title>📜 解读 react 原理系列 - react-router</title>
