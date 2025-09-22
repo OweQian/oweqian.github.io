@@ -544,8 +544,8 @@
 </span></span><span class="line"><span class="cl">    <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="nx">tarJsonPath</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">localPkgJson</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">(),</span> <span class="s2">&#34;dist/node_modules&#34;</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="o">/</span><span class="err">/ 使用electron-builder制成安装包</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">buildInstaller() {</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 使用electron-builder制成安装包
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">buildInstaller() {</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">config</span><span class="o">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">directories</span><span class="o">:</span> <span class="p">{</span>

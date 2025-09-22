@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2025-09-15T15:25:47+08:00
+date: 2025-09-22T16:25:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,42 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-09
+
+#### 2025-09-22
+
+😏 哈哈哈，得到了游泳搭子的夸奖，有进步了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/swim_03.jpg" alt="" width="100%" />
+
+#### 2025-09-21
+
+开始吃鱼油之后，每天困得批爆...
+
+#### 2025-09-20
+
+🤔 绵阳还可以啊。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/mianyang.jpg" alt="" width="100%" />
+
+#### 2025-09-19
+
+🤔 小猫咪也会有烦恼吗？
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/cat.jpg" alt="" width="100%" />
+
+#### 2025-09-18
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/918.png" alt="" width="100%" />
+
+#### 2025-09-17
+
+翻照片翻到三国杀...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/tank.jpg" alt="" width="100%" />
+
+#### 2025-09-16
+
+😠 刘备真是成也仁义失也仁义。
 
 #### 2025-09-15
 
