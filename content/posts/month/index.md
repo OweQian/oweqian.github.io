@@ -4,6 +4,7 @@ date: 2025-09-26T16:25:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
+draft: true
 ---
 
 每天都像开盲盒，今天开到的是什么呢？
@@ -12,109 +13,6 @@ categories: ["碎碎念"]
 
 ## 2025
 
-### 2025-09
+### 2025-10
 
-#### 2025-09-26
-
-世界是银子的。
-
-#### 2025-09-25
-
-梦醒了。
-
-#### 2025-09-24
-
-悠悠苍天，何薄于我？
-
-#### 2025-09-23
-
-谁都可以是 0，但是你不可以，我的小钱包。
-
-#### 2025-09-22
-
-😏 哈哈哈，得到了游泳搭子的夸奖，有进步了。
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/swim_03.jpg" alt="" width="100%" />
-
-#### 2025-09-21
-
-开始吃鱼油之后，每天困得批爆...
-
-#### 2025-09-20
-
-🤔 绵阳还可以啊。
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/mianyang.jpg" alt="" width="100%" />
-
-#### 2025-09-19
-
-🤔 小猫咪也会有烦恼吗？
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/cat.jpg" alt="" width="100%" />
-
-#### 2025-09-18
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/918.png" alt="" width="100%" />
-
-#### 2025-09-17
-
-翻照片翻到三国杀...
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/tank.jpg" alt="" width="100%" />
-
-#### 2025-09-16
-
-😠 刘备真是成也仁义失也仁义。
-
-#### 2025-09-15
-
-好好好，原来真的吃这一套。  
-评论前：已读不批。  
-评论后：秒批。  
-🤔 我得想想怎么提高自己的演技了。
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/work.png" alt="" width="100%" />
-
-#### 2025-09-14
-
-嘻嘻嘻，今天游开心了。
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/swim_02.jpg" alt="" width="100%" />
-
-#### 2025-09-13
-
-自贡菜真的太辣了。。。不过这家确实好吃。
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/food.jpg" alt="" width="100%" />
-
-#### 2025-09-12
-
-华佗谢幕。
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/huatuo.jpg" alt="" width="100%" />
-
-#### 2025-09-11
-
-关二爷谢幕。
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/guanyu.jpg" alt="" width="100%" />
-
-#### 2025-09-10
-
-跑出去喝酒到 4 点，回家倒头就睡，早上睡醒一翻身，看到饼干和它的姿势，这一刻感觉好幸福啊 😄。
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/cookie.jpg" alt="" width="100%" />
-
-#### 2025-09-09
-
-菜 🐸。
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/swim.jpg" alt="" width="100%" />
-
-#### 2025-09-08
-
-许倬云先生给年轻人的建议：
-
-不能慌张，不能放弃。  
-扎实自己，把自己的知识情感，都不要歪曲。  
-同志相求，同声相应。  
-能找到互相砥砺、互相切磋，终生的朋友，就一辈子交下去。  
-你自己就是榜样，你就会吸引别人。
+#### 2025-10-13
