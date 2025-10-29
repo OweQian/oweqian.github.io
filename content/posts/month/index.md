@@ -1,10 +1,9 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2025-09-26T16:25:47+08:00
+date: 2025-10-29T16:40:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
-draft: true
 ---
 
 每天都像开盲盒，今天开到的是什么呢？
@@ -15,4 +14,20 @@ draft: true
 
 ### 2025-10
 
-#### 2025-10-13
+#### 2025-10-29
+
+爱吃垃圾的 🐱。
+
+![饼干](https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_03.png)
+
+#### 2025-10-28
+
+又去。
+
+![李荣浩](https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_02.jpg)
+
+#### 2025-10-27
+
+记录一下。
+
+![游泳](https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_01.jpg)
