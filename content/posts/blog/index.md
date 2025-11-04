@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2025-10-31T14:10:47+08:00
+date: 2025-11-04T14:10:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -11,6 +11,28 @@ categories: ["碎碎念"]
 <!--more-->
 
 ## 2025
+
+### 2025-11
+
+#### 2025-11-04
+
+😄 瑞幸的红豆子拿铁还可以哎。
+
+![拿铁](https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_08.jpg)
+
+#### 2025-11-03
+
+![🌻](https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_07.jpg)
+
+#### 2025-11-02
+
+😄 《非自然死亡》还挺好看的，石原里美真好看。
+
+![石原里美](https://oweqian.oss-cn-hangzhou.aliyuncs.com/2025/img_06.jpg)
+
+#### 2025-11-01
+
+本来挺开心的一天，父母又在吵架闹离婚了，而我，我又充当了他们的情绪垃圾桶，呵呵。
 
 ### 2025-10
 

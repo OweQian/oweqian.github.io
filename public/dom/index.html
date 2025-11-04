@@ -1279,8 +1279,8 @@
 </span></span><span class="line"><span class="cl">      <span class="nx">togglePageFullscreen</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="o">/</span><span class="err">/ 元素退出全屏</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">screenfull</span><span class="p">.</span><span class="nx">isEnabled</span> <span class="o">&amp;&amp;</span> <span class="nx">screenfull</span><span class="p">.</span><span class="nx">element</span> <span class="o">===</span> <span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 元素退出全屏
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">screenfull</span><span class="p">.</span><span class="nx">isEnabled</span> <span class="o">&amp;&amp;</span> <span class="nx">screenfull</span><span class="p">.</span><span class="nx">element</span> <span class="o">===</span> <span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">screenfull</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">};</span>
