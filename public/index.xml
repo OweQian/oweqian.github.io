@@ -15,6 +15,14 @@
     <description><![CDATA[<p>每天都像开盲盒，今天开到的是什么呢？</p>]]></description>
 </item>
 <item>
+    <title>🤖 AI - AI 友好的整洁业务组件架构</title>
+    <link>http://localhost:1313/component/</link>
+    <pubDate>Fri, 31 Oct 2025 10:11:22 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/component/</guid>
+    <description><![CDATA[<p>设计一套 AI 友好的整洁业务组件架构，让 AI 基于开源组件库（ant-design）生成业务组件代码。</p>]]></description>
+</item>
+<item>
     <title>🤖 AI - 怎么理解大模型</title>
     <link>http://localhost:1313/chat/</link>
     <pubDate>Tue, 23 Sep 2025 15:01:49 &#43;0800</pubDate>
@@ -77,14 +85,6 @@
     <author>OweQian 的精神角落</author>
     <guid>http://localhost:1313/dev/</guid>
     <description><![CDATA[<p>本篇文章是解读 <a href="mailto:ahooks@3.8.0" rel="">ahooks@3.8.0</a> 源码系列的第八篇 - Dev，欢迎您的指正和点赞。</p>]]></description>
-</item>
-<item>
-    <title>📝 解读 ahooks 源码系列 - Advanced</title>
-    <link>http://localhost:1313/advanced/</link>
-    <pubDate>Wed, 01 Nov 2023 19:20:04 &#43;0800</pubDate>
-    <author>OweQian 的精神角落</author>
-    <guid>http://localhost:1313/advanced/</guid>
-    <description><![CDATA[<p>本篇文章是解读 <a href="mailto:ahooks@3.8.0" rel="">ahooks@3.8.0</a> 源码系列的第七篇 - Advanced，欢迎您的指正和点赞。</p>]]></description>
 </item>
 </channel>
 </rss>

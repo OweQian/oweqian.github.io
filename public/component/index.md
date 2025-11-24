@@ -1,3 +1,173 @@
-# 🤖 AI - 怎么赋能业务组件的研发
+# 🤖 AI - AI 友好的整洁业务组件架构
 
+
+设计一套 AI 友好的整洁业务组件架构，让 AI 基于开源组件库（ant-design）生成业务组件代码。
+
+<!--more-->
+
+从 0 ~ 1 到研发业务组件的环节差不多是前端开发工程师页面研发的最大头的一个工作，因此，这个环节也是我们进行 AI 赋能性价比最高的一个环节。我们希望通过 AI 赋能业务组件的研发，实现只需要花整体小部分的时间，就能够完成最大头的工作。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_04.png" alt="" width="100%" />
+
+本文内容分为：
+
+- 为什么要设计一套 AI 友好的整洁业务组件架构
+- 什么是 AI 友好的整洁业务组件架构
+- 这套架构是如何做到 "AI 友好" 且 "整洁" 的
+- AI 友好的整洁业务组件架构的例子
+- 如何写提示词？让 AI 生成遵循核心原则的代码
+- 如何渐进式地在公司落地这套业务组件架构
+
+### 为什么要设计一套 AI 友好的整洁业务组件架构
+
+我们的目的是借助这套架构让 AI 帮助我们生成质量比较高的业务组件代码，那么质量高具体表现为什么呢？
+
+1、这套架构能够在 AI 的三重约束下，让生成的业务组件代码更符合我们的预期。
+
+- AI 的推理能力限制
+- AI 的上下文长度限制
+- AI 的私域知识限制
+
+2、保证 AI 生成的代码具有可维护性。
+
+- 符合现有团队项目的编码规范、文件结构等
+- 跟前端开发人员编写出来的代码类似，甚至编写得更好
+
+---
+
+### 什么是 AI 友好的整洁业务组件架构
+
+这套架构的核心分为两点：
+
+1、AI 友好
+
+能够帮助 AI 更好地生成高质量的业务组件代码。
+
+2、整洁
+
+整个团队或者项目使用统一的业务组件代码文件结构和代码规范，方便后期维护。
+
+#### AI 友好
+
+AI 友好的核心原则是：前端状态和服务端状态分离。在业务组件中只包含前端状态，所有的服务端状态都交给页面对接联调来处理。
+
+举个例子：
+
+在业务组件中，只包含你需要用到的基础组件、UI 结构和样式。比如：form 表单和提交按钮，以及一些交互逻辑、校验规则、业务规则等。
+
+在业务组件中，不能直接请求服务端的接口。比如：不能直接 get 组件需要呈现的初始化数据、调用 post、put、delete 对服务端的数据进行变更。
+
+所有需要请求服务端的数据的操作，都要通过 props 暴露给外部的页面来进行对接联调。
+
+#### 整洁
+
+整洁的核心原则是：整个团队或者项目需要有明确的业务组件代码文件结构和代码规范。
+
+举个例子：
+
+```
+app/components/BizComponentExample
+├─ index.ts // 仅仅将组件内容暴露给外部
+├─ interface.ts // 定义组件内部用到的所有类型，包括 interface、type、enum 等
+├─ BizComponentExample.stories.tsx // 组件的 storybook 文档，包含组件不同的使用示例
+├─ BizComponentExample.tsx // 组件的主体样式和主体逻辑，如果组件太大(超过 500 行)可以拆分为其它的文件，样式使用 tailwindcss 编写
+├─ helpers.ts // 组件所有的工具函数存放在此 (如有)
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_05.png" alt="" width="100%" />
+
+---
+
+### 这套架构是如何做到 "AI 友好" 且 "整洁" 的
+
+#### AI 友好
+
+从极限的思维角度来分析：复杂的业务组件。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_06.png" alt="" width="100%" />
+
+从业务组件的复杂性角度来看，前端组件都是由数据状态来驱动的，业务组件的复杂性往往取决于数据状态流转的复杂性。
+
+因此，我们将服务端状态剥离出去，在业务组件内部只保留前端状态，这就很大程度降低了业务组件的复杂性，在 AI 的三重约束下：
+
+- 由于复杂性降低，可以减少 AI 理解上的工作量，因此在 AI 的推理能力限制下会表现得更好。
+- 由于复杂性降低，需要给到 AI 的上下文及 AI 所需要输出的代码上下文都会降低，因此在 AI 的上下文长度限制下会表现得更好。
+
+所以这种前后端状态分离的架构，对现阶段的 AI 来说更加友好。
+
+#### 整洁
+
+整洁背后对应的核心点是：代码的可维护性高。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_07.png" alt="" width="100%" />
+
+---
+
+### AI 友好的整洁业务组件架构的例子
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="100%" />
+
+遵循 AI 友好的整洁业务组件架构的原则，实现这个 TodoList 的业务组件。
+
+#### AI 友好
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_09.png" alt="" width="100%" />
+
+```ts
+// 任务状态
+type TaskStatus = "todo" | "done";
+
+// 任务
+interface Task {
+  id: string;
+  description: string;
+  status: TaskStatus;
+}
+
+// TodoList 组件的 props 接口
+interface TodoListProps {
+  // 任务列表：需要 get 请求服务端数据
+  tasks: Task[];
+  // 搜索任务：需要 get 请求服务端数据
+  onSearchTask: (keyword: string) => void;
+  // 新增任务：需要 post 新增服务端数据
+  onAddTask: (task: Task) => void;
+  // 删除任务：需要 delete 删除服务端数据
+  onDeleteTask: (taskId: string) => void;
+  // 变更任务状态：需要 put 变更服务端数据
+  onUpdateTaskStatus: (taskId: string, status: TaskStatus) => void;
+}
+```
+
+#### 整洁
+
+通过一个明确的文件结构和代码规范，来实现 TodoList。
+
+```
+git clone https://github.com/AI-FE/ai-friendly-clean-business-component-template
+cd ai-friendly-clean-business-component-template
+pnpm install
+
+<!-- 启动 storybook，查看业务组件 -->
+pnpm storybook
+
+<!-- 启动 dev，查看页面 -->
+pnpm dev
+```
+
+---
+
+### 基于开源组件库生成业务组件实战
+
+#### 使用 dify 构建 AI 应用
+
+#### AI 生成提示词
+
+#### 集成 AI 应用到 IDE
+
+---
+
+### 如何渐进式地在公司落地这套业务组件架构
+
+---
 
