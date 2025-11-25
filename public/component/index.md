@@ -7,7 +7,9 @@
 
 从 0 ~ 1 到研发业务组件的环节差不多是前端开发工程师页面研发的最大头的一个工作，因此，这个环节也是我们进行 AI 赋能性价比最高的一个环节。我们希望通过 AI 赋能业务组件的研发，实现只需要花整体小部分的时间，就能够完成最大头的工作。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_04.png" alt="" width="60%" />
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_04.png" alt="" width="80%" />
+</div>
 
 本文内容分为：
 
@@ -74,7 +76,9 @@ app/components/BizComponentExample
 ├─ helpers.ts // 组件所有的工具函数存放在此 (如有)
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_05.png" alt="" width="60%" />
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_05.png" alt="" width="80%" />
+</div>
 
 ---
 
@@ -84,7 +88,9 @@ app/components/BizComponentExample
 
 从极限的思维角度来分析：复杂的业务组件。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_06.png" alt="" width="60%" />
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_06.png" alt="" width="80%" />
+</div>
 
 从业务组件的复杂性角度来看，前端组件都是由数据状态来驱动的，业务组件的复杂性往往取决于数据状态流转的复杂性。
 
@@ -99,19 +105,25 @@ app/components/BizComponentExample
 
 整洁背后对应的核心点是：代码的可维护性高。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_07.png" alt="" width="60%" />
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_07.png" alt="" width="80%" />
+</div>
 
 ---
 
 ### AI 友好的整洁业务组件架构的例子
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="60%" />
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="80%" />
+</div>
 
 遵循 AI 友好的整洁业务组件架构的原则，实现这个 TodoList 的业务组件。
 
 #### AI 友好
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_09.png" alt="" width="60%" />
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_09.png" alt="" width="80%" />
+</div>
 
 ```ts
 // 任务状态
@@ -161,13 +173,17 @@ pnpm dev
 
 编写提示，让 AI 基于 react、antd、tailwindcss 技术栈，实现下面的业务组件：
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="60%" />
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="80%" />
+</div>
 
 #### 使用 dify 构建 AI 应用
 
 ##### 介绍 dify
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_10.jpg" alt="" width="60%" />
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_10.jpg" alt="" width="80%" />
+</div>
 
 详见：https://dify.ai/
 
@@ -196,14 +212,20 @@ Dify 上的 AI 应用大致分为：
 
 详见：https://dash.302.ai/apis/list
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_11.png" alt="" width="60%" />
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_12.png" alt="" width="60%" />
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_11.png" alt="" width="80%" />
+</div>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_12.png" alt="" width="80%" />
+</div>
 
 - 在 dify 中添加 302 的 API Key
 
 详见：设置 -> 模型供应商 -> 添加更多模型供应商 -> OpenAI-API-compatible -> 添加 302 的 API Key
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_13.png" alt="" width="60%" />
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_13.png" alt="" width="80%" />
+</div>
 
 ##### 用专业的知识明确需求
 
@@ -243,7 +265,9 @@ app/components/BizComponentExample
 
 ### 如何渐进式地在公司落地这套业务组件架构
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_end.png" alt="" width="60%" />
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_end.png" alt="" width="80%" />
+</div>
 
 #### 对于迭代已有稳定业务来说
 
