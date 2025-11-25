@@ -11,7 +11,7 @@ categories: ["AI"]
 
 从 0 ~ 1 到研发业务组件的环节差不多是前端开发工程师页面研发的最大头的一个工作，因此，这个环节也是我们进行 AI 赋能性价比最高的一个环节。我们希望通过 AI 赋能业务组件的研发，实现只需要花整体小部分的时间，就能够完成最大头的工作。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_04.png" alt="" width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_04.png" alt="" width="60%" />
 
 本文内容分为：
 
@@ -78,7 +78,7 @@ app/components/BizComponentExample
 ├─ helpers.ts // 组件所有的工具函数存放在此 (如有)
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_05.png" alt="" width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_05.png" alt="" width="60%" />
 
 ---
 
@@ -88,7 +88,7 @@ app/components/BizComponentExample
 
 从极限的思维角度来分析：复杂的业务组件。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_06.png" alt="" width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_06.png" alt="" width="60%" />
 
 从业务组件的复杂性角度来看，前端组件都是由数据状态来驱动的，业务组件的复杂性往往取决于数据状态流转的复杂性。
 
@@ -103,19 +103,19 @@ app/components/BizComponentExample
 
 整洁背后对应的核心点是：代码的可维护性高。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_07.png" alt="" width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_07.png" alt="" width="60%" />
 
 ---
 
 ### AI 友好的整洁业务组件架构的例子
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="60%" />
 
 遵循 AI 友好的整洁业务组件架构的原则，实现这个 TodoList 的业务组件。
 
 #### AI 友好
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_09.png" alt="" width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_09.png" alt="" width="60%" />
 
 ```ts
 // 任务状态
@@ -163,7 +163,81 @@ pnpm dev
 
 ### 基于开源组件库生成业务组件实战
 
+编写提示，让 AI 基于 react、antd、tailwindcss 技术栈，实现下面的业务组件：
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="60%" />
+
 #### 使用 dify 构建 AI 应用
+
+##### 介绍 dify
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_10.jpg" alt="" width="60%" />
+
+详见：https://dify.ai/
+
+Dify 上的 AI 应用大致分为：
+
+1、聊天助手
+
+- 聚焦在某一个领域的普通聊天机器人，可以和用户进行对话，并根据对话内容生成回复
+- 处理功能职责相对单一的问题
+
+2、Agent
+
+- 聚焦在某一个领域的具有一定自主规划、决策能力的交互机器人
+- 优点：灵活性高、自主决策，调用定义好的 tools，完成相对复杂一点的任务
+- 缺点：稳定性不确定，依赖于模型的推理能力
+
+3、Workflow
+
+- 聚焦在某一个领域，根据用户定制好的专业工作流，完成专业领域的相对复杂的任务
+- 优点：稳定性高，根据用户既定的工作流，完成任务
+- 缺点：灵活度较低，所有任务只能按照用户定制好的工作流依次进行
+
+初始化配置
+
+- 获取 302 的 API Key 和 BaseUrl
+
+详见：https://dash.302.ai/apis/list
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_11.png" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_12.png" alt="" width="60%" />
+
+- 在 dify 中添加 302 的 API Key
+
+详见：设置 -> 模型供应商 -> 添加更多模型供应商 -> OpenAI-API-compatible -> 添加 302 的 API Key
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_13.png" alt="" width="60%" />
+
+##### 用专业的知识明确需求
+
+- 业务组件使用的技术栈
+
+react + tailwindcss + antd
+
+- 前后端状态分离
+
+所有需要请求服务端数据的操作，都通过 props 暴露给外部的页面来进行对接联调。
+
+- 统一的文件结构和代码规范
+
+```
+app/components/BizComponentExample
+├─ index.ts // 仅仅将组件内容暴露给外部
+├─ interface.ts // 定义组件内部用到的所有类型，包括 interface、type、enum 等
+├─ BizComponentExample.stories.tsx // 组件的 storybook 文档，包含组件不同的使用示例
+├─ BizComponentExample.tsx // 组件的主体样式和主体逻辑，如果组件太大(超过 500 行)可以拆分为其它的文件，样式使用 tailwindcss 编写
+├─ helpers.ts // 组件所有的工具函数存放在此 (如有)
+```
+
+##### 选择合适的模型
+
+- 在 coding 领域，Claude 3.5 Sonnet 的代码生成能力目前是比较好的
+- 上下文长度 200k，最大回复长度 8192
+
+##### 运用提示词技巧编写提示词
+
+##### 效果展示
 
 #### AI 生成提示词
 
@@ -173,7 +247,7 @@ pnpm dev
 
 ### 如何渐进式地在公司落地这套业务组件架构
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_end.png" alt="" width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_end.png" alt="" width="60%" />
 
 #### 对于迭代已有稳定业务来说
 
