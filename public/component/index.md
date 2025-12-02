@@ -362,6 +362,20 @@ dify 聊天助手应用将根据参考图片帮助我们生成业务组件代码
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_20.png" alt="" width="80%" />
 </div>
 
+##### 思考
+
+现在，我们已经有了一个基于 dify 的 AI 应用，但是使用起来不是很方便。
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_21.png" alt="" width="80%" />
+</div>
+
+🤔 能不能让 AI 生成出来的代码直接在 IDE 中就可以运行看到实时效果呢？
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_22.png" alt="" width="80%" />
+</div>
+
 #### AI 生成提示词
 
 #### 集成 AI 应用到 IDE
