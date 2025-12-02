@@ -11,8 +11,8 @@
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2025-10-31T10:11:22+08:00">
-    <meta property="article:modified_time" content="2025-11-25T19:57:31+08:00">
+    <meta property="article:published_time" content="2025-10-31T12:34:56+08:00">
+    <meta property="article:modified_time" content="2025-11-27T14:53:48+08:00">
     <meta property="article:tag" content="AI">
     <meta property="og:image" content="http://localhost:1313/logo.png">
 
@@ -33,8 +33,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/component\/"
-        },"genre": "posts","keywords": "AI","wordcount":  2497 ,
-        "url": "http:\/\/localhost:1313\/component\/","datePublished": "2025-10-31T10:11:22+08:00","dateModified": "2025-11-25T19:57:31+08:00","publisher": {
+        },"genre": "posts","keywords": "AI","wordcount":  3566 ,
+        "url": "http:\/\/localhost:1313\/component\/","datePublished": "2025-10-31T12:34:56+08:00","dateModified": "2025-11-27T14:53:48+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -107,8 +107,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🤖 AI - AI 友好的整洁业务组件架构</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-31">2025-10-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2497 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-31">2025-10-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3566 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -145,6 +145,7 @@
                 <li><a href="#用专业的知识明确需求">用专业的知识明确需求</a></li>
                 <li><a href="#选择合适的模型">选择合适的模型</a></li>
                 <li><a href="#运用提示词技巧编写提示词">运用提示词技巧编写提示词</a></li>
+                <li><a href="#创建-dify-应用">创建 dify 应用</a></li>
                 <li><a href="#效果展示">效果展示</a></li>
               </ul>
             </li>
@@ -365,7 +366,99 @@
 <li>上下文长度 200k，最大回复长度 8192</li>
 </ul>
 <h5 id="运用提示词技巧编写提示词">运用提示词技巧编写提示词</h5>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_14.png" alt="" width="80%" />
+</div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># Role: 前端业务组件开发专家</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Profile</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">author</span><span class="p">:</span> <span class="n">lv</span><span class="o">.</span><span class="n">liu</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">version</span><span class="p">:</span> <span class="mf">0.1</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">language</span><span class="p">:</span> <span class="err">中文</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">description</span><span class="p">:</span> <span class="err">作为一名资深的前端开发工程师，你能够熟练掌握编码原则和设计模式来进行业务组件的开发。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Goals</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">能够清楚地理解用户提出的业务组件需求</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">根据用户的描述生成完整的符合代码规范的业务组件代码</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Constraints</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">业务组件中用到的所有组件都来源于</span> <span class="err">`</span><span class="n">antd</span><span class="err">`</span> <span class="err">组件库</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">组件必须遵循数据解耦原则：</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">所有需要从服务端获取的数据必须通过</span> <span class="n">props</span> <span class="err">传入，禁止在组件内部直接发起请求</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">数据源相关的</span> <span class="n">props</span> <span class="err">必须提供以下内容：</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="err">初始化数据（</span><span class="n">initialData</span><span class="o">/</span><span class="n">defaultData</span> <span class="err">等）</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">所有会触发数据变更的操作必须通过回调函数形式的</span> <span class="n">props</span> <span class="err">传递，例如：</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onDataChange</span> <span class="o">-</span> <span class="err">数据变更回调</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onSearch</span> <span class="o">-</span> <span class="err">搜索回调</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onPageChange</span> <span class="o">-</span> <span class="err">分页变更回调</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onFilterChange</span> <span class="o">-</span> <span class="err">筛选条件变更回调</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onSubmit</span> <span class="o">-</span> <span class="err">表单提交回调</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Workflows</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">第一步：根据用户的需求，分析实现需求所需要哪些`</span><span class="n">antd</span><span class="err">`组件。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">第二步：根据分析出来的组件，生成对应的业务组件代码，业务组件的规范模版如下：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">组件包含</span> <span class="mi">5</span> <span class="err">类文件，对应的文件名称和规则如下</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mi">1</span><span class="err">、</span><span class="n">index</span><span class="o">.</span><span class="n">ts</span><span class="err">（对外导出组件）</span>
+</span></span><span class="line"><span class="cl">    <span class="err">这个文件中的内容如下：</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="p">{</span> <span class="n">default</span> <span class="n">as</span> <span class="p">[</span><span class="err">组件名</span><span class="p">]</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;./[组件名]&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="n">type</span> <span class="p">{</span> <span class="p">[</span><span class="err">组件名</span><span class="p">]</span><span class="n">Props</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;./interface&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mi">2</span><span class="err">、</span><span class="n">interface</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl">    <span class="err">这个文件中的内容如下，请把组件的</span><span class="n">props内容补充完整</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">    <span class="n">interface</span> <span class="p">[</span><span class="err">组件名</span><span class="p">]</span><span class="n">Props</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="n">type</span> <span class="p">{</span> <span class="p">[</span><span class="err">组件名</span><span class="p">]</span><span class="n">Props</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mi">3</span><span class="err">、</span><span class="p">[</span><span class="err">组件名</span><span class="p">]</span><span class="o">.</span><span class="n">stories</span><span class="o">.</span><span class="n">tsx</span>
+</span></span><span class="line"><span class="cl">    <span class="err">这个文件中使用</span> <span class="n">import</span> <span class="n">type</span> <span class="p">{</span> <span class="n">Meta</span><span class="p">,</span> <span class="n">StoryObj</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;@storybook/react&#39;</span> <span class="err">给组件写一个</span><span class="n">storybook文档</span><span class="err">，必须根据组件的</span><span class="n">props写出完整的storybook文档</span><span class="err">，针对每一个</span><span class="n">props都需要进行mock数据</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mi">4</span><span class="err">、</span><span class="p">[</span><span class="err">组件名</span><span class="p">]</span><span class="o">.</span><span class="n">tsx</span>
+</span></span><span class="line"><span class="cl">    <span class="err">这个文件中存放组件的真正业务逻辑和样式，如果组件太大</span><span class="p">(</span><span class="err">超过</span><span class="mi">500</span><span class="err">行</span><span class="p">)</span><span class="err">可以拆分为其它的文件，样式使用</span> <span class="n">tailwindcss</span> <span class="err">编写</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mi">5</span><span class="err">、</span><span class="n">helpers</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl">    <span class="err">组件所有的工具函数存放在此</span> <span class="p">(</span><span class="err">如有</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Initialization</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">作为前端业务组件开发专家，你十分清晰你的</span><span class="p">[</span><span class="n">Goals</span><span class="p">]</span><span class="err">，同时时刻记住</span><span class="p">[</span><span class="n">Constraints</span><span class="p">],</span> <span class="err">你将用清晰和精确的语言与用户对话，并按照</span><span class="p">[</span><span class="n">Workflows</span><span class="p">]</span><span class="err">逐步思考，逐步进行回答，竭诚为用户提供代码生成服务。</span></span></span></code></pre></div></div><h5 id="创建-dify-应用">创建 dify 应用</h5>
+<p>在 dify 中点击创建空白应用，选择聊天助手，应用名称为：Biz-Component-Codegen。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_15.png" alt="" width="80%" />
+</div>
+<p>进入应用，右上角选择配置好的模型：claude-3-5-sonnet-latest。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_16.png" alt="" width="80%" />
+</div>
+<p>将上面的提示词粘贴进 dify 应用，打开视觉开关，将需要 AI 生成的业务组件的参考图片复制到 Bot 聊天窗口，输入 &ldquo;生成图中的组件&rdquo;。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_17.png" alt="" width="80%" />
+</div>
+<p>dify 聊天助手应用将根据参考图片帮助我们生成业务组件代码。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_18.png" alt="" width="80%" />
+</div>
 <h5 id="效果展示">效果展示</h5>
+<p>将 dify 聊天助手应用生成的代码保存到我们的项目中。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_19.png" alt="" width="80%" />
+</div>
+<p>效果展示：</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_20.png" alt="" width="80%" />
+</div>
 <h4 id="ai-生成提示词">AI 生成提示词</h4>
 <h4 id="集成-ai-应用到-ide">集成 AI 应用到 IDE</h4>
 <hr>
@@ -382,8 +475,8 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2025-11-25&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/3b51c40fa34061913abbe0616a2a45bc7cf4e019" target="_blank" title="commit by OweQian(1510106069@qq.com) 3b51c40fa34061913abbe0616a2a45bc7cf4e019: feat: update ai">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>3b51c40</a></span>
+                <span>更新于 2025-11-27&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/a7c95154db19047d33eedf4151c85d7c2573e43c" target="_blank" title="commit by OweQian(1510106069@qq.com) a7c95154db19047d33eedf4151c85d7c2573e43c: feat: update ai">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>a7c9515</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
