@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2025-12-02T16:10:47+08:00
+date: 2025-12-03T10:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-12
+
+#### 2025-12-03
+
+😄 每天啃一小节，不知不觉已经啃完第 10 章了，快就是慢。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_01.png" alt="" width="40%" />
 
 #### 2025-12-02
 
