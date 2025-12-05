@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2025-12-03T10:30:47+08:00
+date: 2025-12-05T20:10:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,16 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-12
+
+#### 2025-12-05
+
+good bye，成都睿晟传媒科技有限公司。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_02.jpg" alt="" width="80%" />
+
+#### 2025-12-04
+
+"去接受，去学习，去改变。"
 
 #### 2025-12-03
 
