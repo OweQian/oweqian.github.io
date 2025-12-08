@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2025-12-05T20:10:47+08:00
+date: 2025-12-08T18:40:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,22 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-12
+
+#### 2025-12-08
+
+(\*￣ rǒ ￣) 我的朋友给我说，成都 ☀️ 照射不足，我应该每天吃 VD，已下单，但愿我还有救。
+
+#### 2025-12-07
+
+"过去是一个幽灵，虚无缥缈，没什么影响力。只有未来才有力量，为自己创造一段新历史。"
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_03.jpg" alt="" width="80%" />
+
+#### 2025-12-06
+
+🤔 有点难评。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_04.jpg" alt="" width="80%" />
 
 #### 2025-12-05
 
