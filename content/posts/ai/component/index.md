@@ -1,5 +1,5 @@
 ---
-title: "🤖 AI - AI 友好的整洁业务组件架构"
+title: "🤖 AI - 基于开源组件库生成业务组件"
 date: 2025-10-31T12:34:56+08:00
 tags: ["AI"]
 categories: ["AI"]
