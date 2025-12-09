@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>💻 Python - 基于 Pygame 的外星人入侵游戏 - OweQian 的精神角落</title><meta name="Description" content="OweQian&#39;s blog"><meta property="og:url" content="http://localhost:1313/pygame/">
+  <meta property="og:site_name" content="OweQian 的精神角落">
+  <meta property="og:title" content="💻 Python - 基于 Pygame 的外星人入侵游戏">
+  <meta property="og:description" content="基于 Pygame 的外星人入侵游戏。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-12-09T12:34:56+08:00">
+    <meta property="article:modified_time" content="2025-12-09T12:34:56+08:00">
+    <meta property="article:tag" content="Python">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="💻 Python - 基于 Pygame 的外星人入侵游戏">
+  <meta name="twitter:description" content="基于 Pygame 的外星人入侵游戏。">
+      <meta name="twitter:site" content="@xxxx">
+<meta name="application-name" content="OweQian 的精神角落">
+<meta name="apple-mobile-web-app-title" content="OweQian 的精神角落"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/img.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/pygame/" /><link rel="prev" href="http://localhost:1313/component/" /><link rel="next" href="http://localhost:1313/blog/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "💻 Python - 基于 Pygame 的外星人入侵游戏",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/pygame\/"
+        },"genre": "posts","keywords": "Python","wordcount":  2035 ,
+        "url": "http:\/\/localhost:1313\/pygame\/","datePublished": "2025-12-09T12:34:56+08:00","dateModified": "2025-12-09T12:34:56+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "OweQian 的精神角落"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">💻 Python - 基于 Pygame 的外星人入侵游戏</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/python/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Python</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-09">2025-12-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2035 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#规划项目">规划项目</a></li>
+        <li><a href="#安装-pygame">安装 Pygame</a></li>
+        <li><a href="#开始游戏项目">开始游戏项目</a>
+          <ul>
+            <li><a href="#创建-pygame-窗口">创建 Pygame 窗口</a></li>
+            <li><a href="#控制帧率">控制帧率</a></li>
+            <li><a href="#设置背景色">设置背景色</a></li>
+            <li><a href="#创建-settings-类">创建 Settings 类</a></li>
+          </ul>
+        </li>
+        <li><a href="#武装飞船">武装飞船</a>
+          <ul>
+            <li><a href="#添加飞船图像">添加飞船图像</a></li>
+            <li><a href="#重构">重构</a></li>
+            <li><a href="#驾驶飞船">驾驶飞船</a></li>
+            <li><a href="#射击">射击</a></li>
+          </ul>
+        </li>
+        <li><a href="#外星人">外星人</a>
+          <ul>
+            <li><a href="#创建第一个外星人">创建第一个外星人</a></li>
+            <li><a href="#创建外星舰队">创建外星舰队</a></li>
+            <li><a href="#让外星舰队移动">让外星舰队移动</a></li>
+            <li><a href="#击落外星人">击落外星人</a></li>
+            <li><a href="#结束游戏">结束游戏</a></li>
+            <li><a href="#确定应运行游戏的哪些部分">确定应运行游戏的哪些部分</a></li>
+          </ul>
+        </li>
+        <li><a href="#记分">记分</a>
+          <ul>
+            <li><a href="#添加-play-按钮">添加 Play 按钮</a></li>
+            <li><a href="#提高难度">提高难度</a></li>
+            <li><a href="#记分-1">记分</a></li>
+          </ul>
+        </li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>基于 Pygame 的外星人入侵游戏。</p>
+<p>我们来开发一个名为《外星人入侵》的游戏吧！为此，我们将使用 Pygame 这个功能强大而且非常有趣的模块，它可以管理游戏中用到的图像、动画甚至声音，让你能够更轻松地开发复杂的游戏。使用 Pygame 来处理在屏幕上绘制图像等任务，有助于你将重心放在设计游戏的高级逻辑上。</p>
+<h3 id="规划项目">规划项目</h3>
+<p>在开发大型项目时，先制定好规划再动手编写代码很重要。规划可保证你不偏离轨道，提高项目成功的可能性。</p>
+<p>下面来为游戏《外星人入侵》编写大概得玩法说明，虽然没有涵盖这款游戏的所有细节，但能让你清楚地知道该如何动手开发它。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">在游戏《外星人入侵》中，玩家控制着一艘最初出现在屏幕底部中央的武装飞船。
+</span></span><span class="line"><span class="cl">玩家可以使用方向键左右移动武装飞船，使用空格键进行射击。
+</span></span><span class="line"><span class="cl">当游戏开始时，一个外星舰队出现在天空中，并向屏幕下方移动。
+</span></span><span class="line"><span class="cl">玩家的任务是消灭这些外星人。
+</span></span><span class="line"><span class="cl">玩家将外星人消灭干净后，将出现一个新的外星舰队，其移动速度更快。
+</span></span><span class="line"><span class="cl">只要有外星人撞到玩家的武装飞船或到达屏幕下边缘，玩家就损失一艘武装飞船。
+</span></span><span class="line"><span class="cl">玩家损失三艘武装飞船后，游戏结束。</span></span></code></pre></div></div><h3 id="安装-pygame">安装 Pygame</h3>
+<p>开始写程序前，需要安装 Pygame。</p>
+<p>创建虚拟环境（在项目根目录）：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">python3 -m venv venv</span></span></code></pre></div></div><p>激活环境：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">source venv/bin/activate</span></span></code></pre></div></div><p>安装 Pygame</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pip install pygame</span></span></code></pre></div></div><h3 id="开始游戏项目">开始游戏项目</h3>
+<p>现在开始开发游戏《外星人入侵》。首先创建一个空的 Pygame 窗口，稍后将在其中绘制游戏元素，如武装飞船和外星人。之后，我们还将让这个游戏响应用户输入，设置背景色，加载飞船图像等。</p>
+<h4 id="创建-pygame-窗口">创建 Pygame 窗口</h4>
+<p>首先创建一个表示游戏的类，以创建空的 Pygame 窗口。</p>
+<p>在文本编辑器中新建一个文件，文件名为 alien_invasion.py，输入以下代码：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pygame</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">AlienInvasion</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;初始化游戏并创建游戏资源&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 创建窗口，固定大小 1200x800</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">800</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 设置窗口标题</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s1">&#39;Alien Invasion&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">run_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;开始游戏的主循环&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># 监听键盘和鼠标事件</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 响应窗口关闭事件</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">          <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># 刷新屏幕内容</span>
+</span></span><span class="line"><span class="cl">      <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;启动游戏&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ai</span> <span class="o">=</span> <span class="n">AlienInvasion</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ai</span><span class="o">.</span><span class="n">run_game</span><span class="p">()</span></span></span></code></pre></div></div><p>运行 alien_invasion.py，将看到一个空的 Pygame 窗口。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">python3 alien_invasion.py</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/pygame/img_01.png" alt="" width="80%" />
+<h4 id="控制帧率">控制帧率</h4>
+<p>理想情况下，游戏在所有的系统中都应以相同的速度(帧率)运行。Pygame 提供了一种相对简单的方式来达成这个目标。</p>
+<p>我们将创建一个时钟，并确保它在主循环每次通过后都进行计时。当这个循环的通过速度超过我们定义的帧率时，Pygame 会计算需要暂停多长时间，以便游戏的运行速度保持一致。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;初始化游戏并创建游戏资源&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 创建时钟对象</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">--</span><span class="n">snip</span><span class="o">--</span></span></span></code></pre></div></div><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">run_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;开始游戏的主循环&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="o">--</span><span class="n">snip</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># 刷新屏幕内容</span>
+</span></span><span class="line"><span class="cl">      <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># 设置帧率</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span></span></span></code></pre></div></div><p>tick() 方法接受一个参数：游戏的帧率。这里使用的值是 60，Pygame 将尽可能确保这个循环每秒恰好运行 60 次。</p>
+<h4 id="设置背景色">设置背景色</h4>
+<p>Pygame 默认创建一个黑色屏幕，这太乏味了。我们将背景设置为另一种颜色。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="o">--</span><span class="n">snip</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 设置窗口标题</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s1">&#39;Alien Invasion&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">bg_color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">run_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;开始游戏的主循环&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="o">--</span><span class="n">snip</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># 填充背景颜色</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_color</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># 刷新屏幕内容</span>
+</span></span><span class="line"><span class="cl">      <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># 设置帧率</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span></span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/pygame/img_02.png" alt="" width="80%" />
+<h4 id="创建-settings-类">创建 Settings 类</h4>
+<p>每次给游戏添加新功能时，通常会引入一些新的设置。下面来编写一个名为 Settings 的模块，其中包含一个名为 Settings 的类，用于将所有设置都存储在一个地方，以免在代码中到处添加设置。</p>
+<p>每当需要访问设置时，只需要使用一个 settings 对象。</p>
+<p>在项目规模增大时，这还让游戏的外观和行为修改起来更加容易。</p>
+<p>在项目根目录新建一个名为 settings.py 的文件，添加如下代码：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Settings</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;存储游戏《外星人入侵》中所有设置的类&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen_width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">screen_height</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s1">&#39;Alien Invasion&#39;</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="p">(</span><span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;初始化游戏的静态设置&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 屏幕设置</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen_width</span> <span class="o">=</span> <span class="n">screen_width</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen_height</span> <span class="o">=</span> <span class="n">screen_height</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">caption</span> <span class="o">=</span> <span class="n">caption</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">bg_color</span> <span class="o">=</span> <span class="n">bg_color</span></span></span></code></pre></div></div><p>在项目中创建 Settings 实例，并使用这个实例来访问设置。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pygame</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">Settings</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">AlienInvasion</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;初始化游戏并创建游戏资源&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 创建时钟对象</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 创建窗口，固定大小 1200x800</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">screen_width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">screen_height</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 设置窗口标题</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">caption</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">run_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;开始游戏的主循环&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># 监听键盘和鼠标事件</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 响应窗口关闭事件</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">          <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># 填充背景颜色</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_color</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># 刷新屏幕内容</span>
+</span></span><span class="line"><span class="cl">      <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># 设置帧率</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;启动游戏&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ai</span> <span class="o">=</span> <span class="n">AlienInvasion</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ai</span><span class="o">.</span><span class="n">run_game</span><span class="p">()</span></span></span></code></pre></div></div><h3 id="武装飞船">武装飞船</h3>
+<p>在开发的第一个阶段，我们将创建一艘武装飞船，这艘武装飞船在用户按方向键时能左右移动，并在用户按空格键时开火。设置这种行为后，就可以创建外星人以提高游戏的可玩性了。</p>
+<h4 id="添加飞船图像">添加飞船图像</h4>
+<h4 id="重构">重构</h4>
+<h4 id="驾驶飞船">驾驶飞船</h4>
+<h4 id="射击">射击</h4>
+<h3 id="外星人">外星人</h3>
+<h4 id="创建第一个外星人">创建第一个外星人</h4>
+<h4 id="创建外星舰队">创建外星舰队</h4>
+<h4 id="让外星舰队移动">让外星舰队移动</h4>
+<h4 id="击落外星人">击落外星人</h4>
+<h4 id="结束游戏">结束游戏</h4>
+<h4 id="确定应运行游戏的哪些部分">确定应运行游戏的哪些部分</h4>
+<h3 id="记分">记分</h3>
+<h4 id="添加-play-按钮">添加 Play 按钮</h4>
+<h4 id="提高难度">提高难度</h4>
+<h4 id="记分-1">记分</h4>
+<h3 id="总结">总结</h3></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-12-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/pygame/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/pygame/" data-title="💻 Python - 基于 Pygame 的外星人入侵游戏" data-via="xxxx" data-hashtags="Python"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/pygame/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/pygame/" data-title="💻 Python - 基于 Pygame 的外星人入侵游戏"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/pygame/" data-title="💻 Python - 基于 Pygame 的外星人入侵游戏"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/pygame/" data-title="💻 Python - 基于 Pygame 的外星人入侵游戏"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/component/" class="prev" rel="prev" title="🤖 AI - 基于开源组件库生成业务组件"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>🤖 AI - 基于开源组件库生成业务组件</a>
+            <a href="/blog/" class="next" rel="next" title="🌱 蠢 Q 碎碎念">🌱 蠢 Q 碎碎念<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.144.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/OweQian" target="_blank">OweQian 的精神角落</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js"></script></body>
+</html>
