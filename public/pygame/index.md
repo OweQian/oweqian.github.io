@@ -201,7 +201,7 @@ class AlienInvasion:
         if event.type == pygame.QUIT:
           sys.exit()
       # 填充背景颜色
-      self.screen.fill(self.bg_color)
+      self.screen.fill(self.settings.bg_color)
       # 刷新屏幕内容
       pygame.display.flip()
       # 设置帧率
@@ -218,6 +218,73 @@ if __name__ == '__main__':
 在开发的第一个阶段，我们将创建一艘武装飞船，这艘武装飞船在用户按方向键时能左右移动，并在用户按空格键时开火。设置这种行为后，就可以创建外星人以提高游戏的可玩性了。
 
 #### 添加飞船图像
+
+在游戏中，可以使用几乎任意类型的图像文件，但使用位图(.bmp)文件最为简单，因为 Pygame 默认加载位图。虽然可配置 Pygame 以使用其他文件类型，但有些文件类型要求你在计算机上安装相应的图像库。网上的大多数图像是 .jpg 和 .png 格式的，不过可以使用 Photoshop、GIMP 等工具将其转换为位图。
+
+在选择图像时，要特别注意背景色。请尽可能选择背景为透明色或纯色的图像，以便使用图像编辑器将背景改成任意颜色。当图像的背景色与游戏的背景色一致时，游戏看起来最漂亮。
+
+就游戏《外星人入侵》而言，武装飞船图像可使用文件 ship.bmp，在项目根目录新建文件夹 images，并将文件 ship.bmp 保存在文件夹中。
+
+##### 创建 Ship 类
+
+选择好用于表示武装飞船的图像后，需要将其显示在屏幕上。我们创建一个名为 ship 的模块，其中包含 Ship 类，负责管理武装飞船的大部分行为。
+
+在项目根目录新建一个名为 ship.py 的文件，添加如下代码：
+
+```python
+import pygame
+
+class Ship:
+  """管理飞船的类"""
+
+  def __init__(self, ai_game):
+    """初始化飞船并设置其初始位置"""
+    self.screen = ai_game.screen
+    self.screen_rect = ai_game.screen.get_rect()
+
+    # 加载飞船图像并获取其外接矩形
+    self.image = pygame.image.load('images/ship.bmp')
+    self.rect = self.image.get_rect()
+    # 将飞船放在屏幕底部中央
+    self.rect.midbottom = self.screen_rect.midbottom
+
+  def blitme(self):
+    """在指定位置绘制飞船"""
+    self.screen.blit(self.image, self.rect)
+
+```
+
+##### 在屏幕上绘制飞船
+
+下面更新 alien_invasion.py，创建一艘飞船并调用其方法 blitme()。
+
+```python
+--snip--
+from settings import Settings
+from ship import Ship
+
+class AlienInvasion:
+
+  def __init__(self):
+    --snip--
+    # 设置窗口标题
+    pygame.display.set_caption(self.settings.caption)
+    # 创建飞船实例
+    self.ship = Ship(self)
+
+  def run_game(self):
+      --snip--
+      # 填充背景颜色
+      self.screen.fill(self.settings.bg_color)
+      # 绘制飞船
+      self.ship.blitme()
+      # 刷新屏幕内容
+      pygame.display.flip()
+      # 设置帧率
+      self.clock.tick(60)
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/pygame/img_03.png" alt="" width="80%" />
 
 #### 重构
 
