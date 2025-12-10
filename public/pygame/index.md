@@ -288,6 +288,49 @@ class AlienInvasion:
 
 #### 重构
 
+重构旨在简化既有代码的结构，使其更容易扩展。我们将把越来越长的 run_game() 方法拆分成两个辅助方法。辅助方法一般只在类中调用，不会在类外调用。在 Python 中，辅助方法的名称以单下划线打开。
+
+##### \_check_events 方法
+
+我们将管理事件的代码移到一个名为 \_check_events() 的方法中，以简化 run_game() 并隔离事件循环。通过隔离事件循环，可将事件管理与游戏的其他方面分离。
+
+```python
+  def _check_events(self):
+    # 监听键盘和鼠标事件
+    for event in pygame.event.get():
+      # 响应窗口关闭事件
+      if event.type == pygame.QUIT:
+        sys.exit()
+  def run_game(self):
+    """开始游戏的主循环"""
+    while True:
+      self._check_events()
+      --snip--
+```
+
+##### \_update_screen 方法
+
+为了进一步简化 run_game()，我们把更新屏幕的代码移到一个名为 \_update_screen() 的方法中。
+
+```python
+  def _update_screen(self):
+    """更新屏幕上的图像，并切换到新屏幕"""
+    # 填充背景颜色
+    self.screen.fill(self.settings.bg_color)
+    # 绘制飞船
+    self.ship.blitme()
+    # 刷新屏幕内容
+    pygame.display.flip()
+
+  def run_game(self):
+    """开始游戏的主循环"""
+    while True:
+      self._check_events()
+      self._update_screen()
+      # 设置帧率
+      self.clock.tick(60)
+```
+
 #### 驾驶飞船
 
 #### 射击
