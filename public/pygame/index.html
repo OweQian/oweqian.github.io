@@ -33,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/pygame\/"
-        },"genre": "posts","keywords": "Python","wordcount":  3101 ,
+        },"genre": "posts","keywords": "Python","wordcount":  6266 ,
         "url": "http:\/\/localhost:1313\/pygame\/","datePublished": "2025-12-09T12:34:56+08:00","dateModified": "2025-12-09T12:34:56+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -107,8 +107,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">💻 Python - 基于 Pygame 的外星人入侵游戏</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/python/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Python</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-09">2025-12-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3101 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-09">2025-12-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6266 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -142,7 +142,19 @@
                 <li><a href="#_update_screen-方法">_update_screen 方法</a></li>
               </ul>
             </li>
-            <li><a href="#驾驶飞船">驾驶飞船</a></li>
+            <li><a href="#驾驶飞船">驾驶飞船</a>
+              <ul>
+                <li><a href="#响应按键">响应按键</a></li>
+                <li><a href="#允许持续移动">允许持续移动</a></li>
+                <li><a href="#左右移动">左右移动</a></li>
+                <li><a href="#调整飞船的速度">调整飞船的速度</a></li>
+                <li><a href="#限制飞船的活动范围">限制飞船的活动范围</a></li>
+                <li><a href="#重构-_check_events">重构 _check_events()</a></li>
+                <li><a href="#按-q-键退出">按 Q 键退出</a></li>
+                <li><a href="#在全屏模式下运行游戏">在全屏模式下运行游戏</a></li>
+                <li><a href="#完整代码">完整代码</a></li>
+              </ul>
+            </li>
             <li><a href="#射击">射击</a></li>
           </ul>
         </li>
@@ -463,7 +475,319 @@
 </span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">_update_screen</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">      <span class="c1"># 设置帧率</span>
 </span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span></span></span></code></pre></div></div><h4 id="驾驶飞船">驾驶飞船</h4>
-<h4 id="射击">射击</h4>
+<p>下面来让玩家能够左右移动飞船。我们将编写代码，在用户按左右方向键时做出响应。</p>
+<h5 id="响应按键">响应按键</h5>
+<p>在 Pygame 中，事件都是通过 pygame.event.get() 方法获取的，因此需要在 _check_events() 方法中指定要检查的事件类型。</p>
+<p>每当用户按键时，都将在 Pygame 中产生一个 KEYDOWN 事件。在检测到 KEYDOWN 事件时，需要检查按下的是否是触发行动的键。</p>
+<p>如果玩家按下的是右方向键，就增大飞船的 rect.x 值，使飞船向右移动。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_check_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;响应按键和鼠标事件&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span></span></span></code></pre></div></div><p>如果现在运行 alien_invasion.py，那么每按一次右方向键，飞船都将向右移动 1 像素。每按一次左方向键，飞船都将向左移动 1 像素。</p>
+<h5 id="允许持续移动">允许持续移动</h5>
+<p>当玩家按住右方向键不放时，我们希望飞船持续向右移动，直到玩家释放该键为止。我们将让游戏检测 pygame.KEYUP 事件，以便知道玩家何时释放右方向键。</p>
+<p>我们将结合使用 KEYDOWN 和 KEYUP 事件以及一个名为 moving_right 的标志来实现持续移动。</p>
+<p>当标志 moving_right 为 False 时，飞船不会移动。当玩家按下右方向键时，我们将这个标志设置为 True；当玩家释放该键时，我们将这个标志重新设置为 False。</p>
+<p>飞船的属性都由 Ship 类控制，因此要给这个类添加一个名为 moving_right 的属性和一个名为 update() 的方法。update() 方法检查标志 moving_right 的状态。如果这个标志为 True，就调整飞船的位置。我们将在每次通过 while 循环时调用一次这个方法，以更新飞船的位置。</p>
+<p>下面是对 Ship 类所做的修改：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Ship</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;管理飞船的类&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ai_game</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="o">--</span><span class="n">snip</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">midbottom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_rect</span><span class="o">.</span><span class="n">midbottom</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">blitme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="o">--</span><span class="n">snip</span><span class="o">--</span></span></span></code></pre></div></div><p>接下来，需要修改 _check_events()，使其在玩家按下右方向键时将 moving_right 设置为 True，并在玩家释放时将 moving_right 设置为 False：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_check_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;响应按键和鼠标事件&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">  <span class="o">--</span><span class="n">snip</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYUP</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">False</span></span></span></code></pre></div></div><p>最后，需要修改 run_game() 中的 while 循环，以便在每次执行循环时都调用飞船的 update() 方法：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">run_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;开始游戏的主循环。&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">_check_events</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">_update_screen</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span></span></span></code></pre></div></div><p>如果现在运行 alien_invasion.py 并按下右方向键，飞船将持续向右移动，直到释放右方向键为止。</p>
+<h5 id="左右移动">左右移动</h5>
+<p>在飞船能够持续向右移动后，添加向左移动的逻辑很容易。我们再次修改 Ship 类和 _check_events() 方法。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ai_game</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="o">--</span><span class="n">snip</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">  <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">  <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">1</span></span></span></code></pre></div></div><p>还需要对 _check_events() 做两处调整：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_check_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;响应按键和鼠标事件&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">  <span class="o">--</span><span class="n">snip</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">      <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYUP</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">      <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">False</span></span></span></code></pre></div></div><p>如果此时运行 alien_invasion.py，将能够持续地左右移动飞船。如果同时按住左右方向键，飞船将纹丝不动。</p>
+<h5 id="调整飞船的速度">调整飞船的速度</h5>
+<p>当前，每次执行 while 循环时，飞船都移动 1 像素。我们可以在 Settings 类中添加属性 ship_speed，用于控制飞船的速度。我们将根据这个属性决定飞船在每次循环时最多移动多远。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Settings</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;存储游戏《外星人入侵》中所有设置的类&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="o">--</span><span class="n">snip</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">ship_speed</span> <span class="o">=</span> <span class="mf">1.5</span></span></span></code></pre></div></div><p>通过将速度设置指定为浮点数，可在稍后加快游戏的节奏时更细致地控制飞船的速度。然而，rect 的 x 等属性只能存储整数值，因此需要对 Ship 类做些修改。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Ship</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;管理飞船的类&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ai_game</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;初始化飞船并设置其初始位置&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">ai_game</span><span class="o">.</span><span class="n">screen</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">ai_game</span><span class="o">.</span><span class="n">settings</span>
+</span></span><span class="line"><span class="cl">    <span class="o">--</span><span class="n">snip</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 每艘新飞船都放在屏幕底部的中央</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">midbottom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_rect</span><span class="o">.</span><span class="n">midbottom</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 在飞船的属性 x 中存储一个浮点数</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 移动标志(飞船一开始不移动)</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;根据移动标志调整飞船的位置&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ship_speed</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ship_speed</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 根据 self.x 更新飞船的外接矩形</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span></span></span></code></pre></div></div><p>现在在 update() 中调整飞船的位置，self.x 的值会增减 settings.ship_speed 的值。更新 self.x 后，再根据它来更新控制飞船位置的 self.rect.x。self.rect.x 只存储 self.x 的整数部分，但对于显示飞船而言，问题不大。</p>
+<h5 id="限制飞船的活动范围">限制飞船的活动范围</h5>
+<p>当前，如果玩家按住方向键的时间足够长，飞船将移到屏幕之外，消失得无影无踪。下面我们来修复这个问题，让飞船到达屏幕边缘后停止移动。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">right</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_rect</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ship_speed</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ship_speed</span></span></span></code></pre></div></div><p>如果此时运行 alien_invasion.py，飞船将在触及屏幕左边缘或右边缘后停止移动。</p>
+<h5 id="重构-_check_events">重构 _check_events()</h5>
+<p>随着游戏的开发，_check_events() 方法将越来越长。因此我们将其部分代码放在两个方法中，一个处理 KEYDOWN 事件，另一个处理 KEYUP 事件。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_check_keydown_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_check_keyup_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_check_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;响应鼠标和按键事件&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">_check_keydown_events</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYUP</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">_check_keyup_events</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></span></span></code></pre></div></div><h5 id="按-q-键退出">按 Q 键退出</h5>
+<p>当前，每次测试新功能时，都需要单击游戏窗口顶部的 X 按钮来结束游戏，实在是太麻烦了。因此，我们来添加一个结束游戏的键盘快捷键，Q 键。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_check_keydown_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="o">--</span><span class="n">snip</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">ship</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_q</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></span></span></code></pre></div></div><p>现在测试这款游戏时，你可以直接按 Q 键来结束游戏，无须使用鼠标关闭窗口了。</p>
+<h5 id="在全屏模式下运行游戏">在全屏模式下运行游戏</h5>
+<p>Pygame 支持全屏模式，相比于常规窗口，你可能更喜欢在这种模式下运行游戏。</p>
+<p>要在全屏模式下运行这款游戏，可在 <strong>init</strong> 中做出如下修改：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;初始化游戏并创建游戏资源&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">pygame</span><span class="o">.</span><span class="n">FULLSCREEN</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">screen_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span><span class="o">.</span><span class="n">width</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">screen_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span><span class="o">.</span><span class="n">height</span></span></span></code></pre></div></div><p>在创建屏幕时，传入尺寸 (0, 0) 以及参数 pygame.FULLSCREEN，这让 Pygame 生成一个覆盖整个显示器的屏幕。由于无法预知屏幕的宽度和高度，要在创建屏幕后更新这些设置：使用屏幕的 rect 的属性 width 和 height 来更新对象 settings。</p>
+<h5 id="完整代码">完整代码</h5>
+<p>alien_invasion.py:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pygame</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Ship</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;管理飞船的类&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ai_game</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;初始化飞船并设置其初始位置&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">ai_game</span><span class="o">.</span><span class="n">screen</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">ai_game</span><span class="o">.</span><span class="n">settings</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen_rect</span> <span class="o">=</span> <span class="n">ai_game</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 加载飞船图像并获取其外接矩形</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;images/ship.bmp&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 将飞船放在屏幕底部中央</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">midbottom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_rect</span><span class="o">.</span><span class="n">midbottom</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 在飞船的属性 x 中存储一个浮点数</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 移动标志</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">blitme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;在指定位置绘制飞船&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;根据移动标志调整飞船的位置&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 更新飞船的属性 x 的值，而不是其外接矩形的属性 x 的值</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">right</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_rect</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ship_speed</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ship_speed</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 根据 self.x 更新飞船的外接矩形</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span></span></span></code></pre></div></div><p>settings.py:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Settings</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;存储游戏《外星人入侵》中所有设置的类&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen_width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">screen_height</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s1">&#39;Alien Invasion&#39;</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="p">(</span><span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;初始化游戏的静态设置&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 屏幕设置</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen_width</span> <span class="o">=</span> <span class="n">screen_width</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen_height</span> <span class="o">=</span> <span class="n">screen_height</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">caption</span> <span class="o">=</span> <span class="n">caption</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">bg_color</span> <span class="o">=</span> <span class="n">bg_color</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 飞船速度</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">ship_speed</span> <span class="o">=</span> <span class="mf">1.5</span></span></span></code></pre></div></div><p>ship.py:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pygame</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Ship</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;管理飞船的类&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ai_game</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;初始化飞船并设置其初始位置&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">ai_game</span><span class="o">.</span><span class="n">screen</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">ai_game</span><span class="o">.</span><span class="n">settings</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen_rect</span> <span class="o">=</span> <span class="n">ai_game</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 加载飞船图像并获取其外接矩形</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;images/ship.bmp&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 将飞船放在屏幕底部中央</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">midbottom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_rect</span><span class="o">.</span><span class="n">midbottom</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 在飞船的属性 x 中存储一个浮点数</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 移动标志</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">blitme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;在指定位置绘制飞船&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;根据移动标志调整飞船的位置&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 更新飞船的属性 x 的值，而不是其外接矩形的属性 x 的值</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">right</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_rect</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ship_speed</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ship_speed</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 根据 self.x 更新飞船的外接矩形</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span></span></span></code></pre></div></div><h4 id="射击">射击</h4>
 <h3 id="外星人">外星人</h3>
 <h4 id="创建第一个外星人">创建第一个外星人</h4>
 <h4 id="创建外星舰队">创建外星舰队</h4>

@@ -337,6 +337,345 @@ class AlienInvasion:
 
 #### 驾驶飞船
 
+下面来让玩家能够左右移动飞船。我们将编写代码，在用户按左右方向键时做出响应。
+
+##### 响应按键
+
+在 Pygame 中，事件都是通过 pygame.event.get() 方法获取的，因此需要在 \_check_events() 方法中指定要检查的事件类型。
+
+每当用户按键时，都将在 Pygame 中产生一个 KEYDOWN 事件。在检测到 KEYDOWN 事件时，需要检查按下的是否是触发行动的键。
+
+如果玩家按下的是右方向键，就增大飞船的 rect.x 值，使飞船向右移动。
+
+```python
+def _check_events(self):
+  """响应按键和鼠标事件"""
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      sys.exit()
+    elif event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_RIGHT:
+        self.ship.rect.x += 1
+```
+
+如果现在运行 alien_invasion.py，那么每按一次右方向键，飞船都将向右移动 1 像素。每按一次左方向键，飞船都将向左移动 1 像素。
+
+##### 允许持续移动
+
+当玩家按住右方向键不放时，我们希望飞船持续向右移动，直到玩家释放该键为止。我们将让游戏检测 pygame.KEYUP 事件，以便知道玩家何时释放右方向键。
+
+我们将结合使用 KEYDOWN 和 KEYUP 事件以及一个名为 moving_right 的标志来实现持续移动。
+
+当标志 moving_right 为 False 时，飞船不会移动。当玩家按下右方向键时，我们将这个标志设置为 True；当玩家释放该键时，我们将这个标志重新设置为 False。
+
+飞船的属性都由 Ship 类控制，因此要给这个类添加一个名为 moving_right 的属性和一个名为 update() 的方法。update() 方法检查标志 moving_right 的状态。如果这个标志为 True，就调整飞船的位置。我们将在每次通过 while 循环时调用一次这个方法，以更新飞船的位置。
+
+下面是对 Ship 类所做的修改：
+
+```python
+class Ship:
+  """管理飞船的类"""
+  def __init__(self, ai_game):
+    --snip--
+    self.rect.midbottom = self.screen_rect.midbottom
+    self.moving_right = False
+  def update(self):
+    if self.moving_right:
+      self.rect.x += 1
+  def blitme(self):
+    --snip--
+```
+
+接下来，需要修改 \_check_events()，使其在玩家按下右方向键时将 moving_right 设置为 True，并在玩家释放时将 moving_right 设置为 False：
+
+```python
+def _check_events(self):
+  """响应按键和鼠标事件"""
+  for event in pygame.event.get():
+  --snip--
+    elif event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_RIGHT:
+        self.ship.moving_right = True
+    elif event.type == pygame.KEYUP:
+      if event.key == pygame.K_RIGHT:
+        self.ship.moving_right = False
+```
+
+最后，需要修改 run_game() 中的 while 循环，以便在每次执行循环时都调用飞船的 update() 方法：
+
+```python
+def run_game(self):
+  """开始游戏的主循环。"""
+  while True:
+    self._check_events()
+    self.ship.update()
+    self._update_screen()
+    self.clock.tick(60)
+```
+
+如果现在运行 alien_invasion.py 并按下右方向键，飞船将持续向右移动，直到释放右方向键为止。
+
+##### 左右移动
+
+在飞船能够持续向右移动后，添加向左移动的逻辑很容易。我们再次修改 Ship 类和 \_check_events() 方法。
+
+```python
+def __init__(self, ai_game):
+  --snip--
+  self.moving_right = False
+  self.moving_left = False
+def update(self):
+  if self.moving_right:
+    self.rect.x += 1
+  if self.moving_left:
+    self.rect.x -= 1
+```
+
+还需要对 \_check_events() 做两处调整：
+
+```python
+def _check_events(self):
+  """响应按键和鼠标事件"""
+  for event in pygame.event.get():
+  --snip--
+    elif event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_RIGHT:
+        self.ship.moving_right = True
+      elif event.key == pygame.K_LEFT:
+        self.ship.moving_left = True
+    elif event.type == pygame.KEYUP:
+      if event.key == pygame.K_RIGHT:
+        self.ship.moving_right = False
+      elif event.key == pygame.K_LEFT:
+        self.ship.moving_left = False
+```
+
+如果此时运行 alien_invasion.py，将能够持续地左右移动飞船。如果同时按住左右方向键，飞船将纹丝不动。
+
+##### 调整飞船的速度
+
+当前，每次执行 while 循环时，飞船都移动 1 像素。我们可以在 Settings 类中添加属性 ship_speed，用于控制飞船的速度。我们将根据这个属性决定飞船在每次循环时最多移动多远。
+
+```python
+class Settings:
+  """存储游戏《外星人入侵》中所有设置的类"""
+  def __init__(self):
+  --snip--
+    self.ship_speed = 1.5
+```
+
+通过将速度设置指定为浮点数，可在稍后加快游戏的节奏时更细致地控制飞船的速度。然而，rect 的 x 等属性只能存储整数值，因此需要对 Ship 类做些修改。
+
+```python
+class Ship:
+  """管理飞船的类"""
+  def __init__(self, ai_game):
+    """初始化飞船并设置其初始位置"""
+    self.screen = ai_game.screen
+    self.settings = ai_game.settings
+    --snip--
+    # 每艘新飞船都放在屏幕底部的中央
+    self.rect.midbottom = self.screen_rect.midbottom
+    # 在飞船的属性 x 中存储一个浮点数
+    self.x = float(self.rect.x)
+    # 移动标志(飞船一开始不移动)
+    self.moving_right = False
+    self.moving_left = False
+  def update(self):
+    """根据移动标志调整飞船的位置"""
+    if self.moving_right:
+      self.x += self.settings.ship_speed
+    if self.moving_left:
+      self.x -= self.settings.ship_speed
+    # 根据 self.x 更新飞船的外接矩形
+    self.rect.x = self.x
+```
+
+现在在 update() 中调整飞船的位置，self.x 的值会增减 settings.ship_speed 的值。更新 self.x 后，再根据它来更新控制飞船位置的 self.rect.x。self.rect.x 只存储 self.x 的整数部分，但对于显示飞船而言，问题不大。
+
+##### 限制飞船的活动范围
+
+当前，如果玩家按住方向键的时间足够长，飞船将移到屏幕之外，消失得无影无踪。下面我们来修复这个问题，让飞船到达屏幕边缘后停止移动。
+
+```python
+def update(self):
+  if self.moving_right and self.rect.right < self.screen_rect.right:
+    self.x += self.settings.ship_speed
+  if self.moving_left and self.rect.left > 0:
+    self.x -= self.settings.ship_speed
+```
+
+如果此时运行 alien_invasion.py，飞船将在触及屏幕左边缘或右边缘后停止移动。
+
+##### 重构 \_check_events()
+
+随着游戏的开发，\_check_events() 方法将越来越长。因此我们将其部分代码放在两个方法中，一个处理 KEYDOWN 事件，另一个处理 KEYUP 事件。
+
+```python
+def _check_keydown_events(self, event):
+  if event.key == pygame.K_RIGHT:
+    self.ship.moving_right = True
+  elif event.key == pygame.K_LEFT:
+    self.ship.moving_left = True
+
+def _check_keyup_events(self, event):
+  if event.key == pygame.K_RIGHT:
+    self.ship.moving_right = False
+  elif event.key == pygame.K_LEFT:
+    self.ship.moving_left = False
+
+def _check_events(self):
+  """响应鼠标和按键事件"""
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      sys.exit()
+    elif event.type == pygame.KEYDOWN:
+      self._check_keydown_events(event)
+    elif event.type == pygame.KEYUP:
+      self._check_keyup_events(event)
+
+```
+
+##### 按 Q 键退出
+
+当前，每次测试新功能时，都需要单击游戏窗口顶部的 X 按钮来结束游戏，实在是太麻烦了。因此，我们来添加一个结束游戏的键盘快捷键，Q 键。
+
+```python
+def _check_keydown_events(self, event):
+  --snip--
+  elif event.key == pygame.K_LEFT:
+    self.ship.moving_left = True
+  elif event.key == pygame.K_q:
+    sys.exit()
+```
+
+现在测试这款游戏时，你可以直接按 Q 键来结束游戏，无须使用鼠标关闭窗口了。
+
+##### 在全屏模式下运行游戏
+
+Pygame 支持全屏模式，相比于常规窗口，你可能更喜欢在这种模式下运行游戏。
+
+要在全屏模式下运行这款游戏，可在 **init** 中做出如下修改：
+
+```python
+def __init__(self):
+  """初始化游戏并创建游戏资源"""
+    pygame.init()
+    self.settings = Settings()
+    self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    self.settings.screen_width = self.screen.get_rect().width
+    self.settings.screen_height = self.screen.get_rect().height
+```
+
+在创建屏幕时，传入尺寸 (0, 0) 以及参数 pygame.FULLSCREEN，这让 Pygame 生成一个覆盖整个显示器的屏幕。由于无法预知屏幕的宽度和高度，要在创建屏幕后更新这些设置：使用屏幕的 rect 的属性 width 和 height 来更新对象 settings。
+
+##### 完整代码
+
+alien_invasion.py:
+
+```python
+import pygame
+
+class Ship:
+  """管理飞船的类"""
+
+  def __init__(self, ai_game):
+    """初始化飞船并设置其初始位置"""
+    self.screen = ai_game.screen
+    self.settings = ai_game.settings
+    self.screen_rect = ai_game.screen.get_rect()
+
+    # 加载飞船图像并获取其外接矩形
+    self.image = pygame.image.load('images/ship.bmp')
+    self.rect = self.image.get_rect()
+    # 将飞船放在屏幕底部中央
+    self.rect.midbottom = self.screen_rect.midbottom
+
+    # 在飞船的属性 x 中存储一个浮点数
+    self.x = float(self.rect.x)
+
+    # 移动标志
+    self.moving_right = False
+    self.moving_left = False
+
+  def blitme(self):
+    """在指定位置绘制飞船"""
+    self.screen.blit(self.image, self.rect)
+
+  def update(self):
+    """根据移动标志调整飞船的位置"""
+    # 更新飞船的属性 x 的值，而不是其外接矩形的属性 x 的值
+    if self.moving_right and self.rect.right < self.screen_rect.right:
+      self.x += self.settings.ship_speed
+    if self.moving_left and self.rect.left > 0:
+      self.x -= self.settings.ship_speed
+
+    # 根据 self.x 更新飞船的外接矩形
+    self.rect.x = self.x
+
+```
+
+settings.py:
+
+```python
+class Settings:
+  """存储游戏《外星人入侵》中所有设置的类"""
+
+  def __init__(self, screen_width=1200, screen_height=800, caption='Alien Invasion', bg_color=(230, 230, 230)):
+    """初始化游戏的静态设置"""
+    # 屏幕设置
+    self.screen_width = screen_width
+    self.screen_height = screen_height
+    self.caption = caption
+    self.bg_color = bg_color
+    # 飞船速度
+    self.ship_speed = 1.5
+```
+
+ship.py:
+
+```python
+import pygame
+
+class Ship:
+  """管理飞船的类"""
+
+  def __init__(self, ai_game):
+    """初始化飞船并设置其初始位置"""
+    self.screen = ai_game.screen
+    self.settings = ai_game.settings
+    self.screen_rect = ai_game.screen.get_rect()
+
+    # 加载飞船图像并获取其外接矩形
+    self.image = pygame.image.load('images/ship.bmp')
+    self.rect = self.image.get_rect()
+    # 将飞船放在屏幕底部中央
+    self.rect.midbottom = self.screen_rect.midbottom
+
+    # 在飞船的属性 x 中存储一个浮点数
+    self.x = float(self.rect.x)
+
+    # 移动标志
+    self.moving_right = False
+    self.moving_left = False
+
+  def blitme(self):
+    """在指定位置绘制飞船"""
+    self.screen.blit(self.image, self.rect)
+
+  def update(self):
+    """根据移动标志调整飞船的位置"""
+    # 更新飞船的属性 x 的值，而不是其外接矩形的属性 x 的值
+    if self.moving_right and self.rect.right < self.screen_rect.right:
+      self.x += self.settings.ship_speed
+    if self.moving_left and self.rect.left > 0:
+      self.x -= self.settings.ship_speed
+
+    # 根据 self.x 更新飞船的外接矩形
+    self.rect.x = self.x
+
+```
+
 #### 射击
 
 ### 外星人
