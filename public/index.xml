@@ -15,6 +15,14 @@
     <description><![CDATA[<p>每天都像开盲盒，今天开到的是什么呢？</p>]]></description>
 </item>
 <item>
+    <title>🤖 AI - 基于私有组件库生成业务组件</title>
+    <link>http://localhost:1313/rag/</link>
+    <pubDate>Sat, 13 Dec 2025 12:34:56 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/rag/</guid>
+    <description><![CDATA[<p>上一篇讨论了如何基于开源组件库生成业务组件，本篇讨论如何基于私有组件库生成业务组件。</p>]]></description>
+</item>
+<item>
     <title>💻 Python - 基于 Pygame 的外星人入侵游戏</title>
     <link>http://localhost:1313/pygame/</link>
     <pubDate>Tue, 09 Dec 2025 12:34:56 &#43;0800</pubDate>
@@ -77,14 +85,6 @@
     <author>OweQian 的精神角落</author>
     <guid>http://localhost:1313/reactscheduler/</guid>
     <description><![CDATA[<p>本篇文章是解读 react 原理系列的第二篇 - 异步调度，请带着问题来阅读，效果更佳。</p>]]></description>
-</item>
-<item>
-    <title>📜 解读 react 原理系列 - 事件（v16/v17/v18）</title>
-    <link>http://localhost:1313/reactevent/</link>
-    <pubDate>Sat, 20 Jan 2024 14:16:51 &#43;0800</pubDate>
-    <author>OweQian 的精神角落</author>
-    <guid>http://localhost:1313/reactevent/</guid>
-    <description><![CDATA[<p>本篇文章是解读 react 原理系列的第一篇 - 事件（v16/v17/v18），请带着问题来阅读，效果更佳。</p>]]></description>
 </item>
 </channel>
 </rss>
