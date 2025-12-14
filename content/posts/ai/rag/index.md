@@ -327,4 +327,4 @@ generatedDOC(inputDirectory);
 
 在 basic-compontents.txt 中，包含 -------split line-------，这是用来后续将组件的知识库数据切分到不同的 Chunk 中，保证每个 Chunk 中的组件知识都是完整的。
 
-在 basic-componens.txt 中，包含 <when-to-use> 和 <API> 标签，这个用来保证当前组件的语义和功能是清晰的。
+在 basic-componens.txt 中，包含 \<when-to-use\>\</when-to-use> 和\<API>\</API> 标签，这个用来保证当前组件的语义和功能是清晰的。
