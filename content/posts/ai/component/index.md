@@ -12,7 +12,7 @@ categories: ["AI"]
 从 0 ~ 1 到研发业务组件的环节差不多是前端开发工程师页面研发的最大头的一个工作，因此，这个环节也是我们进行 AI 赋能性价比最高的一个环节。我们希望通过 AI 赋能业务组件的研发，实现只需要花整体小部分的时间，就能够完成最大头的工作。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_04.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_04.png" alt="" width="100%" />
 </div>
 
 本文内容分为：
@@ -81,7 +81,7 @@ app/components/BizComponentExample
 ```
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_05.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_05.png" alt="" width="100%" />
 </div>
 
 ---
@@ -93,7 +93,7 @@ app/components/BizComponentExample
 从极限的思维角度来分析：复杂的业务组件。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_06.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_06.png" alt="" width="100%" />
 </div>
 
 从业务组件的复杂性角度来看，前端组件都是由数据状态来驱动的，业务组件的复杂性往往取决于数据状态流转的复杂性。
@@ -110,7 +110,7 @@ app/components/BizComponentExample
 整洁背后对应的核心点是：代码的可维护性高。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_07.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_07.png" alt="" width="100%" />
 </div>
 
 ---
@@ -118,7 +118,7 @@ app/components/BizComponentExample
 ### AI 友好的整洁业务组件架构的例子
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="100%" />
 </div>
 
 遵循 AI 友好的整洁业务组件架构的原则，实现这个 TodoList 的业务组件。
@@ -126,7 +126,7 @@ app/components/BizComponentExample
 #### AI 友好
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_09.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_09.png" alt="" width="100%" />
 </div>
 
 ```ts
@@ -178,7 +178,7 @@ pnpm dev
 编写提示，让 AI 基于 react、antd、tailwindcss 技术栈，实现下面的业务组件：
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="100%" />
 </div>
 
 #### 使用 dify 构建 AI 应用
@@ -186,7 +186,7 @@ pnpm dev
 ##### 介绍 dify
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_10.jpg" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_10.jpg" alt="" width="100%" />
 </div>
 
 详见：https://dify.ai/
@@ -217,10 +217,10 @@ Dify 上的 AI 应用大致分为：
 详见：https://dash.302.ai/apis/list
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_11.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_11.png" alt="" width="100%" />
 </div>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_12.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_12.png" alt="" width="100%" />
 </div>
 
 - 在 dify 中添加 302 的 API Key
@@ -228,7 +228,7 @@ Dify 上的 AI 应用大致分为：
 详见：设置 -> 模型供应商 -> 添加更多模型供应商 -> OpenAI-API-compatible -> 添加 302 的 API Key
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_13.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_13.png" alt="" width="100%" />
 </div>
 
 ##### 用专业的知识明确需求
@@ -260,7 +260,7 @@ app/components/BizComponentExample
 ##### 运用提示词技巧编写提示词
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_14.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_14.png" alt="" width="100%" />
 </div>
 
 ```
@@ -331,25 +331,25 @@ app/components/BizComponentExample
 在 dify 中点击创建空白应用，选择聊天助手，应用名称为：Biz-Component-Codegen。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_15.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_15.png" alt="" width="100%" />
 </div>
 
 进入应用，右上角选择配置好的模型：claude-3-5-sonnet-latest。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_16.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_16.png" alt="" width="100%" />
 </div>
 
 将上面的提示词粘贴进 dify 应用，打开视觉开关，将需要 AI 生成的业务组件的参考图片复制到 Bot 聊天窗口，输入 "生成图中的组件"。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_17.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_17.png" alt="" width="100%" />
 </div>
 
 dify 聊天助手应用将根据参考图片帮助我们生成业务组件代码。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_18.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_18.png" alt="" width="100%" />
 </div>
 
 ##### 效果展示
@@ -357,13 +357,13 @@ dify 聊天助手应用将根据参考图片帮助我们生成业务组件代码
 将 dify 聊天助手应用生成的代码保存到我们的项目中。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_19.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_19.png" alt="" width="100%" />
 </div>
 
 效果展示：
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_20.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_20.png" alt="" width="100%" />
 </div>
 
 ##### 思考
@@ -371,13 +371,13 @@ dify 聊天助手应用将根据参考图片帮助我们生成业务组件代码
 现在，我们已经有了一个基于 dify 的 AI 应用，但是使用起来不是很方便。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_21.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_21.png" alt="" width="100%" />
 </div>
 
 🤔 能不能让 AI 生成出来的代码直接在 IDE 中就可以运行看到实时效果呢？
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_22.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_22.png" alt="" width="100%" />
 </div>
 
 ---
@@ -389,19 +389,19 @@ dify 聊天助手应用将根据参考图片帮助我们生成业务组件代码
 让我们回顾一下前面的 AI 赋能金字塔模型，找出可被 AI 赋能的点，以及赋能性价比最高的点。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_23.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_23.png" alt="" width="100%" />
 </div>
 
 我们再看一下关于前端页面研发流程的 AI 赋能金字塔模型，找出可被 AI 赋能的点，以及赋能性价比最高的点。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_24.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_24.png" alt="" width="100%" />
 </div>
 
 针对我们编写提示词的工作流，找出可被 AI 赋能的点，以及赋能性价比最高的点。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_25.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_25.png" alt="" width="100%" />
 </div>
 
 ##### 使用 Cursor 生成提示词的提示词
@@ -417,13 +417,13 @@ https://github.com/langgptai/LangGPT
 ```
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_26.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_26.png" alt="" width="100%" />
 </div>
 
 效果展示：
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_27.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_27.png" alt="" width="100%" />
 </div>
 
 ```
@@ -569,13 +569,13 @@ https://github.com/langgptai/LangGPT
 ```
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_28.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_28.png" alt="" width="100%" />
 </div>
 
 效果展示：
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_29.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_29.png" alt="" width="100%" />
 </div>
 
 ```
@@ -632,13 +632,13 @@ https://github.com/langgptai/LangGPT
 测试代码生成器的实际代码效果。
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_30.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_30.png" alt="" width="100%" />
 </div>
 
 效果展示：
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_31.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_31.png" alt="" width="100%" />
 </div>
 
 ---
@@ -646,7 +646,7 @@ https://github.com/langgptai/LangGPT
 ### 如何渐进式地在公司落地这套业务组件架构
 
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_end.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_end.png" alt="" width="100%" />
 </div>
 
 #### 对于迭代已有稳定业务来说

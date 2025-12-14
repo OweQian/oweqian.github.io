@@ -172,7 +172,7 @@
             </div><div class="content" id="content"><p>设计一套 AI 友好的整洁业务组件架构，让 AI 基于开源组件库（ant-design）生成业务组件代码。</p>
 <p>从 0 ~ 1 到研发业务组件的环节差不多是前端开发工程师页面研发的最大头的一个工作，因此，这个环节也是我们进行 AI 赋能性价比最高的一个环节。我们希望通过 AI 赋能业务组件的研发，实现只需要花整体小部分的时间，就能够完成最大头的工作。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_04.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_04.png" alt="" width="100%" />
 </div>
 <p>本文内容分为：</p>
 <ul>
@@ -223,14 +223,14 @@
 </span></span><span class="line"><span class="cl"><span class="err">├─</span> <span class="n">BizComponentExample</span><span class="o">.</span><span class="n">stories</span><span class="o">.</span><span class="n">tsx</span> <span class="o">//</span> <span class="err">组件的</span> <span class="n">storybook</span> <span class="err">文档，包含组件不同的使用示例</span>
 </span></span><span class="line"><span class="cl"><span class="err">├─</span> <span class="n">BizComponentExample</span><span class="o">.</span><span class="n">tsx</span> <span class="o">//</span> <span class="err">组件的主体样式和主体逻辑，如果组件太大</span><span class="p">(</span><span class="err">超过</span> <span class="mi">500</span> <span class="err">行</span><span class="p">)</span><span class="err">可以拆分为其它的文件，样式使用</span> <span class="n">tailwindcss</span> <span class="err">编写</span>
 </span></span><span class="line"><span class="cl"><span class="err">├─</span> <span class="n">helpers</span><span class="o">.</span><span class="n">ts</span> <span class="o">//</span> <span class="err">组件所有的工具函数存放在此</span> <span class="p">(</span><span class="err">如有</span><span class="p">)</span></span></span></code></pre></div></div><div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_05.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_05.png" alt="" width="100%" />
 </div>
 <hr>
 <h3 id="这套架构是如何做到-ai-友好-且-整洁-的">这套架构是如何做到 &ldquo;AI 友好&rdquo; 且 &ldquo;整洁&rdquo; 的</h3>
 <h4 id="ai-友好-1">AI 友好</h4>
 <p>从极限的思维角度来分析：复杂的业务组件。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_06.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_06.png" alt="" width="100%" />
 </div>
 <p>从业务组件的复杂性角度来看，前端组件都是由数据状态来驱动的，业务组件的复杂性往往取决于数据状态流转的复杂性。</p>
 <p>因此，我们将服务端状态剥离出去，在业务组件内部只保留前端状态，这就很大程度降低了业务组件的复杂性，在 AI 的三重约束下：</p>
@@ -242,17 +242,17 @@
 <h4 id="整洁-1">整洁</h4>
 <p>整洁背后对应的核心点是：代码的可维护性高。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_07.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_07.png" alt="" width="100%" />
 </div>
 <hr>
 <h3 id="ai-友好的整洁业务组件架构的例子">AI 友好的整洁业务组件架构的例子</h3>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="100%" />
 </div>
 <p>遵循 AI 友好的整洁业务组件架构的原则，实现这个 TodoList 的业务组件。</p>
 <h4 id="ai-友好-2">AI 友好</h4>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_09.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_09.png" alt="" width="100%" />
 </div>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-bash">
@@ -300,12 +300,12 @@
 <h3 id="基于开源组件库生成业务组件实战">基于开源组件库生成业务组件实战</h3>
 <p>编写提示，让 AI 基于 react、antd、tailwindcss 技术栈，实现下面的业务组件：</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="100%" />
 </div>
 <h4 id="使用-dify-构建-ai-应用">使用 dify 构建 AI 应用</h4>
 <h5 id="介绍-dify">介绍 dify</h5>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_10.jpg" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_10.jpg" alt="" width="100%" />
 </div>
 <p>详见：https://dify.ai/</p>
 <p>Dify 上的 AI 应用大致分为：</p>
@@ -332,17 +332,17 @@
 </ul>
 <p>详见：https://dash.302.ai/apis/list</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_11.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_11.png" alt="" width="100%" />
 </div>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_12.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_12.png" alt="" width="100%" />
 </div>
 <ul>
 <li>在 dify 中添加 302 的 API Key</li>
 </ul>
 <p>详见：设置 -&gt; 模型供应商 -&gt; 添加更多模型供应商 -&gt; OpenAI-API-compatible -&gt; 添加 302 的 API Key</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_13.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_13.png" alt="" width="100%" />
 </div>
 <h5 id="用专业的知识明确需求">用专业的知识明确需求</h5>
 <ul>
@@ -373,7 +373,7 @@
 </ul>
 <h5 id="运用提示词技巧编写提示词">运用提示词技巧编写提示词</h5>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_14.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_14.png" alt="" width="100%" />
 </div>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-bash">
@@ -442,52 +442,52 @@
 </span></span><span class="line"><span class="cl"><span class="err">作为前端业务组件开发专家，你十分清晰你的</span><span class="p">[</span><span class="n">Goals</span><span class="p">]</span><span class="err">，同时时刻记住</span><span class="p">[</span><span class="n">Constraints</span><span class="p">],</span> <span class="err">你将用清晰和精确的语言与用户对话，并按照</span><span class="p">[</span><span class="n">Workflows</span><span class="p">]</span><span class="err">逐步思考，逐步进行回答，竭诚为用户提供代码生成服务。</span></span></span></code></pre></div></div><h5 id="创建-dify-应用">创建 dify 应用</h5>
 <p>在 dify 中点击创建空白应用，选择聊天助手，应用名称为：Biz-Component-Codegen。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_15.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_15.png" alt="" width="100%" />
 </div>
 <p>进入应用，右上角选择配置好的模型：claude-3-5-sonnet-latest。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_16.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_16.png" alt="" width="100%" />
 </div>
 <p>将上面的提示词粘贴进 dify 应用，打开视觉开关，将需要 AI 生成的业务组件的参考图片复制到 Bot 聊天窗口，输入 &ldquo;生成图中的组件&rdquo;。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_17.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_17.png" alt="" width="100%" />
 </div>
 <p>dify 聊天助手应用将根据参考图片帮助我们生成业务组件代码。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_18.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_18.png" alt="" width="100%" />
 </div>
 <h5 id="效果展示">效果展示</h5>
 <p>将 dify 聊天助手应用生成的代码保存到我们的项目中。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_19.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_19.png" alt="" width="100%" />
 </div>
 <p>效果展示：</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_20.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_20.png" alt="" width="100%" />
 </div>
 <h5 id="思考">思考</h5>
 <p>现在，我们已经有了一个基于 dify 的 AI 应用，但是使用起来不是很方便。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_21.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_21.png" alt="" width="100%" />
 </div>
 <p>🤔 能不能让 AI 生成出来的代码直接在 IDE 中就可以运行看到实时效果呢？</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_22.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_22.png" alt="" width="100%" />
 </div>
 <hr>
 <h4 id="集成-ai-应用到-cursor">集成 AI 应用到 Cursor</h4>
 <h5 id="ai-生成提示词">AI 生成提示词</h5>
 <p>让我们回顾一下前面的 AI 赋能金字塔模型，找出可被 AI 赋能的点，以及赋能性价比最高的点。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_23.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_23.png" alt="" width="100%" />
 </div>
 <p>我们再看一下关于前端页面研发流程的 AI 赋能金字塔模型，找出可被 AI 赋能的点，以及赋能性价比最高的点。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_24.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_24.png" alt="" width="100%" />
 </div>
 <p>针对我们编写提示词的工作流，找出可被 AI 赋能的点，以及赋能性价比最高的点。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_25.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_25.png" alt="" width="100%" />
 </div>
 <h5 id="使用-cursor-生成提示词的提示词">使用 Cursor 生成提示词的提示词</h5>
 <p>在项目根目录新建文件夹 .prompt，新建一个提示词的 md 文件 langgpt-prompt.md，用来存放生成的提示词。</p>
@@ -500,11 +500,11 @@
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">请帮我生成一个提示词，能够根据用户输入的需求来生成符合下面 LangGPT md 格式的提示词:
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">https://github.com/langgptai/LangGPT</span></span></code></pre></div></div><div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_26.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_26.png" alt="" width="100%" />
 </div>
 <p>效果展示：</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_27.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_27.png" alt="" width="100%" />
 </div>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-bash">
@@ -647,11 +647,11 @@
 </span></span><span class="line"><span class="cl">  <span class="err">├─</span> <span class="n">helpers</span><span class="o">.</span><span class="n">ts</span> <span class="o">//</span> <span class="err">组件所有的工具函数存放在此</span> <span class="p">(</span><span class="err">如有</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">业务组件遵循前后端状态分离原则：所有需要请求服务端数据的操作，都通过</span> <span class="n">props</span> <span class="err">暴露个外部的页面来进行对接联调。生成的提示词的内容保存到@</span><span class="o">.</span><span class="n">prompt</span><span class="o">/</span><span class="n">antd</span><span class="o">-</span><span class="n">component</span><span class="o">-</span><span class="n">codegen</span><span class="o">.</span><span class="n">md</span> <span class="err">。</span></span></span></code></pre></div></div><div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_28.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_28.png" alt="" width="100%" />
 </div>
 <p>效果展示：</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_29.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_29.png" alt="" width="100%" />
 </div>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-bash">
@@ -705,16 +705,16 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">你现在是一名资深的</span><span class="w"> </span><span class="n">React</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TailwindCSS</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">antd</span><span class="w"> </span><span class="err">前端工程师。请等待用户输入的设计稿描述或自然语言需求，然后按上述</span><span class="w"> </span><span class="n">Rules</span><span class="w"> </span><span class="err">与</span><span class="w"> </span><span class="n">Workflow</span><span class="w"> </span><span class="err">直接输出完整的组件代码与文件内容，遵循规定的文件结构与前后端分离原则。若需求不全，先用中文询问所缺细节（数据结构、状态、交互、异常</span><span class="o">/</span><span class="err">空态、受控</span><span class="o">/</span><span class="err">非受控需求）。</span></span></span></code></pre></div></div><h5 id="效果展示-1">效果展示</h5>
 <p>测试代码生成器的实际代码效果。</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_30.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_30.png" alt="" width="100%" />
 </div>
 <p>效果展示：</p>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_31.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_31.png" alt="" width="100%" />
 </div>
 <hr>
 <h3 id="如何渐进式地在公司落地这套业务组件架构">如何渐进式地在公司落地这套业务组件架构</h3>
 <div align="center">
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_end.png" alt="" width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_end.png" alt="" width="100%" />
 </div>
 <h4 id="对于迭代已有稳定业务来说">对于迭代已有稳定业务来说</h4>
 <p>不建议改动，除非你能直接或间接推动公司决定针对整体的研发流程进行整体的 &ldquo;AI 规范化重构&rdquo;。</p>
