@@ -33,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/rag\/"
-        },"genre": "posts","keywords": "AI","wordcount":  3093 ,
+        },"genre": "posts","keywords": "AI","wordcount":  4650 ,
         "url": "http:\/\/localhost:1313\/rag\/","datePublished": "2025-12-13T12:34:56+08:00","dateModified": "2025-12-13T12:34:56+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -107,8 +107,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🤖 AI - 基于公司私有组件库生成业务组件</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-13">2025-12-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3093 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-13">2025-12-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4650 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -145,6 +145,27 @@
               </ul>
             </li>
             <li><a href="#实际操作案例">实际操作案例</a></li>
+          </ul>
+        </li>
+        <li><a href="#使用-dify-构建-rag-应用">使用 Dify 构建 RAG 应用</a>
+          <ul>
+            <li><a href="#创建-rag-知识库">创建 RAG 知识库</a>
+              <ul>
+                <li><a href="#配置-embedding-能力">配置 embedding 能力</a></li>
+                <li><a href="#私有组件库数据清洗">私有组件库数据清洗</a></li>
+                <li><a href="#新建知识库">新建知识库</a></li>
+                <li><a href="#retrieval-阶段测试">Retrieval 阶段测试</a></li>
+              </ul>
+            </li>
+            <li><a href="#集成-rag-应用">集成 RAG 应用</a>
+              <ul>
+                <li><a href="#创建新应用">创建新应用</a></li>
+                <li><a href="#写入提示词">写入提示词</a></li>
+                <li><a href="#关联创建的知识库">关联创建的知识库</a></li>
+                <li><a href="#测试-augmentedgeneration-阶段测试">测试 Augmented、Generation 阶段测试</a></li>
+              </ul>
+            </li>
+            <li><a href="#测试-rag-应用">测试 RAG 应用</a></li>
           </ul>
         </li>
       </ul>
@@ -446,7 +467,139 @@
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_38.png" alt="" width="100%" />
 </div>
 <p>在 basic-compontents.txt 中，包含 &mdash;&mdash;-split line&mdash;&mdash;-，这是用来后续将组件的知识库数据切分到不同的 Chunk 中，保证每个 Chunk 中的组件知识都是完整的。</p>
-<p>在 basic-componens.txt 中，包含 &lt;when-to-use&gt;&lt;/when-to-use&gt; 和&lt;API&gt;&lt;/API&gt; 标签，这个用来保证当前组件的语义和功能是清晰的。</p></div><div class="post-footer" id="post-footer">
+<p>在 basic-componens.txt 中，包含 &lt;when-to-use&gt;&lt;/when-to-use&gt; 和&lt;API&gt;&lt;/API&gt; 标签，这个用来保证当前组件的语义和功能是清晰的。</p>
+<h3 id="使用-dify-构建-rag-应用">使用 Dify 构建 RAG 应用</h3>
+<p>我们使用 Dify 构建 RAG 应用，支持基于私有组件库生成业务组件。</p>
+<h4 id="创建-rag-知识库">创建 RAG 知识库</h4>
+<h5 id="配置-embedding-能力">配置 embedding 能力</h5>
+<p>在 302.ai 管理后台新建 RAG API：</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_39.png" alt="" width="100%" />
+</div>
+<p>点击 302.ai 管理后台的 API 超市，分类 -&gt; RAG 相关 -&gt; OpenAI，选择 text-embedding-ada-002：</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_40.png" alt="" width="100%" />
+</div>
+<p>在 Dify 管理后台添加新的模型，text-embedding-ada-002：</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_41.png" alt="" width="100%" />
+</div>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_42.png" alt="" width="100%" />
+</div>
+<h5 id="私有组件库数据清洗">私有组件库数据清洗</h5>
+<p>回到我们的前端项目，找到 basic-components.txt 文件，排除掉 antd 相关的内容，替换为 @private-basic-components：</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_51.png" alt="" width="100%" />
+</div>
+<h5 id="新建知识库">新建知识库</h5>
+<p>在 Dify 管理后台中，创建知识库，导入 basic-components.txt 文件，点击下一步。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_52.png" alt="" width="100%" />
+</div>
+<p>注意，分段标识符填写 &mdash;&mdash;-split line&mdash;&mdash;-，分段最大长度填写 4000，点击保存并处理。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_43.png" alt="" width="100%" />
+</div>
+<p>等待 Dify 处理，知识库创建完成。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_44.png" alt="" width="100%" />
+</div>
+<h5 id="retrieval-阶段测试">Retrieval 阶段测试</h5>
+<p>进入刚刚创建的知识库，点击召回测试，在源文本处输入 Table 怎么用，点击测试，查看召回效果。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_45.png" alt="" width="100%" />
+</div>
+<h4 id="集成-rag-应用">集成 RAG 应用</h4>
+<h5 id="创建新应用">创建新应用</h5>
+<p>在 Dify 管理后台创建空白应用，选择聊天助手，输入应用名称：biz-component-codegen(private)。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_46.png" alt="" width="100%" />
+</div>
+<h5 id="写入提示词">写入提示词</h5>
+<p>进入 biz-component-codegen(private) 应用，写入提示词。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># Role: 前端业务组件开发专家</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Profile</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">author</span><span class="p">:</span> <span class="n">lv</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">version</span><span class="p">:</span> <span class="mf">0.1</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">language</span><span class="p">:</span> <span class="err">中文</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">description</span><span class="p">:</span> <span class="err">你作为一名资深的前端开发工程师，拥有数十年的一线编码经验，特别是在前端组件化方面有很深的理解，熟练掌握编码原则，如功能职责单一原则、开放—封闭原则，对于设计模式也有很深刻的理解。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Goals</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">能够清楚地理解用户提出的业务组件需求</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">根据用户的描述生成完整的符合代码规范的业务组件代码。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Constraints</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">业务组件中用到的所有组件都来源于</span> <span class="err">`</span><span class="n">import</span> <span class="p">{</span>  <span class="p">}</span> <span class="n">from</span> <span class="s2">&#34;@private-basic-components&#34;</span><span class="err">`</span> <span class="err">组件库。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">必须遵循知识库</span><span class="o">&lt;</span><span class="n">API</span><span class="o">&gt;</span> <span class="o">&lt;/</span><span class="n">API</span><span class="o">&gt;</span><span class="err">中组件的</span> <span class="n">props</span> <span class="err">来实现业务组件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Workflows</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">第一步：结合用户需求理解我提供给你的`@</span><span class="n">private</span><span class="o">-</span><span class="n">basic</span><span class="o">-</span><span class="n">components</span><span class="err">`组件知识库数据。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">我提供的知识库数据中，包含了实现这个需求可能需要的`@</span><span class="n">private</span><span class="o">-</span><span class="n">basic</span><span class="o">-</span><span class="n">components</span><span class="err">`组件知识。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">其中`</span><span class="o">&lt;</span><span class="n">when</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">use</span><span class="o">&gt;</span><span class="err">`标签中，描述了组件的使用场景，`</span><span class="o">&lt;</span><span class="n">API</span><span class="o">&gt;</span><span class="err">`标签中，描述了组件的</span> <span class="n">props</span> <span class="n">api</span> <span class="err">类型定义。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">第二步：请根据用户的需求以及我提供的知识库数据，生成对应的业务组件代码，业务组件的规范模版如下：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">组件包含</span> <span class="mi">4</span> <span class="err">类文件，对应的文件名称和规则如下</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mi">1</span><span class="err">、</span><span class="n">index</span><span class="o">.</span><span class="n">ts</span><span class="err">（对外导出组件）</span>
+</span></span><span class="line"><span class="cl">    <span class="err">这个文件中的内容如下：</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="p">{</span> <span class="n">default</span> <span class="n">as</span> <span class="p">[</span><span class="err">组件名</span><span class="p">]</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;./[组件名]&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="n">type</span> <span class="p">{</span> <span class="p">[</span><span class="err">组件名</span><span class="p">]</span><span class="n">Props</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;./interface&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mi">2</span><span class="err">、</span><span class="n">interface</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl">    <span class="err">这个文件中的内容如下，请把组件的</span><span class="n">props内容补充完整</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">    <span class="n">interface</span> <span class="p">[</span><span class="err">组件名</span><span class="p">]</span><span class="n">Props</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="n">type</span> <span class="p">{</span> <span class="p">[</span><span class="err">组件名</span><span class="p">]</span><span class="n">Props</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mi">3</span><span class="err">、</span><span class="p">[</span><span class="err">组件名</span><span class="p">]</span><span class="o">.</span><span class="n">stories</span><span class="o">.</span><span class="n">tsx</span>
+</span></span><span class="line"><span class="cl">    <span class="err">这个文件中使用</span> <span class="n">import</span> <span class="n">type</span> <span class="p">{</span> <span class="n">Meta</span><span class="p">,</span> <span class="n">StoryObj</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;@storybook/react&#39;</span> <span class="err">给组件写一个</span><span class="n">storybook文档</span><span class="err">，必须根据组件的</span><span class="n">props写出完整的storybook文档</span><span class="err">，针对每一个</span><span class="n">props都需要进行mock数据</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mi">4</span><span class="err">、</span><span class="p">[</span><span class="err">组件名</span><span class="p">]</span><span class="o">.</span><span class="n">tsx</span>
+</span></span><span class="line"><span class="cl">    <span class="err">这个文件中存放组件的真正业务逻辑和样式，样式请用</span><span class="n">tailwindcss来编写</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Initialization</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">作为前端业务组件开发专家，你十分清晰你的</span><span class="p">[</span><span class="n">Goals</span><span class="p">]</span><span class="err">，同时时刻记住</span><span class="p">[</span><span class="n">Constraints</span><span class="p">],</span> <span class="err">你将用清晰和精确的语言与用户对话，并按照</span><span class="p">[</span><span class="n">Workflows</span><span class="p">]</span><span class="err">逐步思考，逐步进行回答，竭诚为用户提供代码生成服务。</span></span></span></code></pre></div></div><h5 id="关联创建的知识库">关联创建的知识库</h5>
+<p>在 biz-component-codegen(private) 应用的知识库部分，添加我们之前创建好的知识库：basic-components.txt。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_53.png" alt="" width="100%" />
+</div>
+<h5 id="测试-augmentedgeneration-阶段测试">测试 Augmented、Generation 阶段测试</h5>
+<p>和 Bot 聊天，输入帮我生成一个 table，包含姓名、年龄、性别，测试 Augmented、Generation 阶段。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_47.png" alt="" width="100%" />
+</div>
+<h4 id="测试-rag-应用">测试 RAG 应用</h4>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_08.png" alt="" width="100%" />
+</div>
+<p>以上面的 TodoList 组件为例，上传图片，并输入：请用 Input、Button、Checkbox 实现这个组件。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_48.png" alt="" width="100%" />
+</div>
+<p>把 Dify 应用生成的代码保存到我们的前端项目中。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_49.png" alt="" width="100%" />
+</div>
+<p>运行 pnpm storybook，查看演示效果。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_50.png" alt="" width="100%" />
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
