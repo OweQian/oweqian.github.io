@@ -500,3 +500,5 @@ generatedDOC(inputDirectory);
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_50.png" alt="" width="100%" />
 </div>
 
+经过 dify 上的操作，实现了一个简单的基于私有组件库生成业务组件的 RAG 应用，但是作为 AI 时代下的前端人员，如果想结合自己公司的工作流落地 AI，只掌握 Dify 这样的开源知识库平台，肯定是不够的，需要掌握市面上主流的 AI 研发技术栈，才能在实际业务中灵活落地更多的场景。
+
