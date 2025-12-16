@@ -4,26 +4,26 @@
         <link>http://localhost:1313/categories/ai/</link>
         <description>AI - 分类 - OweQian 的精神角落</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian 的精神角落)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Mon, 15 Dec 2025 21:38:47 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/ai/" rel="self" type="application/rss+xml" /><item>
-    <title>🤖 AI - 基于 OpenAI SDK 实现代码生成器</title>
+            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Mon, 15 Sep 2025 21:38:47 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/ai/" rel="self" type="application/rss+xml" /><item>
+    <title>🤖 AI - 基于 OpenAI SDK、Vercel AI SDK 实现代码生成器</title>
     <link>http://localhost:1313/openai/</link>
-    <pubDate>Mon, 15 Dec 2025 21:38:47 &#43;0800</pubDate>
+    <pubDate>Mon, 15 Sep 2025 21:38:47 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
     <guid>http://localhost:1313/openai/</guid>
-    <description><![CDATA[<p>本篇讨论如何基于市面上主流的 AI 研发技术栈 - OpenAI SDK 实现代码生成器。</p>]]></description>
+    <description><![CDATA[<p>本篇讨论如何基于市面上主流的 AI 研发技术栈 - OpenAI SDK、Vercel AI SDK 实现代码生成器。</p>]]></description>
 </item>
 <item>
-    <title>🤖 AI - 基于公司私有组件库生成业务组件</title>
+    <title>🤖 AI - 如何基于公司私有组件库生成业务组件</title>
     <link>http://localhost:1313/rag/</link>
-    <pubDate>Sat, 13 Dec 2025 12:34:56 &#43;0800</pubDate>
+    <pubDate>Sat, 13 Sep 2025 12:34:56 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
     <guid>http://localhost:1313/rag/</guid>
     <description><![CDATA[<p>上一篇讨论了如何基于开源组件库生成业务组件，本篇讨论如何基于公司私有组件库生成业务组件。</p>]]></description>
 </item>
 <item>
-    <title>🤖 AI - 基于开源组件库生成业务组件</title>
+    <title>🤖 AI - 基于开源组件库（ant-design）生成业务组件</title>
     <link>http://localhost:1313/component/</link>
-    <pubDate>Fri, 31 Oct 2025 12:34:56 &#43;0800</pubDate>
+    <pubDate>Sun, 31 Aug 2025 12:34:56 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
     <guid>http://localhost:1313/component/</guid>
     <description><![CDATA[<p>设计一套 AI 友好的整洁业务组件架构，让 AI 基于开源组件库（ant-design）生成业务组件代码。</p>]]></description>

@@ -1403,7 +1403,7 @@
 </span></span><span class="line"><span class="cl">          <span class="nx">time</span>: <span class="kt">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">(),</span>
 </span></span><span class="line"><span class="cl">        <span class="p">});</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// resubscribe
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">unSubscribeRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">subscribe</span><span class="p">(</span><span class="nx">cacheKey</span><span class="p">,</span> <span class="p">(</span><span class="err">d</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">unSubscribeRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">subscribe</span><span class="p">(</span><span class="nx">cacheKey</span><span class="p">,</span> <span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">fetchInstance</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">data</span>: <span class="kt">d</span> <span class="p">});</span>
 </span></span><span class="line"><span class="cl">        <span class="p">});</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>

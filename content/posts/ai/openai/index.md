@@ -1,6 +1,6 @@
 ---
 title: "🤖 AI - 基于 OpenAI SDK、Vercel AI SDK 实现代码生成器"
-date: 2025-12-15T21:38:47+08:00
+date: 2025-09-15T21:38:47+08:00
 tags: ["AI"]
 categories: ["AI"]
 ---
