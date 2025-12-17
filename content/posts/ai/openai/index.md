@@ -143,11 +143,15 @@ pnpm dev
 
 ### OpenAI SDK
 
-#### Embedding 实现
+#### 实现 Embedding
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_36.png" alt="" width="100%" />
+</div>
 
 ##### 数据表初始化
 
-在项目根目录的 lib 文件夹中，新建 openai 文件夹，进入 openai 文件夹，新建 schema.ts。
+新建 lib/db/openai/schema.ts 文件。
 
 > 让 cursor agent composer 基于以下 prompt 生成代码：
 
@@ -197,7 +201,7 @@ pnpm db:migrate
 
 ##### 数据库 action
 
-在 openai 文件夹中新建 action.ts。
+新建 lib/db/openai/action.ts 文件。
 
 > 让 cursor agent composer 基于以下 prompt 生成代码：
 
@@ -211,7 +215,7 @@ pnpm db:migrate
 
 ##### 保存到数据库
 
-在 api 文件夹下，新建 openai 文件夹，进入 openai 文件夹，新建 embedding.ts。
+新建 app/api/openai/embedding.ts 文件。
 
 > 让 cursor agent composer 基于以下 prompt 生成代码：
 
@@ -223,7 +227,7 @@ pnpm db:migrate
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_62.png" alt="" width="100%" />
 </div>
 
-在 openai 文件夹下新建 embedDocs.ts，将私有组件知识库文档嵌入到数据库中。
+新建 app/api/openai/embedDocs.ts 文件，将私有组件知识库文档嵌入到数据库中。
 
 ```ts
 import { saveEmbeddings } from "@/lib/db/openai/actions";
@@ -280,3 +284,264 @@ pnpm openai:embedDocs
 <div align="center">
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_64.png" alt="" width="100%" />
 </div>
+
+#### 实现 RAG API 逻辑
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_37.png" alt="" width="100%" />
+</div>
+
+##### 数据库向量相似度查询
+
+新建 lib/db/openai/selectors.ts 文件。
+
+> 让 cursor agent composer 基于以下 prompt 生成代码
+
+```
+创建一个基于向量嵌入的语义相似度搜索函数。该函数需要：
+
+- 接收一个查询向量（embedding）作为输入
+- 计算输入向量与数据库中存储的向量之间的余弦相似度
+- 筛选出相似度高于指定阈值的结果
+- 返回相似度最高的 N 个结果，包含原始内容和相似度分数
+- 使用 SQL ORM 实现数据库查询
+```
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_65.png" alt="" width="100%" />
+</div>
+
+##### 针对单条 message 的 Embedding 函数
+
+在 app/api/openai/embedding.ts 中添加函数：
+
+```ts
+// 生成单个 embedding
+export async function generateSingleEmbedding(text: string): Promise<number[]> {
+  const openai = new OpenAI({
+    apiKey: env.AI_KEY,
+    baseURL: env.AI_BASE_URL,
+  });
+  const embedding = await openai.embeddings.create({
+    model: env.EMBEDDING,
+    input: text,
+  });
+  return embedding.data[0].embedding;
+}
+```
+
+##### 检索向量数据库并召回函数
+
+在 app/api/openai/embedding.ts 中添加函数：
+
+```ts
+// 检索召回
+export async function retrieveRecall(
+  text: string,
+  threshold: number = 0.7,
+  limit: number = 5
+): Promise<SimilaritySearchResult[]> {
+  // 生成单个 embedding
+  const embedding = await generateSingleEmbedding(text);
+  // 相似度搜索
+  const results = await similaritySearch(embedding, threshold, limit);
+  return results;
+}
+```
+
+##### 新建 RAG API 路由
+
+新建 app/api/openai/types.ts 文件，定义 RAG API 的请求体。
+
+```ts
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions.mjs";
+
+export type OpenAIRequest = {
+  message: ChatCompletionMessageParam[];
+};
+```
+
+新建 app/api/openai/route.ts 文件。
+
+> 让 cursor agent composer 基于以下 prompt 生成代码：
+
+```
+创建一个基于 Next.js 的流式 AI 对话 API 路由处理器，使用 OpenAI API 实现。该接口需要实现以下功能：
+
+1. 通过 POST 请求接收对话消息
+2. 基于最后一条消息使用向量嵌入（embeddings）查找相关内容
+3. 创建 OpenAI 的流式对话补全，要求：
+   - 将相关内容整合到系统提示词中
+   - 使用服务器发送事件（SSE）进行流式响应
+   - 在流中同时返回 AI 响应片段和相关内容
+```
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_66.png" alt="" width="100%" />
+</div>
+
+生成的代码：
+
+```ts
+import { NextRequest } from "next/server";
+import OpenAI from "openai";
+import { env } from "@/lib/env.mjs";
+import { retrieveRecall } from "./embedding";
+import { getSystemPrompt } from "@/lib/prompt";
+import { OpenAIRequest } from "./types";
+
+// 初始化 OpenAI 客户端
+const openai = new OpenAI({
+  apiKey: env.AI_KEY,
+  baseURL: env.AI_BASE_URL,
+});
+
+/**
+ * POST 处理函数：处理流式 AI 对话请求
+ */
+export async function POST(request: NextRequest) {
+  try {
+    // 解析请求体
+    const body: OpenAIRequest = await request.json();
+    const { message } = body;
+
+    if (!message || !Array.isArray(message) || message.length === 0) {
+      return new Response(JSON.stringify({ error: "消息数组不能为空" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // 获取最后一条用户消息用于向量检索
+    const lastMessage = message[message.length - 1];
+    let lastUserMessageText: string | null = null;
+
+    // 提取最后一条用户消息的文本内容
+    if (lastMessage.role === "user" && lastMessage.content) {
+      if (typeof lastMessage.content === "string") {
+        lastUserMessageText = lastMessage.content;
+      } else if (Array.isArray(lastMessage.content)) {
+        // 如果是数组类型（多模态），提取所有文本部分
+        const textParts = lastMessage.content
+          .filter((part) => part.type === "text")
+          .map((part) => (part as { text: string }).text)
+          .join(" ");
+        if (textParts) {
+          lastUserMessageText = textParts;
+        }
+      }
+    }
+
+    // 如果最后一条消息是用户消息，进行向量检索
+    let referenceContent = "";
+    if (lastUserMessageText) {
+      try {
+        const searchResults = await retrieveRecall(lastUserMessageText, 0.7, 5);
+        if (searchResults && searchResults.length > 0) {
+          // 将检索到的相关内容合并
+          referenceContent = searchResults
+            .map((result) => result.content)
+            .join("\n\n");
+        }
+      } catch (error) {
+        console.error("向量检索失败:", error);
+        // 检索失败不影响主流程，继续执行
+      }
+    }
+
+    // 构建系统提示词，整合相关内容
+    const systemPrompt = getSystemPrompt(referenceContent || undefined);
+
+    // 构建完整的消息列表，包含系统提示词
+    const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
+      {
+        role: "system",
+        content: systemPrompt,
+      },
+      ...message,
+    ];
+
+    // 创建流式对话补全
+    const stream = await openai.chat.completions.create({
+      model: env.MODEL,
+      messages,
+      stream: true,
+      temperature: 0.7,
+    });
+
+    // 创建 SSE 流式响应
+    const encoder = new TextEncoder();
+    const readableStream = new ReadableStream({
+      async start(controller) {
+        // 首先发送相关内容（如果存在）
+        if (referenceContent) {
+          const referenceData = {
+            type: "reference",
+            content: referenceContent,
+          };
+          const referenceChunk = `data: ${JSON.stringify(referenceData)}\n\n`;
+          controller.enqueue(encoder.encode(referenceChunk));
+        }
+
+        // 然后发送 AI 响应流
+        try {
+          for await (const chunk of stream) {
+            const delta = chunk.choices[0]?.delta;
+            if (delta?.content) {
+              const data = {
+                type: "content",
+                content: delta.content,
+              };
+              const chunkData = `data: ${JSON.stringify(data)}\n\n`;
+              controller.enqueue(encoder.encode(chunkData));
+            }
+
+            // 检查是否完成
+            if (chunk.choices[0]?.finish_reason) {
+              const doneData = {
+                type: "done",
+                finish_reason: chunk.choices[0].finish_reason,
+              };
+              const doneChunk = `data: ${JSON.stringify(doneData)}\n\n`;
+              controller.enqueue(encoder.encode(doneChunk));
+              break;
+            }
+          }
+        } catch (error) {
+          console.error("流式响应错误:", error);
+          const errorData = {
+            type: "error",
+            error: "流式响应过程中发生错误",
+          };
+          const errorChunk = `data: ${JSON.stringify(errorData)}\n\n`;
+          controller.enqueue(encoder.encode(errorChunk));
+        } finally {
+          controller.close();
+        }
+      },
+    });
+
+    // 返回 SSE 流式响应
+    return new Response(readableStream, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+        "X-Accel-Buffering": "no", // 禁用 Nginx 缓冲
+      },
+    });
+  } catch (error) {
+    console.error("API 路由错误:", error);
+    return new Response(
+      JSON.stringify({
+        error: "处理请求时发生错误",
+        message: error instanceof Error ? error.message : String(error),
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+}
+```
