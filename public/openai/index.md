@@ -542,3 +542,62 @@ export async function POST(request: NextRequest) {
 }
 ```
 
+#### 对接 RAG API
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_05.png" alt="" width="100%" />
+</div>
+
+##### 补全 OpenAI SDK 的业务组件
+
+打开 app/openai-sdk/index.tsx 文件。
+
+```tsx
+"use client";
+
+import { ChatMessages } from "../components/ChatMessages";
+
+const Home = () => {
+  return (
+    <ChatMessages
+      messages={[]}
+      input={""}
+      handleInputChange={() => {}}
+      onSubmit={() => {}}
+      isLoading={false}
+      messageImgUrl={""}
+      setMessagesImgUrl={() => {}}
+      onRetry={() => {}}
+    />
+  );
+};
+
+export default Home;
+```
+
+##### 让 AI 基于业务组件和 API 进行数据对接和联调
+
+打开 app/openai-sdk/index.tsx 文件。
+
+> 让 cursor agent composer 基于以下 prompt 生成代码：
+
+```
+对接 OpenAI API 数据
+```
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_67.png" alt="" width="100%" />
+</div>
+
+##### 演示效果
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_68.png" alt="" width="100%" />
+</div>
+
+查看 RAG Docs：
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_69.png" alt="" width="100%" />
+</div>
+

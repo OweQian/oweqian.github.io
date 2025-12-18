@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-09-15T21:38:47+08:00">
-    <meta property="article:modified_time" content="2025-12-16T20:56:18+08:00">
+    <meta property="article:modified_time" content="2025-12-17T16:44:10+08:00">
     <meta property="article:tag" content="AI">
     <meta property="og:image" content="http://localhost:1313/logo.png">
 
@@ -33,8 +33,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/openai\/"
-        },"genre": "posts","keywords": "AI","wordcount":  2940 ,
-        "url": "http:\/\/localhost:1313\/openai\/","datePublished": "2025-09-15T21:38:47+08:00","dateModified": "2025-12-16T20:56:18+08:00","publisher": {
+        },"genre": "posts","keywords": "AI","wordcount":  3059 ,
+        "url": "http:\/\/localhost:1313\/openai\/","datePublished": "2025-09-15T21:38:47+08:00","dateModified": "2025-12-17T16:44:10+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -107,8 +107,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🤖 AI - 基于 OpenAI SDK、Vercel AI SDK 实现代码生成器</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-15">2025-09-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2940 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-15">2025-09-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3059 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -151,6 +151,13 @@
                 <li><a href="#针对单条-message-的-embedding-函数">针对单条 message 的 Embedding 函数</a></li>
                 <li><a href="#检索向量数据库并召回函数">检索向量数据库并召回函数</a></li>
                 <li><a href="#新建-rag-api-路由">新建 RAG API 路由</a></li>
+              </ul>
+            </li>
+            <li><a href="#对接-rag-api">对接 RAG API</a>
+              <ul>
+                <li><a href="#补全-openai-sdk-的业务组件">补全 OpenAI SDK 的业务组件</a></li>
+                <li><a href="#让-ai-基于业务组件和-api-进行数据对接和联调">让 AI 基于业务组件和 API 进行数据对接和联调</a></li>
+                <li><a href="#演示效果-1">演示效果</a></li>
               </ul>
             </li>
           </ul>
@@ -678,12 +685,61 @@
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div></div><div class="post-footer" id="post-footer">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><h4 id="对接-rag-api">对接 RAG API</h4>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_05.png" alt="" width="100%" />
+</div>
+<h5 id="补全-openai-sdk-的业务组件">补全 OpenAI SDK 的业务组件</h5>
+<p>打开 app/openai-sdk/index.tsx 文件。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="s2">&#34;use client&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ChatMessages</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;../components/ChatMessages&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Home</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">ChatMessages</span>
+</span></span><span class="line"><span class="cl">      <span class="na">messages</span><span class="o">=</span><span class="p">{[]}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">input</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">handleInputChange</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{}}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">onSubmit</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{}}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">isLoading</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">messageImgUrl</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">setMessagesImgUrl</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{}}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">onRetry</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{}}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">Home</span><span class="p">;</span></span></span></code></pre></div></div><h5 id="让-ai-基于业务组件和-api-进行数据对接和联调">让 AI 基于业务组件和 API 进行数据对接和联调</h5>
+<p>打开 app/openai-sdk/index.tsx 文件。</p>
+<blockquote>
+<p>让 cursor agent composer 基于以下 prompt 生成代码：</p></blockquote>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">对接 OpenAI API 数据</span></span></code></pre></div></div><div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_67.png" alt="" width="100%" />
+</div>
+<h5 id="演示效果-1">演示效果</h5>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_68.png" alt="" width="100%" />
+</div>
+<p>查看 RAG Docs：</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_69.png" alt="" width="100%" />
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2025-12-16&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/a29fe848ba990abb20be8013929e6b07d1434f9f" target="_blank" title="commit by OweQian(1510106069@qq.com) a29fe848ba990abb20be8013929e6b07d1434f9f: feat: update openai">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>a29fe84</a></span>
+                <span>更新于 2025-12-17&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/c326b0a48125383fff5e5002d4a830e9ade50645" target="_blank" title="commit by OweQian(1510106069@qq.com) c326b0a48125383fff5e5002d4a830e9ade50645: feat: update ai">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>c326b0a</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
