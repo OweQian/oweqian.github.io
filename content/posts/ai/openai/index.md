@@ -149,7 +149,7 @@ pnpm dev
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_36.png" alt="" width="100%" />
 </div>
 
-##### 数据表初始化
+##### 数据库表初始化
 
 新建 lib/db/openai/schema.ts 文件。
 
@@ -603,4 +603,158 @@ export default Home;
 
 <div align="center">
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_69.png" alt="" width="100%" />
+</div>
+
+### Vercel AI SDK
+
+#### 实现 Embedding
+
+复制一份 lib/db/openai 文件夹，重命名为 lib/db/vercelai。
+
+##### 数据库表初始化
+
+修改 lib/db/vercelai/schema.ts，将 openai 替换为 vercelai。
+
+```ts
+import { index, pgTable, text, varchar, vector } from "drizzle-orm/pg-core";
+import { nanoid } from "nanoid";
+
+// Define the vercelAI embeddings table
+export const vercelAiEmbeddings = pgTable(
+  "vercel_ai_embeddings",
+  {
+    id: varchar("id", { length: 191 })
+      .primaryKey()
+      .$defaultFn(() => nanoid()),
+    content: text("content").notNull(),
+    embedding: vector("embedding", { dimensions: 1536 }).notNull(),
+  },
+  (t) => ({
+    vercelaiEmbeddingIndex: index("vercelai_embedding_index").using(
+      "hnsw",
+      t.embedding.op("vector_cosine_ops")
+    ),
+  })
+);
+```
+
+##### 数据库 action
+
+修改 lib/db/vercelai/actions.ts：
+
+```ts
+"use server";
+
+import { db } from "@/lib/db";
+import { vercelAiEmbeddings } from "./schema";
+
+export async function saveEmbeddings(
+  embeddings: Array<{ embedding: number[]; content: string }>
+) {
+  try {
+    // 批量插入数据
+    const result = await db.insert(vercelAiEmbeddings).values(
+      embeddings.map(({ embedding, content }) => ({
+        content,
+        embedding,
+      }))
+    );
+
+    return {
+      success: true,
+      data: result,
+    };
+  } catch (error) {
+    console.error("保存 embeddings 时出错:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "未知错误",
+    };
+  }
+}
+```
+
+执行数据库同步命令：
+
+```
+pnpm db:generate
+pnpm db:migrate
+```
+
+查看 private-component-codegen 数据库，存在一张新表 vercel_ai_embeddings。
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_70.png" alt="" width="100%" />
+</div>
+
+##### 保存到数据库
+
+新建 app/api/vercel/embedding.ts 文件。
+
+> 让 cursor agent composer 基于以下 prompt 生成代码：
+
+```
+请使用 vercel ai sdk 重构 @app/api/openai/embedding.ts 中的代码，保存到@app/api/vercelai/embedding.ts 下
+```
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_71.png" alt="" width="100%" />
+</div>
+
+复制 app/api/openai/embedDocs.ts 文件到 app/api/vercelai/embedDocs.ts。
+
+```ts
+import { saveEmbeddings } from "@/lib/db/vercelai/actions";
+import { generateEmbeddings } from "./embedding";
+import fs from "fs";
+import path from "path";
+
+/**
+ * 将文档嵌入到数据库中
+ */
+export async function embedDocs() {
+  // 读取文档
+  const docs = fs.readFileSync(
+    path.join(process.cwd(), "ai-docs", "basic-components.txt"),
+    "utf-8"
+  );
+  // 生成 embeddings
+  const embeddings = await generateEmbeddings(docs);
+
+  // 保存 embeddings
+  await saveEmbeddings(
+    embeddings.map(({ content, embedding }) => ({
+      content,
+      embedding,
+    }))
+  );
+
+  console.log(`Embeddings saved: ${embeddings.length}`);
+
+  return embeddings;
+}
+
+embedDocs();
+```
+
+添加 scripts 命令：
+
+```
+"vercelai:embedDocs": "tsx app/api/vercelai/embedDocs.ts"
+```
+
+执行命令：
+
+```
+pnpm vercelai:embedDocs
+```
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_72.png" alt="" width="100%" />
+</div>
+
+查看 private-component-codegen 数据库，此时在 vercel_ai_embeddings 表中已经能看到我们插入的内容。
+
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_73.png" alt="" width="100%" />
 </div>

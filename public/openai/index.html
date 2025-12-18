@@ -33,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/openai\/"
-        },"genre": "posts","keywords": "AI","wordcount":  3059 ,
+        },"genre": "posts","keywords": "AI","wordcount":  3697 ,
         "url": "http:\/\/localhost:1313\/openai\/","datePublished": "2025-09-15T21:38:47+08:00","dateModified": "2025-12-17T16:44:10+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -107,8 +107,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🤖 AI - 基于 OpenAI SDK、Vercel AI SDK 实现代码生成器</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-15">2025-09-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3059 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-15">2025-09-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3697 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -140,7 +140,7 @@
           <ul>
             <li><a href="#实现-embedding">实现 Embedding</a>
               <ul>
-                <li><a href="#数据表初始化">数据表初始化</a></li>
+                <li><a href="#数据库表初始化">数据库表初始化</a></li>
                 <li><a href="#数据库-action">数据库 action</a></li>
                 <li><a href="#保存到数据库">保存到数据库</a></li>
               </ul>
@@ -158,6 +158,17 @@
                 <li><a href="#补全-openai-sdk-的业务组件">补全 OpenAI SDK 的业务组件</a></li>
                 <li><a href="#让-ai-基于业务组件和-api-进行数据对接和联调">让 AI 基于业务组件和 API 进行数据对接和联调</a></li>
                 <li><a href="#演示效果-1">演示效果</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#vercel-ai-sdk-1">Vercel AI SDK</a>
+          <ul>
+            <li><a href="#实现-embedding-1">实现 Embedding</a>
+              <ul>
+                <li><a href="#数据库表初始化-1">数据库表初始化</a></li>
+                <li><a href="#数据库-action-1">数据库 action</a></li>
+                <li><a href="#保存到数据库-1">保存到数据库</a></li>
               </ul>
             </li>
           </ul>
@@ -310,7 +321,7 @@
 <div align="center">
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_36.png" alt="" width="100%" />
 </div>
-<h5 id="数据表初始化">数据表初始化</h5>
+<h5 id="数据库表初始化">数据库表初始化</h5>
 <p>新建 lib/db/openai/schema.ts 文件。</p>
 <blockquote>
 <p>让 cursor agent composer 基于以下 prompt 生成代码：</p></blockquote>
@@ -734,6 +745,148 @@
 <p>查看 RAG Docs：</p>
 <div align="center">
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_69.png" alt="" width="100%" />
+</div>
+<h3 id="vercel-ai-sdk-1">Vercel AI SDK</h3>
+<h4 id="实现-embedding-1">实现 Embedding</h4>
+<p>复制一份 lib/db/openai 文件夹，重命名为 lib/db/vercelai。</p>
+<h5 id="数据库表初始化-1">数据库表初始化</h5>
+<p>修改 lib/db/vercelai/schema.ts，将 openai 替换为 vercelai。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">pgTable</span><span class="p">,</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">varchar</span><span class="p">,</span> <span class="nx">vector</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;drizzle-orm/pg-core&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">nanoid</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;nanoid&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Define the vercelAI embeddings table
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">export</span> <span class="kr">const</span> <span class="nx">vercelAiEmbeddings</span> <span class="o">=</span> <span class="nx">pgTable</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;vercel_ai_embeddings&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">id</span>: <span class="kt">varchar</span><span class="p">(</span><span class="s2">&#34;id&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">length</span>: <span class="kt">191</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">primaryKey</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">$defaultFn</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">nanoid</span><span class="p">()),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">content</span>: <span class="kt">text</span><span class="p">(</span><span class="s2">&#34;content&#34;</span><span class="p">).</span><span class="nx">notNull</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">embedding</span>: <span class="kt">vector</span><span class="p">(</span><span class="s2">&#34;embedding&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">dimensions</span>: <span class="kt">1536</span> <span class="p">}).</span><span class="nx">notNull</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">vercelaiEmbeddingIndex</span>: <span class="kt">index</span><span class="p">(</span><span class="s2">&#34;vercelai_embedding_index&#34;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;hnsw&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">t</span><span class="p">.</span><span class="nx">embedding</span><span class="p">.</span><span class="nx">op</span><span class="p">(</span><span class="s2">&#34;vector_cosine_ops&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></div></div><h5 id="数据库-action-1">数据库 action</h5>
+<p>修改 lib/db/vercelai/actions.ts：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="s2">&#34;use server&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">db</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/lib/db&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">vercelAiEmbeddings</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./schema&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">async</span> <span class="kd">function</span> <span class="nx">saveEmbeddings</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">embeddings</span>: <span class="kt">Array</span><span class="o">&lt;</span><span class="p">{</span> <span class="nx">embedding</span>: <span class="kt">number</span><span class="p">[];</span> <span class="nx">content</span>: <span class="kt">string</span> <span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 批量插入数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">vercelAiEmbeddings</span><span class="p">).</span><span class="nx">values</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">embeddings</span><span class="p">.</span><span class="nx">map</span><span class="p">(({</span> <span class="nx">embedding</span><span class="p">,</span> <span class="nx">content</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">content</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">embedding</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">success</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">data</span>: <span class="kt">result</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;保存 embeddings 时出错:&#34;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">success</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">error</span>: <span class="kt">error</span> <span class="k">instanceof</span> <span class="nb">Error</span> <span class="o">?</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="o">:</span> <span class="s2">&#34;未知错误&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>执行数据库同步命令：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pnpm db:generate
+</span></span><span class="line"><span class="cl">pnpm db:migrate</span></span></code></pre></div></div><p>查看 private-component-codegen 数据库，存在一张新表 vercel_ai_embeddings。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_70.png" alt="" width="100%" />
+</div>
+<h5 id="保存到数据库-1">保存到数据库</h5>
+<p>新建 app/api/vercel/embedding.ts 文件。</p>
+<blockquote>
+<p>让 cursor agent composer 基于以下 prompt 生成代码：</p></blockquote>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">请使用 vercel ai sdk 重构 @app/api/openai/embedding.ts 中的代码，保存到@app/api/vercelai/embedding.ts 下</span></span></code></pre></div></div><div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_71.png" alt="" width="100%" />
+</div>
+<p>复制 app/api/openai/embedDocs.ts 文件到 app/api/vercelai/embedDocs.ts。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">saveEmbeddings</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/lib/db/vercelai/actions&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">generateEmbeddings</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./embedding&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">fs</span> <span class="kr">from</span> <span class="s2">&#34;fs&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">path</span> <span class="kr">from</span> <span class="s2">&#34;path&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 将文档嵌入到数据库中
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">async</span> <span class="kd">function</span> <span class="nx">embedDocs() {</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 读取文档
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">(),</span> <span class="s2">&#34;ai-docs&#34;</span><span class="p">,</span> <span class="s2">&#34;basic-components.txt&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;utf-8&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 生成 embeddings
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">embeddings</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">generateEmbeddings</span><span class="p">(</span><span class="nx">docs</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 保存 embeddings
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">await</span> <span class="nx">saveEmbeddings</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">embeddings</span><span class="p">.</span><span class="nx">map</span><span class="p">(({</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">embedding</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">content</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">embedding</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Embeddings saved: </span><span class="si">${</span><span class="nx">embeddings</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">embeddings</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">embedDocs</span><span class="p">();</span></span></span></code></pre></div></div><p>添加 scripts 命令：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&#34;vercelai:embedDocs&#34;: &#34;tsx app/api/vercelai/embedDocs.ts&#34;</span></span></code></pre></div></div><p>执行命令：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pnpm vercelai:embedDocs</span></span></code></pre></div></div><div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_72.png" alt="" width="100%" />
+</div>
+<p>查看 private-component-codegen 数据库，此时在 vercel_ai_embeddings 表中已经能看到我们插入的内容。</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_73.png" alt="" width="100%" />
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
