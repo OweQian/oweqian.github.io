@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-09-15T21:38:47+08:00">
-    <meta property="article:modified_time" content="2025-12-17T16:44:10+08:00">
+    <meta property="article:modified_time" content="2025-12-18T17:06:23+08:00">
     <meta property="article:tag" content="AI">
     <meta property="og:image" content="http://localhost:1313/logo.png">
 
@@ -33,8 +33,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/openai\/"
-        },"genre": "posts","keywords": "AI","wordcount":  3697 ,
-        "url": "http:\/\/localhost:1313\/openai\/","datePublished": "2025-09-15T21:38:47+08:00","dateModified": "2025-12-17T16:44:10+08:00","publisher": {
+        },"genre": "posts","keywords": "AI","wordcount":  4927 ,
+        "url": "http:\/\/localhost:1313\/openai\/","datePublished": "2025-09-15T21:38:47+08:00","dateModified": "2025-12-18T17:06:23+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -107,8 +107,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🤖 AI - 基于 OpenAI SDK、Vercel AI SDK 实现代码生成器</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-15">2025-09-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3697 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-15">2025-09-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4927 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -169,6 +169,14 @@
                 <li><a href="#数据库表初始化-1">数据库表初始化</a></li>
                 <li><a href="#数据库-action-1">数据库 action</a></li>
                 <li><a href="#保存到数据库-1">保存到数据库</a></li>
+              </ul>
+            </li>
+            <li><a href="#实现-rag-api-逻辑-1">实现 RAG API 逻辑</a></li>
+            <li><a href="#对接-rag-api-1">对接 RAG API</a>
+              <ul>
+                <li><a href="#补全-vercel-ai-sdk-的业务组件">补全 Vercel AI SDK 的业务组件</a></li>
+                <li><a href="#让-ai-基于业务组件和-api-进行数据对接和联调-1">让 AI 基于业务组件和 API 进行数据对接和联调</a></li>
+                <li><a href="#演示效果-2">演示效果</a></li>
               </ul>
             </li>
           </ul>
@@ -887,12 +895,262 @@
 <p>查看 private-component-codegen 数据库，此时在 vercel_ai_embeddings 表中已经能看到我们插入的内容。</p>
 <div align="center">
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_73.png" alt="" width="100%" />
+</div>
+<h4 id="实现-rag-api-逻辑-1">实现 RAG API 逻辑</h4>
+<p>修改 lib/db/vercelai/selector.ts。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="s2">&#34;use server&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">sql</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;drizzle-orm&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">db</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/lib/db&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">vercelAiEmbeddings</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./schema&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">SimilaritySearchResult</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">content</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">similarity</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 搜索语义相似的内容
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param embedding - 查询向量
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param threshold - 相似度阈值 (0-1 之间)，默认 0.7
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param limit - 返回结果的最大数量，默认 5
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns 按相似度降序排列的结果
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">async</span> <span class="kd">function</span> <span class="nx">similaritySearch</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">embedding</span>: <span class="kt">number</span><span class="p">[],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">threshold</span>: <span class="kt">number</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">limit</span>: <span class="kt">number</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">SimilaritySearchResult</span><span class="err">[]</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 验证参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">embedding</span> <span class="o">||</span> <span class="nx">embedding</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&#34;查询向量不能为空&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">threshold</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">threshold</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&#34;相似度阈值必须在 0 到 1 之间&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">limit</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&#34;返回数量必须大于 0&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 将数组转换为 PostgreSQL 向量格式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">vectorArray</span> <span class="o">=</span> <span class="sb">`array[</span><span class="si">${</span><span class="nx">embedding</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&#34;,&#34;</span><span class="p">)</span><span class="si">}</span><span class="sb">]::vector`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 使用 pgvector 的 &lt;=&gt; 操作符计算余弦距离
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 余弦距离 = 1 - 余弦相似度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 因此：余弦相似度 = 1 - 余弦距离
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">results</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">select</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">content</span>: <span class="kt">vercelAiEmbeddings.content</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">similarity</span>: <span class="kt">sql</span><span class="p">&lt;</span><span class="nt">number</span><span class="p">&gt;</span><span class="sb">`1 - (</span><span class="si">${</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">vercelAiEmbeddings</span><span class="p">.</span><span class="nx">embedding</span>
+</span></span><span class="line"><span class="cl">        <span class="si">}</span><span class="sb"> &lt;=&gt; </span><span class="si">${</span><span class="nx">sql</span><span class="p">.</span><span class="nx">raw</span><span class="p">(</span><span class="nx">vectorArray</span><span class="p">)</span><span class="si">}</span><span class="sb">)`</span><span class="p">.</span><span class="kr">as</span><span class="p">(</span><span class="s2">&#34;similarity&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">vercelAiEmbeddings</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">where</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">sql</span><span class="sb">`1 - (</span><span class="si">${</span><span class="nx">vercelAiEmbeddings</span><span class="p">.</span><span class="nx">embedding</span><span class="si">}</span><span class="sb"> &lt;=&gt; </span><span class="si">${</span><span class="nx">sql</span><span class="p">.</span><span class="nx">raw</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">vectorArray</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span><span class="si">}</span><span class="sb">) &gt;= </span><span class="si">${</span><span class="nx">threshold</span><span class="si">}</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">orderBy</span><span class="p">(</span><span class="nx">sql</span><span class="sb">`similarity DESC`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">limit</span><span class="p">(</span><span class="nx">limit</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">results</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;向量相似度搜索时出错:&#34;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>复制 app/api/openai/route.ts、app/api/openai/types.ts 到 app/api/vercelai 下。</p>
+<blockquote>
+<p>让 cursor agent composer 基于以下 prompt 生成代码：</p></blockquote>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">请帮我把 @route.ts @types.ts 重构为使用 vercel ai sdk streamText 的代码</span></span></code></pre></div></div><p>生成的代码：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">NextRequest</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;next/server&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">streamText</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;ai&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createOpenAI</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@ai-sdk/openai&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">env</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/lib/env.mjs&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">retrieveRecall</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./embedding&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">getSystemPrompt</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@/lib/prompt&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">OpenAIRequest</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./types&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建配置了自定义 baseURL 的 OpenAI 客户端
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">openai</span> <span class="o">=</span> <span class="nx">createOpenAI</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">apiKey</span>: <span class="kt">env.AI_KEY</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">baseURL</span>: <span class="kt">env.AI_BASE_URL</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * POST 处理函数：处理流式 AI 对话请求
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">async</span> <span class="kd">function</span> <span class="nx">POST</span><span class="p">(</span><span class="nx">request</span>: <span class="kt">NextRequest</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 解析请求体
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">body</span>: <span class="kt">OpenAIRequest</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">request</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">messages</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">body</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">messages</span> <span class="o">||</span> <span class="o">!</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">messages</span><span class="p">)</span> <span class="o">||</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> <span class="nx">error</span><span class="o">:</span> <span class="s2">&#34;消息数组不能为空&#34;</span> <span class="p">}),</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">status</span>: <span class="kt">400</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;Content-Type&#34;</span><span class="o">:</span> <span class="s2">&#34;application/json&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取最后一条用户消息用于向量检索
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">lastMessage</span> <span class="o">=</span> <span class="nx">messages</span><span class="p">[</span><span class="nx">messages</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">lastUserMessageText</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 提取最后一条用户消息的文本内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">lastMessage</span><span class="p">.</span><span class="nx">role</span> <span class="o">===</span> <span class="s2">&#34;user&#34;</span> <span class="o">&amp;&amp;</span> <span class="nx">lastMessage</span><span class="p">.</span><span class="nx">content</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">lastMessage</span><span class="p">.</span><span class="nx">content</span> <span class="o">===</span> <span class="s2">&#34;string&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">lastUserMessageText</span> <span class="o">=</span> <span class="nx">lastMessage</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">lastMessage</span><span class="p">.</span><span class="nx">content</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 如果是数组类型（多模态），提取所有文本部分
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="nx">textParts</span> <span class="o">=</span> <span class="nx">lastMessage</span><span class="p">.</span><span class="nx">content</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">part</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">part</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s2">&#34;text&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">part</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">part</span> <span class="kr">as</span> <span class="p">{</span> <span class="nx">text</span>: <span class="kt">string</span> <span class="p">}).</span><span class="nx">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&#34; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">textParts</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">lastUserMessageText</span> <span class="o">=</span> <span class="nx">textParts</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 如果最后一条消息是用户消息，进行向量检索
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">let</span> <span class="nx">referenceContent</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">lastUserMessageText</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">searchResults</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">retrieveRecall</span><span class="p">(</span><span class="nx">lastUserMessageText</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">searchResults</span> <span class="o">&amp;&amp;</span> <span class="nx">searchResults</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// 将检索到的相关内容合并
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="nx">referenceContent</span> <span class="o">=</span> <span class="nx">searchResults</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&#34;\n\n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;向量检索失败:&#34;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 检索失败不影响主流程，继续执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 构建系统提示词，整合相关内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">systemPrompt</span> <span class="o">=</span> <span class="nx">getSystemPrompt</span><span class="p">(</span><span class="nx">referenceContent</span> <span class="o">||</span> <span class="kc">undefined</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 构建完整的消息列表，包含系统提示词
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">messagesWithSystem</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">role</span><span class="o">:</span> <span class="s2">&#34;system&#34;</span> <span class="kr">as</span> <span class="kr">const</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">content</span>: <span class="kt">systemPrompt</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">...</span><span class="nx">messages</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 使用 streamText 创建流式响应
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">streamText</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">model</span>: <span class="kt">openai</span><span class="p">(</span><span class="nx">env</span><span class="p">.</span><span class="nx">MODEL</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">messages</span>: <span class="kt">messagesWithSystem</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">temperature</span>: <span class="kt">0.7</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 如果存在 RAG 文档，通过响应头传递
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">headers</span>: <span class="kt">Record</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">,</span> <span class="na">string</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;Content-Type&#34;</span><span class="o">:</span> <span class="s2">&#34;text/event-stream&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;Cache-Control&#34;</span><span class="o">:</span> <span class="s2">&#34;no-cache&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">Connection</span><span class="o">:</span> <span class="s2">&#34;keep-alive&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;X-Accel-Buffering&#34;</span><span class="o">:</span> <span class="s2">&#34;no&#34;</span><span class="p">,</span> <span class="c1">// 禁用 Nginx 缓冲
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">referenceContent</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 将 RAG 文档内容通过响应头传递（使用 base64 编码避免特殊字符问题）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">headers</span><span class="p">[</span><span class="s2">&#34;X-RAG-Content&#34;</span><span class="p">]</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Buffer</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">referenceContent</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="s2">&#34;base64&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 返回标准的 AI SDK 流式响应
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nx">result</span><span class="p">.</span><span class="nx">toDataStreamResponse</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">headers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;API 路由错误:&#34;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">error</span><span class="o">:</span> <span class="s2">&#34;处理请求时发生错误&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">message</span>: <span class="kt">error</span> <span class="k">instanceof</span> <span class="nb">Error</span> <span class="o">?</span> <span class="nx">error.message</span> : <span class="kt">String</span><span class="p">(</span><span class="nx">error</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">status</span>: <span class="kt">500</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;Content-Type&#34;</span><span class="o">:</span> <span class="s2">&#34;application/json&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><h4 id="对接-rag-api-1">对接 RAG API</h4>
+<h5 id="补全-vercel-ai-sdk-的业务组件">补全 Vercel AI SDK 的业务组件</h5>
+<p>打开 app/vercel-ai/index.tsx 文件。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="s2">&#34;use client&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ChatMessages</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;../components/ChatMessages&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Home</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">ChatMessages</span>
+</span></span><span class="line"><span class="cl">      <span class="na">messages</span><span class="o">=</span><span class="p">{[]}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">input</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">handleInputChange</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{}}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">onSubmit</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{}}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">isLoading</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">messageImgUrl</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">setMessagesImgUrl</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{}}</span>
+</span></span><span class="line"><span class="cl">      <span class="na">onRetry</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{}}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">Home</span><span class="p">;</span></span></span></code></pre></div></div><h5 id="让-ai-基于业务组件和-api-进行数据对接和联调-1">让 AI 基于业务组件和 API 进行数据对接和联调</h5>
+<p>打开 app/vercel-ai/index.tsx 文件。</p>
+<blockquote>
+<p>让 cursor agent composer 基于以下 prompt 生成代码：</p></blockquote>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">请用 useChat 对接页面</span></span></code></pre></div></div><div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_74.png" alt="" width="100%" />
+</div>
+<h5 id="演示效果-2">演示效果</h5>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_75.png" alt="" width="100%" />
+</div>
+<p>查看 RAG Docs：</p>
+<div align="center">
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_76.png" alt="" width="100%" />
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2025-12-17&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/c326b0a48125383fff5e5002d4a830e9ade50645" target="_blank" title="commit by OweQian(1510106069@qq.com) c326b0a48125383fff5e5002d4a830e9ade50645: feat: update ai">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>c326b0a</a></span>
+                <span>更新于 2025-12-18&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/1016b36a10664289d28c32034ee0b33cd76c718a" target="_blank" title="commit by OweQian(1510106069@qq.com) 1016b36a10664289d28c32034ee0b33cd76c718a: feat: update ai">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>1016b36</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
