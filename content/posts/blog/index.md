@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2025-12-13T13:40:47+08:00
+date: 2025-12-19T15:40:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,42 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-12
+
+#### 2025-12-19
+
+回忆你的童年经历，分析维他命 ABCDE，看你拥有了哪些，缺失了哪些？
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_10.png" alt="" width="80%" />
+
+#### 2025-12-18
+
+😓 金城武，梁朝伟...都能被甩？？？
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_09.jpg" alt="" width="80%" />
+
+#### 2025-12-17
+
+😭 哭了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_08.jpg" alt="" width="80%" />
+
+#### 2025-12-16
+
+封神封神。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_07.jpg" alt="" width="80%" />
+
+#### 2025-12-15
+
+"你特么以为我好欺负么？看我怎么弄死你"。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_06.jpg" alt="" width="80%" />
+
+#### 2025-12-14
+
+给我看沉默了...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_05.jpg" alt="" width="80%" />
 
 #### 2025-12-13
 
