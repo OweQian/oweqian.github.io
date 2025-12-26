@@ -581,9 +581,9 @@ export default Home;
 
 > 让 cursor agent composer 基于以下 prompt 生成代码：
 
-```
+````
 对接 OpenAI API 数据
-```
+    ```
 
 <div align="center">
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_67.png" alt="" width="100%" />
@@ -632,7 +632,7 @@ export const vercelAiEmbeddings = pgTable(
     ),
   })
 );
-```
+````
 
 ##### 数据库 action
 

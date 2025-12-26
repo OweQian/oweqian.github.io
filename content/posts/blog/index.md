@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2025-12-19T15:40:47+08:00
+date: 2025-12-26T16:10:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,40 @@ categories: ["碎碎念"]
 ## 2025
 
 ### 2025-12
+
+#### 2025-12-25
+
+Merry Christmas
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_15.jpg" alt="" width="80%" />
+
+#### 2025-12-24
+
+挺好。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_14.jpg" alt="" width="80%" />
+
+#### 2025-12-23
+
+😁《莲花楼》还不错啊。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_13.jpg" alt="" width="80%" />
+
+#### 2025-12-22
+
+-\_-|| 重温《红楼梦》，跟小时候一样，还是最讨厌袭人和薛宝钗。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_12.jpg" alt="" width="80%" />
+
+#### 2025-12-21
+
+哈哈哈。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_11.jpg" alt="" width="80%" />
+
+#### 2025-12-20
+
+写简历...写 emo 了...
 
 #### 2025-12-19
 
