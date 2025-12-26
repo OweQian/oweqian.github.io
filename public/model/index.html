@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>🤖 AI - 怎么理解大模型 - OweQian 的精神角落</title><meta name="Description" content="OweQian&#39;s blog"><meta property="og:url" content="http://localhost:1313/model/">
+  <meta property="og:site_name" content="OweQian 的精神角落">
+  <meta property="og:title" content="🤖 AI - 怎么理解大模型">
+  <meta property="og:description" content="作为大模型的使用者，不需要了解太多内部实现细节。可以将模型当做黑盒，理解其输入和输出。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-23T15:01:49+08:00">
+    <meta property="article:modified_time" content="2025-08-23T15:01:49+08:00">
+    <meta property="article:tag" content="AI">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="🤖 AI - 怎么理解大模型">
+  <meta name="twitter:description" content="作为大模型的使用者，不需要了解太多内部实现细节。可以将模型当做黑盒，理解其输入和输出。">
+      <meta name="twitter:site" content="@xxxx">
+<meta name="application-name" content="OweQian 的精神角落">
+<meta name="apple-mobile-web-app-title" content="OweQian 的精神角落"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/img.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/model/" /><link rel="prev" href="http://localhost:1313/pygame/" /><link rel="next" href="http://localhost:1313/ai/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "🤖 AI - 怎么理解大模型",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/model\/"
+        },"genre": "posts","keywords": "AI","wordcount":  1487 ,
+        "url": "http:\/\/localhost:1313\/model\/","datePublished": "2025-08-23T15:01:49+08:00","dateModified": "2025-08-23T15:01:49+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "OweQian 的精神角落"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="OweQian 的精神角落">OweQian 的精神角落</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🤖 AI - 怎么理解大模型</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-08-23">2025-08-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1487 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#chatcompletions">chat/completions</a></li>
+        <li><a href="#chatcompletions-中的-completions">chat/completions 中的 completions</a></li>
+        <li><a href="#符号token补全">符号（token）补全</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>作为大模型的使用者，不需要了解太多内部实现细节。可以将模型当做黑盒，理解其输入和输出。</p>
+<h3 id="chatcompletions">chat/completions</h3>
+<p>以 OpenAP 的 API 为例：</p>
+<p><a href="https://api.openai.com/v1/chat/completions" target="_blank" rel="noopener noreffer ">https://api.openai.com/v1/chat/completions</a></p>
+<p>接口名：chat/completions</p>
+<p>chat：聊天是一个会话，有上下文。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_01.png" alt="" width="100%" />
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl https://api.openai.com/v1/chat/completions <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="nv">$OPENAI_API_KEY</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;model&#34;: &#34;gpt-5&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;messages&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s1">      {
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;role&#34;: &#34;developer&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;content&#34;: &#34;You are a helpful assistant.&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">      },
+</span></span></span><span class="line"><span class="cl"><span class="s1">      {
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;role&#34;: &#34;user&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;content&#34;: &#34;Hello!&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">      }
+</span></span></span><span class="line"><span class="cl"><span class="s1">    ]
+</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span></span></span></code></pre></div></div><p>有哪些 role：</p>
+<ul>
+<li>Developer</li>
+<li>System</li>
+<li>User</li>
+<li>Assistant</li>
+<li>Tool</li>
+<li>Function</li>
+</ul>
+<hr>
+<p>🤔 Q：为什么模型能记住我们之前聊天的内容？</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl https://api.openai.com/v1/chat/completions <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="nv">$OPENAI_API_KEY</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;model&#34;: &#34;gpt-5&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;messages&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s1">      {
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;role&#34;: &#34;system&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;content&#34;: &#34;你是一个友好的个人助理，可以回答我生活相关的问题&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">      },
+</span></span></span><span class="line"><span class="cl"><span class="s1">      {
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;role&#34;: &#34;user&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;content&#34;: &#34;今天天气怎么样？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">      },
+</span></span></span><span class="line"><span class="cl"><span class="s1">      {
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;role&#34;: &#34;assistant&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;content&#34;: &#34;今天天气很暖和&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">      },
+</span></span></span><span class="line"><span class="cl"><span class="s1">      {
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;role&#34;: &#34;user&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;content&#34;: &#34;我应该带伞么？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">      }
+</span></span></span><span class="line"><span class="cl"><span class="s1">    ]
+</span></span></span><span class="line"><span class="cl"><span class="s1">}&#39;</span></span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_02.png" alt="" width="100%" />
+<h3 id="chatcompletions-中的-completions">chat/completions 中的 completions</h3>
+<p>我们输入的 messages 在模型内部会怎么处理呢？</p>
+<p>文本会转换成模型可理解的符号（文本 -&gt; token -&gt; token IDs），再对符号进行补全。</p>
+<p><a href="https://platform.openai.com/tokenizer" target="_blank" rel="noopener noreffer ">openAI tokenizer</a></p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_03.png" alt="" width="100%" />
+<hr>
+<p>token 不等于字符或单词。</p>
+<ul>
+<li>不是按单词拆分：happy unhappy</li>
+<li>不同上下文中拆分不一样：This is my backpack : backpack</li>
+</ul>
+<hr>
+<p>不同语言，token 表达效率不同。</p>
+<ul>
+<li>
+<p>英文：The weather is good today</p>
+</li>
+<li>
+<p>中文：今天天气真好</p>
+</li>
+<li>
+<p>日文：今日の天気はいいです</p>
+</li>
+<li>
+<p>西班牙语：El tiempo está bueno hoy</p>
+</li>
+</ul>
+<p>我们可以使用用更少的 token 来表达同样意思的语言。</p>
+<hr>
+<p>不同模型使用的分词器也不同。</p>
+<ul>
+<li><a href="https://dashscope.console.aliyun.com/tokenizer" target="_blank" rel="noopener noreffer ">通义千问分词器</a></li>
+<li><a href="https://platform.openai.com/tokenizer" target="_blank" rel="noopener noreffer ">openAI 分词器</a></li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">流浪地球计划，共分为5步：
+</span></span><span class="line"><span class="cl">第一步，用地球发动机使地球停止转动，将发动机喷口固定在地球运行的反方向；
+</span></span><span class="line"><span class="cl">第二步，全功率开动行星发动机，使地球加速到逃逸速度，飞出太阳系；
+</span></span><span class="line"><span class="cl">第三步，在外太空继续加速，飞向比邻星；
+</span></span><span class="line"><span class="cl">第四步，在中途使地球重新自转，调转发动机方向，开始减速；
+</span></span><span class="line"><span class="cl">第五步，地球泊入比邻星轨道，成为这颗恒星的卫星。</span></span></code></pre></div></div><hr>
+<p>以 OpenAI GPT 为例，一般规律：</p>
+<ul>
+<li>1 个 token 约等于 4 个英文字符，大概 3/4 个单词。</li>
+<li>1 个 token 接近 0.7 个中文汉字</li>
+</ul>
+<p>对于 Claude3.5-sonnet-200k ，200k 的 token：</p>
+<ul>
+<li>200k token = 150k 单词</li>
+<li>标准短篇小说 5000 单词</li>
+<li>上下文极限情况可以容纳 30 篇短篇小说</li>
+</ul>
+<h3 id="符号token补全">符号（token）补全</h3>
+<p>参数 Temperature、Top_p、Frequency Penalty、presence_penalty 如何影响补全效果？</p>
+<p>例如：&ldquo;我喜欢吃&rdquo; -&gt; 预测下一个 token</p>
+<p>可能的 token 及其概率：</p>
+<ul>
+<li>&ldquo;饭&rdquo; (0.3)</li>
+<li>&ldquo;菜&rdquo; (0.2)</li>
+<li>&ldquo;水果&rdquo; (0.15)</li>
+<li>&ldquo;零食&rdquo; (0.1)</li>
+<li>&hellip;其他选项</li>
+</ul>
+<hr>
+<p>Temperature</p>
+<p>0 ~ 2，调整概率分布的差异。</p>
+<ul>
+<li>低温：强化高概率选项，减少选择的多样性</li>
+<li>高温：使概率分布更平缓，增加选择的多样性</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">Temperature</span> <span class="o">=</span> 0.2时：
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;饭&#34;</span> <span class="o">(</span>0.8<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;菜&#34;</span> <span class="o">(</span>0.1<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;水果&#34;</span> <span class="o">(</span>0.05<span class="o">)</span>
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">Temperature</span> <span class="o">=</span> 1.5时：
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;饭&#34;</span> <span class="o">(</span>0.3<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;菜&#34;</span> <span class="o">(</span>0.25<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;水果&#34;</span> <span class="o">(</span>0.23<span class="o">)</span>
+</span></span><span class="line"><span class="cl">...</span></span></code></pre></div></div><hr>
+<p>Top_p 核采样</p>
+<p>设定累计概率阈值，从高概率到低概率依次选择 token，直到总和达到设定值。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">Top_p</span> <span class="o">=</span> 0.75时：
+</span></span><span class="line"><span class="cl">选择：<span class="s2">&#34;饭&#34;</span><span class="o">(</span>0.3<span class="o">)</span> + <span class="s2">&#34;菜&#34;</span><span class="o">(</span>0.2<span class="o">)</span> + <span class="s2">&#34;水果&#34;</span><span class="o">(</span>0.15<span class="o">)</span> + <span class="s2">&#34;零食&#34;</span><span class="o">(</span>0.1<span class="o">)</span> <span class="o">=</span> 0.75
+</span></span><span class="line"><span class="cl">其他选项被排除</span></span></code></pre></div></div><hr>
+<p>Frequency Penalty 概率惩罚</p>
+<p>-2 ~ 2，降低已出现的 token 再次出现的概率，迫使模型选择新的表达方式。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">如果<span class="s2">&#34;喜欢&#34;</span>已经出现过：
+</span></span><span class="line"><span class="cl">原始概率：<span class="s2">&#34;喜欢&#34;</span><span class="o">(</span>0.3<span class="o">)</span> → 惩罚后：<span class="o">(</span>0.1<span class="o">)</span>
+</span></span><span class="line"><span class="cl">我喜欢吃饭，我也爱吃烧烤</span></span></code></pre></div></div><hr>
+<p>Presence Penalty 存在惩罚</p>
+<p>-2 ~ 2，降低已出现主题的相关 token 的概率。</p>
+<p>例如，如果已经讨论过 &ldquo;食物&rdquo; 的主题，相关 token 概率都会被降低，促使模型转向新主题。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">我喜欢吃饭， -&gt; 我也喜欢吃烧烤
+</span></span><span class="line"><span class="cl">0.7：我喜欢吃放，周末常去夜市撸串 （引入周末和夜市场景）
+</span></span><span class="line"><span class="cl">1：我喜欢吃放，假期约上朋友去大排档，美食总能让生活充满乐趣（引入新场景、人物、情感）
+</span></span><span class="line"><span class="cl">-1：我喜欢吃饭吃面吃烧烤</span></span></code></pre></div></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-08-23</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/model/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/model/" data-title="🤖 AI - 怎么理解大模型" data-via="xxxx" data-hashtags="AI"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/model/" data-hashtag="AI"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/model/" data-title="🤖 AI - 怎么理解大模型"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/model/" data-title="🤖 AI - 怎么理解大模型"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/model/" data-title="🤖 AI - 怎么理解大模型"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ai/">AI</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/pygame/" class="prev" rel="prev" title="💻 Python - 基于 Pygame 的外星人入侵游戏"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>💻 Python - 基于 Pygame 的外星人入侵游戏</a>
+            <a href="/ai/" class="next" rel="next" title="🤖 AI - 如何让 AI 生成业务组件代码">🤖 AI - 如何让 AI 生成业务组件代码<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.144.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/OweQian" target="_blank">OweQian 的精神角落</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js"></script></body>
+</html>
