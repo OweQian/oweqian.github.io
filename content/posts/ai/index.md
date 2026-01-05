@@ -641,11 +641,11 @@ R - Retrieval(检索)、A - Augmented(增强)、G - Generation(生成)。
 
 ##### 方案对比
 
-| 方案 | 优点 | 缺点 | 适用场景 |
-| 效果展示效果展示效果展示-- | 效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示- | 效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示-- | 效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示-- |
-| 预训练 | - 效果相对最好<br>- 模型能完全理解私有组件库 | - 成本极高<br>- 技术门槛高<br>- 需要海量训练数据<br>- 维护成本高 | - 大型科技公司有充足资源<br>- 需要构建完全定制化的模型<br>- 有海量专有数据需要学习<br>- 对模型理解深度要求极高 |
-| Fine-tuning | - 成本相对较低<br>- 只需少量标注数据<br>- 可以快速适应特定场景 | - 效果不如预训练<br>- 可能出现灾难性遗忘<br>- 需要一定的算力和专业知识 | - 有特定垂直领域的应用需求<br>- 有一定的标注数据集<br>- 需要模型具备特定的能力<br>- 预算和资源相对充足 |
-| RAG | - 实现简单，成本最低<br>- 无需训练，可即时更新知识<br>- 可控性强，易于维护<br>- 可以保证知识的准确性 | - 受限于上下文窗口大小<br>- 检索质量依赖于向量化效果<br>- 响应速度可能较慢 | - 快速落地 AI 应用<br>- 需要及时更新知识库<br>- 对知识准确性要求高<br>- 资源有限但需要快速实现 |
+| 方案        | 优点                                                                                                 | 缺点                                                                       | 适用场景                                                                                                       |
+| ----------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| 预训练      | - 效果相对最好<br>- 模型能完全理解私有组件库                                                         | - 成本极高<br>- 技术门槛高<br>- 需要海量训练数据<br>- 维护成本高           | - 大型科技公司有充足资源<br>- 需要构建完全定制化的模型<br>- 有海量专有数据需要学习<br>- 对模型理解深度要求极高 |
+| Fine-tuning | - 成本相对较低<br>- 只需少量标注数据<br>- 可以快速适应特定场景                                       | - 效果不如预训练<br>- 可能出现灾难性遗忘<br>- 需要一定的算力和专业知识     | - 有特定垂直领域的应用需求<br>- 有一定的标注数据集<br>- 需要模型具备特定的能力<br>- 预算和资源相对充足         |
+| RAG         | - 实现简单，成本最低<br>- 无需训练，可即时更新知识<br>- 可控性强，易于维护<br>- 可以保证知识的准确性 | - 受限于上下文窗口大小<br>- 检索质量依赖于向量化效果<br>- 响应速度可能较慢 | - 快速落地 AI 应用<br>- 需要及时更新知识库<br>- 对知识准确性要求高<br>- 资源有限但需要快速实现                 |
 
 ##### 选择路径
 
@@ -1044,7 +1044,7 @@ OpenAI SDK 是 OpenAI 官方提供的 AI SDK：
 - 支持所有 OpenAI 系列的 LLM
 - 支持三方中转 api（302、openrouter 等）
 
-> OpenAI 更多资料详见官方文档：https://platform.openai.com/docs/overview
+> OpenAI SDK 更多资料详见官方文档：https://platform.openai.com/docs/overview
 
 Vercel AI SDK 是一个专注于前端 AI 应用开发的工具包，特别适合构建基于 React、Next.js、Vue 等的全栈 AI 应用。
 
@@ -1055,10 +1055,10 @@ Vercel AI SDK 是一个专注于前端 AI 应用开发的工具包，特别适�
 
 方案对比
 
-| AI 框架 | 类比 UI 框架 | 类比说明 |
-| 效果展示效果展示效果展示效果展示- | 效果展示效果展示效果展示效果展示 | 效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示效果展示- |
-| OpenAI SDK | Tailwind CSS | - 基础的工具集（原子化的样式）<br>- 灵活性高，可控性高，但需要自己组装 |
-| Vercel AI SDK | Shadcn UI | - 在基础工具集的基础上，拓展了一些使用场景，比如支持多模型、hooks 机制<br>- 相比较 OpenAI SDK，拓展了更多的使用场景，学习成本、灵活性、可控性更高 |
+| AI 框架       | 类比 UI 框架 | 类比说明                                                                                                                                          |
+| ------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| OpenAI SDK    | Tailwind CSS | - 基础的工具集（原子化的样式）<br>- 灵活性高，可控性高，但需要自己组装                                                                            |
+| Vercel AI SDK | Shadcn UI    | - 在基础工具集的基础上，拓展了一些使用场景，比如支持多模型、hooks 机制<br>- 相比较 OpenAI SDK，拓展了更多的使用场景，学习成本、灵活性、可控性更高 |
 
 ##### 项目架构
 
@@ -1179,15 +1179,54 @@ pnpm dev
 同时需要创建一个使用 HNSW 算法的向量索引，用于余弦相似度搜索。
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_57.png" alt="" width="100%" />
+```ts
+import { nanoid } from "nanoid";
+import { index, pgTable, text, varchar, vector } from "drizzle-orm/pg-core";
+
+/**
+ * OpenAI embeddings 表
+ */
+export const openAiEmbeddings = pgTable(
+  "open_ai_embeddings",
+  {
+    /**
+     * 唯一标识
+     */
+    id: varchar("id", { length: 191 })
+      .primaryKey()
+      .$defaultFn(() => nanoid()),
+    /**
+     * 内容
+     */
+    content: text("content").notNull(),
+    /**
+     * 嵌入向量
+     */
+    embedding: vector("embedding", { dimensions: 1536 }).notNull(),
+  },
+  (table) => ({
+    /**
+     * 索引
+     */
+    openAiEmbeddingIndex: index("open_ai_embedding_index").using(
+      /**
+       * 索引方法
+       */
+      "hnsw",
+      /**
+       * 索引操作
+       */
+      table.embedding.op("vector_cosine_ops")
+    ),
+  })
+);
+```
 
 执行数据库同步命令 - 生成迁移文件：
 
 ```
 pnpm db:generate
 ```
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_58.png" alt="" width="100%" />
 
 执行数据库同步命令 - 执行迁移
 
@@ -1198,8 +1237,6 @@ pnpm db:migrate
 > 注意：如果遇到以下错误：PostgresError:type "vector" does not exist
 >
 > 请在 supabase 的 sql 编辑器中执行以下命令：CREATE EXTENSION IF NOT EXISTS vector;
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_59.png" alt="" width="100%" />
 
 查看 private-component-codegen 数据库，存在一张新表 open_ai_embeddings。
 
@@ -1215,7 +1252,34 @@ pnpm db:migrate
 创建一个 server action function，能够接收外部的数据源，保存到 db 中，function 入参是：embeddings: Array<{ embedding: number[]; content: string }>，生成的代码写到 action.ts 中。
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_61.png" alt="" width="100%" />
+```ts
+"use server";
+
+import { db } from "..";
+import { openAiEmbeddings as embeddingsTable } from "./schema";
+
+export const createResource = async (
+  embeddings: Array<{ embedding: number[]; content: string }>
+) => {
+  try {
+    /**
+     * 插入嵌入向量
+     */
+    await db.insert(embeddingsTable).values(
+      embeddings.map((embedding) => ({
+        ...embedding,
+      }))
+    );
+
+    return "Resource successfully created and embedded.";
+  } catch (error) {
+    console.log("error", error);
+    return error instanceof Error && error.message.length > 0
+      ? error.message
+      : "Error, please try again.";
+  }
+};
+```
 
 3、保存到数据库
 
@@ -1227,42 +1291,90 @@ pnpm db:migrate
 使用 OpenAI SDK 创建一个函数，将输入的文本字符串转换为向量嵌入（embeddings）。支持将文本按特定分隔符分块处理，分隔符的默认值为 '效果展示效果展示-split line效果展示效果展示-'，每个文本块都生成对应的 embedding 向量，并返回包含原文本和向量的结果数组。
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_62.png" alt="" width="100%" />
+```ts
+import { env } from "@/lib/env.mjs";
+import OpenAI from "openai";
+import { HttpsProxyAgent } from "https-proxy-agent";
+
+const embeddingAI = new OpenAI({
+  apiKey: env.AI_KEY,
+  baseURL: env.AI_BASE_URL,
+  /**
+   * 代理配置
+   */
+  ...(env.HTTP_AGENT ? { httpAgent: new HttpsProxyAgent(env.HTTP_AGENT) } : {}),
+});
+
+const generateChunks = (input: string): string[] => {
+  return input.split("-------split line-------");
+};
+
+/**
+ * 生成嵌入向量
+ * @param value 输入文本
+ * @returns 嵌入向量
+ */
+export const generateEmbeddings = async (
+  value: string
+): Promise<Array<{ embedding: number[]; content: string }>> => {
+  const chunks = generateChunks(value);
+
+  const embeddings = await Promise.all(
+    chunks.map(async (chunk) => {
+      /**
+       * 生成嵌入向量
+       */
+      const response = await embeddingAI.embeddings.create({
+        model: env.EMBEDDING,
+        input: chunk,
+      });
+      return {
+        content: chunk,
+        embedding: response.data[0].embedding,
+      };
+    })
+  );
+
+  return embeddings;
+};
+```
 
 新建 app/api/openai/embedDocs.ts 文件，将私有组件知识库文档嵌入到数据库中。
 
 ```ts
-import { saveEmbeddings } from "@/lib/db/openai/actions";
-import { generateEmbeddings } from "./embedding";
 import fs from "fs";
-import path from "path";
+import { env } from "@/lib/env.mjs";
+import { createResource } from "@/lib/db/openai/actions";
+import { generateEmbeddings } from "./embedding";
+
+console.log("env.EMBEDDING", env.EMBEDDING);
 
 /**
- * 将文档嵌入到数据库中
+ * 入库
  */
-export async function embedDocs() {
-  // 读取文档
-  const docs = fs.readFileSync(
-    path.join(process.cwd(), "ai-docs", "basic-components.txt"),
-    "utf-8"
-  );
-  // 生成 embeddings
+export const generateEmbeddingsFromDocs = async () => {
+  console.log("start reading docs");
+  /**
+   * 读取文档
+   */
+  const docs = fs.readFileSync("./ai-docs/basic-components.txt", "utf8");
+
+  console.log("start generating embeddings");
+  /**
+   * 生成嵌入向量
+   */
   const embeddings = await generateEmbeddings(docs);
 
-  // 保存 embeddings
-  await saveEmbeddings(
-    embeddings.map(({ content, embedding }) => ({
-      content,
-      embedding,
-    }))
-  );
+  console.log("start creating resource");
+  /**
+   * 创建资源，插入到数据库表
+   */
+  await createResource(embeddings);
 
-  console.log(`Embeddings saved: ${embeddings.length}`);
+  console.log("success~~~");
+};
 
-  return embeddings;
-}
-
-embedDocs();
+generateEmbeddingsFromDocs();
 ```
 
 添加 scripts 命令：
@@ -1303,25 +1415,56 @@ pnpm openai:embedDocs
 - 使用 SQL ORM 实现数据库查询
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_65.png" alt="" width="100%" />
+```ts
+"use server";
+
+import { cosineDistance } from "drizzle-orm/sql";
+import { openAiEmbeddings } from "./schema";
+import { db } from "@/lib/db";
+import { sql, gt, desc } from "drizzle-orm";
+
+export const findSimilarContent = async (userQueryEmbedded: number[]) => {
+  /**
+   * 计算相似度
+   */
+  const similarity = sql<number>`1 - (${cosineDistance(
+    openAiEmbeddings.embedding,
+    userQueryEmbedded
+  )})`;
+  /**
+   * 查找相关内容
+   */
+  const similarGuides = await db
+    .select({
+      content: openAiEmbeddings.content,
+      similarity,
+    })
+    .from(openAiEmbeddings)
+    .where(gt(similarity, 0.5))
+    .orderBy((t) => desc(t.similarity))
+    .limit(4);
+  return similarGuides;
+};
+```
 
 2、针对单条 message 的 Embedding 函数
 
 在 app/api/openai/embedding.ts 中添加函数：
 
 ```ts
-// 生成单个 embedding
-export async function generateSingleEmbedding(text: string): Promise<number[]> {
-  const openai = new OpenAI({
-    apiKey: env.AI_KEY,
-    baseURL: env.AI_BASE_URL,
-  });
-  const embedding = await openai.embeddings.create({
+/**
+ * 生成单个嵌入向量
+ * @param value 输入文本
+ * @returns 嵌入向量
+ */
+export const generateEmbedding = async (value: string): Promise<number[]> => {
+  const input = value.replaceAll("\\n", " ");
+  const response = await embeddingAI.embeddings.create({
     model: env.EMBEDDING,
-    input: text,
+    input,
   });
-  return embedding.data[0].embedding;
-}
+  return response.data[0].embedding;
+};
 ```
 
 3、检索向量数据库并召回函数
@@ -1329,18 +1472,17 @@ export async function generateSingleEmbedding(text: string): Promise<number[]> {
 在 app/api/openai/embedding.ts 中添加函数：
 
 ```ts
-// 检索召回
-export async function retrieveRecall(
-  text: string,
-  threshold: number = 0.7,
-  limit: number = 5
-): Promise<SimilaritySearchResult[]> {
-  // 生成单个 embedding
-  const embedding = await generateSingleEmbedding(text);
-  // 相似度搜索
-  const results = await similaritySearch(embedding, threshold, limit);
-  return results;
-}
+/**
+ * 查找相关内容
+ * @param userQuery 用户查询
+ * @returns 相关内容
+ */
+export const findRelevantContent = async (
+  userQuery: string
+): Promise<{ content: string; similarity: number }[]> => {
+  const userQueryEmbedded = await generateEmbedding(userQuery);
+  return findSimilarContent(userQueryEmbedded);
+};
 ```
 
 4、新建 RAG API 路由
@@ -1348,10 +1490,10 @@ export async function retrieveRecall(
 新建 app/api/openai/types.ts 文件，定义 RAG API 的请求体。
 
 ```ts
-import { ChatCompletionMessageParam } from "openai/resources/chat/completions.mjs";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 
 export type OpenAIRequest = {
-  message: ChatCompletionMessageParam[];
+  messages: ChatCompletionMessageParam[];
 };
 ```
 
@@ -1370,170 +1512,165 @@ export type OpenAIRequest = {
    - 在流中同时返回 AI 响应片段和相关内容
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_66.png" alt="" width="100%" />
-
-生成的代码：
-
 ```ts
-import { NextRequest } from "next/server";
-import OpenAI from "openai";
-import { env } from "@/lib/env.mjs";
-import { retrieveRecall } from "./embedding";
-import { getSystemPrompt } from "@/lib/prompt";
-import { OpenAIRequest } from "./types";
+/**
+ * OpenAI API 路由处理文件
+ *
+ * 该文件实现了基于 RAG（检索增强生成）的聊天 API 端点，主要功能包括：
+ * 1. 接收聊天消息请求
+ * 2. 通过向量检索查找相关内容（RAG）
+ * 3. 调用 OpenAI API 生成流式响应
+ * 4. 以 Server-Sent Events (SSE) 格式返回结果
+ */
 
-// 初始化 OpenAI 客户端
-const openai = new OpenAI({
-  apiKey: env.AI_KEY,
-  baseURL: env.AI_BASE_URL,
-});
+import OpenAI from "openai";
+import { HttpsProxyAgent } from "https-proxy-agent";
+import { OpenAIRequest } from "./types";
+import { ChatModel } from "openai/resources/index.mjs";
+import { findRelevantContent } from "./embedding";
+import { getSystemPrompt } from "@/lib/prompt";
+import { env } from "@/lib/env.mjs";
 
 /**
- * POST 处理函数：处理流式 AI 对话请求
+ * 创建 SSE (Server-Sent Events) 格式的数据块
+ *
+ * @param relevantContent - 检索到的相关内容数组，包含内容和相似度分数
+ * @param aiResponse - AI 响应的文本内容（通常是流式响应中的增量内容）
+ * @returns 编码后的 SSE 格式数据（UTF-8 字节数组）
  */
-export async function POST(request: NextRequest) {
+const createEnqueueContent = (
+  relevantContent: Array<{ content: string; similarity: number }>,
+  aiResponse: string
+) => {
+  const data = {
+    relevantContent: relevantContent || [],
+    aiResponse: aiResponse || "",
+  };
+
+  // 将数据编码为 SSE 格式：event: message\ndata: {...}\n\n
+  return new TextEncoder().encode(
+    `event: message\ndata: ${JSON.stringify(data)}\n\n`
+  );
+};
+
+/**
+ * POST 请求处理函数
+ *
+ * 处理聊天请求，执行以下步骤：
+ * 1. 解析请求体获取消息列表
+ * 2. 初始化 OpenAI 客户端（支持代理配置）
+ * 3. 提取最后一条消息内容用于 RAG 检索
+ * 4. 通过向量检索查找相关内容
+ * 5. 构建包含系统提示词的消息列表
+ * 6. 调用 OpenAI API 获取流式响应
+ * 7. 将响应转换为 SSE 流返回给客户端
+ *
+ * @param req - HTTP 请求对象
+ * @returns 包含 SSE 流的 Response 对象，或错误响应
+ */
+export async function POST(req: Request) {
+  const request: OpenAIRequest = await req.json();
+  const { messages } = request;
+
   try {
-    // 解析请求体
-    const body: OpenAIRequest = await request.json();
-    const { message } = body;
-
-    if (!message || !Array.isArray(message) || message.length === 0) {
-      return new Response(JSON.stringify({ error: "消息数组不能为空" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    // 获取最后一条用户消息用于向量检索
-    const lastMessage = message[message.length - 1];
-    let lastUserMessageText: string | null = null;
-
-    // 提取最后一条用户消息的文本内容
-    if (lastMessage.role === "user" && lastMessage.content) {
-      if (typeof lastMessage.content === "string") {
-        lastUserMessageText = lastMessage.content;
-      } else if (Array.isArray(lastMessage.content)) {
-        // 如果是数组类型（多模态），提取所有文本部分
-        const textParts = lastMessage.content
-          .filter((part) => part.type === "text")
-          .map((part) => (part as { text: string }).text)
-          .join(" ");
-        if (textParts) {
-          lastUserMessageText = textParts;
-        }
-      }
-    }
-
-    // 如果最后一条消息是用户消息，进行向量检索
-    let referenceContent = "";
-    if (lastUserMessageText) {
-      try {
-        const searchResults = await retrieveRecall(lastUserMessageText, 0.7, 5);
-        if (searchResults && searchResults.length > 0) {
-          // 将检索到的相关内容合并
-          referenceContent = searchResults
-            .map((result) => result.content)
-            .join("\n\n");
-        }
-      } catch (error) {
-        console.error("向量检索失败:", error);
-        // 检索失败不影响主流程，继续执行
-      }
-    }
-
-    // 构建系统提示词，整合相关内容
-    const systemPrompt = getSystemPrompt(referenceContent || undefined);
-
-    // 构建完整的消息列表，包含系统提示词
-    const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
-      {
-        role: "system",
-        content: systemPrompt,
-      },
-      ...message,
-    ];
-
-    // 创建流式对话补全
-    const stream = await openai.chat.completions.create({
-      model: env.MODEL,
-      messages,
-      stream: true,
-      temperature: 0.7,
+    // 初始化 OpenAI 客户端
+    // 支持通过环境变量配置代理（用于需要代理访问的场景）
+    const openai = new OpenAI({
+      apiKey: env.AI_KEY,
+      baseURL: env.AI_BASE_URL,
+      ...(env.HTTP_AGENT
+        ? { httpAgent: new HttpsProxyAgent(env.HTTP_AGENT) }
+        : {}),
     });
 
-    // 创建 SSE 流式响应
-    const encoder = new TextEncoder();
-    const readableStream = new ReadableStream({
+    // 获取最后一条消息（用户的最新输入）
+    const lastMessage = messages[messages.length - 1];
+
+    // 提取最后一条消息的文本内容
+    // 支持两种格式：字符串或消息内容对象数组
+    const lastMessageContentString =
+      Array.isArray(lastMessage.content) && lastMessage.content.length > 0
+        ? lastMessage.content
+            .map((c) => (c.type === "text" ? c.text : ""))
+            .join("")
+        : (lastMessage.content as string);
+
+    // 通过向量检索查找与用户输入相关的内容（RAG）
+    const relevantContent = await findRelevantContent(lastMessageContentString);
+
+    console.log("relevantContent", relevantContent);
+    // 创建 OpenAI 聊天完成请求
+    // 使用流式响应以支持实时返回结果
+    const result = openai.chat.completions.create({
+      model: (env.MODEL as ChatModel) || "gpt-4o",
+      max_tokens: 4096,
+      stream: true, // 启用流式响应
+      messages: [
+        {
+          role: "system",
+          // 将检索到的相关内容注入到系统提示词中
+          content: getSystemPrompt(
+            relevantContent.map((c) => c.content).join("\n")
+          ),
+        },
+        ...messages, // 包含用户的历史消息
+      ],
+    });
+
+    // 捕获创建请求时的错误
+    await result.catch((error) => {
+      throw error;
+    });
+
+    // 创建可读流，用于将 OpenAI 的流式响应转换为 SSE 格式
+    const stream = new ReadableStream({
       async start(controller) {
-        // 首先发送相关内容（如果存在）
-        if (referenceContent) {
-          const referenceData = {
-            type: "reference",
-            content: referenceContent,
-          };
-          const referenceChunk = `data: ${JSON.stringify(referenceData)}\n\n`;
-          controller.enqueue(encoder.encode(referenceChunk));
-        }
-
-        // 然后发送 AI 响应流
         try {
-          for await (const chunk of stream) {
-            const delta = chunk.choices[0]?.delta;
-            if (delta?.content) {
-              const data = {
-                type: "content",
-                content: delta.content,
-              };
-              const chunkData = `data: ${JSON.stringify(data)}\n\n`;
-              controller.enqueue(encoder.encode(chunkData));
-            }
-
-            // 检查是否完成
-            if (chunk.choices[0]?.finish_reason) {
-              const doneData = {
-                type: "done",
-                finish_reason: chunk.choices[0].finish_reason,
-              };
-              const doneChunk = `data: ${JSON.stringify(doneData)}\n\n`;
-              controller.enqueue(encoder.encode(doneChunk));
-              break;
-            }
+          // 遍历 OpenAI 返回的流式数据块
+          for await (const chunk of await result) {
+            // 将每个数据块编码为 SSE 格式并加入队列
+            controller.enqueue(
+              createEnqueueContent(
+                relevantContent, // 每次响应都包含检索到的相关内容
+                chunk?.choices?.[0]?.delta?.content || "" // 提取增量内容
+              )
+            );
           }
-        } catch (error) {
-          console.error("流式响应错误:", error);
-          const errorData = {
-            type: "error",
-            error: "流式响应过程中发生错误",
-          };
-          const errorChunk = `data: ${JSON.stringify(errorData)}\n\n`;
-          controller.enqueue(encoder.encode(errorChunk));
+        } catch (err) {
+          console.error("Stream error:", err);
+          controller.error(err);
         } finally {
+          // 确保流被正确关闭
           controller.close();
         }
       },
-    });
-
-    // 返回 SSE 流式响应
-    return new Response(readableStream, {
-      headers: {
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        Connection: "keep-alive",
-        "X-Accel-Buffering": "no", // 禁用 Nginx 缓冲
+      cancel() {
+        // 处理流被取消的情况
+        console.log("Stream cancelled");
       },
     });
-  } catch (error) {
-    console.error("API 路由错误:", error);
-    return new Response(
-      JSON.stringify({
-        error: "处理请求时发生错误",
-        message: error instanceof Error ? error.message : String(error),
-      }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+
+    // 返回 SSE 格式的响应
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/event-stream", // SSE 内容类型
+        "Cache-Control": "no-cache", // 禁用缓存
+        Connection: "keep-alive", // 保持连接活跃
+      },
+    });
+  } catch (error: unknown) {
+    // 错误处理：返回 400 错误响应
+    console.error("error catch", error);
+    if (error instanceof Error) {
+      return new Response(error.message, {
+        status: 400,
+        statusText: "Bad Request",
+      });
+    }
+    return new Response("An unknown error occurred", {
+      status: 400,
+      statusText: "Bad Request",
+    });
   }
 }
 ```
@@ -1579,7 +1716,239 @@ export default Home;
 对接 OpenAI API 数据
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_67.png" alt="" width="100%" />
+```tsx
+"use client";
+
+/**
+ * OpenAI SDK 聊天界面组件
+ *
+ * 该组件实现了与 OpenAI API 的交互，支持：
+ * - 文本和图片消息的发送
+ * - 流式响应（SSE）的接收和处理
+ * - RAG（检索增强生成）相关文档的显示
+ * - 消息重试功能
+ */
+
+import { useState } from "react";
+import { nanoid } from "nanoid";
+import { Message } from "../components/ChatMessages/interface";
+import ChatMessages from "../components/ChatMessages/ChatMessages";
+import { OpenAIRequest } from "../api/openai/types";
+
+const Home = () => {
+  // 用户输入的文本内容
+  const [input, setInput] = useState("");
+  // 聊天消息列表
+  const [messages, setMessages] = useState<Message[]>([]);
+  // 消息中附加的图片 URL
+  const [messageImgUrl, setMessageImgUrl] = useState("");
+  // 是否正在加载（发送请求或接收响应中）
+  const [isLoading, setIsLoading] = useState(false);
+
+  /**
+   * 处理输入框内容变化
+   * @param e - 输入框的 change 事件
+   */
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  /**
+   * 发送消息到 OpenAI API 并处理流式响应
+   *
+   * 该函数执行以下操作：
+   * 1. 更新消息列表并设置加载状态
+   * 2. 发送 POST 请求到 /api/openai
+   * 3. 使用 ReadableStream 读取 SSE（Server-Sent Events）流式响应
+   * 4. 解析每个数据块，提取 AI 响应和 RAG 相关文档
+   * 5. 实时更新消息内容
+   *
+   * @param newMessages - 包含新用户消息的完整消息列表
+   */
+  const handleSendMessage = async (newMessages: Message[]) => {
+    try {
+      // 更新消息列表（包含用户刚发送的消息）
+      setMessages(newMessages as Message[]);
+      setIsLoading(true);
+
+      // 发送请求到 OpenAI API
+      const response = await fetch("/api/openai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messages: newMessages,
+        } as OpenAIRequest),
+      });
+
+      // 获取流式响应的读取器
+      const reader = response?.body?.getReader();
+      console.log("reader", reader, response);
+      const textDecoder = new TextDecoder();
+      // 累积接收到的 AI 响应文本
+      let received_stream = "";
+      // 为助手消息生成唯一 ID
+      const id = nanoid();
+      // 缓冲区，用于处理不完整的 SSE 消息
+      let buffer = "";
+
+      // 循环读取流式数据
+      while (true) {
+        if (!reader) break;
+        const { done, value } = await reader.read();
+
+        // 如果流结束，退出循环
+        if (done) {
+          break;
+        }
+
+        // 将新的数据块添加到缓冲区
+        buffer += textDecoder.decode(value, { stream: true });
+
+        // SSE 消息以 \n\n 分隔，处理缓冲区中的所有完整消息
+        const messages = buffer.split("\n\n");
+        // 保留最后一个不完整的消息在缓冲区中，等待下次数据到达
+        buffer = messages.pop() || "";
+
+        // 处理每个完整的 SSE 消息
+        for (const message of messages) {
+          if (!message.trim()) continue;
+
+          // SSE 格式：每行一个字段，data: 行包含实际数据
+          const lines = message.split("\n");
+          const dataLine = lines.find((line) => line.startsWith("data:"));
+
+          if (dataLine) {
+            // 提取 data: 后的 JSON 数据
+            const jsonData = dataLine.slice(5).trim();
+            try {
+              // 解析 JSON，包含 AI 响应和 RAG 相关文档
+              const { relevantContent, aiResponse } = JSON.parse(jsonData) as {
+                relevantContent: Array<{ content: string; similarity: number }>;
+                aiResponse: string;
+              };
+              // 累积 AI 响应文本
+              received_stream += aiResponse;
+
+              // 更新消息列表
+              setMessages((messages) => {
+                // 如果助手消息已存在，更新它
+                if (messages.find((message) => message.id === id)) {
+                  return messages.map((message) => {
+                    if (message.id === id) {
+                      return {
+                        ...message,
+                        content: received_stream,
+                        // 将 RAG 相关文档转换为消息格式
+                        ragDocs: relevantContent.map(
+                          ({ content, similarity }) => ({
+                            id: nanoid(),
+                            content: content,
+                            score: similarity,
+                          })
+                        ),
+                      };
+                    }
+                    return message;
+                  });
+                }
+                // 如果助手消息不存在，创建新消息
+                return [
+                  ...messages,
+                  {
+                    id,
+                    role: "assistant",
+                    content: received_stream,
+                    ragDocs: relevantContent.map(({ content, similarity }) => ({
+                      id: nanoid(),
+                      content: content,
+                      score: similarity,
+                    })),
+                  },
+                ];
+              });
+            } catch (e) {
+              console.error("Error parsing SSE data:", e);
+            }
+          }
+        }
+      }
+
+      // 清空输入框和图片 URL，结束加载状态
+      setInput("");
+      setMessageImgUrl("");
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+      // 如果请求失败，且最后一条消息是用户消息，则移除它
+      // 这样可以避免在界面上显示未得到响应的用户消息
+      setMessages((messages) =>
+        messages.length > 0 && messages[messages.length - 1].role === "user"
+          ? messages.slice(0, -1)
+          : messages
+      );
+    }
+  };
+
+  /**
+   * 处理表单提交
+   *
+   * 将用户输入（文本和可选的图片）添加到消息列表并发送
+   * 如果存在图片 URL，则创建多模态消息（包含图片和文本）
+   */
+  const handleSubmit = async () => {
+    await handleSendMessage([
+      ...messages,
+      {
+        id: nanoid(),
+        role: "user",
+        // 如果有图片，创建多模态消息格式；否则只发送文本
+        content: messageImgUrl
+          ? [
+              { type: "image_url", image_url: { url: messageImgUrl } },
+              { type: "text", text: input },
+            ]
+          : input,
+      },
+    ]);
+  };
+
+  /**
+   * 重试指定消息
+   *
+   * 从消息列表中移除指定消息及其之后的所有消息，
+   * 然后重新发送该消息之前的所有消息
+   *
+   * @param id - 要重试的消息 ID
+   */
+  const handleRetry = (id: string) => {
+    const index = messages.findIndex((message) => message.id === id);
+    // 如果找到消息且不是第一条，则重试
+    if (index > 0) {
+      // 获取该消息之前的所有消息
+      const previousMessages = messages.slice(0, index);
+      handleSendMessage(previousMessages);
+    }
+  };
+
+  return (
+    <ChatMessages
+      messages={messages}
+      input={input}
+      handleInputChange={handleInputChange}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+      messageImgUrl={messageImgUrl}
+      setMessagesImgUrl={setMessageImgUrl}
+      onRetry={handleRetry}
+    />
+  );
+};
+
+export default Home;
+```
 
 ###### 效果展示
 
