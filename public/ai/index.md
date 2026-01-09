@@ -1965,23 +1965,43 @@ export default Home;
 修改 lib/db/vercelai/schema.ts，将 openai 替换为 vercelai。
 
 ```ts
-import { index, pgTable, text, varchar, vector } from "drizzle-orm/pg-core";
 import { nanoid } from "nanoid";
+import { index, pgTable, text, varchar, vector } from "drizzle-orm/pg-core";
 
-// Define the vercelAI embeddings table
+/**
+ * Vercel AI embeddings 表
+ */
 export const vercelAiEmbeddings = pgTable(
   "vercel_ai_embeddings",
   {
+    /**
+     * 唯一标识
+     */
     id: varchar("id", { length: 191 })
       .primaryKey()
       .$defaultFn(() => nanoid()),
+    /**
+     * 内容
+     */
     content: text("content").notNull(),
+    /**
+     * 嵌入向量
+     */
     embedding: vector("embedding", { dimensions: 1536 }).notNull(),
   },
-  (t) => ({
-    vercelaiEmbeddingIndex: index("vercelai_embedding_index").using(
+  (table) => ({
+    /**
+     * 索引
+     */
+    vercelAiEmbeddingIndex: index("vercel_ai_embedding_index").using(
+      /**
+       * 索引方法
+       */
       "hnsw",
-      t.embedding.op("vector_cosine_ops")
+      /**
+       * 索引操作
+       */
+      table.embedding.op("vector_cosine_ops")
     ),
   })
 );
@@ -1994,33 +2014,30 @@ export const vercelAiEmbeddings = pgTable(
 ```ts
 "use server";
 
-import { db } from "@/lib/db";
-import { vercelAiEmbeddings } from "./schema";
+import { db } from "..";
+import { vercelAiEmbeddings as embeddingsTable } from "./schema";
 
-export async function saveEmbeddings(
+export const createResource = async (
   embeddings: Array<{ embedding: number[]; content: string }>
-) {
+) => {
   try {
-    // 批量插入数据
-    const result = await db.insert(vercelAiEmbeddings).values(
-      embeddings.map(({ embedding, content }) => ({
-        content,
-        embedding,
+    /**
+     * 插入嵌入向量
+     */
+    await db.insert(embeddingsTable).values(
+      embeddings.map((embedding) => ({
+        ...embedding,
       }))
     );
 
-    return {
-      success: true,
-      data: result,
-    };
+    return "Resource successfully created and embedded.";
   } catch (error) {
-    console.error("保存 embeddings 时出错:", error);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "未知错误",
-    };
+    console.log("error", error);
+    return error instanceof Error && error.message.length > 0
+      ? error.message
+      : "Error, please try again.";
   }
-}
+};
 ```
 
 执行数据库同步命令：
@@ -2044,42 +2061,109 @@ pnpm db:migrate
 请使用 vercel ai sdk 重构 @app/api/openai/embedding.ts 中的代码，保存到@app/api/vercelai/embedding.ts 下
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_71.png" alt="" width="100%" />
+```ts
+import { env } from "@/lib/env.mjs";
+import { embed, embedMany } from "ai";
+import { findSimilarContent } from "@/lib/db/vercelai/selector";
+import { model } from "./settings";
+
+const embeddingModel = model.embedding(env.EMBEDDING);
+
+const generateChunks = (input: string): string[] => {
+  return input
+    .trim()
+    .split("-------split line-------")
+    .filter((chunk) => chunk !== "");
+};
+
+/**
+ * 生成嵌入向量
+ * @param value 输入文本
+ * @returns 嵌入向量
+ */
+export const generateEmbeddings = async (
+  value: string
+): Promise<Array<{ embedding: number[]; content: string }>> => {
+  const chunks = generateChunks(value);
+
+  // 使用 AI SDK 的 embedMany 函数来批量生成 embeddings
+  const { embeddings } = await embedMany({
+    model: embeddingModel,
+    values: chunks,
+  });
+
+  return embeddings.map((embedding, i) => ({
+    content: chunks[i],
+    embedding,
+  }));
+};
+
+/**
+ * 生成单个嵌入向量
+ * @param value 输入文本
+ * @returns 嵌入向量
+ */
+export const generateEmbedding = async (value: string): Promise<number[]> => {
+  const input = value.replaceAll("\\n", " ");
+
+  // 使用 AI SDK 的 embed 函数来生成单个 embedding
+  const { embedding } = await embed({
+    model: embeddingModel,
+    value: input,
+  });
+
+  return embedding;
+};
+
+/**
+ * 查找相关内容
+ * @param userQuery 用户查询
+ * @returns 相关内容
+ */
+export const findRelevantContent = async (
+  userQuery: string
+): Promise<{ content: string; similarity: number }[]> => {
+  const userQueryEmbedded = await generateEmbedding(userQuery);
+  return findSimilarContent(userQueryEmbedded);
+};
+```
 
 复制 app/api/openai/embedDocs.ts 文件到 app/api/vercelai/embedDocs.ts。
 
 ```ts
-import { saveEmbeddings } from "@/lib/db/vercelai/actions";
-import { generateEmbeddings } from "./embedding";
 import fs from "fs";
-import path from "path";
+import { env } from "@/lib/env.mjs";
+import { createResource } from "@/lib/db/vercelai/actions";
+import { generateEmbeddings } from "./embedding";
+
+console.log("env.EMBEDDING", env.EMBEDDING);
 
 /**
- * 将文档嵌入到数据库中
+ * 入库
  */
-export async function embedDocs() {
-  // 读取文档
-  const docs = fs.readFileSync(
-    path.join(process.cwd(), "ai-docs", "basic-components.txt"),
-    "utf-8"
-  );
-  // 生成 embeddings
+export const generateEmbeddingsFromDocs = async () => {
+  console.log("start reading docs");
+  /**
+   * 读取文档
+   */
+  const docs = fs.readFileSync("./ai-docs/basic-components.txt", "utf8");
+
+  console.log("start generating embeddings");
+  /**
+   * 生成嵌入向量
+   */
   const embeddings = await generateEmbeddings(docs);
 
-  // 保存 embeddings
-  await saveEmbeddings(
-    embeddings.map(({ content, embedding }) => ({
-      content,
-      embedding,
-    }))
-  );
+  console.log("start creating resource");
+  /**
+   * 创建资源，插入到数据库表
+   */
+  await createResource(embeddings);
 
-  console.log(`Embeddings saved: ${embeddings.length}`);
+  console.log("success~~~");
+};
 
-  return embeddings;
-}
-
-embedDocs();
+generateEmbeddingsFromDocs();
 ```
 
 添加 scripts 命令：
@@ -2107,70 +2191,33 @@ pnpm vercelai:embedDocs
 ```ts
 "use server";
 
-import { sql } from "drizzle-orm";
-import { db } from "@/lib/db";
+import { cosineDistance } from "drizzle-orm/sql";
 import { vercelAiEmbeddings } from "./schema";
+import { db } from "@/lib/db";
+import { sql, gt, desc } from "drizzle-orm";
 
-export interface SimilaritySearchResult {
-  content: string;
-  similarity: number;
-}
-
-/**
- * 搜索语义相似的内容
- *
- * @param embedding - 查询向量
- * @param threshold - 相似度阈值 (0-1 之间)，默认 0.7
- * @param limit - 返回结果的最大数量，默认 5
- * @returns 按相似度降序排列的结果
- */
-export async function similaritySearch(
-  embedding: number[],
-  threshold: number = 0.7,
-  limit: number = 5
-): Promise<SimilaritySearchResult[]> {
-  // 验证参数
-  if (!embedding || embedding.length === 0) {
-    throw new Error("查询向量不能为空");
-  }
-
-  if (threshold < 0 || threshold > 1) {
-    throw new Error("相似度阈值必须在 0 到 1 之间");
-  }
-
-  if (limit < 1) {
-    throw new Error("返回数量必须大于 0");
-  }
-
-  try {
-    // 将数组转换为 PostgreSQL 向量格式
-    const vectorArray = `array[${embedding.join(",")}]::vector`;
-
-    // 使用 pgvector 的 <=> 操作符计算余弦距离
-    // 余弦距离 = 1 - 余弦相似度
-    // 因此：余弦相似度 = 1 - 余弦距离
-    const results = await db
-      .select({
-        content: vercelAiEmbeddings.content,
-        similarity: sql<number>`1 - (${
-          vercelAiEmbeddings.embedding
-        } <=> ${sql.raw(vectorArray)})`.as("similarity"),
-      })
-      .from(vercelAiEmbeddings)
-      .where(
-        sql`1 - (${vercelAiEmbeddings.embedding} <=> ${sql.raw(
-          vectorArray
-        )}) >= ${threshold}`
-      )
-      .orderBy(sql`similarity DESC`)
-      .limit(limit);
-
-    return results;
-  } catch (error) {
-    console.error("向量相似度搜索时出错:", error);
-    throw error;
-  }
-}
+export const findSimilarContent = async (userQueryEmbedded: number[]) => {
+  /**
+   * 计算相似度
+   */
+  const similarity = sql<number>`1 - (${cosineDistance(
+    vercelAiEmbeddings.embedding,
+    userQueryEmbedded
+  )})`;
+  /**
+   * 查找相关内容
+   */
+  const similarGuides = await db
+    .select({
+      content: vercelAiEmbeddings.content,
+      similarity,
+    })
+    .from(vercelAiEmbeddings)
+    .where(gt(similarity, 0.5))
+    .orderBy((t) => desc(t.similarity))
+    .limit(4);
+  return similarGuides;
+};
 ```
 
 复制 app/api/openai/route.ts、app/api/openai/types.ts 到 app/api/vercelai 下。
@@ -2184,120 +2231,121 @@ export async function similaritySearch(
 生成的代码：
 
 ```ts
-import { NextRequest } from "next/server";
-import { streamText } from "ai";
-import { createOpenAI } from "@ai-sdk/openai";
-import { env } from "@/lib/env.mjs";
-import { retrieveRecall } from "./embedding";
-import { getSystemPrompt } from "@/lib/prompt";
+import { CoreMessage, createDataStreamResponse, streamText } from "ai";
 import { OpenAIRequest } from "./types";
-
-// 创建配置了自定义 baseURL 的 OpenAI 客户端
-const openai = createOpenAI({
-  apiKey: env.AI_KEY,
-  baseURL: env.AI_BASE_URL,
-});
+import { findRelevantContent } from "./embedding";
+import { getSystemPrompt } from "@/lib/prompt";
+import { env } from "@/lib/env.mjs";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions.mjs";
+import { model } from "./settings";
 
 /**
- * POST 处理函数：处理流式 AI 对话请求
+ * 将 OpenAI 格式的消息转换为 AI SDK 的 CoreMessage 格式
+ * 主要处理图片内容的格式转换，将 image_url 类型转换为 image 类型，并移除 base64 前缀
+ *
+ * @param messages - OpenAI 格式的消息数组
+ * @returns 转换后的 CoreMessage 数组
  */
-export async function POST(request: NextRequest) {
-  try {
-    // 解析请求体
-    const body: OpenAIRequest = await request.json();
-    const { messages } = body;
-
-    if (!messages || !Array.isArray(messages) || messages.length === 0) {
-      return new Response(JSON.stringify({ error: "消息数组不能为空" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    // 获取最后一条用户消息用于向量检索
-    const lastMessage = messages[messages.length - 1];
-    let lastUserMessageText: string | null = null;
-
-    // 提取最后一条用户消息的文本内容
-    if (lastMessage.role === "user" && lastMessage.content) {
-      if (typeof lastMessage.content === "string") {
-        lastUserMessageText = lastMessage.content;
-      } else if (Array.isArray(lastMessage.content)) {
-        // 如果是数组类型（多模态），提取所有文本部分
-        const textParts = lastMessage.content
-          .filter((part) => part.type === "text")
-          .map((part) => (part as { text: string }).text)
-          .join(" ");
-        if (textParts) {
-          lastUserMessageText = textParts;
-        }
-      }
-    }
-
-    // 如果最后一条消息是用户消息，进行向量检索
-    let referenceContent = "";
-    if (lastUserMessageText) {
-      try {
-        const searchResults = await retrieveRecall(lastUserMessageText, 0.5, 5);
-        if (searchResults && searchResults.length > 0) {
-          // 将检索到的相关内容合并
-          referenceContent = searchResults
-            .map((result) => result.content)
-            .join("\n\n");
-        }
-      } catch (error) {
-        console.error("向量检索失败:", error);
-        // 检索失败不影响主流程，继续执行
-      }
-    }
-
-    // 构建系统提示词，整合相关内容
-    const systemPrompt = getSystemPrompt(referenceContent || undefined);
-
-    // 构建完整的消息列表，包含系统提示词
-    const messagesWithSystem = [
-      {
-        role: "system" as const,
-        content: systemPrompt,
-      },
-      ...messages,
-    ];
-
-    // 使用 streamText 创建流式响应
-    const result = await streamText({
-      model: openai(env.MODEL),
-      messages: messagesWithSystem,
-      temperature: 0.7,
-    });
-
-    // 如果存在 RAG 文档，通过响应头传递
-    const headers: Record<string, string> = {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-      "X-Accel-Buffering": "no", // 禁用 Nginx 缓冲
+export const formatMessages = (messages: ChatCompletionMessageParam[]) => {
+  return messages.map((message) => {
+    return {
+      ...message,
+      role: message.role,
+      // 处理消息内容：如果是数组格式（可能包含文本和图片），需要特殊处理
+      content: Array.isArray(message.content)
+        ? message.content.map((content) => {
+            // 如果是图片 URL 类型，转换为 AI SDK 需要的格式
+            if (content.type === "image_url") {
+              return {
+                type: "image",
+                // 移除 base64 数据 URL 的前缀（data:image/xxx;base64,），只保留 base64 编码的图片数据
+                image: content.image_url.url.replace(
+                  /^data:image\/\w+;base64,/,
+                  ""
+                ),
+              };
+            }
+            // 其他类型的内容直接返回
+            return {
+              ...content,
+            };
+          })
+        : message.content,
     };
+  }) as CoreMessage[];
+};
 
-    if (referenceContent) {
-      // 将 RAG 文档内容通过响应头传递（使用 base64 编码避免特殊字符问题）
-      headers["X-RAG-Content"] =
-        Buffer.from(referenceContent).toString("base64");
-    }
+// 根据环境变量中的模型名称创建模型实例
+const openaiModel = model(env.MODEL);
 
-    // 返回标准的 AI SDK 流式响应
-    return result.toDataStreamResponse({
-      headers,
+/**
+ * 处理聊天完成的 POST 请求
+ * 实现 RAG（检索增强生成）功能：根据用户消息检索相关内容，然后生成回答
+ *
+ * @param req - HTTP 请求对象
+ * @returns 数据流响应，包含流式文本输出和相关内容注释
+ */
+export async function POST(req: Request) {
+  try {
+    // 解析请求体，获取消息列表
+    const request: OpenAIRequest = await req.json();
+    const { messages } = request;
+
+    // 获取最后一条用户消息（用于检索相关内容）
+    const lastMessage = messages[messages.length - 1];
+    // 提取最后一条消息的文本内容
+    // 如果内容是数组格式（可能包含多种类型），只提取文本类型的内容
+    const lastMessageContent = Array.isArray(lastMessage.content)
+      ? lastMessage.content
+          .filter((c) => c.type === "text")
+          .map((c) => c.text)
+          .join("")
+      : (lastMessage.content as string);
+
+    // 使用向量检索查找与用户消息相关的内容（RAG 检索步骤）
+    const relevantContent = await findRelevantContent(lastMessageContent);
+
+    // 根据检索到的相关内容生成系统提示词
+    // 系统提示词会包含检索到的参考内容，帮助模型更好地回答用户问题
+    const system = getSystemPrompt(
+      relevantContent.map((c) => c.content).join("\n")
+    );
+
+    // 创建数据流响应，支持流式输出
+    return createDataStreamResponse({
+      execute: async (dataStream) => {
+        // 将检索到的相关内容作为消息注释写入数据流
+        // 前端可以通过这些注释显示相关的参考文档
+        dataStream.writeMessageAnnotation({
+          relevantContent,
+        });
+
+        // 使用 AI SDK 的 streamText 生成流式文本响应
+        const result = streamText({
+          model: openaiModel, // 使用的 AI 模型
+          system, // 系统提示词（包含检索到的相关内容）
+          messages: formatMessages(messages), // 格式化后的消息列表
+        });
+
+        // 将文本流合并到数据流中，实现流式输出
+        result.mergeIntoDataStream(dataStream);
+      },
+      // 错误处理回调
+      onError: (error) => {
+        console.error("Error in chat completion:", error);
+        return error instanceof Error
+          ? error.message
+          : "An unknown error occurred";
+      },
     });
-  } catch (error) {
-    console.error("API 路由错误:", error);
+  } catch (error: unknown) {
+    // 捕获并处理请求处理过程中的错误
+    console.error("Error in chat completion:", error);
     return new Response(
-      JSON.stringify({
-        error: "处理请求时发生错误",
-        message: error instanceof Error ? error.message : String(error),
-      }),
+      error instanceof Error ? error.message : "An unknown error occurred",
       {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
+        status: 400,
+        statusText: "Bad Request",
       }
     );
   }
@@ -2343,7 +2391,127 @@ export default Home;
 请用 useChat 对接页面
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/AI/chat_74.png" alt="" width="100%" />
+```tsx
+"use client";
+
+/**
+ * Vercel AI SDK 聊天界面组件
+ *
+ * 使用 Vercel AI SDK 的 useChat hook 实现聊天功能，支持文本和图片输入
+ * 集成了 RAG（检索增强生成）功能，可以显示相关文档内容
+ */
+
+// Vercel AI SDK 提供的类型和 hook
+import { Message, useChat } from "ai/react";
+// 生成唯一 ID 的工具库
+import { nanoid } from "nanoid";
+// 聊天消息展示组件
+import ChatMessages from "../components/ChatMessages/ChatMessages";
+// React hooks
+import { useState } from "react";
+// RAG 文档类型定义
+import { RAGDocument } from "../components/RAGDocsShow/interface";
+
+/**
+ * 主页面组件
+ * 负责管理聊天状态、处理用户输入、发送消息到后端 API
+ */
+const Home = () => {
+  // 使用 Vercel AI SDK 的 useChat hook 管理聊天状态
+  const {
+    messages, // 当前所有消息列表
+    input, // 输入框的当前值
+    handleInputChange, // 处理输入框变化的函数
+    setMessages, // 手动设置消息列表的函数
+    isLoading, // 是否正在加载（等待 AI 响应）
+    reload: handleRetry, // 重试最后一条消息的函数（重命名为 handleRetry）
+    append, // 追加新消息到消息列表的函数
+  } = useChat({
+    // 后端 API 路由地址
+    api: "/api/vercelai",
+    // 错误处理回调函数
+    onError: (error) => {
+      console.error(error);
+      // 如果最后一条消息是用户消息，则去掉最后一条消息
+      // 这样可以在出错时回退到错误发生前的状态
+      setMessages((messages) =>
+        messages.length > 0 && messages[messages.length - 1].role === "user"
+          ? messages.slice(0, -1)
+          : messages
+      );
+    },
+    // 实验性功能：节流时间（毫秒），用于控制流式输出的更新频率
+    experimental_throttle: 100,
+  });
+
+  // 用于存储用户上传的图片 URL
+  // 当用户上传图片时，会与文本一起发送给 AI
+  const [messageImgUrl, setMessageImgUrl] = useState("");
+
+  /**
+   * 处理表单提交
+   * 创建新的用户消息并发送给后端 API
+   * 支持纯文本消息和带图片的消息
+   */
+  const handleSubmit = async () => {
+    // 构建新的用户消息对象
+    const newUserMessage = {
+      id: nanoid(), // 生成唯一 ID
+      role: "user", // 消息角色为用户
+      // 如果有图片，则构建包含图片和文本的内容数组
+      // 如果没有图片，则直接使用文本内容
+      content: messageImgUrl
+        ? [
+            { type: "image_url", image_url: { url: messageImgUrl } },
+            { type: "text", text: input },
+          ]
+        : input,
+    };
+
+    // 将新消息追加到消息列表，触发 API 调用
+    append(newUserMessage as Message);
+
+    // 清空输入框
+    handleInputChange({
+      target: { value: "" },
+    } as React.ChangeEvent<HTMLInputElement>);
+
+    // 清空图片 URL
+    setMessageImgUrl("");
+  };
+
+  return (
+    <ChatMessages
+      // 将消息列表转换为组件所需的格式
+      messages={messages.map((msg: Message) => ({
+        id: msg.id,
+        role: msg.role as "user" | "assistant",
+        content: msg.content,
+        // 从消息的 annotations 中提取 RAG 相关文档
+        // annotations 是 Vercel AI SDK 提供的扩展字段，用于存储额外信息
+        ragDocs:
+          Array.isArray(msg.annotations) && msg.annotations[0]
+            ? (
+                msg.annotations[0] as unknown as {
+                  relevantContent: RAGDocument[];
+                }
+              ).relevantContent
+            : undefined,
+      }))}
+      input={input}
+      handleInputChange={handleInputChange}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+      messageImgUrl={messageImgUrl}
+      setMessagesImgUrl={setMessageImgUrl}
+      // 重试函数，用于重新发送失败的消息
+      onRetry={handleRetry as (id: string) => void}
+    />
+  );
+};
+
+export default Home;
+```
 
 ###### 效果展示
 
