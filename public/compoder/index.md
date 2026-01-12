@@ -1,3 +1,3 @@
-# 🤖 AI - Compoder(AI Coding) 食用指南
+# 🤖 AI - Compoder (AI Coding 平台) 食用指南
 
 

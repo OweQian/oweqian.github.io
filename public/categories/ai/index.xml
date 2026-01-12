@@ -4,7 +4,15 @@
         <link>http://localhost:1313/categories/ai/</link>
         <description>AI - 分类 - OweQian 的精神角落</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian 的精神角落)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Wed, 10 Sep 2025 21:38:47 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/ai/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Mon, 12 Jan 2026 18:30:13 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/ai/" rel="self" type="application/rss+xml" /><item>
+    <title>🤖 AI - Compoder(AI Coding) 食用指南</title>
+    <link>http://localhost:1313/compoder/</link>
+    <pubDate>Mon, 12 Jan 2026 18:30:13 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/compoder/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>🤖 AI - 如何让 AI 生成业务组件代码</title>
     <link>http://localhost:1313/ai/</link>
     <pubDate>Wed, 10 Sep 2025 21:38:47 &#43;0800</pubDate>
