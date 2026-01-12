@@ -1132,7 +1132,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">interceptors</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
 </span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
