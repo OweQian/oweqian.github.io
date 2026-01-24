@@ -5,19 +5,19 @@
         <description>Categories - 分类 - OweQian 的精神角落</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian 的精神角落)</managingEditor>
             <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><atom:link href="http://localhost:1313/categories/" rel="self" type="application/rss+xml" /><item>
-    <title>AI</title>
-    <link>http://localhost:1313/categories/ai/</link>
-    <pubDate>Mon, 12 Jan 2026 18:30:13 &#43;0800</pubDate>
-    <author>OweQian 的精神角落</author>
-    <guid>http://localhost:1313/categories/ai/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
     <title>碎碎念</title>
     <link>http://localhost:1313/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</link>
     <pubDate>Sun, 11 Jan 2026 12:05:47 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
     <guid>http://localhost:1313/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>AI</title>
+    <link>http://localhost:1313/categories/ai/</link>
+    <pubDate>Fri, 12 Dec 2025 18:30:13 &#43;0800</pubDate>
+    <author>OweQian 的精神角落</author>
+    <guid>http://localhost:1313/categories/ai/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
