@@ -181,9 +181,9 @@ cd artifacts/element-plus-renderer
 pnpm dev
 ```
 
-### 核心 AI 工作流模块实现
+### 数据库模块实现
 
-### 数据库 & 后端模块实现
+### 后端模块实现
 
 ### 前端模块实现
 
@@ -192,6 +192,8 @@ pnpm dev
 #### 页面对接联调实现
 
 ### 沙箱渲染器模块实现
+
+### 核心 AI 工作流模块实现
 
 ### Compoder Cli
 
