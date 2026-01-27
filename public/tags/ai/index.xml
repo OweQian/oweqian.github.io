@@ -10,7 +10,21 @@
     <pubDate>Fri, 12 Dec 2025 18:30:13 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
     <guid>http://localhost:1313/compoder/</guid>
-    <description><![CDATA[]]></description>
+    <description><![CDATA[<h3 id="项目介绍">项目介绍</h3>
+<h3 id="设计理念">设计理念</h3>
+<h3 id="快速上手">快速上手</h3>
+<h3 id="核心-ai-工作流模块实现">核心 AI 工作流模块实现</h3>
+<h3 id="数据库--后端模块实现">数据库 &amp; 后端模块实现</h3>
+<h3 id="前端模块实现">前端模块实现</h3>
+<h4 id="业务组件设计与实现">业务组件设计与实现</h4>
+<h4 id="页面对接联调实现">页面对接联调实现</h4>
+<h3 id="沙箱渲染器模块实现">沙箱渲染器模块实现</h3>
+<h3 id="构建-landing-page-generator">构建 Landing Page Generator</h3>
+<h3 id="compoder-cli">Compoder Cli</h3>
+<h3 id="compoder-mcp-server">Compoder MCP Server</h3>
+<h3 id="集成到-cursor">集成到 Cursor</h3>
+<h3 id="集成到-claude-code">集成到 Claude Code</h3>
+<h3 id="总结">总结</h3>]]></description>
 </item>
 <item>
     <title>🤖 AI - 如何让 AI 生成业务组件代码</title>

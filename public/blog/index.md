@@ -9,6 +9,56 @@
 
 ### 2026-01
 
+#### 2026-01-27
+
+初闻不知曲中意...
+
+<iframe width="60%" height="450" src="https://www.youtube.com/embed/2e1gJOE9ZEQ?si=u-76zMyTjJIoaLeD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+#### 2026-01-26
+
+争取自律的一天 💪🏻。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_36.png" alt="" width="60%" />
+
+#### 2026-01-25
+
+小蓝又整活了...  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_35.jpg" alt="" width="60%" />
+
+#### 2026-01-24
+
+😅 感谢您为公益事业贡献 56.50 元。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_34.jpg" alt="" width="60%" />
+
+#### 2026-01-23
+
+韩国明星参加综艺节目，是真拼啊，respect！！！
+
+#### 2026-01-22
+
+学...不...动...啦...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_33.png" alt="" width="60%" />
+
+#### 2026-01-21
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_32.jpg" alt="" width="60%" />
+
+#### 2026-01-20
+
+好剧。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_31.jpg" alt="" width="60%" />
+
+#### 2026-01-19
+
+😅 虚弱...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_30.jpg" alt="" width="60%" />
+
 #### 2026-01-18
 
 😅《怪奇物语》Will 是不是喜欢 Mike...
@@ -23,7 +73,7 @@
 
 😅 前端已死。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_28.png" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_28.webp" alt="" width="60%" />
 
 #### 2026-01-15
 
