@@ -96,7 +96,7 @@
 
 学...不...动...啦...
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_33.png" alt="" width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_33.png" alt="" width="60%" />
 
 #### 2026-01-21
 
