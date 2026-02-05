@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-01-30T22:00:47+08:00
+date: 2026-02-05T17:40:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -14,23 +14,39 @@ categories: ["碎碎念"]
 
 ### 2026-02
 
+#### 2026-02-05
+
+😭 目前还处在温饱阶段。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_40.webp" alt="" width="40%" />
+
+#### 2026-02-04
+
+😄 健身房就我一只菜鸡，随便玩~
+
 #### 2026-02-03
 
 《王朝 1》- David 王者归来。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_38.png" alt="" width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_39.jpg" alt="" width="40%" />
 
 #### 2026-02-02
 
 (\*￣rǒ￣) 王要死了。。王的儿子们忙着谈恋爱。。。。。。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_37.png" alt="" width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_38.jpg" alt="" width="40%" />
 
 #### 2026-02-01
+
+打劫。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_37.png" alt="" width="50%" />
 
 ### 2026-01
 
 #### 2026-01-31
+
+相传在日本的深山中，有一种外貌特别丑陋的蛤蟆，人们抓住这种蛤蟆后，将之置于镜前，它会被自己的丑陋面目吓出一身油来。而这种油，又是可以治疗烫伤的珍贵药材...
 
 #### 2026-01-30
 
@@ -57,7 +73,7 @@ categories: ["碎碎念"]
 
 初闻不知曲中意...
 
-<iframe width="40%" height="450" src="https://www.youtube.com/embed/2e1gJOE9ZEQ?si=u-76zMyTjJIoaLeD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="60%" height="450" src="https://www.youtube.com/embed/2e1gJOE9ZEQ?si=u-76zMyTjJIoaLeD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 #### 2026-01-26
 

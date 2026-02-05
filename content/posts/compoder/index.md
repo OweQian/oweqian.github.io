@@ -1,7 +1,6 @@
 ---
-title: "🤖 AI - Compoder (AI Coding 平台) 食用指南"
+title: "🤖 AI - 基于 Compoder 构建 AI Coding 平台"
 date: 2025-12-12T18:30:13+08:00
-description: "这篇文章展示了基本的 Markdown 语法和格式."
 tags: ["AI"]
 categories: ["AI"]
 ---

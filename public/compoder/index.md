@@ -1,4 +1,4 @@
-# 🤖 AI - Compoder (AI Coding 平台) 食用指南
+# 🤖 AI - 基于 Compoder 构建 AI Coding 平台
 
 
 Compoder 是一个开源的 AI 驱动的组件代码生成引擎，集成了现代前端技术栈和多种 AI 模型能力。

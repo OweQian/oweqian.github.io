@@ -4,18 +4,18 @@
         <link>http://localhost:1313/</link>
         <description>OweQian&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian 的精神角落)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Fri, 30 Jan 2026 22:00:47 &#43;0800</lastBuildDate>
+            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Thu, 05 Feb 2026 17:40:47 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>🌱 蠢 Q 碎碎念</title>
     <link>http://localhost:1313/blog/</link>
-    <pubDate>Fri, 30 Jan 2026 22:00:47 &#43;0800</pubDate>
+    <pubDate>Thu, 05 Feb 2026 17:40:47 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
     <guid>http://localhost:1313/blog/</guid>
     <description><![CDATA[<p>每天都像开盲盒，今天开到的是什么呢？</p>]]></description>
 </item>
 <item>
-    <title>🤖 AI - Compoder (AI Coding 平台) 食用指南</title>
+    <title>🤖 AI - 基于 Compoder 构建 AI Coding 平台</title>
     <link>http://localhost:1313/compoder/</link>
     <pubDate>Fri, 12 Dec 2025 18:30:13 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
