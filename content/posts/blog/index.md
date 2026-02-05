@@ -12,7 +12,25 @@ categories: ["碎碎念"]
 
 ## 2026
 
+### 2026-02
+
+#### 2026-02-03
+
+《王朝 1》- David 王者归来。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_38.png" alt="" width="40%" />
+
+#### 2026-02-02
+
+(\*￣rǒ￣) 王要死了。。王的儿子们忙着谈恋爱。。。。。。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_37.png" alt="" width="40%" />
+
+#### 2026-02-01
+
 ### 2026-01
+
+#### 2026-01-31
 
 #### 2026-01-30
 
@@ -39,25 +57,25 @@ categories: ["碎碎念"]
 
 初闻不知曲中意...
 
-<iframe width="60%" height="450" src="https://www.youtube.com/embed/2e1gJOE9ZEQ?si=u-76zMyTjJIoaLeD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="40%" height="450" src="https://www.youtube.com/embed/2e1gJOE9ZEQ?si=u-76zMyTjJIoaLeD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 #### 2026-01-26
 
 争取自律的一天 💪🏻。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_36.png" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_36.png" alt="" width="40%" />
 
 #### 2026-01-25
 
 小蓝又整活了...
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_35.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_35.jpg" alt="" width="40%" />
 
 #### 2026-01-24
 
 😅 感谢您为公益事业贡献 56.50 元。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_34.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_34.jpg" alt="" width="40%" />
 
 #### 2026-01-23
 
@@ -67,23 +85,23 @@ categories: ["碎碎念"]
 
 学...不...动...啦...
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_33.png" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_33.png" alt="" width="40%" />
 
 #### 2026-01-21
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_32.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_32.jpg" alt="" width="40%" />
 
 #### 2026-01-20
 
 好剧。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_31.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_31.jpg" alt="" width="40%" />
 
 #### 2026-01-19
 
 😅 虚弱...
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_30.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_30.jpg" alt="" width="40%" />
 
 #### 2026-01-18
 
@@ -93,13 +111,13 @@ categories: ["碎碎念"]
 
 😅 盒马的海鲜不好吃了。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_29.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_29.jpg" alt="" width="40%" />
 
 #### 2026-01-16
 
 😅 前端已死。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_28.webp" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_28.webp" alt="" width="40%" />
 
 #### 2026-01-15
 
@@ -121,7 +139,7 @@ categories: ["碎碎念"]
 
 😴 第四次尝试，终于看进去了。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_27.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_27.jpg" alt="" width="40%" />
 
 #### 2026-01-10
 
@@ -135,13 +153,13 @@ oh my god，张爱玲的《金锁记》看得我好压抑...
 
 Never Give Up.
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_26.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_26.jpg" alt="" width="40%" />
 
 #### 2026-01-07
 
 🤔 "啤酒刺客"
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_25.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_25.jpg" alt="" width="40%" />
 
 #### 2026-01-06
 
@@ -151,31 +169,31 @@ Never Give Up.
 
 加油 💪🏻。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_24.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_24.jpg" alt="" width="40%" />
 
 #### 2026-01-04
 
 虾仁猪心。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_23.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_23.jpg" alt="" width="40%" />
 
 #### 2026-01-03
 
 这是一部喜剧...
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_22.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_22.jpg" alt="" width="40%" />
 
 #### 2026-01-02
 
 能救你的，只有你自己。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_21.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_21.jpg" alt="" width="40%" />
 
 #### 2026-01-01
 
 新年快乐 💐。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_20.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_20.jpg" alt="" width="40%" />
 
 ## 2025
 
@@ -185,7 +203,7 @@ Never Give Up.
 
 审核通过 ✅
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_19.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_19.jpg" alt="" width="40%" />
 
 #### 2025-12-30
 
@@ -195,17 +213,17 @@ Never Give Up.
 
 😄 吃低保，当街溜子。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_18.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_18.jpg" alt="" width="40%" />
 
 #### 2025-12-28
 
 好东西，4 \* 10，出一身汗。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_17.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_17.jpg" alt="" width="40%" />
 
 #### 2025-12-27
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_16.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_16.jpg" alt="" width="40%" />
 
 #### 2025-12-26
 
@@ -215,31 +233,31 @@ Never Give Up.
 
 Merry Christmas
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_15.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_15.jpg" alt="" width="40%" />
 
 #### 2025-12-24
 
 挺好。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_14.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_14.jpg" alt="" width="40%" />
 
 #### 2025-12-23
 
 😁《莲花楼》还不错啊。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_13.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_13.jpg" alt="" width="40%" />
 
 #### 2025-12-22
 
 -\_-|| 重温《红楼梦》，跟小时候一样，还是最讨厌袭人和薛宝钗。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_12.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_12.jpg" alt="" width="40%" />
 
 #### 2025-12-21
 
 哈哈哈。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_11.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_11.jpg" alt="" width="40%" />
 
 #### 2025-12-20
 
@@ -249,37 +267,37 @@ Merry Christmas
 
 回忆你的童年经历，分析维他命 ABCDE，看你拥有了哪些，缺失了哪些？
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_10.png" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_10.png" alt="" width="40%" />
 
 #### 2025-12-18
 
 😓 金城武，梁朝伟...都能被甩？？？
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_09.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_09.jpg" alt="" width="40%" />
 
 #### 2025-12-17
 
 😭 哭了。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_08.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_08.jpg" alt="" width="40%" />
 
 #### 2025-12-16
 
 封神封神。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_07.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_07.jpg" alt="" width="40%" />
 
 #### 2025-12-15
 
 "你特么以为我好欺负么？看我怎么弄死你"。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_06.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_06.jpg" alt="" width="40%" />
 
 #### 2025-12-14
 
 给我看沉默了...
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_05.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_05.jpg" alt="" width="40%" />
 
 #### 2025-12-13
 
@@ -313,19 +331,19 @@ Merry Christmas
 
 "过去是一个幽灵，虚无缥缈，没什么影响力。只有未来才有力量，为自己创造一段新历史。"
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_03.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_03.jpg" alt="" width="40%" />
 
 #### 2025-12-06
 
 🤔 有点难评。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_04.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_04.jpg" alt="" width="40%" />
 
 #### 2025-12-05
 
 good bye，成都睿晟传媒科技有限公司。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_02.jpg" alt="" width="60%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_02.jpg" alt="" width="40%" />
 
 #### 2025-12-04
 
