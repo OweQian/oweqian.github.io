@@ -9,6 +9,12 @@
 
 ### 2026-02
 
+#### 2026-02-06
+
+女王 Charm。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_40.webp" alt="" width="40%" />
+
 #### 2026-02-05
 
 😭 目前还处在温饱阶段。

@@ -1,4 +1,4 @@
-# 🤖 AI - 如何让 AI 生成业务组件代码
+# 🤖 AI - 如何让 AI 基于组件库（开源、私有）生成业务组件代码
 
 
 设计一套 AI 友好的整洁业务组件架构，让 AI 基于开源组件库、公司私有组件库生成业务组件代码。
@@ -779,7 +779,7 @@ const dataSources = [];
 function saveToTxt() {
   // 将dataSources中的内容拼接成一个字符串，每个内容之间用效果展示效果展示-split line效果展示效果展示-分割
   const csvContent = dataSources.join(
-    "\n效果展示效果展示-split line效果展示效果展示-\n"
+    "\n效果展示效果展示-split line效果展示效果展示-\n",
   );
   // 将csvContent转换为带BOM的UTF-8格式防止用excel打开时中文乱码
   const csvWithBOM = `\ufeff${csvContent}`;
@@ -801,7 +801,7 @@ function collectDoc(content) {
   // 如果API或When To Use部分没有找到，则打印警告并返回
   if (apiStartIndex === -1 || descriptionIndex === -1) {
     console.warn(
-      `API or description section not found for component: ${componentName}`
+      `API or description section not found for component: ${componentName}`,
     );
     return;
   }
@@ -869,7 +869,7 @@ function generatedDOC(directoryPath) {
   processFiles(directoryPath);
   saveToTxt();
   console.log(
-    `Successfully generated API documentation to ${outputFileCSVPath}`
+    `Successfully generated API documentation to ${outputFileCSVPath}`,
   );
 }
 // 开始处理文件
@@ -1212,9 +1212,9 @@ export const openAiEmbeddings = pgTable(
       /**
        * 索引操作
        */
-      table.embedding.op("vector_cosine_ops")
+      table.embedding.op("vector_cosine_ops"),
     ),
-  })
+  }),
 );
 ```
 
@@ -1255,7 +1255,7 @@ import { db } from "..";
 import { openAiEmbeddings as embeddingsTable } from "./schema";
 
 export const createResource = async (
-  embeddings: Array<{ embedding: number[]; content: string }>
+  embeddings: Array<{ embedding: number[]; content: string }>,
 ) => {
   try {
     /**
@@ -1264,7 +1264,7 @@ export const createResource = async (
     await db.insert(embeddingsTable).values(
       embeddings.map((embedding) => ({
         ...embedding,
-      }))
+      })),
     );
 
     return "Resource successfully created and embedded.";
@@ -1311,7 +1311,7 @@ const generateChunks = (input: string): string[] => {
  * @returns 嵌入向量
  */
 export const generateEmbeddings = async (
-  value: string
+  value: string,
 ): Promise<Array<{ embedding: number[]; content: string }>> => {
   const chunks = generateChunks(value);
 
@@ -1328,7 +1328,7 @@ export const generateEmbeddings = async (
         content: chunk,
         embedding: response.data[0].embedding,
       };
-    })
+    }),
   );
 
   return embeddings;
@@ -1425,7 +1425,7 @@ export const findSimilarContent = async (userQueryEmbedded: number[]) => {
    */
   const similarity = sql<number>`1 - (${cosineDistance(
     openAiEmbeddings.embedding,
-    userQueryEmbedded
+    userQueryEmbedded,
   )})`;
   /**
    * 查找相关内容
@@ -1474,7 +1474,7 @@ export const generateEmbedding = async (value: string): Promise<number[]> => {
  * @returns 相关内容
  */
 export const findRelevantContent = async (
-  userQuery: string
+  userQuery: string,
 ): Promise<{ content: string; similarity: number }[]> => {
   const userQueryEmbedded = await generateEmbedding(userQuery);
   return findSimilarContent(userQueryEmbedded);
@@ -1536,7 +1536,7 @@ import { env } from "@/lib/env.mjs";
  */
 const createEnqueueContent = (
   relevantContent: Array<{ content: string; similarity: number }>,
-  aiResponse: string
+  aiResponse: string,
 ) => {
   const data = {
     relevantContent: relevantContent || [],
@@ -1545,7 +1545,7 @@ const createEnqueueContent = (
 
   // 将数据编码为 SSE 格式：event: message\ndata: {...}\n\n
   return new TextEncoder().encode(
-    `event: message\ndata: ${JSON.stringify(data)}\n\n`
+    `event: message\ndata: ${JSON.stringify(data)}\n\n`,
   );
 };
 
@@ -1606,7 +1606,7 @@ export async function POST(req: Request) {
           role: "system",
           // 将检索到的相关内容注入到系统提示词中
           content: getSystemPrompt(
-            relevantContent.map((c) => c.content).join("\n")
+            relevantContent.map((c) => c.content).join("\n"),
           ),
         },
         ...messages, // 包含用户的历史消息
@@ -1628,8 +1628,8 @@ export async function POST(req: Request) {
             controller.enqueue(
               createEnqueueContent(
                 relevantContent, // 每次响应都包含检索到的相关内容
-                chunk?.choices?.[0]?.delta?.content || "" // 提取增量内容
-              )
+                chunk?.choices?.[0]?.delta?.content || "", // 提取增量内容
+              ),
             );
           }
         } catch (err) {
@@ -1842,7 +1842,7 @@ const Home = () => {
                             id: nanoid(),
                             content: content,
                             score: similarity,
-                          })
+                          }),
                         ),
                       };
                     }
@@ -1883,7 +1883,7 @@ const Home = () => {
       setMessages((messages) =>
         messages.length > 0 && messages[messages.length - 1].role === "user"
           ? messages.slice(0, -1)
-          : messages
+          : messages,
       );
     }
   };
@@ -2001,9 +2001,9 @@ export const vercelAiEmbeddings = pgTable(
       /**
        * 索引操作
        */
-      table.embedding.op("vector_cosine_ops")
+      table.embedding.op("vector_cosine_ops"),
     ),
-  })
+  }),
 );
 ```
 
@@ -2018,7 +2018,7 @@ import { db } from "..";
 import { vercelAiEmbeddings as embeddingsTable } from "./schema";
 
 export const createResource = async (
-  embeddings: Array<{ embedding: number[]; content: string }>
+  embeddings: Array<{ embedding: number[]; content: string }>,
 ) => {
   try {
     /**
@@ -2027,7 +2027,7 @@ export const createResource = async (
     await db.insert(embeddingsTable).values(
       embeddings.map((embedding) => ({
         ...embedding,
-      }))
+      })),
     );
 
     return "Resource successfully created and embedded.";
@@ -2082,7 +2082,7 @@ const generateChunks = (input: string): string[] => {
  * @returns 嵌入向量
  */
 export const generateEmbeddings = async (
-  value: string
+  value: string,
 ): Promise<Array<{ embedding: number[]; content: string }>> => {
   const chunks = generateChunks(value);
 
@@ -2121,7 +2121,7 @@ export const generateEmbedding = async (value: string): Promise<number[]> => {
  * @returns 相关内容
  */
 export const findRelevantContent = async (
-  userQuery: string
+  userQuery: string,
 ): Promise<{ content: string; similarity: number }[]> => {
   const userQueryEmbedded = await generateEmbedding(userQuery);
   return findSimilarContent(userQueryEmbedded);
@@ -2202,7 +2202,7 @@ export const findSimilarContent = async (userQueryEmbedded: number[]) => {
    */
   const similarity = sql<number>`1 - (${cosineDistance(
     vercelAiEmbeddings.embedding,
-    userQueryEmbedded
+    userQueryEmbedded,
   )})`;
   /**
    * 查找相关内容
@@ -2261,7 +2261,7 @@ export const formatMessages = (messages: ChatCompletionMessageParam[]) => {
                 // 移除 base64 数据 URL 的前缀（data:image/xxx;base64,），只保留 base64 编码的图片数据
                 image: content.image_url.url.replace(
                   /^data:image\/\w+;base64,/,
-                  ""
+                  "",
                 ),
               };
             }
@@ -2308,7 +2308,7 @@ export async function POST(req: Request) {
     // 根据检索到的相关内容生成系统提示词
     // 系统提示词会包含检索到的参考内容，帮助模型更好地回答用户问题
     const system = getSystemPrompt(
-      relevantContent.map((c) => c.content).join("\n")
+      relevantContent.map((c) => c.content).join("\n"),
     );
 
     // 创建数据流响应，支持流式输出
@@ -2346,7 +2346,7 @@ export async function POST(req: Request) {
       {
         status: 400,
         statusText: "Bad Request",
-      }
+      },
     );
   }
 }
@@ -2437,7 +2437,7 @@ const Home = () => {
       setMessages((messages) =>
         messages.length > 0 && messages[messages.length - 1].role === "user"
           ? messages.slice(0, -1)
-          : messages
+          : messages,
       );
     },
     // 实验性功能：节流时间（毫秒），用于控制流式输出的更新频率

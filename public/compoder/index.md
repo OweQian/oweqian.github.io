@@ -1,13 +1,13 @@
-# 🤖 AI - 基于 Compoder 构建 AI Coding 平台
+# 🤖 AI - 基于 Compoder 搭建公司的专属 AI Coding 平台
 
 
-Compoder 是一个开源的 AI 驱动的组件代码生成引擎，集成了现代前端技术栈和多种 AI 模型能力。
+Compoder 是一个开源的 AI 驱动的组件代码生成引擎，集成了现代前端技术栈和多种 AI 模型的能力。
 
 <!--more-->
 
 ### 项目介绍
 
-Compoder 是一个开源的 AI 驱动的组件代码生成引擎，集成了现代前端技术栈和多种 AI 模型能力，你可以基于 Compoder 定制特定技术栈（如：React、Vue、）、特定组件库（如：Material UI、Ant Design、Element-Plus、Tailwind CSS、Shadcn UI、公司私有组件库...）以及特定场景（如：Landing Page）的 AI 驱动的组件代码生成器。
+Compoder 是一个开源的 AI 驱动的组件代码生成引擎，集成了现代前端技术栈和多种 AI 模型的能力。如何基于 Compoder 定制特定技术栈（如：React）、特定组件库（如：Material UI、Ant Design、Shadcn UI、公司私有组件库...）以及特定场景（如：Landing Page）的 AI 驱动的组件代码生成器呢？
 
 #### 市场调研分析
 
@@ -25,11 +25,11 @@ Compoder 助力前端工程师转型成为 AI 时代下的 Design Engineer，定
 
 1、技术栈定制
 
-定制基于特定技术栈（如：React、Vue）的 Codegen。
+定制基于特定技术栈（如：React）的 Codegen。
 
 2、组件库定制
 
-定制基于开源组件库 & 公司私有组件库（如：Material UI、Ant Design、Element-Plus、Shadcn UI、公司私有组件库...）的 Codegen。
+定制基于开源组件库 & 公司私有组件库（如：Material UI、Ant Design、Shadcn UI、公司私有组件库...）的 Codegen。
 
 3、场景定制
 
@@ -51,7 +51,8 @@ Compoder 助力前端工程师转型成为 AI 时代下的 Design Engineer，定
 
 2、代码版本迭代
 
-支持代码版本迭代，可查看历史版本，并基于任意版本生成新的代码。  
+支持代码版本迭代，可查看历史版本，并基于任意版本生成新的代码。
+
 3、代码在线微调
 
 支持代码在线微调，集成了代码编辑器，可以直观地对代码进行微调和保存。
@@ -97,8 +98,7 @@ Compoder 助力前端工程师转型成为 AI 时代下的 Design Engineer，定
 [artifacts/]             // 代码渲染沙箱环境
 ├── antd-renderer/      // Antd 渲染环境
 ├── shadcn-ui-renderer/ // Shadcn UI 渲染环境
-├── material-ui-renderer/       // Material UI 渲染环境
-└── element-plus-renderer/ // Element Plus 渲染环境
+└── material-ui-renderer/       // Material UI 渲染环境
 ```
 
 ### 快速开始
@@ -114,8 +114,8 @@ Compoder 助力前端工程师转型成为 AI 时代下的 Design Engineer，定
 
 ```
 # 克隆仓库
-git clone https://github.com/IamLiuLv/compoder.git
-cd compoder
+git clone git@github.com:OweQian/mini-compoder.git
+cd mini-compoder
 
 # 安装依赖
 pnpm install
