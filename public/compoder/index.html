@@ -33,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/compoder\/"
-        },"genre": "posts","keywords": "AI","wordcount":  67499 ,
+        },"genre": "posts","keywords": "AI","wordcount":  69240 ,
         "url": "http:\/\/localhost:1313\/compoder\/","datePublished": "2025-12-12T18:30:13+08:00","dateModified": "2026-02-06T16:54:16+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -107,8 +107,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🤖 AI - 基于 Compoder 搭建公司的专属 AI Coding 平台</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-12">2025-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 67499 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 135 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-12">2025-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 69240 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 139 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -152,7 +152,17 @@
             </li>
           </ul>
         </li>
-        <li><a href="#ai-驱动数据库模块实现">AI 驱动数据库模块实现</a></li>
+        <li><a href="#ai-驱动数据库模块实现">AI 驱动数据库模块实现</a>
+          <ul>
+            <li><a href="#cursor-project-rules">Cursor Project Rules</a></li>
+            <li><a href="#db-schema-实现">DB Schema 实现</a>
+              <ul>
+                <li><a href="#codegen-schema">Codegen Schema</a></li>
+                <li><a href="#componentcode-schema">ComponentCode Schema</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
         <li><a href="#ai-驱动后端模块实现">AI 驱动后端模块实现</a></li>
         <li><a href="#ai-驱动前端模块实现">AI 驱动前端模块实现</a>
           <ul>
@@ -918,7 +928,7 @@
 </span></span><span class="line"><span class="cl">            <span class="p">},</span>
 </span></span><span class="line"><span class="cl">            <span class="nt">&#34;Rating&#34;</span><span class="p">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">              <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Use this component to show a rating with stars.&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">              <span class="nt">&#34;api&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;Usage&gt;\n```jsx\nimport { LandingRating } from &#39;@/components/landing/rating/LandingRating&#39;;\n```\n\n```jsx\n&lt;LandingRating /&gt;\n```\n&lt;/Usage&gt;\n\n&lt;Examples&gt;\n### With Custom Rating\n\n\n\n```jsx\nimport { LandingRating } from &#39;@/components/landing/rating/LandingRating&#39;;\n\n&lt;LandingRating rating={4} /&gt;;\n```\n\n\n\n### With Partial Rating\n\n\n\n```jsx\nimport { LandingRating } from &#39;@/components/landing/rating/LandingRating&#39;;\n\n&lt;LandingRating rating={4.3} /&gt;;\n```\n\n\n\n### With Custom Size\n\n\n\n```jsx\nimport { LandingRating } from &#39;@/components/landing/rating/LandingRating&#39;;\n\n&lt;LandingRating rating={4.3} size=\&#34;large\&#34; /&gt;;\n```\n\n\n\n### With Custom Max Rating\n\n\n\n```jsx\nimport { LandingRating } from &#39;@/components/landing/rating/LandingRating&#39;;\n\n&lt;LandingRating rating={4.3} maxRating={6} /&gt;;\n```\n\n\n&lt;/Examples&gt;\n\n&lt;PropsReference&gt;\n| Prop Name                                                            | Prop Type                         | Required | Default    |\n| -------------------------------------------------------------------- | --------------------------------- | -------- | ---------- |\n| **rating** &lt;Tippy&gt;Number representing the current rating.&lt;/Tippy&gt;    | `number`                          | No       | 5          |\n| **maxRating** &lt;Tippy&gt;Number representing the maximum rating.&lt;/Tippy&gt; | `number`                          | No       | 5          |\n| **size** &lt;Tippy&gt;Size of the rating stars.&lt;/Tippy&gt;                    | `&#39;small&#39;   ǀ &#39;medium&#39;  ǀ &#39;large&#39;` | No       | `&#39;medium&#39;` |\n&lt;/PropsReference&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;api&#34;</span><span class="p">:</span> <span class="err">&#34;&lt;Usage&gt;\n```jsx\nimport</span> <span class="p">{</span> <span class="err">LandingRating</span> <span class="p">}</span> <span class="err">from</span> <span class="err">&#39;@/components/landing/rating/LandingRating&#39;;\n```\n\n```jsx\n&lt;LandingRating</span> <span class="err">/&gt;\n```\n&lt;/Usage&gt;\n\n&lt;Examples&gt;\n###</span> <span class="err">With</span> <span class="err">Custom</span> <span class="err">Rating\n\n\n\n```jsx\nimport</span> <span class="p">{</span> <span class="err">LandingRating</span> <span class="p">}</span> <span class="err">from</span> <span class="err">&#39;@/components/landing/rating/LandingRating&#39;;\n\n&lt;LandingRating</span> <span class="err">rating=</span><span class="p">{</span><span class="err">4</span><span class="p">}</span> <span class="err">/&gt;;\n```\n\n\n\n###</span> <span class="err">With</span> <span class="err">Partial</span> <span class="err">Rating\n\n\n\n```jsx\nimport</span> <span class="p">{</span> <span class="err">LandingRating</span> <span class="p">}</span> <span class="err">from</span> <span class="err">&#39;@/components/landing/rating/LandingRating&#39;;\n\n&lt;LandingRating</span> <span class="err">rating=</span><span class="p">{</span><span class="err">4.3</span><span class="p">}</span> <span class="err">/&gt;;\n```\n\n\n\n###</span> <span class="err">With</span> <span class="err">Custom</span> <span class="err">Size\n\n\n\n```jsx\nimport</span> <span class="p">{</span> <span class="err">LandingRating</span> <span class="p">}</span> <span class="err">from</span> <span class="err">&#39;@/components/landing/rating/LandingRating&#39;;\n\n&lt;LandingRating</span> <span class="err">rating=</span><span class="p">{</span><span class="err">4.3</span><span class="p">}</span> <span class="err">size=\</span><span class="s2">&#34;large\&#34; /&gt;;\n```\n\n\n\n### With Custom Max Rating\n\n\n\n```jsx\nimport { LandingRating } from &#39;@/components/landing/rating/LandingRating&#39;;\n\n&lt;LandingRating rating={4.3} maxRating={6} /&gt;;\n```\n\n\n&lt;/Examples&gt;\n\n&lt;PropsReference&gt;\n| Prop Name                                                            | Prop Type                         | Required | Default    |\n| -------------------------------------------------------------------- | --------------------------------- | -------- | ---------- |\n| **rating** &lt;Tippy&gt;Number representing the current rating.&lt;/Tippy&gt;    | `number`                          | No       | 5          |\n| **maxRating** &lt;Tippy&gt;Number representing the maximum rating.&lt;/Tippy&gt; | `number`                          | No       | 5          |\n| **size** &lt;Tippy&gt;Size of the rating stars.&lt;/Tippy&gt;                    | `&#39;small&#39;   ǀ &#39;medium&#39;  ǀ &#39;large&#39;` | No       | `&#39;medium&#39;` |\n&lt;/PropsReference&gt;&#34;</span>
 </span></span><span class="line"><span class="cl">            <span class="p">},</span>
 </span></span><span class="line"><span class="cl">            <span class="nt">&#34;SaleCta&#34;</span><span class="p">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">              <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Use this to prompt users to take action, such as signing up for a trial or buying a product. &lt;br /&gt; This can be used to break up longer pages and increase conversion as users scroll down and get past your primary CTA.&#34;</span><span class="p">,</span>
@@ -1236,7 +1246,485 @@
 </span></span><span class="line"><span class="cl"># 自定义网络定义，供多个服务共享
 </span></span><span class="line"><span class="cl">networks:
 </span></span><span class="line"><span class="cl">  mini-compoder:</span></span></code></pre></div></div><h3 id="ai-驱动数据库模块实现">AI 驱动数据库模块实现</h3>
-<h3 id="ai-驱动后端模块实现">AI 驱动后端模块实现</h3>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_04.svg" alt="" width="100%" />
+<h4 id="cursor-project-rules">Cursor Project Rules</h4>
+<p>.cursor/rules/generate-schema-from-types.mdc</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="n">description</span><span class="p">:</span> <span class="n">compoder</span> <span class="n">generate</span><span class="p">:</span><span class="n">db</span>
+</span></span><span class="line"><span class="cl"><span class="n">globs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="n">alwaysApply</span><span class="p">:</span> <span class="bp">false</span>
+</span></span><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Role: MongoDB Schema Generator Expert</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Goals</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Analyze</span> <span class="n">TypeScript</span> <span class="n">type</span> <span class="n">definitions</span> <span class="n">to</span> <span class="n">create</span> <span class="n">corresponding</span> <span class="n">MongoDB</span> <span class="n">schema</span> <span class="n">files</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Ensure</span> <span class="n">proper</span> <span class="n">validation</span> <span class="ow">and</span> <span class="n">schema</span> <span class="n">structure</span> <span class="n">follows</span> <span class="n">best</span> <span class="n">practices</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Generate</span> <span class="n">schema</span> <span class="n">files</span> <span class="n">that</span> <span class="n">correctly</span> <span class="n">implement</span> <span class="n">all</span> <span class="n">the</span> <span class="n">type</span> <span class="n">constraints</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Constraints</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">The</span> <span class="n">generated</span> <span class="n">schema</span> <span class="n">must</span> <span class="n">properly</span> <span class="n">handle</span> <span class="n">all</span> <span class="n">TypeScript</span> <span class="n">types</span> <span class="p">(</span><span class="n">primitive</span> <span class="n">types</span><span class="p">,</span> <span class="n">arrays</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Schema</span> <span class="n">must</span> <span class="n">include</span> <span class="n">proper</span> <span class="n">validation</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">type</span> <span class="n">definitions</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Follow</span> <span class="n">the</span> <span class="n">existing</span> <span class="n">project</span> <span class="n">conventions</span> <span class="k">for</span> <span class="n">schema</span> <span class="n">files</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Maintain</span> <span class="n">correct</span> <span class="n">imports</span> <span class="ow">and</span> <span class="n">exports</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Handle</span> <span class="n">special</span> <span class="n">MongoDB</span> <span class="n">types</span> <span class="p">(</span><span class="n">ObjectId</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span><span class="p">)</span> <span class="n">appropriately</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Implement</span> <span class="n">proper</span> <span class="n">timestamps</span> <span class="ow">and</span> <span class="n">other</span> <span class="n">schema</span> <span class="n">options</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Workflows</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Step</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Analyze</span> <span class="n">the</span> <span class="n">provided</span> <span class="n">TypeScript</span> <span class="n">type</span> <span class="n">definitions</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">types</span><span class="o">.</span><span class="n">ts</span> <span class="n">file</span><span class="p">,</span> <span class="n">identifying</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Interfaces</span> <span class="ow">and</span> <span class="n">types</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Nested</span> <span class="n">structures</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Optional</span> <span class="n">vs</span> <span class="n">required</span> <span class="n">fields</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">References</span> <span class="n">to</span> <span class="n">other</span> <span class="n">models</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Special</span> <span class="n">types</span> <span class="p">(</span><span class="n">ObjectId</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Step</span> <span class="mi">2</span><span class="p">:</span> <span class="n">Create</span> <span class="n">a</span> <span class="n">corresponding</span> <span class="n">schema</span><span class="o">.</span><span class="n">ts</span> <span class="n">file</span> <span class="n">that</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Imports</span> <span class="n">mongoose</span> <span class="ow">and</span> <span class="n">necessary</span> <span class="n">types</span> <span class="n">from</span> <span class="n">the</span> <span class="n">types</span><span class="o">.</span><span class="n">ts</span> <span class="n">file</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Defines</span> <span class="n">Mongoose</span> <span class="n">schemas</span> <span class="k">for</span> <span class="n">each</span> <span class="n">type</span><span class="o">/</span><span class="n">interface</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Implements</span> <span class="n">proper</span> <span class="n">validation</span> <span class="k">for</span> <span class="n">each</span> <span class="n">field</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Sets</span> <span class="n">appropriate</span> <span class="n">required</span> <span class="n">fields</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">type</span> <span class="n">definitions</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Handles</span> <span class="n">nested</span> <span class="n">types</span> <span class="n">as</span> <span class="n">sub</span><span class="o">-</span><span class="n">schemas</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Sets</span> <span class="n">up</span> <span class="n">timestamps</span> <span class="ow">and</span> <span class="n">other</span> <span class="n">schema</span> <span class="n">options</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Step</span> <span class="mi">3</span><span class="p">:</span> <span class="n">Configure</span> <span class="n">proper</span> <span class="n">exports</span> <span class="k">for</span> <span class="n">the</span> <span class="n">schema</span> <span class="n">models</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Use</span> <span class="n">consistent</span> <span class="n">naming</span> <span class="n">conventions</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">TypeName</span> <span class="err">→</span> <span class="n">TypeNameModel</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Handle</span> <span class="n">mongoose</span><span class="o">.</span><span class="n">models</span> <span class="n">checks</span> <span class="n">to</span> <span class="n">prevent</span> <span class="n">model</span> <span class="n">recompilation</span> <span class="n">errors</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Export</span> <span class="n">the</span> <span class="n">model</span> <span class="n">with</span> <span class="n">proper</span> <span class="n">typing</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Examples</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Given</span> <span class="n">a</span> <span class="n">types</span><span class="o">.</span><span class="n">ts</span> <span class="n">file</span> <span class="n">like</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">```</span><span class="n">typescript</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="p">{</span> <span class="n">Types</span> <span class="p">}</span> <span class="n">from</span> <span class="s2">&#34;mongoose&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">export</span> <span class="n">interface</span> <span class="n">User</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_id</span><span class="p">:</span> <span class="n">Types</span><span class="o">.</span><span class="n">ObjectId</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span><span class="p">:</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl">  <span class="n">email</span><span class="p">:</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl">  <span class="n">age</span><span class="err">?</span><span class="p">:</span> <span class="n">number</span>
+</span></span><span class="line"><span class="cl">  <span class="n">roles</span><span class="p">:</span> <span class="n">string</span><span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="err">```</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Generate</span> <span class="n">a</span> <span class="n">schema</span><span class="o">.</span><span class="n">ts</span> <span class="n">like</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">```</span><span class="n">typescript</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">mongoose</span><span class="p">,</span> <span class="p">{</span> <span class="n">Schema</span><span class="p">,</span> <span class="n">model</span> <span class="p">}</span> <span class="n">from</span> <span class="s2">&#34;mongoose&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="p">{</span> <span class="n">User</span> <span class="p">}</span> <span class="n">from</span> <span class="s2">&#34;./types&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">UserSchema</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Schema</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">type</span><span class="p">:</span> <span class="ne">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">required</span><span class="p">:</span> <span class="bp">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">email</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">type</span><span class="p">:</span> <span class="ne">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">required</span><span class="p">:</span> <span class="bp">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">age</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">type</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">required</span><span class="p">:</span> <span class="bp">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">roles</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">type</span><span class="p">:</span> <span class="p">[</span><span class="ne">String</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="n">required</span><span class="p">:</span> <span class="bp">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">default</span><span class="p">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">timestamps</span><span class="p">:</span> <span class="bp">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">export</span> <span class="k">const</span> <span class="n">UserModel</span> <span class="o">=</span> <span class="n">mongoose</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">User</span> <span class="o">||</span> <span class="n">model</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="p">(</span><span class="s2">&#34;User&#34;</span><span class="p">,</span> <span class="n">UserSchema</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">```</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Initialization</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">As</span> <span class="n">a</span> <span class="n">MongoDB</span> <span class="n">Schema</span> <span class="n">Generator</span> <span class="n">Expert</span><span class="p">,</span> <span class="n">I</span> <span class="n">will</span> <span class="n">analyze</span> <span class="n">your</span> <span class="n">TypeScript</span> <span class="n">type</span> <span class="n">definitions</span> <span class="ow">and</span> <span class="n">generate</span> <span class="n">corresponding</span> <span class="n">Mongoose</span> <span class="n">schema</span> <span class="n">files</span> <span class="n">that</span> <span class="n">properly</span> <span class="n">implement</span> <span class="n">all</span> <span class="n">the</span> <span class="n">type</span> <span class="n">constraints</span><span class="o">.</span> <span class="n">I</span><span class="s1">&#39;ll ensure the schema includes proper validation, follows project conventions, and handles special MongoDB types appropriately.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">When</span> <span class="n">you</span> <span class="n">provide</span> <span class="n">a</span> <span class="err">@</span><span class="n">types</span><span class="o">.</span><span class="n">ts</span> <span class="n">file</span><span class="p">,</span> <span class="n">I</span><span class="s1">&#39;ll generate the corresponding @schema.ts following the principles and patterns shown in the examples.</span></span></span></code></pre></div></div><p>翻译为中文：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="n">description</span><span class="p">:</span> <span class="n">compoder</span> <span class="n">generate</span><span class="p">:</span><span class="n">db</span>
+</span></span><span class="line"><span class="cl"><span class="n">globs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="n">alwaysApply</span><span class="p">:</span> <span class="bp">false</span>
+</span></span><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 角色：MongoDB Schema 生成专家</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 目标</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">分析</span> <span class="n">TypeScript</span> <span class="err">类型定义，生成对应的</span> <span class="n">MongoDB</span> <span class="n">schema</span> <span class="err">文件</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">确保校验逻辑和</span> <span class="n">schema</span> <span class="err">结构符合最佳实践</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">生成的</span> <span class="n">schema</span> <span class="err">文件需正确实现所有类型约束</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 约束条件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">生成的</span> <span class="n">schema</span> <span class="err">必须正确处理所有</span> <span class="n">TypeScript</span> <span class="err">类型（原始类型、数组、对象）</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Schema</span> <span class="err">必须根据类型定义包含适当的校验逻辑</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">遵循项目中既有的</span> <span class="n">schema</span> <span class="err">文件规范</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">保持正确的</span> <span class="n">import</span> <span class="err">和</span> <span class="k">export</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">妥善处理特殊</span> <span class="n">MongoDB</span> <span class="err">类型（如</span> <span class="n">ObjectId</span> <span class="err">等）</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">正确实现</span> <span class="n">timestamps</span> <span class="err">及其他</span> <span class="n">schema</span> <span class="err">配置项</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 工作流程</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">**</span><span class="err">步骤</span> <span class="mi">1</span><span class="o">**</span><span class="err">：分析</span> <span class="err">`</span><span class="n">types</span><span class="o">.</span><span class="n">ts</span><span class="err">`</span> <span class="err">中的</span> <span class="n">TypeScript</span> <span class="err">类型定义，识别以下内容：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">接口与类型定义</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">嵌套结构</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">可选字段与必填字段</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">对其他模型的引用</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">特殊类型（如</span> <span class="n">ObjectId</span> <span class="err">等）</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">**</span><span class="err">步骤</span> <span class="mi">2</span><span class="o">**</span><span class="err">：创建对应的</span> <span class="err">`</span><span class="n">schema</span><span class="o">.</span><span class="n">ts</span><span class="err">`</span> <span class="err">文件，需要完成：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">从</span> <span class="err">`</span><span class="n">types</span><span class="o">.</span><span class="n">ts</span><span class="err">`</span> <span class="err">中导入</span> <span class="n">mongoose</span> <span class="err">及所需类型</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">为每个类型</span><span class="o">/</span><span class="err">接口定义</span> <span class="n">Mongoose</span> <span class="n">schema</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">为每个字段实现适当的校验</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">根据类型定义设置合适的</span> <span class="n">required</span> <span class="err">字段</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">将嵌套类型处理为</span> <span class="n">sub</span><span class="o">-</span><span class="n">schema</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">配置</span> <span class="n">timestamps</span> <span class="err">及其他</span> <span class="n">schema</span> <span class="err">选项</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">**</span><span class="err">步骤</span> <span class="mi">3</span><span class="o">**</span><span class="err">：正确配置</span> <span class="n">schema</span> <span class="err">模型的导出：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">使用一致的命名规范（如：</span><span class="n">TypeName</span> <span class="err">→</span> <span class="n">TypeNameModel</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">使用</span> <span class="err">`</span><span class="n">mongoose</span><span class="o">.</span><span class="n">models</span><span class="err">`</span> <span class="err">检查，避免模型重复编译错误</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">使用正确的类型导出模型</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 示例</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">**</span><span class="err">给定如下</span> <span class="err">`</span><span class="n">types</span><span class="o">.</span><span class="n">ts</span><span class="err">`</span> <span class="err">文件：</span><span class="o">**</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">```</span><span class="n">typescript</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="p">{</span> <span class="n">Types</span> <span class="p">}</span> <span class="n">from</span> <span class="s2">&#34;mongoose&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">export</span> <span class="n">interface</span> <span class="n">User</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_id</span><span class="p">:</span> <span class="n">Types</span><span class="o">.</span><span class="n">ObjectId</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span><span class="p">:</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl">  <span class="n">email</span><span class="p">:</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl">  <span class="n">age</span><span class="err">?</span><span class="p">:</span> <span class="n">number</span>
+</span></span><span class="line"><span class="cl">  <span class="n">roles</span><span class="p">:</span> <span class="n">string</span><span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="err">```</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">**</span><span class="err">应生成如下</span> <span class="err">`</span><span class="n">schema</span><span class="o">.</span><span class="n">ts</span><span class="err">`：</span><span class="o">**</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">```</span><span class="n">typescript</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">mongoose</span><span class="p">,</span> <span class="p">{</span> <span class="n">Schema</span><span class="p">,</span> <span class="n">model</span> <span class="p">}</span> <span class="n">from</span> <span class="s2">&#34;mongoose&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="p">{</span> <span class="n">User</span> <span class="p">}</span> <span class="n">from</span> <span class="s2">&#34;./types&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">UserSchema</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Schema</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">type</span><span class="p">:</span> <span class="ne">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">required</span><span class="p">:</span> <span class="bp">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">email</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">type</span><span class="p">:</span> <span class="ne">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">required</span><span class="p">:</span> <span class="bp">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">age</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">type</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">required</span><span class="p">:</span> <span class="bp">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">roles</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">type</span><span class="p">:</span> <span class="p">[</span><span class="ne">String</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="n">required</span><span class="p">:</span> <span class="bp">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">default</span><span class="p">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">timestamps</span><span class="p">:</span> <span class="bp">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">export</span> <span class="k">const</span> <span class="n">UserModel</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mongoose</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">User</span> <span class="o">||</span> <span class="n">model</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="p">(</span><span class="s2">&#34;User&#34;</span><span class="p">,</span> <span class="n">UserSchema</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="err">```</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 初始化说明</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">作为</span> <span class="n">MongoDB</span> <span class="n">Schema</span> <span class="err">生成专家，我将分析你提供的</span> <span class="n">TypeScript</span> <span class="err">类型定义，并生成能正确实现所有类型约束的</span> <span class="n">Mongoose</span> <span class="n">schema</span> <span class="err">文件。我会确保</span> <span class="n">schema</span> <span class="err">包含适当的校验、遵循项目规范，并正确处理特殊的</span> <span class="n">MongoDB</span> <span class="err">类型。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">当你提供</span> <span class="err">`@</span><span class="n">types</span><span class="o">.</span><span class="n">ts</span><span class="err">`</span> <span class="err">文件时，我将按照上述示例中的原则和模式生成对应的</span> <span class="err">`@</span><span class="n">schema</span><span class="o">.</span><span class="n">ts</span><span class="err">`。</span></span></span></code></pre></div></div><h4 id="db-schema-实现">DB Schema 实现</h4>
+<h5 id="codegen-schema">Codegen Schema</h5>
+<p>1、数据字段类型确定</p>
+<p>lib/db/codegen/types.ts</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">CodegenRule</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">type</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="s2">&#34;public-components&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="s2">&#34;styles&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="s2">&#34;private-components&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="s2">&#34;file-structure&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="s2">&#34;attention-rules&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">description</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prompt?</span>: <span class="kt">string</span><span class="p">;</span> <span class="c1">// only used when type is &#34;styles&#34; | &#34;file-structure&#34; | &#34;special-attention&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">dataSet?</span>: <span class="kt">string</span><span class="p">[];</span> <span class="c1">// only used when type is &#34;public-components&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">docs</span><span class="o">?:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// only used when type is &#34;private-components&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="nx">libraryName</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">[</span><span class="nx">componentName</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">description</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">api</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Codegen</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">description</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fullStack</span><span class="o">:</span> <span class="s2">&#34;React&#34;</span> <span class="o">|</span> <span class="s2">&#34;Vue&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">guides</span>: <span class="kt">string</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">model</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">codeRendererUrl</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">rules</span>: <span class="kt">CodegenRule</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>2、打开 Cursor Agent，选择代码能力最强的模型，输入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">compoder generate:db @lib/db/codegen/types.ts</span></span></code></pre></div></div><p>3、检查生成的 schema.ts</p>
+<p>lib/db/codegen/schema.ts</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">mongoose</span> <span class="kr">from</span> <span class="s2">&#34;mongoose&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Codegen</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./types&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CodegenRuleSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">type</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">enum</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;public-components&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;styles&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;private-components&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;file-structure&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;attention-rules&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">description</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">dataSet</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">type</span><span class="o">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prompt</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">docs</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// only used when type is &#34;private-components&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">type</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">of</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">of</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">description</span>: <span class="kt">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">api</span>: <span class="kt">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CodegenSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">&lt;</span><span class="nt">Codegen</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">description</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fullStack</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">enum</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;React&#34;</span><span class="p">,</span> <span class="s2">&#34;Vue&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">guides</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">model</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">codeRendererUrl</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">rules</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="p">[</span><span class="nx">CodegenRuleSchema</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">timestamps</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">CodegenModel</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mongoose</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">Codegen</span> <span class="o">||</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">&lt;</span><span class="nt">Codegen</span><span class="p">&gt;(</span><span class="s2">&#34;Codegen&#34;</span><span class="p">,</span> <span class="nx">CodegenSchema</span><span class="p">);</span></span></span></code></pre></div></div><h5 id="componentcode-schema">ComponentCode Schema</h5>
+<p>1、数据字段类型确定</p>
+<p>lib/db/componentCode/types.ts</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Types</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;mongoose&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">PromptText</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">type</span><span class="o">:</span> <span class="s2">&#34;text&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">text</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">PromptImage</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">type</span><span class="o">:</span> <span class="s2">&#34;image&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">image</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">Prompt</span> <span class="o">=</span> <span class="nx">PromptText</span> <span class="o">|</span> <span class="nx">PromptImage</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">Version</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">_id</span>: <span class="kt">Types.ObjectId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">code</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prompt</span>: <span class="kt">Prompt</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">ComponentCode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">_id</span>: <span class="kt">Types.ObjectId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">userId</span>: <span class="kt">Types.ObjectId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">codegenId</span>: <span class="kt">Types.ObjectId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">description</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">versions</span>: <span class="kt">Version</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>2、打开 Cursor Agent，选择代码能力最强的模型，输入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">compoder generate:db @lib/db/componentCode/types.ts</span></span></code></pre></div></div><p>3、检查生成的 schema.ts</p>
+<p>lib/db/componentCode/schema.ts</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">mongoose</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Schema</span><span class="p">,</span> <span class="nx">model</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;mongoose&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ComponentCode</span><span class="p">,</span> <span class="nx">Prompt</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./types&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">PromptSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Schema</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">type</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">enum</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;text&#34;</span><span class="p">,</span> <span class="s2">&#34;image&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">text</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">required</span>: <span class="kt">function</span> <span class="p">(</span><span class="k">this</span><span class="o">:</span> <span class="nx">Prompt</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s2">&#34;text&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">image</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">required</span>: <span class="kt">function</span> <span class="p">(</span><span class="k">this</span><span class="o">:</span> <span class="nx">Prompt</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s2">&#34;image&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">VersionSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Schema</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">code</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prompt</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">type</span><span class="o">:</span> <span class="p">[</span><span class="nx">PromptSchema</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">validate</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">validator</span>: <span class="kt">function</span> <span class="p">(</span><span class="nx">v</span>: <span class="kt">unknown</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="nx">v</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">typeof</span> <span class="nx">v</span> <span class="o">===</span> <span class="s2">&#34;object&#34;</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;type&#34;</span> <span class="k">in</span> <span class="nx">v</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span><span class="s2">&#34;text&#34;</span><span class="p">,</span> <span class="s2">&#34;image&#34;</span><span class="p">].</span><span class="nx">includes</span><span class="p">((</span><span class="nx">v</span> <span class="kr">as</span> <span class="nx">Prompt</span><span class="p">).</span><span class="kr">type</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Prompt must be either a single prompt object or an array of prompts&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ComponentCodeSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Schema</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">userId</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="nx">Schema</span><span class="p">.</span><span class="nx">Types</span><span class="p">.</span><span class="nx">ObjectId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">ref</span><span class="o">:</span> <span class="s2">&#34;User&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">codegenId</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="nx">Schema</span><span class="p">.</span><span class="nx">Types</span><span class="p">.</span><span class="nx">ObjectId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">ref</span><span class="o">:</span> <span class="s2">&#34;Codegen&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">description</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">versions</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">type</span><span class="o">:</span> <span class="p">[</span><span class="nx">VersionSchema</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">timestamps</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">ComponentCodeModel</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mongoose</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">ComponentCode</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">model</span><span class="p">&lt;</span><span class="nt">ComponentCode</span><span class="p">&gt;(</span><span class="s2">&#34;ComponentCode&#34;</span><span class="p">,</span> <span class="nx">ComponentCodeSchema</span><span class="p">);</span></span></span></code></pre></div></div><h3 id="ai-驱动后端模块实现">AI 驱动后端模块实现</h3>
 <h3 id="ai-驱动前端模块实现">AI 驱动前端模块实现</h3>
 <h4 id="ai-驱动业务组件设计与实现">AI 驱动业务组件设计与实现</h4>
 <h4 id="ai-驱动页面对接联调实现">AI 驱动页面对接联调实现</h4>

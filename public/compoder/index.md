@@ -1119,6 +1119,494 @@ networks:
 
 ### AI 驱动数据库模块实现
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_04.svg" alt="" width="100%" />
+
+#### Cursor Project Rules
+
+.cursor/rules/generate-schema-from-types.mdc
+
+````
+---
+description: compoder generate:db
+globs:
+alwaysApply: false
+---
+# Role: MongoDB Schema Generator Expert
+
+## Goals
+
+- Analyze TypeScript type definitions to create corresponding MongoDB schema files
+- Ensure proper validation and schema structure follows best practices
+- Generate schema files that correctly implement all the type constraints
+
+## Constraints
+
+- The generated schema must properly handle all TypeScript types (primitive types, arrays, objects)
+- Schema must include proper validation based on the type definitions
+- Follow the existing project conventions for schema files
+- Maintain correct imports and exports
+- Handle special MongoDB types (ObjectId, etc.) appropriately
+- Implement proper timestamps and other schema options
+
+## Workflows
+
+Step 1: Analyze the provided TypeScript type definitions in the types.ts file, identifying:
+
+- Interfaces and types
+- Nested structures
+- Optional vs required fields
+- References to other models
+- Special types (ObjectId, etc.)
+
+Step 2: Create a corresponding schema.ts file that:
+
+- Imports mongoose and necessary types from the types.ts file
+- Defines Mongoose schemas for each type/interface
+- Implements proper validation for each field
+- Sets appropriate required fields based on the type definitions
+- Handles nested types as sub-schemas
+- Sets up timestamps and other schema options
+
+Step 3: Configure proper exports for the schema models:
+
+- Use consistent naming conventions (e.g., TypeName → TypeNameModel)
+- Handle mongoose.models checks to prevent model recompilation errors
+- Export the model with proper typing
+
+## Examples
+
+Given a types.ts file like:
+
+```typescript
+import { Types } from "mongoose"
+
+export interface User {
+  _id: Types.ObjectId
+  name: string
+  email: string
+  age?: number
+  roles: string[]
+}
+```
+
+Generate a schema.ts like:
+
+```typescript
+import mongoose, { Schema, model } from "mongoose"
+import { User } from "./types"
+
+const UserSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    age: {
+      type: Number,
+      required: false,
+    },
+    roles: {
+      type: [String],
+      required: true,
+      default: [],
+    },
+  },
+  {
+    timestamps: true,
+  },
+)
+
+export const UserModel = mongoose.models.User || model<User>("User", UserSchema)
+```
+
+## Initialization
+
+As a MongoDB Schema Generator Expert, I will analyze your TypeScript type definitions and generate corresponding Mongoose schema files that properly implement all the type constraints. I'll ensure the schema includes proper validation, follows project conventions, and handles special MongoDB types appropriately.
+
+When you provide a @types.ts file, I'll generate the corresponding @schema.ts following the principles and patterns shown in the examples.
+````
+
+翻译为中文：
+
+````
+---
+description: compoder generate:db
+globs:
+alwaysApply: false
+---
+# 角色：MongoDB Schema 生成专家
+
+## 目标
+
+- 分析 TypeScript 类型定义，生成对应的 MongoDB schema 文件
+- 确保校验逻辑和 schema 结构符合最佳实践
+- 生成的 schema 文件需正确实现所有类型约束
+
+## 约束条件
+
+- 生成的 schema 必须正确处理所有 TypeScript 类型（原始类型、数组、对象）
+- Schema 必须根据类型定义包含适当的校验逻辑
+- 遵循项目中既有的 schema 文件规范
+- 保持正确的 import 和 export
+- 妥善处理特殊 MongoDB 类型（如 ObjectId 等）
+- 正确实现 timestamps 及其他 schema 配置项
+
+## 工作流程
+
+**步骤 1**：分析 `types.ts` 中的 TypeScript 类型定义，识别以下内容：
+
+- 接口与类型定义
+- 嵌套结构
+- 可选字段与必填字段
+- 对其他模型的引用
+- 特殊类型（如 ObjectId 等）
+
+**步骤 2**：创建对应的 `schema.ts` 文件，需要完成：
+
+- 从 `types.ts` 中导入 mongoose 及所需类型
+- 为每个类型/接口定义 Mongoose schema
+- 为每个字段实现适当的校验
+- 根据类型定义设置合适的 required 字段
+- 将嵌套类型处理为 sub-schema
+- 配置 timestamps 及其他 schema 选项
+
+**步骤 3**：正确配置 schema 模型的导出：
+
+- 使用一致的命名规范（如：TypeName → TypeNameModel）
+- 使用 `mongoose.models` 检查，避免模型重复编译错误
+- 使用正确的类型导出模型
+
+## 示例
+
+**给定如下 `types.ts` 文件：**
+
+```typescript
+import { Types } from "mongoose"
+
+export interface User {
+  _id: Types.ObjectId
+  name: string
+  email: string
+  age?: number
+  roles: string[]
+}
+```
+
+**应生成如下 `schema.ts`：**
+
+```typescript
+import mongoose, { Schema, model } from "mongoose";
+import { User } from "./types";
+
+const UserSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    age: {
+      type: Number,
+      required: false,
+    },
+    roles: {
+      type: [String],
+      required: true,
+      default: [],
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+export const UserModel =
+  mongoose.models.User || model<User>("User", UserSchema);
+```
+
+## 初始化说明
+
+作为 MongoDB Schema 生成专家，我将分析你提供的 TypeScript 类型定义，并生成能正确实现所有类型约束的 Mongoose schema 文件。我会确保 schema 包含适当的校验、遵循项目规范，并正确处理特殊的 MongoDB 类型。
+
+当你提供 `@types.ts` 文件时，我将按照上述示例中的原则和模式生成对应的 `@schema.ts`。
+
+````
+
+#### DB Schema 实现
+
+##### Codegen Schema
+
+1、数据字段类型确定
+
+lib/db/codegen/types.ts
+
+```typescript
+export interface CodegenRule {
+  type:
+    | "public-components"
+    | "styles"
+    | "private-components"
+    | "file-structure"
+    | "attention-rules";
+  description: string;
+  prompt?: string; // only used when type is "styles" | "file-structure" | "special-attention"
+  dataSet?: string[]; // only used when type is "public-components"
+  docs?: {
+    // only used when type is "private-components"
+    [libraryName: string]: {
+      [componentName: string]: {
+        description: string;
+        api: string;
+      };
+    };
+  };
+}
+
+export interface Codegen {
+  title: string;
+  description: string;
+  fullStack: "React" | "Vue";
+  guides: string[];
+  model: string;
+  codeRendererUrl: string;
+  rules: CodegenRule[];
+}
+```
+
+2、打开 Cursor Agent，选择代码能力最强的模型，输入：
+
+```
+compoder generate:db @lib/db/codegen/types.ts
+```
+
+3、检查生成的 schema.ts
+
+lib/db/codegen/schema.ts
+
+```typescript
+import mongoose from "mongoose";
+import { Codegen } from "./types";
+
+const CodegenRuleSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: [
+      "public-components",
+      "styles",
+      "private-components",
+      "file-structure",
+      "attention-rules",
+    ],
+    required: true,
+  },
+  description: {
+    type: String,
+    default: "",
+    required: true,
+  },
+  dataSet: {
+    type: [String],
+    default: undefined,
+  },
+  prompt: {
+    type: String,
+    default: undefined,
+  },
+  docs: {
+    // only used when type is "private-components"
+    type: Object,
+    of: {
+      type: Object,
+      of: {
+        description: String,
+        api: String,
+      },
+    },
+    default: undefined,
+  },
+});
+
+const CodegenSchema = new mongoose.Schema<Codegen>(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    fullStack: {
+      type: String,
+      enum: ["React", "Vue"],
+      required: true,
+    },
+    guides: {
+      type: [String],
+      default: [],
+      required: true,
+    },
+    model: {
+      type: String,
+      required: true,
+    },
+    codeRendererUrl: {
+      type: String,
+      required: true,
+    },
+    rules: {
+      type: [CodegenRuleSchema],
+      default: [],
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+export const CodegenModel =
+  mongoose.models.Codegen || mongoose.model<Codegen>("Codegen", CodegenSchema);
+```
+
+##### ComponentCode Schema
+
+1、数据字段类型确定
+
+lib/db/componentCode/types.ts
+
+```typescript
+import { Types } from "mongoose";
+
+export type PromptText = {
+  type: "text";
+  text: string;
+};
+
+export type PromptImage = {
+  type: "image";
+  image: string;
+};
+
+export type Prompt = PromptText | PromptImage;
+
+export type Version = {
+  _id: Types.ObjectId;
+  code: string;
+  prompt: Prompt[];
+};
+
+export interface ComponentCode {
+  _id: Types.ObjectId;
+  userId: Types.ObjectId;
+  codegenId: Types.ObjectId;
+  name: string;
+  description: string;
+  versions: Version[];
+}
+```
+
+2、打开 Cursor Agent，选择代码能力最强的模型，输入：
+
+```
+compoder generate:db @lib/db/componentCode/types.ts
+```
+
+3、检查生成的 schema.ts
+
+lib/db/componentCode/schema.ts
+
+```typescript
+import mongoose, { Schema, model } from "mongoose";
+import { ComponentCode, Prompt } from "./types";
+
+const PromptSchema = new Schema({
+  type: {
+    type: String,
+    enum: ["text", "image"],
+    required: true,
+  },
+  text: {
+    type: String,
+    required: function (this: Prompt) {
+      return this.type === "text";
+    },
+  },
+  image: {
+    type: String,
+    required: function (this: Prompt) {
+      return this.type === "image";
+    },
+  },
+});
+
+const VersionSchema = new Schema({
+  code: {
+    type: String,
+    required: true,
+  },
+  prompt: {
+    type: [PromptSchema],
+    required: true,
+    validate: {
+      validator: function (v: unknown) {
+        return (
+          Array.isArray(v) ||
+          (v &&
+            typeof v === "object" &&
+            "type" in v &&
+            ["text", "image"].includes((v as Prompt).type))
+        );
+      },
+      message:
+        "Prompt must be either a single prompt object or an array of prompts",
+    },
+  },
+});
+
+const ComponentCodeSchema = new Schema(
+  {
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    codegenId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Codegen",
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    versions: {
+      type: [VersionSchema],
+      required: true,
+      default: [],
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+export const ComponentCodeModel =
+  mongoose.models.ComponentCode ||
+  model<ComponentCode>("ComponentCode", ComponentCodeSchema);
+```
+
 ### AI 驱动后端模块实现
 
 ### AI 驱动前端模块实现
@@ -1140,4 +1628,12 @@ networks:
 ### 集成到 Claude Code
 
 ### 总结
+
+```
+
+```
+
+```
+
+```
 
