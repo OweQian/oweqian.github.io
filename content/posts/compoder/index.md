@@ -1613,6 +1613,1758 @@ export const ComponentCodeModel =
 
 ### AI 驱动后端模块实现
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_02.svg" alt="" width="100%" />
+
+#### Cursor Project Rules
+
+.cursor/rules/generate-sql-api.mdc
+
+````
+---
+description: compoder generate:sql-api
+globs:
+alwaysApply: false
+---
+# MongoDB API Generation Guide
+
+This guide is for generating API endpoints based on MongoDB.
+
+## User Input
+
+Please provide the following information:
+
+1. MongoDB Schema definition, including:
+   - Data structure and its types
+   - Required fields
+   - Default values
+   - Validation rules
+
+For example:
+
+```typescript
+// In lib/db/[modelName]/schema.ts
+import mongoose, { Schema, model } from "mongoose"
+import { DataType, ItemType } from "./types"
+
+// Subdocument Schema
+const ItemSchema = new Schema({
+  value: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+})
+
+// Main document Schema
+const DataSchema = new Schema(
+  {
+    field1: {
+      type: String,
+      required: true,
+    },
+    field2: {
+      type: String,
+      required: true,
+    },
+    items: {
+      type: [ItemSchema],
+      required: true,
+      default: [],
+    },
+  },
+  {
+    timestamps: true,
+  },
+)
+
+// Export Model
+export const Model = mongoose.models.Data || model<DataType>("Data", DataSchema)
+
+// Define corresponding types in types.ts
+export interface ItemType {
+  _id: mongoose.Types.ObjectId
+  value: string
+  createdAt: Date
+}
+
+export interface DataType {
+  _id: mongoose.Types.ObjectId
+  field1: string
+  field2: string
+  items: ItemType[]
+  createdAt: Date
+  updatedAt: Date
+}
+```
+
+2. API request type definition, including:
+   - Request method (GET/POST/PUT/DELETE)
+   - Request parameters and their types
+   - Response data structure (optional)
+
+For example:
+
+```typescript
+// In app/api/[modelName]/type.d.ts
+declare namespace ApiNamespace {
+  export interface RequestType {
+    param1: string // Parameter 1 description
+    param2: string // Parameter 2 description
+    param3: string // Parameter 3 description
+  }
+}
+```
+
+## Generation Steps
+
+1. Implement database operations (query or mutation) based on user input type definitions and MongoDB Schema
+2. Create corresponding API route handlers
+
+## Detailed Steps
+
+### 1. Implement Database Operations
+
+Based on the API request method, implement corresponding operations in the same directory level as the Schema file:
+
+#### Query Operations (lib/db/[modelName]/selectors.ts)
+
+```typescript
+import { Model } from "./schema"
+import { FilterQuery } from "mongoose"
+import { DataType } from "./types"
+
+export async function queryOperation({
+  param1,
+  param2,
+  page,
+  pageSize,
+}: {
+  param1: string
+  param2: string
+  page: number
+  pageSize: number
+}) {
+  try {
+    const skip = (page - 1) * pageSize
+
+    // 1. Build query conditions
+    let searchQuery: FilterQuery<DataType> = {
+      field1: param1,
+    }
+
+    if (param2) {
+      searchQuery.field2 = {
+        $regex: param2,
+        $options: "i",
+      }
+    }
+
+    // 2. Execute query
+    const [data, total] = await Promise.all([
+      Model.find(searchQuery)
+        .select("field1 field2 field3")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(pageSize)
+        .lean(),
+      Model.countDocuments(searchQuery),
+    ])
+
+    // 3. Process return data
+    const formattedData = data.map(item => ({
+      id: item._id,
+      value: item.field1,
+      extra: item.field2,
+    }))
+
+    return {
+      data: formattedData,
+      total,
+    }
+  } catch (error) {
+    console.error("Error in query operation:", error)
+    throw error
+  }
+}
+```
+
+#### Mutation Operations (lib/db/[modelName]/mutations.ts)
+
+```typescript
+import { Model } from "./schema"
+
+export async function databaseOperation({
+  param1,
+  param2,
+  param3,
+}: {
+  param1: string
+  param2: string
+  param3: string
+}) {
+  try {
+    // 1. Find record
+    const record = await Model.findById(param1)
+    if (!record) {
+      throw new Error("Record not found")
+    }
+
+    // 2. Execute update operation
+    const targetIndex = record.items.findIndex(
+      (item: ItemType) => item._id.toString() === param2,
+    )
+    if (targetIndex === -1) {
+      throw new Error("Target not found")
+    }
+
+    record.items[targetIndex].value = param3
+    await record.save()
+
+    // 3. Return result
+    return {
+      _id: record._id,
+      ...record.toObject(),
+    }
+  } catch (error) {
+    console.error("Error in database operation:", error)
+    throw error
+  }
+}
+```
+
+### 2. Create API Route Handlers
+
+In the same directory level as the API type definition, implement corresponding routes based on operation type:
+
+#### List Query (app/api/[modelName]/list/route.ts)
+
+```typescript
+import { NextResponse } from "next/server"
+import { queryOperation } from "@/lib/db/[modelName]/selectors"
+import type { ApiNamespace } from "../type"
+import { validateSession } from "@/lib/auth/middleware"
+import { connectToDatabase } from "@/lib/db/mongo"
+
+export async function GET(request: Request) {
+  try {
+    // 1. Validate session
+    const authError = await validateSession()
+    if (authError) {
+      return authError
+    }
+
+    // 2. Connect to database
+    await connectToDatabase()
+
+    // 3. Get query parameters from URL
+    const { searchParams } = new URL(request.url)
+    const param1 = searchParams.get("param1")
+    const param2 = searchParams.get("param2")
+    const page = parseInt(searchParams.get("page") || "1")
+    const pageSize = parseInt(searchParams.get("pageSize") || "10")
+
+    if (!param1) {
+      return NextResponse.json(
+        { error: "Missing required parameter: param1" },
+        { status: 400 },
+      )
+    }
+
+    // 4. Execute query operation
+    const result = await queryOperation({
+      param1,
+      param2,
+      page,
+      pageSize,
+    })
+
+    // 5. Return result
+    return NextResponse.json(result)
+  } catch (error) {
+    console.error("Error in GET operation:", error)
+    return NextResponse.json(
+      { error: "Query operation failed" },
+      { status: 500 },
+    )
+  }
+}
+```
+
+#### Create Operation (app/api/[modelName]/create/route.ts)
+
+```typescript
+import { NextResponse } from "next/server"
+import { createOperation } from "@/lib/db/[modelName]/mutations"
+import type { ApiNamespace } from "../type"
+import { validateSession } from "@/lib/auth/middleware"
+import { connectToDatabase } from "@/lib/db/mongo"
+
+export async function POST(request: Request) {
+  try {
+    const authError = await validateSession()
+    if (authError) {
+      return authError
+    }
+
+    await connectToDatabase()
+
+    // Get data from request body
+    const body = (await request.json()) as ApiNamespace.CreateRequest
+    const { param1, param2, param3 } = body
+
+    // Execute create operation
+    const result = await createOperation({
+      param1,
+      param2,
+      param3,
+    })
+
+    // Return created resource
+    return NextResponse.json(result, { status: 201 })
+  } catch (error) {
+    console.error("Error in POST operation:", error)
+    return NextResponse.json(
+      { error: "Create operation failed" },
+      { status: 500 },
+    )
+  }
+}
+```
+
+#### Update Operation (app/api/[modelName]/edit/route.ts)
+
+```typescript
+import { NextResponse } from "next/server"
+import { updateOperation } from "@/lib/db/[modelName]/mutations"
+import type { ApiNamespace } from "../type"
+import { validateSession } from "@/lib/auth/middleware"
+import { connectToDatabase } from "@/lib/db/mongo"
+
+export async function PUT(request: Request) {
+  try {
+    const authError = await validateSession()
+    if (authError) {
+      return authError
+    }
+
+    await connectToDatabase()
+
+    // Get data from request body
+    const body = (await request.json()) as ApiNamespace.EditRequest
+    const { id, param1, param2 } = body
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing required parameter: id" },
+        { status: 400 },
+      )
+    }
+
+    // Execute update operation
+    const result = await updateOperation({
+      id,
+      param1,
+      param2,
+    })
+
+    return NextResponse.json(result)
+  } catch (error) {
+    console.error("Error in PUT operation:", error)
+    return NextResponse.json(
+      { error: "Update operation failed" },
+      { status: 500 },
+    )
+  }
+}
+```
+
+#### Delete Operation (app/api/[modelName]/delete/route.ts)
+
+```typescript
+import { NextResponse } from "next/server"
+import { deleteOperation } from "@/lib/db/[modelName]/mutations"
+import type { ApiNamespace } from "../type"
+import { validateSession } from "@/lib/auth/middleware"
+import { connectToDatabase } from "@/lib/db/mongo"
+
+export async function DELETE(request: Request) {
+  try {
+    const authError = await validateSession()
+    if (authError) {
+      return authError
+    }
+
+    await connectToDatabase()
+
+    // Get parameters from URL
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get("id")
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing required parameter: id" },
+        { status: 400 },
+      )
+    }
+
+    // Execute delete operation
+    await deleteOperation({ id })
+
+    // Return empty response, indicating successful deletion
+    return new NextResponse(null, { status: 204 })
+  } catch (error) {
+    console.error("Error in DELETE operation:", error)
+    return NextResponse.json(
+      { error: "Delete operation failed" },
+      { status: 500 },
+    )
+  }
+}
+```
+
+## File Structure Example
+
+```
+lib/
+  db/
+    [modelName]/
+      schema.ts      # MongoDB Schema definition
+      types.ts       # TypeScript type definition
+      selectors.ts   # Query operations
+      mutations.ts   # Mutation operations
+app/
+  api/
+    [modelName]/     # For example: componentCode
+      type.d.ts      # API type definition
+      create/        # Create operation
+        route.ts
+      detail/        # Detail operation
+        route.ts
+      edit/          # Edit operation
+        route.ts
+      list/          # List operation
+        route.ts
+      save/          # Save operation
+        route.ts
+```
+
+## Notes
+
+1. Type Definitions:
+
+   - Use namespaces in `type.d.ts` to organize related types
+   - Ensure type definitions are clear and complete
+   - Add comments for each parameter explaining its purpose
+
+2. Database Operations:
+
+   - Query operations (GET):
+     - Support pagination
+     - Support search and filtering
+     - Optimize query performance (using lean, select, etc.)
+   - Mutation operations (POST/PUT/DELETE):
+     - Implement appropriate error handling
+     - Return unified data structure
+     - Wrap all operations in try-catch
+
+3. API Routes:
+   - Must include session validation
+   - Must include database connection
+   - Unified error handling and response format
+   - GET requests get data from URL parameters
+   - POST/PUT requests get data from request body
+````
+
+翻译为中文：
+
+````
+---
+description: compoder generate:sql-api
+globs:
+alwaysApply: false
+---
+
+# MongoDB API 生成指南
+
+本指南用于基于 MongoDB 生成 API。
+
+## 用户输入
+
+请提供以下信息：
+
+1. MongoDB Schema 定义，包括：
+   - 数据结构及其类型
+   - 必填字段
+   - 默认值
+   - 验证规则
+
+例如：
+
+```typescript
+// In lib/db/[modelName]/schema.ts
+import mongoose, { Schema, model } from "mongoose"
+import { DataType, ItemType } from "./types"
+
+// Subdocument Schema
+const ItemSchema = new Schema({
+  value: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+})
+
+// Main document Schema
+const DataSchema = new Schema(
+  {
+    field1: {
+      type: String,
+      required: true,
+    },
+    field2: {
+      type: String,
+      required: true,
+    },
+    items: {
+      type: [ItemSchema],
+      required: true,
+      default: [],
+    },
+  },
+  {
+    timestamps: true,
+  },
+)
+
+// Export Model
+export const Model = mongoose.models.Data || model<DataType>("Data", DataSchema)
+
+// Define corresponding types in types.ts
+export interface ItemType {
+  _id: mongoose.Types.ObjectId
+  value: string
+  createdAt: Date
+}
+
+export interface DataType {
+  _id: mongoose.Types.ObjectId
+  field1: string
+  field2: string
+  items: ItemType[]
+  createdAt: Date
+  updatedAt: Date
+}
+```
+
+2. API 请求类型定义，包括：
+   - 请求方法（GET/POST/PUT/DELETE）
+   - 请求参数及其类型
+   - 响应数据结构（可选）
+
+例如：
+
+```typescript
+// In app/api/[modelName]/type.d.ts
+declare namespace ApiNamespace {
+  export interface RequestType {
+    param1: string; // 参数1说明
+    param2: string; // 参数2说明
+    param3: string; // 参数3说明
+  }
+}
+```
+
+## 生成步骤
+
+1. 根据用户输入的类型定义和 MongoDB Schema 实现数据库操作（查询或变更）
+2. 创建相应的 API 路由处理器
+
+## 详细步骤
+
+### 1. 实现数据库操作
+
+根据 API 请求方法，在与 Schema 文件同级的目录中实现相应的操作：
+
+#### 查询操作 (lib/db/[modelName]/selectors.ts)
+
+```typescript
+import { Model } from "./schema";
+import { FilterQuery } from "mongoose";
+import { DataType } from "./types";
+
+export async function queryOperation({
+  param1,
+  param2,
+  page,
+  pageSize,
+}: {
+  param1: string;
+  param2: string;
+  page: number;
+  pageSize: number;
+}) {
+  try {
+    const skip = (page - 1) * pageSize;
+
+    // 1. 构建查询条件
+    let searchQuery: FilterQuery<DataType> = {
+      field1: param1,
+    };
+
+    if (param2) {
+      searchQuery.field2 = {
+        $regex: param2,
+        $options: "i",
+      };
+    }
+
+    // 2. 执行查询
+    const [data, total] = await Promise.all([
+      Model.find(searchQuery)
+        .select("field1 field2 field3")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(pageSize)
+        .lean(),
+      Model.countDocuments(searchQuery),
+    ]);
+
+    // 3. 处理返回数据
+    const formattedData = data.map((item) => ({
+      id: item._id,
+      value: item.field1,
+      extra: item.field2,
+    }));
+
+    return {
+      data: formattedData,
+      total,
+    };
+  } catch (error) {
+    console.error("查询操作错误:", error);
+    throw error;
+  }
+}
+```
+
+#### 变更操作 (lib/db/[modelName]/mutations.ts)
+
+```typescript
+import { Model } from "./schema";
+
+export async function databaseOperation({
+  param1,
+  param2,
+  param3,
+}: {
+  param1: string;
+  param2: string;
+  param3: string;
+}) {
+  try {
+    // 1. 查找记录
+    const record = await Model.findById(param1);
+    if (!record) {
+      throw new Error("记录未找到");
+    }
+
+    // 2. 执行更新操作
+    const targetIndex = record.items.findIndex(
+      (item: ItemType) => item._id.toString() === param2,
+    );
+    if (targetIndex === -1) {
+      throw new Error("目标未找到");
+    }
+
+    record.items[targetIndex].value = param3;
+    await record.save();
+
+    // 3. 返回结果
+    return {
+      _id: record._id,
+      ...record.toObject(),
+    };
+  } catch (error) {
+    console.error("数据库操作错误:", error);
+    throw error;
+  }
+}
+```
+
+### 2. 创建 API 路由处理器
+
+在与 API 类型定义同级的目录中，根据操作类型实现相应的路由：
+
+#### 列表查询 (app/api/[modelName]/list/route.ts)
+
+```typescript
+import { NextResponse } from "next/server";
+import { queryOperation } from "@/lib/db/[modelName]/selectors";
+import type { ApiNamespace } from "../type";
+import { validateSession } from "@/lib/auth/middleware";
+import { connectToDatabase } from "@/lib/db/mongo";
+
+export async function GET(request: Request) {
+  try {
+    // 1. 验证会话
+    const authError = await validateSession();
+    if (authError) {
+      return authError;
+    }
+
+    // 2. 连接数据库
+    await connectToDatabase();
+
+    // 3. 从 URL 获取查询参数
+    const { searchParams } = new URL(request.url);
+    const param1 = searchParams.get("param1");
+    const param2 = searchParams.get("param2");
+    const page = parseInt(searchParams.get("page") || "1");
+    const pageSize = parseInt(searchParams.get("pageSize") || "10");
+
+    if (!param1) {
+      return NextResponse.json(
+        { error: "缺少必需参数: param1" },
+        { status: 400 },
+      );
+    }
+
+    // 4. 执行查询操作
+    const result = await queryOperation({
+      param1,
+      param2,
+      page,
+      pageSize,
+    });
+
+    // 5. 返回结果
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error("GET 操作错误:", error);
+    return NextResponse.json({ error: "查询操作失败" }, { status: 500 });
+  }
+}
+```
+
+#### 创建操作 (app/api/[modelName]/create/route.ts)
+
+```typescript
+import { NextResponse } from "next/server";
+import { createOperation } from "@/lib/db/[modelName]/mutations";
+import type { ApiNamespace } from "../type";
+import { validateSession } from "@/lib/auth/middleware";
+import { connectToDatabase } from "@/lib/db/mongo";
+
+export async function POST(request: Request) {
+  try {
+    const authError = await validateSession();
+    if (authError) {
+      return authError;
+    }
+
+    await connectToDatabase();
+
+    // 从请求体获取数据
+    const body = (await request.json()) as ApiNamespace.CreateRequest;
+    const { param1, param2, param3 } = body;
+
+    // 执行创建操作
+    const result = await createOperation({
+      param1,
+      param2,
+      param3,
+    });
+
+    // 返回创建的资源
+    return NextResponse.json(result, { status: 201 });
+  } catch (error) {
+    console.error("POST 操作错误:", error);
+    return NextResponse.json({ error: "创建操作失败" }, { status: 500 });
+  }
+}
+```
+
+#### 更新操作 (app/api/[modelName]/edit/route.ts)
+
+```typescript
+import { NextResponse } from "next/server";
+import { updateOperation } from "@/lib/db/[modelName]/mutations";
+import type { ApiNamespace } from "../type";
+import { validateSession } from "@/lib/auth/middleware";
+import { connectToDatabase } from "@/lib/db/mongo";
+
+export async function PUT(request: Request) {
+  try {
+    const authError = await validateSession();
+    if (authError) {
+      return authError;
+    }
+
+    await connectToDatabase();
+
+    // 从请求体获取数据
+    const body = (await request.json()) as ApiNamespace.EditRequest;
+    const { id, param1, param2 } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: "缺少必需参数: id" }, { status: 400 });
+    }
+
+    // 执行更新操作
+    const result = await updateOperation({
+      id,
+      param1,
+      param2,
+    });
+
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error("PUT 操作错误:", error);
+    return NextResponse.json({ error: "更新操作失败" }, { status: 500 });
+  }
+}
+```
+
+#### 删除操作 (app/api/[modelName]/delete/route.ts)
+
+```typescript
+import { NextResponse } from "next/server";
+import { deleteOperation } from "@/lib/db/[modelName]/mutations";
+import type { ApiNamespace } from "../type";
+import { validateSession } from "@/lib/auth/middleware";
+import { connectToDatabase } from "@/lib/db/mongo";
+
+export async function DELETE(request: Request) {
+  try {
+    const authError = await validateSession();
+    if (authError) {
+      return authError;
+    }
+
+    await connectToDatabase();
+
+    // 从 URL 获取参数
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "缺少必需参数: id" }, { status: 400 });
+    }
+
+    // 执行删除操作
+    await deleteOperation({ id });
+
+    // 返回空响应，表示删除成功
+    return new NextResponse(null, { status: 204 });
+  } catch (error) {
+    console.error("DELETE 操作错误:", error);
+    return NextResponse.json({ error: "删除操作失败" }, { status: 500 });
+  }
+}
+```
+
+## 文件结构示例
+
+```
+lib/
+  db/
+    [modelName]/
+      schema.ts      # MongoDB Schema 定义
+      types.ts       # TypeScript 类型定义
+      selectors.ts   # 查询操作
+      mutations.ts   # 变更操作
+app/
+  api/
+    [modelName]/     # 例如：componentCode
+      type.d.ts      # API 类型定义
+      create/        # 创建操作
+        route.ts
+      detail/        # 详情操作
+        route.ts
+      edit/          # 编辑操作
+        route.ts
+      list/          # 列表操作
+        route.ts
+      save/          # 保存操作
+        route.ts
+```
+
+## 注意事项
+
+1. 类型定义：
+   - 在 `type.d.ts` 中使用命名空间来组织相关类型
+   - 确保类型定义清晰完整
+   - 为每个参数添加注释说明其用途
+
+2. 数据库操作：
+   - 查询操作（GET）：
+     - 支持分页
+     - 支持搜索和过滤
+     - 优化查询性能（使用 lean、select 等）
+   - 变更操作（POST/PUT/DELETE）：
+     - 实现适当的错误处理
+     - 返回统一的数据结构
+     - 将所有操作包装在 try-catch 中
+
+3. API 路由：
+   - 必须包含会话验证
+   - 必须包含数据库连接
+   - 统一的错误处理和响应格式
+   - GET 请求从 URL 参数获取数据
+   - POST/PUT 请求从请求体获取数据
+
+````
+
+#### DB API 实现
+
+##### Codegen DB API
+
+1、API req、res 类型确定
+
+app/api/codegen/types.d.ts
+
+```typescript
+import { Codegen } from "@/lib/db/codegen/types";
+
+declare namespace CodegenApi {
+  // codegen list request
+  export interface ListRequest {
+    page: number;
+    pageSize: number;
+    name?: string;
+    fullStack?: "React" | "Vue";
+  }
+  // codegen list response
+  export interface ListResponse {
+    data: Pick<Codegen, "_id" | "title" | "description" | "fullStack">[];
+    total: number;
+  }
+  // codegen detail request
+  export interface DetailRequest {
+    id: string;
+  }
+  // codegen detail response
+  export interface DetailResponse {
+    data: Pick<
+      Codegen,
+      | "_id"
+      | "title"
+      | "description"
+      | "fullStack"
+      | "guides"
+      | "codeRendererUrl"
+    >;
+  }
+}
+```
+
+2、打开 Cursor Agent，选择代码能力最强的模型，输入：
+
+```
+compoder generate:sql-api @lib/db/codegen/schema.ts @lib/db/codegen/types.ts @app/api/codegen/types.d.ts
+```
+
+3、检查生成的代码文件。
+
+（1）、lib/db/codegen/selectors.ts
+
+```typescript
+import { CodegenModel } from "./schema";
+import { CodegenApi } from "@/app/api/codegen/types";
+import { Codegen } from "./types";
+
+export async function findCodegens(params: CodegenApi.ListRequest) {
+  const { page, pageSize, name, fullStack } = params;
+
+  // Build query conditions
+  const query: Record<string, unknown> = {};
+
+  if (name) {
+    // Use regex for fuzzy title search
+    query.title = { $regex: name, $options: "i" };
+  }
+
+  if (fullStack) {
+    query.fullStack = fullStack;
+  }
+
+  // Execute query
+  const skip = (page - 1) * pageSize;
+
+  const [data, total] = await Promise.all([
+    CodegenModel.find(query)
+      .select("   title description fullStack")
+      .skip(skip)
+      .limit(pageSize)
+      .lean(),
+    CodegenModel.countDocuments(query),
+  ]);
+
+  return {
+    data,
+    total,
+  };
+}
+
+export async function findCodegenById(id: string) {
+  const codegen = await CodegenModel.findById(id)
+    .select("_id title description fullStack guides codeRendererUrl rules")
+    .lean<
+      Pick<
+        Codegen,
+        | "title"
+        | "description"
+        | "fullStack"
+        | "guides"
+        | "codeRendererUrl"
+        | "rules"
+      > & {
+        _id: string;
+      }
+    >();
+
+  if (!codegen) {
+    throw new Error("Codegen not found");
+  }
+
+  return codegen;
+}
+
+export async function getCodeRendererUrl(codegenId: string) {
+  const codegen = await CodegenModel.findById(codegenId);
+  return codegen?.codeRendererUrl;
+}
+```
+
+（2）、app/api/codegen/list/route.ts
+
+```typescript
+import { NextRequest, NextResponse } from "next/server";
+import { findCodegens } from "@/lib/db/codegen/selectors";
+import { CodegenApi } from "../types";
+import { validateSession } from "@/lib/auth/middleware";
+import { connectToDatabase } from "@/lib/db/mongo";
+
+export async function GET(req: NextRequest) {
+  try {
+    // Add identity verification check
+    const authError = await validateSession();
+    if (authError) {
+      return authError;
+    }
+
+    await connectToDatabase();
+
+    const searchParams = req.nextUrl.searchParams;
+
+    // Parse query parameters
+    const params: CodegenApi.ListRequest = {
+      page: parseInt(searchParams.get("page") || "1"),
+      pageSize: parseInt(searchParams.get("pageSize") || "10"),
+      name: searchParams.get("name") || undefined,
+      fullStack:
+        (searchParams.get(
+          "fullStack",
+        ) as CodegenApi.ListRequest["fullStack"]) || undefined,
+    };
+
+    // Validate parameters
+    if (isNaN(params.page) || params.page < 1) {
+      return NextResponse.json(
+        { error: "Invalid page parameter" },
+        { status: 400 },
+      );
+    }
+
+    if (isNaN(params.pageSize) || params.pageSize < 1) {
+      return NextResponse.json(
+        { error: "Invalid pageSize parameter" },
+        { status: 400 },
+      );
+    }
+
+    // Query data
+    const result = await findCodegens(params);
+
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error("Failed to fetch codegens:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
+  }
+}
+
+export const dynamic = "force-dynamic";
+```
+
+（3）、app/api/codegen/detail/route.ts
+
+```typescript
+import { NextRequest } from "next/server";
+import { findCodegenById } from "@/lib/db/codegen/selectors";
+import { CodegenApi } from "../types";
+import { connectToDatabase } from "@/lib/db/mongo";
+import { validateSession } from "@/lib/auth/middleware";
+
+export async function GET(request: NextRequest) {
+  try {
+    // Add identity verification check
+    const authError = await validateSession();
+    if (authError) {
+      return authError;
+    }
+
+    await connectToDatabase();
+
+    // 从 URL 查询参数中获取 id，而不是从 body 中获取
+    const searchParams = request.nextUrl.searchParams;
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return Response.json({ error: "Missing id parameter" }, { status: 400 });
+    }
+
+    const data = await findCodegenById(id);
+
+    return Response.json({
+      data,
+    } satisfies CodegenApi.DetailResponse);
+  } catch (error) {
+    console.error("[CODEGEN_DETAIL]", error);
+    return Response.json(
+      { error: "Failed to fetch codegen detail" },
+      { status: 500 },
+    );
+  }
+}
+
+export const dynamic = "force-dynamic";
+```
+
+##### ComponentCode DB API
+
+1、API req、res 类型确定
+
+app/api/componentCode/type.d.ts
+
+```typescript
+import { ComponentCode } from "@/lib/db/componentCode/types";
+import { Prompt } from "@/lib/db/componentCode/types";
+
+declare namespace ComponentCodeApi {
+  // list request
+  export interface listRequest {
+    codegenId: string;
+    page: number;
+    pageSize: number;
+    searchKeyword?: string;
+    filterField?: "all" | "name" | "description";
+  }
+  export interface listResponse {
+    data: Array<
+      Pick<ComponentCode, "_id" | "name" | "description"> & {
+        latestVersionCode: string;
+      }
+    >;
+    total: number;
+  }
+  // detail request
+  export interface detailRequest {
+    id: string;
+    codegenId: string;
+  }
+  // detail response
+  export interface detailResponse {
+    data: Pick<ComponentCode, "_id" | "name" | "description" | "versions"> & {
+      codeRendererUrl: string;
+    };
+  }
+
+  // create request
+  export interface createRequest {
+    codegenId: string;
+    prompt: Prompt[];
+    model: string;
+    provider: string;
+  }
+
+  // create response
+  export type createResponse = ReadableStream;
+
+  // edit request
+  export interface editRequest {
+    codegenId: string;
+    prompt: Prompt[];
+    component: {
+      id: string;
+      name: string;
+      code: string;
+      prompt: Prompt[];
+    };
+    model: string;
+    provider: string;
+  }
+
+  // edit response
+  export type editResponse = ReadableStream;
+
+  // save request
+  export interface saveRequest {
+    id: string;
+    versionId: string;
+    code: string;
+  }
+
+  // delete request
+  export interface deleteRequest {
+    id: string;
+  }
+}
+```
+
+2、打开 Cursor Agent，选择代码能力最强的模型，输入：
+
+```
+compoder generate:sql-api @lib/db/componentCode/schema.ts @lib/db/componentCode/types.ts @app/api/componentCode/types.d.ts
+```
+
+3、检查生成的代码文件。
+
+(1)、lib/db/componentCode/selectors.ts
+
+```typescript
+import { ComponentCodeModel } from "./schema";
+import { FilterQuery } from "mongoose";
+import { ComponentCode } from "./types";
+
+export async function listComponentCodes({
+  userId,
+  codegenId,
+  page,
+  pageSize,
+  searchKeyword,
+  filterField = "all",
+}: {
+  userId: string;
+  codegenId: string;
+  page: number;
+  pageSize: number;
+  searchKeyword?: string;
+  filterField?: "all" | "name" | "description";
+}) {
+  const skip = (page - 1) * pageSize;
+
+  let searchQuery: FilterQuery<ComponentCode> = {};
+
+  if (searchKeyword) {
+    if (filterField === "all") {
+      searchQuery = {
+        $or: [
+          { name: { $regex: searchKeyword, $options: "i" } },
+          { description: { $regex: searchKeyword, $options: "i" } },
+        ],
+      };
+    } else {
+      searchQuery = {
+        [filterField]: { $regex: searchKeyword, $options: "i" },
+      };
+    }
+  }
+
+  // 执行查询
+  const [data, total] = await Promise.all([
+    ComponentCodeModel.find({ userId, codegenId, ...searchQuery })
+      .select("_id name description versions")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(pageSize)
+      .lean(),
+    ComponentCodeModel.countDocuments({ userId, codegenId, ...searchQuery }),
+  ]);
+
+  // 处理返回数据格式
+  const formattedData = data.map((item) => ({
+    _id: item._id,
+    name: item.name,
+    description: item.description,
+    codegenId: item.codegenId,
+    latestVersionCode: item.versions?.[item.versions.length - 1]?.code || "",
+  }));
+
+  return {
+    data: formattedData,
+    total,
+  };
+}
+
+export async function getComponentCodeDetail(id: string) {
+  const componentCode = await ComponentCodeModel.findById(id)
+    .select("_id name description versions")
+    .lean();
+
+  if (!componentCode) {
+    throw new Error("Component code not found");
+  }
+
+  return componentCode;
+}
+```
+
+(2)、lib/db/componentCode/mutations.ts
+
+```typescript
+import { ComponentCodeModel } from "./schema";
+import { Prompt, Version } from "./types";
+
+export async function createComponentCode({
+  userId,
+  codegenId,
+  name,
+  description,
+  prompt,
+  code,
+}: {
+  userId: string;
+  codegenId: string;
+  name: string;
+  description: string;
+  prompt: Prompt[];
+  code: string;
+}) {
+  try {
+    const componentCode = await ComponentCodeModel.create({
+      userId,
+      codegenId,
+      name,
+      description,
+      versions: [
+        {
+          code,
+          prompt,
+        },
+      ],
+    });
+
+    return {
+      _id: componentCode._id,
+      ...componentCode.toObject(),
+    };
+  } catch (error) {
+    console.error("Error creating component code:", error);
+    throw error;
+  }
+}
+
+export async function updateComponentCode({
+  id,
+  prompt,
+  code,
+}: {
+  id: string;
+  prompt: Prompt[];
+  code: string;
+}) {
+  try {
+    const componentCode = await ComponentCodeModel.findById(id);
+    if (!componentCode) {
+      throw new Error("Component code not found");
+    }
+    componentCode.versions.push({ prompt, code });
+    await componentCode.save();
+    return {
+      _id: componentCode._id,
+      ...componentCode.toObject(),
+    };
+  } catch (error) {
+    console.error("Error updating component code:", error);
+    throw error;
+  }
+}
+
+export async function saveComponentCodeVersion({
+  id,
+  versionId,
+  code,
+}: {
+  id: string;
+  versionId: string;
+  code: string;
+}) {
+  try {
+    const componentCode = await ComponentCodeModel.findById(id);
+    if (!componentCode) {
+      throw new Error("Component code not found");
+    }
+
+    const versionIndex = componentCode.versions.findIndex(
+      (v: Version) => v._id.toString() === versionId,
+    );
+    if (versionIndex === -1) {
+      throw new Error("Version not found");
+    }
+
+    componentCode.versions[versionIndex].code = code;
+    await componentCode.save();
+
+    return {
+      _id: componentCode._id,
+      ...componentCode.toObject(),
+    };
+  } catch (error) {
+    console.error("Error saving component code version:", error);
+    throw error;
+  }
+}
+
+export async function deleteComponentCode({ id }: { id: string }) {
+  try {
+    const result = await ComponentCodeModel.findByIdAndDelete(id);
+    if (!result) {
+      throw new Error("Component code not found");
+    }
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting component code:", error);
+    throw error;
+  }
+}
+```
+
+(3)、app/api/componentCode/create/route.ts
+
+```typescript
+import { NextRequest, NextResponse } from "next/server";
+import { run } from "@/app/api/ai-core/workflow";
+import { ComponentCodeApi } from "../type";
+import { findCodegenById } from "@/lib/db/codegen/selectors";
+import { getAIClient } from "@/app/api/ai-core/utils/aiClient";
+import { getUserId } from "@/lib/auth/middleware";
+import { connectToDatabase } from "@/lib/db/mongo";
+import { validateSession } from "@/lib/auth/middleware";
+import { LanguageModel } from "ai";
+import { AIProvider } from "@/lib/config/ai-providers";
+
+export async function POST(request: NextRequest) {
+  try {
+    const authError = await validateSession();
+    if (authError) {
+      return authError;
+    }
+
+    await connectToDatabase();
+
+    const userId = await getUserId();
+
+    const encoder = new TextEncoder();
+    const stream = new TransformStream();
+    const writer = stream.writable.getWriter();
+
+    const body = (await request.json()) as ComponentCodeApi.createRequest;
+    const codegenDetail = await findCodegenById(body.codegenId);
+
+    const aiModel = getAIClient(body.provider as AIProvider, body.model);
+
+    const response = new Response(stream.readable);
+
+    run({
+      stream: {
+        write: (chunk: string) => writer.write(encoder.encode(chunk)),
+        close: () => writer.close(),
+      },
+      query: {
+        prompt: body.prompt,
+        aiModel: aiModel as LanguageModel,
+        rules: codegenDetail.rules,
+        userId: userId!,
+        codegenId: body.codegenId,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Failed to get component code detail:", error);
+    return NextResponse.json(
+      { error: "Failed to get component code detail" },
+      { status: 500 },
+    );
+  }
+}
+```
+
+(4)、app/api/componentCode/delete/route.ts
+
+```typescript
+import { NextResponse } from "next/server";
+import { deleteComponentCode } from "@/lib/db/componentCode/mutations";
+import { validateSession } from "@/lib/auth/middleware";
+import { connectToDatabase } from "@/lib/db/mongo";
+
+export async function DELETE(request: Request) {
+  try {
+    // 1. Validate session
+    const authError = await validateSession();
+    if (authError) {
+      return authError;
+    }
+
+    // 2. Connect to database
+    await connectToDatabase();
+
+    // 3. Get query parameters from URL
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing required parameter: id" },
+        { status: 400 },
+      );
+    }
+
+    // 4. Execute delete operation
+    await deleteComponentCode({ id });
+
+    // 5. Return empty response, indicating successful deletion
+    return new NextResponse(null, { status: 204 });
+  } catch (error) {
+    console.error("Error in DELETE operation:", error);
+    return NextResponse.json(
+      { error: "Delete operation failed" },
+      { status: 500 },
+    );
+  }
+}
+```
+
+(5)、app/api/componentCode/detail/route.ts
+
+```typescript
+import { NextRequest, NextResponse } from "next/server";
+import { getComponentCodeDetail } from "@/lib/db/componentCode/selectors";
+import { ComponentCodeApi } from "../type";
+import { ComponentCode } from "@/lib/db/componentCode/types";
+import { getCodeRendererUrl } from "@/lib/db/codegen/selectors";
+
+export async function GET(request: NextRequest) {
+  try {
+    const searchParams = request.nextUrl.searchParams;
+    const id = searchParams.get("id");
+    const codegenId = searchParams.get("codegenId");
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing required parameter: id" },
+        { status: 400 },
+      );
+    }
+
+    const data = (await getComponentCodeDetail(id)) as ComponentCode;
+
+    if (!codegenId) {
+      return NextResponse.json(
+        { error: "Missing required parameter: codegenId" },
+        { status: 400 },
+      );
+    }
+
+    const codeRendererUrl = await getCodeRendererUrl(codegenId);
+
+    const response: ComponentCodeApi.detailResponse = {
+      data: {
+        _id: data._id,
+        name: data.name,
+        description: data.description,
+        versions: data.versions,
+        codeRendererUrl,
+      },
+    };
+
+    return NextResponse.json(response);
+  } catch (error) {
+    console.error("Failed to get component code detail:", error);
+    return NextResponse.json(
+      { error: "Failed to get component code detail" },
+      { status: 500 },
+    );
+  }
+}
+
+export const dynamic = "force-dynamic";
+```
+
+(6)、app/api/componentCode/edit/route.ts
+
+```typescript
+import { NextRequest, NextResponse } from "next/server";
+import { run } from "@/app/api/ai-core/workflow";
+import { ComponentCodeApi } from "../type";
+import { findCodegenById } from "@/lib/db/codegen/selectors";
+import { getAIClient } from "@/app/api/ai-core/utils/aiClient";
+import { getUserId } from "@/lib/auth/middleware";
+import { connectToDatabase } from "@/lib/db/mongo";
+import { validateSession } from "@/lib/auth/middleware";
+import { LanguageModel } from "ai";
+import { AIProvider } from "@/lib/config/ai-providers";
+
+export async function POST(request: NextRequest) {
+  try {
+    const authError = await validateSession();
+    if (authError) {
+      return authError;
+    }
+
+    await connectToDatabase();
+
+    const userId = await getUserId();
+
+    const encoder = new TextEncoder();
+    const stream = new TransformStream();
+    const writer = stream.writable.getWriter();
+
+    const params: ComponentCodeApi.editRequest = await request.json();
+
+    const aiModel = getAIClient(params.provider as AIProvider, params.model);
+
+    // validate parameters
+    if (!params.codegenId || !params.prompt || !params.component) {
+      return NextResponse.json(
+        { error: "Missing required parameters" },
+        { status: 400 },
+      );
+    }
+
+    const codegenDetail = await findCodegenById(params.codegenId);
+
+    run({
+      stream: {
+        write: (chunk: string) => writer.write(encoder.encode(chunk)),
+        close: () => writer.close(),
+      },
+      query: {
+        prompt: params.prompt,
+        aiModel: aiModel as LanguageModel,
+        rules: codegenDetail.rules,
+        userId: userId!,
+        component: params.component,
+      },
+    });
+
+    return new Response(stream.readable);
+  } catch (error) {
+    console.error("Failed to get component code detail:", error);
+    return NextResponse.json(
+      { error: "Failed to get component code detail" },
+      { status: 500 },
+    );
+  }
+}
+```
+
+(7)、app/api/componentCode/list/route.ts
+
+```typescript
+import { NextRequest, NextResponse } from "next/server";
+import { listComponentCodes } from "@/lib/db/componentCode/selectors";
+import { getUserId, validateSession } from "@/lib/auth/middleware";
+import { connectToDatabase } from "@/lib/db/mongo";
+
+export async function GET(req: NextRequest) {
+  try {
+    // Add identity verification check
+    const authError = await validateSession();
+    if (authError) {
+      return authError;
+    }
+
+    await connectToDatabase();
+
+    const userId = await getUserId();
+
+    const searchParams = req.nextUrl.searchParams;
+    const codegenId = searchParams.get("codegenId") || "";
+    const page = parseInt(searchParams.get("page") || "1");
+    const pageSize = parseInt(searchParams.get("pageSize") || "10");
+    const searchKeyword = searchParams.get("searchKeyword") || undefined;
+    const filterField =
+      (searchParams.get("filterField") as "all" | "name" | "description") ||
+      "all";
+
+    // 参数验证
+    if (isNaN(page) || isNaN(pageSize) || page < 1 || pageSize < 1) {
+      return NextResponse.json(
+        { error: "Invalid page or pageSize parameters" },
+        { status: 400 },
+      );
+    }
+
+    const result = await listComponentCodes({
+      page,
+      pageSize,
+      searchKeyword,
+      filterField,
+      userId: userId!,
+      codegenId,
+    });
+
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error("Error in component code list API:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
+  }
+}
+
+export const dynamic = "force-dynamic";
+```
+
+(8)、app/api/componentCode/save/route.ts
+
+```typescript
+import { NextResponse } from "next/server";
+import { saveComponentCodeVersion } from "@/lib/db/componentCode/mutations";
+import type { ComponentCodeApi } from "../type";
+import { validateSession } from "@/lib/auth/middleware";
+import { connectToDatabase } from "@/lib/db/mongo";
+
+export async function POST(request: Request) {
+  try {
+    const authError = await validateSession();
+    if (authError) {
+      return authError;
+    }
+
+    await connectToDatabase();
+
+    const body = (await request.json()) as ComponentCodeApi.saveRequest;
+    const { id, versionId, code } = body;
+
+    const result = await saveComponentCodeVersion({
+      id,
+      versionId,
+      code,
+    });
+
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error("Error saving component code:", error);
+    return NextResponse.json(
+      { error: "Failed to save component code" },
+      { status: 500 },
+    );
+  }
+}
+```
+
 ### AI 驱动前端模块实现
 
 #### AI 驱动业务组件设计与实现
@@ -1632,3 +3384,7 @@ export const ComponentCodeModel =
 ### 集成到 Claude Code
 
 ### 总结
+
+```
+
+```
