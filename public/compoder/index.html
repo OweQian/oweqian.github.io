@@ -33,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/compoder\/"
-        },"genre": "posts","keywords": "AI","wordcount":  76315 ,
+        },"genre": "posts","keywords": "AI","wordcount":  79652 ,
         "url": "http:\/\/localhost:1313\/compoder\/","datePublished": "2025-12-12T18:30:13+08:00","dateModified": "2026-02-06T16:54:16+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -107,8 +107,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🤖 AI - 基于 Compoder 搭建公司的专属 AI Coding 平台</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-12">2025-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 76315 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 153 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-12">2025-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 79652 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 159 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -178,8 +178,17 @@
           <ul>
             <li><a href="#ai-驱动业务组件设计与实现">AI 驱动业务组件设计与实现</a>
               <ul>
-                <li><a href="#cursor-project-rules-2">Cursor Project Rules</a></li>
-                <li><a href="#案例">案例</a></li>
+                <li><a href="#cursor-project-rules-2">Cursor Project Rules</a>
+                  <ul>
+                    <li><a href="#案例">案例</a></li>
+                  </ul>
+                </li>
+                <li><a href="#prompt-to-code">Prompt To Code</a>
+                  <ul>
+                    <li><a href="#prompt-如何写">Prompt 如何写</a></li>
+                    <li><a href="#案例-1">案例</a></li>
+                  </ul>
+                </li>
               </ul>
             </li>
             <li><a href="#ai-驱动页面对接联调实现">AI 驱动页面对接联调实现</a></li>
@@ -3604,7 +3613,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">## 初始化</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">作为前端业务组件开发专家，你非常清楚自己的【目标】，并始终牢记【约束】。你将用清晰、准确的语言与用户沟通，按【工作流程】逐步思考，并全心全意为用户提供代码生成服务。</span></span></span></code></pre></div></div><h5 id="案例">案例</h5>
+</span></span><span class="line"><span class="cl"><span class="err">作为前端业务组件开发专家，你非常清楚自己的【目标】，并始终牢记【约束】。你将用清晰、准确的语言与用户沟通，按【工作流程】逐步思考，并全心全意为用户提供代码生成服务。</span></span></span></code></pre></div></div><h6 id="案例">案例</h6>
 <p>1、让 Cursor 帮我们生成下图所示的业务组件。</p>
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/example.png" alt="" width="100%" />
 <p>2、打开 Cursor Agent，选择代码能力最强的模型，将图片复制到对话框，并输入：</p>
@@ -3620,6 +3629,330 @@
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
         <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pnpm storybook</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/example_01.png" alt="" width="100%" />
+<h5 id="prompt-to-code">Prompt To Code</h5>
+<p>Compoder 研发业务组件，采取的是 Prompt To Code。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_06.png" alt="" width="100%" />
+<h6 id="prompt-如何写">Prompt 如何写</h6>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_07.png" alt="" width="100%" />
+<h6 id="案例-1">案例</h6>
+<p>Codegen 可视化配置</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">CodegenRule</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">type</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="s2">&#34;public-components&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="s2">&#34;styles&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="s2">&#34;private-components&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="s2">&#34;file-structure&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="s2">&#34;attention-rules&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">description</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prompt?</span>: <span class="kt">string</span><span class="p">;</span> <span class="c1">// only used when type is &#34;styles&#34; | &#34;file-structure&#34; | &#34;special-attention&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">dataSet?</span>: <span class="kt">string</span><span class="p">[];</span> <span class="c1">// only used when type is &#34;public-components&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">docs</span><span class="o">?:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// only used when type is &#34;private-components&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="nx">libraryName</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">[</span><span class="nx">componentName</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">description</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">api</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Codegen</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">description</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fullStack</span><span class="o">:</span> <span class="s2">&#34;React&#34;</span> <span class="o">|</span> <span class="s2">&#34;Vue&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">guides</span>: <span class="kt">string</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">model</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">codeRendererUrl</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">rules</span>: <span class="kt">CodegenRule</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>1、新建 components/biz/CodegenConfig/CodegenConfig.feature，打开 Cursor Agent，选择代码能力最强的模型，并输入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">采用 DBB 中的 Gherkin 语法，描述 Codegen 可视化配置的产品需求，生成的内容保存到 @components/biz/CodegenConfig/CodegenConfig.feature @lib/db/codegen/types.ts</span></span></code></pre></div></div><p>components/biz/CodegenConfig/CodegenConfig.feature</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># language: zh-CN
+</span></span><span class="line"><span class="cl">功能: Codegen 可视化配置管理
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  作为 系统管理员
+</span></span><span class="line"><span class="cl">  我想要 通过可视化界面配置和管理 Codegen 代码生成器
+</span></span><span class="line"><span class="cl">  以便于 快速创建和修改代码生成规则，提高开发效率
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  背景:
+</span></span><span class="line"><span class="cl">    假设 用户已登录系统
+</span></span><span class="line"><span class="cl">    并且 用户具有管理员权限
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景大纲: 创建新的 Codegen 配置
+</span></span><span class="line"><span class="cl">    假设 用户进入 Codegen 配置管理页面
+</span></span><span class="line"><span class="cl">    当 用户点击&#34;创建新配置&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 显示 Codegen 配置表单
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户填写以下基本信息:
+</span></span><span class="line"><span class="cl">      | 字段名          | 值                    |
+</span></span><span class="line"><span class="cl">      | title           | &#34;&lt;配置标题&gt;&#34;           |
+</span></span><span class="line"><span class="cl">      | description     | &#34;&lt;配置描述&gt;&#34;           |
+</span></span><span class="line"><span class="cl">      | fullStack       | &#34;&lt;技术栈&gt;&#34;             |
+</span></span><span class="line"><span class="cl">      | model           | &#34;&lt;AI模型名称&gt;&#34;         |
+</span></span><span class="line"><span class="cl">      | codeRendererUrl | &#34;&lt;代码渲染器URL&gt;&#34;      |
+</span></span><span class="line"><span class="cl">    那么 表单显示已填写的信息
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户添加指南提示:
+</span></span><span class="line"><span class="cl">      | 指南内容                    |
+</span></span><span class="line"><span class="cl">      | &#34;&lt;指南1&gt;&#34;                   |
+</span></span><span class="line"><span class="cl">      | &#34;&lt;指南2&gt;&#34;                   |
+</span></span><span class="line"><span class="cl">    那么 指南列表显示已添加的指南
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户添加配置规则:
+</span></span><span class="line"><span class="cl">      | 规则类型            | 描述              | 额外字段值        |
+</span></span><span class="line"><span class="cl">      | public-components   | &#34;&lt;规则描述&gt;&#34;      | dataSet: [&#34;&lt;组件库&gt;&#34;] |
+</span></span><span class="line"><span class="cl">      | styles              | &#34;&lt;规则描述&gt;&#34;      | prompt: &#34;&lt;样式提示&gt;&#34; |
+</span></span><span class="line"><span class="cl">      | private-components  | &#34;&lt;规则描述&gt;&#34;      | docs: &#34;&lt;文档对象&gt;&#34; |
+</span></span><span class="line"><span class="cl">      | file-structure      | &#34;&lt;规则描述&gt;&#34;      | prompt: &#34;&lt;文件结构提示&gt;&#34; |
+</span></span><span class="line"><span class="cl">      | attention-rules     | &#34;&lt;规则描述&gt;&#34;      | prompt: &#34;&lt;注意规则提示&gt;&#34; |
+</span></span><span class="line"><span class="cl">    那么 规则列表显示已添加的规则
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户点击&#34;保存&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 系统验证表单数据完整性
+</span></span><span class="line"><span class="cl">    并且 保存配置到数据库
+</span></span><span class="line"><span class="cl">    并且 显示成功提示消息
+</span></span><span class="line"><span class="cl">    并且 跳转到配置列表页面
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 编辑现有 Codegen 配置
+</span></span><span class="line"><span class="cl">    假设 用户进入 Codegen 配置管理页面
+</span></span><span class="line"><span class="cl">    并且 系统中已存在一个 Codegen 配置
+</span></span><span class="line"><span class="cl">    当 用户点击配置列表中的&#34;编辑&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 显示该配置的编辑表单
+</span></span><span class="line"><span class="cl">    并且 表单中预填充了现有配置数据
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户修改配置的标题为 &#34;&lt;新标题&gt;&#34;
+</span></span><span class="line"><span class="cl">    那么 标题字段显示 &#34;&lt;新标题&gt;&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户添加一条新的规则
+</span></span><span class="line"><span class="cl">    那么 规则列表增加一条规则
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户删除一条现有规则
+</span></span><span class="line"><span class="cl">    那么 规则列表减少一条规则
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户点击&#34;保存&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 系统更新数据库中的配置
+</span></span><span class="line"><span class="cl">    并且 显示成功提示消息
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 配置公共组件规则 (public-components)
+</span></span><span class="line"><span class="cl">    假设 用户正在创建或编辑 Codegen 配置
+</span></span><span class="line"><span class="cl">    当 用户选择添加规则类型为 &#34;public-components&#34;
+</span></span><span class="line"><span class="cl">    那么 显示规则描述输入框
+</span></span><span class="line"><span class="cl">    并且 显示数据集 (dataSet) 输入区域
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户输入规则描述为 &#34;定义使用的公共组件库&#34;
+</span></span><span class="line"><span class="cl">    并且 用户添加数据集项 &#34;shadcn/ui&#34;
+</span></span><span class="line"><span class="cl">    并且 用户添加数据集项 &#34;antd&#34;
+</span></span><span class="line"><span class="cl">    那么 数据集列表显示 [&#34;shadcn/ui&#34;, &#34;antd&#34;]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户未填写规则描述
+</span></span><span class="line"><span class="cl">    或者 用户未添加任何数据集项
+</span></span><span class="line"><span class="cl">    并且 用户尝试保存
+</span></span><span class="line"><span class="cl">    那么 显示验证错误提示
+</span></span><span class="line"><span class="cl">    并且 阻止保存操作
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 配置样式规则 (styles)
+</span></span><span class="line"><span class="cl">    假设 用户正在创建或编辑 Codegen 配置
+</span></span><span class="line"><span class="cl">    当 用户选择添加规则类型为 &#34;styles&#34;
+</span></span><span class="line"><span class="cl">    那么 显示规则描述输入框
+</span></span><span class="line"><span class="cl">    并且 显示提示词 (prompt) 输入区域
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户输入规则描述为 &#34;定义样式生成规则&#34;
+</span></span><span class="line"><span class="cl">    并且 用户输入提示词为 &#34;使用 Tailwind CSS 编写样式，支持深色/浅色模式&#34;
+</span></span><span class="line"><span class="cl">    那么 提示词输入框显示输入的文本
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户未填写规则描述
+</span></span><span class="line"><span class="cl">    或者 用户未填写提示词
+</span></span><span class="line"><span class="cl">    并且 用户尝试保存
+</span></span><span class="line"><span class="cl">    那么 显示验证错误提示
+</span></span><span class="line"><span class="cl">    并且 阻止保存操作
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 配置私有组件规则 (private-components)
+</span></span><span class="line"><span class="cl">    假设 用户正在创建或编辑 Codegen 配置
+</span></span><span class="line"><span class="cl">    当 用户选择添加规则类型为 &#34;private-components&#34;
+</span></span><span class="line"><span class="cl">    那么 显示规则描述输入框
+</span></span><span class="line"><span class="cl">    并且 显示文档 (docs) 配置区域
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户输入规则描述为 &#34;定义私有组件文档&#34;
+</span></span><span class="line"><span class="cl">    并且 用户添加组件库 &#34;my-library&#34;
+</span></span><span class="line"><span class="cl">    并且 用户添加组件 &#34;Button&#34; 并填写描述和 API 文档
+</span></span><span class="line"><span class="cl">    那么 文档结构显示已配置的组件信息
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户未填写规则描述
+</span></span><span class="line"><span class="cl">    或者 用户未配置任何组件文档
+</span></span><span class="line"><span class="cl">    并且 用户尝试保存
+</span></span><span class="line"><span class="cl">    那么 显示验证错误提示
+</span></span><span class="line"><span class="cl">    并且 阻止保存操作
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 配置文件结构规则 (file-structure)
+</span></span><span class="line"><span class="cl">    假设 用户正在创建或编辑 Codegen 配置
+</span></span><span class="line"><span class="cl">    当 用户选择添加规则类型为 &#34;file-structure&#34;
+</span></span><span class="line"><span class="cl">    那么 显示规则描述输入框
+</span></span><span class="line"><span class="cl">    并且 显示提示词 (prompt) 输入区域
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户输入规则描述为 &#34;定义文件结构规范&#34;
+</span></span><span class="line"><span class="cl">    并且 用户输入提示词为 &#34;组件代码以 XML 格式输出，包含 ComponentArtifact 和 ComponentFile 标签&#34;
+</span></span><span class="line"><span class="cl">    那么 提示词输入框显示输入的文本
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户未填写规则描述
+</span></span><span class="line"><span class="cl">    或者 用户未填写提示词
+</span></span><span class="line"><span class="cl">    并且 用户尝试保存
+</span></span><span class="line"><span class="cl">    那么 显示验证错误提示
+</span></span><span class="line"><span class="cl">    并且 阻止保存操作
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 配置注意规则 (attention-rules)
+</span></span><span class="line"><span class="cl">    假设 用户正在创建或编辑 Codegen 配置
+</span></span><span class="line"><span class="cl">    当 用户选择添加规则类型为 &#34;attention-rules&#34;
+</span></span><span class="line"><span class="cl">    那么 显示规则描述输入框
+</span></span><span class="line"><span class="cl">    并且 显示提示词 (prompt) 输入区域
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户输入规则描述为 &#34;定义代码生成时的注意事项&#34;
+</span></span><span class="line"><span class="cl">    并且 用户输入提示词为 &#34;仅使用以下 npm 包: react, react-dom, lucide-react&#34;
+</span></span><span class="line"><span class="cl">    那么 提示词输入框显示输入的文本
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户未填写规则描述
+</span></span><span class="line"><span class="cl">    或者 用户未填写提示词
+</span></span><span class="line"><span class="cl">    并且 用户尝试保存
+</span></span><span class="line"><span class="cl">    那么 显示验证错误提示
+</span></span><span class="line"><span class="cl">    并且 阻止保存操作
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 验证必填字段
+</span></span><span class="line"><span class="cl">    假设 用户正在创建新的 Codegen 配置
+</span></span><span class="line"><span class="cl">    当 用户未填写标题 (title)
+</span></span><span class="line"><span class="cl">    并且 用户尝试保存
+</span></span><span class="line"><span class="cl">    那么 显示&#34;标题为必填项&#34;的错误提示
+</span></span><span class="line"><span class="cl">    并且 阻止保存操作
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户未填写描述 (description)
+</span></span><span class="line"><span class="cl">    并且 用户尝试保存
+</span></span><span class="line"><span class="cl">    那么 显示&#34;描述为必填项&#34;的错误提示
+</span></span><span class="line"><span class="cl">    并且 阻止保存操作
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户未选择技术栈 (fullStack)
+</span></span><span class="line"><span class="cl">    并且 用户尝试保存
+</span></span><span class="line"><span class="cl">    那么 显示&#34;技术栈为必填项&#34;的错误提示
+</span></span><span class="line"><span class="cl">    并且 阻止保存操作
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户未填写 AI 模型 (model)
+</span></span><span class="line"><span class="cl">    并且 用户尝试保存
+</span></span><span class="line"><span class="cl">    那么 显示&#34;AI 模型为必填项&#34;的错误提示
+</span></span><span class="line"><span class="cl">    并且 阻止保存操作
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户未填写代码渲染器 URL (codeRendererUrl)
+</span></span><span class="line"><span class="cl">    并且 用户尝试保存
+</span></span><span class="line"><span class="cl">    那么 显示&#34;代码渲染器 URL 为必填项&#34;的错误提示
+</span></span><span class="line"><span class="cl">    并且 阻止保存操作
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 验证技术栈选项
+</span></span><span class="line"><span class="cl">    假设 用户正在创建或编辑 Codegen 配置
+</span></span><span class="line"><span class="cl">    当 用户选择技术栈 (fullStack)
+</span></span><span class="line"><span class="cl">    那么 显示技术栈下拉选择框
+</span></span><span class="line"><span class="cl">    并且 选项包含 &#34;React&#34; 和 &#34;Vue&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户选择 &#34;React&#34;
+</span></span><span class="line"><span class="cl">    那么 技术栈字段值为 &#34;React&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户选择 &#34;Vue&#34;
+</span></span><span class="line"><span class="cl">    那么 技术栈字段值为 &#34;Vue&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 管理指南列表
+</span></span><span class="line"><span class="cl">    假设 用户正在创建或编辑 Codegen 配置
+</span></span><span class="line"><span class="cl">    当 用户点击&#34;添加指南&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 显示新的指南输入框
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户输入指南内容为 &#34;生成登录页面&#34;
+</span></span><span class="line"><span class="cl">    并且 用户点击&#34;确认&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 指南列表中添加该指南
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户点击指南列表中的&#34;删除&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 该指南从列表中移除
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户修改指南内容
+</span></span><span class="line"><span class="cl">    并且 用户点击&#34;保存&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 指南列表更新为修改后的内容
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 管理规则列表
+</span></span><span class="line"><span class="cl">    假设 用户正在创建或编辑 Codegen 配置
+</span></span><span class="line"><span class="cl">    并且 配置中已存在至少一条规则
+</span></span><span class="line"><span class="cl">    当 用户点击规则列表中的&#34;删除&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 显示确认删除对话框
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户确认删除
+</span></span><span class="line"><span class="cl">    那么 该规则从列表中移除
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户取消删除
+</span></span><span class="line"><span class="cl">    那么 规则列表保持不变
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户点击规则列表中的&#34;编辑&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 显示规则编辑表单
+</span></span><span class="line"><span class="cl">    并且 表单中预填充了该规则的数据
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户修改规则内容
+</span></span><span class="line"><span class="cl">    并且 用户点击&#34;保存&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 规则列表更新为修改后的内容
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 预览配置
+</span></span><span class="line"><span class="cl">    假设 用户正在创建或编辑 Codegen 配置
+</span></span><span class="line"><span class="cl">    并且 用户已填写部分或全部配置信息
+</span></span><span class="line"><span class="cl">    当 用户点击&#34;预览&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 显示配置预览面板
+</span></span><span class="line"><span class="cl">    并且 预览面板以 JSON 格式显示当前配置数据
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户修改配置信息
+</span></span><span class="line"><span class="cl">    那么 预览面板实时更新显示
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 取消编辑
+</span></span><span class="line"><span class="cl">    假设 用户正在创建或编辑 Codegen 配置
+</span></span><span class="line"><span class="cl">    并且 用户已修改配置信息
+</span></span><span class="line"><span class="cl">    当 用户点击&#34;取消&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 显示确认对话框
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户确认取消
+</span></span><span class="line"><span class="cl">    那么 丢弃所有未保存的修改
+</span></span><span class="line"><span class="cl">    并且 返回配置列表页面
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户取消操作
+</span></span><span class="line"><span class="cl">    那么 继续停留在编辑页面
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  场景: 复制现有配置
+</span></span><span class="line"><span class="cl">    假设 用户进入 Codegen 配置管理页面
+</span></span><span class="line"><span class="cl">    并且 系统中已存在一个 Codegen 配置
+</span></span><span class="line"><span class="cl">    当 用户点击配置列表中的&#34;复制&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 创建该配置的副本
+</span></span><span class="line"><span class="cl">    并且 显示编辑表单
+</span></span><span class="line"><span class="cl">    并且 标题字段自动添加 &#34;(副本)&#34; 后缀
+</span></span><span class="line"><span class="cl">    并且 其他字段保持原配置的值
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    当 用户修改副本配置
+</span></span><span class="line"><span class="cl">    并且 用户点击&#34;保存&#34;按钮
+</span></span><span class="line"><span class="cl">    那么 保存为新配置
+</span></span><span class="line"><span class="cl">    并且 原配置保持不变</span></span></code></pre></div></div><p>2、打开 Cursor Agent，选择代码能力最强的模型，并输入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">compoder generate:biz-component @components/biz/CodegenConfig/CodegenConfig.feature ，生成的代码保存到 @components/biz/CodegenConfig</span></span></code></pre></div></div><p>3、运行 Storybook</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pnpm storybook</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_08.png" alt="" width="100%" />
 <h4 id="ai-驱动页面对接联调实现">AI 驱动页面对接联调实现</h4>
 <h3 id="沙箱渲染器模块实现">沙箱渲染器模块实现</h3>
 <h3 id="ai-工作流模块实现">AI 工作流模块实现</h3>

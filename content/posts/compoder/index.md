@@ -3492,7 +3492,7 @@ globs:
 
 ```
 
-##### 案例
+###### 案例
 
 1、让 Cursor 帮我们生成下图所示的业务组件。
 
@@ -3511,6 +3511,338 @@ pnpm storybook
 ```
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/example_01.png" alt="" width="100%" />
+
+##### Prompt To Code
+
+Compoder 研发业务组件，采取的是 Prompt To Code。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_06.png" alt="" width="100%" />
+
+###### Prompt 如何写
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_07.png" alt="" width="100%" />
+
+###### 案例
+
+Codegen 可视化配置
+
+```typescript
+export interface CodegenRule {
+  type:
+    | "public-components"
+    | "styles"
+    | "private-components"
+    | "file-structure"
+    | "attention-rules";
+  description: string;
+  prompt?: string; // only used when type is "styles" | "file-structure" | "special-attention"
+  dataSet?: string[]; // only used when type is "public-components"
+  docs?: {
+    // only used when type is "private-components"
+    [libraryName: string]: {
+      [componentName: string]: {
+        description: string;
+        api: string;
+      };
+    };
+  };
+}
+
+export interface Codegen {
+  title: string;
+  description: string;
+  fullStack: "React" | "Vue";
+  guides: string[];
+  model: string;
+  codeRendererUrl: string;
+  rules: CodegenRule[];
+}
+```
+
+1、新建 components/biz/CodegenConfig/CodegenConfig.feature，打开 Cursor Agent，选择代码能力最强的模型，并输入：
+
+```
+采用 DBB 中的 Gherkin 语法，描述 Codegen 可视化配置的产品需求，生成的内容保存到 @components/biz/CodegenConfig/CodegenConfig.feature @lib/db/codegen/types.ts
+```
+
+components/biz/CodegenConfig/CodegenConfig.feature
+
+```
+# language: zh-CN
+功能: Codegen 可视化配置管理
+
+  作为 系统管理员
+  我想要 通过可视化界面配置和管理 Codegen 代码生成器
+  以便于 快速创建和修改代码生成规则，提高开发效率
+
+  背景:
+    假设 用户已登录系统
+    并且 用户具有管理员权限
+
+  场景大纲: 创建新的 Codegen 配置
+    假设 用户进入 Codegen 配置管理页面
+    当 用户点击"创建新配置"按钮
+    那么 显示 Codegen 配置表单
+
+    当 用户填写以下基本信息:
+      | 字段名          | 值                    |
+      | title           | "<配置标题>"           |
+      | description     | "<配置描述>"           |
+      | fullStack       | "<技术栈>"             |
+      | model           | "<AI模型名称>"         |
+      | codeRendererUrl | "<代码渲染器URL>"      |
+    那么 表单显示已填写的信息
+
+    当 用户添加指南提示:
+      | 指南内容                    |
+      | "<指南1>"                   |
+      | "<指南2>"                   |
+    那么 指南列表显示已添加的指南
+
+    当 用户添加配置规则:
+      | 规则类型            | 描述              | 额外字段值        |
+      | public-components   | "<规则描述>"      | dataSet: ["<组件库>"] |
+      | styles              | "<规则描述>"      | prompt: "<样式提示>" |
+      | private-components  | "<规则描述>"      | docs: "<文档对象>" |
+      | file-structure      | "<规则描述>"      | prompt: "<文件结构提示>" |
+      | attention-rules     | "<规则描述>"      | prompt: "<注意规则提示>" |
+    那么 规则列表显示已添加的规则
+
+    当 用户点击"保存"按钮
+    那么 系统验证表单数据完整性
+    并且 保存配置到数据库
+    并且 显示成功提示消息
+    并且 跳转到配置列表页面
+
+  场景: 编辑现有 Codegen 配置
+    假设 用户进入 Codegen 配置管理页面
+    并且 系统中已存在一个 Codegen 配置
+    当 用户点击配置列表中的"编辑"按钮
+    那么 显示该配置的编辑表单
+    并且 表单中预填充了现有配置数据
+
+    当 用户修改配置的标题为 "<新标题>"
+    那么 标题字段显示 "<新标题>"
+
+    当 用户添加一条新的规则
+    那么 规则列表增加一条规则
+
+    当 用户删除一条现有规则
+    那么 规则列表减少一条规则
+
+    当 用户点击"保存"按钮
+    那么 系统更新数据库中的配置
+    并且 显示成功提示消息
+
+  场景: 配置公共组件规则 (public-components)
+    假设 用户正在创建或编辑 Codegen 配置
+    当 用户选择添加规则类型为 "public-components"
+    那么 显示规则描述输入框
+    并且 显示数据集 (dataSet) 输入区域
+
+    当 用户输入规则描述为 "定义使用的公共组件库"
+    并且 用户添加数据集项 "shadcn/ui"
+    并且 用户添加数据集项 "antd"
+    那么 数据集列表显示 ["shadcn/ui", "antd"]
+
+    当 用户未填写规则描述
+    或者 用户未添加任何数据集项
+    并且 用户尝试保存
+    那么 显示验证错误提示
+    并且 阻止保存操作
+
+  场景: 配置样式规则 (styles)
+    假设 用户正在创建或编辑 Codegen 配置
+    当 用户选择添加规则类型为 "styles"
+    那么 显示规则描述输入框
+    并且 显示提示词 (prompt) 输入区域
+
+    当 用户输入规则描述为 "定义样式生成规则"
+    并且 用户输入提示词为 "使用 Tailwind CSS 编写样式，支持深色/浅色模式"
+    那么 提示词输入框显示输入的文本
+
+    当 用户未填写规则描述
+    或者 用户未填写提示词
+    并且 用户尝试保存
+    那么 显示验证错误提示
+    并且 阻止保存操作
+
+  场景: 配置私有组件规则 (private-components)
+    假设 用户正在创建或编辑 Codegen 配置
+    当 用户选择添加规则类型为 "private-components"
+    那么 显示规则描述输入框
+    并且 显示文档 (docs) 配置区域
+
+    当 用户输入规则描述为 "定义私有组件文档"
+    并且 用户添加组件库 "my-library"
+    并且 用户添加组件 "Button" 并填写描述和 API 文档
+    那么 文档结构显示已配置的组件信息
+
+    当 用户未填写规则描述
+    或者 用户未配置任何组件文档
+    并且 用户尝试保存
+    那么 显示验证错误提示
+    并且 阻止保存操作
+
+  场景: 配置文件结构规则 (file-structure)
+    假设 用户正在创建或编辑 Codegen 配置
+    当 用户选择添加规则类型为 "file-structure"
+    那么 显示规则描述输入框
+    并且 显示提示词 (prompt) 输入区域
+
+    当 用户输入规则描述为 "定义文件结构规范"
+    并且 用户输入提示词为 "组件代码以 XML 格式输出，包含 ComponentArtifact 和 ComponentFile 标签"
+    那么 提示词输入框显示输入的文本
+
+    当 用户未填写规则描述
+    或者 用户未填写提示词
+    并且 用户尝试保存
+    那么 显示验证错误提示
+    并且 阻止保存操作
+
+  场景: 配置注意规则 (attention-rules)
+    假设 用户正在创建或编辑 Codegen 配置
+    当 用户选择添加规则类型为 "attention-rules"
+    那么 显示规则描述输入框
+    并且 显示提示词 (prompt) 输入区域
+
+    当 用户输入规则描述为 "定义代码生成时的注意事项"
+    并且 用户输入提示词为 "仅使用以下 npm 包: react, react-dom, lucide-react"
+    那么 提示词输入框显示输入的文本
+
+    当 用户未填写规则描述
+    或者 用户未填写提示词
+    并且 用户尝试保存
+    那么 显示验证错误提示
+    并且 阻止保存操作
+
+  场景: 验证必填字段
+    假设 用户正在创建新的 Codegen 配置
+    当 用户未填写标题 (title)
+    并且 用户尝试保存
+    那么 显示"标题为必填项"的错误提示
+    并且 阻止保存操作
+
+    当 用户未填写描述 (description)
+    并且 用户尝试保存
+    那么 显示"描述为必填项"的错误提示
+    并且 阻止保存操作
+
+    当 用户未选择技术栈 (fullStack)
+    并且 用户尝试保存
+    那么 显示"技术栈为必填项"的错误提示
+    并且 阻止保存操作
+
+    当 用户未填写 AI 模型 (model)
+    并且 用户尝试保存
+    那么 显示"AI 模型为必填项"的错误提示
+    并且 阻止保存操作
+
+    当 用户未填写代码渲染器 URL (codeRendererUrl)
+    并且 用户尝试保存
+    那么 显示"代码渲染器 URL 为必填项"的错误提示
+    并且 阻止保存操作
+
+  场景: 验证技术栈选项
+    假设 用户正在创建或编辑 Codegen 配置
+    当 用户选择技术栈 (fullStack)
+    那么 显示技术栈下拉选择框
+    并且 选项包含 "React" 和 "Vue"
+
+    当 用户选择 "React"
+    那么 技术栈字段值为 "React"
+
+    当 用户选择 "Vue"
+    那么 技术栈字段值为 "Vue"
+
+  场景: 管理指南列表
+    假设 用户正在创建或编辑 Codegen 配置
+    当 用户点击"添加指南"按钮
+    那么 显示新的指南输入框
+
+    当 用户输入指南内容为 "生成登录页面"
+    并且 用户点击"确认"按钮
+    那么 指南列表中添加该指南
+
+    当 用户点击指南列表中的"删除"按钮
+    那么 该指南从列表中移除
+
+    当 用户修改指南内容
+    并且 用户点击"保存"按钮
+    那么 指南列表更新为修改后的内容
+
+  场景: 管理规则列表
+    假设 用户正在创建或编辑 Codegen 配置
+    并且 配置中已存在至少一条规则
+    当 用户点击规则列表中的"删除"按钮
+    那么 显示确认删除对话框
+
+    当 用户确认删除
+    那么 该规则从列表中移除
+
+    当 用户取消删除
+    那么 规则列表保持不变
+
+    当 用户点击规则列表中的"编辑"按钮
+    那么 显示规则编辑表单
+    并且 表单中预填充了该规则的数据
+
+    当 用户修改规则内容
+    并且 用户点击"保存"按钮
+    那么 规则列表更新为修改后的内容
+
+  场景: 预览配置
+    假设 用户正在创建或编辑 Codegen 配置
+    并且 用户已填写部分或全部配置信息
+    当 用户点击"预览"按钮
+    那么 显示配置预览面板
+    并且 预览面板以 JSON 格式显示当前配置数据
+
+    当 用户修改配置信息
+    那么 预览面板实时更新显示
+
+  场景: 取消编辑
+    假设 用户正在创建或编辑 Codegen 配置
+    并且 用户已修改配置信息
+    当 用户点击"取消"按钮
+    那么 显示确认对话框
+
+    当 用户确认取消
+    那么 丢弃所有未保存的修改
+    并且 返回配置列表页面
+
+    当 用户取消操作
+    那么 继续停留在编辑页面
+
+  场景: 复制现有配置
+    假设 用户进入 Codegen 配置管理页面
+    并且 系统中已存在一个 Codegen 配置
+    当 用户点击配置列表中的"复制"按钮
+    那么 创建该配置的副本
+    并且 显示编辑表单
+    并且 标题字段自动添加 "(副本)" 后缀
+    并且 其他字段保持原配置的值
+
+    当 用户修改副本配置
+    并且 用户点击"保存"按钮
+    那么 保存为新配置
+    并且 原配置保持不变
+
+```
+
+2、打开 Cursor Agent，选择代码能力最强的模型，并输入：
+
+```
+compoder generate:biz-component @components/biz/CodegenConfig/CodegenConfig.feature ，生成的代码保存到 @components/biz/CodegenConfig
+```
+
+3、运行 Storybook
+
+```
+pnpm storybook
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_08.png" alt="" width="100%" />
 
 #### AI 驱动页面对接联调实现
 
