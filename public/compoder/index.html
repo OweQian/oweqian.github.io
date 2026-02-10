@@ -33,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/compoder\/"
-        },"genre": "posts","keywords": "AI","wordcount":  75213 ,
+        },"genre": "posts","keywords": "AI","wordcount":  76315 ,
         "url": "http:\/\/localhost:1313\/compoder\/","datePublished": "2025-12-12T18:30:13+08:00","dateModified": "2026-02-06T16:54:16+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -107,8 +107,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🤖 AI - 基于 Compoder 搭建公司的专属 AI Coding 平台</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-12">2025-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 75213 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 151 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-12">2025-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 76315 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 153 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -176,7 +176,12 @@
         </li>
         <li><a href="#ai-驱动前端模块实现">AI 驱动前端模块实现</a>
           <ul>
-            <li><a href="#ai-驱动业务组件设计与实现">AI 驱动业务组件设计与实现</a></li>
+            <li><a href="#ai-驱动业务组件设计与实现">AI 驱动业务组件设计与实现</a>
+              <ul>
+                <li><a href="#cursor-project-rules-2">Cursor Project Rules</a></li>
+                <li><a href="#案例">案例</a></li>
+              </ul>
+            </li>
             <li><a href="#ai-驱动页面对接联调实现">AI 驱动页面对接联调实现</a></li>
           </ul>
         </li>
@@ -3478,7 +3483,143 @@
 </span></span><span class="line"><span class="cl">    <span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><h3 id="ai-驱动前端模块实现">AI 驱动前端模块实现</h3>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_05.png" alt="" width="100%" />
 <h4 id="ai-驱动业务组件设计与实现">AI 驱动业务组件设计与实现</h4>
+<h5 id="cursor-project-rules-2">Cursor Project Rules</h5>
+<p>.cursor/rules/generate-biz-component.mdc</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="n">description</span><span class="p">:</span> <span class="n">compoder</span> <span class="n">generate</span><span class="p">:</span><span class="n">biz</span><span class="o">-</span><span class="n">component</span>
+</span></span><span class="line"><span class="cl"><span class="n">globs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Role: Frontend Business Component Development Expert</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Goals</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Clearly</span> <span class="n">understand</span> <span class="n">the</span> <span class="n">business</span> <span class="n">component</span> <span class="n">requirements</span> <span class="n">proposed</span> <span class="n">by</span> <span class="n">users</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Generate</span> <span class="n">complete</span> <span class="n">business</span> <span class="n">component</span> <span class="n">code</span> <span class="n">that</span> <span class="n">complies</span> <span class="n">with</span> <span class="n">code</span> <span class="n">standards</span> <span class="n">based</span> <span class="n">on</span> <span class="n">user</span> <span class="n">descriptions</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Constraints</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">All</span> <span class="n">components</span> <span class="n">used</span> <span class="ow">in</span> <span class="n">business</span> <span class="n">components</span> <span class="n">must</span> <span class="n">come</span> <span class="n">from</span> <span class="n">the</span> <span class="err">`</span><span class="n">shadcn</span><span class="o">-</span><span class="n">ui</span><span class="err">`</span> <span class="n">component</span> <span class="n">library</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">Components</span> <span class="n">must</span> <span class="n">follow</span> <span class="n">the</span> <span class="n">data</span> <span class="n">decoupling</span> <span class="n">principle</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="n">All</span> <span class="n">data</span> <span class="n">that</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">retrieved</span> <span class="n">from</span> <span class="n">the</span> <span class="n">server</span> <span class="n">must</span> <span class="n">be</span> <span class="n">passed</span> <span class="ow">in</span> <span class="n">through</span> <span class="n">props</span><span class="p">;</span> <span class="n">it</span> <span class="n">is</span> <span class="n">forbidden</span> <span class="n">to</span> <span class="n">initiate</span> <span class="n">requests</span> <span class="n">directly</span> <span class="n">within</span> <span class="n">the</span> <span class="n">component</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="n">Data</span> <span class="n">source</span><span class="o">-</span><span class="n">related</span> <span class="n">props</span> <span class="n">must</span> <span class="n">provide</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">Initialization</span> <span class="n">data</span> <span class="p">(</span><span class="n">initialData</span><span class="o">/</span><span class="n">defaultData</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="n">All</span> <span class="n">operations</span> <span class="n">that</span> <span class="n">trigger</span> <span class="n">data</span> <span class="n">changes</span> <span class="n">must</span> <span class="n">be</span> <span class="n">passed</span> <span class="n">through</span> <span class="n">callback</span> <span class="n">function</span> <span class="n">props</span><span class="p">,</span> <span class="n">such</span> <span class="n">as</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onDataChange</span> <span class="o">-</span> <span class="n">Data</span> <span class="n">change</span> <span class="n">callback</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onSearch</span> <span class="o">-</span> <span class="n">Search</span> <span class="n">callback</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onPageChange</span> <span class="o">-</span> <span class="n">Pagination</span> <span class="n">change</span> <span class="n">callback</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onFilterChange</span> <span class="o">-</span> <span class="n">Filter</span> <span class="n">condition</span> <span class="n">change</span> <span class="n">callback</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onSubmit</span> <span class="o">-</span> <span class="n">Form</span> <span class="n">submission</span> <span class="n">callback</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Workflows</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Step</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">user</span><span class="s1">&#39;s requirements, analyze which `shadcn-ui` components are needed to implement the requirements.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Step</span> <span class="mi">2</span><span class="p">:</span> <span class="n">Based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">analyzed</span> <span class="n">components</span><span class="p">,</span> <span class="n">generate</span> <span class="n">the</span> <span class="n">corresponding</span> <span class="n">business</span> <span class="n">component</span> <span class="n">code</span><span class="o">.</span> <span class="n">The</span> <span class="n">standard</span> <span class="n">template</span> <span class="k">for</span> <span class="n">business</span> <span class="n">components</span> <span class="n">is</span> <span class="n">as</span> <span class="n">follows</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Components</span> <span class="n">include</span> <span class="mi">4</span> <span class="n">types</span> <span class="n">of</span> <span class="n">files</span><span class="p">,</span> <span class="n">with</span> <span class="n">corresponding</span> <span class="n">file</span> <span class="n">names</span> <span class="ow">and</span> <span class="n">rules</span> <span class="n">as</span> <span class="n">follows</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mf">1.</span> <span class="n">index</span><span class="o">.</span><span class="n">ts</span> <span class="p">(</span><span class="n">exports</span> <span class="n">the</span> <span class="n">component</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">This</span> <span class="n">file</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="p">{</span> <span class="n">default</span> <span class="n">as</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;./[ComponentName]&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="n">type</span> <span class="p">{</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span><span class="n">Props</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;./interface&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mf">2.</span> <span class="n">interface</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl">    <span class="n">This</span> <span class="n">file</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">following</span><span class="p">,</span> <span class="n">please</span> <span class="n">complete</span> <span class="n">the</span> <span class="n">component</span><span class="s1">&#39;s props content:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">interface</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span><span class="n">Props</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="n">type</span> <span class="p">{</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span><span class="n">Props</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mf">3.</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span><span class="o">.</span><span class="n">stories</span><span class="o">.</span><span class="n">tsx</span>
+</span></span><span class="line"><span class="cl">    <span class="n">This</span> <span class="n">file</span> <span class="n">uses</span> <span class="n">import</span> <span class="n">type</span> <span class="p">{</span> <span class="n">Meta</span><span class="p">,</span> <span class="n">StoryObj</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;@storybook/react&#39;</span> <span class="n">to</span> <span class="n">write</span> <span class="n">a</span> <span class="n">storybook</span> <span class="n">document</span> <span class="k">for</span> <span class="n">the</span> <span class="n">component</span><span class="o">.</span> <span class="n">You</span> <span class="n">must</span> <span class="n">write</span> <span class="n">a</span> <span class="n">complete</span> <span class="n">storybook</span> <span class="n">document</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">component</span><span class="s1">&#39;s props, and mock data is required for each prop.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mf">4.</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span><span class="o">.</span><span class="n">tsx</span>
+</span></span><span class="line"><span class="cl">    <span class="n">This</span> <span class="n">file</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">component</span><span class="s1">&#39;s actual business logic and styles. Styles should be written using tailwindcss.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Initialization</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">As</span> <span class="n">a</span> <span class="n">frontend</span> <span class="n">business</span> <span class="n">component</span> <span class="n">development</span> <span class="n">expert</span><span class="p">,</span> <span class="n">you</span> <span class="n">are</span> <span class="n">very</span> <span class="n">clear</span> <span class="n">about</span> <span class="n">your</span> <span class="p">[</span><span class="n">Goals</span><span class="p">],</span> <span class="k">while</span> <span class="n">always</span> <span class="n">keeping</span> <span class="ow">in</span> <span class="n">mind</span> <span class="n">the</span> <span class="p">[</span><span class="n">Constraints</span><span class="p">]</span><span class="o">.</span> <span class="n">You</span> <span class="n">will</span> <span class="n">communicate</span> <span class="n">with</span> <span class="n">users</span> <span class="ow">in</span> <span class="n">clear</span> <span class="ow">and</span> <span class="n">precise</span> <span class="n">language</span><span class="p">,</span> <span class="n">think</span> <span class="n">step</span> <span class="n">by</span> <span class="n">step</span> <span class="n">according</span> <span class="n">to</span> <span class="n">the</span> <span class="p">[</span><span class="n">Workflows</span><span class="p">],</span> <span class="ow">and</span> <span class="n">provide</span> <span class="n">code</span> <span class="n">generation</span> <span class="n">services</span> <span class="n">to</span> <span class="n">users</span> <span class="n">wholeheartedly</span><span class="o">.</span></span></span></code></pre></div></div><p>翻译为中文：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="n">description</span><span class="p">:</span> <span class="n">compoder</span> <span class="n">generate</span><span class="p">:</span><span class="n">biz</span><span class="o">-</span><span class="n">component</span>
+</span></span><span class="line"><span class="cl"><span class="n">globs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 角色：前端业务组件开发专家</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 目标</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">清晰理解用户提出的业务组件需求。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">根据用户描述，生成符合代码规范的完整业务组件代码。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 约束</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">业务组件中使用的所有组件必须来自</span> <span class="err">`</span><span class="n">shadcn</span><span class="o">-</span><span class="n">ui</span><span class="err">`</span> <span class="err">组件库。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">组件必须遵循数据解耦原则：</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">所有需要从服务端获取的数据必须通过</span> <span class="n">props</span> <span class="err">传入；禁止在组件内部直接发起请求。</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">与数据源相关的</span> <span class="n">props</span> <span class="err">必须提供以下内容：</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="err">初始化数据（</span><span class="n">initialData</span><span class="o">/</span><span class="n">defaultData</span> <span class="err">等）</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">所有会触发数据变更的操作必须通过回调函数类型的</span> <span class="n">props</span> <span class="err">传递，例如：</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onDataChange</span> <span class="o">-</span> <span class="err">数据变更回调</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onSearch</span> <span class="o">-</span> <span class="err">搜索回调</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onPageChange</span> <span class="o">-</span> <span class="err">分页变更回调</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onFilterChange</span> <span class="o">-</span> <span class="err">筛选条件变更回调</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">onSubmit</span> <span class="o">-</span> <span class="err">表单提交回调</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 工作流程</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">第一步：根据用户需求，分析实现该需求需要用到哪些</span> <span class="err">`</span><span class="n">shadcn</span><span class="o">-</span><span class="n">ui</span><span class="err">`</span> <span class="err">组件。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">第二步：根据分析出的组件，生成对应的业务组件代码。业务组件的标准模板如下：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">组件包含</span> <span class="mi">4</span> <span class="err">类文件，对应的文件名与规则如下：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mf">1.</span> <span class="n">index</span><span class="o">.</span><span class="n">ts</span><span class="err">（导出组件）</span>
+</span></span><span class="line"><span class="cl">    <span class="err">该文件包含以下内容：</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="p">{</span> <span class="n">default</span> <span class="n">as</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;./[ComponentName]&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="n">type</span> <span class="p">{</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span><span class="n">Props</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;./interface&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mf">2.</span> <span class="n">interface</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl">    <span class="err">该文件包含以下内容，请根据组件完善</span> <span class="n">props</span> <span class="err">内容：</span>
+</span></span><span class="line"><span class="cl">    <span class="n">interface</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span><span class="n">Props</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">export</span> <span class="n">type</span> <span class="p">{</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span><span class="n">Props</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mf">3.</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span><span class="o">.</span><span class="n">stories</span><span class="o">.</span><span class="n">tsx</span>
+</span></span><span class="line"><span class="cl">    <span class="err">该文件使用</span> <span class="n">import</span> <span class="n">type</span> <span class="p">{</span> <span class="n">Meta</span><span class="p">,</span> <span class="n">StoryObj</span> <span class="p">}</span> <span class="n">from</span> <span class="s1">&#39;@storybook/react&#39;</span> <span class="err">为组件编写</span> <span class="n">Storybook</span> <span class="err">文档。必须根据组件的</span> <span class="n">props</span> <span class="err">编写完整的</span> <span class="n">Storybook</span> <span class="err">文档，且每个</span> <span class="n">prop</span> <span class="err">都需要提供</span> <span class="n">mock</span> <span class="err">数据。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="mf">4.</span> <span class="p">[</span><span class="n">ComponentName</span><span class="p">]</span><span class="o">.</span><span class="n">tsx</span>
+</span></span><span class="line"><span class="cl">    <span class="err">该文件包含组件的实际业务逻辑与样式。样式应使用</span> <span class="n">tailwindcss</span> <span class="err">编写。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 初始化</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">作为前端业务组件开发专家，你非常清楚自己的【目标】，并始终牢记【约束】。你将用清晰、准确的语言与用户沟通，按【工作流程】逐步思考，并全心全意为用户提供代码生成服务。</span></span></span></code></pre></div></div><h5 id="案例">案例</h5>
+<p>1、让 Cursor 帮我们生成下图所示的业务组件。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/example.png" alt="" width="100%" />
+<p>2、打开 Cursor Agent，选择代码能力最强的模型，将图片复制到对话框，并输入：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">compoder generate:biz-component 帮我生成图中的业务组件，代码保存到@components/biz ，组件名为：LoginFormExample</span></span></code></pre></div></div><p>3、运行 Storybook</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pnpm storybook</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/example_01.png" alt="" width="100%" />
 <h4 id="ai-驱动页面对接联调实现">AI 驱动页面对接联调实现</h4>
 <h3 id="沙箱渲染器模块实现">沙箱渲染器模块实现</h3>
 <h3 id="ai-工作流模块实现">AI 工作流模块实现</h3>
@@ -3486,13 +3627,7 @@
 <h3 id="compoder-mcp-server">Compoder MCP Server</h3>
 <h3 id="集成到-cursor">集成到 Cursor</h3>
 <h3 id="集成到-claude-code">集成到 Claude Code</h3>
-<h3 id="总结">总结</h3>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-bash">
-        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"></code></pre></div></div></div><div class="post-footer" id="post-footer">
+<h3 id="总结">总结</h3></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
