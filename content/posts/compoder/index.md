@@ -3846,6 +3846,1047 @@ pnpm storybook
 
 #### AI 驱动页面对接联调实现
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_09.png" alt="" width="100%" />
+
+##### Cursor Project Rules
+
+###### API 请求服务层
+
+统一管理前端需要调用的 API 请求，包括请求参数类型、响应数据类型等。
+
+.cursor/rules/generate-services.mdc
+
+````
+---
+description: compoder generate:services
+globs:
+---
+# Service Layer Code Generation Rules
+
+## Input Files Pattern
+
+- `@/app/api/{module}/types.d.ts`: Contains API interface definitions
+- `@/app/api/{module}/{action}/route.ts`: Contains API route implementations
+
+## Output Files Pattern
+
+- `@/app/services/{module}/{module}.service.ts`: Service layer implementation
+
+## Generation Rules
+
+1. Service File Structure:
+
+```typescript
+import { getInstance } from '../request'
+import { {ModuleName}Api } from '@/app/api/{module}/types'
+
+const request = getInstance()
+
+export const {actionName}{ModuleName} = async (
+  params: {ModuleName}Api.{Action}Request
+): Promise<{ModuleName}Api.{Action}Response> => {
+  try {
+    // For GET requests
+    if ("{method}" === "GET") {
+      const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(([, value]) => value !== undefined)
+      )
+      const queryString = new URLSearchParams(
+        filteredParams as Record<string, string>
+      ).toString()
+      const response = await request(`/{module}/{action}?${queryString}`, {
+        method: "GET",
+      })
+      return await response.json()
+    }
+
+    // For POST/PUT requests
+    if ("{method}" === "POST" || "{method}" === "PUT") {
+      const response = await request(`/{module}/{action}`, {
+        method: "{method}",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+      })
+      return await response.json()
+    }
+
+    // For DELETE requests
+    if ("{method}" === "DELETE") {
+      const response = await request(`/{module}/{action}`, {
+        method: "DELETE",
+      })
+      return await response.json()
+    }
+
+    throw new Error(`Unsupported HTTP method: {method}`)
+  } catch (error) {
+    // Error will be handled by request.ts
+    throw error
+  }
+}
+```
+
+2. Function Naming Convention:
+
+- For GET endpoints: use `get{ModuleName}{Action}` (e.g., `getUserList`, `getOrderDetail`)
+- For POST endpoints: use `create{ModuleName}`
+- For PUT endpoints: use `update{ModuleName}`
+- For DELETE endpoints: use `delete{ModuleName}`
+
+3. Type Definition Pattern:
+
+```typescript
+declare namespace {ModuleName}Api {
+  export interface {Action}Request {
+    // Request parameters
+  }
+
+  export interface {Action}Response {
+    // Response data structure
+  }
+}
+```
+
+## Variables Explanation
+
+- `{module}`: The lowercase module name (e.g., "user", "order", "codegen")
+- `{ModuleName}`: The PascalCase module name (e.g., "User", "Order", "Codegen")
+- `{action}`: The action name (e.g., "list", "detail", "create")
+- `{Action}`: The PascalCase action name (e.g., "List", "Detail", "Create")
+- `{method}`: HTTP method in lowercase (e.g., "get", "post", "put", "delete")
+- `{requestConfig}`: Request configuration object based on HTTP method:
+  - GET: `{ params }`
+  - POST/PUT: `data`
+  - DELETE: `{ params }` or empty
+
+## Example
+
+For a module named "codegen" with a "list" action:
+
+Input types.d.ts:
+
+```typescript
+declare namespace CodegenApi {
+  export interface ListRequest {
+    page: number
+    pageSize: number
+    name?: string
+    fullStack?: "React" | "Vue"
+  }
+
+  export interface ListResponse {
+    data: any[]
+    total: number
+  }
+}
+```
+
+Generated service.ts:
+
+```typescript
+import { getInstance } from "../request"
+import { CodegenApi } from "@/app/api/codegen/types"
+
+const request = getInstance()
+
+export const getCodegenList = async (
+  params: CodegenApi.ListRequest,
+): Promise<CodegenApi.ListResponse> => {
+  const filteredParams = Object.fromEntries(
+    Object.entries(params).filter(([, value]) => value !== undefined),
+  )
+  const queryString = new URLSearchParams(
+    filteredParams as Record<string, string>,
+  ).toString()
+  const response = await request(`/codegen/list?${queryString}`, {
+    method: "GET",
+  })
+  return response.json()
+}
+```
+
+## Notes
+
+1. For GET requests, transform parameters into URL query string
+2. Filter out undefined values from parameters
+3. Use URLSearchParams for proper URL encoding
+4. Use proper error handling and async/await patterns
+5. Keep service functions focused and single-responsibility
+````
+
+翻译为中文：
+
+````
+---
+description: compoder generate:services
+globs:
+---
+# Service 层代码生成规则
+
+## 输入文件约定
+
+- `@/app/api/{module}/types.d.ts`：包含 API 接口定义
+- `@/app/api/{module}/{action}/route.ts`：包含 API 路由实现
+
+## 输出文件约定
+
+- `@/app/services/{module}/{module}.service.ts`：Service 层实现
+
+## 生成规则
+
+1. Service 文件结构：
+
+```typescript
+import { getInstance } from '../request'
+import { {ModuleName}Api } from '@/app/api/{module}/types'
+
+const request = getInstance()
+
+export const {actionName}{ModuleName} = async (
+  params: {ModuleName}Api.{Action}Request
+): Promise<{ModuleName}Api.{Action}Response> => {
+  try {
+    // GET 请求
+    if ("{method}" === "GET") {
+      const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(([, value]) => value !== undefined)
+      )
+      const queryString = new URLSearchParams(
+        filteredParams as Record<string, string>
+      ).toString()
+      const response = await request(`/{module}/{action}?${queryString}`, {
+        method: "GET",
+      })
+      return await response.json()
+    }
+
+    // POST/PUT 请求
+    if ("{method}" === "POST" || "{method}" === "PUT") {
+      const response = await request(`/{module}/{action}`, {
+        method: "{method}",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+      })
+      return await response.json()
+    }
+
+    // DELETE 请求
+    if ("{method}" === "DELETE") {
+      const response = await request(`/{module}/{action}`, {
+        method: "DELETE",
+      })
+      return await response.json()
+    }
+
+    throw new Error(`Unsupported HTTP method: {method}`)
+  } catch (error) {
+    // 错误由 request.ts 统一处理
+    throw error
+  }
+}
+```
+
+2. 函数命名约定：
+
+- GET 接口：使用 `get{ModuleName}{Action}`（如 `getUserList`、`getOrderDetail`）
+- POST 接口：使用 `create{ModuleName}`
+- PUT 接口：使用 `update{ModuleName}`
+- DELETE 接口：使用 `delete{ModuleName}`
+
+3. 类型定义约定：
+
+```typescript
+declare namespace {ModuleName}Api {
+  export interface {Action}Request {
+    // 请求参数
+  }
+
+  export interface {Action}Response {
+    // 响应数据结构
+  }
+}
+```
+
+## 变量说明
+
+- `{module}`：小写模块名（如 "user"、"order"、"codegen"）
+- `{ModuleName}`：帕斯卡命名模块名（如 "User"、"Order"、"Codegen"）
+- `{action}`：动作名（如 "list"、"detail"、"create"）
+- `{Action}`：帕斯卡命名动作名（如 "List"、"Detail"、"Create"）
+- `{method}`：小写 HTTP 方法（如 "get"、"post"、"put"、"delete"）
+- `{requestConfig}`：按 HTTP 方法区分的请求配置对象：
+  - GET：`{ params }`
+  - POST/PUT：`data`
+  - DELETE：`{ params }` 或空
+
+## 示例
+
+模块名为 "codegen"、动作为 "list" 时：
+
+输入 types.d.ts：
+
+```typescript
+declare namespace CodegenApi {
+  export interface ListRequest {
+    page: number
+    pageSize: number
+    name?: string
+    fullStack?: "React" | "Vue"
+  }
+
+  export interface ListResponse {
+    data: any[]
+    total: number
+  }
+}
+```
+
+生成的 service.ts：
+
+```typescript
+import { getInstance } from "../request"
+import { CodegenApi } from "@/app/api/codegen/types"
+
+const request = getInstance()
+
+export const getCodegenList = async (
+  params: CodegenApi.ListRequest,
+): Promise<CodegenApi.ListResponse> => {
+  const filteredParams = Object.fromEntries(
+    Object.entries(params).filter(([, value]) => value !== undefined),
+  )
+  const queryString = new URLSearchParams(
+    filteredParams as Record<string, string>,
+  ).toString()
+  const response = await request(`/codegen/list?${queryString}`, {
+    method: "GET",
+  })
+  return response.json()
+}
+```
+
+## 注意事项
+
+1. GET 请求需将参数转换为 URL 查询字符串
+2. 从参数中过滤掉值为 undefined 的字段
+3. 使用 URLSearchParams 做正确的 URL 编码
+4. 使用合理的错误处理与 async/await 写法
+5. 保持 service 函数职责单一、聚焦
+
+````
+
+###### server-store 层 & 页面层
+
+- server-store 层 - 统一管理页面需要对接的后台 api 数据
+- 页面层 - 拼装业务组件并接入 server-store 数据
+
+.cursor/rules/generate-page-integration.mdc
+
+````
+---
+description: compoder generate:page-integration
+globs:
+---
+# Page Integration Code Generation Guide
+
+This guide helps generate the integration layer between business components and APIs, including server-store and page components.
+
+## Input Requirements
+
+1. Business Component Usage Examples (以下任一形式):
+
+   - Component Story file (e.g., `ComponentName.stories.tsx`)
+   - Mock implementation in existing pages (e.g., `page.tsx` with mock data)
+   - Example usage with hardcoded data
+   - Test files showing component usage
+
+   Example:
+
+   ```typescript
+   // From stories
+   export const Default = {
+     args: {
+       items: mockItems,
+       onEditClick: (id) => console.log('Edit:', id)
+     }
+   }
+
+   // Or from page with mock data
+   <ComponentName
+     items={[
+       { id: '1', title: 'Item 1' },
+       { id: '2', title: 'Item 2' }
+     ]}
+     onEditClick={(id) => console.log('Edit clicked:', id)}
+   />
+```
+
+2. Component Interface Information (one of the following):
+   - Interface/type definition files
+   - Props types from component file
+   - TypeScript types inferred from usage examples
+
+3. API Related Files:
+   - Service file (e.g., `*.service.ts`) containing API calls
+   - API types (request/response types)
+
+## Output Structure
+
+Important Note: When generating code for existing files:
+
+- NEVER remove or replace existing selectors/mutations
+- ONLY add new selectors/mutations incrementally
+- Preserve all existing functionality
+- Follow the existing patterns and naming conventions
+
+The generator should create or update the following files:
+
+### 1. server-store/selectors.ts (if needed)
+
+- Create query hooks using @tanstack/react-query
+- Transform API response data to match component prop types in the select function
+- Example structure:
+
+Example of a new selector (while keeping existing ones):
+
+```typescript
+// Original example - keep this
+export const useGetSomeData = (params: ApiType.Request) => {
+  return useQuery<
+    ApiType.Response,
+    Error,
+    ComponentDataType // Transformed type matching component props
+  >({
+    queryKey: ["queryName", params],
+    queryFn: () => apiCall(params),
+    select: (data) => ({
+      // Transform API response to component data structure
+      ...transformedData,
+    }),
+  });
+};
+
+// When adding new selectors, add them below existing ones
+export const useNewSelector = () => {
+  return useQuery({
+    // ... new selector implementation
+  });
+};
+```
+
+### 2. server-store/mutations.ts (if needed)
+
+Example of mutations (while keeping existing ones):
+
+```typescript
+// Original example - keep this
+export const useSomeDataMutation = () => {
+  return useMutation<ApiType.Response, Error, ApiType.Request>({
+    mutationFn: (params) => apiMutationCall(params),
+  });
+};
+
+// When adding new mutations, add them below existing ones
+export const useNewMutation = () => {
+  return useMutation({
+    // ... new mutation implementation
+  });
+};
+```
+
+### 3. page.tsx
+
+Integrate the business component with server-store:
+
+```typescript
+export default function Page() {
+  // 1. Use selectors/mutations
+  const { data, isLoading } = useGetSomeData(params)
+  const mutation = useSomeDataMutation()
+
+  // 2. Handle component callbacks
+  const handleSomeEvent = () => {
+    mutation.mutate(...)
+  }
+
+  // 3. Render component with props
+  return (
+    <BusinessComponent
+      data={data}
+      isLoading={isLoading}
+      onSomeEvent={handleSomeEvent}
+      {...otherProps}
+    />
+  )
+}
+```
+
+## Key Points to Consider
+
+1. Data Transformation:
+   - Ensure proper type conversion between API and component data structures
+   - Handle null/undefined cases
+   - Transform IDs, dates, and other special fields appropriately
+
+2. Error Handling:
+   - Include error states and error handling in queries/mutations
+   - Provide appropriate error feedback in the UI
+
+3. Loading States:
+   - Handle loading states properly
+   - Consider skeleton loaders or loading indicators
+
+4. Props Mapping:
+   - Map all required component props
+   - Provide reasonable defaults when needed
+   - Handle optional props appropriately
+
+5. Event Handlers:
+   - Implement all necessary callback functions
+   - Handle async operations properly
+   - Consider optimistic updates when appropriate
+
+## Example Usage
+
+Given:
+
+- A CodegenFilterContainer component
+- Codegen service API
+- Related interfaces
+
+Generate:
+
+1. A selector for fetching codegen data
+2. Mutations for any data modifications
+3. A page component that:
+   - Fetches data using the selector
+   - Handles pagination/filtering
+   - Renders the CodegenFilterContainer with appropriate props
+   - Implements all necessary callbacks
+
+The generated code should follow the project's existing patterns and naming conventions.
+
+## Additional Guidelines for Incremental Updates
+
+1. Code Preservation:
+   - Always check existing files before adding new code
+   - Never remove or modify existing selectors/mutations
+   - Add new functionality below existing code
+   - Maintain consistent formatting with existing code
+
+2. Integration Strategy:
+   - Review existing patterns in the codebase
+   - Follow established naming conventions
+   - Reuse existing utility functions when possible
+   - Add new functionality incrementally
+
+````
+
+翻译为中文：
+
+````
+
+---
+
+description: compoder generate:page-integration
+globs:
+
+---
+
+# 页面集成代码生成指南
+
+本指南用于生成业务组件与 API 之间的集成层，包括 server-store 与页面组件。
+
+## 输入要求
+
+1. 业务组件使用示例（以下任一形式）：
+   - 组件 Story 文件（如 `ComponentName.stories.tsx`）
+   - 现有页面中的 Mock 实现（如带 mock 数据的 `page.tsx`）
+   - 带硬编码数据的示例用法
+   - 展示组件用法的测试文件
+
+   示例：
+
+   ```typescript
+   // 来自 stories
+   export const Default = {
+     args: {
+       items: mockItems,
+       onEditClick: (id) => console.log('Edit:', id)
+     }
+   }
+
+   // 或来自带 mock 数据的页面
+   <ComponentName
+     items={[
+       { id: '1', title: 'Item 1' },
+       { id: '2', title: 'Item 2' }
+     ]}
+     onEditClick={(id) => console.log('Edit clicked:', id)}
+   />
+   ```
+
+2. 组件接口信息（以下任一）：
+   - 接口/类型定义文件
+   - 组件文件中的 Props 类型
+   - 从使用示例推断出的 TypeScript 类型
+
+3. API 相关文件：
+   - 包含 API 调用的 Service 文件（如 `*.service.ts`）
+   - API 类型（请求/响应类型）
+
+## 输出结构
+
+重要说明：在为已有文件生成代码时：
+
+- 切勿删除或替换已有的 selectors/mutations
+- 仅以增量方式添加新的 selectors/mutations
+- 保留所有已有功能
+- 遵循现有模式与命名约定
+
+生成器应创建或更新以下文件：
+
+### 1. server-store/selectors.ts（如需要）
+
+- 使用 @tanstack/react-query 创建 query hooks
+- 在 select 函数中将 API 响应数据转换为与组件 props 类型一致
+- 示例结构：
+
+新增 selector 示例（同时保留已有内容）：
+
+```typescript
+// 原有示例 - 保留
+export const useGetSomeData = (params: ApiType.Request) => {
+  return useQuery<
+    ApiType.Response,
+    Error,
+    ComponentDataType // 转换后类型与组件 props 一致
+  >({
+    queryKey: ["queryName", params],
+    queryFn: () => apiCall(params),
+    select: (data) => ({
+      // 将 API 响应转换为组件数据结构
+      ...transformedData,
+    }),
+  });
+};
+
+// 添加新 selector 时，在已有内容下方追加
+export const useNewSelector = () => {
+  return useQuery({
+    // ... 新 selector 实现
+  });
+};
+```
+
+### 2. server-store/mutations.ts（如需要）
+
+mutations 示例（同时保留已有内容）：
+
+```typescript
+// 原有示例 - 保留
+export const useSomeDataMutation = () => {
+  return useMutation<ApiType.Response, Error, ApiType.Request>({
+    mutationFn: (params) => apiMutationCall(params),
+  });
+};
+
+// 添加新 mutation 时，在已有内容下方追加
+export const useNewMutation = () => {
+  return useMutation({
+    // ... 新 mutation 实现
+  });
+};
+```
+
+### 3. page.tsx
+
+将业务组件与 server-store 集成：
+
+```typescript
+export default function Page() {
+  // 1. 使用 selectors/mutations
+  const { data, isLoading } = useGetSomeData(params)
+  const mutation = useSomeDataMutation()
+
+  // 2. 处理组件回调
+  const handleSomeEvent = () => {
+    mutation.mutate(...)
+  }
+
+  // 3. 使用 props 渲染组件
+  return (
+    <BusinessComponent
+      data={data}
+      isLoading={isLoading}
+      onSomeEvent={handleSomeEvent}
+      {...otherProps}
+    />
+  )
+}
+```
+
+## 注意事项
+
+1. 数据转换：
+   - 确保 API 与组件数据结构之间的类型转换正确
+   - 处理 null/undefined 情况
+   - 对 ID、日期等特殊字段做适当转换
+
+2. 错误处理：
+   - 在 queries/mutations 中包含错误状态与错误处理
+   - 在 UI 中提供合适的错误反馈
+
+3. 加载状态：
+   - 正确处理加载状态
+   - 可考虑骨架屏或加载指示器
+
+4. Props 映射：
+   - 映射所有必需的组件 props
+   - 在需要时提供合理默认值
+   - 妥善处理可选 props
+
+5. 事件处理：
+   - 实现所有必要的回调函数
+   - 正确处理异步操作
+   - 在合适场景下考虑乐观更新
+
+## 使用示例
+
+给定：
+
+- CodegenFilterContainer 组件
+- Codegen 服务 API
+- 相关接口定义
+
+生成：
+
+1. 用于获取 codegen 数据的 selector
+2. 用于数据修改的 mutations
+3. 页面组件，需：
+   - 使用 selector 拉取数据
+   - 处理分页/筛选
+   - 用合适的 props 渲染 CodegenFilterContainer
+   - 实现所有必要回调
+
+生成代码应遵循项目现有的模式与命名约定。
+
+## 增量更新补充说明
+
+1. 代码保留：
+   - 添加新代码前务必先检查已有文件
+   - 不得删除或修改已有 selectors/mutations
+   - 在已有代码下方追加新功能
+   - 与现有代码保持一致的格式
+
+2. 集成策略：
+   - 参考代码库中的现有模式
+   - 遵循既定命名约定
+   - 尽可能复用已有工具函数
+   - 以增量方式添加新功能
+
+````
+
+##### 案例
+
+下面我们来实现 Codegen 页面。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_10.png" alt="" width="100%" />
+
+1、配置页面路由
+
+新建 app/main/codegen/page.tsx。
+
+```tsx
+"use client";
+
+export default function Codegen() {
+  return <div>codegen list</div>;
+}
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_11.png" alt="" width="100%" />
+
+2、引入业务组件构建页面布局
+
+```tsx
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { AppHeader } from "@/components/biz/AppHeader";
+import { CodegenFilterContainer } from "@/components/biz/CodegenFilterContainer";
+import { CodegenList } from "@/components/biz/CodegenList";
+
+export default function Codegen() {
+  const router = useRouter();
+  const [filters, setFilters] = useState<{
+    pageSize: number;
+    selectedStack?: "All" | "React" | "Vue";
+    searchKeyword?: string;
+  }>({
+    pageSize: 10,
+    selectedStack: undefined,
+    searchKeyword: undefined,
+  });
+  const handleStackChange = (stack: "All" | "React" | "Vue") => {
+    setFilters({ ...filters, selectedStack: stack });
+  };
+  const handleSearchChange = (keyword: string) => {
+    setFilters({ ...filters, searchKeyword: keyword });
+  };
+  const handleLoadMore = () => {};
+
+  const handleItemClick = (id: string) => {
+    router.push(`/main/codegen/${id}`);
+  };
+  return (
+    <div>
+      <AppHeader breadcrumbs={[{ label: "Codegen" }]} />
+      <CodegenFilterContainer
+        selectedStack={filters.selectedStack}
+        onStackChange={handleStackChange}
+        onSearchChange={handleSearchChange}
+        onLoadMore={handleLoadMore}
+        isLoading={false}
+        hasMore
+      >
+        <CodegenList
+          onItemClick={handleItemClick}
+          items={[
+            {
+              description:
+                "A customizable button component with various styles",
+              fullStack: "React",
+              id: "1",
+              title: "Button Component",
+            },
+            {
+              description: "A flexible input field with validation",
+              fullStack: "Vue",
+              id: "2",
+              title: "Input Field",
+            },
+            {
+              description: "A modal dialog with customizable content",
+              fullStack: "React",
+              id: "3",
+              title: "Modal Dialog",
+            },
+            {
+              description: "A dropdown menu with customizable content",
+              fullStack: "Vue",
+              id: "4",
+              title: "Dropdown Menu",
+            },
+            {
+              description: "A tooltip with customizable content",
+              fullStack: "React",
+              id: "5",
+              title: "Tooltip",
+            },
+            {
+              description: "An accordion component with customizable content",
+              fullStack: "Vue",
+              id: "6",
+              title: "Accordion",
+            },
+          ]}
+        />
+      </CodegenFilterContainer>
+    </div>
+  );
+}
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_12.png" alt="" width="100%" />
+
+3、生成 Service 请求
+
+打开 Cursor Agent，选择代码能力最强的模型，输入：
+
+```
+compoder generate:services @app/api/codegen/types.d.ts:5-15 @app/api/codegen/list/route.ts
+```
+
+输出：app/services/codegen/codegen.service.ts
+
+```typescript
+import { getInstance } from "../request";
+import type { CodegenApi } from "@/app/api/codegen/types";
+
+const request = getInstance();
+
+export const getCodegenList = async (
+  params: CodegenApi.ListRequest,
+): Promise<CodegenApi.ListResponse> => {
+  try {
+    const filteredParams = Object.fromEntries(
+      Object.entries(params).filter(([, value]) => value !== undefined),
+    );
+    const queryString = new URLSearchParams(
+      filteredParams as Record<string, string>,
+    ).toString();
+    const response = await request(`/codegen/list?${queryString}`, {
+      method: "GET",
+    });
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+```
+
+4、给页面对接 API
+
+打开 Cursor Agent，选择代码能力最强的模型，输入：
+
+```
+compoder generate:page-integration @app/main/codegen/page.tsx @app/services/codegen/codegen.service.ts @app/api/codegen/types.d.ts:5-15
+```
+
+输出：
+
+（1）、app/main/codegen/server-store/selectors.ts
+
+```typescript
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { getCodegenList } from "@/app/services/codegen/codegen.service";
+import type { CodegenApi } from "@/app/api/codegen/types";
+import type { JobItem } from "@/components/biz/CodegenList/interface";
+
+type ListParams = Omit<CodegenApi.ListRequest, "page">;
+
+function transformToListItems(
+  data: CodegenApi.ListResponse["data"],
+): JobItem[] {
+  return data.map((item) => ({
+    id: String((item as { _id: unknown })._id),
+    title: item.title,
+    description: item.description,
+    fullStack: item.fullStack,
+  }));
+}
+
+export const useGetCodegenList = (params: ListParams) => {
+  return useInfiniteQuery<
+    CodegenApi.ListResponse,
+    Error,
+    { items: JobItem[]; total: number }
+  >({
+    queryKey: ["codegenList", params],
+    queryFn: ({ pageParam }) =>
+      getCodegenList({ ...params, page: pageParam as number }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      const loadedCount = allPages.reduce(
+        (sum, page) => sum + page.data.length,
+        0,
+      );
+      return loadedCount < lastPage.total ? allPages.length + 1 : undefined;
+    },
+    select: (data) => ({
+      items: data.pages.flatMap((page) => transformToListItems(page.data)),
+      total: data.pages[data.pages.length - 1]?.total ?? 0,
+    }),
+  });
+};
+```
+
+(2)、app/main/codegen/page.tsx
+
+```tsx
+"use client";
+
+import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
+import { AppHeader } from "@/components/biz/AppHeader";
+import { CodegenFilterContainer } from "@/components/biz/CodegenFilterContainer";
+import { CodegenList } from "@/components/biz/CodegenList";
+import { useGetCodegenList } from "./server-store/selectors";
+
+export default function Codegen() {
+  const router = useRouter();
+  const [filters, setFilters] = useState<{
+    pageSize: number;
+    selectedStack?: "All" | "React" | "Vue";
+    searchKeyword?: string;
+  }>({
+    pageSize: 10,
+    selectedStack: undefined,
+    searchKeyword: undefined,
+  });
+
+  const listParams = useMemo(
+    () => ({
+      pageSize: filters.pageSize,
+      name: filters.searchKeyword || undefined,
+      fullStack:
+        filters.selectedStack && filters.selectedStack !== "All"
+          ? filters.selectedStack
+          : undefined,
+    }),
+    [filters.pageSize, filters.searchKeyword, filters.selectedStack],
+  );
+
+  const {
+    data,
+    isLoading: isInitialLoading,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+  } = useGetCodegenList(listParams);
+
+  const handleStackChange = (stack: "All" | "React" | "Vue") => {
+    setFilters((prev) => ({ ...prev, selectedStack: stack }));
+  };
+
+  const handleSearchChange = (keyword: string) => {
+    setFilters((prev) => ({ ...prev, searchKeyword: keyword }));
+  };
+
+  const handleLoadMore = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  const handleItemClick = (id: string) => {
+    router.push(`/main/codegen/${id}`);
+  };
+
+  return (
+    <div>
+      <AppHeader breadcrumbs={[{ label: "Codegen" }]} />
+      <CodegenFilterContainer
+        selectedStack={filters.selectedStack}
+        onStackChange={handleStackChange}
+        onSearchChange={handleSearchChange}
+        onLoadMore={handleLoadMore}
+        isLoading={isFetchingNextPage}
+        hasMore={!!hasNextPage}
+      >
+        {isInitialLoading ? (
+          <div className="py-8 text-center text-muted-foreground">
+            Loading...
+          </div>
+        ) : (
+          <CodegenList
+            onItemClick={handleItemClick}
+            items={data?.items ?? []}
+          />
+        )}
+      </CodegenFilterContainer>
+    </div>
+  );
+}
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_13.png" alt="" width="100%" />
+
 ### 沙箱渲染器模块实现
 
 ### AI 工作流模块实现
@@ -3859,3 +4900,7 @@ pnpm storybook
 ### 集成到 Claude Code
 
 ### 总结
+
+```
+
+```
