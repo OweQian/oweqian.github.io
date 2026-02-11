@@ -4900,7 +4900,3 @@ export default function Codegen() {
 ### 集成到 Claude Code
 
 ### 总结
-
-```
-
-```
