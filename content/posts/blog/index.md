@@ -1,6 +1,7 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
 date: 2026-02-10T17:40:47+08:00
+draft: true
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +14,12 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-02
+
+#### 2026-02-18
+
+🎉 第一本完整读完的双语书。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_41.jpg" alt="" width="40%" />
 
 #### 2026-02-10
 

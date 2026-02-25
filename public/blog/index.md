@@ -9,6 +9,12 @@
 
 ### 2026-02
 
+#### 2026-02-18
+
+🎉 第一本完整读完的双语书。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_41.jpg" alt="" width="40%" />
+
 #### 2026-02-10
 
 ☕️ 喝上了，明天再戒吧...
