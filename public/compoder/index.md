@@ -4885,6 +4885,2065 @@ export default function Codegen() {
 
 ### AI 工作流模块实现
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_14.png" alt="" width="100%" />
+
+工作流程说明：
+
+1、设计组件(designComponent)
+
+分析用户需求，确定组件名称与描述，确定所需要库与组件，为后续生成做准备。
+
+2、生成组件(generateComponent)
+
+基于设计阶段的结果，调用 AI 大模型流式生成组件代码，实时返回生成结果。
+
+3、存储组件(storeComponent)
+
+处理生成的组件代码，判断是新建还是更新组件，根据情况合并代码，并将结果保存到数据库中。
+
+工作流入口：
+
+```ts
+export const componentWorkflow = pipe<InitialWorkflowContext, WorkflowContext>(
+  withErrorHandling(designComponent),
+  withErrorHandling(generateComponent),
+  withErrorHandling(storeComponent),
+);
+
+export async function run(context: InitialWorkflowContext) {
+  try {
+    const result = await componentWorkflow(context);
+    return {
+      success: true,
+      data: result.state,
+    };
+  } catch (error: any) {
+    console.error("Workflow failed:", error);
+    context.stream.write(error.toString());
+    context.stream.close();
+  }
+}
+```
+
+#### 设计组件(designComponent)
+
+```ts
+export async function generateComponentDesign(
+  req: WorkflowContext,
+): Promise<ComponentDesign> {
+  const componentsSchema = z.object({
+    componentName: z.string().describe("Component name"),
+    componentDescription: z.string().describe("Component description"),
+    library: z.array(
+      z.object({
+        name: z.string().describe("Library name"),
+        components: z
+          .array(z.string())
+          .describe("Components name in the library"),
+        description: z
+          .string()
+          .describe(
+            "Describe how each component in components is used in a table format",
+          ),
+      }),
+    ),
+  });
+
+  let parserCompletion: ComponentDesign = {
+    componentName: "componentName",
+    componentDescription: "componentDescription",
+    library: [],
+  };
+
+  // 构建系统提示词
+  const systemPrompt = buildSystemPrompt(req.query.rules);
+
+  console.log("design-component systemPrompt:", systemPrompt);
+  const messages = [
+    ...buildCurrentComponentMessage(req.query.component),
+    ...buildUserMessage(req.query.prompt),
+  ];
+
+  try {
+    const stream = await streamText({
+      system: systemPrompt,
+      model: req.query.aiModel,
+      messages,
+    });
+
+    let accumulatedJson = "";
+
+    for await (const part of stream.textStream) {
+      req.stream.write(part);
+      accumulatedJson += part;
+    }
+
+    try {
+      if (!accumulatedJson) {
+        throw new Error(
+          "No response from the AI, please check the providers configuration and the apiKey balance",
+        );
+      }
+      // Try to extract JSON from the response
+      const jsonMatch = accumulatedJson.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) {
+        throw new Error("No valid JSON found in the response");
+      }
+
+      console.log("jsonMatch", jsonMatch[0]);
+
+      // Fix backticks in the JSON string by replacing them with escaped double quotes
+      let jsonString = jsonMatch[0];
+
+      // 1. Handle existing escape characters first
+      jsonString = jsonString.replace(/\\`/g, "\\\\`");
+
+      // 2. Process content wrapped in backticks
+      jsonString = jsonString.replace(
+        /`((?:[^`\\]|\\.|\\`)*)`/g, // More precise regular expression
+        function (match, content) {
+          // Handle special characters
+          const escaped = content
+            .replace(/\\/g, "\\\\") // Handle backslashes first
+            .replace(/"/g, '\\"') // Handle double quotes
+            .replace(/\n/g, "\\n") // Handle newlines
+            .replace(/\r/g, "\\r") // Handle carriage returns
+            .replace(/\t/g, "\\t"); // Handle tabs
+          return `"${escaped}"`;
+        },
+      );
+
+      const parsedJson = JSON.parse(jsonString);
+
+      console.log("parsedJson", parsedJson);
+
+      // Validate the parsed JSON against our schema
+      const validatedResult = componentsSchema.parse(parsedJson);
+      parserCompletion = validatedResult;
+    } catch (parseError) {
+      throw new Error(
+        `Failed to parse AI response as valid JSON: ${parseError}`,
+      );
+    }
+
+    if (parserCompletion.library.length > 0) {
+      const docs = getPrivateComponentDocs(req.query.rules);
+      parserCompletion.retrievedAugmentationContent =
+        getRetrievedAugmentationContent(docs, parserCompletion.library);
+    }
+
+    return parserCompletion;
+  } catch (err: unknown) {
+    console.log("err", err);
+    if (err instanceof Error) {
+      throw err;
+    }
+    throw new Error(String(err));
+  }
+}
+```
+
+- 构建 system prompt
+
+```ts
+/**
+ * 根据工作流规则构建设计组件的系统提示词。
+ * 若规则中包含组件库文档，则要求模型从「基础组件素材」中抽取；否则仅抽取组件名与描述。
+ *
+ * @param rules - 工作流上下文中的规则（含公共/私有组件库配置）
+ * @returns 拼接好的系统提示词字符串
+ */
+const buildSystemPrompt = (rules: WorkflowContext["query"]["rules"]) => {
+  // 从规则中获取公共/私有组件库的文档描述（用于约束可选的基础组件素材）
+  const componentsDescription = getPrivateDocsDescription(rules);
+  const hasComponentLibraries = !!componentsDescription;
+
+  // 按「有组件库 / 无组件库」两种场景分别定义提示词片段
+  const promptParts = {
+    /** 有组件库：需从基础素材中抽取组件名、描述及所用库与组件列表 */
+    withLibraries: {
+      goal: 'Extract the "basic component materials", component name, and description information needed to develop business components from business requirements and design drafts.',
+      constraints: `Basic component materials include:
+    ${componentsDescription}
+    Please note: You should not provide example code and any other text in your response, only provider json response.`,
+      responseFormat: `{
+      "componentName": string, // Component name
+      "componentDescription": string, // Component description
+      "library": [ // Libraries containing required base material components
+        {
+          "name": string, // Library name
+          "components": string[], // Components name in the library
+          "description": string // Describe how each component in components is used in a table format
+        }
+      ]
+    }`,
+      workflowStep2:
+        "2. Extract required materials from [Constraints] basic component materials for developing business components",
+    },
+    /** 无组件库：仅抽取组件名与描述，不涉及库与基础素材 */
+    withoutLibraries: {
+      goal: "Extract component name and description information needed to develop business components from business requirements and design drafts.",
+      constraints: `- Extract the component name and description information from the business requirements and design drafts. 
+- Analyze the design draft to understand the business functionality needed.
+
+Please note: You should not provide example code and any other text in your response, only provider json response.`,
+      responseFormat: `{
+      "componentName": string, // Component name
+      "componentDescription": string // Component description that clearly explains the purpose and functionality
+    }`,
+      workflowStep2:
+        "2. Analyze the business requirements and design drafts to identify needed business components and their functions",
+    },
+  };
+
+  // 根据是否存在组件库描述，选择对应的提示词片段
+  const parts = hasComponentLibraries
+    ? promptParts.withLibraries
+    : promptParts.withoutLibraries;
+
+  // 拼接工作流步骤（三步：接收需求 → 抽取/分析 → 输出 JSON）
+  const workflowSteps = `1. Accept user's business requirements or design draft images
+    ${parts.workflowStep2}
+    3. Generate and return the JSON response in the specified format`;
+
+  // 组装最终的系统提示词（角色 + 目标 + 约束 + 响应格式 + 工作流）
+  return `
+    # You are a senior frontend engineer who excels at developing business components.
+    
+    ## Goal
+    ${parts.goal}
+    
+    ## Constraints
+    ${parts.constraints}
+    
+    ## Response Format
+    You must respond with a JSON object in the following format:
+    ${parts.responseFormat}
+    
+    ## Workflow
+    ${workflowSteps}
+  `;
+};
+```
+
+- 构建 messages
+
+```ts
+/**
+ * 当已存在当前组件时，构造对应的「用户消息 + 助手消息」，用于上下文续写。
+ * 用户消息：组件的 prompt（文本/图片）；助手消息：组件名称与代码，作为已有结果供模型参考。
+ *
+ * @param component - 工作流中的当前组件（含 prompt、name、code）
+ * @returns 若 component 存在则返回 [userMessage, assistantMessage]，否则返回空数组
+ */
+const buildCurrentComponentMessage = (
+  component: WorkflowContext["query"]["component"],
+): Array<CoreMessage> => {
+  return component
+    ? [
+        {
+          role: "user",
+          content:
+            component?.prompt?.map((prompt) => {
+              if (prompt.type === "image") {
+                return { type: "image" as const, image: prompt.image };
+              }
+              return { type: "text" as const, text: prompt.text };
+            }) || [],
+        },
+        {
+          role: "assistant",
+          content: `
+        - Component name: ${component?.name}
+        - Component code:
+        ${component?.code}
+      `,
+        },
+      ]
+    : [];
+};
+
+/**
+ * 将工作流中的用户 prompt（文本/图片混合）转成 AI 对话格式的一条用户消息。
+ *
+ * @param prompt - 用户输入的 prompt 数组，每项为 { type: "text" | "image", text?, image? }
+ * @returns 仅包含一条 role 为 "user" 的 CoreMessage 数组，content 为多模态内容
+ */
+const buildUserMessage = (
+  prompt: WorkflowContext["query"]["prompt"],
+): Array<CoreMessage> => {
+  return [
+    {
+      role: "user",
+      content: prompt.map((p) => {
+        if (p.type === "image") {
+          return { type: "image" as const, image: p.image };
+        }
+        return { type: "text" as const, text: p.text };
+      }),
+    },
+  ];
+};
+```
+
+- Vercel AI SDK 流式生成组件设计
+
+```ts
+try {
+  // Vercel AI SDK 流式生成组件设计
+  const { textStream } = await streamText({
+    system: systemPrompt,
+    model: req.query.aiModel,
+    messages,
+  });
+
+  let accumulatedJson = "";
+
+  // 流式写出到客户端并累积全文，供后续解析 JSON
+  for await (const part of textStream) {
+    req.stream.write(part);
+    accumulatedJson += part;
+  }
+
+  // 从回复中抽取 JSON、处理反引号、解析并做 schema 校验
+  try {
+    if (!accumulatedJson) {
+      throw new Error(
+        "No response from the AI, please check the providers configuration and the apiKey balance",
+      );
+    }
+    const jsonMatch = accumulatedJson.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error("No valid JSON found in the response");
+    }
+
+    console.log("jsonMatch", jsonMatch[0]);
+
+    // 将模型可能返回的 markdown 代码块（反引号包裹）转为合法 JSON 字符串
+    let jsonString = jsonMatch[0];
+
+    jsonString = jsonString.replace(/\\`/g, "\\\\`");
+
+    jsonString = jsonString.replace(
+      /`((?:[^`\\]|\\.|\\`)*)`/g,
+      function (match, content) {
+        const escaped = content
+          .replace(/\\/g, "\\\\")
+          .replace(/"/g, '\\"')
+          .replace(/\n/g, "\\n")
+          .replace(/\r/g, "\\r")
+          .replace(/\t/g, "\\t");
+        return `"${escaped}"`;
+      },
+    );
+
+    const parsedJson = JSON.parse(jsonString);
+
+    console.log("parsedJson", parsedJson);
+
+    const validatedResult = componentsSchema.parse(parsedJson);
+    parserCompletion = validatedResult;
+  } catch (parseError) {
+    throw new Error(`Failed to parse AI response as valid JSON: ${parseError}`);
+  }
+
+  // 若设计了使用的库，则从私有文档中检索对应内容并挂到结果上
+  if (parserCompletion.library.length > 0) {
+    const docs = getPrivateComponentDocs(req.query.rules);
+    parserCompletion.retrievedAugmentationContent =
+      getRetrievedAugmentationContent(docs, parserCompletion.library);
+  }
+
+  return parserCompletion;
+} catch (err: unknown) {
+  console.log("err", err);
+  if (err instanceof Error) {
+    throw err;
+  }
+  throw new Error(String(err));
+}
+```
+
+#### 生成组件(generateComponent)
+
+```ts
+export const generateComponent = async (
+  context: DesignProcessingWorkflowContext,
+): Promise<GenerateProcessingWorkflowContext> => {
+  context.stream.write("start call codegen-ai \n");
+
+  let completion = "";
+
+  const systemPrompt = buildSystemPrompt(
+    context.query.rules,
+    context.state?.designTask?.retrievedAugmentationContent,
+  );
+
+  console.log("generate-component systemPrompt:", systemPrompt);
+
+  const messages = generateComponentMessage(context);
+
+  const stream = await streamText({
+    system: systemPrompt,
+    model: context.query.aiModel,
+    messages,
+  });
+
+  for await (const part of stream.textStream) {
+    try {
+      process.stdout.write(part || "");
+      const chunk = part || "";
+      completion += chunk;
+      context.stream.write(chunk);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  context.stream.write("call codegen-ai end \n\n");
+
+  return {
+    ...context,
+    state: {
+      ...context.state,
+      generatedCode: completion,
+    },
+  };
+};
+```
+
+- 构建 system prompt
+
+```ts
+// Generate the output specification section
+const generateOutputSpecification = (
+  rules: WorkflowContext["query"]["rules"],
+): string => {
+  const fileStructure = getFileStructureRule(rules);
+  if (!fileStructure) return "";
+
+  return `
+    ## Output Specification
+    ${fileStructure}
+  `;
+};
+
+// Generate the style specification section
+const generateStyleSpecification = (
+  rules: WorkflowContext["query"]["rules"],
+): string => {
+  const styles = getStylesRule(rules);
+  if (!styles) return "";
+
+  return `
+    ## Style Specification
+    ${styles}
+  `;
+};
+
+// Generate the open source components section
+const generateOpenSourceComponents = (
+  rules: WorkflowContext["query"]["rules"],
+): string => {
+  const publicComponents = getPublicComponentsRule(rules);
+  if (!publicComponents || publicComponents.length === 0) return "";
+
+  return `
+    **Open Source Components**
+    - You can use components from ${publicComponents.join(", ")}
+    - Use the latest stable version of APIs
+  `;
+};
+
+// Generate the private components section
+const generatePrivateComponents = (
+  retrievedAugmentationContent?: string,
+): string => {
+  if (!retrievedAugmentationContent) return "";
+
+  return `
+    **Private Components**
+    - Must strictly follow the API defined in the documentation below
+    - Using undocumented private component APIs is prohibited
+    <basic-component-docs>
+      ${retrievedAugmentationContent}
+    </basic-component-docs>
+  `;
+};
+
+// Generate the additional rules section
+const generateAdditionalRules = (
+  rules: WorkflowContext["query"]["rules"],
+): string => {
+  const specialAttentionRules = getSpecialAttentionRules(rules);
+  if (!specialAttentionRules) return "";
+
+  return `
+    ## Additional Rules
+    ${specialAttentionRules}
+  `;
+};
+
+/**
+ * 构建「生成业务组件」步骤的系统提示词。
+ * 按规则拼装：文件结构规范、样式规范、组件使用指南（开源 + 私有）、附加规则；
+ * 仅当存在开源或私有组件说明时才包含「Component Usage Guidelines」小节。
+ *
+ * @param rules - 工作流中的规则（文件结构、样式、公开组件、特殊注意等）
+ * @param retrievedAugmentationContent - 可选，私有组件文档检索结果，用于私有组件约束
+ * @returns 拼接后的系统提示词字符串
+ */
+export const buildSystemPrompt = (
+  rules: WorkflowContext["query"]["rules"],
+  retrievedAugmentationContent?: string,
+): string => {
+  // 文件结构 prompt
+  const outputSpecification = generateOutputSpecification(rules);
+  // 样式 prompt
+  const styleSpecification = generateStyleSpecification(rules);
+  // 开源组件使用指南 prompt
+  const openSourceComponents = generateOpenSourceComponents(rules);
+  // 私有组件使用指南 prompt
+  const privateComponents = generatePrivateComponents(
+    retrievedAugmentationContent,
+  );
+  // 附加规则 prompt
+  const additionalRules = generateAdditionalRules(rules);
+
+  // 仅当存在开源或私有组件说明时，才添加「组件使用指南」标题与内容
+  const hasComponentGuidelines = openSourceComponents || privateComponents;
+  const componentGuidelinesHeader = hasComponentGuidelines
+    ? "## Component Usage Guidelines\n"
+    : "";
+
+  const componentGuidelines = hasComponentGuidelines
+    ? `${componentGuidelinesHeader}${openSourceComponents}${privateComponents}`
+    : "";
+
+  return `
+    # You are a senior frontend engineer focused on business component development
+
+    ## Goal
+    Generate business component code based on user requirements
+    ${outputSpecification}
+    ${styleSpecification}
+    ${componentGuidelines}
+    ${additionalRules}
+  `;
+};
+```
+
+- 构建 messages
+
+```ts
+/**
+ * 当已存在当前组件时，构造对应的「用户消息 + 助手消息」，用于上下文续写。
+ * 用户消息：组件的 prompt（文本/图片）；助手消息：组件名称与代码，作为已有结果供模型参考。
+ *
+ * @param component - 工作流中的当前组件（含 prompt、name、code）
+ * @returns 若 component 存在则返回 [userMessage, assistantMessage]，否则返回空数组
+ */
+const buildCurrentComponentMessage = (
+  component: WorkflowContext["query"]["component"],
+): Array<CoreMessage> => {
+  return component
+    ? [
+        {
+          role: "user",
+          content:
+            component?.prompt?.map((prompt) => {
+              if (prompt.type === "image") {
+                return { type: "image" as const, image: prompt.image };
+              }
+              return { type: "text" as const, text: prompt.text };
+            }) || [],
+        },
+        {
+          role: "assistant",
+          content: `
+        - Component name: ${component?.name}
+        - Component code:
+        ${component?.code}
+      `,
+        },
+      ]
+    : [];
+};
+
+/**
+ * 构建用于组件生成的用户消息
+ *
+ * 将用户原始 prompt 与设计阶段产出的组件设计信息合并，
+ * 组装成符合 CoreMessage 格式的一条 user 消息，供大模型生成组件代码时使用。
+ *
+ * @param prompt - 用户输入的 prompt 列表，可包含文本和图片
+ * @param design - 设计阶段产出的 designTask，含组件名、描述、使用的基础组件库等
+ * @returns 单条 role 为 "user" 的 CoreMessage 数组
+ */
+export const buildUserMessage = (
+  prompt: WorkflowContext["query"]["prompt"],
+  design: NonNullable<WorkflowContext["state"]>["designTask"],
+): Array<CoreMessage> => {
+  return [
+    {
+      role: "user",
+      content: prompt.map((p) => {
+        // 图片类内容原样透传，不注入设计信息
+        if (p.type === "image") {
+          return { type: "image" as const, image: p.image };
+        }
+        // 文本类内容：用户需求 + 设计信息（组件名、描述、基础组件及使用说明）
+        return {
+          type: "text" as const,
+          text: `<user-requirements>
+        ${p.text}
+
+        ## Component Design Information
+        - Component Name: ${design?.componentName}
+        - Component Description: ${design?.componentDescription}
+        - Base Components Used:
+        ${design?.library
+          ?.map(
+            (lib) => `
+          ${lib.name}:
+          - Component List: ${lib.components.join(", ")}
+          - Usage Instructions: ${lib.description}
+        `,
+          )
+          .join("\n")}
+        </user-requirements>`,
+        };
+      }),
+    },
+  ];
+};
+
+// generate component prompt
+export const generateComponentMessage = (
+  context: WorkflowContext,
+): Array<CoreMessage> => {
+  if (!context.state?.designTask) {
+    throw new Error("Design task is required but not found in context");
+  }
+
+  return [
+    ...buildCurrentComponentMessage(context.query.component),
+    ...buildUserMessage(context.query.prompt, context.state.designTask),
+  ];
+};
+```
+
+- Vercel AI SDK 流式生成组件代码
+
+```ts
+// Vercel AI SDK 流式生成组件代码
+const stream = await streamText({
+  system: systemPrompt,
+  model: context.query.aiModel,
+  messages,
+});
+
+// 消费流式输出：同时输出到控制台、写入前端流，并累积完整内容
+for await (const part of stream.textStream) {
+  try {
+    process.stdout.write(part || "");
+    const chunk = part || "";
+    completion += chunk;
+    context.stream.write(chunk);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// 写入结束标记，便于前端识别生成完成
+context.stream.write("call codegen-ai end \n\n");
+
+// 将累积的生成代码写入 state，供后续步骤使用
+return {
+  ...context,
+  state: {
+    ...context.state,
+    generatedCode: completion,
+  },
+};
+```
+
+#### 存储组件(storeComponent)
+
+```ts
+import {
+  createComponentCode,
+  updateComponentCode,
+} from "@/lib/db/componentCode/mutations";
+import { GenerateProcessingWorkflowContext } from "../../type";
+import { transformComponentArtifactFromXml } from "@/lib/xml-message-parser/parser";
+
+// Helper function to merge component files
+function mergeComponentFiles(originalXml: string, newXml: string): string {
+  // 解析原始XML和新的XML
+  const originalComponent = transformComponentArtifactFromXml(originalXml);
+  const newComponent = transformComponentArtifactFromXml(newXml);
+
+  if (!originalComponent || !newComponent) {
+    // 如果无法解析，直接返回原始的XML
+    return originalXml;
+  }
+
+  // 创建一个文件名到文件内容的映射
+  const fileMap = new Map();
+
+  // 先添加所有原始文件
+  originalComponent.files.forEach((file) => {
+    fileMap.set(file.name, {
+      content: file.content,
+      isEntryFile: file.isEntryFile,
+    });
+  });
+
+  // 然后用新文件覆盖或添加
+  newComponent.files.forEach((file) => {
+    fileMap.set(file.name, {
+      content: file.content,
+      isEntryFile: file.isEntryFile,
+    });
+  });
+
+  // 构建合并后的XML
+  let mergedXml = `<ComponentArtifact name="${
+    newComponent.componentName || originalComponent.componentName
+  }">`;
+
+  // 添加所有文件
+  fileMap.forEach((file, fileName) => {
+    mergedXml += `\n  <ComponentFile fileName="${fileName}" isEntryFile="${file.isEntryFile}">`;
+    mergedXml += file.content;
+    mergedXml += `</ComponentFile>`;
+  });
+
+  mergedXml += "\n</ComponentArtifact>";
+
+  return mergedXml;
+}
+
+export const storeComponent = async (
+  context: GenerateProcessingWorkflowContext,
+): Promise<GenerateProcessingWorkflowContext> => {
+  if (context.query.component) {
+    // 获取原始代码和新生成的代码
+    const originalCode = context.query.component.code;
+    const newCode = context.state.generatedCode;
+
+    // 合并组件文件
+    const mergedCode = mergeComponentFiles(originalCode, newCode);
+
+    // 更新组件代码
+    await updateComponentCode({
+      id: context.query.component.id,
+      prompt: context.query.prompt,
+      code: mergedCode,
+    });
+  } else {
+    // 创建新组件代码
+    const newComponent = await createComponentCode({
+      userId: context.query.userId,
+      codegenId: context.query.codegenId!,
+      name: context.state.designTask.componentName,
+      description: context.state.designTask.componentDescription,
+      prompt: context.query.prompt,
+      code: context.state.generatedCode,
+    });
+    context.stream.write(
+      `<NewComponentId>${newComponent._id}</NewComponentId>`,
+    );
+  }
+
+  context.stream.close();
+
+  return context;
+};
+```
+
+#### 案例 - Shadcn UI
+
+让 Compoder 帮我实现使用 Shadcn UI 组件库生成一个登录页的业务组件。
+
+##### Codegen Rules
+
+```ts
+{
+        "title": "Shadcn/UI Codegen",
+        "description": "Code generator based on Shadcn/UI",
+        "fullStack": "React",
+        "guides": [
+            "Generate a login page",
+            "Generate a Table component, include 3 columns: name, age, address"
+        ],
+        "model": "gpt-4o",
+        "codeRendererUrl": "http://localhost:3001",
+        "rules": [
+            {
+                "type": "public-components",
+                "description": "Define which public components to use",
+                "dataSet": [
+                    "shadcn/ui"
+                ]
+            },
+            {
+                "type": "styles",
+                "description": "Define the rules for generating styles",
+                "prompt": "Styles must be written using tailwindcss with full dark/light mode compatibility. Use Tailwind's dark mode utilities (dark:class-name) for theme variants. Prefer using color-scheme-neutral classes or theme-specific variants (dark:bg-gray-800/light:bg-white) to ensure consistent appearance in both dark and light modes."
+            },
+            {
+                "type": "attention-rules",
+                "description": "Attention rules for the code generator",
+                "prompt": "Only use the following npm packages in the generated code: react, react-dom, lucide-react, next/link, next/image, @/lib/utils, framer-motion, react-hook-form, recharts, zod, and components from @/components/ui/* (shadcn base components). Do not import or use any other packages. Specifically, DO NOT use @hookform/resolvers/zod package - instead, manually set up form validation with zod without using this resolver."
+            }
+        ]
+    },
+```
+
+##### AI 创建组件
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_15.png" alt="" width="100%" />
+
+###### 设计组件(designComponent)
+
+- 构建 system prompt
+
+```markdown
+# You are a senior frontend engineer who excels at developing business components.
+
+    ## Goal
+    Extract the "basic component materials", component name, and description information needed to develop business components from business requirements and design drafts.
+
+    ## Constraints
+    Basic component materials include:
+    - All components in shadcn/ui
+    Please note: You should not provide example code and any other text in your response, only provider json response.
+
+    ## Response Format
+    You must respond with a JSON object in the following format:
+    {
+      "componentName": string, // Component name
+      "componentDescription": string, // Component description
+      "library": [ // Libraries containing required base material components
+        {
+          "name": string, // Library name
+          "components": string[], // Components name in the library
+          "description": string // Describe how each component in components is used in a table format
+        }
+      ]
+    }
+
+    ## Workflow
+    1. Accept user's business requirements or design draft images
+    2. Extract required materials from [Constraints] basic component materials for developing business components
+    3. Generate and return the JSON response in the specified format
+```
+
+- 构建 messages
+
+```ts
+[
+  {
+    role: "user",
+    content: [
+      {
+        type: "text",
+        text: "Generate a login page",
+      },
+    ],
+  },
+];
+```
+
+- Vercel AI SDK 流式生成组件设计
+
+```ts
+{
+  componentName: "LoginPage",
+  componentDescription: "A user authentication page that allows users to sign in to the application with their credentials.",
+  library: [
+    {
+      name: "shadcn/ui",
+      components: [
+        "Card",
+        "Input",
+        "Button",
+        "Label",
+        "Checkbox",
+        "Form",
+      ],
+      description: "| Component | Usage |\n| --- | --- |\n| Card | Container for the login form with Card, CardHeader, CardTitle, CardDescription, and CardContent components |\n| Input | Text fields for email/username and password entry |\n| Button | Submit button for the login form |\n| Label | Text labels for form fields |\n| Checkbox | Remember me option |\n| Form | Form validation and submission handling |",
+    },
+  ],
+  retrievedAugmentationContent: "",
+}
+```
+
+###### 生成组件(generateComponent)
+
+- 构建 system prompt
+
+````markdown
+# You are a senior frontend engineer focused on business component development
+
+    ## Goal
+    Generate business component code based on user requirements
+
+    ## Output Specification
+    Important: Write the code directly inside each ComponentFile tag. Do NOT use any code block markers (like ```tsx, ```ts, etc.) inside the XML tags.
+
+When modifying existing component code, only return the <ComponentFile> nodes that need to be modified, without returning unchanged files. However, for each modified <ComponentFile> node, you must include the complete code content of that file, even if only a small portion was modified. This ensures the system correctly replaces the entire file content and maintains code integrity.
+
+Output component code in XML format as follows:
+<ComponentArtifact name="ComponentName">
+<ComponentFile fileName="App.tsx" isEntryFile="true">
+import { ComponentName } from './ComponentName';
+
+    const mockProps = {
+      // Define mock data here
+    };
+
+    export default function App() {
+      return <ComponentName {...mockProps} />;
+    }
+
+  </ComponentFile>
+  
+  <ComponentFile fileName="[ComponentName].tsx">
+    // Main component implementation
+    // Split into multiple files if exceeds 500 lines
+    export const ComponentName = () => {
+      // Component implementation
+    }
+  </ComponentFile>
+
+  <ComponentFile fileName="helpers.ts">
+    // Helper functions (optional)
+  </ComponentFile>
+
+  <ComponentFile fileName="interface.ts">
+    // Type definitions for component props
+    // All API-interacting data must be defined as props:
+    // - initialData for component initialization
+    // - onChange, onSave, onDelete etc. for data modifications
+  </ComponentFile>
+</ComponentArtifact>
+
+    ## Style Specification
+    Styles must be written using tailwindcss with full dark/light mode compatibility. Use Tailwind's dark mode utilities (dark:class-name) for theme variants. Prefer using color-scheme-neutral classes or theme-specific variants (dark:bg-gray-800/light:bg-white) to ensure consistent appearance in both dark and light modes.
+
+    ## Component Usage Guidelines
+
+    **Open Source Components**
+    - You can use components from shadcn/ui
+    - Use the latest stable version of APIs
+
+
+    ## Additional Rules
+    Only use the following npm packages in the generated code: react, react-dom, lucide-react, next/link, next/image, @/lib/utils, framer-motion, react-hook-form, recharts, zod, and components from @/components/ui/* (shadcn base components). Do not import or use any other packages. Specifically, DO NOT use @hookform/resolvers/zod package - instead, manually set up form validation with zod without using this resolver.
+````
+
+- 构建 messages
+
+```ts
+[
+  {
+    role: "user",
+    content: [
+      {
+        type: "text",
+        text: "<user-requirements>\n        Generate a login page\n\n        ## Component Design Information\n        - Component Name: LoginPage\n        - Component Description: A user authentication page that allows users to sign in to the application with their credentials.\n        - Base Components Used:\n        \n          shadcn/ui:\n          - Component List: Card, Input, Button, Label, Checkbox, Form\n          - Usage Instructions: | Component | Usage |\n| --- | --- |\n| Card | Container for the login form with Card, CardHeader, CardTitle, CardDescription, and CardContent components |\n| Input | Text fields for email/username and password entry |\n| Button | Submit button for the login form |\n| Label | Text labels for form fields |\n| Checkbox | Remember me option |\n| Form | Form validation and submission handling |\n        \n        </user-requirements>",
+      },
+    ],
+  },
+];
+```
+
+- Vercel AI SDK 流式生成组件代码
+
+```
+I'll create a login page component based on your requirements.
+
+<ComponentArtifact name="LoginPage">
+  <ComponentFile fileName="App.tsx" isEntryFile="true">
+    import { LoginPage } from './LoginPage';
+
+    export default function App() {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
+          <LoginPage
+            onLogin={(data) => console.log('Login attempt:', data)}
+            isLoading={false}
+            error={null}
+          />
+        </div>
+      );
+    }
+  </ComponentFile>
+
+  <ComponentFile fileName="LoginPage.tsx">
+    import { useState } from "react";
+    import { useForm } from "react-hook-form";
+    import { z } from "zod";
+    import { Eye, EyeOff, Loader2 } from "lucide-react";
+    import { Button } from "@/components/ui/button";
+    import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+    import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+    import { Input } from "@/components/ui/input";
+    import { Checkbox } from "@/components/ui/checkbox";
+    import { LoginFormData } from "./interface";
+
+    export const LoginPage = ({
+      onLogin,
+      isLoading = false,
+      error = null,
+    }: {
+      onLogin: (data: LoginFormData) => void;
+      isLoading?: boolean;
+      error?: string | null;
+    }) => {
+      const [showPassword, setShowPassword] = useState(false);
+
+      // Define form validation schema
+      const formSchema = z.object({
+        email: z.string().email({ message: "Please enter a valid email address" }),
+        password: z.string().min(6, { message: "Password must be at least 6 characters" }),
+        rememberMe: z.boolean().optional(),
+      });
+
+      // Initialize form
+      const form = useForm<z.infer<typeof formSchema>>({
+        defaultValues: {
+          email: "",
+          password: "",
+          rememberMe: false,
+        },
+        resolver: (values) => {
+          try {
+            const validatedData = formSchema.parse(values);
+            return { values: validatedData, errors: {} };
+          } catch (error) {
+            if (error instanceof z.ZodError) {
+              const formattedErrors = {};
+              error.errors.forEach((err) => {
+                const path = err.path.join(".");
+                formattedErrors[path] = { message: err.message, type: "validation" };
+              });
+              return { values: {}, errors: formattedErrors };
+            }
+            return { values: {}, errors: { "": { message: "Validation failed", type: "validation" } } };
+          }
+        },
+      });
+
+      const onSubmit = (data: z.infer<typeof formSchema>) => {
+        onLogin({
+          email: data.email,
+          password: data.password,
+          rememberMe: data.rememberMe || false,
+        });
+      };
+
+      return (
+        <Card className="w-full max-w-md shadow-lg">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
+            <CardDescription className="text-center">
+              Enter your credentials to access your account
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {error && (
+              <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-3 rounded-md mb-4 text-sm">
+                {error}
+              </div>
+            )}
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="name@example.com"
+                          type="email"
+                          autoComplete="email"
+                          disabled={isLoading}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            placeholder="••••••••"
+                            type={showPassword ? "text" : "password"}
+                            autoComplete="current-password"
+                            disabled={isLoading}
+                            {...field}
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                            onClick={() => setShowPassword(!showPassword)}
+                            disabled={isLoading}
+                          >
+                            {showPassword ? (
+                              <EyeOff className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                            ) : (
+                              <Eye className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                            )}
+                            <span className="sr-only">
+                              {showPassword ? "Hide password" : "Show password"}
+                            </span>
+                          </Button>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="flex items-center space-x-2">
+                  <FormField
+                    control={form.control}
+                    name="rememberMe"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            disabled={isLoading}
+                          />
+                        </FormControl>
+                        <FormLabel className="text-sm font-medium leading-none cursor-pointer">
+                          Remember me
+                        </FormLabel>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Signing in...
+                    </>
+                  ) : (
+                    "Sign in"
+                  )}
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+          <CardFooter className="flex flex-col space-y-4">
+            <div className="text-sm text-center text-gray-500 dark:text-gray-400">
+              <a
+                href="#"
+                className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+              >
+                Forgot your password?
+              </a>
+            </div>
+            <div className="text-sm text-center text-gray-500 dark:text-gray-400">
+              Don't have an account?{" "}
+              <a
+                href="#"
+                className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+              >
+                Sign up
+              </a>
+            </div>
+          </CardFooter>
+        </Card>
+      );
+    };
+  </ComponentFile>
+
+  <ComponentFile fileName="interface.ts">
+    export interface LoginFormData {
+      email: string;
+      password: string;
+      rememberMe: boolean;
+    }
+  </ComponentFile>
+</ComponentArtifact>
+```
+
+###### 存储组件(storeComponent)
+
+```ts
+{
+  userId: '699fe586a05a78431a7aee91',
+  codegenId: '69984e603c8f94846da2b9f5',
+  name: 'LoginPage',
+  description: 'A user authentication page that allows users to sign in to the application with their credentials.',
+  prompt: [ { text: 'Generate a login page', type: 'text' } ],
+  code: "I'll create a login page component based on your requirements.\n" +
+    '\n' +
+    '<ComponentArtifact name="LoginPage">\n' +
+    '  <ComponentFile fileName="App.tsx" isEntryFile="true">\n' +
+    "    import { LoginPage } from './LoginPage';\n" +
+    '    \n' +
+    '    export default function App() {\n' +
+    '      return (\n' +
+    '        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">\n' +
+    '          <LoginPage \n' +
+    "            onLogin={(data) => console.log('Login attempt:', data)}\n" +
+    '            isLoading={false}\n' +
+    '            error={null}\n' +
+    '          />\n' +
+    '        </div>\n' +
+    '      );\n' +
+    '    }\n' +
+    '  </ComponentFile>\n' +
+    '  \n' +
+    '  <ComponentFile fileName="LoginPage.tsx">\n' +
+    '    import { useState } from "react";\n' +
+    '    import { useForm } from "react-hook-form";\n' +
+    '    import { z } from "zod";\n' +
+    '    import { Eye, EyeOff, Loader2 } from "lucide-react";\n' +
+    '    import { Button } from "@/components/ui/button";\n' +
+    '    import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";\n' +
+    '    import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";\n' +
+    '    import { Input } from "@/components/ui/input";\n' +
+    '    import { Checkbox } from "@/components/ui/checkbox";\n' +
+    '    import { LoginFormData } from "./interface";\n' +
+    '\n' +
+    '    export const LoginPage = ({\n' +
+    '      onLogin,\n' +
+    '      isLoading = false,\n' +
+    '      error = null,\n' +
+    '    }: {\n' +
+    '      onLogin: (data: LoginFormData) => void;\n' +
+    '      isLoading?: boolean;\n' +
+    '      error?: string | null;\n' +
+    '    }) => {\n' +
+    '      const [showPassword, setShowPassword] = useState(false);\n' +
+    '      \n' +
+    '      // Define form validation schema\n' +
+    '      const formSchema = z.object({\n' +
+    '        email: z.string().email({ message: "Please enter a valid email address" }),\n' +
+    '        password: z.string().min(6, { message: "Password must be at least 6 characters" }),\n' +
+    '        rememberMe: z.boolean().optional(),\n' +
+    '      });\n' +
+    '\n' +
+    '      // Initialize form\n' +
+    '      const form = useForm<z.infer<typeof formSchema>>({\n' +
+    '        defaultValues: {\n' +
+    '          email: "",\n' +
+    '          password: "",\n' +
+    '          rememberMe: false,\n' +
+    '        },\n' +
+    '        resolver: (values) => {\n' +
+    '          try {\n' +
+    '            const validatedData = formSchema.parse(values);\n' +
+    '            return { values: validatedData, errors: {} };\n' +
+    '          } catch (error) {\n' +
+    '            if (error instanceof z.ZodError) {\n' +
+    '              const formattedErrors = {};\n' +
+    '              error.errors.forEach((err) => {\n' +
+    '                const path = err.path.join(".");\n' +
+    '                formattedErrors[path] = { message: err.message, type: "validation" };\n' +
+    '              });\n' +
+    '              return { values: {}, errors: formattedErrors };\n' +
+    '            }\n' +
+    '            return { values: {}, errors: { "": { message: "Validation failed", type: "validation" } } };\n' +
+    '          }\n' +
+    '        },\n' +
+    '      });\n' +
+    '\n' +
+    '      const onSubmit = (data: z.infer<typeof formSchema>) => {\n' +
+    '        onLogin({\n' +
+    '          email: data.email,\n' +
+    '          password: data.password,\n' +
+    '          rememberMe: data.rememberMe || false,\n' +
+    '        });\n' +
+    '      };\n' +
+    '\n' +
+    '      return (\n' +
+    '        <Card className="w-full max-w-md shadow-lg">\n' +
+    '          <CardHeader className="space-y-1">\n' +
+    '            <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>\n' +
+    '            <CardDescription className="text-center">\n' +
+    '              Enter your credentials to access your account\n' +
+    '            </CardDescription>\n' +
+    '          </CardHeader>\n' +
+    '          <CardContent>\n' +
+    '            {error && (\n' +
+    '              <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-3 rounded-md mb-4 text-sm">\n' +
+    '                {error}\n' +
+    '              </div>\n' +
+    '            )}\n' +
+    '            <Form {...form}>\n' +
+    '              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">\n' +
+    '                <FormField\n' +
+    '                  control={form.control}\n' +
+    '                  name="email"\n' +
+    '                  render={({ field }) => (\n' +
+    '                    <FormItem>\n' +
+    '                      <FormLabel>Email</FormLabel>\n' +
+    '                      <FormControl>\n' +
+    '                        <Input \n' +
+    '                          placeholder="name@example.com" \n' +
+    '                          type="email" \n' +
+    '                          autoComplete="email"\n' +
+    '                          disabled={isLoading}\n' +
+    '                          {...field} \n' +
+    '                        />\n' +
+    '                      </FormControl>\n' +
+    '                      <FormMessage />\n' +
+    '                    </FormItem>\n' +
+    '                  )}\n' +
+    '                />\n' +
+    '                <FormField\n' +
+    '                  control={form.control}\n' +
+    '                  name="password"\n' +
+    '                  render={({ field }) => (\n' +
+    '                    <FormItem>\n' +
+    '                      <FormLabel>Password</FormLabel>\n' +
+    '                      <FormControl>\n' +
+    '                        <div className="relative">\n' +
+    '                          <Input\n' +
+    '                            placeholder="••••••••"\n' +
+    '                            type={showPassword ? "text" : "password"}\n' +
+    '                            autoComplete="current-password"\n' +
+    '                            disabled={isLoading}\n' +
+    '                            {...field}\n' +
+    '                          />\n' +
+    '                          <Button\n' +
+    '                            type="button"\n' +
+    '                            variant="ghost"\n' +
+    '                            size="sm"\n' +
+    '                            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"\n' +
+    '                            onClick={() => setShowPassword(!showPassword)}\n' +
+    '                            disabled={isLoading}\n' +
+    '                          >\n' +
+    '                            {showPassword ? (\n' +
+    '                              <EyeOff className="h-4 w-4 text-gray-500 dark:text-gray-400" />\n' +
+    '                            ) : (\n' +
+    '                              <Eye className="h-4 w-4 text-gray-500 dark:text-gray-400" />\n' +
+    '                            )}\n' +
+    '                            <span className="sr-only">\n' +
+    '                              {showPassword ? "Hide password" : "Show password"}\n' +
+    '                            </span>\n' +
+    '                          </Button>\n' +
+    '                        </div>\n' +
+    '                      </FormControl>\n' +
+    '                      <FormMessage />\n' +
+    '                    </FormItem>\n' +
+    '                  )}\n' +
+    '                />\n' +
+    '                <div className="flex items-center space-x-2">\n' +
+    '                  <FormField\n' +
+    '                    control={form.control}\n' +
+    '                    name="rememberMe"\n' +
+    '                    render={({ field }) => (\n' +
+    '                      <FormItem className="flex flex-row items-center space-x-2 space-y-0">\n' +
+    '                        <FormControl>\n' +
+    '                          <Checkbox\n' +
+    '                            checked={field.value}\n' +
+    '                            onCheckedChange={field.onChange}\n' +
+    '                            disabled={isLoading}\n' +
+    '                          />\n' +
+    '                        </FormControl>\n' +
+    '                        <FormLabel className="text-sm font-medium leading-none cursor-pointer">\n' +
+    '                          Remember me\n' +
+    '                        </FormLabel>\n' +
+    '                      </FormItem>\n' +
+    '                    )}\n' +
+    '                  />\n' +
+    '                </div>\n' +
+    '                <Button type="submit" className="w-full" disabled={isLoading}>\n' +
+    '                  {isLoading ? (\n' +
+    '                    <>\n' +
+    '                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />\n' +
+    '                      Signing in...\n' +
+    '                    </>\n' +
+    '                  ) : (\n' +
+    '                    "Sign in"\n' +
+    '                  )}\n' +
+    '                </Button>\n' +
+    '              </form>\n' +
+    '            </Form>\n' +
+    '          </CardContent>\n' +
+    '          <CardFooter className="flex flex-col space-y-4">\n' +
+    '            <div className="text-sm text-center text-gray-500 dark:text-gray-400">\n' +
+    '              <a \n' +
+    '                href="#" \n' +
+    '                className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900"\n' +
+    '              >\n' +
+    '                Forgot your password?\n' +
+    '              </a>\n' +
+    '            </div>\n' +
+    '            <div className="text-sm text-center text-gray-500 dark:text-gray-400">\n' +
+    `              Don't have an account?{" "}\n` +
+    '              <a \n' +
+    '                href="#" \n' +
+    '                className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900"\n' +
+    '              >\n' +
+    '                Sign up\n' +
+    '              </a>\n' +
+    '            </div>\n' +
+    '          </CardFooter>\n' +
+    '        </Card>\n' +
+    '      );\n' +
+    '    };\n' +
+    '  </ComponentFile>\n' +
+    '\n' +
+    '  <ComponentFile fileName="interface.ts">\n' +
+    '    export interface LoginFormData {\n' +
+    '      email: string;\n' +
+    '      password: string;\n' +
+    '      rememberMe: boolean;\n' +
+    '    }\n' +
+    '  </ComponentFile>\n' +
+    '</ComponentArtifact>'
+}
+```
+
+###### 生成效果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_16.png" alt="" width="100%" />
+
+##### AI 迭代组件
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_17.png" alt="" width="100%" />
+
+###### 设计组件(designComponent)
+
+- 构建 system prompt
+
+```markdown
+# You are a senior frontend engineer who excels at developing business components.
+
+    ## Goal
+    Extract the "basic component materials", component name, and description information needed to develop business components from business requirements and design drafts.
+
+    ## Constraints
+    Basic component materials include:
+    - All components in shadcn/ui
+    Please note: You should not provide example code and any other text in your response, only provider json response.
+
+    ## Response Format
+    You must respond with a JSON object in the following format:
+    {
+      "componentName": string, // Component name
+      "componentDescription": string, // Component description
+      "library": [ // Libraries containing required base material components
+        {
+          "name": string, // Library name
+          "components": string[], // Components name in the library
+          "description": string // Describe how each component in components is used in a table format
+        }
+      ]
+    }
+
+    ## Workflow
+    1. Accept user's business requirements or design draft images
+    2. Extract required materials from [Constraints] basic component materials for developing business components
+    3. Generate and return the JSON response in the specified format
+```
+
+- 构建 messages
+
+```ts
+[
+  {
+    role: "user",
+    content: [
+      {
+        type: "text",
+        text: "Generate a login page",
+      },
+    ],
+  },
+  {
+    role: "assistant",
+    content:
+      '\n        - Component name: LoginPage\n        - Component code:\n        I\'ll create a login page component based on your requirements.\n\n<ComponentArtifact name="LoginPage">\n  <ComponentFile fileName="App.tsx" isEntryFile="true">\n    import { LoginPage } from \'./LoginPage\';\n    \n    export default function App() {\n      return (\n        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">\n          <LoginPage \n            onLogin={(data) => console.log(\'Login attempt:\', data)}\n            isLoading={false}\n            error={null}\n          />\n        </div>\n      );\n    }\n  </ComponentFile>\n  \n  <ComponentFile fileName="LoginPage.tsx">\n    import { useState } from "react";\n    import { useForm } from "react-hook-form";\n    import { z } from "zod";\n    import { Eye, EyeOff, Loader2 } from "lucide-react";\n    import { Button } from "@/components/ui/button";\n    import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";\n    import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";\n    import { Input } from "@/components/ui/input";\n    import { Checkbox } from "@/components/ui/checkbox";\n    import { LoginFormData } from "./interface";\n\n    export const LoginPage = ({\n      onLogin,\n      isLoading = false,\n      error = null,\n    }: {\n      onLogin: (data: LoginFormData) => void;\n      isLoading?: boolean;\n      error?: string | null;\n    }) => {\n      const [showPassword, setShowPassword] = useState(false);\n      \n      // Define form validation schema\n      const formSchema = z.object({\n        email: z.string().email({ message: "Please enter a valid email address" }),\n        password: z.string().min(6, { message: "Password must be at least 6 characters" }),\n        rememberMe: z.boolean().optional(),\n      });\n\n      // Initialize form\n      const form = useForm<z.infer<typeof formSchema>>({\n        defaultValues: {\n          email: "",\n          password: "",\n          rememberMe: false,\n        },\n        resolver: (values) => {\n          try {\n            const validatedData = formSchema.parse(values);\n            return { values: validatedData, errors: {} };\n          } catch (error) {\n            if (error instanceof z.ZodError) {\n              const formattedErrors = {};\n              error.errors.forEach((err) => {\n                const path = err.path.join(".");\n                formattedErrors[path] = { message: err.message, type: "validation" };\n              });\n              return { values: {}, errors: formattedErrors };\n            }\n            return { values: {}, errors: { "": { message: "Validation failed", type: "validation" } } };\n          }\n        },\n      });\n\n      const onSubmit = (data: z.infer<typeof formSchema>) => {\n        onLogin({\n          email: data.email,\n          password: data.password,\n          rememberMe: data.rememberMe || false,\n        });\n      };\n\n      return (\n        <Card className="w-full max-w-md shadow-lg">\n          <CardHeader className="space-y-1">\n            <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>\n            <CardDescription className="text-center">\n              Enter your credentials to access your account\n            </CardDescription>\n          </CardHeader>\n          <CardContent>\n            {error && (\n              <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-3 rounded-md mb-4 text-sm">\n                {error}\n              </div>\n            )}\n            <Form {...form}>\n              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">\n                <FormField\n                  control={form.control}\n                  name="email"\n                  render={({ field }) => (\n                    <FormItem>\n                      <FormLabel>Email</FormLabel>\n                      <FormControl>\n                        <Input \n                          placeholder="name@example.com" \n                          type="email" \n                          autoComplete="email"\n                          disabled={isLoading}\n                          {...field} \n                        />\n                      </FormControl>\n                      <FormMessage />\n                    </FormItem>\n                  )}\n                />\n                <FormField\n                  control={form.control}\n                  name="password"\n                  render={({ field }) => (\n                    <FormItem>\n                      <FormLabel>Password</FormLabel>\n                      <FormControl>\n                        <div className="relative">\n                          <Input\n                            placeholder="••••••••"\n                            type={showPassword ? "text" : "password"}\n                            autoComplete="current-password"\n                            disabled={isLoading}\n                            {...field}\n                          />\n                          <Button\n                            type="button"\n                            variant="ghost"\n                            size="sm"\n                            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"\n                            onClick={() => setShowPassword(!showPassword)}\n                            disabled={isLoading}\n                          >\n                            {showPassword ? (\n                              <EyeOff className="h-4 w-4 text-gray-500 dark:text-gray-400" />\n                            ) : (\n                              <Eye className="h-4 w-4 text-gray-500 dark:text-gray-400" />\n                            )}\n                            <span className="sr-only">\n                              {showPassword ? "Hide password" : "Show password"}\n                            </span>\n                          </Button>\n                        </div>\n                      </FormControl>\n                      <FormMessage />\n                    </FormItem>\n                  )}\n                />\n                <div className="flex items-center space-x-2">\n                  <FormField\n                    control={form.control}\n                    name="rememberMe"\n                    render={({ field }) => (\n                      <FormItem className="flex flex-row items-center space-x-2 space-y-0">\n                        <FormControl>\n                          <Checkbox\n                            checked={field.value}\n                            onCheckedChange={field.onChange}\n                            disabled={isLoading}\n                          />\n                        </FormControl>\n                        <FormLabel className="text-sm font-medium leading-none cursor-pointer">\n                          Remember me\n                        </FormLabel>\n                      </FormItem>\n                    )}\n                  />\n                </div>\n                <Button type="submit" className="w-full" disabled={isLoading}>\n                  {isLoading ? (\n                    <>\n                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />\n                      Signing in...\n                    </>\n                  ) : (\n                    "Sign in"\n                  )}\n                </Button>\n              </form>\n            </Form>\n          </CardContent>\n          <CardFooter className="flex flex-col space-y-4">\n            <div className="text-sm text-center text-gray-500 dark:text-gray-400">\n              <a \n                href="#" \n                className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900"\n              >\n                Forgot your password?\n              </a>\n            </div>\n            <div className="text-sm text-center text-gray-500 dark:text-gray-400">\n              Don\'t have an account?{" "}\n              <a \n                href="#" \n                className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900"\n              >\n                Sign up\n              </a>\n            </div>\n          </CardFooter>\n        </Card>\n      );\n    };\n  </ComponentFile>\n\n  <ComponentFile fileName="interface.ts">\n    export interface LoginFormData {\n      email: string;\n      password: string;\n      rememberMe: boolean;\n    }\n  </ComponentFile>\n</ComponentArtifact>\n      ',
+  },
+  {
+    role: "user",
+    content: [
+      {
+        type: "text",
+        text: "帮我调整下样式",
+      },
+    ],
+  },
+];
+```
+
+- Vercel AI SDK 流式生成组件设计
+
+```ts
+{
+  componentName: "LoginPage",
+  componentDescription: "A responsive login page component with email and password fields, remember me option, and links for password recovery and signup",
+  library: [
+    {
+      name: "shadcn/ui",
+      components: [
+        "Card",
+        "Button",
+        "Input",
+        "Form",
+        "Checkbox",
+      ],
+      description: "| Component | Usage |\n|-----------|-------|\n| Card | Used as the container for the login form with CardHeader, CardContent, and CardFooter for structured layout |\n| Button | Used for the submit button and password visibility toggle |\n| Input | Used for email and password input fields |\n| Form | Used for form validation and handling with FormField, FormItem, FormLabel, FormControl, and FormMessage |\n| Checkbox | Used for the 'Remember me' option |",
+    },
+  ],
+  retrievedAugmentationContent: "",
+}
+```
+
+###### 生成组件(generateComponent)
+
+- 构建 system prompt
+
+````markdown
+# You are a senior frontend engineer focused on business component development
+
+    ## Goal
+    Generate business component code based on user requirements
+
+    ## Output Specification
+    Important: Write the code directly inside each ComponentFile tag. Do NOT use any code block markers (like ```tsx, ```ts, etc.) inside the XML tags.
+
+When modifying existing component code, only return the <ComponentFile> nodes that need to be modified, without returning unchanged files. However, for each modified <ComponentFile> node, you must include the complete code content of that file, even if only a small portion was modified. This ensures the system correctly replaces the entire file content and maintains code integrity.
+
+Output component code in XML format as follows:
+<ComponentArtifact name="ComponentName">
+<ComponentFile fileName="App.tsx" isEntryFile="true">
+import { ComponentName } from './ComponentName';
+
+    const mockProps = {
+      // Define mock data here
+    };
+
+    export default function App() {
+      return <ComponentName {...mockProps} />;
+    }
+
+  </ComponentFile>
+  
+  <ComponentFile fileName="[ComponentName].tsx">
+    // Main component implementation
+    // Split into multiple files if exceeds 500 lines
+    export const ComponentName = () => {
+      // Component implementation
+    }
+  </ComponentFile>
+
+  <ComponentFile fileName="helpers.ts">
+    // Helper functions (optional)
+  </ComponentFile>
+
+  <ComponentFile fileName="interface.ts">
+    // Type definitions for component props
+    // All API-interacting data must be defined as props:
+    // - initialData for component initialization
+    // - onChange, onSave, onDelete etc. for data modifications
+  </ComponentFile>
+</ComponentArtifact>
+
+    ## Style Specification
+    Styles must be written using tailwindcss with full dark/light mode compatibility. Use Tailwind's dark mode utilities (dark:class-name) for theme variants. Prefer using color-scheme-neutral classes or theme-specific variants (dark:bg-gray-800/light:bg-white) to ensure consistent appearance in both dark and light modes.
+
+    ## Component Usage Guidelines
+
+    **Open Source Components**
+    - You can use components from shadcn/ui
+    - Use the latest stable version of APIs
+
+
+    ## Additional Rules
+    Only use the following npm packages in the generated code: react, react-dom, lucide-react, next/link, next/image, @/lib/utils, framer-motion, react-hook-form, recharts, zod, and components from @/components/ui/* (shadcn base components). Do not import or use any other packages. Specifically, DO NOT use @hookform/resolvers/zod package - instead, manually set up form validation with zod without using this resolver.
+````
+
+- 构建 messages
+
+```ts
+[
+  {
+    role: "user",
+    content: [
+      {
+        type: "text",
+        text: "Generate a login page",
+      },
+    ],
+  },
+  {
+    role: "assistant",
+    content:
+      '\n          - Component name: LoginPage\n          - Component code:\n          I\'ll create a login page component based on your requirements.\n\n<ComponentArtifact name="LoginPage">\n  <ComponentFile fileName="App.tsx" isEntryFile="true">\n    import { LoginPage } from \'./LoginPage\';\n    \n    export default function App() {\n      return (\n        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">\n          <LoginPage \n            onLogin={(data) => console.log(\'Login attempt:\', data)}\n            isLoading={false}\n            error={null}\n          />\n        </div>\n      );\n    }\n  </ComponentFile>\n  \n  <ComponentFile fileName="LoginPage.tsx">\n    import { useState } from "react";\n    import { useForm } from "react-hook-form";\n    import { z } from "zod";\n    import { Eye, EyeOff, Loader2 } from "lucide-react";\n    import { Button } from "@/components/ui/button";\n    import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";\n    import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";\n    import { Input } from "@/components/ui/input";\n    import { Checkbox } from "@/components/ui/checkbox";\n    import { LoginFormData } from "./interface";\n\n    export const LoginPage = ({\n      onLogin,\n      isLoading = false,\n      error = null,\n    }: {\n      onLogin: (data: LoginFormData) => void;\n      isLoading?: boolean;\n      error?: string | null;\n    }) => {\n      const [showPassword, setShowPassword] = useState(false);\n      \n      // Define form validation schema\n      const formSchema = z.object({\n        email: z.string().email({ message: "Please enter a valid email address" }),\n        password: z.string().min(6, { message: "Password must be at least 6 characters" }),\n        rememberMe: z.boolean().optional(),\n      });\n\n      // Initialize form\n      const form = useForm<z.infer<typeof formSchema>>({\n        defaultValues: {\n          email: "",\n          password: "",\n          rememberMe: false,\n        },\n        resolver: (values) => {\n          try {\n            const validatedData = formSchema.parse(values);\n            return { values: validatedData, errors: {} };\n          } catch (error) {\n            if (error instanceof z.ZodError) {\n              const formattedErrors = {};\n              error.errors.forEach((err) => {\n                const path = err.path.join(".");\n                formattedErrors[path] = { message: err.message, type: "validation" };\n              });\n              return { values: {}, errors: formattedErrors };\n            }\n            return { values: {}, errors: { "": { message: "Validation failed", type: "validation" } } };\n          }\n        },\n      });\n\n      const onSubmit = (data: z.infer<typeof formSchema>) => {\n        onLogin({\n          email: data.email,\n          password: data.password,\n          rememberMe: data.rememberMe || false,\n        });\n      };\n\n      return (\n        <Card className="w-full max-w-md shadow-lg">\n          <CardHeader className="space-y-1">\n            <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>\n            <CardDescription className="text-center">\n              Enter your credentials to access your account\n            </CardDescription>\n          </CardHeader>\n          <CardContent>\n            {error && (\n              <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-3 rounded-md mb-4 text-sm">\n                {error}\n              </div>\n            )}\n            <Form {...form}>\n              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">\n                <FormField\n                  control={form.control}\n                  name="email"\n                  render={({ field }) => (\n                    <FormItem>\n                      <FormLabel>Email</FormLabel>\n                      <FormControl>\n                        <Input \n                          placeholder="name@example.com" \n                          type="email" \n                          autoComplete="email"\n                          disabled={isLoading}\n                          {...field} \n                        />\n                      </FormControl>\n                      <FormMessage />\n                    </FormItem>\n                  )}\n                />\n                <FormField\n                  control={form.control}\n                  name="password"\n                  render={({ field }) => (\n                    <FormItem>\n                      <FormLabel>Password</FormLabel>\n                      <FormControl>\n                        <div className="relative">\n                          <Input\n                            placeholder="••••••••"\n                            type={showPassword ? "text" : "password"}\n                            autoComplete="current-password"\n                            disabled={isLoading}\n                            {...field}\n                          />\n                          <Button\n                            type="button"\n                            variant="ghost"\n                            size="sm"\n                            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"\n                            onClick={() => setShowPassword(!showPassword)}\n                            disabled={isLoading}\n                          >\n                            {showPassword ? (\n                              <EyeOff className="h-4 w-4 text-gray-500 dark:text-gray-400" />\n                            ) : (\n                              <Eye className="h-4 w-4 text-gray-500 dark:text-gray-400" />\n                            )}\n                            <span className="sr-only">\n                              {showPassword ? "Hide password" : "Show password"}\n                            </span>\n                          </Button>\n                        </div>\n                      </FormControl>\n                      <FormMessage />\n                    </FormItem>\n                  )}\n                />\n                <div className="flex items-center space-x-2">\n                  <FormField\n                    control={form.control}\n                    name="rememberMe"\n                    render={({ field }) => (\n                      <FormItem className="flex flex-row items-center space-x-2 space-y-0">\n                        <FormControl>\n                          <Checkbox\n                            checked={field.value}\n                            onCheckedChange={field.onChange}\n                            disabled={isLoading}\n                          />\n                        </FormControl>\n                        <FormLabel className="text-sm font-medium leading-none cursor-pointer">\n                          Remember me\n                        </FormLabel>\n                      </FormItem>\n                    )}\n                  />\n                </div>\n                <Button type="submit" className="w-full" disabled={isLoading}>\n                  {isLoading ? (\n                    <>\n                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />\n                      Signing in...\n                    </>\n                  ) : (\n                    "Sign in"\n                  )}\n                </Button>\n              </form>\n            </Form>\n          </CardContent>\n          <CardFooter className="flex flex-col space-y-4">\n            <div className="text-sm text-center text-gray-500 dark:text-gray-400">\n              <a \n                href="#" \n                className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900"\n              >\n                Forgot your password?\n              </a>\n            </div>\n            <div className="text-sm text-center text-gray-500 dark:text-gray-400">\n              Don\'t have an account?{" "}\n              <a \n                href="#" \n                className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900"\n              >\n                Sign up\n              </a>\n            </div>\n          </CardFooter>\n        </Card>\n      );\n    };\n  </ComponentFile>\n\n  <ComponentFile fileName="interface.ts">\n    export interface LoginFormData {\n      email: string;\n      password: string;\n      rememberMe: boolean;\n    }\n  </ComponentFile>\n</ComponentArtifact>\n        ',
+  },
+  {
+    role: "user",
+    content: [
+      {
+        type: "text",
+        text: "<user-requirements>\n        帮我调整下样式\n\n        ## Component Design Information\n        - Component Name: LoginPage\n        - Component Description: A responsive login page component with email and password fields, remember me option, and links for password recovery and signup\n        - Base Components Used:\n        \n          shadcn/ui:\n          - Component List: Card, Button, Input, Form, Checkbox\n          - Usage Instructions: | Component | Usage |\n|-----------|-------|\n| Card | Used as the container for the login form with CardHeader, CardContent, and CardFooter for structured layout |\n| Button | Used for the submit button and password visibility toggle |\n| Input | Used for email and password input fields |\n| Form | Used for form validation and handling with FormField, FormItem, FormLabel, FormControl, and FormMessage |\n| Checkbox | Used for the 'Remember me' option |\n        \n        </user-requirements>",
+      },
+    ],
+  },
+];
+```
+
+- Vercel AI SDK 流式生成组件代码
+
+```
+I'll adjust the styling of the LoginPage component to enhance its appearance while maintaining its functionality.
+
+<ComponentArtifact name="LoginPage">
+  <ComponentFile fileName="LoginPage.tsx">
+    import { useState } from "react";
+    import { useForm } from "react-hook-form";
+    import { z } from "zod";
+    import { Eye, EyeOff, Loader2 } from "lucide-react";
+    import { Button } from "@/components/ui/button";
+    import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+    import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+    import { Input } from "@/components/ui/input";
+    import { Checkbox } from "@/components/ui/checkbox";
+    import { LoginFormData } from "./interface";
+
+    export const LoginPage = ({
+      onLogin,
+      isLoading = false,
+      error = null,
+    }: {
+      onLogin: (data: LoginFormData) => void;
+      isLoading?: boolean;
+      error?: string | null;
+    }) => {
+      const [showPassword, setShowPassword] = useState(false);
+
+      // Define form validation schema
+      const formSchema = z.object({
+        email: z.string().email({ message: "Please enter a valid email address" }),
+        password: z.string().min(6, { message: "Password must be at least 6 characters" }),
+        rememberMe: z.boolean().optional(),
+      });
+
+      // Initialize form
+      const form = useForm<z.infer<typeof formSchema>>({
+        defaultValues: {
+          email: "",
+          password: "",
+          rememberMe: false,
+        },
+        resolver: (values) => {
+          try {
+            const validatedData = formSchema.parse(values);
+            return { values: validatedData, errors: {} };
+          } catch (error) {
+            if (error instanceof z.ZodError) {
+              const formattedErrors = {};
+              error.errors.forEach((err) => {
+                const path = err.path.join(".");
+                formattedErrors[path] = { message: err.message, type: "validation" };
+              });
+              return { values: {}, errors: formattedErrors };
+            }
+            return { values: {}, errors: { "": { message: "Validation failed", type: "validation" } } };
+          }
+        },
+      });
+
+      const onSubmit = (data: z.infer<typeof formSchema>) => {
+        onLogin({
+          email: data.email,
+          password: data.password,
+          rememberMe: data.rememberMe || false,
+        });
+      };
+
+      return (
+        <Card className="w-full max-w-md shadow-xl border-0 dark:border dark:border-gray-800 bg-white dark:bg-gray-950 rounded-xl overflow-hidden">
+          <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+          <CardHeader className="space-y-2 pt-6">
+            <CardTitle className="text-2xl font-bold text-center text-gray-900 dark:text-gray-100">Welcome Back</CardTitle>
+            <CardDescription className="text-center text-gray-500 dark:text-gray-400">
+              Sign in to your account to continue
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="px-6 py-4">
+            {error && (
+              <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-3 rounded-lg mb-5 text-sm border border-red-200 dark:border-red-800/30">
+                <p className="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                  {error}
+                </p>
+              </div>
+            )}
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-700 dark:text-gray-300">Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="name@example.com"
+                          type="email"
+                          autoComplete="email"
+                          disabled={isLoading}
+                          className="h-11 bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-xs font-medium" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-700 dark:text-gray-300">Password</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            placeholder="••••••••"
+                            type={showPassword ? "text" : "password"}
+                            autoComplete="current-password"
+                            disabled={isLoading}
+                            className="h-11 bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 pr-10"
+                            {...field}
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent text-gray-500 dark:text-gray-400"
+                            onClick={() => setShowPassword(!showPassword)}
+                            disabled={isLoading}
+                          >
+                            {showPassword ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
+                            <span className="sr-only">
+                              {showPassword ? "Hide password" : "Show password"}
+                            </span>
+                          </Button>
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-xs font-medium" />
+                    </FormItem>
+                  )}
+                />
+                <div className="flex items-center justify-between">
+                  <FormField
+                    control={form.control}
+                    name="rememberMe"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            disabled={isLoading}
+                            className="text-blue-600 dark:text-blue-500 border-gray-300 dark:border-gray-600 rounded"
+                          />
+                        </FormControl>
+                        <FormLabel className="text-sm font-medium leading-none cursor-pointer text-gray-600 dark:text-gray-400">
+                          Remember me
+                        </FormLabel>
+                      </FormItem>
+                    )}
+                  />
+                  <a
+                    href="#"
+                    className="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+                  >
+                    Forgot password?
+                  </a>
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full h-11 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 dark:from-blue-600 dark:to-blue-500 dark:hover:from-blue-700 dark:hover:to-blue-600 text-white font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Signing in...
+                    </>
+                  ) : (
+                    "Sign in"
+                  )}
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+          <CardFooter className="flex flex-col space-y-4 px-6 py-5 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-800">
+            <div className="text-sm text-center text-gray-600 dark:text-gray-400">
+              Don't have an account?{" "}
+              <a
+                href="#"
+                className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+              >
+                Create an account
+              </a>
+            </div>
+          </CardFooter>
+        </Card>
+      );
+    };
+  </ComponentFile>
+</ComponentArtifact>
+```
+
+###### 存储组件(storeComponent)
+
+```ts
+{
+  id: '69a038076b570a36e1ecc6cb',
+  prompt: [ { type: 'text', text: '帮我调整下样式' } ],
+  code: '<ComponentArtifact name="LoginPage">\n' +
+    '  <ComponentFile fileName="App.tsx" isEntryFile="true">\n' +
+    "    import { LoginPage } from './LoginPage';\n" +
+    '    \n' +
+    '    export default function App() {\n' +
+    '      return (\n' +
+    '        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">\n' +
+    '          <LoginPage \n' +
+    "            onLogin={(data) => console.log('Login attempt:', data)}\n" +
+    '            isLoading={false}\n' +
+    '            error={null}\n' +
+    '          />\n' +
+    '        </div>\n' +
+    '      );\n' +
+    '    }\n' +
+    '  </ComponentFile>\n' +
+    '  <ComponentFile fileName="LoginPage.tsx" isEntryFile="false">\n' +
+    '    import { useState } from "react";\n' +
+    '    import { useForm } from "react-hook-form";\n' +
+    '    import { z } from "zod";\n' +
+    '    import { Eye, EyeOff, Loader2 } from "lucide-react";\n' +
+    '    import { Button } from "@/components/ui/button";\n' +
+    '    import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";\n' +
+    '    import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";\n' +
+    '    import { Input } from "@/components/ui/input";\n' +
+    '    import { Checkbox } from "@/components/ui/checkbox";\n' +
+    '    import { LoginFormData } from "./interface";\n' +
+    '\n' +
+    '    export const LoginPage = ({\n' +
+    '      onLogin,\n' +
+    '      isLoading = false,\n' +
+    '      error = null,\n' +
+    '    }: {\n' +
+    '      onLogin: (data: LoginFormData) => void;\n' +
+    '      isLoading?: boolean;\n' +
+    '      error?: string | null;\n' +
+    '    }) => {\n' +
+    '      const [showPassword, setShowPassword] = useState(false);\n' +
+    '      \n' +
+    '      // Define form validation schema\n' +
+    '      const formSchema = z.object({\n' +
+    '        email: z.string().email({ message: "Please enter a valid email address" }),\n' +
+    '        password: z.string().min(6, { message: "Password must be at least 6 characters" }),\n' +
+    '        rememberMe: z.boolean().optional(),\n' +
+    '      });\n' +
+    '\n' +
+    '      // Initialize form\n' +
+    '      const form = useForm<z.infer<typeof formSchema>>({\n' +
+    '        defaultValues: {\n' +
+    '          email: "",\n' +
+    '          password: "",\n' +
+    '          rememberMe: false,\n' +
+    '        },\n' +
+    '        resolver: (values) => {\n' +
+    '          try {\n' +
+    '            const validatedData = formSchema.parse(values);\n' +
+    '            return { values: validatedData, errors: {} };\n' +
+    '          } catch (error) {\n' +
+    '            if (error instanceof z.ZodError) {\n' +
+    '              const formattedErrors = {};\n' +
+    '              error.errors.forEach((err) => {\n' +
+    '                const path = err.path.join(".");\n' +
+    '                formattedErrors[path] = { message: err.message, type: "validation" };\n' +
+    '              });\n' +
+    '              return { values: {}, errors: formattedErrors };\n' +
+    '            }\n' +
+    '            return { values: {}, errors: { "": { message: "Validation failed", type: "validation" } } };\n' +
+    '          }\n' +
+    '        },\n' +
+    '      });\n' +
+    '\n' +
+    '      const onSubmit = (data: z.infer<typeof formSchema>) => {\n' +
+    '        onLogin({\n' +
+    '          email: data.email,\n' +
+    '          password: data.password,\n' +
+    '          rememberMe: data.rememberMe || false,\n' +
+    '        });\n' +
+    '      };\n' +
+    '\n' +
+    '      return (\n' +
+    '        <Card className="w-full max-w-md shadow-xl border-0 dark:border dark:border-gray-800 bg-white dark:bg-gray-950 rounded-xl overflow-hidden">\n' +
+    '          <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-600"></div>\n' +
+    '          <CardHeader className="space-y-2 pt-6">\n' +
+    '            <CardTitle className="text-2xl font-bold text-center text-gray-900 dark:text-gray-100">Welcome Back</CardTitle>\n' +
+    '            <CardDescription className="text-center text-gray-500 dark:text-gray-400">\n' +
+    '              Sign in to your account to continue\n' +
+    '            </CardDescription>\n' +
+    '          </CardHeader>\n' +
+    '          <CardContent className="px-6 py-4">\n' +
+    '            {error && (\n' +
+    '              <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-3 rounded-lg mb-5 text-sm border border-red-200 dark:border-red-800/30">\n' +
+    '                <p className="flex items-center">\n' +
+    '                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">\n' +
+    '                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />\n' +
+    '                  </svg>\n' +
+    '                  {error}\n' +
+    '                </p>\n' +
+    '              </div>\n' +
+    '            )}\n' +
+    '            <Form {...form}>\n' +
+    '              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">\n' +
+    '                <FormField\n' +
+    '                  control={form.control}\n' +
+    '                  name="email"\n' +
+    '                  render={({ field }) => (\n' +
+    '                    <FormItem>\n' +
+    '                      <FormLabel className="text-gray-700 dark:text-gray-300">Email</FormLabel>\n' +
+    '                      <FormControl>\n' +
+    '                        <Input \n' +
+    '                          placeholder="name@example.com" \n' +
+    '                          type="email" \n' +
+    '                          autoComplete="email"\n' +
+    '                          disabled={isLoading}\n' +
+    '                          className="h-11 bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600"\n' +
+    '                          {...field} \n' +
+    '                        />\n' +
+    '                      </FormControl>\n' +
+    '                      <FormMessage className="text-xs font-medium" />\n' +
+    '                    </FormItem>\n' +
+    '                  )}\n' +
+    '                />\n' +
+    '                <FormField\n' +
+    '                  control={form.control}\n' +
+    '                  name="password"\n' +
+    '                  render={({ field }) => (\n' +
+    '                    <FormItem>\n' +
+    '                      <FormLabel className="text-gray-700 dark:text-gray-300">Password</FormLabel>\n' +
+    '                      <FormControl>\n' +
+    '                        <div className="relative">\n' +
+    '                          <Input\n' +
+    '                            placeholder="••••••••"\n' +
+    '                            type={showPassword ? "text" : "password"}\n' +
+    '                            autoComplete="current-password"\n' +
+    '                            disabled={isLoading}\n' +
+    '                            className="h-11 bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 pr-10"\n' +
+    '                            {...field}\n' +
+    '                          />\n' +
+    '                          <Button\n' +
+    '                            type="button"\n' +
+    '                            variant="ghost"\n' +
+    '                            size="sm"\n' +
+    '                            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent text-gray-500 dark:text-gray-400"\n' +
+    '                            onClick={() => setShowPassword(!showPassword)}\n' +
+    '                            disabled={isLoading}\n' +
+    '                          >\n' +
+    '                            {showPassword ? (\n' +
+    '                              <EyeOff className="h-4 w-4" />\n' +
+    '                            ) : (\n' +
+    '                              <Eye className="h-4 w-4" />\n' +
+    '                            )}\n' +
+    '                            <span className="sr-only">\n' +
+    '                              {showPassword ? "Hide password" : "Show password"}\n' +
+    '                            </span>\n' +
+    '                          </Button>\n' +
+    '                        </div>\n' +
+    '                      </FormControl>\n' +
+    '                      <FormMessage className="text-xs font-medium" />\n' +
+    '                    </FormItem>\n' +
+    '                  )}\n' +
+    '                />\n' +
+    '                <div className="flex items-center justify-between">\n' +
+    '                  <FormField\n' +
+    '                    control={form.control}\n' +
+    '                    name="rememberMe"\n' +
+    '                    render={({ field }) => (\n' +
+    '                      <FormItem className="flex flex-row items-center space-x-2 space-y-0">\n' +
+    '                        <FormControl>\n' +
+    '                          <Checkbox\n' +
+    '                            checked={field.value}\n' +
+    '                            onCheckedChange={field.onChange}\n' +
+    '                            disabled={isLoading}\n' +
+    '                            className="text-blue-600 dark:text-blue-500 border-gray-300 dark:border-gray-600 rounded"\n' +
+    '                          />\n' +
+    '                        </FormControl>\n' +
+    '                        <FormLabel className="text-sm font-medium leading-none cursor-pointer text-gray-600 dark:text-gray-400">\n' +
+    '                          Remember me\n' +
+    '                        </FormLabel>\n' +
+    '                      </FormItem>\n' +
+    '                    )}\n' +
+    '                  />\n' +
+    '                  <a \n' +
+    '                    href="#" \n' +
+    '                    className="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"\n' +
+    '                  >\n' +
+    '                    Forgot password?\n' +
+    '                  </a>\n' +
+    '                </div>\n' +
+    '                <Button \n' +
+    '                  type="submit" \n' +
+    '                  className="w-full h-11 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 dark:from-blue-600 dark:to-blue-500 dark:hover:from-blue-700 dark:hover:to-blue-600 text-white font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"\n' +
+    '                  disabled={isLoading}\n' +
+    '                >\n' +
+    '                  {isLoading ? (\n' +
+    '                    <>\n' +
+    '                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />\n' +
+    '                      Signing in...\n' +
+    '                    </>\n' +
+    '                  ) : (\n' +
+    '                    "Sign in"\n' +
+    '                  )}\n' +
+    '                </Button>\n' +
+    '              </form>\n' +
+    '            </Form>\n' +
+    '          </CardContent>\n' +
+    '          <CardFooter className="flex flex-col space-y-4 px-6 py-5 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-800">\n' +
+    '            <div className="text-sm text-center text-gray-600 dark:text-gray-400">\n' +
+    `              Don't have an account?{" "}\n` +
+    '              <a \n' +
+    '                href="#" \n' +
+    '                className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"\n' +
+    '              '... 365 more characters
+}
+```
+
+###### 生成效果
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_18.png" alt="" width="100%" />
+
 ### 沙箱渲染器模块实现
 
 ### Compoder Cli
