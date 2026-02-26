@@ -1,7 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-02-10T17:40:47+08:00
-draft: true
+date: 2026-02-26T12:40:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -15,9 +14,85 @@ categories: ["碎碎念"]
 
 ### 2026-02
 
+#### 2026-02-24
+
+《七王国的骑士》 & 《权力的游戏》，冲啊！！！
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_54.jpg" alt="" width="40%" />
+
+#### 2026-02-23
+
+😁 再见，多邻国，燃尽了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_53.jpg" alt="" width="40%" />
+
+#### 2026-02-22
+
+😁。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_52.jpg" alt="" width="40%" />
+
+#### 2026-02-21
+
+(｀・ω・´) 好强的姐。。。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_51.jpg" alt="" width="40%" />
+
+#### 2026-02-20
+
+☀️ 拯救发财树。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_50.jpg" alt="" width="40%" />
+
+#### 2026-02-19
+
+😭 "人太复杂了，还是技术纯粹"。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_49.jpg" alt="" width="40%" />
+
 #### 2026-02-18
 
-🎉 第一本完整读完的双语书。
+🎉 第一本完整读完的双语书，鬼知道我尝试了多少次才读下来。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_48.jpg" alt="" width="40%" />
+
+#### 2026-02-17
+
+打劫。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_47.jpg" alt="" width="40%" />
+
+#### 2026-02-16
+
+新年快乐。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_46.jpg" alt="" width="40%" />
+
+#### 2026-02-15
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_44.jpg" alt="" width="40%" />
+
+#### 2026-02-14
+
+哈哈哈哈哈哈哈哈.........
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_45.jpg" alt="" width="40%" />
+
+#### 2026-02-13
+
+算辽算辽，都不泳衣。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_43.jpg" alt="" width="40%" />
+
+#### 2026-02-12
+
+😁 真相了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_42.jpg" alt="" width="40%" />
+
+#### 2026-02-11
+
+😁 在成都打工不能叫牛马，只能叫驴子（ps: 薪资范围： 16k - 20k）。
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_41.jpg" alt="" width="40%" />
 
