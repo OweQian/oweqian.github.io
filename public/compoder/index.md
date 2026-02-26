@@ -6944,8 +6944,6 @@ I'll adjust the styling of the LoginPage component to enhance its appearance whi
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_18.png" alt="" width="100%" />
 
-### 沙箱渲染器模块实现
-
 ### Compoder Cli
 
 ### Compoder MCP Server
