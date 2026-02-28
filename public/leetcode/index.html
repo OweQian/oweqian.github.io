@@ -1300,19 +1300,19 @@
         <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
         <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="err">/**</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span> <span class="nx">Definition</span> <span class="k">for</span> <span class="nx">a</span> <span class="nx">binary</span> <span class="nx">tree</span> <span class="nx">node</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span> <span class="kr">class</span> <span class="nx">TreeNode</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span>     <span class="nx">val</span>: <span class="kt">number</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span>     <span class="nx">left</span>: <span class="kt">TreeNode</span> <span class="o">|</span> <span class="kc">null</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span>     <span class="nx">right</span>: <span class="kt">TreeNode</span> <span class="o">|</span> <span class="kc">null</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span>     <span class="kr">constructor</span><span class="p">(</span><span class="nx">val?</span>: <span class="kt">number</span><span class="p">,</span> <span class="nx">left?</span>: <span class="kt">TreeNode</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">right?</span>: <span class="kt">TreeNode</span> <span class="o">|</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span>         <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="p">(</span><span class="nx">val</span><span class="o">===</span><span class="kc">undefined</span> <span class="o">?</span> <span class="nx">0</span> : <span class="kt">val</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span>         <span class="k">this</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="p">(</span><span class="nx">left</span><span class="o">===</span><span class="kc">undefined</span> <span class="o">?</span> <span class="kc">null</span> <span class="o">:</span> <span class="nx">left</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span>         <span class="k">this</span><span class="p">.</span><span class="nx">right</span> <span class="o">=</span> <span class="p">(</span><span class="nx">right</span><span class="o">===</span><span class="kc">undefined</span> <span class="o">?</span> <span class="kc">null</span> <span class="o">:</span> <span class="nx">right</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span>     <span class="p">}</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"> <span class="o">*</span><span class="err">/</span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Definition for a binary tree node.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * class TreeNode {
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     val: number
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     left: TreeNode | null
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     right: TreeNode | null
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *         this.val = (val===undefined ? 0 : val)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *         this.left = (left===undefined ? null : left)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *         this.right = (right===undefined ? null : right)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     }
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * }
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">mergeTrees</span> <span class="o">=</span> <span class="p">(</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">root1</span>: <span class="kt">TreeNode</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>

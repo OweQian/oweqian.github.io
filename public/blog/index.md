@@ -9,6 +9,18 @@
 
 ### 2026-02
 
+#### 2026-02-28
+
+允许它来，允许它离开。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_56.jpg" alt="" width="40%" />
+
+#### 2026-02-27
+
+💪🏻 开始读第二本。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_55.jpg" alt="" width="40%" />
+
 #### 2026-02-26
 
 嗐，人太复杂了，一个个邀约很积极，付钱很消极，无效社交 +1+1+1...

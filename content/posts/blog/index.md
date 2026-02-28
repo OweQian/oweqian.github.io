@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-02-26T12:40:47+08:00
+date: 2026-02-28T18:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,18 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-02
+
+#### 2026-02-28
+
+允许它来，允许它离开。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_56.jpg" alt="" width="40%" />
+
+#### 2026-02-27
+
+💪🏻 开始读第二本。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_55.jpg" alt="" width="40%" />
 
 #### 2026-02-26
 
