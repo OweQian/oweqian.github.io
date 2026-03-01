@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-02-28T18:00:47+08:00
+date: 2026-03-01T18:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -11,6 +11,14 @@ categories: ["碎碎念"]
 <!--more-->
 
 ## 2026
+
+### 2026-03
+
+#### 2026-03-01
+
+再加一句：🤐 闭嘴、😶‍🌫️ 隐身、💰 存钱。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_57.png" alt="" width="40%" />
 
 ### 2026-02
 

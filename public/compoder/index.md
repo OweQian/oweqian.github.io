@@ -6946,11 +6946,15 @@ I'll adjust the styling of the LoginPage component to enhance its appearance whi
 
 ### Compoder Cli
 
-### Compoder MCP Server
+将 Compoder 的核心能力通过 Cli 集成到现有成熟的 AI Coding 基建中来。
 
-### 集成到 Cursor
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_19img.png" alt="" width="100%" />
 
-### 集成到 Claude Code
+#### Compoder MCP Server
+
+#### 集成到 Cursor
+
+#### 集成到 Claude Code
 
 ### 总结
 
