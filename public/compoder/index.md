@@ -6948,13 +6948,164 @@ I'll adjust the styling of the LoginPage component to enhance its appearance whi
 
 将 Compoder 的核心能力通过 Cli 集成到现有成熟的 AI Coding 基建中来。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_19img.png" alt="" width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_19.png" alt="" width="100%" />
+
+#### Compoder Cli 设计
+
+两个核心点：
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_20.png" alt="" width="100%" />
+
+- 使用 MCP Server 对外暴露 Codegen 信息
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_21.png" alt="" width="100%" />
+
+- 针对不同 AI 基建提供代码生成规则
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_22.png" alt="" width="100%" />
 
 #### Compoder MCP Server
 
+##### MCP 定义
+
+模型上下文协议（MCP）是一种开发标准，旨在促进 LLM 与外部数据源和工具之间的交互，它给 LLM 提供了统一的标准化接口来访问外部数据源和工具，类似于 LLM 的 USB-C 接口。
+
+- 基本要素
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_23.png" alt="" width="100%" />
+
+- 提供的数据类型
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_24.png" alt="" width="100%" />
+
+- 通讯方式
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_25.png" alt="" width="100%" />
+
+##### 改造 Compoder
+
+现在我们来改造 Compoder，让 Compoder 支持启动 MCP Server。
+
+###### Prompt 提示词
+
+````
+我现在想基于这个项目启一个 mcp server，主要对外暴露两个工具：
+* component-list：获取指定 codegen 对应的 docs 下所有组件的基本信息，包括组件库名、组件名、组件描述，返回为 md 格式
+* component-detail：获取指定组件的 api 文档，接受组件库名 & 组件的名字列表
+
+我希望把这个 mcp server 封装到一个 cli 工具中，在 mcp client 中通过如下配置即可接入：
+
+```json
+{
+  "mcpServers": {
+    "compoder": {
+      "command": "npx",
+      "args": ["compoder", "mcp", "codegenName"]
+    }
+  }
+}
+```
+
+component-list & component-detail 工具中，需要调用 compoder 对外暴露的 api，需要在 app/api/codegen 下新增对应的 api 路由
+
+现在请帮我规划应该如何来做，以及需要变更的代码文件，让我 review 通过后，再开始生成代码
+
+https://github.com/modelcontextprotocol/typescript-sdk
+
+````
+
+###### MCP 目录结构
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_27.svg" alt="" width="100%" />
+
+###### 测试 MCP Server
+
+```
+$ cd '/Users/qianwang/wangqian/work/compoder/cli'
+$ npm i
+$ npm run build
+$ node '/Users/qianwang/wangqian/work/compoder/cli/test-mcp-server.js'
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_26.png" alt="" width="100%" />
+
+访问 Compder Cli
+
+```
+$ npm link
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_36.png" alt="" width="100%" />
+
 #### 集成到 Cursor
 
-#### 集成到 Claude Code
+##### Cursor Rules
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_28.png" alt="" width="100%" />
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_29.png" alt="" width="100%" />
+
+##### Cursor MCP
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_30.png" alt="" width="100%" />
+
+##### Compoder Cli
+
+###### 支持生成和更新 Cursor Rules
+
+核心是将 Compoder 内部生成组件代码的工作流（设计组件 => 实现组件），转换为通过 Cursor Rules 实现。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_31.png" alt="" width="100%" />
+
+生成 Cursor Rules Prompt：
+
+```
+帮我在 compoder cli @cli/ 中添加一个命令，compoder init，这个命令会做如下事情：
+
+* 在执行命令的目录下提示用户选择要初始化的 codegen list（list 数据需要调用 app/api/codegen/mcp/codegen-list 来获取），同时提示用户可以按键盘上下键来进行选择切换，也可以输入文字根据 codegen 的名字进行过滤，切换到想要的 codegen 即可按回车键进行选中确认。
+
+* 当选中了某一个 codegen 之后，下一步提示用户选择某一个 ai 客户端，当前包含两个选项：1、Cursor；2、Claude Code。同时提示用户可以选择多个客户端进行初始化，用户可以上下切换不同的 ai client，按空格键来选择和取消选择当前 ai client，最后可以按回车键进行确认。
+
+* 当以上两个操作用户执行完成之后，意味着用户提供的信息都收集完毕，compoder cli 内部需要做的事情：
+
+1、在 cli 运行的根目录下生成一份 .compoderrc 文件，配置文件中包含刚刚用户选择的 codegen、选择的客户端（可能包含多个）
+
+2、如果用户选择的 ai client 中包含了 cursor，则在 cli 运行的根目录 .cursor/rules/compoder/ 下新建一个文件夹，比如当用户选择的 codegen 是 Landing Page Codegen，则新建一个 .cursor/rules/compoder/landing-page-codegen 的文件夹，在文件夹的内部包含 3 个文件，第一个是入口文件 index.mdc，index.mdc 的内容参考 @StorybookGenerationOrchestrator.mdc 所示，主要是告诉 ai 按照步骤来读取接下来要读取和执行的 2 个规则 md 文件（设计组件和实现组件）。第二个文件是 step1.md，这个 md 的内容主要是 @utils.ts 中的 buildSystemPrompt 相关的提示词，目的是为了设计组件，比如组件名字、描述、所依赖的组件，其中 componentsDescription 如果涉及到获取 private-components，则调用 compoder 的 mcp server 来获取，比如获取 Landing Page Codegen，则按照@test-mcp-server.js 中的 testComponentList 方式来获取。第三个文件是 step2.md，这个 md 的主要内容就是@utils.ts 中 buildSystemPrompt 相关的提示词，其中 outputSpecification、styleSpecification 需要从数据库中获取，openSourceComponents 和 privateComponents 则从 step1.md 执行之后分析出来所依赖的组件来获取，根据所需要的组件，调用 compoder 的 mcp server 来获取，参考例子如@test-mcp-server.js 中的 testComponentDetail 所示。
+
+3、如果用户选择的 ai client 中包含了 Claude Code，暂时先占位一个 TODO。
+```
+
+更新 Cursor Rules Prompt：
+
+```
+帮我在 @cli/ 中增加一个 compoder update 的命令，我希望用户在执行 compoder update 的时候，可以先检测执行命令的根目录下是否存在 .compoderrc 配置文件，如果存在的话，则读取文件的内容，根据文件中定义好的 codegen 和 aiClients 来更新规则文件
+```
+
+###### 支持生成和更新 Cursor MCP 配置
+
+Prompt：
+
+````
+我希望在 @cli/ 的 compoder init 和 compoder update 执行的时候，还帮我生成 & 更新对应 ai client 的 mcp 配置文件：
+
+
+* 当 ai client 包含 cursor 的时候，我希望在执行 compoder 命令的根目录下生成一个 .cursor/mcp.json 文件，内容请参考：
+
+```json
+{
+  "mcpServers": {
+    "compoder": {
+      "command": "compoder",
+      "args": ["mcp", "server", "--api-base-url", "http://localhost:3000"]
+    }
+  }
+}
+```
+
+- 当 ai client 包含 claude code 的时候，我希望暂时占位 TODO
+````
 
 ### 总结
+
+💐 恭喜你掌握了 Compoder 完整架构，现在你可以根据公司业务线和技术栈情况，定制 codegen 模版，实打实地为业务提效。
 

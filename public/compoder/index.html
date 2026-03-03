@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-12-12T18:30:13+08:00">
-    <meta property="article:modified_time" content="2026-02-26T20:48:01+08:00">
+    <meta property="article:modified_time" content="2026-03-01T22:15:21+08:00">
     <meta property="article:tag" content="AI">
     <meta property="og:image" content="http://localhost:1313/logo.png">
 
@@ -33,8 +33,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/compoder\/"
-        },"genre": "posts","keywords": "AI","wordcount":  94646 ,
-        "url": "http:\/\/localhost:1313\/compoder\/","datePublished": "2025-12-12T18:30:13+08:00","dateModified": "2026-02-26T20:48:01+08:00","publisher": {
+        },"genre": "posts","keywords": "AI","wordcount":  96348 ,
+        "url": "http:\/\/localhost:1313\/compoder\/","datePublished": "2025-12-12T18:30:13+08:00","dateModified": "2026-03-01T22:15:21+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -107,8 +107,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🤖 AI - 基于 Compoder 搭建公司的专属 AI Coding 平台</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-12">2025-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 94646 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 189 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-12-12">2025-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 96348 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 193 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -234,9 +234,31 @@
         </li>
         <li><a href="#compoder-cli">Compoder Cli</a>
           <ul>
-            <li><a href="#compoder-mcp-server">Compoder MCP Server</a></li>
-            <li><a href="#集成到-cursor">集成到 Cursor</a></li>
-            <li><a href="#集成到-claude-code">集成到 Claude Code</a></li>
+            <li><a href="#compoder-cli-设计">Compoder Cli 设计</a></li>
+            <li><a href="#compoder-mcp-server">Compoder MCP Server</a>
+              <ul>
+                <li><a href="#mcp-定义">MCP 定义</a></li>
+                <li><a href="#改造-compoder">改造 Compoder</a>
+                  <ul>
+                    <li><a href="#prompt-提示词">Prompt 提示词</a></li>
+                    <li><a href="#mcp-目录结构">MCP 目录结构</a></li>
+                    <li><a href="#测试-mcp-server">测试 MCP Server</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#集成到-cursor">集成到 Cursor</a>
+              <ul>
+                <li><a href="#cursor-rules">Cursor Rules</a></li>
+                <li><a href="#cursor-mcp">Cursor MCP</a></li>
+                <li><a href="#compoder-cli-1">Compoder Cli</a>
+                  <ul>
+                    <li><a href="#支持生成和更新-cursor-rules">支持生成和更新 Cursor Rules</a></li>
+                    <li><a href="#支持生成和更新-cursor-mcp-配置">支持生成和更新 Cursor MCP 配置</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li><a href="#总结">总结</a></li>
@@ -963,7 +985,7 @@
 </span></span><span class="line"><span class="cl">            <span class="p">},</span>
 </span></span><span class="line"><span class="cl">            <span class="nt">&#34;ProductCard&#34;</span><span class="p">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">              <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;The Product Card Section component is designed to showcase products in a responsive grid layout with customizable columns. It&#39;s perfect for e-commerce sections, featured products, or any collection of items that need to be displayed in an organized grid format. The component supports both programmatic usage with an array of products and declarative usage with children components.&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">              <span class="nt">&#34;api&#34;</span><span class="p">:</span> <span class="err">&#34;&lt;Usage&gt;\n```jsx\nimport</span> <span class="p">{</span> <span class="err">LandingProductCardSection</span> <span class="p">}</span> <span class="err">from</span> <span class="err">&#39;@/components/landing/card/LandingProductCardSection&#39;;\nimport</span> <span class="p">{</span> <span class="err">LandingProductCard</span> <span class="p">}</span> <span class="err">from</span> <span class="err">&#39;@/components/landing/card/LandingProductCard&#39;;\n```\n\n```jsx\n&lt;LandingProductCardSection\n</span>  <span class="err">title=\</span><span class="s2">&#34;Our Products\&#34;\n  description=\&#34;Explore our collection\&#34;\n  products={[\n    {\n      title: \&#34;Product 1\&#34;,\n      description: \&#34;Description of product 1\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-1.webp\&#34;,\n    },\n    // ... more products\n  ]}\n/&gt;\n```\n&lt;/Usage&gt;\n\n&lt;Examples&gt;\n### Four Column Grid\n\nDisplay products in a 4-column grid for a more compact layout.\n\n\n\n```jsx\nimport { LandingProductCardSection } from &#39;@/components/landing/card/LandingProductCardSection&#39;;\nimport { Button } from &#39;@/components/shared/ui/button&#39;;\n\n&lt;LandingProductCardSection\n  title=\&#34;Featured Collection\&#34;\n  description=\&#34;A selection of our most popular items\&#34;\n  gridColumns={4}\n  variant=\&#34;secondary\&#34;\n  withBackground\n  textPosition=\&#34;left\&#34;\n  products={[\n    {\n      title: \&#34;Side Table\&#34;,\n      description: \&#34;Compact side table with marble top.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-12.webp\&#34;,\n      actionComponent: &lt;Button&gt;View&lt;/Button&gt;\n    },\n    {\n      title: \&#34;Floor Lamp\&#34;,\n      description: \&#34;Adjustable floor lamp with linen shade.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-13.webp\&#34;,\n      actionComponent: &lt;Button&gt;Details&lt;/Button&gt;\n    },\n    {\n      title: \&#34;Bookshelf\&#34;,\n      description: \&#34;Modular bookshelf with adjustable shelves.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-14.webp\&#34;,\n      actionComponent: &lt;Button&gt;View&lt;/Button&gt;\n    },\n    {\n      title: \&#34;Desk Chair\&#34;,\n      description: \&#34;Ergonomic desk chair with breathable mesh.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-15.webp\&#34;,\n      actionComponent: &lt;Button&gt;Details&lt;/Button&gt;\n    }\n  ]}\n/&gt;\n```\n\n\n\n\n### Component-Based Usage\n\nYou can use the component-based approach by providing child `LandingProductCard` components directly. This allows for more customization and flexibility.\n\n\n\n```jsx\nimport { LandingProductCardSection } from &#39;@/components/landing/card/LandingProductCardSection&#39;;\nimport { LandingProductCard } from &#39;@/components/landing/card/LandingProductCard&#39;;\nimport { Button } from &#39;@/components/shared/ui/button&#39;;\n\n&lt;LandingProductCardSection\n  title=\&#34;Product Collection\&#34;\n  description=\&#34;Handcrafted with attention to detail\&#34;\n&gt;\n  &lt;LandingProductCard\n    title=\&#34;Wooden Table\&#34;\n    description=\&#34;Handcrafted oak dining table with natural finish.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-6.webp\&#34;\n    actionComponent={&lt;Button&gt;Add to Cart&lt;/Button&gt;}\n  /&gt;\n  &lt;LandingProductCard\n    title=\&#34;Ceramic Vase\&#34;\n    description=\&#34;Hand-thrown ceramic vase with unique glaze pattern.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-7.webp\&#34;\n    actionComponent={&lt;Button variant=\&#34;secondary\&#34;&gt;View Details&lt;/Button&gt;}\n    variant=\&#34;secondary\&#34;\n    featured\n  /&gt;\n  &lt;LandingProductCard\n    title=\&#34;Wall Sconce\&#34;\n    description=\&#34;Modern wall sconce with adjustable arm and warm lighting.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-8.webp\&#34;,\n    actionComponent={&lt;Button&gt;Purchase&lt;/Button&gt;}\n  /&gt;\n&lt;/LandingProductCardSection&gt;\n```\n\n\n\n### With Background\n\n\n\n```jsx\nimport { LandingProductCardSection } from &#39;@/components/landing/card/LandingProductCardSection&#39;;\nimport { Button } from &#39;@/components/shared/ui/button&#39;;\n\n&lt;LandingProductCardSection\n  title=\&#34;Premium Collection\&#34;\n  description=\&#34;Our finest selection of premium products\&#34;\n  withBackground\n  variant=\&#34;primary\&#34;\n  gridColumns={3}\n  products={[\n    {\n      title: \&#34;Leather Armchair\&#34;,\n      description: \&#34;Premium leather armchair with walnut frame.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-9.webp\&#34;,\n      actionComponent: &lt;Button&gt;View Details&lt;/Button&gt;\n    },\n    {\n      title: \&#34;Pendant Light\&#34;,\n      description: \&#34;Handblown glass pendant light with brass accents.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-10.webp\&#34;,\n      actionComponent: &lt;Button&gt;Purchase&lt;/Button&gt;\n    },\n    {\n      title: \&#34;Area Rug\&#34;,\n      description: \&#34;Hand-knotted wool area rug in natural colors.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-11.webp\&#34;,\n      actionComponent: &lt;Button&gt;View Details&lt;/Button&gt;\n    }\n  ]}\n/&gt;\n```\n\n\n\n\n### Custom Card Components\n\nDemonstrate using the `topComponent` and `bottomComponent` props to add custom content to the product cards.\n\n\n\n```jsx\nimport { LandingProductCardSection } from &#39;@/components/landing/card/LandingProductCardSection&#39;;\nimport { LandingProductCard } from &#39;@/components/landing/card/LandingProductCard&#39;;\nimport { Button } from &#39;@/components/shared/ui/button&#39;;\nimport { Badge } from &#39;@/components/shared/ui/badge&#39;;\n\n&lt;LandingProductCardSection\n  title=\&#34;Custom Product Cards\&#34;\n  description=\&#34;Featuring custom component slots for flexible layouts\&#34;\n&gt;\n  &lt;LandingProductCard\n    title=\&#34;Premium Chair\&#34;\n    description=\&#34;Ergonomic office chair with adjustable height and lumbar support.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-16.webp\&#34;\n    topComponent={&lt;Badge&gt;New Arrival&lt;/Badge&gt;}\n    actionComponent={&lt;Button className=\&#34;w-full\&#34;&gt;Add to Cart&lt;/Button&gt;}\n  /&gt;\n  &lt;LandingProductCard\n    title=\&#34;Standing Desk\&#34;\n    description=\&#34;Height-adjustable standing desk with memory presets.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-17.webp\&#34;\n    topComponent={&lt;Badge variant=\&#34;destructive\&#34;&gt;Bestseller&lt;/Badge&gt;}\n    bottomComponent={&lt;div className=\&#34;flex justify-center\&#34;&gt;&lt;LandingRating /&gt;&lt;/div&gt;}\n    actionComponent={&lt;Button className=\&#34;w-full\&#34;&gt;View Details&lt;/Button&gt;}\n  /&gt;\n  &lt;LandingProductCard\n    title=\&#34;Desk Lamp\&#34;\n    description=\&#34;Adjustable desk lamp with wireless charging base.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-18.webp\&#34;\n    topComponent={&lt;Badge variant=\&#34;secondary\&#34;&gt;Limited Edition&lt;/Badge&gt;}\n    bottomComponent={&lt;div className=\&#34;text-sm font-medium text-green-600\&#34;&gt;In stock - ships in 24 hours&lt;/div&gt;}\n    actionComponent={&lt;Button className=\&#34;w-full\&#34;&gt;Buy Now&lt;/Button&gt;}\n  /&gt;\n&lt;/LandingProductCardSection&gt;\n```\n\n\n&lt;/Examples&gt;\n\n&lt;PropsReference&gt;\n### LandingProductCardSection Props\n\n| Prop Name | Prop Type | Required | Default |\n| --- | --- | ----- | ---- |\n| **title** &lt;Tippy&gt;Main title of the product card section&lt;/Tippy&gt; | `string` | No | - |\n| **titleComponent** &lt;Tippy&gt;Custom component for the title&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **description** &lt;Tippy&gt;Text description displayed below the title&lt;/Tippy&gt; | `string` | No | - |\n| **descriptionComponent** &lt;Tippy&gt;Custom component for the description&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **products** &lt;Tippy&gt;Array of product objects to be displayed&lt;/Tippy&gt; | `ProductCardProps[]` | No | `[]` |\n| **children** &lt;Tippy&gt;Child components to render instead of products array&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **className** &lt;Tippy&gt;Additional CSS classes for the section&lt;/Tippy&gt; | `string` | No | `&#39;&#39;` |\n| **innerClassName** &lt;Tippy&gt;Additional CSS classes for the inner container&lt;/Tippy&gt; | `string` | No | `&#39;&#39;` |\n| **gridClassName** &lt;Tippy&gt;Additional CSS classes for the grid&lt;/Tippy&gt; | `string` | No | `&#39;&#39;` |\n| **gridColumns** &lt;Tippy&gt;Number of columns to display on desktop&lt;/Tippy&gt; | `3 \\| 4` | No | `3` |\n| **withBackground** &lt;Tippy&gt;Whether to display a background color&lt;/Tippy&gt; | `boolean` | No | `false` |\n| **withBackgroundGlow** &lt;Tippy&gt;Whether to display a background glow effect&lt;/Tippy&gt; | `boolean` | No | `false` |\n| **backgroundGlowVariant** &lt;Tippy&gt;Color variant for the background glow&lt;/Tippy&gt; | `&#39;primary&#39; \\| &#39;secondary&#39;` | No | `&#39;primary&#39;` |\n| **variant** &lt;Tippy&gt;Color variant for the section&lt;/Tippy&gt; | `&#39;primary&#39; \\| &#39;secondary&#39;` | No | `&#39;primary&#39;` |\n| **textPosition** &lt;Tippy&gt;Alignment of the text content&lt;/Tippy&gt; | `&#39;center&#39; \\| &#39;left&#39;` | No | `&#39;center&#39;` |\n\n### LandingProductCard Props\n\n| Prop Name | Prop Type | Required | Default |\n| --- | --- | ----- | ---- |\n| **title** &lt;Tippy&gt;Title of the product&lt;/Tippy&gt; | `string` | Yes | - |\n| **titleComponent** &lt;Tippy&gt;Custom component for the title&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **description** &lt;Tippy&gt;Description of the product&lt;/Tippy&gt; | `string` | No | - |\n| **descriptionComponent** &lt;Tippy&gt;Custom component for the description&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **imageSrc** &lt;Tippy&gt;Source URL for the product image&lt;/Tippy&gt; | `string` | No | - |\n| **imageAlt** &lt;Tippy&gt;Alt text for the product image&lt;/Tippy&gt; | `string` | No | `&#39;&#39;` |\n| **actionComponent** &lt;Tippy&gt;Component for the call-to-action (e.g., button)&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **topComponent** &lt;Tippy&gt;Custom component to display at the top of the card content&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **bottomComponent** &lt;Tippy&gt;Custom component to display at the bottom of the card content&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **featured** &lt;Tippy&gt;Whether to highlight this card as featured&lt;/Tippy&gt; | `boolean` | No | `false` |\n| **className** &lt;Tippy&gt;Additional CSS classes for the card&lt;/Tippy&gt; | `string` | No | - |\n| **variant** &lt;Tippy&gt;Color variant for the card&lt;/Tippy&gt; | `&#39;primary&#39; \\| &#39;secondary&#39; \\| &#39;default&#39;` | No | `&#39;default&#39;` |\n| **href** &lt;Tippy&gt;URL to navigate to when the card is clicked&lt;/Tippy&gt; | `string` | No | - |\n\n### Type Definitions\n\n```typescript\nexport interface ProductCardProps {\n  title: string;\n  titleComponent?: React.ReactNode;\n  description?: string;\n  descriptionComponent?: React.ReactNode;\n  imageSrc?: string;\n  imageAlt?: string;\n  actionComponent?: React.ReactNode;\n  topComponent?: React.ReactNode;\n  bottomComponent?: React.ReactNode;\n  featured?: boolean;\n  className?: string;\n  variant?: &#39;primary&#39; | &#39;secondary&#39; | &#39;default&#39;;\n  href?: string;\n}\n```\n\n```typescript\nexport interface LandingProductCardSectionProps {\n  title?: string;\n  titleComponent?: React.ReactNode;\n  description?: string;\n  descriptionComponent?: React.ReactNode;\n  products?: ProductCardProps[];\n  children?: React.ReactNode;\n  className?: string;\n  innerClassName?: string;\n  gridClassName?: string;\n  gridColumns?: 3 | 4;\n  withBackground?: boolean;\n  withBackgroundGlow?: boolean;\n  backgroundGlowVariant?: &#39;primary&#39; | &#39;secondary&#39;;\n  variant?: &#39;primary&#39; | &#39;secondary&#39;;\n  textPosition?: &#39;center&#39; | &#39;left&#39;;\n}\n```\n&lt;/PropsReference&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;api&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;Usage&gt;\n```jsx\nimport { LandingProductCardSection } from &#39;@/components/landing/card/LandingProductCardSection&#39;;\nimport { LandingProductCard } from &#39;@/components/landing/card/LandingProductCard&#39;;\n```\n\n```jsx\n&lt;LandingProductCardSection\n  title=\&#34;Our Products\&#34;\n  description=\&#34;Explore our collection\&#34;\n  products={[\n    {\n      title: \&#34;Product 1\&#34;,\n      description: \&#34;Description of product 1\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-1.webp\&#34;,\n    },\n    // ... more products\n  ]}\n/&gt;\n```\n&lt;/Usage&gt;\n\n&lt;Examples&gt;\n### Four Column Grid\n\nDisplay products in a 4-column grid for a more compact layout.\n\n\n\n```jsx\nimport { LandingProductCardSection } from &#39;@/components/landing/card/LandingProductCardSection&#39;;\nimport { Button } from &#39;@/components/shared/ui/button&#39;;\n\n&lt;LandingProductCardSection\n  title=\&#34;Featured Collection\&#34;\n  description=\&#34;A selection of our most popular items\&#34;\n  gridColumns={4}\n  variant=\&#34;secondary\&#34;\n  withBackground\n  textPosition=\&#34;left\&#34;\n  products={[\n    {\n      title: \&#34;Side Table\&#34;,\n      description: \&#34;Compact side table with marble top.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-12.webp\&#34;,\n      actionComponent: &lt;Button&gt;View&lt;/Button&gt;\n    },\n    {\n      title: \&#34;Floor Lamp\&#34;,\n      description: \&#34;Adjustable floor lamp with linen shade.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-13.webp\&#34;,\n      actionComponent: &lt;Button&gt;Details&lt;/Button&gt;\n    },\n    {\n      title: \&#34;Bookshelf\&#34;,\n      description: \&#34;Modular bookshelf with adjustable shelves.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-14.webp\&#34;,\n      actionComponent: &lt;Button&gt;View&lt;/Button&gt;\n    },\n    {\n      title: \&#34;Desk Chair\&#34;,\n      description: \&#34;Ergonomic desk chair with breathable mesh.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-15.webp\&#34;,\n      actionComponent: &lt;Button&gt;Details&lt;/Button&gt;\n    }\n  ]}\n/&gt;\n```\n\n\n\n\n### Component-Based Usage\n\nYou can use the component-based approach by providing child `LandingProductCard` components directly. This allows for more customization and flexibility.\n\n\n\n```jsx\nimport { LandingProductCardSection } from &#39;@/components/landing/card/LandingProductCardSection&#39;;\nimport { LandingProductCard } from &#39;@/components/landing/card/LandingProductCard&#39;;\nimport { Button } from &#39;@/components/shared/ui/button&#39;;\n\n&lt;LandingProductCardSection\n  title=\&#34;Product Collection\&#34;\n  description=\&#34;Handcrafted with attention to detail\&#34;\n&gt;\n  &lt;LandingProductCard\n    title=\&#34;Wooden Table\&#34;\n    description=\&#34;Handcrafted oak dining table with natural finish.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-6.webp\&#34;\n    actionComponent={&lt;Button&gt;Add to Cart&lt;/Button&gt;}\n  /&gt;\n  &lt;LandingProductCard\n    title=\&#34;Ceramic Vase\&#34;\n    description=\&#34;Hand-thrown ceramic vase with unique glaze pattern.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-7.webp\&#34;\n    actionComponent={&lt;Button variant=\&#34;secondary\&#34;&gt;View Details&lt;/Button&gt;}\n    variant=\&#34;secondary\&#34;\n    featured\n  /&gt;\n  &lt;LandingProductCard\n    title=\&#34;Wall Sconce\&#34;\n    description=\&#34;Modern wall sconce with adjustable arm and warm lighting.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-8.webp\&#34;,\n    actionComponent={&lt;Button&gt;Purchase&lt;/Button&gt;}\n  /&gt;\n&lt;/LandingProductCardSection&gt;\n```\n\n\n\n### With Background\n\n\n\n```jsx\nimport { LandingProductCardSection } from &#39;@/components/landing/card/LandingProductCardSection&#39;;\nimport { Button } from &#39;@/components/shared/ui/button&#39;;\n\n&lt;LandingProductCardSection\n  title=\&#34;Premium Collection\&#34;\n  description=\&#34;Our finest selection of premium products\&#34;\n  withBackground\n  variant=\&#34;primary\&#34;\n  gridColumns={3}\n  products={[\n    {\n      title: \&#34;Leather Armchair\&#34;,\n      description: \&#34;Premium leather armchair with walnut frame.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-9.webp\&#34;,\n      actionComponent: &lt;Button&gt;View Details&lt;/Button&gt;\n    },\n    {\n      title: \&#34;Pendant Light\&#34;,\n      description: \&#34;Handblown glass pendant light with brass accents.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-10.webp\&#34;,\n      actionComponent: &lt;Button&gt;Purchase&lt;/Button&gt;\n    },\n    {\n      title: \&#34;Area Rug\&#34;,\n      description: \&#34;Hand-knotted wool area rug in natural colors.\&#34;,\n      imageSrc: \&#34;/static/images/backdrop-11.webp\&#34;,\n      actionComponent: &lt;Button&gt;View Details&lt;/Button&gt;\n    }\n  ]}\n/&gt;\n```\n\n\n\n\n### Custom Card Components\n\nDemonstrate using the `topComponent` and `bottomComponent` props to add custom content to the product cards.\n\n\n\n```jsx\nimport { LandingProductCardSection } from &#39;@/components/landing/card/LandingProductCardSection&#39;;\nimport { LandingProductCard } from &#39;@/components/landing/card/LandingProductCard&#39;;\nimport { Button } from &#39;@/components/shared/ui/button&#39;;\nimport { Badge } from &#39;@/components/shared/ui/badge&#39;;\n\n&lt;LandingProductCardSection\n  title=\&#34;Custom Product Cards\&#34;\n  description=\&#34;Featuring custom component slots for flexible layouts\&#34;\n&gt;\n  &lt;LandingProductCard\n    title=\&#34;Premium Chair\&#34;\n    description=\&#34;Ergonomic office chair with adjustable height and lumbar support.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-16.webp\&#34;\n    topComponent={&lt;Badge&gt;New Arrival&lt;/Badge&gt;}\n    actionComponent={&lt;Button className=\&#34;w-full\&#34;&gt;Add to Cart&lt;/Button&gt;}\n  /&gt;\n  &lt;LandingProductCard\n    title=\&#34;Standing Desk\&#34;\n    description=\&#34;Height-adjustable standing desk with memory presets.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-17.webp\&#34;\n    topComponent={&lt;Badge variant=\&#34;destructive\&#34;&gt;Bestseller&lt;/Badge&gt;}\n    bottomComponent={&lt;div className=\&#34;flex justify-center\&#34;&gt;&lt;LandingRating /&gt;&lt;/div&gt;}\n    actionComponent={&lt;Button className=\&#34;w-full\&#34;&gt;View Details&lt;/Button&gt;}\n  /&gt;\n  &lt;LandingProductCard\n    title=\&#34;Desk Lamp\&#34;\n    description=\&#34;Adjustable desk lamp with wireless charging base.\&#34;\n    imageSrc=\&#34;/static/images/backdrop-18.webp\&#34;\n    topComponent={&lt;Badge variant=\&#34;secondary\&#34;&gt;Limited Edition&lt;/Badge&gt;}\n    bottomComponent={&lt;div className=\&#34;text-sm font-medium text-green-600\&#34;&gt;In stock - ships in 24 hours&lt;/div&gt;}\n    actionComponent={&lt;Button className=\&#34;w-full\&#34;&gt;Buy Now&lt;/Button&gt;}\n  /&gt;\n&lt;/LandingProductCardSection&gt;\n```\n\n\n&lt;/Examples&gt;\n\n&lt;PropsReference&gt;\n### LandingProductCardSection Props\n\n| Prop Name | Prop Type | Required | Default |\n| --- | --- | ----- | ---- |\n| **title** &lt;Tippy&gt;Main title of the product card section&lt;/Tippy&gt; | `string` | No | - |\n| **titleComponent** &lt;Tippy&gt;Custom component for the title&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **description** &lt;Tippy&gt;Text description displayed below the title&lt;/Tippy&gt; | `string` | No | - |\n| **descriptionComponent** &lt;Tippy&gt;Custom component for the description&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **products** &lt;Tippy&gt;Array of product objects to be displayed&lt;/Tippy&gt; | `ProductCardProps[]` | No | `[]` |\n| **children** &lt;Tippy&gt;Child components to render instead of products array&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **className** &lt;Tippy&gt;Additional CSS classes for the section&lt;/Tippy&gt; | `string` | No | `&#39;&#39;` |\n| **innerClassName** &lt;Tippy&gt;Additional CSS classes for the inner container&lt;/Tippy&gt; | `string` | No | `&#39;&#39;` |\n| **gridClassName** &lt;Tippy&gt;Additional CSS classes for the grid&lt;/Tippy&gt; | `string` | No | `&#39;&#39;` |\n| **gridColumns** &lt;Tippy&gt;Number of columns to display on desktop&lt;/Tippy&gt; | `3 \\| 4` | No | `3` |\n| **withBackground** &lt;Tippy&gt;Whether to display a background color&lt;/Tippy&gt; | `boolean` | No | `false` |\n| **withBackgroundGlow** &lt;Tippy&gt;Whether to display a background glow effect&lt;/Tippy&gt; | `boolean` | No | `false` |\n| **backgroundGlowVariant** &lt;Tippy&gt;Color variant for the background glow&lt;/Tippy&gt; | `&#39;primary&#39; \\| &#39;secondary&#39;` | No | `&#39;primary&#39;` |\n| **variant** &lt;Tippy&gt;Color variant for the section&lt;/Tippy&gt; | `&#39;primary&#39; \\| &#39;secondary&#39;` | No | `&#39;primary&#39;` |\n| **textPosition** &lt;Tippy&gt;Alignment of the text content&lt;/Tippy&gt; | `&#39;center&#39; \\| &#39;left&#39;` | No | `&#39;center&#39;` |\n\n### LandingProductCard Props\n\n| Prop Name | Prop Type | Required | Default |\n| --- | --- | ----- | ---- |\n| **title** &lt;Tippy&gt;Title of the product&lt;/Tippy&gt; | `string` | Yes | - |\n| **titleComponent** &lt;Tippy&gt;Custom component for the title&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **description** &lt;Tippy&gt;Description of the product&lt;/Tippy&gt; | `string` | No | - |\n| **descriptionComponent** &lt;Tippy&gt;Custom component for the description&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **imageSrc** &lt;Tippy&gt;Source URL for the product image&lt;/Tippy&gt; | `string` | No | - |\n| **imageAlt** &lt;Tippy&gt;Alt text for the product image&lt;/Tippy&gt; | `string` | No | `&#39;&#39;` |\n| **actionComponent** &lt;Tippy&gt;Component for the call-to-action (e.g., button)&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **topComponent** &lt;Tippy&gt;Custom component to display at the top of the card content&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **bottomComponent** &lt;Tippy&gt;Custom component to display at the bottom of the card content&lt;/Tippy&gt; | `React.ReactNode` | No | - |\n| **featured** &lt;Tippy&gt;Whether to highlight this card as featured&lt;/Tippy&gt; | `boolean` | No | `false` |\n| **className** &lt;Tippy&gt;Additional CSS classes for the card&lt;/Tippy&gt; | `string` | No | - |\n| **variant** &lt;Tippy&gt;Color variant for the card&lt;/Tippy&gt; | `&#39;primary&#39; \\| &#39;secondary&#39; \\| &#39;default&#39;` | No | `&#39;default&#39;` |\n| **href** &lt;Tippy&gt;URL to navigate to when the card is clicked&lt;/Tippy&gt; | `string` | No | - |\n\n### Type Definitions\n\n```typescript\nexport interface ProductCardProps {\n  title: string;\n  titleComponent?: React.ReactNode;\n  description?: string;\n  descriptionComponent?: React.ReactNode;\n  imageSrc?: string;\n  imageAlt?: string;\n  actionComponent?: React.ReactNode;\n  topComponent?: React.ReactNode;\n  bottomComponent?: React.ReactNode;\n  featured?: boolean;\n  className?: string;\n  variant?: &#39;primary&#39; | &#39;secondary&#39; | &#39;default&#39;;\n  href?: string;\n}\n```\n\n```typescript\nexport interface LandingProductCardSectionProps {\n  title?: string;\n  titleComponent?: React.ReactNode;\n  description?: string;\n  descriptionComponent?: React.ReactNode;\n  products?: ProductCardProps[];\n  children?: React.ReactNode;\n  className?: string;\n  innerClassName?: string;\n  gridClassName?: string;\n  gridColumns?: 3 | 4;\n  withBackground?: boolean;\n  withBackgroundGlow?: boolean;\n  backgroundGlowVariant?: &#39;primary&#39; | &#39;secondary&#39;;\n  variant?: &#39;primary&#39; | &#39;secondary&#39;;\n  textPosition?: &#39;center&#39; | &#39;left&#39;;\n}\n```\n&lt;/PropsReference&gt;&#34;</span>
 </span></span><span class="line"><span class="cl">            <span class="p">},</span>
 </span></span><span class="line"><span class="cl">            <span class="nt">&#34;ProductFeature&#34;</span><span class="p">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">              <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;This component can display a product feature e.g. on your landing page, features page or elsewhere. It can show an image on the left, right or center; either in perspective or flat and has many customization options. Use this to highlight a feature or key aspect of your product with text and an optional image.&#34;</span><span class="p">,</span>
@@ -7093,16 +7115,145 @@
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_18.png" alt="" width="100%" />
 <h3 id="compoder-cli">Compoder Cli</h3>
 <p>将 Compoder 的核心能力通过 Cli 集成到现有成熟的 AI Coding 基建中来。</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_19img.png" alt="" width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_19.png" alt="" width="100%" />
+<h4 id="compoder-cli-设计">Compoder Cli 设计</h4>
+<p>两个核心点：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_20.png" alt="" width="100%" />
+<ul>
+<li>使用 MCP Server 对外暴露 Codegen 信息</li>
+</ul>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_21.png" alt="" width="100%" />
+<ul>
+<li>针对不同 AI 基建提供代码生成规则</li>
+</ul>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_22.png" alt="" width="100%" />
 <h4 id="compoder-mcp-server">Compoder MCP Server</h4>
+<h5 id="mcp-定义">MCP 定义</h5>
+<p>模型上下文协议（MCP）是一种开发标准，旨在促进 LLM 与外部数据源和工具之间的交互，它给 LLM 提供了统一的标准化接口来访问外部数据源和工具，类似于 LLM 的 USB-C 接口。</p>
+<ul>
+<li>基本要素</li>
+</ul>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_23.png" alt="" width="100%" />
+<ul>
+<li>提供的数据类型</li>
+</ul>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_24.png" alt="" width="100%" />
+<ul>
+<li>通讯方式</li>
+</ul>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_25.png" alt="" width="100%" />
+<h5 id="改造-compoder">改造 Compoder</h5>
+<p>现在我们来改造 Compoder，让 Compoder 支持启动 MCP Server。</p>
+<h6 id="prompt-提示词">Prompt 提示词</h6>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">我现在想基于这个项目启一个 mcp server，主要对外暴露两个工具：
+</span></span><span class="line"><span class="cl">* component-list：获取指定 codegen 对应的 docs 下所有组件的基本信息，包括组件库名、组件名、组件描述，返回为 md 格式
+</span></span><span class="line"><span class="cl">* component-detail：获取指定组件的 api 文档，接受组件库名 &amp; 组件的名字列表
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">我希望把这个 mcp server 封装到一个 cli 工具中，在 mcp client 中通过如下配置即可接入：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">```json
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mcpServers&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;compoder&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;command&#34;: &#34;npx&#34;,
+</span></span><span class="line"><span class="cl">      &#34;args&#34;: [&#34;compoder&#34;, &#34;mcp&#34;, &#34;codegenName&#34;]
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">```
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">component-list &amp; component-detail 工具中，需要调用 compoder 对外暴露的 api，需要在 app/api/codegen 下新增对应的 api 路由
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">现在请帮我规划应该如何来做，以及需要变更的代码文件，让我 review 通过后，再开始生成代码
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://github.com/modelcontextprotocol/typescript-sdk</span></span></code></pre></div></div><h6 id="mcp-目录结构">MCP 目录结构</h6>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_27.svg" alt="" width="100%" />
+<h6 id="测试-mcp-server">测试 MCP Server</h6>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ cd &#39;/Users/qianwang/wangqian/work/compoder/cli&#39;
+</span></span><span class="line"><span class="cl">$ npm i
+</span></span><span class="line"><span class="cl">$ npm run build
+</span></span><span class="line"><span class="cl">$ node &#39;/Users/qianwang/wangqian/work/compoder/cli/test-mcp-server.js&#39;</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_26.png" alt="" width="100%" />
+<p>访问 Compder Cli</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ npm link</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_36.png" alt="" width="100%" />
 <h4 id="集成到-cursor">集成到 Cursor</h4>
-<h4 id="集成到-claude-code">集成到 Claude Code</h4>
-<h3 id="总结">总结</h3></div><div class="post-footer" id="post-footer">
+<h5 id="cursor-rules">Cursor Rules</h5>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_28.png" alt="" width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_29.png" alt="" width="100%" />
+<h5 id="cursor-mcp">Cursor MCP</h5>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_30.png" alt="" width="100%" />
+<h5 id="compoder-cli-1">Compoder Cli</h5>
+<h6 id="支持生成和更新-cursor-rules">支持生成和更新 Cursor Rules</h6>
+<p>核心是将 Compoder 内部生成组件代码的工作流（设计组件 =&gt; 实现组件），转换为通过 Cursor Rules 实现。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_31.png" alt="" width="100%" />
+<p>生成 Cursor Rules Prompt：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">帮我在 compoder cli @cli/ 中添加一个命令，compoder init，这个命令会做如下事情：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">* 在执行命令的目录下提示用户选择要初始化的 codegen list（list 数据需要调用 app/api/codegen/mcp/codegen-list 来获取），同时提示用户可以按键盘上下键来进行选择切换，也可以输入文字根据 codegen 的名字进行过滤，切换到想要的 codegen 即可按回车键进行选中确认。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">* 当选中了某一个 codegen 之后，下一步提示用户选择某一个 ai 客户端，当前包含两个选项：1、Cursor；2、Claude Code。同时提示用户可以选择多个客户端进行初始化，用户可以上下切换不同的 ai client，按空格键来选择和取消选择当前 ai client，最后可以按回车键进行确认。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">* 当以上两个操作用户执行完成之后，意味着用户提供的信息都收集完毕，compoder cli 内部需要做的事情：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">1、在 cli 运行的根目录下生成一份 .compoderrc 文件，配置文件中包含刚刚用户选择的 codegen、选择的客户端（可能包含多个）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2、如果用户选择的 ai client 中包含了 cursor，则在 cli 运行的根目录 .cursor/rules/compoder/ 下新建一个文件夹，比如当用户选择的 codegen 是 Landing Page Codegen，则新建一个 .cursor/rules/compoder/landing-page-codegen 的文件夹，在文件夹的内部包含 3 个文件，第一个是入口文件 index.mdc，index.mdc 的内容参考 @StorybookGenerationOrchestrator.mdc 所示，主要是告诉 ai 按照步骤来读取接下来要读取和执行的 2 个规则 md 文件（设计组件和实现组件）。第二个文件是 step1.md，这个 md 的内容主要是 @utils.ts 中的 buildSystemPrompt 相关的提示词，目的是为了设计组件，比如组件名字、描述、所依赖的组件，其中 componentsDescription 如果涉及到获取 private-components，则调用 compoder 的 mcp server 来获取，比如获取 Landing Page Codegen，则按照@test-mcp-server.js 中的 testComponentList 方式来获取。第三个文件是 step2.md，这个 md 的主要内容就是@utils.ts 中 buildSystemPrompt 相关的提示词，其中 outputSpecification、styleSpecification 需要从数据库中获取，openSourceComponents 和 privateComponents 则从 step1.md 执行之后分析出来所依赖的组件来获取，根据所需要的组件，调用 compoder 的 mcp server 来获取，参考例子如@test-mcp-server.js 中的 testComponentDetail 所示。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3、如果用户选择的 ai client 中包含了 Claude Code，暂时先占位一个 TODO。</span></span></code></pre></div></div><p>更新 Cursor Rules Prompt：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">帮我在 @cli/ 中增加一个 compoder update 的命令，我希望用户在执行 compoder update 的时候，可以先检测执行命令的根目录下是否存在 .compoderrc 配置文件，如果存在的话，则读取文件的内容，根据文件中定义好的 codegen 和 aiClients 来更新规则文件</span></span></code></pre></div></div><h6 id="支持生成和更新-cursor-mcp-配置">支持生成和更新 Cursor MCP 配置</h6>
+<p>Prompt：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">我希望在 @cli/ 的 compoder init 和 compoder update 执行的时候，还帮我生成 &amp; 更新对应 ai client 的 mcp 配置文件：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">* 当 ai client 包含 cursor 的时候，我希望在执行 compoder 命令的根目录下生成一个 .cursor/mcp.json 文件，内容请参考：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">```json
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mcpServers&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;compoder&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;command&#34;: &#34;compoder&#34;,
+</span></span><span class="line"><span class="cl">      &#34;args&#34;: [&#34;mcp&#34;, &#34;server&#34;, &#34;--api-base-url&#34;, &#34;http://localhost:3000&#34;]
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">```
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- 当 ai client 包含 claude code 的时候，我希望暂时占位 TODO</span></span></code></pre></div></div><h3 id="总结">总结</h3>
+<p>💐 恭喜你掌握了 Compoder 完整架构，现在你可以根据公司业务线和技术栈情况，定制 Codegen 模版，实打实地为业务提效。</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2026-02-26&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/418f66a38392b17032ad8a0742e71567a708a909" target="_blank" title="commit by OweQian(1510106069@qq.com) 418f66a38392b17032ad8a0742e71567a708a909: feat: update ai">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>418f66a</a></span>
+                <span>更新于 2026-03-01&nbsp;<a class="git-hash" href="https://github.com/OweQian/oweqian.github.io/commit/a6be9643963a062f806101e7cd7b10dc695d6442" target="_blank" title="commit by OweQian(1510106069@qq.com) a6be9643963a062f806101e7cd7b10dc695d6442: feat: update month">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>a6be964</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
