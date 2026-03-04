@@ -6964,9 +6964,9 @@ I'll adjust the styling of the LoginPage component to enhance its appearance whi
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_22.png" alt="" width="100%" />
 
-#### Compoder MCP Server
+### Compoder MCP Server
 
-##### MCP 定义
+#### MCP 定义
 
 模型上下文协议（MCP）是一种开发标准，旨在促进 LLM 与外部数据源和工具之间的交互，它给 LLM 提供了统一的标准化接口来访问外部数据源和工具，类似于 LLM 的 USB-C 接口。
 
@@ -6982,11 +6982,11 @@ I'll adjust the styling of the LoginPage component to enhance its appearance whi
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_25.png" alt="" width="100%" />
 
-##### 改造 Compoder
+#### 改造 Compoder
 
 现在我们来改造 Compoder，让 Compoder 支持启动 MCP Server。
 
-###### Prompt 提示词
+##### Prompt 提示词
 
 ````
 我现在想基于这个项目启一个 mcp server，主要对外暴露两个工具：
@@ -7014,11 +7014,11 @@ https://github.com/modelcontextprotocol/typescript-sdk
 
 ````
 
-###### MCP 目录结构
+##### MCP 目录结构
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_27.svg" alt="" width="100%" />
 
-###### 测试 MCP Server
+##### 测试 MCP Server
 
 ```
 $ cd '/Users/qianwang/wangqian/work/compoder/cli'
@@ -7037,21 +7037,21 @@ $ npm link
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_36.png" alt="" width="100%" />
 
-#### 集成到 Cursor
+### Compoder 集成到 Cursor
 
-##### Cursor Rules
+#### Cursor Rules
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_28.png" alt="" width="100%" />
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_29.png" alt="" width="100%" />
 
-##### Cursor MCP
+#### Cursor MCP
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_30.png" alt="" width="100%" />
 
-##### Compoder Cli
+#### Compoder Cli
 
-###### 支持生成和更新 Cursor Rules
+##### 支持生成和更新 Cursor Rules
 
 核心是将 Compoder 内部生成组件代码的工作流（设计组件 => 实现组件），转换为通过 Cursor Rules 实现。
 
@@ -7081,7 +7081,7 @@ $ npm link
 帮我在 @cli/ 中增加一个 compoder update 的命令，我希望用户在执行 compoder update 的时候，可以先检测执行命令的根目录下是否存在 .compoderrc 配置文件，如果存在的话，则读取文件的内容，根据文件中定义好的 codegen 和 aiClients 来更新规则文件
 ```
 
-###### 支持生成和更新 Cursor MCP 配置
+##### 支持生成和更新 Cursor MCP 配置
 
 Prompt：
 
@@ -7105,7 +7105,306 @@ Prompt：
 - 当 ai client 包含 claude code 的时候，我希望暂时占位 TODO
 ````
 
+##### 在 Cursor 中测试
+
+```
+$ compoder init
+```
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_37.png" alt="" width="100%" />
+
+生成的文件：
+
+- .cursor/mcp.json
+
+```json
+{
+  "mcpServers": {
+    "compoder": {
+      "command": "compoder",
+      "args": ["mcp", "server", "--api-base-url", "http://localhost:3000"]
+    }
+  }
+}
+```
+
+- .cursor/rules/compoder/private-component-codegen/index.mdc
+
+```
+---
+description: compoder Private Component Codegen
+globs:
+alwaysApply: false
+---
+
+# Private Component Codegen Component Generation Orchestration Rules
+
+When the user references this rule document, the system will execute component generation according to the following workflow:
+
+1. Design component specification (Component Design)
+2. Generate component code based on the design
+
+Note:
+
+- The required rule files must be read completely step by step, and only after one step is completed can the next rule file be read
+- Each step should be executed sequentially to ensure proper component generation
+
+## State Management and Execution Mechanism
+
+The system will maintain the following state variables:
+
+- `current_step`: The current execution step (1-2)
+- `user_requirements`: User's component requirements or design draft
+- `component_design`: Component design information from step 1
+- `component_code`: Generated component code from step 2
+
+### Complete Rule File Reading Mechanism
+
+Since rule files may exceed the single reading limit, the system will:
+
+1. **Use multi-segment reading**: Read each rule file completely in multiple times, without omitting any content
+2. **Verify completeness**: Ensure the rule file has been completely read by checking the end of file content
+3. **Maintain context**: Maintain the overall context and coherence of the rule file when reading multiple segments
+
+## Step Details
+
+### Step 1: Design Component Specification
+
+**Trigger condition**: `current_step = 1` and the user has provided component requirements
+
+**Actions**:
+
+1. Completely read the `./.cursor/rules/compoder/private-component-codegen/step1.md` file content
+2. Apply this rule to design the component and extract required information
+3. Update `component_design` and proceed to the next step
+
+### Step 2: Generate Component Code
+
+**Trigger condition**: `current_step = 2` and `component_design` is not empty
+
+**Actions**:
+
+1. Completely read the `./.cursor/rules/compoder/private-component-codegen/step2.md` file content
+2. Apply this rule to generate the component code
+3. Save the generated code to appropriate files in the current directory
+
+## Notes
+
+1. The system will load rule files as needed, and will not load all rule contents at once
+2. Each rule file will be read completely, without omitting content due to line number limitations
+3. State variables are continuously maintained throughout the workflow to ensure coherence between steps
+4. After each step is completed, the value of current_step should be printed, and the user should be informed of what the next step will be
+
+---
+
+When using this rule, please provide the component requirements or design draft first, and the system will automatically start executing from step 1.
+
+```
+
+- .cursor/rules/compoder/private-component-codegen/step1.md
+
+````
+# Component Design Phase
+
+## Role
+You are a senior frontend engineer who excels at developing business components.
+
+## Goal
+Extract the "basic component materials", component name, and description information needed to develop business components from business requirements and design drafts.
+
+## Constraints
+To get the complete list of available basic components, you should use the MCP tool `compoder component-list` with the codegen name(Private Component Codegen). This will provide you with all available components in each library.
+
+
+## Response Format
+You must respond with a markdown structure in the following format:
+```md
+## Component Design
+
+**Component Name**: [Component name]
+
+**Component Description**: [Component description]
+
+**Required Libraries and Components**:
+
+### [Library Name 1]
+- Component 1
+- Component 2
+- ...
+
+**Usage Description**: [Describe how each component will be used in a table or list format]
+
+### [Library Name 2]
+- Component 1
+- Component 2
+- ...
+
+**Usage Description**: [Describe how each component will be used]
+```
+
+## Workflow
+
+1. Accept user's business requirements or design draft images
+2. Extract required materials from [Constraints] basic component materials for developing business components. Use the MCP `component-list` tool to get the complete list of available components.
+3. Generate and return the markdown response in the specified format
+
+## MCP Tools Available
+
+- `component-list`: Use this tool to get the complete list of available components for the selected codegen
+  - Parameters: `codegenName` (string)
+  - Returns: A markdown document listing all available components organized by library
+
+---
+
+Please analyze the user's requirements and provide the component design information following the format above.
+
+````
+
+- .cursor/rules/compoder/private-component-codegen/step2.md
+
+```
+
+# Component Implementation Phase
+
+## Role
+
+You are a senior frontend engineer focused on business component development.
+
+## Goal
+
+Generate business component code based on user requirements and the component design from Step 1.
+
+## Output Specification
+
+**CRITICAL: File Creation Instructions**
+
+You MUST create actual files directly using the file writing tools. Do NOT:
+
+- Use XML format (e.g., <ComponentArtifact>, <ComponentFile>)
+- Use code blocks with file paths as documentation
+- Output code in any wrapper format
+
+BEFORE creating any files:
+
+1. **Ask the user to confirm the target directory** where files should be saved
+2. Wait for user confirmation before proceeding
+3. Once confirmed, create each file separately using the write tool
+
+When creating component files:
+
+1. Use the write tool to create each file with its full path
+2. Use appropriate file extensions (.tsx, .ts, .css, etc.)
+3. Include complete, production-ready code in each file
+4. Ensure all imports and exports are correct
+5. Follow the file structure specified below
+
+Output component code in XML format as follows:
+<ComponentArtifact name="ComponentName">
+<ComponentFile fileName="App.tsx" isEntryFile="true">
+import { ComponentName } from './ComponentName';
+
+    const mockProps = {
+      // Define mock data here
+    };
+
+    export default function App() {
+      return <ComponentName {...mockProps} />;
+    }
+
+  </ComponentFile>
+
+  <ComponentFile fileName="[ComponentName].tsx">
+    // Main component implementation
+    // Split into multiple files if exceeds 500 lines
+    export const ComponentName = () => {
+      // Component implementation
+    }
+  </ComponentFile>
+
+  <ComponentFile fileName="helpers.ts">
+    // Helper functions (optional)
+  </ComponentFile>
+
+  <ComponentFile fileName="interface.ts">
+    // Type definitions for component props
+    // All API-interacting data must be defined as props:
+    // - initialData for component initialization
+    // - onChange, onSave, onDelete etc. for data modifications
+  </ComponentFile>
+  <ComponentFile fileName="styles.ts">
+    // Styles for the component, must be written using styled-components only
+  </ComponentFile>
+</ComponentArtifact>
+
+## Style Specification
+
+Use styled-components for styles
+
+## Component Usage Guidelines
+
+**Private Components**
+
+- Must strictly follow the API defined in the documentation
+- Using undocumented private component APIs is prohibited
+- Use the MCP tool `compoder component-detail` to get detailed API documentation for specific components
+  - Parameters: `codegenName(Private Component Codegen)`, `libraryName`, `componentNames` (array)
+  - Returns: Detailed API documentation for the requested components
+
+## Additional Rules
+
+Only use the following npm packages in the generated code: react, react-dom, @private-basic-components, styled-components. Do not import or use any other packages. When importing from '@private-basic-components', ONLY use named imports like: import { Button } from '@private-basic-components'; - DO NOT use default imports, namespace imports, or side effect imports for these packages.
+
+## MCP Tools Available
+
+- `compoder component-detail`: Use this tool to get detailed API documentation for specific components
+  - Parameters:
+    - `codegenName` (string): The name of the codegen
+    - `libraryName` (string): The library name (e.g., "pageui", "shadcn")
+    - `componentNames` (array): Array of component names to get details for
+  - Returns: Detailed API documentation including props, usage examples, and best practices
+
+## Workflow
+
+1. Review the component design from Step 1
+2. If the design includes private components, use the `compoder component-detail` MCP tool to get their API documentation
+3. **IMPORTANT: Ask the user to confirm the target directory** for saving files
+   - Present the current working directory as the default option
+   - Wait for user's explicit confirmation or alternative directory path
+   - Do NOT proceed to file creation without confirmation
+4. Once directory is confirmed, create the component files using the write tool
+5. Implement the component logic according to the requirements
+6. Ensure all style and additional rules are followed
+7. Create an App.tsx entry file with mock data to demonstrate the component
+
+---
+
+**Remember**:
+
+- Do NOT use XML format or any wrapper syntax
+- ALWAYS ask for directory confirmation before creating files
+- Create actual files directly using the write tool
+
+Please implement the component based on the design from Step 1.
+
+```
+
+### Compoder 集成到 Claude Code
+
+#### 快速开始
+
+相见：https://code.claude.com/docs/zh-CN/quickstart
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_38.png" alt="" width="100%" />
+
+#### 核心特性
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_33.png" alt="" width="100%" />
+
+#### Compoder Cli
+
+#### 在 Claude Code 中测试
+
 ### 总结
 
-💐 恭喜你掌握了 Compoder 完整架构，现在你可以根据公司业务线和技术栈情况，定制 codegen 模版，实打实地为业务提效。
+💐 恭喜你掌握了 Compoder 完整架构，现在你可以根据公司业务线和技术栈情况，定制 Codegen 模版，实打实地为公司业务提效。
 
