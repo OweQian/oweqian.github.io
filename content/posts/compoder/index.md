@@ -7392,22 +7392,6 @@ Please implement the component based on the design from Step 1.
 
 ```
 
-### Compoder 集成到 Claude Code
-
-#### 快速开始
-
-相见：https://code.claude.com/docs/zh-CN/quickstart
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_38.png" alt="" width="100%" />
-
-#### 核心特性
-
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/compoder/img_33.png" alt="" width="100%" />
-
-#### Compoder Cli
-
-#### 在 Claude Code 中测试
-
 ### 总结
 
 💐 恭喜你掌握了 Compoder 完整架构，现在你可以根据公司业务线和技术栈情况，定制 Codegen 模版，实打实地为公司业务提效。
