@@ -9,6 +9,12 @@
 
 ### 2026-03
 
+#### 2026-03-04
+
+🤐 开卷。
+
+<iframe width="60%" height="400" src="https://www.youtube.com/embed/AT4b9kLtQCQ?si=uwXfCpl4YXsax34e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 #### 2026-03-03
 
 ...成都这糟糕的就业环境
@@ -16,6 +22,8 @@
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_58.png" alt="" width="40%" />
 
 #### 2026-03-02
+
+😡 是谁夺走了我不用上班的人生。
 
 #### 2026-03-01
 
