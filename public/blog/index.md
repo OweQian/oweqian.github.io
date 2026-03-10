@@ -9,6 +9,10 @@
 
 ### 2026-03
 
+#### 2026-03-10
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_59.jpg" alt="" width="40%" />
+
 #### 2026-03-09
 
 😴 现在每天早上睁眼对自己说的第一句话就是: 随便做点什么吧，给命运的齿轮一点转动的机会 🪐 。
