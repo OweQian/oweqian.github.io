@@ -1,21 +1,13 @@
 ---
-title: "🤖 AI - Claude Code 工程化实战"
+title: "🤖 AI - Claude Code 5 分钟快速上手"
 date: 2026-02-26T20:50:55+08:00
 tags: ["AI"]
 categories: ["AI"]
 ---
 
-从 Claude Code 的使用者，成长为能够驾驭 AI 的工程指挥者。
-
-<!--more-->
-
-# 基础篇
-
-## 底层技术全景导览
-
 Claude Code 是一个可编程、可扩展、可组合的 AI Agent 框架。
 
-### 5 分钟快速上手
+<!--more-->
 
 先花几分钟，把 Claude Code 用起来。
 
@@ -68,21 +60,3 @@ claude                      # 启动交互模式
 | claude -r         | 恢复之前的对话 |
 | /help             | 帮助           |
 | Ctrl + C 或 exit  | 退出           |
-
-### 从使用者到驾驭者
-
-总结一下上面的使用步骤：
-
-```
-用户 -> 输入问题 -> Claude 回答 -> 完成
-```
-
-Claude Code 可以生成代码，从 0 开始做项目，整理文件，甚至优化你的操作系统...虽然能做到这些也已经很强大了，但这仍然只是被动使用！
-
-Claude Code 还支持另一种模式：
-
-```
-用户 -> 配置 Agent -> Agent 自主工作 -> 自动完成任务
-```
-
-## 记忆系统与 CLAUDE.md
