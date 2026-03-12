@@ -9,6 +9,10 @@
 
 ### 2026-03
 
+#### 2026-03-12
+
+生命是一场体验，热爱比履历重要。
+
 #### 2026-03-11
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_60.jpg" alt="" width="40%" />

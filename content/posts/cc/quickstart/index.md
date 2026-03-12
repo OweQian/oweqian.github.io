@@ -1,15 +1,13 @@
 ---
-title: "🤖 AI - Claude Code 5 分钟快速上手"
+title: "🧠 AI - Claude Code 5 分钟快速上手"
 date: 2026-02-26T20:50:55+08:00
 tags: ["AI"]
 categories: ["AI"]
 ---
 
-Claude Code 是一个可编程、可扩展、可组合的 AI Agent 框架。
+先花几分钟，把 Claude Code 用起来。
 
 <!--more-->
-
-先花几分钟，把 Claude Code 用起来。
 
 第一步，在[这里](https://code.claude.com/docs/en/desktop)下载匹配你系统的 Claude Code 版本。
 
