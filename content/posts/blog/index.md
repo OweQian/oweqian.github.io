@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-03-12T14:30:47+08:00
+date: 2026-03-14T14:10:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,18 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-03
+
+#### 2026-03-14
+
+不出意外的话，这应该是自己在互联网这个行业最后学的两门课程了，要说再见了。
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_61.png" alt="" width="40%" />
+<br/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_62.png" alt="" width="40%" />
+
+#### 2026-03-13
+
+(\*￣rǒ￣) 准备学点种菜、种粮食的知识了，自给自足。
 
 #### 2026-03-12
 
