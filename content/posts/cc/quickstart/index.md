@@ -11,7 +11,7 @@ categories: ["AI"]
 
 第一步，在[这里](https://code.claude.com/docs/en/desktop)下载匹配你系统的 Claude Code 版本。
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_01.png" alt="" width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_01.png" alt="" width="40%" style="display: block; margin: 0 auto;" />
 
 安装过程非常简单，跟着官方的说明就好。
 
