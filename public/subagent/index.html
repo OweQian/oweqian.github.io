@@ -7,7 +7,7 @@
         <title>🧠 AI - Claude Code 子代理 Sub-Agents - OweQian 的精神角落</title><meta name="Description" content="OweQian&#39;s blog"><meta property="og:url" content="http://localhost:1313/subagent/">
   <meta property="og:site_name" content="OweQian 的精神角落">
   <meta property="og:title" content="🧠 AI - Claude Code 子代理 Sub-Agents">
-  <meta property="og:description" content="OweQian&#39;s blog">
+  <meta property="og:description" content="Claude Code 子代理 Sub-Agents。">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -19,7 +19,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="http://localhost:1313/logo.png">
   <meta name="twitter:title" content="🧠 AI - Claude Code 子代理 Sub-Agents">
-  <meta name="twitter:description" content="OweQian&#39;s blog">
+  <meta name="twitter:description" content="Claude Code 子代理 Sub-Agents。">
       <meta name="twitter:site" content="@xxxx">
 <meta name="application-name" content="OweQian 的精神角落">
 <meta name="apple-mobile-web-app-title" content="OweQian 的精神角落"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/img.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/subagent/" /><link rel="prev" href="http://localhost:1313/claudecode/" /><link rel="next" href="http://localhost:1313/blog/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -33,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/subagent\/"
-        },"genre": "posts","keywords": "AI","wordcount":  0 ,
+        },"genre": "posts","keywords": "AI","wordcount":  5096 ,
         "url": "http:\/\/localhost:1313\/subagent\/","datePublished": "2026-04-09T16:59:10+08:00","dateModified": "2026-04-09T16:59:10+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -107,15 +107,366 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">🧠 AI - Claude Code 子代理 Sub-Agents</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/OweQian" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>OweQian 的精神角落</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-04-09">2026-04-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 0 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 0 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-04-09">2026-04-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5096 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-            </div><div class="content" id="content"></div><div class="post-footer" id="post-footer">
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#sub-agents-的核心概念">Sub-Agents 的核心概念</a>
+      <ul>
+        <li><a href="#什么是子代理">什么是子代理</a></li>
+        <li><a href="#子代理的核心价值">子代理的核心价值</a>
+          <ul>
+            <li><a href="#隔离">隔离</a></li>
+            <li><a href="#约束">约束</a></li>
+            <li><a href="#复用">复用</a></li>
+          </ul>
+        </li>
+        <li><a href="#claude-code-内置子代理">Claude Code 内置子代理</a>
+          <ul>
+            <li><a href="#explore-子代理">Explore 子代理</a></li>
+            <li><a href="#plan-子代理">Plan 子代理</a></li>
+            <li><a href="#general-purpose-子代理">General-purpose 子代理</a></li>
+          </ul>
+        </li>
+        <li><a href="#子代理的应用时机">子代理的应用时机</a></li>
+        <li><a href="#子代理的配置文件">子代理的配置文件</a></li>
+        <li><a href="#子代理的存放位置与优先级">子代理的存放位置与优先级</a></li>
+        <li><a href="#创建子代理的三种方式">创建子代理的三种方式</a></li>
+        <li><a href="#子代理的运行模式">子代理的运行模式</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Claude Code 子代理 Sub-Agents。</p>
+<p>先从一个常见场景开始。</p>
+<p>某天，你让 Claude Code 帮你跑一个测试套件，结果输出了 500 行日志；然后你让它分析一下项目代码结构，又输出了 200 行；接着你让它改一个 bug&hellip;这时候，你的对话上下文已经被各种 &ldquo;中间过程&rdquo; 塞满了，真正重要的信息被淹没在了茫茫的输出海洋里&hellip;</p>
+<p>如果你觉得 Claude Code 越用越 &ldquo;健忘&rdquo;，并不是模型退化了，而是你的对话上下文，已经被一次次中间过程污染了。</p>
+<p>这正是子代理要解决的核心问题：把 &ldquo;高噪声的执行过程&rdquo; 隔离出去，只让真正有价值的结论，留在主对话中。只有子代理，才在系统层面天然拥有一个独立的上下文窗口。它是 Claude Code 里唯一一个，结构上允许 &ldquo;执行完即丢弃&rdquo; 的东西。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_08.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<h2 id="sub-agents-的核心概念">Sub-Agents 的核心概念</h2>
+<h3 id="什么是子代理">什么是子代理</h3>
+<p>子代理相当于一个 &ldquo;专职小助手&rdquo;，带着自己的规则、工具权限、上下文窗口，去完成某一类任务，然后把 &ldquo;结果&rdquo; 带回来。</p>
+<p>有 Sub-Agent，那肯定要先有主 Agent，主 Agent 就是你当前操作的主对话。而主对话 vs 子代理，就是老板和员工的关系。</p>
+<p>一家公司的老板需要完成复杂的项目，有两种工作方式：</p>
+<ul>
+<li>方式一：事必躬亲。亲自去调研市场、亲自写代码、亲自测试、亲自写文档&hellip;最后脑子里塞满了各种细节，已经记不清最初的目标是什么了。</li>
+<li>方式二：专人专岗。安排一个市场专员去调研，只需要他给你一份调研结果的报告；安排一个测试工程师去跑测试，只需要他给你一份测试结果的报告；安排一个技术文档专员去写文档&hellip;每个人带着明确的任务出去，完成后只把结果带回来。</li>
+</ul>
+<p>子代理就是最后一种方式，它让主对话保持清洁，不被过程噪声污染。</p>
+<h3 id="子代理的核心价值">子代理的核心价值</h3>
+<p>子代理的核心价值，本质上就是三件事：隔离、约束、复用。</p>
+<h4 id="隔离">隔离</h4>
+<p>隔离，解决的是上下文污染问题 &mdash; 大量对当前执行有用，但是对后续决策毫无价值的日志、搜索结果和中间推理，不应该进入主对话的长期记忆；子代理拥有独立上下文，执行完即丢弃，只把结论带回来，让 Claude Code 记得更少，但记得更对。</p>
+<p>请看下面的示例：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">主对话的上下文：
+</span></span><span class="line"><span class="cl">┌─────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│ 用户：帮我分析一下这个 bug              │
+</span></span><span class="line"><span class="cl">│ Claude：好的，让我看看...               │
+</span></span><span class="line"><span class="cl">│ [子代理去执行，产生 500 行日志]         │
+</span></span><span class="line"><span class="cl">│ [子代理返回：发现 3 个相关文件]         │
+</span></span><span class="line"><span class="cl">│ Claude：我发现问题在这三个文件...       │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────────────┘
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">子代理的上下文（独立的，执行完就释放）：
+</span></span><span class="line"><span class="cl">┌─────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│ 任务：查找 bug 相关文件                 │
+</span></span><span class="line"><span class="cl">│ [搜索输出 500 行日志]                   │
+</span></span><span class="line"><span class="cl">│ [分析过程...]                           │
+</span></span><span class="line"><span class="cl">│ 结论：3 个相关文件                      │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────────────┘</span></span></code></pre></div></div><p>主对话只看到子代理返回的结论，不需要承载搜索过程。这意味着你的对话不会因为大量搜索就把 token 配额用光，重要的讨论内容不会被中间输出淹没，Claude Code 在后续对话中能更好地 &ldquo;记住&rdquo; 关键信息。</p>
+<h4 id="约束">约束</h4>
+<p>约束，解决的是行为不可控问题 &mdash; 通过工具权限边界，把 &ldquo;我希望你别这么做&rdquo; 变成 &ldquo;你物理上做不到&rdquo;，让代码审查只能读、修 bug 才能写，角色职责不再依赖提示词自觉。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># 只读型子代理（代码审查）</span>
+</span></span><span class="line"><span class="cl"><span class="n">tools</span><span class="p">:</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Grep</span><span class="p">,</span> <span class="n">Glob</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 它只能看，不能改任何东西</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 开发型子代理（bug 修复）</span>
+</span></span><span class="line"><span class="cl"><span class="n">tools</span><span class="p">:</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Write</span><span class="p">,</span> <span class="n">Edit</span><span class="p">,</span> <span class="n">Bash</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 它可以读写文件和执行命令</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 研究型子代理（技术调研）</span>
+</span></span><span class="line"><span class="cl"><span class="n">tools</span><span class="p">:</span> <span class="n">Read</span><span class="p">,</span> <span class="n">WebFetch</span><span class="p">,</span> <span class="n">WebSearch</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 它可以读本地文件和搜索网络</span></span></span></code></pre></div></div><h4 id="复用">复用</h4>
+<p>复用，解决的是经验无法沉淀的问题 &mdash; 当子代理被定义成文件、放进版本控制后，好的使用方式就从一次性对话，变成了可共享、可迭代的工程资产。</p>
+<p>子代理的配置保存在文件中，优点如下：</p>
+<ul>
+<li>版本控制：放进 git，团队共享。</li>
+<li>跨项目复用：好用的配置可以复制到其他项目。</li>
+<li>渐进优化：根据实际使用情况不断调整 prompt，持续优化改善。</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">├── test-runner.md      # 测试运行专员
+</span></span><span class="line"><span class="cl">├── code-reviewer.md    # 代码审查专员
+</span></span><span class="line"><span class="cl">├── log-analyzer.md     # 日志分析专员
+</span></span><span class="line"><span class="cl">└── bug-fixer.md        # Bug 修复专员</span></span></code></pre></div></div><p>这些配置文件就像公司里的 &ldquo;岗位说明书&rdquo;，每个岗位职责清晰、权限明确。</p>
+<h3 id="claude-code-内置子代理">Claude Code 内置子代理</h3>
+<p>Claude Code 内置了一系列子代理，当你问 Claude Code &mdash; &ldquo;给我解释这个 Github 仓库&rdquo; 时，Claude Code 就会自动调用内置子代理。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_09.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<h4 id="explore-子代理">Explore 子代理</h4>
+<p>Explore 子代理负责 &ldquo;翻项目，找位置&rdquo;，专注快速只读搜索，把成百上千行 grep 和分析过程吞进去，只告诉你结论在哪里。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│  Explore（探索者）                                       │
+</span></span><span class="line"><span class="cl">├─────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│  特点：快速、只读                                        │
+</span></span><span class="line"><span class="cl">│  用途：搜索和分析代码库                                  │
+</span></span><span class="line"><span class="cl">│  模式：quick / medium / very thorough 三档              │
+</span></span><span class="line"><span class="cl">│  工具：Read, Grep, Glob（不能写）                        │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────────────────────────────┘</span></span></code></pre></div></div><h4 id="plan-子代理">Plan 子代理</h4>
+<p>Plan 子代理负责 &ldquo;动手前先想清楚&rdquo;，在真正修改代码之前，收集上下文、梳理依赖、生成实施路径，避免上来就盲目修改。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│  Plan（规划者）                                          │
+</span></span><span class="line"><span class="cl">├─────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│  特点：规划模式专用                                      │
+</span></span><span class="line"><span class="cl">│  用途：在制定实施计划前收集项目上下文                     │
+</span></span><span class="line"><span class="cl">│  限制：子代理不能再生成子代理（防止无限嵌套）             │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────────────────────────────┘</span></span></code></pre></div></div><h4 id="general-purpose-子代理">General-purpose 子代理</h4>
+<p>General-purpose 子代理是 &ldquo;能搜索、能修改、能推进&rdquo; 的全能型员工，适合需要多步骤协作的复杂任务。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│  General-purpose（通用型）                               │
+</span></span><span class="line"><span class="cl">├─────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│  特点：全能型，处理复杂多步骤任务                         │
+</span></span><span class="line"><span class="cl">│  用途：同时需要探索和修改的任务                          │
+</span></span><span class="line"><span class="cl">│  工具：完整工具集                                        │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────────────────────────────┘</span></span></code></pre></div></div><h3 id="子代理的应用时机">子代理的应用时机</h3>
+<p>并不是所有任务都值得用子代理，子代理的价值，不在于 &ldquo;能不能用&rdquo;，而在于 &ldquo;该不该用&rdquo;。一个最直观的判断标准是：主对话是否需要承载执行过程本身。</p>
+<p>第一类适合用子代理的，是高噪声输出的任务。这类任务的共同点是：执行过程中会产生大量中间信息，但主对话真正关心的，往往只有一个结论，</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_10.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<p>第二类适合用子代理的，是角色边界非常明确的任务。比如，有些事情，你只希望 Claude Code &ldquo;看&rdquo;，而不希望它 &ldquo;动手&rdquo;。</p>
+<p>第三类适合用子代理的，是可以并行展开的研究型任务。当你需要同时调研认证逻辑、数据库设计和 API 接口，或者对比几种技术方案&hellip;</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_11.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<p>第四类适合用子代理的，是可以拆分成清晰阶段的流水线式任务。比如先定位代码位置，再做代码审查，然后进行修改，最后跑测试验证。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Explore（找位置）
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">Reviewer（指出问题）
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">Fixer（修复）
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">Test-runner（验证）</span></span></code></pre></div></div><blockquote>
+<p>一条关键约束：子代理不能再嵌套调用子代理。</p>
+<p>这意味着什么？</p>
+<p>所有编排必须由主对话完成：如果你需要 &ldquo;先审查再修复&rdquo;，必须由主对话依次调用两个子代理</p>
+<p>流水线的 &ldquo;调度中心&rdquo; 只有一个：就是主对话本身</p>
+<p>如果需要在子代理内复用知识：用 skills 字段预加载</p></blockquote>
+<h3 id="子代理的配置文件">子代理的配置文件</h3>
+<p>如何创建子代理的配置文件？</p>
+<p>子代理使用 Markdown + YAML frontmatter 格式：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="n">name</span><span class="p">:</span> <span class="n">code</span><span class="o">-</span><span class="n">reviewer</span>
+</span></span><span class="line"><span class="cl"><span class="n">description</span><span class="p">:</span> <span class="n">Review</span> <span class="n">code</span> <span class="k">for</span> <span class="n">security</span> <span class="n">issues</span> <span class="ow">and</span> <span class="n">best</span> <span class="n">practices</span><span class="o">.</span> <span class="n">Use</span> <span class="n">after</span> <span class="n">code</span> <span class="n">changes</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">tools</span><span class="p">:</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Grep</span><span class="p">,</span> <span class="n">Glob</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="p">:</span> <span class="n">sonnet</span>
+</span></span><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">你是一个代码审查专家。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">当被调用时：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mf">1.</span> <span class="err">首先理解代码变更的范围</span>
+</span></span><span class="line"><span class="cl"><span class="mf">2.</span> <span class="err">检查安全问题</span>
+</span></span><span class="line"><span class="cl"><span class="mf">3.</span> <span class="err">检查代码规范</span>
+</span></span><span class="line"><span class="cl"><span class="mf">4.</span> <span class="err">提供改进建议</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">输出格式：</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 审查结果</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">安全问题：</span><span class="p">[</span><span class="err">列表</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">规范问题：</span><span class="p">[</span><span class="err">列表</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">建议：</span><span class="p">[</span><span class="err">列表</span><span class="p">]</span></span></span></code></pre></div></div><p>frontmatter（&mdash;之间）部分定义子代理的元数据和配置，下方的 Markdown 正文就是子代理的系统提示词（system prompt）。子代理只会收到这段系统提示词和基本环境信息（如工作目录），不会继承主对话的完整系统提示词。</p>
+<p>frontmatter 字段详解如下；</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_12.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<ul>
+<li>description：决定了 Claude Code 何时自动调用你的子代理 &mdash; 这是配置中最重要的设计决策。</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 写的太模糊，Claude 不知道什么时候该用它
+</span></span><span class="line"><span class="cl">description: A code reviewer
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 好的 description：说明做什么 + 什么时候用
+</span></span><span class="line"><span class="cl">description: Review code changes for quality, security vulnerabilities, and best practices. Use proactively after code is modified or when user asks for code review.</span></span></code></pre></div></div><ul>
+<li>tools vs disallowedTools：白名单与黑名单，控制子代理能使用哪些工具。</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># 方式一：白名单 (tools) — &#34;只能用这些&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 适合：需要严格限制的场景（如只读审查）</span>
+</span></span><span class="line"><span class="cl"><span class="n">tools</span><span class="p">:</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Grep</span><span class="p">,</span> <span class="n">Glob</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 方式二：黑名单 (disallowedTools) — “继承所有，但排除这些”</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 适合：需要大部分工具但排除少数危险工具的场景</span>
+</span></span><span class="line"><span class="cl"><span class="n">disallowedTools</span><span class="p">:</span> <span class="n">Write</span><span class="p">,</span> <span class="n">Edit</span></span></span></code></pre></div></div><p>下面是根据用途划分的典型工具组合：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">只读型（审计/检查）         研究型（信息收集）         开发型（读写改）
+</span></span><span class="line"><span class="cl">├── Read                    ├── Read                   ├── Read
+</span></span><span class="line"><span class="cl">├── Grep                    ├── Grep                   ├── Write
+</span></span><span class="line"><span class="cl">└── Glob                    ├── Glob                   ├── Edit
+</span></span><span class="line"><span class="cl">                            ├── WebFetch               ├── Bash
+</span></span><span class="line"><span class="cl">                            └── WebSearch              ├── Glob
+</span></span><span class="line"><span class="cl">                                                       └── Grep</span></span></code></pre></div></div><ul>
+<li>model：模型选择与默认值</li>
+</ul>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_13.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<ul>
+<li>permissionMode：权限模式</li>
+</ul>
+<p>控制子代理在执行过程中遇到需要权限的操作时如何处理。子代理会继承主对话的权限上下文，但可以通过此字段覆盖行为：</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_14.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<ul>
+<li>skills：为子代理预加载知识</li>
+</ul>
+<p>skills 允许你在子代理启动时，把指定的 skills 的完整内容注入到子代理的上下文中。这意味着子代理不需要在执行过程中发现和加载 skill，知识已经在它的脑子里了。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="n">name</span><span class="p">:</span> <span class="n">impact</span><span class="o">-</span><span class="n">analyzer</span>
+</span></span><span class="line"><span class="cl"><span class="n">description</span><span class="p">:</span> <span class="n">Analyze</span> <span class="n">impact</span> <span class="n">scope</span> <span class="n">of</span> <span class="n">code</span> <span class="n">changes</span> <span class="n">on</span> <span class="n">the</span> <span class="n">full</span> <span class="n">call</span> <span class="n">chain</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">tools</span><span class="p">:</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Grep</span><span class="p">,</span> <span class="n">Glob</span><span class="p">,</span> <span class="n">Bash</span>
+</span></span><span class="line"><span class="cl"><span class="n">skills</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="n">chain</span><span class="o">-</span><span class="n">knowledge</span>        <span class="c1"># 链路拓扑和 SLA 约束</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="n">recent</span><span class="o">-</span><span class="n">incidents</span>       <span class="c1"># 近期事故记录</span>
+</span></span><span class="line"><span class="cl"><span class="o">---</span></span></span></code></pre></div></div><ul>
+<li>hooks：子代理专属的生命周期 Hook</li>
+</ul>
+<p>子代理可以在自己的 frontmatter 中定义 Hook &mdash; 这些 Hook 只在该子代理运行期间生效，子代理结束后自动清理。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="n">name</span><span class="p">:</span> <span class="n">db</span><span class="o">-</span><span class="n">reader</span>
+</span></span><span class="line"><span class="cl"><span class="n">description</span><span class="p">:</span> <span class="n">Execute</span> <span class="n">read</span><span class="o">-</span><span class="n">only</span> <span class="n">database</span> <span class="n">queries</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">tools</span><span class="p">:</span> <span class="n">Bash</span>
+</span></span><span class="line"><span class="cl"><span class="n">hooks</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">PreToolUse</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">matcher</span><span class="p">:</span> <span class="s2">&#34;Bash&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">hooks</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-</span> <span class="n">type</span><span class="p">:</span> <span class="n">command</span>
+</span></span><span class="line"><span class="cl">          <span class="n">command</span><span class="p">:</span> <span class="s2">&#34;./scripts/validate-readonly-query.sh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">---</span></span></span></code></pre></div></div><h3 id="子代理的存放位置与优先级">子代理的存放位置与优先级</h3>
+<p>子代理可以被设置为不同的作用域。当多个作用域存在同名的子代理时，高优先级的子代理会覆盖低优先级的子代理。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_15.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<p>子代理可以被设置为项目级或用户级，项目级（仅当前项目可用）存放位置如下所示，适合项目特有的角色。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">your-project/
+</span></span><span class="line"><span class="cl">└── .claude/
+</span></span><span class="line"><span class="cl">    └── agents/
+</span></span><span class="line"><span class="cl">        ├── test-runner.md
+</span></span><span class="line"><span class="cl">        └── code-reviewer.md</span></span></code></pre></div></div><p>用户级（所有项目可用）子代理适合通用角色，比如日志分析器、通用代码审查器等。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~/.claude/
+</span></span><span class="line"><span class="cl">└── agents/
+</span></span><span class="line"><span class="cl">    ├── general-reviewer.md
+</span></span><span class="line"><span class="cl">    └── log-analyzer.md</span></span></code></pre></div></div><h3 id="创建子代理的三种方式">创建子代理的三种方式</h3>
+<ul>
+<li>方式一：交互式创建（推荐新手使用）</li>
+</ul>
+<p>在 Claude Code 中输入 /agents，按照向导操作：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">步骤 1：输入 /agents
+</span></span><span class="line"><span class="cl">步骤 2：选择 &#34;Create new agent&#34;
+</span></span><span class="line"><span class="cl">步骤 3：选择存放位置（User-level 或 Project-level）
+</span></span><span class="line"><span class="cl">步骤 4：选择 &#34;Generate with Claude&#34; 并描述功能
+</span></span><span class="line"><span class="cl">步骤 5：选择需要的工具
+</span></span><span class="line"><span class="cl">步骤 6：选择模型
+</span></span><span class="line"><span class="cl">步骤 7：保存</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_16.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<p>这种方式简单直观，Claude Code 会帮你生成初始化的 prompt。</p>
+<ul>
+<li>方式二：手写配置文件</li>
+</ul>
+<p>直接创建 .claude/agents/your-agent.md 文件，这种方式是更精细的控制，方便版本管理，可以从其他项目复制。</p>
+<ul>
+<li>方式三：CLI 参数临时创建</li>
+</ul>
+<p>通过 &ndash;agents 参数，可以在启动 Claude Code 时传入 JSON 格式的子代理定义。这种方式创建的子代理仅在当前会话中存在，不会保存到磁盘。</p>
+<h3 id="子代理的运行模式">子代理的运行模式</h3>
+<p>子代理可以在前台或后台运行。</p>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_17.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<p>Claude Code 会根据任务自动选择前台或后台运行，你也可以手动控制。</p>
+<ul>
+<li>对 Claude Code 说 ”run this in the background“</li>
+<li>正在运行的前台子代理可以按 Ctrl + B 切换到后台</li>
+</ul>
+<p>启动前，Claude Code 会预先请求子代理可能需要的所有权限 &mdash; 因为后台运行时无法弹出交互式确认。如果后台子代理因权限不足而失败，你可以恢复它到前台重试。</p>
+<p>每个子代理执行完成后，Claude Code 会自动收到它的 Agent ID。如果你需要在之前的子代理基础上继续工作，可以让 Claude Code 恢复它。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">用 code-reviewer 子代理审查认证模块
+</span></span><span class="line"><span class="cl">[子代理完成]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">继续刚才的审查，再看一下授权逻辑
+</span></span><span class="line"><span class="cl">[Claude 恢复之前的子代理，保留完整上下文]</span></span></code></pre></div></div><p>恢复的子代理会保留所有之前的对话历史 &mdash; 它从上次停下的地方继续，而不是重新开始，这对于需要多轮迭代的长任务非常有用。</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

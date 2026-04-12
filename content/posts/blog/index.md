@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-04-08T14:00:47+08:00
+date: 2026-04-12T21:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,30 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-04
+
+#### 2026-04-12
+
+😭 怎么会有 "瑜伽" 这种东西，全身发抖。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_06.jpg" alt="" width="40%" />
+
+#### 2026-04-11
+
+😏 重启人生第一步：学英语。  
+
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=214017988&bvid=BV1xa411J7jJ&cid=718443304&p=9&autoplay=false" scrolling="no" border="0" frameborder="no" framespacing="0" width="100%" height="400" allowfullscreen="true"></iframe>
+
+#### 2026-04-10
+
+累了。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_05.jpg" alt="" width="80%" />
+
+#### 2026-04-09
+
+什么是开会？  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_04.jpg" alt="" width="40%" />
 
 #### 2026-04-08
 
