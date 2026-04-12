@@ -166,19 +166,19 @@
 </span></span><span class="line"><span class="cl">Claude：好的，这是一个基础的订单接口...（又用 Express + JavaScript）
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">你：（崩溃）我们用 Fastify 和 TypeScript！</span></span></code></pre></div></div><p>如果 Claude Code 不记得我的项目使用什么技术栈、什么编码规范、什么团队规范，每次新对话都让我从零开始 &mdash; 那这种 &ldquo;失忆症&rdquo; 让人抓狂。</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_02.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_02.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <p>CLAUDE.md 就是治疗这种失忆症的药 &mdash; 它是一份给 Claude 的 &ldquo;项目入职手册&rdquo;，Claude 每次开始新对话时，就会自动阅读这份手册，了解项目背景，明确它在干活时应该遵循的一系列底层规则。</p>
 <h3 id="claude-code-记忆系统">Claude Code 记忆系统</h3>
 <p>当你在项目根目录启动 Claude Code 时，发生的 &ldquo;记忆系统初始化&rdquo; 过程如下图所示：</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_03.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_03.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <p>Claude 有多种方式获取项目相关知识，它们的区别如下：</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_04.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_04.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <p>CLAUDE.md 的内容在每次开始新对话时都会加载，所以要精简，把 &ldquo;每次都需要&rdquo; 的内容放在这里，把 &ldquo;偶尔需要&rdquo; 的内容放到 Skills 或文档里。</p>
 <h3 id="claude-code-记忆架构">Claude Code 记忆架构</h3>
 <p>Claude 支持五个层级的记忆，就像洋葱一样，从外到内，按层级结构组织 &mdash; 高层级的文件优先加载，为底层文件提供基础。</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_05.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_05.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <p>记忆类型表如下：</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_06.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_06.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <h4 id="企业策略级记忆设定">企业策略级记忆设定</h4>
 <p>企业策略级记忆设定的作用是阻值范围内的指令，由 IT/DevOps 统一管理和部署组织。适合内容是公司编码标准、安全策略、合规要求以及禁止使用的库或模式。通过配置管理系统部署，确保在所有开发者机器上一致分发。</p>
 <p>位置：</p>
@@ -641,7 +641,7 @@
 <li>Step 1：识别核心内容</li>
 </ul>
 <p>我们可以问自己，哪些内容是每次对话都需要的？下面是对于项目整体的一个规划示例 &mdash; 目的是使 CLAUDE.md 有一个简单而清晰的结构。</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_07.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_07.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <ul>
 <li>Step 2：拆分成独立文件</li>
 </ul>

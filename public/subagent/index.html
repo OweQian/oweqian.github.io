@@ -147,7 +147,7 @@
 <p>某天，你让 Claude Code 帮你跑一个测试套件，结果输出了 500 行日志；然后你让它分析一下项目代码结构，又输出了 200 行；接着你让它改一个 bug&hellip;这时候，你的对话上下文已经被各种 &ldquo;中间过程&rdquo; 塞满了，真正重要的信息被淹没在了茫茫的输出海洋里&hellip;</p>
 <p>如果你觉得 Claude Code 越用越 &ldquo;健忘&rdquo;，并不是模型退化了，而是你的对话上下文，已经被一次次中间过程污染了。</p>
 <p>这正是子代理要解决的核心问题：把 &ldquo;高噪声的执行过程&rdquo; 隔离出去，只让真正有价值的结论，留在主对话中。只有子代理，才在系统层面天然拥有一个独立的上下文窗口。它是 Claude Code 里唯一一个，结构上允许 &ldquo;执行完即丢弃&rdquo; 的东西。</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_08.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_08.webp" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <h2 id="sub-agents-的核心概念">Sub-Agents 的核心概念</h2>
 <h3 id="什么是子代理">什么是子代理</h3>
 <p>子代理相当于一个 &ldquo;专职小助手&rdquo;，带着自己的规则、工具权限、上下文窗口，去完成某一类任务，然后把 &ldquo;结果&rdquo; 带回来。</p>
@@ -220,7 +220,7 @@
 </span></span><span class="line"><span class="cl">└── bug-fixer.md        # Bug 修复专员</span></span></code></pre></div></div><p>这些配置文件就像公司里的 &ldquo;岗位说明书&rdquo;，每个岗位职责清晰、权限明确。</p>
 <h3 id="claude-code-内置子代理">Claude Code 内置子代理</h3>
 <p>Claude Code 内置了一系列子代理，当你问 Claude Code &mdash; &ldquo;给我解释这个 Github 仓库&rdquo; 时，Claude Code 就会自动调用内置子代理。</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_09.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_09.webp" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <h4 id="explore-子代理">Explore 子代理</h4>
 <p>Explore 子代理负责 &ldquo;翻项目，找位置&rdquo;，专注快速只读搜索，把成百上千行 grep 和分析过程吞进去，只告诉你结论在哪里。</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
@@ -264,10 +264,10 @@
 </span></span><span class="line"><span class="cl">└─────────────────────────────────────────────────────────┘</span></span></code></pre></div></div><h3 id="子代理的应用时机">子代理的应用时机</h3>
 <p>并不是所有任务都值得用子代理，子代理的价值，不在于 &ldquo;能不能用&rdquo;，而在于 &ldquo;该不该用&rdquo;。一个最直观的判断标准是：主对话是否需要承载执行过程本身。</p>
 <p>第一类适合用子代理的，是高噪声输出的任务。这类任务的共同点是：执行过程中会产生大量中间信息，但主对话真正关心的，往往只有一个结论，</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_10.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_10.webp" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <p>第二类适合用子代理的，是角色边界非常明确的任务。比如，有些事情，你只希望 Claude Code &ldquo;看&rdquo;，而不希望它 &ldquo;动手&rdquo;。</p>
 <p>第三类适合用子代理的，是可以并行展开的研究型任务。当你需要同时调研认证逻辑、数据库设计和 API 接口，或者对比几种技术方案&hellip;</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_11.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_11.webp" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <p>第四类适合用子代理的，是可以拆分成清晰阶段的流水线式任务。比如先定位代码位置，再做代码审查，然后进行修改，最后跑测试验证。</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-bash">
@@ -316,7 +316,7 @@
 </span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">规范问题：</span><span class="p">[</span><span class="err">列表</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">建议：</span><span class="p">[</span><span class="err">列表</span><span class="p">]</span></span></span></code></pre></div></div><p>frontmatter（&mdash;之间）部分定义子代理的元数据和配置，下方的 Markdown 正文就是子代理的系统提示词（system prompt）。子代理只会收到这段系统提示词和基本环境信息（如工作目录），不会继承主对话的完整系统提示词。</p>
 <p>frontmatter 字段详解如下；</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_12.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_12.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <ul>
 <li>description：决定了 Claude Code 何时自动调用你的子代理 &mdash; 这是配置中最重要的设计决策。</li>
 </ul>
@@ -358,12 +358,12 @@
 </span></span><span class="line"><span class="cl">                                                       └── Grep</span></span></code></pre></div></div><ul>
 <li>model：模型选择与默认值</li>
 </ul>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_13.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_13.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <ul>
 <li>permissionMode：权限模式</li>
 </ul>
 <p>控制子代理在执行过程中遇到需要权限的操作时如何处理。子代理会继承主对话的权限上下文，但可以通过此字段覆盖行为：</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_14.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_14.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <ul>
 <li>skills：为子代理预加载知识</li>
 </ul>
@@ -401,7 +401,7 @@
 </span></span><span class="line"><span class="cl">          <span class="n">command</span><span class="p">:</span> <span class="s2">&#34;./scripts/validate-readonly-query.sh&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="o">---</span></span></span></code></pre></div></div><h3 id="子代理的存放位置与优先级">子代理的存放位置与优先级</h3>
 <p>子代理可以被设置为不同的作用域。当多个作用域存在同名的子代理时，高优先级的子代理会覆盖低优先级的子代理。</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_15.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_15.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <p>子代理可以被设置为项目级或用户级，项目级（仅当前项目可用）存放位置如下所示，适合项目特有的角色。</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-bash">
@@ -437,7 +437,7 @@
 </span></span><span class="line"><span class="cl">步骤 4：选择 &#34;Generate with Claude&#34; 并描述功能
 </span></span><span class="line"><span class="cl">步骤 5：选择需要的工具
 </span></span><span class="line"><span class="cl">步骤 6：选择模型
-</span></span><span class="line"><span class="cl">步骤 7：保存</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_16.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+</span></span><span class="line"><span class="cl">步骤 7：保存</span></span></code></pre></div></div><img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_16.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <p>这种方式简单直观，Claude Code 会帮你生成初始化的 prompt。</p>
 <ul>
 <li>方式二：手写配置文件</li>
@@ -449,7 +449,7 @@
 <p>通过 &ndash;agents 参数，可以在启动 Claude Code 时传入 JSON 格式的子代理定义。这种方式创建的子代理仅在当前会话中存在，不会保存到磁盘。</p>
 <h3 id="子代理的运行模式">子代理的运行模式</h3>
 <p>子代理可以在前台或后台运行。</p>
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_17.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_17.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 <p>Claude Code 会根据任务自动选择前台或后台运行，你也可以手动控制。</p>
 <ul>
 <li>对 Claude Code 说 ”run this in the background“</li>

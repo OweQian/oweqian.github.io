@@ -17,7 +17,7 @@ Claude Code 子代理 Sub-Agents。
 
 这正是子代理要解决的核心问题：把 "高噪声的执行过程" 隔离出去，只让真正有价值的结论，留在主对话中。只有子代理，才在系统层面天然拥有一个独立的上下文窗口。它是 Claude Code 里唯一一个，结构上允许 "执行完即丢弃" 的东西。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_08.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_08.webp" alt="" width="100%" style="display: block; margin: 0 auto;" />
 
 
 ## Sub-Agents 的核心概念
@@ -107,7 +107,7 @@ tools: Read, WebFetch, WebSearch
 
 Claude Code 内置了一系列子代理，当你问 Claude Code --- "给我解释这个 Github 仓库" 时，Claude Code 就会自动调用内置子代理。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_09.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_09.webp" alt="" width="100%" style="display: block; margin: 0 auto;" />
 
 #### Explore 子代理
 
@@ -158,13 +158,13 @@ General-purpose 子代理是 "能搜索、能修改、能推进" 的全能型员
 
 第一类适合用子代理的，是高噪声输出的任务。这类任务的共同点是：执行过程中会产生大量中间信息，但主对话真正关心的，往往只有一个结论，  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_10.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_10.webp" alt="" width="100%" style="display: block; margin: 0 auto;" />
 
 第二类适合用子代理的，是角色边界非常明确的任务。比如，有些事情，你只希望 Claude Code "看"，而不希望它 "动手"。
 
 第三类适合用子代理的，是可以并行展开的研究型任务。当你需要同时调研认证逻辑、数据库设计和 API 接口，或者对比几种技术方案...
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_11.webp" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_11.webp" alt="" width="100%" style="display: block; margin: 0 auto;" />
 
 第四类适合用子代理的，是可以拆分成清晰阶段的流水线式任务。比如先定位代码位置，再做代码审查，然后进行修改，最后跑测试验证。
 
@@ -223,7 +223,7 @@ frontmatter（---之间）部分定义子代理的元数据和配置，下方的
 
 frontmatter 字段详解如下；  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_12.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_12.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 
 * description：决定了 Claude Code 何时自动调用你的子代理 --- 这是配置中最重要的设计决策。  
 
@@ -261,13 +261,13 @@ disallowedTools: Write, Edit
 
 * model：模型选择与默认值
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_13.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_13.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 
 * permissionMode：权限模式
 
 控制子代理在执行过程中遇到需要权限的操作时如何处理。子代理会继承主对话的权限上下文，但可以通过此字段覆盖行为：
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_14.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_14.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 
 * skills：为子代理预加载知识
 
@@ -306,7 +306,7 @@ hooks:
 
 子代理可以被设置为不同的作用域。当多个作用域存在同名的子代理时，高优先级的子代理会覆盖低优先级的子代理。   
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_15.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_15.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 
 子代理可以被设置为项目级或用户级，项目级（仅当前项目可用）存放位置如下所示，适合项目特有的角色。  
 
@@ -343,7 +343,7 @@ your-project/
 步骤 7：保存
 ```
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_16.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_16.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 
 这种方式简单直观，Claude Code 会帮你生成初始化的 prompt。
 
@@ -359,7 +359,7 @@ your-project/
 
 子代理可以在前台或后台运行。  
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_17.png" alt="" width="60%" style="display: block; margin: 0 auto;" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/cc/img_17.png" alt="" width="100%" style="display: block; margin: 0 auto;" />
 
 Claude Code 会根据任务自动选择前台或后台运行，你也可以手动控制。   
 
