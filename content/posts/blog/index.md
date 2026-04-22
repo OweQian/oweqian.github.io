@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-04-12T21:00:47+08:00
+date: 2026-04-22T16:40:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,64 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-04
+
+#### 2026-04-22
+
+🐱 开始乱拉乱尿了，是年纪大了吗？
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_14.jpg" alt="" width="40%" />
+
+#### 2026-04-21
+
+当两天二手烟民...腌入味了...   
+
+#### 2026-04-20
+
+😍 漂亮的美女教练是我锻炼的动力...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_13.jpg" alt="" width="40%" />
+
+#### 2026-04-19
+
+无锡人民很松弛...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_12.jpg" alt="" width="40%" />
+
+#### 2026-04-18
+
+😠 是谁发明的瑜伽、普拉提这种东西！！！    
+胳膊要折了！！！   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_11.jpg" alt="" width="40%" />
+
+#### 2026-04-17
+
+> 简单并不意味着欠缺或低劣，也不意味着不注重装饰或者完全赤裸裸。   
+> 而是说装饰应该紧密贴近设计本身，任何无关的要素都应该予以剔除。
+
+#### 2026-04-16
+
+🐱 中大哥。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_10.jpg" alt="" width="40%" />
+
+#### 2026-04-15
+
+想成为大河内、里见这样的人...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_09.jpg" alt="" width="40%" />
+
+#### 2026-04-14
+
+真想在有 ☀️ 的时候，躺那睡一觉。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_08.jpg" alt="" width="40%" />
+
+#### 2026-04-13
+
+😴 项目负责人天天念叨的词："Spec Coding"...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_07.jpeg" alt="" width="80%" />
 
 #### 2026-04-12
 
