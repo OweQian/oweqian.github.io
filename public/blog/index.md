@@ -7,7 +7,77 @@
 
 ## 2026
 
+### 2026-05
+
+#### 2026-05-06
+
+挑战！   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_22.jpg" alt="" width="40%" />
+
+#### 2026-05-05
+
+😞 又回来上班了。   
+
+#### 2026-05-04
+
+重温 《三国演义》，还是最喜欢貂蝉，忠、义、勇、智。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_21.jpg" alt="" width="40%" />
+
+#### 2026-05-03
+
+
+
+#### 2026-05-02
+
+饿死啦，跑去吃别人的剩饭。     
+
+😞 没有筷子，直接用手抓着吃！   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_20.jpg" alt="" width="40%" />
+
+#### 2026-05-01
+
+一家欢喜一家忧。   
+
 ### 2026-04
+
+#### 2026-04-30
+
+放假啦放假啦！！！
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_19.jpg" alt="" width="40%" />
+
+#### 2026-04-29
+
+算了算了棒／「算啦」棒（まあまあ棒）。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_18.jpg" alt="" width="40%" />
+
+#### 2026-04-28
+
+以前赌气说想自己过，现在回头看，自己已经走了很远了啊。       
+
+2026 年，在无锡，依旧是一个人，别无所求，只想被阳光晒透。        
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_17.jpg" alt="" width="40%" />
+
+#### 2026-04-27
+
+看露天电影，吃烧烤，喝啤酒。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_16.jpg" alt="" width="40%" />
+
+#### 2026-04-26
+
+好久没有睡这么爽了，除了干饭，就是睡觉 😴。
+
+#### 2026-04-25
+
+在无锡的第一个小目标：去现场看一次苏超比赛！
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_15.jpg" alt="" width="40%" />
 
 #### 2026-04-24
 
