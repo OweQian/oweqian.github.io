@@ -32,7 +32,9 @@ categories: ["碎碎念"]
 
 #### 2026-05-03
 
+开始备战奥运会 - 核心雕塑、胸背塑形、自由泳！  
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_23.jpg" alt="" width="40%" />
 
 #### 2026-05-02
 
