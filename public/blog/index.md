@@ -9,6 +9,13 @@
 
 ### 2026-05
 
+#### 2026-05-10
+
+❤️ 谢谢你，我的朋友，感觉尸体暖暖的...   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_26.jpg" alt="" width="40%" /><br/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_27.png" alt="" width="40%" />
+
 #### 2026-05-09
 
 2026 年 5 月 9 日 23 点 59 分 59 秒，完成了对职场、人、社会、guojia、世界的全部祛魅！

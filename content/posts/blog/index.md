@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-05-10T12:40:47+08:00
+date: 2026-05-10T22:20:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,13 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-05
+
+#### 2026-05-10
+
+❤️ 谢谢你，我的朋友，感觉尸体暖暖的...   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_26.jpg" alt="" width="40%" /><br/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_27.png" alt="" width="40%" />
 
 #### 2026-05-09
 

@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Python - 标签 - OweQian 的精神角落</title>
-        <link>http://localhost:1313/tags/python/</link>
+        <link>http://localhost:52608/tags/python/</link>
         <description>Python - 标签 - OweQian 的精神角落</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian 的精神角落)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Wed, 09 Jul 2025 12:34:56 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/python/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Wed, 09 Jul 2025 12:34:56 &#43;0800</lastBuildDate><atom:link href="http://localhost:52608/tags/python/" rel="self" type="application/rss+xml" /><item>
     <title>💻 Python - 基于 Pygame 的外星人入侵游戏</title>
-    <link>http://localhost:1313/pygame/</link>
+    <link>http://localhost:52608/pygame/</link>
     <pubDate>Wed, 09 Jul 2025 12:34:56 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
-    <guid>http://localhost:1313/pygame/</guid>
+    <guid>http://localhost:52608/pygame/</guid>
     <description><![CDATA[<p>基于 Pygame 的外星人入侵游戏。</p>]]></description>
 </item>
 </channel>
