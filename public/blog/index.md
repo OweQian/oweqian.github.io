@@ -9,6 +9,22 @@
 
 ### 2026-05
 
+#### 2026-05-09
+
+2026 年 5 月 9 日 23 点 59 分 59 秒，完成了对职场、人、社会、guojia、世界的全部祛魅！
+
+#### 2026-05-08
+
+💪🏻 哈哈哈，终于不是全程两个 "小橙片" 选手了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_25.jpg" alt="" width="40%" />
+
+#### 2026-05-07
+
+把我的快乐还给我！
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_24.jpg" alt="" width="40%" />
+
 #### 2026-05-06
 
 挑战！   
@@ -27,7 +43,9 @@
 
 #### 2026-05-03
 
+开始备战奥运会 - 核心雕塑、胸背塑形、自由泳！  
 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_23.jpg" alt="" width="40%" />
 
 #### 2026-05-02
 
