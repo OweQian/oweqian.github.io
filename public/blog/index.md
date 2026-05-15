@@ -9,6 +9,44 @@
 
 ### 2026-05
 
+#### 2026-05-15
+
+😅 忽然发现，想找对象都不会了...谁来 help 咪。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_31.jpg" alt="" width="40%" />
+
+#### 2026-05-14
+
+为上班添点乐子。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_30.jpg" alt="" width="60%" />
+
+#### 2026-05-13
+
+😊 我的理想型。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_29.jpg" alt="" width="40%" />
+
+#### 2026-05-12
+
+《Markdown》死亡。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_28.jpg" alt="" width="40%" />
+
+#### 2026-05-11
+
+自取其辱九件套：   
+
+1、试图拯救母亲、改变父亲（把他们的人生问题当成自己的责任）。      
+2、给别人买很贵的东西，自己却舍不得用好的。      
+3、沉迷扮演受害者角色，长期自怨自艾。   
+4、把大量注意力浪费在不值得的人和烂事上。   
+5、用卑微讨好的方式换取他人的认可。   
+6、强行进入不适合自己的圈子或关系。   
+7、长期忽视自己的需求，压低自我存在感。   
+8、花大量时间反复分析有毒的亲密关系。   
+9、分不清轻重缓急，在小事上消耗，在关键处失焦。   
+
 #### 2026-05-10
 
 ❤️ 谢谢你，我的朋友，感觉尸体暖暖的...    
