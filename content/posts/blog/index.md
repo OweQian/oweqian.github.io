@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-05-15T15:00:47+08:00
+date: 2026-05-18T11:10:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,34 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-05
+
+#### 2026-05-18 
+
+从今天开始，学着爱自己：       
+
+1、我允许自己吃饭慢慢的。    
+2、我允许自己出错。    
+3、我允许自己偶尔断电。    
+4、我不再回应恶意。      
+5、我无条件地爱自己。    
+6、我允许自己毫无负罪感地休息。    
+7、我可以不符合任何人的期待。      
+8、我已经很棒了。   
+9、我值得一切最好的东西。   
+10、我永远可以有新的开始。   
+
+#### 2026-05-17
+
+再见。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_34.jpg" alt="" width="40%" />
+
+#### 2026-05-16
+
+😳 废了，《猛猛喝，猛猛练》。         
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_32.jpg" alt="" width="40%" /><br/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_33.jpg" alt="" width="40%" />
 
 #### 2026-05-15
 
