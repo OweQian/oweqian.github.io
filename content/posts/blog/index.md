@@ -14,6 +14,12 @@ categories: ["碎碎念"]
 
 ### 2026-05
 
+#### 2026-05-20     
+
+😅 鬼知道我听了多少遍...太上头了。       
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_36.png" alt="" width="40%" />
+
 #### 2026-05-19   
 
 ∠(°ゝ°) respect！
