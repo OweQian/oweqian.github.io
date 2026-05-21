@@ -22,13 +22,13 @@ categories: ["碎碎念"]
 
 😅 鬼知道我听了多少遍...太上头了。       
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_36.png" alt="" width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_36.png" alt="" width="60%" />
 
 #### 2026-05-19   
 
 ∠(°ゝ°) respect！
 
-<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_35.png" alt="" width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_35.png" alt="" width="60%" />
 
 #### 2026-05-18 
 
