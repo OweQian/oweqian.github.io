@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-05-25T15:30:47+08:00
+date: 2026-05-27T14:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,19 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-05
+
+#### 2026-05-27
+
+😭 满足，好好吃啊。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_39.jpg" alt="" width="60%" />   <br/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_40.jpg" alt=""  width="60%" />  
+
+#### 2026-05-26
+
+🤔 王德峰讲「老庄」跟老板讲「项目」《一模一样》，抽烟、喝茶、娓娓道来...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_38.jpeg" alt="" width="60%" />   
 
 #### 2026-05-25
 

@@ -9,6 +9,27 @@
 
 ### 2026-05
 
+#### 2026-05-27
+
+😭 满足，好好吃啊。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_39.jpg" alt="" width="60%" />   <br/>
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_40.jpg" alt=""  width="60%" />  
+
+#### 2026-05-26
+
+🤔 王德峰讲「老庄」跟老板讲「项目」《一模一样》，抽烟、喝茶、娓娓道来...
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_38.jpeg" alt="" width="60%" />   
+
+#### 2026-05-25
+
+「上士闻道，勤而行之；中士闻道，若存若亡；下士闻道，大笑之。不笑，不足以为道。」
+
+#### 2026-05-24
+
+「上善若水。」
+
 #### 2026-05-23
 
 在外滩吹风淋雨的一个小时里，我在想：什么才是我真正想要的？    
