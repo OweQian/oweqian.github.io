@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-05-28T21:00:47+08:00
+date: 2026-05-29T20:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-05
+
+#### 2026-05-29
+
+入职两个多月，在职场上看到了两位 "Scarlet"，宇动源老板和宇动源（无锡）项目负责人。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_42.jpg" alt=""  width="60%" />  
 
 #### 2026-05-28
 
