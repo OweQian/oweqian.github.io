@@ -9,6 +9,18 @@
 
 ### 2026-05
 
+#### 2026-05-31
+
+😍 咖啡店的小姐姐真好看。      
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_44.jpg" alt=""  width="40%" />  
+
+#### 2026-05-30
+
+三碗蛋炒饭，谢谢。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_43.jpg" alt=""  width="60%" />  
+
 #### 2026-05-29
 
 入职两个多月，在职场上看到了两位 "Scarlet"，宇动源老板和宇动源（无锡）项目负责人。   

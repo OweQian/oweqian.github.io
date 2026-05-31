@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-05-30T17:30:47+08:00
+date: 2026-05-31T17:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-05
+
+#### 2026-05-31
+
+😍 咖啡店的小姐姐真好看。      
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_44.jpg" alt=""  width="40%" />  
 
 #### 2026-05-30
 
