@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-05-31T17:30:47+08:00
+date: 2026-06-01T12:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -11,6 +11,14 @@ categories: ["碎碎念"]
 <!--more-->
 
 ## 2026
+
+### 2026-06
+
+#### 2026-06-01
+
+「千年送此纸，珍异抵琅环」         
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_45.jpg" alt=""  width="40%" />  
 
 ### 2026-05
 
