@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-06-02T21:00:47+08:00
+date: 2026-06-03T14:30:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-06
+
+#### 2026-06-03
+
+「我被酒色所伤，竟然如此憔悴，自今日始，戒酒。」
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_46.jpg" alt=""  width="40%" />
 
 #### 2026-06-02
 
