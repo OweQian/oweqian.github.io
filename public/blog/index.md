@@ -11,7 +11,7 @@
 
 #### 2026-06-04
 
-Wow.    
+挑战：1 个月，戒酒、早睡早起、不胡吃海塞、读书、工作、有氧 + 无氧。      
 
 <iframe width="100%" height="560" src="https://www.youtube.com/embed/ysWUQPBRsi4?si=d_hqA11Iuy6kopZ7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
