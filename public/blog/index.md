@@ -9,6 +9,12 @@
 
 ### 2026-06
 
+#### 2026-06-04
+
+Wow.    
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/ysWUQPBRsi4?si=d_hqA11Iuy6kopZ7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 #### 2026-06-03
 
 「我被酒色所伤，竟然如此憔悴，自今日始，戒酒。」
