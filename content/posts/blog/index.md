@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-06-04T19:00:47+08:00
+date: 2026-06-07T19:00:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,24 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-06
+
+#### 2026-06-07
+
+「眼里有光，心里有火，脑里有水，嘴里有火车。」  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_49.jpg" alt=""  width="40%" />
+
+#### 2026-06-06
+
+煮饭。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_48.jpg" alt=""  width="40%" />
+
+#### 2026-06-05
+
+一节 BP 差点给我干报废，瘸了 3 天。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_47.jpg" alt=""  width="40%" />
 
 #### 2026-06-04
 
