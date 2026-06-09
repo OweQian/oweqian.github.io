@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-06-07T19:00:47+08:00
+date: 2026-06-09T11:10:47+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,18 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-06
+
+#### 2026-06-09
+
+「还我头发！」 
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_51.jpg" alt=""  width="40%" />
+
+#### 2026-06-08
+
+🤮 已经到了想起那个人就犯恶心的阶段了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_50.jpg" alt=""  width="40%" />
 
 #### 2026-06-07
 

@@ -9,6 +9,24 @@
 
 ### 2026-06
 
+#### 2026-06-07
+
+「眼里有光，心里有火，脑里有水，嘴里有火车。」  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_49.jpg" alt=""  width="40%" />
+
+#### 2026-06-06
+
+煮饭。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_48.jpg" alt=""  width="40%" />
+
+#### 2026-06-05
+
+一节 BP 差点给我干报废，瘸了 3 天。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_47.jpg" alt=""  width="40%" />
+
 #### 2026-06-04
 
 挑战：1 个月，戒酒、早睡早起、不胡吃海塞、读书、工作、有氧 + 无氧。      
