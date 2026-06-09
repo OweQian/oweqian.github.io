@@ -26,6 +26,14 @@ categories: ["碎碎念"]
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_52.png" alt=""  width="40%" />
 
+--------------------------------
+
+2026 年 6 月 9 日 23:00:00    
+
+活过来了。    
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/ftm1hiXgYsA?si=Wmj5uWFDcyw9m4Gj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 #### 2026-06-08
 
 🤮 已经到了想起那个人就犯恶心的阶段了。   
