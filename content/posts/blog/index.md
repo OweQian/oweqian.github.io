@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-06-09T17:50:47+08:00
+date: 2026-06-12T11:10:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,24 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-06
+
+#### 2026-06-12
+
+😭 被 Claude Code + Codex《暴打》的一周。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_55.png" alt=""  width="40%" />
+
+#### 2026-06-11
+
+情绪反扑的时候，请允许自己枯萎几天，然后再接着生活。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_54.jpg" alt=""  width="40%" />
+
+#### 2026-06-10
+
+🤔 听说《铁拳教育》很好看。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_53.jpg" alt=""  width="40%" />
 
 #### 2026-06-09
 

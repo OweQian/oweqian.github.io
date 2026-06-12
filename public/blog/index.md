@@ -9,6 +9,50 @@
 
 ### 2026-06
 
+#### 2026-06-12
+
+😭 被 Claude Code + Codex《暴打》的一周。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_55.png" alt=""  width="40%" />
+
+#### 2026-06-11
+
+情绪反扑的时候，请允许自己枯萎几天，然后再接着生活。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_54.jpg" alt=""  width="40%" />
+
+#### 2026-06-10
+
+🤔 听说《铁拳教育》很好看。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_53.jpg" alt=""  width="40%" />
+
+#### 2026-06-09
+
+「还我头发！」 
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_51.jpg" alt=""  width="40%" />
+
+--------------------------------
+
+啦啦啦啦啦啦...   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_52.png" alt=""  width="40%" />
+
+--------------------------------
+
+2026 年 6 月 9 日 23:00:00    
+
+活过来了。    
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/ftm1hiXgYsA?si=Wmj5uWFDcyw9m4Gj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+#### 2026-06-08
+
+🤮 已经到了想起那个人就犯恶心的阶段了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_50.jpg" alt=""  width="40%" />
+
 #### 2026-06-07
 
 「眼里有光，心里有火，脑里有水，嘴里有火车。」  
