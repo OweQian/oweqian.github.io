@@ -9,6 +9,19 @@
 
 ### 2026-06
 
+#### 2026-06-13
+
+重启。   
+
+----------------------
+
+😮‍💨 算了，不强求搭子了，就一个人吧。   
+
+一个人吃饭、一个人健身、一个人看书、一个人学习、一个人买花、一个人买菜、一个人看电影、一个人逛街、一个人旅行、一个人等日落、一个人等雨停...    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_56.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_57.jpg" alt=""  width="40%" />
+
 #### 2026-06-12
 
 😭 被 Claude Code + Codex《暴打》的一周。   
