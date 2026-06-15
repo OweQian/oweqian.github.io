@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-06-13T23:00:00+08:00
+date: 2026-06-15T14:40:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,18 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-06
+
+#### 2026-06-15
+
+蓝色奇迹。     
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_59.jpg" alt=""  width="40%" />
+
+#### 2026-06-14
+
+5:50 爬起来。。。起个大早，就踢个这？   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_58.jpg" alt=""  width="40%" />
 
 #### 2026-06-13
 
