@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-06-15T14:40:00+08:00
+date: 2026-06-18T16:20:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,26 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-06
+
+#### 2026-06-18
+
+2026 美加墨世界杯，到今天，记住了库拉索 🇨🇼、佛得角 🇨🇻、刚果金 🇨🇬。   
+
+反观那些天天吃海参还抱怨年薪少的...当然，我说的是印度 🇮🇳。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_62.jpg" alt=""  width="40%" />
+
+#### 2026-06-17
+
+彻底疯狂！咖啡、冰淇淋、柠檬水、撸串、啤酒、干活、熬夜、世界杯...    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_61.jpg" alt=""  width="40%" />
+
+#### 2026-06-16
+
+哈哈哈。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_60.jpg" alt=""  width="40%" />
 
 #### 2026-06-15
 
