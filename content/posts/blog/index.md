@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-06-21T22:35:00+08:00
+date: 2026-06-22T20:20:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-06
+
+#### 2026-06-22
+
+「黏黏的三角钢琴，受伤的肺，潮湿的生命。」   
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/_-Ci1sXiWvU?si=iT7py6xjbfqe29N2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 #### 2026-06-21
 

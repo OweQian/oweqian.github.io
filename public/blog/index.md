@@ -9,6 +9,25 @@
 
 ### 2026-06
 
+#### 2026-06-22
+
+「黏黏的三角钢琴，受伤的肺，潮湿的生命。」   
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/_-Ci1sXiWvU?si=iT7py6xjbfqe29N2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+#### 2026-06-21
+
+生存需要思考吗？   
+
+#### 2026-06-20
+
+再一次走进春熙路 💎 这家星巴克，7 年前陪我一起在这里喝咖啡的人已经 <不在> 了。       
+人的感情真复杂，两个月前会因为这个人失眠、什么都不想干；一个月前想起这个人会觉得恶心，觉得自己倒霉；半个月前想起这个人还是会哭，会难过。今天，竟然只是叹了口气，转头就忘了，继续和小姐妹美滋滋地逛街。    
+
+#### 2026-06-19
+
+😓 无锡硕放机场，军民两用机场，想在起飞前打开遮光板偷偷看一下（：这是犯罪，结果刚坐下就睡着了，世界杯耽误事啊...    
+
 #### 2026-06-18
 
 2026 美加墨世界杯，到今天，记住了库拉索 🇨🇼、佛得角 🇨🇻、刚果金 🇨🇬。   
