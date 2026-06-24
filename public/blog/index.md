@@ -9,6 +9,18 @@
 
 ### 2026-06
 
+#### 2026-06-24
+
+😠 克罗地亚能不能出线已经不重要了，巴拿马给我滚回家去！专门欺负我小老头是吧！
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_64.jpg" alt=""  width="40%" />
+
+#### 2026-06-23
+
+爽飞了，衣服都湿了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_63.jpg" alt=""  width="40%" />
+
 #### 2026-06-22
 
 「黏黏的三角钢琴，受伤的肺，潮湿的生命。」   

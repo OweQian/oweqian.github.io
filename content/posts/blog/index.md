@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-06-22T20:20:00+08:00
+date: 2026-06-24T10:15:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,18 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-06
+
+#### 2026-06-24
+
+😠 克罗地亚能不能出线已经不重要了，巴拿马给我滚回家去！专门欺负我小老头是吧！
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_64.jpg" alt=""  width="40%" />
+
+#### 2026-06-23
+
+爽飞了，衣服都湿了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_63.jpg" alt=""  width="40%" />
 
 #### 2026-06-22
 
