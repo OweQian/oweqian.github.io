@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-06-24T10:15:00+08:00
+date: 2026-06-27T16:10:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,28 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-06
+
+#### 2026-06-27
+
+「反着坐小电驴真爽，哈哈哈哈哈哈」
+
+--------------------------
+
+「find yourself & love will find you」
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/rK5TyISxZ_M?si=0MRdJiYIBm3z83dM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+#### 2026-06-26
+
+> 任何事情的发生，都是有意味深长的、难以测度的过去催化而成，都是由因果之链推演而成。当然，没有什么最初的因，每一个因都是另一个因的果。每一个事情都指向无限。   -- 博尔赫斯
+
+
+#### 2026-06-25
+
+哈哈哈哈哈哈。    
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_65.jpg" alt=""  width="40%" />
 
 #### 2026-06-24
 
