@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-07-01T09:40:00+08:00
+date: 2026-07-03T11:30:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,18 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-07
+
+#### 2026-07-03   
+
+「克罗地亚或许在不久之后，会迎来没有莫德里奇的时代。但至少在魔笛身披格子战袍的岁月里，这支球队奏响过足坛最嘹亮的克罗地亚狂想曲」   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_70.jpg" alt=""  width="100%" />
+
+#### 2026-07-02
+
+「强制让别人爱自己是没有好下场的」
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_69.jpg" alt=""  width="40%" />
 
 #### 2026-07-01   
 
