@@ -43,7 +43,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     pre = ""
     # you can add extra information after the name (HTML format is supported), such as icons
     post = ""
-    name = "Posts"
+    name = "文章"
     url = "/posts/"
     # title will be shown when you hover on this menu link
     title = ""
@@ -52,7 +52,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     identifier = "tags"
     pre = ""
     post = ""
-    name = "Tags"
+    name = "标签"
     url = "/tags/"
     title = ""
   [[menu.main]]
@@ -60,7 +60,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     identifier = "categories"
     pre = ""
     post = ""
-    name = "Categories"
+    name = "分类"
     url = "/categories/"
     title = ""
   [[menu.main]]
@@ -205,7 +205,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # whether to use typeit animation for subtitle
       typeit = true
       # whether to show social links
-      social = false
+      social = true
       #  disclaimer (HTML format is supported)
       disclaimer = ""
     # Home page posts
@@ -219,12 +219,12 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
   # Social config about the author
   [params.social]
-    GitHub = "xxxx"
+    GitHub = "OweQian"
     Linkedin = ""
-    Twitter = "xxxx"
-    Instagram = "xxxx"
-    Facebook = "xxxx"
-    Telegram = "xxxx"
+    Twitter = ""
+    Instagram = ""
+    Facebook = ""
+    Telegram = ""
     Medium = ""
     Gitlab = ""
     Youtubelegacy = ""
@@ -296,8 +296,8 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     TryHackMe = ""
     Codeberg = ""
     Phone = ""
-    Email = "xxxx@xxxx.com"
-    RSS = true # 
+    Email = ""
+    RSS = { url = "/rss.xml", title = "RSS Feed" }
 
   #  Page global config
   [params.page]
