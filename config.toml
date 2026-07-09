@@ -63,6 +63,14 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     name = "Categories"
     url = "/categories/"
     title = ""
+  [[menu.main]]
+    weight = 4
+    identifier = "rss"
+    pre = '<i class="fas fa-rss fa-fw" aria-hidden="true"></i>'
+    post = ""
+    name = "RSS"
+    url = "/rss.xml"
+    title = "RSS Feed"
 
 [params]
   # site default theme ["auto", "light", "dark"]
@@ -619,10 +627,18 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   isPlainText = true
   isHTML = false
 
+# Options to make an extra root RSS feed at /rss.xml
+[outputFormats.RSSXML]
+  mediaType = "application/rss+xml"
+  baseName = "rss"
+  isPlainText = false
+  isHTML = false
+  noUgly = true
+
 # Options to make hugo output files
 [outputs]
   # 
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS", "RSSXML", "JSON"]
   page = ["HTML", "MarkDown"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
