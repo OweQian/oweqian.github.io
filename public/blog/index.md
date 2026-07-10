@@ -9,6 +9,13 @@
 
 ### 2026-07
 
+#### 2026-07-10
+
+「渴望被爱是最后的幻觉，放下它，你就自由了。」
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_74.png" alt=""  width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_75.png" alt=""  width="100%" />
+
 #### 2026-07-09
 
 「故事就像植物一样，你必须一直浇灌培育它们，它们可能暂时不发芽，但如果你坚持培育，总有一天会开花的。」  

@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-07-09T12:00:00+08:00
+date: 2026-07-10T20:10:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,13 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-07
+
+#### 2026-07-10
+
+「渴望被爱是最后的幻觉，放下它，你就自由了。」
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_74.png" alt=""  width="100%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_75.png" alt=""  width="100%" />
 
 #### 2026-07-09
 
