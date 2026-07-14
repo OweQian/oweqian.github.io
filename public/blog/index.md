@@ -9,6 +9,33 @@
 
 ### 2026-07
 
+#### 2026-07-14
+
+7012-e178-年末清算，寒冷的冬天，成员们需要自己造纸船在 30 分钟内横渡汉江。      
+整个过程中，成员们互相扶持，为了共同的目标而努力。    
+谁都不看好的老弱病残组成了第一，大家都看好的另一组纸船翻了，为了节省时间，选择不换衣服，回到起点重新出发。   
+😭 太感动了，团魂炸裂。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_78.jpg" alt=""  width="100%" />
+
+#### 2026-07-13
+
+🎉 emmm，过上好日子了。     
+ 
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_77.png" alt=""  width="100%" />
+
+#### 2026-07-12
+
+🤔  呔，我真蠢！应该在油管看！          
+
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116775178083173&bvid=BV1CMjq6nEu1&cid=39548682679&p=1&autoplay=false" scrolling="no" border="0" frameborder="no" width="100%" height="500" framespacing="0" allowfullscreen="true"></iframe>
+
+#### 2026-07-11
+
+「以一片肉收尾，专心吃好眼前这一碗泡馍，才是真的心安，不辜负生活。」   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_76.jpg" alt=""  width="100%" />
+
 #### 2026-07-10
 
 「渴望被爱是最后的幻觉，放下它，你就自由了。」
