@@ -9,6 +9,12 @@
 
 ### 2026-07
 
+#### 2026-07-21
+
+😏 快 10 个月没下水了，还行，还能游起来。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_83.jpg" alt=""  width="40%" />
+
 #### 2026-07-20
 
 啊一西，中场秀呢？夏奇拉呢！！！   

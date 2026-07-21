@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-07-20T16:40:00+08:00
+date: 2026-07-21T14:40:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-07
+
+#### 2026-07-21
+
+😏 快 10 个月没下水了，还行，还能游起来。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_83.jpg" alt=""  width="40%" />
 
 #### 2026-07-20
 
