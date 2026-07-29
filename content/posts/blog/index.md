@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-07-21T14:40:00+08:00
+date: 2026-07-28T10:30:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,18 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-07
+
+#### 2026-07-27
+
+🤔 好像看到了自己。  
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/OyQGHiuKd7k?si=-aIbUzhdCzh88H51" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+#### 2026-07-26
+
+「小嘴巴」
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_87.jpg" alt=""  width="40%" />
 
 #### 2026-07-25
 
