@@ -9,6 +9,23 @@
 
 ### 2026-07
 
+#### 2026-07-30
+
+🐑：好难过...   
+🐺：去死吗？   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_88.jpg" alt=""  width="40%" />
+
+#### 2026-07-29
+
+😄 忽然爱上达闻西...可以把《1984》翻出来再读一遍了。   
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/jt0kMXVvsbU?si=0Mg7BBIVv-wQBnfX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+#### 2026-07-28
+
+我要瘦下来装逼！我要瘦下来装逼！我要瘦下来装逼！   
+
 #### 2026-07-27
 
 🤔 好像看到了自己。  
