@@ -9,6 +9,42 @@
 
 ### 2026-08
 
+#### 2026-08-09
+
+ 🏊🏻 舒坦。  
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_95.jpg" alt=""  width="40%" />
+
+#### 2026-08-08
+
+以 "正义" 为名的暴力狂欢。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_94.jpg" alt=""  width="60%" />
+
+#### 2026-08-07
+
+😄 难喝的漂亮酒。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_93.jpg" alt=""  width="40%" />
+
+#### 2026-08-06
+
+🤕 可怜的人工智能 BF。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_92.jpg" alt=""  width="60%" />
+
+#### 2026-08-05
+
+😭 我不装逼了，手腕抗议了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_91.jpg" alt=""  width="40%" />
+
+#### 2026-08-04
+
+「fake-smile jail cells」
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_90.jpg" alt=""  width="60%" />
+
 #### 2026-08-03
 
 悟了，别跟我借钱，我的钱要留给自己和我爱的人；别跟我卖惨，比惨真不一定比得过我；别找我帮忙，我不是救世主，我也不欠谁。现在的我，有稳定的生活，有喜欢做的事，有熟悉的人在身边，有互相打气的小伙伴，有越来越爱我的亲人。       

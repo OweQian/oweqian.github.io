@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-08-03T22:30:00+08:00
+date: 2026-08-10T10:30:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,42 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-08
+
+#### 2026-08-09
+
+ 🏊🏻 舒坦。  
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_95.jpg" alt=""  width="40%" />
+
+#### 2026-08-08
+
+以 "正义" 为名的暴力狂欢。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_94.jpg" alt=""  width="60%" />
+
+#### 2026-08-07
+
+😄 难喝的漂亮酒。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_93.jpg" alt=""  width="40%" />
+
+#### 2026-08-06
+
+🤕 可怜的人工智能 BF。  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_92.jpg" alt=""  width="60%" />
+
+#### 2026-08-05
+
+😭 我不装逼了，手腕抗议了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_91.jpg" alt=""  width="40%" />
+
+#### 2026-08-04
+
+「fake-smile jail cells」
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_90.jpg" alt=""  width="60%" />
 
 #### 2026-08-03
 
