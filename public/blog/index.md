@@ -9,6 +9,12 @@
 
 ### 2026-08
 
+#### 2026-08-10 
+
+「多跟 AI 聊天，少跟中老登聊天」  
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_96.png" alt=""  width="80%" />
+
 #### 2026-08-09
 
  🏊🏻 舒坦。  

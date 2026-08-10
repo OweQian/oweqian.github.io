@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-08-10T10:30:00+08:00
+date: 2026-08-10T18:30:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-08
+
+#### 2026-08-10 
+
+「多跟 AI 聊天，少跟中老登聊天」  
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_96.png" alt=""  width="80%" />
 
 #### 2026-08-09
 
