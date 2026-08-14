@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-08-10T18:30:00+08:00
+date: 2026-08-14T16:30:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,28 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-08
+
+#### 2026-08-14
+
+后知后觉，原来那个晚上的那个时刻，是内心那根绷得最紧的弦，终于断了。    
+
+人在执念最紧的时候，整个气场是收着的，好运进不来。    
+
+真正松开的那一刻，气场开始变了。   
+
+#### 2026-08-13   
+
+「烟雨江南」   
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/zqKoXPHhmsM?si=kkgQ_7YLEVtIoxWB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+#### 2026-08-12
+
+「只有放松才会被托举，越紧张越挣扎，就越容易下沉」。
+
+#### 2026-08-11
+
+「内有乾坤，外放安宁」。
 
 #### 2026-08-10 
 

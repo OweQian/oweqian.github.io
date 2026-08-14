@@ -1377,7 +1377,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="cm">   * */</span>
 </span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">reset</span> <span class="o">=</span> <span class="p">(...</span><span class="nx">params</span>: <span class="kt">any</span><span class="p">[])</span> <span class="o">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">_initial</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">:</span> <span class="nx">initialValueRef</span><span class="p">.</span><span class="nx">current</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">initialValueRef</span><span class="p">.</span><span class="nx">current</span> <span class="err">=</span> <span class="nx">_initial</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">initialValueRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">_initial</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="nx">setHistory</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">present</span>: <span class="kt">_initial</span><span class="p">,</span>
