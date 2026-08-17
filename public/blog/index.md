@@ -9,6 +9,18 @@
 
 ### 2026-08
 
+#### 2026-08-16
+
+《Black Mirror》S3E6，所有喜欢躲在屏幕后的以 "多数人意志" 合理化杀戮的 "键盘侠" 都应该去看看这集。  
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_98.jpg" alt=""  width="80%" />
+
+#### 2026-08-15
+
+「TCKR SYSTEM，欢迎来到永生世界。」   
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_97.jpg" alt=""  width="80%" />
+
 #### 2026-08-14
 
 后知后觉，原来那个晚上的那个时刻，是内心那根绷得最紧的弦，终于断了。    

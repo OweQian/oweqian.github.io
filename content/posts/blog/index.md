@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-08-14T16:30:00+08:00
+date: 2026-08-17T10:15:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,18 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-08
+
+#### 2026-08-16
+
+《Black Mirror》S3E6，所有喜欢躲在屏幕后的以 "多数人意志" 合理化杀戮的 "键盘侠" 都应该去看看这集。  
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_98.jpg" alt=""  width="80%" />
+
+#### 2026-08-15
+
+「TCKR SYSTEM，欢迎来到永生世界。」   
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_97.jpg" alt=""  width="80%" />
 
 #### 2026-08-14
 
