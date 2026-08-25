@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>文档 - 分类 - OweQian 的精神角落</title>
-        <link>http://localhost:1313/categories/documentation/</link>
+        <link>http://localhost:55194/categories/documentation/</link>
         <description>文档 - 分类 - OweQian 的精神角落</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian 的精神角落)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><atom:link href="http://localhost:1313/categories/documentation/" rel="self" type="application/rss+xml" /></channel>
+            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><atom:link href="http://localhost:55194/categories/documentation/" rel="self" type="application/rss+xml" /></channel>
 </rss>

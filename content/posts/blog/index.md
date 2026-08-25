@@ -14,6 +14,30 @@ categories: ["碎碎念"]
 
 ### 2026-08
 
+#### 2026-08-24
+
+🤔 蔚来 nomi？
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_104.jpg" alt=""  width="80%" />
+
+#### 2026-08-23
+
+猎鹰与詹姆斯...   
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_103.jpg" alt=""  width="80%" />
+
+#### 2026-08-22
+
+🤮 你给我说这长得像蟑螂、被打爆会喷射追踪器的东西是机器狗？
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_102.jpg" alt=""  width="80%" />
+
+#### 2026-08-21
+
+> 如果鳄鱼咬住你的脚，你用手去帮忙挣脱，它会同时咬住你的脚和手。你挣扎地越厉害，被咬住的部位就越多，最后会吞噬全身。唯一的办法就是牺牲被咬住的那只脚，果断离开。
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_101.jpg" alt=""  width="80%" />
+
 #### 2026-08-20
 
 「我哭了，我装的」

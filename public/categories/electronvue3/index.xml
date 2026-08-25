@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Electron、Vue3 - 分类 - OweQian 的精神角落</title>
-        <link>http://localhost:1313/categories/electronvue3/</link>
+        <link>http://localhost:55194/categories/electronvue3/</link>
         <description>Electron、Vue3 - 分类 - OweQian 的精神角落</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian 的精神角落)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Tue, 07 Feb 2023 10:20:47 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/electronvue3/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Tue, 07 Feb 2023 10:20:47 &#43;0800</lastBuildDate><atom:link href="http://localhost:55194/categories/electronvue3/" rel="self" type="application/rss+xml" /><item>
     <title>‍💻 基于 Electron &#43; Vue3 的桌面应用开发实战</title>
-    <link>http://localhost:1313/electron/</link>
+    <link>http://localhost:55194/electron/</link>
     <pubDate>Tue, 07 Feb 2023 10:20:47 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
-    <guid>http://localhost:1313/electron/</guid>
+    <guid>http://localhost:55194/electron/</guid>
     <description><![CDATA[<p>本篇文章旨在带你基于 Electron + Vue3 完成一个桌面应用的开发，欢迎您的指正和点赞。</p>]]></description>
 </item>
 </channel>
