@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-08-20T21:30:00+08:00
+date: 2026-08-25T11:30:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-08
+
+#### 2026-08-25
+
+so sad...
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/6EA-MIYY1bg?si=_Qnkxo7mQ3xX4DZa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 #### 2026-08-24
 

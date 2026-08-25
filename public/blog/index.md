@@ -9,6 +9,12 @@
 
 ### 2026-08
 
+#### 2026-08-25
+
+so sad...
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/6EA-MIYY1bg?si=_Qnkxo7mQ3xX4DZa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 #### 2026-08-24
 
 🤔 蔚来 nomi？
