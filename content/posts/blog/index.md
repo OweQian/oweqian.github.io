@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-08-25T11:30:00+08:00
+date: 2026-08-28T15:30:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,24 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-08
+
+#### 2026-08-28
+
+🤔 「人工智能可在元宇宙中构建新世界，但也引发重大的伦理问题？」
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_106.jpg" alt=""  width="40%" />
+
+#### 2026-08-27
+
+「瞬间勇敢，终归摇摆，真实的魅力，恰在摇摆之间。」
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_105.jpg" alt=""  width="40%" />
+
+#### 2026-08-26
+
+「走过半生起落，尝尽世事复杂，该以怎样的状态安顿内心？」
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/XXIX2WnfbpE?si=gF3cAWDokOwq1zAy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 #### 2026-08-25
 
