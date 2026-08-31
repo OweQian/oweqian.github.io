@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>面试 - 分类 - OweQian 的精神角落</title>
-        <link>http://localhost:1313/categories/%E9%9D%A2%E8%AF%95/</link>
+        <link>http://localhost:55899/categories/%E9%9D%A2%E8%AF%95/</link>
         <description>面试 - 分类 - OweQian 的精神角落</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian 的精神角落)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Sun, 10 Apr 2022 10:00:39 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E9%9D%A2%E8%AF%95/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Sun, 10 Apr 2022 10:00:39 &#43;0800</lastBuildDate><atom:link href="http://localhost:55899/categories/%E9%9D%A2%E8%AF%95/" rel="self" type="application/rss+xml" /><item>
     <title>📝 前端面试题汇总</title>
-    <link>http://localhost:1313/frameinterview/</link>
+    <link>http://localhost:55899/frameinterview/</link>
     <pubDate>Sun, 10 Apr 2022 10:00:39 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
-    <guid>http://localhost:1313/frameinterview/</guid>
+    <guid>http://localhost:55899/frameinterview/</guid>
     <description><![CDATA[<p>本篇文章旨在利用一天时间，剖析经典前端经典面试题，带你快速建立前端面试知识体系，让面试更加 &ldquo;有底气&rdquo;，欢迎您的指正和点赞。</p>]]></description>
 </item>
 </channel>
