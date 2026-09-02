@@ -1,55 +1,55 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>AI - 标签 - OweQian 的精神角落</title>
-        <link>http://localhost:55899/tags/ai/</link>
+        <link>http://localhost:1313/tags/ai/</link>
         <description>AI - 标签 - OweQian 的精神角落</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1510106069@qq.com (OweQian 的精神角落)</managingEditor>
-            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Thu, 09 Apr 2026 16:59:10 &#43;0800</lastBuildDate><atom:link href="http://localhost:55899/tags/ai/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1510106069@qq.com (OweQian 的精神角落)</webMaster><lastBuildDate>Thu, 09 Apr 2026 16:59:10 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/ai/" rel="self" type="application/rss+xml" /><item>
     <title>🧠 AI - Claude Code 子代理 Sub-Agents</title>
-    <link>http://localhost:55899/subagent/</link>
+    <link>http://localhost:1313/subagent/</link>
     <pubDate>Thu, 09 Apr 2026 16:59:10 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
-    <guid>http://localhost:55899/subagent/</guid>
+    <guid>http://localhost:1313/subagent/</guid>
     <description><![CDATA[<p>Claude Code 子代理 Sub-Agents。</p>]]></description>
 </item>
 <item>
     <title>🧠 AI - Claude Code 记忆系统 CLAUDE.md</title>
-    <link>http://localhost:55899/claudecode/</link>
+    <link>http://localhost:1313/claudecode/</link>
     <pubDate>Fri, 27 Feb 2026 20:50:55 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
-    <guid>http://localhost:55899/claudecode/</guid>
+    <guid>http://localhost:1313/claudecode/</guid>
     <description><![CDATA[<p>Claude Code 记忆系统 CLAUDE.md。</p>]]></description>
 </item>
 <item>
     <title>🧠 AI - Claude Code 5 分钟快速上手</title>
-    <link>http://localhost:55899/quickstart/</link>
+    <link>http://localhost:1313/quickstart/</link>
     <pubDate>Thu, 26 Feb 2026 20:50:55 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
-    <guid>http://localhost:55899/quickstart/</guid>
+    <guid>http://localhost:1313/quickstart/</guid>
     <description><![CDATA[<p>先花几分钟，把 Claude Code 用起来。</p>]]></description>
 </item>
 <item>
     <title>🤖 AI - 基于 Compoder 搭建公司的专属 AI Coding 平台</title>
-    <link>http://localhost:55899/compoder/</link>
+    <link>http://localhost:1313/compoder/</link>
     <pubDate>Fri, 12 Dec 2025 18:30:13 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
-    <guid>http://localhost:55899/compoder/</guid>
+    <guid>http://localhost:1313/compoder/</guid>
     <description><![CDATA[<p>Compoder 是一个开源的 AI 驱动的组件代码生成引擎，集成了现代前端技术栈和多种 AI 模型的能力。</p>]]></description>
 </item>
 <item>
     <title>🤖 AI - 如何让 AI 基于组件库（开源、私有）生成业务组件代码</title>
-    <link>http://localhost:55899/ai/</link>
+    <link>http://localhost:1313/ai/</link>
     <pubDate>Wed, 10 Sep 2025 21:38:47 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
-    <guid>http://localhost:55899/ai/</guid>
+    <guid>http://localhost:1313/ai/</guid>
     <description><![CDATA[<p>设计一套 AI 友好的整洁业务组件架构，让 AI 基于开源组件库、公司私有组件库生成业务组件代码。</p>]]></description>
 </item>
 <item>
     <title>🤖 AI - 怎么理解大模型</title>
-    <link>http://localhost:55899/model/</link>
+    <link>http://localhost:1313/model/</link>
     <pubDate>Sat, 23 Aug 2025 15:01:49 &#43;0800</pubDate>
     <author>OweQian 的精神角落</author>
-    <guid>http://localhost:55899/model/</guid>
+    <guid>http://localhost:1313/model/</guid>
     <description><![CDATA[<p>作为大模型的使用者，不需要了解太多内部实现细节。可以将模型当做黑盒，理解其输入和输出。</p>]]></description>
 </item>
 </channel>

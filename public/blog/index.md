@@ -7,6 +7,24 @@
 
 ## 2026
 
+### 2026-09
+
+#### 2026-09-02
+
+《Black Mirror》S6E5《恶魔 79》，女猪脚是一位内向温顺的印度裔售货员，日常忍受着职场霸凌。当她被赶到昏暗的地下室吃饭时，无意中用血激活了一块神秘物，唤醒了恶魔，恶魔对女猪脚下达了死命令：女猪脚必须在三天内杀死三个人，否则世界将会毁灭...    
+
+......    
+
+如果女猪脚成功杀了第三个人，阻止了世界末日，那么在世人眼里她就是精神病。导演的善良给到了女猪脚，为了证明你是对的，全世界毁灭又怎样！！！    
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_108.jpg" alt=""  width="80%" />
+
+#### 2026-09-01
+
+😭 好好吃饭
+
+<iframe width="100%" height="560"  src="//player.bilibili.com/player.html?isOutside=true&aid=898769446&bvid=BV1gN4y17723&cid=783859476&p=1&autoplay=false" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
 ### 2026-08
 
 #### 2026-08-31
