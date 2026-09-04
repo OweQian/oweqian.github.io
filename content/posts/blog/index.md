@@ -22,6 +22,8 @@ categories: ["碎碎念"]
 
 🤔 当你的同事上班期间偷偷跑出去，你公司的经理问你现在有几个人在办公室，你会怎么回答？
 
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/ZcuzUoy8wKQ?si=JwDidW8lKh8xNZhX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 #### 2026-09-02
 
 《Black Mirror》S6E5《恶魔 79》，女猪脚是一位内向温顺的印度裔售货员，日常忍受着职场霸凌。当她被赶到昏暗的地下室吃饭时，无意中用血激活了一块神秘物，唤醒了恶魔，恶魔对女猪脚下达了死命令：女猪脚必须在三天内杀死三个人，否则世界将会毁灭...    
