@@ -40,7 +40,7 @@ categories: ["碎碎念"]
 
 「哈哈哈，你给我说这是马孔多最漂亮的女人？？我看你真该去医院看看。」   
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_110.jpg" alt=""  width="40%" />
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_110.jpg" alt=""  width="80%" />
 
 #### 2026-09-06
 
