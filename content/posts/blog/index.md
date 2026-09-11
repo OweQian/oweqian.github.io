@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-09-06T16:00:00+08:00
+date: 2026-09-11T10:30:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,34 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-09
+
+#### 2026-09-11
+
+🤔 最高端的猎人往往是以猎物的形式出现。   
+
+> 更正：给 emo 小狗·高留 103 次机会（102 次是无论如何都要管它。还有 1 次是无论如何都要把它拉回生活的 30% 那里面）。。。   
+
+#### 2026-09-10
+
+「我们都只是各自潜入属于自己的海里，过着属于自己的生活，进行着属于自己的战斗」
+
+#### 2026-09-09
+
+ 🤔 得好好研究下怎么提速了。   
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_112.jpg" alt=""  width="40%" />
+
+#### 2026-09-08
+
+🧠 要长脑子了。 
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_111.png" alt=""  width="80%" />
+
+#### 2026-09-07
+
+「哈哈哈，你给我说这是马孔多最漂亮的女人？？我看你真该去医院看看。」   
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_110.jpg" alt=""  width="40%" />
 
 #### 2026-09-06
 
