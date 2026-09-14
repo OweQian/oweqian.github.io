@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-09-11T10:30:00+08:00
+date: 2026-09-14T11:10:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,22 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-09
+
+#### 2026-09-14
+
+老子永远记得在这家公司，同样作为女性的所有 hr 对我在婚育上的恶意！！！！    
+
+#### 2026-09-13
+
+😊 哈哈哈，终于我不是泳池里，那个为了躲别人呛水的小菜蛙了，害另一个妹子一直呛水。   
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_114.jpg" alt=""  width="40%" />
+
+#### 2026-09-12
+
+The End.   
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_113.jpg" alt=""  width="40%" />
 
 #### 2026-09-11
 

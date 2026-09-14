@@ -9,6 +9,50 @@
 
 ### 2026-09
 
+#### 2026-09-14
+
+老子永远记得在这家公司，同样作为女性的所有 hr 对我在婚育上的恶意！！！！    
+
+#### 2026-09-13
+
+😊 哈哈哈，终于我不是泳池里，那个为了躲别人呛水的小菜蛙了，害另一个妹子一直呛水。   
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_114.jpg" alt=""  width="40%" />
+
+#### 2026-09-12
+
+The End.   
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_113.jpg" alt=""  width="40%" />
+
+#### 2026-09-11
+
+🤔 最高端的猎人往往是以猎物的形式出现。   
+
+> 更正：给 emo 小狗·高留 103 次机会（102 次是无论如何都要管它。还有 1 次是无论如何都要把它拉回生活的 30% 那里面）。。。   
+
+#### 2026-09-10
+
+「我们都只是各自潜入属于自己的海里，过着属于自己的生活，进行着属于自己的战斗」
+
+#### 2026-09-09
+
+ 🤔 得好好研究下怎么提速了。   
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_112.jpg" alt=""  width="40%" />
+
+#### 2026-09-08
+
+🧠 要长脑子了。 
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_111.png" alt=""  width="80%" />
+
+#### 2026-09-07
+
+「哈哈哈，你给我说这是马孔多最漂亮的女人？？我看你真该去医院看看。」   
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_110.jpg" alt=""  width="80%" />
+
 #### 2026-09-06
 
 果然，有发疯的作者就有发疯的读者。   
