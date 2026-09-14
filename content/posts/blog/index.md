@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-09-14T11:10:00+08:00
+date: 2026-09-15T00:30:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,14 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-09
+
+#### 2026-09-15
+
+等我解决完自己的事    
+我就解决你们这些给我找事的   
+杂草，都别想跑。    
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/fLi0EJfi_vg?si=TTPULNrwfYrrqMbl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 #### 2026-09-14
 
@@ -34,7 +42,7 @@ The End.
 
 🤔 最高端的猎人往往是以猎物的形式出现。   
 
-> 更正：给 emo 小狗·高留 103 次机会（102 次是无论如何都要管它。还有 1 次是无论如何都要把它拉回生活的 30% 那里面）。。。   
+> 更正：给 emo 小狗·高留 105 次机会（102 次是无论如何都要管它。还有 3 次是无论如何都要把它拉回生活的 30% 那里面）。。。   
 
 #### 2026-09-10
 
