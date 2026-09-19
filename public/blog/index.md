@@ -9,6 +9,12 @@
 
 ### 2026-09
 
+#### 2026-09-19
+
+> "MITO 所代表的是，我的美好时光总是被我的怀疑所破坏"，他说，"所以这是一个试图找到完美时刻的旅程，比如一个想法或概念或对自己的理解，而不是让它被我的低谷 /MITO 如此渗透"。
+
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/ozaRJMquP4w?si=Qiott9ggYWQb0gv-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 #### 2026-09-18
 
 😏 第三只。   
