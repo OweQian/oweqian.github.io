@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-09-19T16:35:00+08:00
+date: 2026-09-20T14:25:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,14 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-09
+
+#### 2026-09-20
+
+《百年孤独》- 马达加斯加女王 - 费尔南达·德尔·卡皮奥。      
+
+😂 笨蛋美人误入疯人院，简直了，乐死我了。    
+
+ <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_117.jpg" alt=""  width="80%" />
 
 #### 2026-09-19
 
