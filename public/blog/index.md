@@ -9,13 +9,63 @@
 
 ### 2026-09
 
+#### 2026-09-28
+
+😭 讨厌的大姨妈，没达到目标，遗憾离池。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_123.jpg" alt=""  width="40%" />
+
+#### 2026-09-27
+
+😮‍💨 有点长，三天才看一个半小时。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_122.jpg" alt=""  width="40%" />
+
+#### 2026-09-26
+
+大不列颠点子 👑。  
+"I came up with a plan."    
+"I need a machine."   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_124.jpg" alt=""  width="40%" />
+
+#### 2026-09-25
+
+emmm，第一次做红烧鱼，豆腐被我翻烂了。     
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_121.jpg" alt=""  width="40%" />
+
+#### 2026-09-24
+
+🤔 原来彻底消失才是永恒的孤独。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_120.jpg" alt=""  width="80%" />
+
+#### 2026-09-23
+
+「可以为理想主义做适当的牺牲，但绝不会为了维持人设而硬挺。」
+
+<iframe width="100%" height="560"  src="//player.bilibili.com/player.html?isOutside=true&aid=117057202947882&bvid=BV1UNuu6AERy&cid=40702250863&p=1&autoplay=false" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+#### 2026-09-22
+
+最喜欢的两位女性：👸🏻 · 乌尔苏拉、👼🏻 · 雷梅黛丝（上校的妻子）。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_119.jpg" alt=""  width="40%" />
+
+#### 2026-09-21
+
+🤔 小猫咪也有烦恼吗？  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_118.jpg" alt=""  width="40%" />
+
 #### 2026-09-20
 
 《百年孤独》- 马达加斯加女王 - 费尔南达·德尔·卡皮奥。      
 
 😂 笨蛋美人误入疯人院，简直了，乐死我了。    
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_117.jpg" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_117.jpg" alt=""  width="80%" />
 
 #### 2026-09-19
 
@@ -27,7 +77,7 @@
 
 😏 第三只。   
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_116.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_116.jpg" alt=""  width="40%" />
 
 #### 2026-09-17
 
@@ -43,7 +93,7 @@
 「我啷个晓得清醒过来就这样了」
 「这我家客厅」
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_115.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_115.jpg" alt=""  width="40%" />
 
 #### 2026-09-15
 
@@ -61,13 +111,13 @@
 
 😊 哈哈哈，终于我不是泳池里，那个为了躲别人呛水的小菜蛙了，害另一个妹子一直呛水。   
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_114.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_114.jpg" alt=""  width="40%" />
 
 #### 2026-09-12
 
 The End.   
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_113.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_113.jpg" alt=""  width="40%" />
 
 #### 2026-09-11
 
@@ -83,19 +133,19 @@ The End.
 
  🤔 得好好研究下怎么提速了。   
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_112.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_112.jpg" alt=""  width="40%" />
 
 #### 2026-09-08
 
 🧠 要长脑子了。 
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_111.png" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_111.png" alt=""  width="80%" />
 
 #### 2026-09-07
 
 「哈哈哈，你给我说这是马孔多最漂亮的女人？？我看你真该去医院看看。」   
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_110.jpg" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_110.jpg" alt=""  width="80%" />
 
 #### 2026-09-06
 
@@ -108,7 +158,7 @@ The End.
 
 😭 吃了没文化的亏，没法读原版，只能读中文版 📚 + 看电视剧 📺。   
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_109.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_109.jpg" alt=""  width="40%" />
 
 #### 2026-09-04
 
@@ -128,7 +178,7 @@ The End.
 
 如果女猪脚成功杀了第三个人，阻止了世界末日，那么在世人眼里她就是精神病。导演的善良给到了女猪脚，为了证明你是对的，全世界毁灭又怎样！！！    
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_108.jpg" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_108.jpg" alt=""  width="80%" />
 
 #### 2026-09-01
 
@@ -150,19 +200,19 @@ The End.
 
 被喂了一口 💩，农夫与蛇的故事。   
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_107.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_107.jpg" alt=""  width="40%" />
 
 #### 2026-08-28
 
 🤔 「人工智能可在元宇宙中构建新世界，但也引发重大的伦理问题？」
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_106.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_106.jpg" alt=""  width="40%" />
 
 #### 2026-08-27
 
 「瞬间勇敢，终归摇摆，真实的魅力，恰在摇摆之间。」
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_105.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_105.jpg" alt=""  width="40%" />
 
 #### 2026-08-26
 
@@ -180,31 +230,31 @@ so sad...
 
 🤔 蔚来 nomi？
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_104.jpg" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_104.jpg" alt=""  width="80%" />
 
 #### 2026-08-23
 
 猎鹰与詹姆斯...   
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_103.jpg" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_103.jpg" alt=""  width="80%" />
 
 #### 2026-08-22
 
 🤮 你给我说这长得像蟑螂、被打爆会喷射追踪器的东西是机器狗？
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_102.jpg" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_102.jpg" alt=""  width="80%" />
 
 #### 2026-08-21
 
 > 如果鳄鱼咬住你的脚，你用手去帮忙挣脱，它会同时咬住你的脚和手。你挣扎地越厉害，被咬住的部位就越多，最后会吞噬全身。唯一的办法就是牺牲被咬住的那只脚，果断离开。
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_101.jpg" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_101.jpg" alt=""  width="80%" />
 
 #### 2026-08-20
 
 「我哭了，我装的」
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_100.png" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_100.png" alt=""  width="80%" />
 
 #### 2026-08-19
 
@@ -220,19 +270,19 @@ so sad...
 
 「🕊️ 愿世界和平」
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_99.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_99.jpg" alt=""  width="40%" />
 
 #### 2026-08-16
 
 《Black Mirror》S3E6，所有喜欢躲在屏幕后的以 "多数人意志" 合理化杀戮的 "键盘侠" 都应该去看看这集。  
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_98.jpg" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_98.jpg" alt=""  width="80%" />
 
 #### 2026-08-15
 
 「TCKR SYSTEM，欢迎来到永生世界。」   
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_97.jpg" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_97.jpg" alt=""  width="80%" />
 
 #### 2026-08-14
 
@@ -260,13 +310,13 @@ so sad...
 
 「多跟 AI 聊天，少跟中老登聊天」  
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_96.png" alt=""  width="80%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_96.png" alt=""  width="80%" />
 
 #### 2026-08-09
 
  🏊🏻 舒坦。  
 
- <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_95.jpg" alt=""  width="40%" />
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_95.jpg" alt=""  width="40%" />
 
 #### 2026-08-08
 
