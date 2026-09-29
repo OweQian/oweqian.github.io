@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-09-28T11:10:00+08:00
+date: 2026-09-29T16:10:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-09
+
+#### 2026-09-29
+
+世界上只有一种真正的英雄主义，那就是在认清生活的真相后，依然热爱生活。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_125.jpg" alt=""  width="40%" />
 
 #### 2026-09-28
 
