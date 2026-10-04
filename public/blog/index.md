@@ -7,7 +7,51 @@
 
 ## 2026
 
+### 2026-10
+
+#### 2026-10-04
+
+我："你看看，你非要节假日出来，哪都是人，吃饭排队，去卫生间排队，干啥都排队"      
+老佛爷："............"     
+
+---------------------------------------------------------------   
+
+我："下回节假日还出来吗？"       
+老佛爷："你出来吗？"      
+我："我不出来，我愿意在家躺着。"      
+老佛爷："你不出来，我怎么出来呀！"     
+我："行，下回还带你出来"    
+老佛爷："行"      
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_130.jpg" alt=""  width="40%" />
+
+#### 2026-10-03
+
+🤔 原来这才是正版。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_129.jpg" alt=""  width="80%" />
+
+#### 2026-10-02
+
+🫪 烤串虽好，不能贪多。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_128.jpg" alt=""  width="40%" />
+
+#### 2026-10-01
+
+🫪 饭挺好吃的。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_127.jpg" alt=""  width="40%" />
+
 ### 2026-09
+
+#### 2026-09-30
+
+😜 科技改变生活。    
+科技让人们在享受极致的自由前，先被关在 🏢 里憋一会。     
+此处特别鸣谢：emo 小狗·高！  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_126.jpg" alt=""  width="40%" />
 
 #### 2026-09-29
 
@@ -93,11 +137,11 @@ emmm，第一次做红烧鱼，豆腐被我翻烂了。
 
 #### 2026-09-16
 
-「激光雷达有辐射」
-「出风口有迷药」
-「上车被夺舍」
-「我啷个晓得清醒过来就这样了」
-「这我家客厅」
+「激光雷达有辐射」   
+「出风口有迷药」    
+「上车被夺舍」    
+「我啷个晓得清醒过来就这样了」   
+「这我家客厅」    
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_115.jpg" alt=""  width="40%" />
 
