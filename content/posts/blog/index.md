@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-10-04T23:05:00+08:00
+date: 2026-10-05T20:05:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,12 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-10
+
+#### 2026-10-05
+
+😊 我看这 P0 什么时候能跑通。      
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_130.png" alt=""  width="80%" />
 
 #### 2026-10-04
 
