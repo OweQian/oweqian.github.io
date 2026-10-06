@@ -9,6 +9,18 @@
 
 ### 2026-10
 
+#### 2026-10-06
+
+😠 可恶！   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_131.png" alt=""  width="80%" />
+
+#### 2026-10-05
+
+😊 我看这 P0 什么时候能跑通。      
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_130.png" alt=""  width="80%" />
+
 #### 2026-10-04
 
 我："你看看，你非要节假日出来，哪都是人，吃饭排队，去卫生间排队，干啥都排队"      
