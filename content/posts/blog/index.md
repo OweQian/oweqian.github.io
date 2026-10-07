@@ -30,7 +30,7 @@ categories: ["碎碎念"]
 
 #### 2026-10-06
 
-😠 可恶！   
+🤔 啧，果然人还是得多读书。   
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_131.png" alt=""  width="80%" />
 
