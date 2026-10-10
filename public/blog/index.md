@@ -9,9 +9,39 @@
 
 ### 2026-10
 
+#### 2026-10-10
+
+> 幸好万箭击中的是我的心脏，而不是我的翅膀，心死翼未伤，亦可去远方。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_134.jpg" alt=""  width="40%" />
+
+#### 2026-10-09
+
+冷漠吗？自私吗？也还好吧，被所有人理解，并没有那么重要了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_133.png" alt=""  width="80%" />
+
+#### 2026-10-08
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_132.jpg" alt=""  width="40%" />
+
+#### 2026-10-07
+
+🤔 2026-10 ~ 2026-12 准备做的几件事（括号里的内容不重要）：             
+1、行动（实现 80% 的目标）     
+2、早睡（养足 90% 的元气）           
+3、运动（解决 80% 的疾病）        
+4、读书（决定 60% 的命运）      
+5、闭嘴（降低 70% 的纷争）      
+6、拒绝（减少 90% 的内耗）   
+7、冷漠（省去 80% 的麻烦）   
+8、复盘（规避 70% 的弯路）   
+9、自律（掌控 90% 的节奏）     
+10、有钱（解决 95% 的问题）     
+
 #### 2026-10-06
 
-😠 可恶！   
+🤔 啧，果然人还是得多读书。   
 
 <img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_131.png" alt=""  width="80%" />
 

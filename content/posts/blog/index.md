@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-10-07T15:30:00+08:00
+date: 2026-10-10T18:30:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,22 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-10
+
+#### 2026-10-10
+
+> 幸好万箭击中的是我的心脏，而不是我的翅膀，心死翼未伤，亦可去远方。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_134.jpg" alt=""  width="40%" />
+
+#### 2026-10-09
+
+冷漠吗？自私吗？也还好吧，被所有人理解，并没有那么重要了。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_133.png" alt=""  width="80%" />
+
+#### 2026-10-08
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_132.jpg" alt=""  width="40%" />
 
 #### 2026-10-07
 
