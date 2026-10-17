@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-10-13T14:10:00+08:00
+date: 2026-10-17T22:50:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -13,6 +13,39 @@ categories: ["碎碎念"]
 ## 2026
 
 ### 2026-10
+
+#### 2026-10-17
+
+😏 嘻嘻，比上一个 1500 米快了 6 分钟。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_139.jpg" alt=""  width="40%" />
+
+#### 2026-10-16
+
+😭 山治，我最爱的山治。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_138.jpg" alt=""  width="40%" />
+
+#### 2026-10-15
+
+我一天的精神状态：    
+1、早呀，我是一条鱼         
+2、今天我要温柔对待所有人                 
+3、搞不出来，不干了         
+4、我得想办法搞出来      
+5、我要凭实力保住这份工作             
+6、思考哲学问题     
+7、救命，举不动了，胳膊要折了   
+8、饿了能吃掉一头牛    
+9、我是精神病             
+10、全是煞笔把你们都鲨了          
+11、困了，睡觉      
+
+#### 2026-10-14
+
+😄 嘿嘿，真好喝。     
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_137.jpg" alt=""  width="40%" />
 
 #### 2026-10-13
 
