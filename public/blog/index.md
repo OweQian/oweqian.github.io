@@ -9,6 +9,12 @@
 
 ### 2026-10
 
+#### 2026-10-18
+
+原来不是 "一百年"，而是 "一秒钟"。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_140.jpg" alt=""  width="40%" />
+
 #### 2026-10-17
 
 😏 嘻嘻，比上一个 1500 米快了 6 分钟。   
