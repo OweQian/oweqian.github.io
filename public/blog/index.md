@@ -9,6 +9,25 @@
 
 ### 2026-10
 
+#### 2026-10-20
+
+哈哈哈哈。   
+
+<iframe width="100%" height="560" src="//player.bilibili.com/player.html?isOutside=true&aid=117457826095042&bvid=BV1T8J66CEEu&cid=42830136889&p=1&autoplay=false" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+#### 2026-10-19
+
+🤔 已下单，是时候读《毛泽东选集》+《实践论》+《论持久战》了。
+
+> 没有调查就没有发言权    
+> 集中力量打歼灭战    
+> 伤其十指不如断其一指    
+> 从群众中来到群众中去    
+> 文明其精神，野蛮其体魄    
+> 要把个人放到更大的事业、更大的集体中去    
+> 星星之火可以燎原    
+> 世上无难事，只要肯登攀    
+
 #### 2026-10-18
 
 😭 《百年孤独》，原来不是 "一百年"，而是 "一秒钟"、"一瞬间"。     
