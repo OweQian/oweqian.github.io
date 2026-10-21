@@ -1141,7 +1141,7 @@
 </span></span><span class="line"><span class="cl">  <span class="c1">// 如果设置为 -1，则表示缓存数据永不过期
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">cacheTime</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// if cache out, clear it
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="err">(</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">cache</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="nx">cacheTime</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
