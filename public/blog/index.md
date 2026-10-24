@@ -9,6 +9,24 @@
 
 ### 2026-10
 
+#### 2026-10-24
+
+✌🏻 挑战成功。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_144.jpg" alt=""  width="40%" />
+
+#### 2026-10-23
+
+☀️ Life's shit, but I'm loving it.   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_143.jpg" alt=""  width="80%" />
+
+#### 2026-10-22
+
+「干票大的！」
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_142.jpg" alt=""  width="40%" />
+
 #### 2026-10-21
 
 😊 当你终于鼓起勇气，从头开始梳理入职后，自己设计的功能，越看越生气，越琢磨越生气。    
