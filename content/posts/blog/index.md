@@ -4,6 +4,10 @@ date: 2026-10-27T16:40:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
+layout: "notes"
+lightgallery: true
+toc: false
+aliases: ["/timeline/"]
 ---
 
 每天都像开盲盒，今天开到的是什么呢？

@@ -1,0 +1,29 @@
+{{- $source := index (split . "\n## 历史文章") 0 -}}
+{{- $entries := slice -}}
+{{- $date := "" -}}
+{{- $body := slice -}}
+{{- range $line := split $source "\n" -}}
+    {{- $match := findRESubmatch `^#####\s+(\d{4}-\d{2}-\d{2})(?:\s|$)` $line -}}
+    {{- if $match -}}
+        {{- if $date -}}
+            {{- $text := delimit $body "\n" | markdownify | plainify | htmlUnescape -}}
+            {{- $entries = $entries | append (dict "date" $date "text" $text) -}}
+        {{- end -}}
+        {{- $date = index (index $match 0) 1 -}}
+        {{- $body = slice -}}
+    {{- else if findRE `^#{2,5}\s` $line -}}
+        {{- if $date -}}
+            {{- $text := delimit $body "\n" | markdownify | plainify | htmlUnescape -}}
+            {{- $entries = $entries | append (dict "date" $date "text" $text) -}}
+        {{- end -}}
+        {{- $date = "" -}}
+        {{- $body = slice -}}
+    {{- else if $date -}}
+        {{- $body = $body | append $line -}}
+    {{- end -}}
+{{- end -}}
+{{- if $date -}}
+    {{- $text := delimit $body "\n" | markdownify | plainify | htmlUnescape -}}
+    {{- $entries = $entries | append (dict "date" $date "text" $text) -}}
+{{- end -}}
+{{- return $entries -}}

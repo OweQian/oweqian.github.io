@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>碎碎念编辑器 · OweQian</title>
+  <link rel="stylesheet" href="/editor.css">
+  <script type="module" src="/editor.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div><p>OWEQIAN / NOTES STUDIO</p><h1>碎碎念编辑器</h1></div>
+    </div>
+    <span class="file-path">content/posts/blog/index.md</span>
+    <div class="top-actions">
+      <span class="save-state" id="save-state" role="status">载入中…</span>
+      <a id="blog-link" href="/" target="_blank" rel="noopener">查看时光轴 <span aria-hidden="true">↗</span></a>
+      <button class="button primary" id="save" type="button" disabled>保存 <kbd>⌘S</kbd></button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar">
+      <section class="new-entry" aria-labelledby="new-entry-title">
+        <div class="section-label"><h2 id="new-entry-title">写下这一天</h2><span id="entry-total"></span></div>
+        <div class="new-entry-row">
+          <input type="date" id="new-date" aria-label="新记录日期">
+          <button class="button primary" id="new-entry" type="button">新建 / 定位</button>
+        </div>
+      </section>
+      <div class="search-box">
+        <label for="entry-search">查找记录</label>
+        <input type="search" id="entry-search" placeholder="日期、标题或正文" autocomplete="off">
+      </div>
+      <div class="entry-list" id="entry-list" role="listbox" aria-label="碎碎念日期列表"></div>
+      <div class="sidebar-note"><span class="status-dot" aria-hidden="true"></span>只编辑这一份 Markdown，不读取其他文章</div>
+    </aside>
+
+    <section class="editor-area">
+      <div class="draft-banner" id="draft-banner" hidden>
+        <p>发现这份文件的本地草稿，尚未写入博客。</p>
+        <div><button class="button subtle" id="restore-draft" type="button">恢复草稿</button><button class="button text" id="discard-draft" type="button">放弃</button></div>
+      </div>
+
+      <div class="empty-state" id="empty-state">
+        <span class="empty-mark" aria-hidden="true">Q.</span>
+        <h2>从一个日期开始</h2>
+        <p>在左侧选择一条记录，或写下今天的碎碎念。</p>
+      </div>
+
+      <div class="entry-editor" id="entry-editor" hidden>
+        <header class="entry-header">
+          <div><p class="eyebrow">DAILY NOTE</p><h2 id="selected-date"></h2></div>
+          <button class="button danger" id="delete-entry" type="button">删除这条</button>
+        </header>
+
+        <div class="entry-meta">
+          <label>日期<input type="date" id="entry-date"></label>
+          <label class="title-field">标题 <span>可选</span><input type="text" id="entry-title" maxlength="300" placeholder="给这一天留一句话"></label>
+        </div>
+
+        <div class="editor-toolbar">
+          <div class="view-switch" role="group" aria-label="编辑视图">
+            <button type="button" data-view="edit" aria-pressed="false">编辑</button>
+            <button type="button" data-view="split" aria-pressed="true">分屏</button>
+            <button type="button" data-view="preview" aria-pressed="false">预览</button>
+          </div>
+          <span id="character-count">0 字符</span>
+        </div>
+
+        <div class="editor-panels" id="editor-panels" data-view="split">
+          <div class="markdown-pane">
+            <textarea id="entry-body" spellcheck="false" aria-label="碎碎念 Markdown 正文" placeholder="今天，有什么值得记住的？"></textarea>
+            <div class="pane-footer"><span>Markdown</span><span>草稿只保存在本机浏览器</span></div>
+          </div>
+          <article class="preview-pane" id="preview" aria-label="Markdown 预览"></article>
+        </div>
+        <footer class="editor-footer"><span id="save-detail">保存时自动生成备份</span><span>只写文件，不提交、不推送</span></footer>
+      </div>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>
