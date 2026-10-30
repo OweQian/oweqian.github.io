@@ -206,6 +206,16 @@ const server = createServer(async (req, res) => {
       return res.end();
     }
 
+    if (url.pathname === '/favicon.ico') {
+      res.writeHead(204, headers());
+      return res.end();
+    }
+    if (STATIC_FILES.has(url.pathname) && req.method === 'GET') {
+      const [file, type] = STATIC_FILES.get(url.pathname);
+      res.writeHead(200, headers({ 'content-type': type }));
+      return res.end(await readFile(path.join(PUBLIC_DIR, file)));
+    }
+
     const session = requireSession(req, res);
     if (url.pathname === '/api/notes') {
       if (req.method === 'GET') return json(res, 200, clientState(await store.state()));
@@ -226,15 +236,6 @@ const server = createServer(async (req, res) => {
       const uploaded = await store.uploadMedia({ ...media, buffer });
       session.uploads.set(uploaded.id, uploaded);
       return json(res, 201, { id: uploaded.id, path: uploaded.path, kind: uploaded.kind });
-    }
-    if (url.pathname === '/favicon.ico') {
-      res.writeHead(204, headers());
-      return res.end();
-    }
-    if (STATIC_FILES.has(url.pathname) && req.method === 'GET') {
-      const [file, type] = STATIC_FILES.get(url.pathname);
-      res.writeHead(200, headers({ 'content-type': type }));
-      return res.end(await readFile(path.join(PUBLIC_DIR, file)));
     }
     json(res, 404, { error: 'Not found' });
   } catch (error) {
