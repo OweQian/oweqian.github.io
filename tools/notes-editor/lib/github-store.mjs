@@ -58,7 +58,7 @@ export function createGitHubStore({ repository, branch, token, apiUrl = 'https:/
       method: 'POST',
       body: { content: media.buffer.toString('base64'), encoding: 'base64' },
     });
-    return { id: media.id, path: media.path, kind: media.kind, blobSha: blob.sha };
+    return { id: media.id, path: media.path, kind: media.kind, blobSha: blob.sha, storage: 'github' };
   }
 
   async function save(payload, media) {
@@ -67,6 +67,9 @@ export function createGitHubStore({ repository, branch, token, apiUrl = 'https:/
       fail('GitHub 上的版本已经变化，草稿仍保留，请重新载入后再保存', 409);
     }
     const output = buildOutput(current.raw, payload);
+    if (media.some((item) => item.storage === 'oss' && (!item.publicUrl || !output.includes(item.publicUrl)))) {
+      fail('媒体引用与上传记录不一致，请重新上传后保存');
+    }
     const base = await request(`/git/commits/${current.headSha}`);
     const tree = await request('/git/trees', {
       method: 'POST',
@@ -74,7 +77,7 @@ export function createGitHubStore({ repository, branch, token, apiUrl = 'https:/
         base_tree: base.tree.sha,
         tree: [
           { path: NOTES_PATH, mode: '100644', type: 'blob', content: output },
-          ...media.map((item) => ({ path: item.path, mode: '100644', type: 'blob', sha: item.blobSha })),
+          ...media.filter((item) => item.storage !== 'oss').map((item) => ({ path: item.path, mode: '100644', type: 'blob', sha: item.blobSha })),
         ],
       },
     });
