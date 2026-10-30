@@ -93,6 +93,7 @@ test('online sign-in assets are public while notes and media require a session',
   });
   for (const [path, method] of [
     ['/api/notes', 'GET'],
+    ['/api/media/library', 'GET'],
     ['/api/notes', 'POST'],
     ['/api/media?type=image/png&date=2026-10-30', 'POST'],
   ]) {
