@@ -97,6 +97,9 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # website images for Open Graph and Twitter Cards
   images = ["/logo.png"]
 
+  [params.notesEditor]
+    url = "https://notes.oweqian.xyz/"
+
 # Author config
   [params.author]
     name = "OweQian 的精神角落"

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="60" y1="20" x2="1140" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#11182D"/>
+      <stop offset="0.48" stop-color="#20204A"/>
+      <stop offset="1" stop-color="#0B3442"/>
+    </linearGradient>
+    <linearGradient id="title" x1="80" y1="80" x2="800" y2="240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F1F4FF"/>
+      <stop offset="0.5" stop-color="#B9B8FF"/>
+      <stop offset="1" stop-color="#79E2F2"/>
+    </linearGradient>
+    <linearGradient id="line" x1="760" y1="100" x2="1080" y2="240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(970 100) rotate(120) scale(300 360)">
+      <stop stop-color="#8B5CF6" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="320" rx="28" fill="url(#bg)"/>
+  <rect width="1200" height="320" rx="28" fill="url(#glow)"/>
+  <path d="M0 268C220 210 370 330 610 264C850 198 990 278 1200 204V320H0V268Z" fill="#22D3EE" fill-opacity="0.035"/>
+  <g opacity="0.18" stroke="#B9C5E8" stroke-width="0.7">
+    <path d="M80 48H1120M80 92H1120M80 136H1120M80 180H1120M80 224H1120M80 268H1120"/>
+    <path d="M120 32V288M240 32V288M360 32V288M480 32V288M600 32V288M720 32V288M840 32V288M960 32V288M1080 32V288"/>
+  </g>
+  <rect x="80" y="64" width="164" height="30" rx="15" fill="#A78BFA" fill-opacity="0.13" stroke="#A78BFA" stroke-opacity="0.5"/>
+  <text x="162" y="84" text-anchor="middle" fill="#C4B5FD" font-family="Menlo, monospace" font-size="12" letter-spacing="2">NOTES STUDIO</text>
+  <text x="80" y="158" fill="url(#title)" font-family="-apple-system, BlinkMacSystemFont, PingFang SC, sans-serif" font-size="48" font-weight="650" letter-spacing="-1">在线碎碎念编辑器</text>
+  <text x="82" y="204" fill="#A9B6D3" font-family="-apple-system, BlinkMacSystemFont, PingFang SC, sans-serif" font-size="21">富文本 · 图片与视频 · 原子发布 · 近期思绪</text>
+  <text x="82" y="252" fill="#6F82A6" font-family="Menlo, monospace" font-size="13" letter-spacing="1.2">HUGO  /  NODE 20  /  GITHUB  /  RENDER</text>
+  <circle cx="940" cy="156" r="100" stroke="url(#line)" stroke-opacity="0.18"/>
+  <circle cx="940" cy="156" r="74" stroke="url(#line)" stroke-opacity="0.32"/>
+  <circle cx="940" cy="156" r="42" fill="#A78BFA" fill-opacity="0.08" stroke="url(#line)"/>
+  <circle cx="940" cy="156" r="70" fill="#22D3EE" fill-opacity="0.08" filter="url(#soft)"/>
+  <text x="940" y="177" text-anchor="middle" fill="url(#title)" font-family="Menlo, monospace" font-size="62" font-style="italic">Q.</text>
+  <circle cx="1032" cy="100" r="5" fill="#22D3EE"/>
+  <circle cx="846" cy="212" r="4" fill="#A78BFA"/>
+  <circle cx="1018" cy="232" r="3" fill="#F0ABFC"/>
+  <path d="M1032 100L1080 64M846 212L794 248M1018 232L1070 260" stroke="url(#line)" stroke-opacity="0.6"/>
+</svg>

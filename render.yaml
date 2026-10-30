@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: oweqian-notes-editor
+    runtime: node
+    plan: free
+    region: singapore
+    branch: dev
+    buildCommand: node --check tools/notes-editor/server.mjs
+    startCommand: node tools/notes-editor/server.mjs
+    autoDeployTrigger: 'off'
+    healthCheckPath: /api/health
+    domains:
+      - notes.oweqian.xyz
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NODE_ENV
+        value: production
+      - key: NOTES_EDITOR_MODE
+        value: github
+      - key: NOTES_EDITOR_HOST
+        value: 0.0.0.0
+      - key: NOTES_EDITOR_BLOG_URL
+        value: https://www.oweqian.xyz/blog/
+      - key: GITHUB_REPOSITORY
+        value: OweQian/oweqian.github.io
+      - key: GITHUB_BRANCH
+        value: dev
+      - key: EDITOR_USERNAME
+        value: wangxiaobai
+      - key: EDITOR_PASSWORD
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false

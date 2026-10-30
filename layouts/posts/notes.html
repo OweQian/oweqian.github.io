@@ -5,6 +5,8 @@
 {{- $entries := $notes.entries -}}
 {{- $years := $notes.years -}}
 {{- $months := $notes.months -}}
+{{- $editorURL := .Site.Params.notesEditor.url | default "" -}}
+{{- if hugo.IsServer -}}{{- $editorURL = "http://127.0.0.1:1314/" -}}{{- end -}}
 <div class="page single timeline-page" data-notes-page data-density="comfortable">
     <header class="timeline-hero">
         <div class="timeline-heading">
@@ -14,8 +16,8 @@
             </div>
             <nav class="timeline-page-actions" aria-label="时光轴操作">
                 <a class="timeline-home-link" href="{{ "/" | relURL }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> 首页</a>
-                {{- if hugo.IsServer -}}
-                <a class="timeline-editor-link" href="http://127.0.0.1:1314/" target="_blank" rel="noopener" aria-label="在本地编辑器中写下碎碎念"><i class="fas fa-pen" aria-hidden="true"></i><span>写一点</span></a>
+                {{- if $editorURL -}}
+                <a class="timeline-editor-link" href="{{ $editorURL }}" target="_blank" rel="noopener" aria-label="在编辑器中写下碎碎念"><i class="fas fa-pen" aria-hidden="true"></i><span>写一点</span></a>
                 {{- end -}}
             </nav>
         </div>
@@ -110,8 +112,8 @@
                     <h2><a class="timeline-date-link" href="#{{ .date }}"><time datetime="{{ .date }}">{{ .date }}</time></a></h2>
                     <div class="timeline-entry-actions">
                         <a href="#{{ .date }}" title="本条记录链接" aria-label="链接到 {{ .date }}">#</a>
-                        {{- if hugo.IsServer -}}
-                        <a href="http://127.0.0.1:1314/?date={{ .date }}" target="_blank" rel="noopener" title="在本地编辑器中打开" aria-label="编辑 {{ .date }}"><i class="fas fa-pen" aria-hidden="true"></i> 编辑</a>
+                        {{- if $editorURL -}}
+                        <a href="{{ $editorURL }}?date={{ .date }}" target="_blank" rel="noopener" title="在编辑器中打开" aria-label="编辑 {{ .date }}"><i class="fas fa-pen" aria-hidden="true"></i> 编辑</a>
                         {{- end -}}
                     </div>
                 </header>

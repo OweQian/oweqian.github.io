@@ -36,7 +36,7 @@ jobs:
           node-version: 20
       - name: Check JavaScript syntax
         run: |
-          for script in assets/js/blog-enhancements.js assets/js/journal-home.js tools/notes-editor/server.mjs tools/notes-editor/lib/notes.mjs tools/notes-editor/public/editor.js tools/notes-insights/generate.mjs; do
+          for script in assets/js/blog-enhancements.js assets/js/journal-home.js tools/notes-editor/server.mjs tools/notes-editor/lib/*.mjs tools/notes-editor/public/*.js tools/notes-insights/generate.mjs; do
             node --check "$script"
           done
       - name: Build with committed insights

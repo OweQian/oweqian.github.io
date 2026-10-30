@@ -9,79 +9,129 @@
   <script type="module" src="/editor.js"></script>
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <div><p>OWEQIAN / NOTES STUDIO</p><h1>碎碎念编辑器</h1></div>
-    </div>
-    <span class="file-path">content/posts/blog/index.md</span>
-    <div class="top-actions">
-      <span class="save-state" id="save-state" role="status">载入中…</span>
-      <a id="blog-link" href="/" target="_blank" rel="noopener">查看时光轴 <span aria-hidden="true">↗</span></a>
-      <button class="button primary" id="save" type="button" disabled>保存 <kbd>⌘S</kbd></button>
-    </div>
-  </header>
+  <div class="boot-state" id="boot-state" role="status">正在打开碎碎念编辑器…</div>
 
-  <main class="workspace">
-    <aside class="sidebar">
-      <section class="new-entry" aria-labelledby="new-entry-title">
-        <div class="section-label"><h2 id="new-entry-title">写下这一天</h2><span id="entry-total"></span></div>
-        <div class="new-entry-row">
-          <input type="date" id="new-date" aria-label="新记录日期">
-          <button class="button primary" id="new-entry" type="button">新建 / 定位</button>
-        </div>
-      </section>
-      <div class="search-box">
-        <label for="entry-search">查找记录</label>
-        <input type="search" id="entry-search" placeholder="日期、标题或正文" autocomplete="off">
-      </div>
-      <div class="entry-list" id="entry-list" role="listbox" aria-label="碎碎念日期列表"></div>
-      <div class="sidebar-note"><span class="status-dot" aria-hidden="true"></span>只编辑这一份 Markdown，不读取其他文章</div>
-    </aside>
-
-    <section class="editor-area">
-      <div class="draft-banner" id="draft-banner" hidden>
-        <p>发现这份文件的本地草稿，尚未写入博客。</p>
-        <div><button class="button subtle" id="restore-draft" type="button">恢复草稿</button><button class="button text" id="discard-draft" type="button">放弃</button></div>
-      </div>
-
-      <div class="empty-state" id="empty-state">
-        <span class="empty-mark" aria-hidden="true">Q.</span>
-        <h2>从一个日期开始</h2>
-        <p>在左侧选择一条记录，或写下今天的碎碎念。</p>
-      </div>
-
-      <div class="entry-editor" id="entry-editor" hidden>
-        <header class="entry-header">
-          <div><p class="eyebrow">DAILY NOTE</p><h2 id="selected-date"></h2></div>
-          <button class="button danger" id="delete-entry" type="button">删除这条</button>
-        </header>
-
-        <div class="entry-meta">
-          <label>日期<input type="date" id="entry-date"></label>
-          <label class="title-field">标题 <span>可选</span><input type="text" id="entry-title" maxlength="300" placeholder="给这一天留一句话"></label>
-        </div>
-
-        <div class="editor-toolbar">
-          <div class="view-switch" role="group" aria-label="编辑视图">
-            <button type="button" data-view="edit" aria-pressed="false">编辑</button>
-            <button type="button" data-view="split" aria-pressed="true">分屏</button>
-            <button type="button" data-view="preview" aria-pressed="false">预览</button>
-          </div>
-          <span id="character-count">0 字符</span>
-        </div>
-
-        <div class="editor-panels" id="editor-panels" data-view="split">
-          <div class="markdown-pane">
-            <textarea id="entry-body" spellcheck="false" aria-label="碎碎念 Markdown 正文" placeholder="今天，有什么值得记住的？"></textarea>
-            <div class="pane-footer"><span>Markdown</span><span>草稿只保存在本机浏览器</span></div>
-          </div>
-          <article class="preview-pane" id="preview" aria-label="Markdown 预览"></article>
-        </div>
-        <footer class="editor-footer"><span id="save-detail">保存时自动生成备份</span><span>只写文件，不提交、不推送</span></footer>
-      </div>
+  <main class="login-shell" id="login-view" hidden>
+    <section class="login-card" aria-labelledby="login-title">
+      <span class="login-mark" aria-hidden="true">Q.</span>
+      <p class="eyebrow">PRIVATE NOTES STUDIO</p>
+      <h1 id="login-title">回来写一点。</h1>
+      <p class="login-intro">登录后编辑时光轴。正文与媒体会在保存时一起提交发布。</p>
+      <form id="login-form">
+        <label>账号<input id="login-username" name="username" value="wangxiaobai" autocomplete="username" required maxlength="80"></label>
+        <label>密码<input id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="200"></label>
+        <p class="login-error" id="login-error" role="alert" hidden></p>
+        <button class="button primary login-button" id="login-submit" type="submit">登录并继续 <span aria-hidden="true">→</span></button>
+      </form>
+      <a class="login-blog-link" id="login-blog-link" href="/">先回时光轴看看 <span aria-hidden="true">↗</span></a>
+      <p class="login-footnote">密码仅提交到编辑器服务端，不会写入博客。</p>
     </section>
   </main>
+
+  <div id="editor-shell" hidden>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div><p>OWEQIAN / NOTES STUDIO</p><h1>碎碎念编辑器</h1></div>
+      </div>
+      <span class="mode-badge" id="editor-mode">本地</span>
+      <span class="file-path">content/posts/blog/index.md</span>
+      <div class="top-actions">
+        <span class="save-state" id="save-state" role="status">载入中…</span>
+        <a id="publication-link" href="#" target="_blank" rel="noopener" hidden>查看提交 <span aria-hidden="true">↗</span></a>
+        <a id="blog-link" href="/" target="_blank" rel="noopener">查看时光轴 <span aria-hidden="true">↗</span></a>
+        <button class="button text" id="logout" type="button" hidden>退出</button>
+        <button class="button primary" id="save" type="button" disabled><span id="save-label">保存</span> <kbd>⌘S</kbd></button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar">
+        <section class="new-entry" aria-labelledby="new-entry-title">
+          <div class="section-label"><h2 id="new-entry-title">写下这一天</h2><span id="entry-total"></span></div>
+          <div class="new-entry-row">
+            <input type="date" id="new-date" aria-label="新记录日期">
+            <button class="button primary" id="new-entry" type="button">新建 / 定位</button>
+          </div>
+        </section>
+        <div class="search-box">
+          <label for="entry-search">查找记录</label>
+          <input type="search" id="entry-search" placeholder="日期、标题或正文" autocomplete="off">
+        </div>
+        <div class="entry-list" id="entry-list" role="listbox" aria-label="碎碎念日期列表"></div>
+        <div class="sidebar-note"><span class="status-dot" aria-hidden="true"></span><span id="sidebar-storage-note">只编辑这一份 Markdown，不读取其他文章</span></div>
+      </aside>
+
+      <section class="editor-area">
+        <div class="draft-banner" id="draft-banner" hidden>
+          <p>发现这份文件的本地草稿，尚未保存。</p>
+          <div><button class="button subtle" id="restore-draft" type="button">恢复草稿</button><button class="button text" id="discard-draft" type="button">放弃</button></div>
+        </div>
+
+        <div class="empty-state" id="empty-state">
+          <span class="empty-mark" aria-hidden="true">Q.</span>
+          <h2>从一个日期开始</h2>
+          <p>在左侧选择一条记录，或写下今天的碎碎念。</p>
+        </div>
+
+        <div class="entry-editor" id="entry-editor" hidden>
+          <header class="entry-header">
+            <div><p class="eyebrow">DAILY NOTE</p><h2 id="selected-date"></h2></div>
+            <button class="button danger" id="delete-entry" type="button">删除这条</button>
+          </header>
+
+          <div class="entry-meta">
+            <label>日期<input type="date" id="entry-date"></label>
+            <label class="title-field">标题 <span>可选</span><input type="text" id="entry-title" maxlength="300" placeholder="给这一天留一句话"></label>
+          </div>
+
+          <div class="format-toolbar" aria-label="正文编辑工具">
+            <div class="format-buttons" role="toolbar" aria-label="富文本格式">
+              <button type="button" data-format="h2" title="大标题">H2</button>
+              <button type="button" data-format="h3" title="小标题">H3</button>
+              <button type="button" data-format="bold" title="粗体"><strong>B</strong></button>
+              <button type="button" data-format="italic" title="斜体"><em>I</em></button>
+              <button type="button" data-format="blockquote" title="引用">引用</button>
+              <button type="button" data-format="insertUnorderedList" title="无序列表">列表</button>
+              <button type="button" data-format="insertOrderedList" title="有序列表">编号</button>
+              <button type="button" id="insert-link" title="插入链接">链接</button>
+              <span class="toolbar-divider" aria-hidden="true"></span>
+              <button type="button" data-media-picker="image" title="上传或粘贴图片">图片</button>
+              <button type="button" data-media-picker="video" title="上传视频">视频</button>
+            </div>
+            <div class="view-switch" role="group" aria-label="编辑视图">
+              <button type="button" data-view="rich" aria-pressed="true">富文本</button>
+              <button type="button" data-view="source" aria-pressed="false">Markdown</button>
+              <button type="button" data-view="split" aria-pressed="false">分屏</button>
+            </div>
+          </div>
+          <form class="link-form" id="link-form" hidden>
+            <label for="link-url">链接地址</label><input type="url" id="link-url" placeholder="https://" required>
+            <button class="button primary" type="submit">插入</button><button class="button text" id="cancel-link" type="button">取消</button>
+          </form>
+
+          <div class="editor-panels" id="editor-panels" data-view="rich">
+            <div class="rich-pane">
+              <div id="rich-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="碎碎念富文本正文" data-placeholder="今天，有什么值得记住的？可以直接粘贴图文。"></div>
+              <div class="pane-footer"><span>富文本</span><span>支持网页粘贴、剪贴板贴图和视频</span></div>
+            </div>
+            <div class="markdown-pane">
+              <textarea id="entry-body" spellcheck="false" aria-label="碎碎念 Markdown 正文" placeholder="今天，有什么值得记住的？"></textarea>
+              <div class="pane-footer"><span>Markdown</span><span id="character-count">0 字符</span></div>
+            </div>
+            <article class="preview-pane" id="preview" aria-label="正文预览"></article>
+          </div>
+          <section class="media-tray" id="media-tray" aria-labelledby="media-title" hidden>
+            <header><h3 id="media-title">待发布媒体</h3><span id="media-summary"></span></header>
+            <div class="media-list" id="media-list"></div>
+          </section>
+          <footer class="editor-footer"><span id="save-detail">保存时自动生成备份</span><span id="storage-detail">只写文件，不提交、不推送</span></footer>
+        </div>
+      </section>
+    </main>
+  </div>
+  <input type="file" id="image-input" accept="image/jpeg,image/png,image/gif,image/webp" multiple hidden>
+  <input type="file" id="video-input" accept="video/mp4,video/webm,video/ogg" multiple hidden>
   <div class="toast" id="toast" role="status" hidden></div>
 </body>
 </html>
