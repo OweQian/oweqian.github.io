@@ -122,6 +122,8 @@ hugo --gc --minify
 
 本审核分支不是 `dev`，单独推送它不会触发当前 `dev` 分支部署，也不会自动合并或上线。
 
+提交到 `dev` 的 PR 另由 `.github/workflows/pr-build.yml` 验证：检查关键 JavaScript 语法，使用 Hugo 0.141.0 Extended 构建到临时目录，并核对正文日期、时光轴刻度、首页记录与发布后的思绪 JSON。此检查使用仓库已提交的静态思绪，不调用模型、不需要 Secret，也不部署；生产部署仍需先配置上述密钥。
+
 ## 9. 本地预览与验证
 
 主站预览：
@@ -151,7 +153,7 @@ hugo --gc --minify --baseURL https://www.oweqian.xyz/
 - 页面只请求同源 JSON；1315 停止后仍能正常显示。
 - 桌面与手机 Chromium、明暗主题、图片预览、键盘操作、减少动态效果及无横向溢出。
 - 编辑器指定日期新建不会自动写入正文。
-- CI 缺少 Secret 会明确失败，本地缺少 Secret 不会破坏已有 JSON。
+- 生产部署缺少 Secret 会明确失败；PR 构建检查不需要 Secret，本地缺少 Secret 不会破坏已有 JSON。
 - 源码与静态思绪 JSON 中没有本次使用的真实密钥。
 
 ## 10. 审核边界
