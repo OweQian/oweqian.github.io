@@ -98,6 +98,7 @@
               <span class="toolbar-divider" aria-hidden="true"></span>
               <button type="button" data-media-picker="image" title="上传或粘贴图片">图片</button>
               <button type="button" data-media-picker="video" title="上传视频">视频</button>
+              <button type="button" id="open-media-library" aria-haspopup="dialog" aria-controls="media-library" hidden>媒体库</button>
             </div>
             <div class="view-switch" role="group" aria-label="编辑视图">
               <button type="button" data-view="rich" aria-pressed="true">富文本</button>
@@ -130,6 +131,20 @@
       </section>
     </main>
   </div>
+  <dialog class="media-library" id="media-library" aria-labelledby="media-library-title">
+    <header class="media-library-header">
+      <div><h2 id="media-library-title">媒体库</h2><p>选择已有图片或视频，插入当前草稿。</p></div>
+      <button class="button text" id="media-library-close" type="button" aria-label="关闭媒体库">关闭</button>
+    </header>
+    <nav class="media-library-navigation" aria-label="媒体目录">
+      <button class="button" id="media-library-parent" type="button" disabled>上一级</button>
+      <span id="media-library-path">根目录</span>
+    </nav>
+    <p class="media-library-status" id="media-library-status" role="status" aria-live="polite"></p>
+    <div class="media-library-folders" id="media-library-folders"></div>
+    <div class="media-library-items" id="media-library-items"></div>
+    <footer class="media-library-footer"><button class="button" id="media-library-more" type="button" hidden>加载更多</button></footer>
+  </dialog>
   <input type="file" id="image-input" accept="image/jpeg,image/png,image/gif,image/webp" multiple hidden>
   <input type="file" id="video-input" accept="video/mp4,video/webm,video/ogg" multiple hidden>
   <div class="toast" id="toast" role="status" hidden></div>
