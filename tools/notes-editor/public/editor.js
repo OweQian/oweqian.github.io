@@ -166,7 +166,7 @@ function setDirty() {
   $('#save-state').classList.toggle('is-dirty', state.dirty);
   clearTimeout(draftTimer);
   if (state.dirty) draftTimer = setTimeout(saveDraft, 350);
-  else localStorage.removeItem(DRAFT_KEY);
+  else if (!pendingDraft) localStorage.removeItem(DRAFT_KEY);
 }
 
 function saveDraft() {
@@ -267,6 +267,7 @@ async function save() {
     applyState(data, date);
     await media.finalize(ids);
     pendingDraft = null;
+    localStorage.removeItem(DRAFT_KEY);
     $('#save-state').textContent = data.publication?.mode === 'github' ? '已提交，等待部署' : `已保存 ${new Date().toLocaleTimeString('zh-CN', { hour12: false })}`;
     $('#draft-banner').hidden = true;
     notify(data.publication?.mode === 'github' ? '正文已提交，媒体已就绪，GitHub Actions 将自动部署' : '已保存到碎碎念，原文件已备份');
