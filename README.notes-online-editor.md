@@ -7,7 +7,7 @@
 
   <p>
     <a href="https://gohugo.io/"><img src="https://img.shields.io/badge/Hugo-0.141.0_Extended-7C3AED?style=for-the-badge&logo=hugo&logoColor=white" alt="Hugo 0.141.0 Extended"></a>
-    <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-20-159957?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js 20"></a>
+    <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-24-159957?style=for-the-badge&logo=node.js&logoColor=white" alt="在线编辑器 Node.js 24"></a>
     <a href="https://github.com/features/actions"><img src="https://img.shields.io/badge/GitHub_Actions-Automated-2563EB?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions"></a>
     <a href="https://render.com/"><img src="https://img.shields.io/badge/Render-Singapore-06B6D4?style=for-the-badge&logo=render&logoColor=white" alt="Render Singapore"></a>
   </p>
@@ -29,7 +29,7 @@
 | 模块 | 技术与位置 | 职责 |
 | --- | --- | --- |
 | **主站** | Hugo 0.141.0 Extended + LoveIt | 首页、时光轴、文章与媒体静态展示 |
-| **在线编辑器** | Node 20 · `tools/notes-editor` · Render | 固定账号认证、富文本、媒体上传与原子提交 |
+| **在线编辑器** | Node 24 · `tools/notes-editor` · Render | 固定账号认证、富文本、媒体上传与原子提交 |
 | **内容仓库** | `OweQian/oweqian.github.io` · `dev` | 唯一正文 `content/posts/blog/index.md` 与版本历史 |
 | **媒体存储** | `static/uploads/notes/YYYY/MM/` | 发布后映射为 `/uploads/notes/YYYY/MM/` |
 | **近期思绪** | Actions · `static/data/insights.json` | 构建期分析最近记录，主站读取同源静态 JSON |
@@ -39,7 +39,7 @@
 
 ```mermaid
 flowchart LR
-    A["浏览器<br/>固定账号登录"] -->|"编辑与上传"| B["Render<br/>Node 20 编辑器"]
+    A["浏览器<br/>固定账号登录"] -->|"编辑与上传"| B["Render<br/>Node 24 编辑器"]
     B -->|"正文 + 媒体<br/>同一个 Commit"| C["GitHub<br/>dev 分支"]
     C -->|"Push 触发"| D["GitHub Actions<br/>近期思绪 + Hugo"]
     D -->|"静态产物"| E["GitHub Pages<br/>主站与媒体"]
@@ -90,7 +90,7 @@ flowchart LR
 | `NOTES_EDITOR_MODE` | `github` | 否 |
 | `NOTES_EDITOR_HOST` | `0.0.0.0` | 否 |
 | `NOTES_EDITOR_BLOG_URL` | `https://www.oweqian.xyz/blog/` | 否 |
-| `NODE_VERSION` | `20` | 否 |
+| `NODE_VERSION` | `24` | 否 |
 
 真实密码、PAT、DeepSeek 密钥均不得写入 `config.toml`、`render.yaml`、前端 JS、Markdown、截图或公开文档。固定短密码防护能力有限，服务已做登录限流，但仍建议仅私人使用；若怀疑泄露，立即更换环境变量并重启服务。
 
@@ -108,7 +108,7 @@ flowchart LR
 
 ## 5. 部署在线编辑器到 Render
 
-根目录 `render.yaml` 已声明服务、Node 20、新加坡区域、健康检查、自定义域名及待填 Secret。自动部署关闭，避免每次写碎碎念都重启编辑器；以后更新编辑器代码后，在 Render 手动 **Deploy latest commit**。
+根目录 `render.yaml` 已声明服务、Node 24、新加坡区域、健康检查、自定义域名及待填 Secret。自动部署关闭，避免每次写碎碎念都重启编辑器；以后更新编辑器代码后，在 Render 手动 **Deploy latest commit**。
 
 前提：PR 已审核并合并到原仓库 `dev`。
 
