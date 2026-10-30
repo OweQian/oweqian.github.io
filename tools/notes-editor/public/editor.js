@@ -1,11 +1,11 @@
 import { renderMarkdown, markdownFromRich, sanitizePaste } from './rich-text.js';
-import { createMediaManager } from './media.js';
+import { createMediaManager, createMediaLibrary } from './media.js';
 
 const $ = (selector) => document.querySelector(selector);
 const DRAFT_KEY = 'oweqian-notes-editor-draft-v1';
 const state = {
   entries: [], revision: '', headSha: '', selectedId: null, dirty: false, snapshot: '',
-  blogUrl: '', mode: 'local', view: 'rich', saving: false,
+  blogUrl: '', mode: 'local', mediaStorage: '', view: 'rich', saving: false,
 };
 let draftTimer = null;
 let toastTimer = null;
@@ -33,6 +33,20 @@ const media = createMediaManager({
   onChange: renderMedia,
   onSessionExpired: () => showLogin('登录已失效，草稿仍保留，请重新登录。'),
 });
+const mediaLibrary = createMediaLibrary({
+  onChange: renderMediaLibrary,
+  onSessionExpired: () => showLogin('登录已失效，请重新登录后查看媒体库。'),
+  onInsert(markdown) {
+    if (!selected()) throw new Error('请先选择一条记录');
+    if (state.view === 'rich') insertRichFragment(renderMarkdown(markdown, media));
+    else {
+      $('#entry-body').setSelectionRange(sourceSelection.start, sourceSelection.end);
+      insertSource(`\n${markdown}\n`);
+    }
+    $('#media-library').close();
+    notify('已插入媒体，保存后发布');
+  },
+});
 
 async function request(url, options) {
   const response = await fetch(url, options);
@@ -46,6 +60,9 @@ async function request(url, options) {
 
 function showLogin(message = '') {
   saveDraft();
+  media.resetUploadReceipts();
+  if ($('#media-library').open) $('#media-library').close();
+  mediaLibrary.reset();
   $('#boot-state').hidden = true;
   $('#editor-shell').hidden = true;
   $('#login-view').hidden = false;
@@ -64,7 +81,9 @@ function showEditor() {
   $('#editor-mode').textContent = online ? '在线发布' : '本地';
   $('#logout').hidden = !online;
   $('#save-label').textContent = online ? '保存并发布' : '保存';
-  $('#storage-detail').textContent = online ? '正文与新媒体同一提交 · 自动触发部署' : '只写文件，不提交、不推送';
+  $('#storage-detail').textContent = online ? '媒体就绪后提交正文 · 自动触发部署' : '只写文件，不提交、不推送';
+  $('#open-media-library').hidden = state.mediaStorage !== 'oss';
+  if (state.mediaStorage !== 'oss' && $('#media-library').open) $('#media-library').close();
   $('#sidebar-storage-note').textContent = online ? '仅编辑碎碎念与本次上传的媒体' : '只编辑这一份 Markdown，不读取其他文章';
   $('#blog-link').href = state.blogUrl;
   $('#login-blog-link').href = state.blogUrl;
@@ -165,6 +184,7 @@ function applyState(data, selectedDate) {
   state.headSha = data.headSha || '';
   state.blogUrl = data.blogUrl;
   state.mode = data.mode;
+  state.mediaStorage = data.mediaStorage || '';
   state.selectedId = state.entries.find((entry) => entry.date === selectedDate)?.id ?? state.entries[0]?.id ?? null;
   state.snapshot = serialize();
   $('#blog-link').href = data.blogUrl;
@@ -249,7 +269,7 @@ async function save() {
     pendingDraft = null;
     $('#save-state').textContent = data.publication?.mode === 'github' ? '已提交，等待部署' : `已保存 ${new Date().toLocaleTimeString('zh-CN', { hour12: false })}`;
     $('#draft-banner').hidden = true;
-    notify(data.publication?.mode === 'github' ? '正文与媒体已提交，GitHub Actions 将自动部署' : '已保存到碎碎念，原文件已备份');
+    notify(data.publication?.mode === 'github' ? '正文已提交，媒体已就绪，GitHub Actions 将自动部署' : '已保存到碎碎念，原文件已备份');
   } catch (error) {
     $('#save-state').textContent = '保存失败，草稿仍在';
     notify(error.status === 409 ? `版本冲突：${error.message}` : `保存失败：${error.message}`, true);
@@ -417,6 +437,57 @@ async function removeMedia(id) {
   setDirty();
 }
 
+function renderMediaLibrary(library) {
+  $('#media-library-path').textContent = library.prefix || '根目录';
+  $('#media-library-parent').disabled = library.loading || library.parentPrefix === null;
+  $('#media-library-more').hidden = !library.nextContinuationToken;
+  $('#media-library-more').disabled = library.loading;
+  $('#media-library-status').textContent = library.error || (library.loading ? '正在读取媒体…' : !library.folders.length && !library.items.length ? '这个目录还没有可用的图片或视频' : `${library.items.length} 个媒体`);
+  $('#media-library-status').classList.toggle('is-error', Boolean(library.error));
+  const folders = document.createDocumentFragment();
+  library.folders.forEach((folder) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'button media-library-folder';
+    button.textContent = `▸ ${folder.name}`;
+    button.disabled = library.loading;
+    button.addEventListener('click', () => mediaLibrary.open(folder.prefix).catch((error) => notify(error.message, true)));
+    folders.append(button);
+  });
+  $('#media-library-folders').replaceChildren(folders);
+  const items = document.createDocumentFragment();
+  library.items.forEach((item) => {
+    const card = document.createElement('article');
+    card.className = 'media-library-item';
+    const preview = document.createElement(item.kind === 'image' ? 'img' : 'video');
+    preview.className = 'media-library-preview';
+    preview.src = item.publicUrl;
+    if (item.kind === 'image') {
+      preview.alt = item.name;
+      preview.loading = 'lazy';
+    } else {
+      preview.controls = true;
+      preview.preload = 'metadata';
+      preview.playsInline = true;
+    }
+    const name = document.createElement('p');
+    name.className = 'media-library-name';
+    name.textContent = item.name;
+    name.title = item.key;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'button subtle';
+    button.textContent = '插入到草稿';
+    button.disabled = library.loading || !selected();
+    button.addEventListener('click', () => {
+      try { mediaLibrary.insert(item); } catch (error) { notify(error.message, true); }
+    });
+    card.append(preview, name, button);
+    items.append(card);
+  });
+  $('#media-library-items').replaceChildren(items);
+}
+
 function createEntry(date) {
   if (!date) return notify('请先选择日期', true);
   const existing = state.entries.find((entry) => entry.date === date);
@@ -447,6 +518,7 @@ $('#login-form').addEventListener('submit', async (event) => {
     });
     state.mode = data.mode;
     state.blogUrl = data.blogUrl;
+    media.resetUploadReceipts();
     showEditor();
     await load();
   } catch (error) {
@@ -533,6 +605,19 @@ $('#insert-link').addEventListener('click', () => {
   $('#link-form').hidden = false;
   $('#link-url').focus();
 });
+$('#open-media-library').addEventListener('click', () => {
+  if (state.mediaStorage !== 'oss' || !selected()) return;
+  rememberSelection();
+  sourceSelection = { start: $('#entry-body').selectionStart, end: $('#entry-body').selectionEnd };
+  $('#media-library').showModal();
+  mediaLibrary.open(mediaLibrary.snapshot().prefix).catch((error) => notify(error.message, true));
+});
+$('#media-library-close').addEventListener('click', () => $('#media-library').close());
+$('#media-library-parent').addEventListener('click', () => {
+  const parent = mediaLibrary.snapshot().parentPrefix;
+  if (parent !== null) mediaLibrary.open(parent).catch((error) => notify(error.message, true));
+});
+$('#media-library-more').addEventListener('click', () => mediaLibrary.more().catch((error) => notify(error.message, true)));
 $('#cancel-link').addEventListener('click', () => { $('#link-form').hidden = true; });
 $('#link-form').addEventListener('submit', (event) => {
   event.preventDefault();
