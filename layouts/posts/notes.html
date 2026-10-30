@@ -1,0 +1,134 @@
+{{- define "title" }}{{ .Title }} - {{ .Site.Title }}{{- end -}}
+{{- define "content" -}}
+{{- $params := .Scratch.Get "params" -}}
+{{- $notes := partial "notes/parse.html" .RawContent -}}
+{{- $entries := $notes.entries -}}
+{{- $years := $notes.years -}}
+{{- $months := $notes.months -}}
+<div class="page single timeline-page" data-notes-page data-density="comfortable">
+    <header class="timeline-hero">
+        <div class="timeline-heading">
+            <div>
+                <h1>{{ .Title | emojify }}</h1>
+                <div class="timeline-intro-text">{{ $notes.intro | markdownify }}</div>
+            </div>
+            <nav class="timeline-page-actions" aria-label="时光轴操作">
+                <a class="timeline-home-link" href="{{ "/" | relURL }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> 首页</a>
+                {{- if hugo.IsServer -}}
+                <a class="timeline-editor-link" href="http://127.0.0.1:1314/" target="_blank" rel="noopener" aria-label="在本地编辑器中写下碎碎念"><i class="fas fa-pen" aria-hidden="true"></i><span>写一点</span></a>
+                {{- end -}}
+            </nav>
+        </div>
+    </header>
+
+    <button class="timeline-ruler-toggle" type="button" data-notes-ruler-toggle aria-expanded="false" aria-controls="notes-date-ruler"><i class="far fa-calendar-alt" aria-hidden="true"></i> 日期</button>
+    <div class="timeline-ruler-wrap" id="notes-date-ruler" data-notes-ruler-wrap>
+        <output class="timeline-ruler-current" data-notes-ruler-current>{{ (index $entries 0).date }}</output>
+        <button class="timeline-ruler-close" type="button" data-notes-ruler-close aria-label="收起日期刻度"><i class="fas fa-times" aria-hidden="true"></i></button>
+        <div class="timeline-ruler" data-notes-ruler tabindex="0" role="slider" aria-label="按日期浏览碎碎念" aria-valuemin="1" aria-valuemax="{{ len $entries }}" aria-valuenow="1" aria-valuetext="{{ (index $entries 0).date }}">
+            {{- $lastMonth := "" -}}
+            {{- $lastYear := "" -}}
+            {{- range $entries -}}
+            {{- $monthStart := ne .month $lastMonth -}}
+            {{- $yearStart := ne .year $lastYear -}}
+            <a href="#{{ .date }}" class="{{ if $monthStart }}is-month-start{{ end }}{{ if $yearStart }} is-year-start{{ end }}" data-ruler-date="{{ .date }}" tabindex="-1" aria-label="{{ .date }}">
+                <span class="timeline-ruler-mark"></span>
+                {{- if $monthStart -}}<span class="timeline-ruler-label">{{ substr .month 5 2 }}月</span>{{- end -}}
+            </a>
+            {{- $lastMonth = .month -}}
+            {{- $lastYear = .year -}}
+            {{- end -}}
+        </div>
+    </div>
+    <div class="timeline-ruler-tooltip" data-notes-ruler-tooltip role="tooltip" hidden><strong></strong><span></span></div>
+
+    <main class="timeline-main">
+        <details class="timeline-tools" data-notes-tools>
+            <summary><span><i class="fas fa-sliders-h" aria-hidden="true"></i> 阅读工具</span><kbd aria-hidden="true">/</kbd></summary>
+            <div class="timeline-toolbar" aria-label="碎碎念阅读工具">
+                <div class="timeline-search">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input type="search" data-notes-search placeholder="找一个词、一天或一段心情" aria-label="搜索碎碎念" autocomplete="off">
+                    <kbd aria-hidden="true">/</kbd>
+                    <button type="button" data-notes-search-clear aria-label="清空搜索" hidden><i class="fas fa-times" aria-hidden="true"></i></button>
+                </div>
+                <div class="timeline-filterbar">
+                    <div class="timeline-year-filters" role="group" aria-label="按年份查看碎碎念">
+                        <button type="button" class="is-active" data-notes-year-filter="all" aria-pressed="true">全部</button>
+                        {{- range $years -}}
+                        <button type="button" data-notes-year-filter="{{ . }}" aria-pressed="false">{{ . }}</button>
+                        {{- end -}}
+                    </div>
+                    <div class="timeline-jump-controls">
+                        <div class="timeline-jump-control">
+                            <span class="timeline-jump-label" id="notes-month-label">月份</span>
+                            <div class="timeline-select" data-notes-select="month" data-notes-month>
+                                <button class="timeline-select-trigger" type="button" data-notes-select-trigger aria-haspopup="listbox" aria-expanded="false" aria-controls="notes-month-menu" aria-labelledby="notes-month-label notes-month-value">
+                                    <span id="notes-month-value" data-notes-select-value>全部</span><i class="fas fa-chevron-down" aria-hidden="true"></i>
+                                </button>
+                                <div class="timeline-select-menu" id="notes-month-menu" data-notes-select-menu role="listbox" aria-label="选择月份" tabindex="-1" hidden>
+                                    <div class="timeline-select-option" id="notes-month-option-all" data-notes-option="" role="option" aria-selected="true"><span>全部</span></div>
+                                    {{- range $months -}}
+                                    <div class="timeline-select-option" id="notes-month-option-{{ . }}" data-notes-option="{{ . }}" role="option" aria-selected="false"><span>{{ . }}</span></div>
+                                    {{- end -}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-jump-control">
+                            <span class="timeline-jump-label" id="notes-day-label">日期</span>
+                            <div class="timeline-select" data-notes-select="day" data-notes-day>
+                                <button class="timeline-select-trigger" type="button" data-notes-select-trigger aria-haspopup="listbox" aria-expanded="false" aria-controls="notes-day-menu" aria-labelledby="notes-day-label notes-day-value">
+                                    <span id="notes-day-value" data-notes-select-value>全部</span><i class="fas fa-chevron-down" aria-hidden="true"></i>
+                                </button>
+                                <div class="timeline-select-menu" id="notes-day-menu" data-notes-select-menu role="listbox" aria-label="选择日期" tabindex="-1" hidden>
+                                    <div class="timeline-select-option" id="notes-day-option-all" data-notes-option="" role="option" aria-selected="true"><span>全部</span></div>
+                                    {{- range $entries -}}
+                                    <div class="timeline-select-option" id="notes-day-option-{{ .date }}" data-notes-option="{{ .date }}" role="option" aria-selected="false"><span>{{ .date }}</span></div>
+                                    {{- end -}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="timeline-density" type="button" data-notes-density aria-pressed="false" title="切换为紧凑阅读"><i class="fas fa-compress-alt" aria-hidden="true"></i><span>紧凑</span></button>
+                </div>
+                <div class="timeline-filter-meta">
+                    <span data-notes-visible-status>共 {{ len $entries }} 条记录</span>
+                    <button type="button" data-notes-reset hidden>重置筛选</button>
+                </div>
+            </div>
+        </details>
+
+        <div class="timeline-stream" id="content">
+            {{- $lastMonth := "" -}}
+            {{- $lastYear := "" -}}
+            {{- range $entries -}}
+            <article class="timeline-entry" id="{{ .date }}" data-notes-entry data-date="{{ .date }}" tabindex="-1">
+                {{- if ne .year $lastYear -}}<span class="timeline-anchor" id="year-{{ .year }}" aria-hidden="true"></span>{{- end -}}
+                {{- if ne .month $lastMonth -}}<span class="timeline-anchor" id="{{ .month }}" aria-hidden="true"></span>{{- end -}}
+                <div class="timeline-node" aria-hidden="true"></div>
+                <header class="timeline-entry-header">
+                    <h2><a class="timeline-date-link" href="#{{ .date }}"><time datetime="{{ .date }}">{{ .date }}</time></a></h2>
+                    <div class="timeline-entry-actions">
+                        <a href="#{{ .date }}" title="本条记录链接" aria-label="链接到 {{ .date }}">#</a>
+                        {{- if hugo.IsServer -}}
+                        <a href="http://127.0.0.1:1314/?date={{ .date }}" target="_blank" rel="noopener" title="在本地编辑器中打开" aria-label="编辑 {{ .date }}"><i class="fas fa-pen" aria-hidden="true"></i> 编辑</a>
+                        {{- end -}}
+                    </div>
+                </header>
+                {{- with .title -}}<h3 class="timeline-entry-title">{{ . }}</h3>{{- end -}}
+                <div class="timeline-entry-content">
+                    {{- dict "Body" .body "Params" $params "Date" .date | partial "notes/render.html" -}}
+                </div>
+            </article>
+            {{- $lastMonth = .month -}}
+            {{- $lastYear = .year -}}
+            {{- end -}}
+        </div>
+        <div class="timeline-empty" data-notes-empty hidden>
+            <p>没有找到匹配的记录</p>
+            <button type="button" data-notes-empty-reset>清除搜索与筛选</button>
+        </div>
+        <p class="timeline-status" data-notes-status role="status" aria-live="polite">全部 {{ len $entries }} 条记录</p>
+    </main>
+</div>
+{{- end -}}

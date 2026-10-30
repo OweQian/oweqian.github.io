@@ -1,0 +1,101 @@
+name: Validate Hugo pull request
+
+on:
+  pull_request:
+    branches: [dev]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.141.0
+      HUGO_ENVIRONMENT: production
+      TZ: America/Los_Angeles
+    steps:
+      - name: Set temporary build paths
+        run: |
+          printf '%s\n' "HUGO_CACHEDIR=$RUNNER_TEMP/hugo-cache" "HUGO_RESOURCEDIR=$RUNNER_TEMP/hugo-resources" "SITE_DESTINATION=$RUNNER_TEMP/pr-site" >> "$GITHUB_ENV"
+      - name: Checkout proposed merge
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install Hugo Extended
+        run: |
+          wget -O "$RUNNER_TEMP/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i "$RUNNER_TEMP/hugo.deb"
+      - name: Install Dart Sass
+        run: sudo snap install dart-sass
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check JavaScript syntax
+        run: |
+          for script in assets/js/blog-enhancements.js assets/js/journal-home.js tools/notes-editor/server.mjs tools/notes-editor/lib/notes.mjs tools/notes-editor/public/editor.js tools/notes-insights/generate.mjs; do
+            node --check "$script"
+          done
+      - name: Build with committed insights
+        run: hugo --minify --baseURL https://www.oweqian.xyz/ --destination "$SITE_DESTINATION"
+      - name: Verify published notes and insights
+        run: |
+          python3 - <<'PY'
+          import datetime
+          import json
+          import os
+          from pathlib import Path
+          import re
+          from html.parser import HTMLParser
+
+          class Page(HTMLParser):
+              def __init__(self, html):
+                  super().__init__()
+                  self.entries = []
+                  self.ruler = []
+                  self.corpus = ''
+                  self.in_corpus = False
+                  self.feed(html)
+
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  if 'data-notes-entry' in attrs:
+                      self.entries.append(attrs.get('data-date'))
+                  if 'data-ruler-date' in attrs:
+                      self.ruler.append(attrs['data-ruler-date'])
+                  if tag == 'script' and 'data-journal-corpus' in attrs:
+                      self.in_corpus = True
+
+              def handle_data(self, data):
+                  if self.in_corpus:
+                      self.corpus += data
+
+              def handle_endtag(self, tag):
+                  if tag == 'script':
+                      self.in_corpus = False
+
+          source = Path('content/posts/blog/index.md').read_text()
+          dates = re.findall(r'^####\s+(\d{4}-\d{2}-\d{2})', source, re.MULTILINE)
+          assert dates, 'No dated notes found in source'
+          assert len(dates) == len(set(dates)), 'Duplicate note dates'
+          for date in dates:
+              datetime.date.fromisoformat(date)
+          expected = sorted(dates, reverse=True)
+          site = Path(os.environ['SITE_DESTINATION'])
+          timeline = Page((site / 'blog/index.html').read_text())
+          assert timeline.entries == expected, 'Published timeline lost or reordered notes'
+          assert timeline.ruler == expected, 'Timeline date navigation differs from notes'
+          home = Page((site / 'index.html').read_text())
+          corpus = json.loads(home.corpus)
+          assert [note['date'] for note in corpus['notes']] == expected, 'Homepage notes are stale or incomplete'
+          published = (site / 'data/insights.json').read_text()
+          assert published == Path('static/data/insights.json').read_text(), 'Committed insights were not published'
+          insights = json.loads(published)
+          assert insights['keywords'] and insights['thoughts'], 'Insights must include topics and thoughts'
+          for item in insights['keywords'] + insights['thoughts']:
+              assert item['sourceDate'] in dates and item['text'].strip(), 'Insight has no valid source note or text'
+          print(f'Verified {len(dates)} notes, matching date navigation, and published insights; latest note: {expected[0]}')
+          PY

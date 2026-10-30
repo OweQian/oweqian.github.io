@@ -1,0 +1,42 @@
+{{- $intro := slice -}}
+{{- $entries := slice -}}
+{{- $body := slice -}}
+{{- $date := "" -}}
+{{- $title := "" -}}
+{{- $started := false -}}
+{{- range $line := split . "\n" -}}
+    {{- $match := findRESubmatch `^####\s+(\d{4}-\d{2}-\d{2})(.*)$` $line -}}
+    {{- if $match -}}
+        {{- if $date -}}
+            {{- $entries = $entries | append (dict "date" $date "title" $title "year" (substr $date 0 4) "month" (substr $date 0 7) "body" (delimit $body "\n")) -}}
+        {{- end -}}
+        {{- $parts := index $match 0 -}}
+        {{- $date = index $parts 1 -}}
+        {{- $title = trim (index $parts 2) " " -}}
+        {{- $body = slice -}}
+        {{- $started = true -}}
+    {{- else if or (findRE `^##\s` $line) (findRE `^###\s` $line) -}}
+        {{- if $date -}}
+            {{- $entries = $entries | append (dict "date" $date "title" $title "year" (substr $date 0 4) "month" (substr $date 0 7) "body" (delimit $body "\n")) -}}
+            {{- $date = "" -}}
+            {{- $title = "" -}}
+            {{- $body = slice -}}
+        {{- end -}}
+        {{- $started = true -}}
+    {{- else if not $started -}}
+        {{- $intro = $intro | append $line -}}
+    {{- else if $date -}}
+        {{- $body = $body | append $line -}}
+    {{- end -}}
+{{- end -}}
+{{- if $date -}}
+    {{- $entries = $entries | append (dict "date" $date "title" $title "year" (substr $date 0 4) "month" (substr $date 0 7) "body" (delimit $body "\n")) -}}
+{{- end -}}
+{{- $entries = sort $entries "date" "desc" -}}
+{{- $years := slice -}}
+{{- $months := slice -}}
+{{- range $entries -}}
+    {{- $years = $years | append (substr .date 0 4) -}}
+    {{- $months = $months | append (substr .date 0 7) -}}
+{{- end -}}
+{{- return dict "intro" (delimit $intro "\n") "entries" $entries "years" (uniq $years) "months" (uniq $months) -}}

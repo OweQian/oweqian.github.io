@@ -1,0 +1,78 @@
+{{- define "content" -}}
+{{- $notesPage := index (where .Site.RegularPages "RelPermalink" "/blog/") 0 -}}
+{{- $notes := partial "notes/parse.html" $notesPage.RawContent -}}
+{{- $entries := $notes.entries -}}
+{{- $posts := where .Site.RegularPages "Type" "posts" -}}
+{{- $posts = where $posts "RelPermalink" "ne" "/blog/" -}}
+{{- $avatar := resources.Get "images/img.jpg" -}}
+{{- $noteCorpus := slice -}}
+{{- $articleCorpus := slice -}}
+{{- $historyCorpus := partial "notes/history.html" (readFile "blog-history-2022-2025.md") -}}
+{{- range partial "notes/history.html" (readFile "blog-history-start-2022.md") -}}
+    {{- $historyCorpus = $historyCorpus | append . -}}
+{{- end -}}
+{{- range $entries -}}
+    {{- $noteCorpus = $noteCorpus | append (dict "date" .date "title" .title "text" (.body | markdownify | plainify | htmlUnescape)) -}}
+{{- end -}}
+{{- range $posts -}}
+    {{- $articleCorpus = $articleCorpus | append (dict "title" .Title "keywords" (printf "%s %s" (delimit .Params.tags " ") (delimit .Params.categories " "))) -}}
+{{- end -}}
+<div class="page home journal-home" data-home="posts" data-journal-home data-timeline-url="{{ "/blog/" | relURL }}" data-insights-url="{{ "data/insights.json" | relURL }}"{{ if hugo.IsServer }} data-editor-url="http://127.0.0.1:1314/"{{ end }}>
+    <div class="journal-cursor-aura" data-journal-cursor-aura aria-hidden="true"></div>
+    <section class="journal-hero" aria-labelledby="journal-title">
+        <h1 class="journal-sr-only" id="journal-title">OweQian 的精神角落</h1>
+        <div class="journal-thoughts" data-journal-thoughts aria-label="头像与从记录中浮现的关键词">
+            <div class="journal-bubbles" data-journal-bubbles></div>
+            <div class="journal-avatar">
+                <span class="journal-avatar-ripple" aria-hidden="true"></span>
+                <span class="journal-avatar-ripple journal-avatar-ripple-late" aria-hidden="true"></span>
+                <img src="{{ $avatar.RelPermalink }}" width="{{ $avatar.Width }}" height="{{ $avatar.Height }}" alt="OweQian 的卡通头像" fetchpriority="high">
+            </div>
+        </div>
+        <div class="journal-actions">
+            <a class="journal-primary" href="{{ "/blog/" | relURL }}">走进时光轴 <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+            <button class="journal-random" type="button" data-journal-random><i class="fas fa-dice" aria-hidden="true"></i> 随便翻翻</button>
+        </div>
+        <p class="journal-insight-source" data-journal-insight-source aria-live="polite"></p>
+    </section>
+
+    <section class="journal-daybook" aria-label="今天与记录">
+        <div class="journal-today">
+            <p class="journal-label">今天</p>
+            <time data-journal-today></time>
+            <p data-journal-occasion></p>
+            <div class="journal-today-note" data-journal-today-note></div>
+            <a class="journal-today-write" data-journal-today-write hidden>写下今天 <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="journal-memory">
+            <p class="journal-label">去年今天</p>
+            <div data-journal-memory></div>
+        </div>
+        <div class="journal-numbers">
+            <p class="journal-label">这个角落</p>
+            <p><strong>{{ len $entries }}</strong> 条碎碎念<span>·</span><strong>{{ len $posts }}</strong> 篇长文章</p>
+            <small>从 {{ (index $entries (sub (len $entries) 1)).date }} 写到 {{ (index $entries 0).date }}</small>
+            <button type="button" data-site-nav-open>看看其他文章 <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+        </div>
+    </section>
+
+    <section class="journal-recent" aria-labelledby="journal-recent-title">
+        <header class="journal-section-heading">
+            <h2 id="journal-recent-title">最近，留下几页。</h2>
+            <a href="{{ "/blog/" | relURL }}">全部记录 <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </header>
+        <div class="journal-note-list">
+            {{- range first 3 $entries -}}
+            <article>
+                <a class="journal-note-date" href="{{ "/blog/" | relURL }}#{{ .date }}"><time datetime="{{ .date }}">{{ .date }}</time></a>
+                <div>
+                    {{- with .title -}}<h3>{{ . }}</h3>{{- end -}}
+                    <p>{{ .body | markdownify | plainify | truncate 170 }}</p>
+                </div>
+            </article>
+            {{- end -}}
+        </div>
+    </section>
+    <script type="application/json" data-journal-corpus>{{ dict "notes" $noteCorpus "articles" $articleCorpus "history" $historyCorpus | jsonify | safeJS }}</script>
+</div>
+{{- end -}}

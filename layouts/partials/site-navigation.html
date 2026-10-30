@@ -1,0 +1,40 @@
+{{- $articles := where .Site.RegularPages "Type" "posts" -}}
+{{- $articles = where $articles "RelPermalink" "ne" "/blog/" -}}
+<button class="site-nav-trigger" type="button" data-site-nav-open aria-label="打开角落索引" aria-haspopup="dialog">
+    <span class="site-nav-monogram" aria-hidden="true">Q</span><span>索引</span><kbd>⌘K</kbd>
+</button>
+<button class="theme-switch site-theme-toggle" type="button" data-site-theme-toggle aria-label="切换明暗模式"><i class="fas fa-sun" aria-hidden="true"></i><span data-site-theme-label>白天</span></button>
+<dialog class="site-nav-dialog" data-site-nav aria-label="角落索引">
+    <div class="site-nav-shell">
+        <header class="site-nav-header">
+            <div class="site-nav-brand"><span aria-hidden="true">Q.</span><div><strong>精神角落</strong><small>日子与心情，放在这里。</small></div></div>
+            <button type="button" data-site-nav-close aria-label="关闭索引"><i class="fas fa-times" aria-hidden="true"></i></button>
+        </header>
+        <nav class="site-nav-primary" aria-label="主要内容">
+            <a href="{{ "/blog/" | relURL }}"><span>时光轴</span><small>每一天，都值得被看见</small><i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+            <a href="{{ "/" | relURL }}"><span>首页</span><small>最近写下的一些片段</small></a>
+        </nav>
+        <div class="site-nav-search">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <input type="search" data-site-nav-search placeholder="搜索文章、标签或分类" aria-label="搜索其他文章" autocomplete="off">
+            <kbd>ESC</kbd>
+        </div>
+        <div class="site-nav-result-meta"><span data-site-nav-count>最近记录</span><a href="{{ "/posts/" | relURL }}">全部文章</a></div>
+        <div class="site-nav-results" data-site-nav-results>
+            {{- range $index, $article := $articles -}}
+            {{- $searchText := lower (printf "%s %s %s %s" $article.Title ($article.Summary | plainify) (delimit $article.Params.tags " ") (delimit $article.Params.categories " ")) -}}
+            <a href="{{ $article.RelPermalink }}" data-site-nav-item data-search="{{ $searchText }}"{{ if ge $index 6 }} data-site-nav-extra hidden{{ end }}>
+                <time datetime="{{ $article.Date.Format "2006-01-02" }}">{{ $article.Date.Format "2006.01.02" }}</time>
+                <span><strong>{{ $article.Title }}</strong><small>{{ delimit $article.Params.categories " / " }}</small></span>
+                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            {{- end -}}
+            <p class="site-nav-empty" data-site-nav-empty hidden>没有找到相关文章，换个关键词试试。</p>
+        </div>
+        <footer class="site-nav-footer">
+            <a href="{{ "/about/" | relURL }}">关于我</a>
+            <a href="{{ "/rss.xml" | relURL }}">RSS</a>
+            <button class="theme-switch" type="button"><i class="fas fa-adjust" aria-hidden="true"></i><span>切换明暗</span></button>
+        </footer>
+    </div>
+</dialog>

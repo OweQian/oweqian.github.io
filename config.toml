@@ -65,6 +65,14 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     title = ""
   [[menu.main]]
     weight = 4
+    identifier = "timeline"
+    pre = ""
+    post = ""
+    name = "时光轴"
+    url = "/blog/"
+    title = "按年月日浏览碎碎念"
+  [[menu.main]]
+    weight = 5
     identifier = "rss"
     pre = '<i class="fas fa-rss fa-fw" aria-hidden="true"></i>'
     post = ""
@@ -85,7 +93,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # website title for Open Graph and Twitter Cards
   title = "OweQian 的精神角落"
   # website description for RSS, SEO, Open Graph and Twitter Cards
-  description = "OweQian's blog"
+  description = "OweQian 的心情、日常与时光记录"
   # website images for Open Graph and Twitter Cards
   images = ["/logo.png"]
 
@@ -167,7 +175,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
   #  Search config
   [params.search]
-    enable = true
+    enable = false
     # type of search engine ["lunr", "algolia"]
     type = "lunr"
     # max index length of the chunked content
@@ -201,7 +209,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       #  title shown in home page (HTML format is supported)
       title = ""
       # subtitle shown in home page (HTML format is supported)
-      subtitle = "人生，就是玩游戏~"
+      subtitle = "日子不必惊天动地，也值得被记住。"
       # whether to use typeit animation for subtitle
       typeit = true
       # whether to show social links

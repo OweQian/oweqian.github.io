@@ -1,0 +1,109 @@
+{
+  "version": 2,
+  "source": "analysis",
+  "generatedAt": "2026-10-29T13:32:31.959Z",
+  "recentThrough": "2026-10-27",
+  "recentCount": 12,
+  "keywords": [
+    {
+      "text": "目标达成",
+      "kind": "notes",
+      "sourceDate": "2026-10-26",
+      "weight": 9
+    },
+    {
+      "text": "告别过去",
+      "kind": "notes",
+      "sourceDate": "2026-10-25",
+      "weight": 8
+    },
+    {
+      "text": "挑战成功",
+      "kind": "notes",
+      "sourceDate": "2026-10-24",
+      "weight": 7
+    },
+    {
+      "text": "生活态度",
+      "kind": "notes",
+      "sourceDate": "2026-10-23",
+      "weight": 6
+    },
+    {
+      "text": "干票大的",
+      "kind": "notes",
+      "sourceDate": "2026-10-22",
+      "weight": 5
+    },
+    {
+      "text": "工作复盘",
+      "kind": "notes",
+      "sourceDate": "2026-10-21",
+      "weight": 4
+    },
+    {
+      "text": "阅读与自救",
+      "kind": "notes",
+      "sourceDate": "2026-10-19",
+      "weight": 2
+    },
+    {
+      "text": "跑步进步",
+      "kind": "notes",
+      "sourceDate": "2026-10-17",
+      "weight": 2
+    }
+  ],
+  "thoughts": [
+    {
+      "text": "回头看那段跌进深渊的日子，没人来救，反而逼着自己学会处理眼前的问题，这大概就是自救的开始。",
+      "kind": "thought",
+      "origin": "generated",
+      "sourceDate": "2026-10-27",
+      "weight": 8
+    },
+    {
+      "text": "当时设计的烂功能，现在越看越气，但骂完自己还得改，承认做得差是进步的第一步。",
+      "kind": "thought",
+      "origin": "generated",
+      "sourceDate": "2026-10-21",
+      "weight": 3
+    },
+    {
+      "text": "孤独或许不是身边没人，而是明白一切不可复现，所以每个瞬间都得自己扛。",
+      "kind": "thought",
+      "origin": "generated",
+      "sourceDate": "2026-10-18",
+      "weight": 3
+    },
+    {
+      "text": "从刷题到跑步，从读书到复盘，能一直往前走，不是因为强大，而是因为别无选择。",
+      "kind": "thought",
+      "origin": "generated",
+      "sourceDate": "2026-10-27",
+      "weight": 8
+    },
+    {
+      "text": "人并不总靠顿悟走出低谷，更多时候，只是把今天该做的一件小事做完了。",
+      "kind": "thought",
+      "origin": "original",
+      "sourceDate": "2026-10-27",
+      "weight": 7
+    },
+    {
+      "text": "自由有时不是远方，而是不再替别人的沉默寻找理由。",
+      "kind": "thought",
+      "origin": "original",
+      "sourceDate": "2026-10-26",
+      "weight": 7
+    },
+    {
+      "text": "成熟并非对一切释然，是知道哪些事值得生气，哪些人不必再等。",
+      "kind": "thought",
+      "origin": "original",
+      "sourceDate": "2026-10-25",
+      "weight": 6
+    }
+  ],
+  "sourceHash": "5290e170ba60503e5108dce9ea048d6fade8825db107f96020f8ef3b4ba289a0"
+}

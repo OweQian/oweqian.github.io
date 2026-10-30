@@ -1,0 +1,7 @@
+{{- $params := .Params -}}
+{{- $content := dict "Content" (.Body | markdownify) "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" -}}
+{{- $content = replaceRE `<iframe\s` `<iframe loading="lazy" ` $content -}}
+{{- $content = replaceRE `<img\s` `<img loading="lazy" decoding="async" ` $content -}}
+{{- $galleryLink := printf `<a class="lightgallery" href="${2}" data-thumbnail="${2}" title="%s" aria-label="查看 %s 的图片">${1}</a>` .Date .Date -}}
+{{- $content = replaceRE `(<img\b[^>]*\bsrc="([^"]+)"[^>]*>)` $galleryLink $content -}}
+{{- return ($content | safeHTML) -}}
