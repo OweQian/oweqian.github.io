@@ -1428,14 +1428,20 @@ html main .timeline-anchor {
     }
   }
 
-  iframe {
+  iframe,
+  video {
     display: block;
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
     margin: 1rem 0;
+    background: #17191d;
     border: 1px solid var(--notes-line);
     border-radius: 6px;
+  }
+
+  video {
+    max-height: 75vh;
   }
 
   blockquote {

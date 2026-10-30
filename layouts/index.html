@@ -17,7 +17,9 @@
 {{- range $posts -}}
     {{- $articleCorpus = $articleCorpus | append (dict "title" .Title "keywords" (printf "%s %s" (delimit .Params.tags " ") (delimit .Params.categories " "))) -}}
 {{- end -}}
-<div class="page home journal-home" data-home="posts" data-journal-home data-timeline-url="{{ "/blog/" | relURL }}" data-insights-url="{{ "data/insights.json" | relURL }}"{{ if hugo.IsServer }} data-editor-url="http://127.0.0.1:1314/"{{ end }}>
+{{- $editorURL := .Site.Params.notesEditor.url | default "" -}}
+{{- if hugo.IsServer -}}{{- $editorURL = "http://127.0.0.1:1314/" -}}{{- end -}}
+<div class="page home journal-home" data-home="posts" data-journal-home data-timeline-url="{{ "/blog/" | relURL }}" data-insights-url="{{ "data/insights.json" | relURL }}"{{ with $editorURL }} data-editor-url="{{ . }}"{{ end }}>
     <div class="journal-cursor-aura" data-journal-cursor-aura aria-hidden="true"></div>
     <section class="journal-hero" aria-labelledby="journal-title">
         <h1 class="journal-sr-only" id="journal-title">OweQian 的精神角落</h1>
@@ -32,6 +34,9 @@
         <div class="journal-actions">
             <a class="journal-primary" href="{{ "/blog/" | relURL }}">走进时光轴 <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
             <button class="journal-random" type="button" data-journal-random><i class="fas fa-dice" aria-hidden="true"></i> 随便翻翻</button>
+            {{- with $editorURL }}
+            <a class="journal-random" href="{{ . }}" target="_blank" rel="noopener"><i class="fas fa-pen" aria-hidden="true"></i> 写一点</a>
+            {{- end }}
         </div>
         <p class="journal-insight-source" data-journal-insight-source aria-live="polite"></p>
     </section>

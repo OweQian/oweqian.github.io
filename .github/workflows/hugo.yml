@@ -57,6 +57,7 @@ jobs:
       - name: Generate recent insights
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_MODEL: ${{ vars.DEEPSEEK_MODEL || 'deepseek-chat' }}
         run: node tools/notes-insights/generate.mjs
       - name: Build with Hugo
         env:
