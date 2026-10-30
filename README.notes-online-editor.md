@@ -148,7 +148,7 @@ flowchart LR
 | `OSS_ACCESS_KEY_ID` | 专用 RAM 用户的 AccessKey ID，仅填 Render |
 | `OSS_ACCESS_KEY_SECRET` | 同一用户的 AccessKey Secret，仅填 Render |
 
-不要使用阿里云主账号 AccessKey。为编辑器建立专用 RAM 用户，使用以下策略：只允许向 `oweqian/notes/*` 上传，并列举 `oweqian` 中的目录和文件用于媒体库。对象使用随机名称且上传时禁止覆盖，不授予删除对象、修改 ACL 或访问其他 Bucket 的能力。真实 AccessKey 不得写入 GitHub、浏览器前端或文档。
+不要使用阿里云主账号 AccessKey。为编辑器建立专用 RAM 用户，使用以下策略：只允许向 `oweqian/notes/*` 上传，并列举 `oweqian` 中的目录和文件用于媒体库。新对象路径包含稳定上传 ID 和文件内容 SHA-256；不同内容使用不同路径，重试先校验已存在的同内容文件。不授予删除对象、修改 ACL 或访问其他 Bucket 的能力。真实 AccessKey 不得写入 GitHub、浏览器前端或文档。
 
 ```json
 {
@@ -174,6 +174,8 @@ flowchart LR
 浏览器只向同源 `/api/media` 上传，由 Render 用 OSS V4 签名发送请求。无需为该接入增加 OSS 跨域规则，也不需要把长期密钥或短期签名链接交给浏览器。正文写入永久 HTTPS 地址，不写会过期的下载签名 URL。
 
 此站点原有 Bucket 已为公共读，新增 `notes/` 媒体沿用该读取方式，因此上传后即可以通过 URL 访问，包括尚未保存正文的文件。不要上传私人文件。接入无需改动 Bucket ACL 或把 Bucket 设置为公共写。
+
+此站点的 Bucket 已开启版本控制，接入保持该设置。OSS 的 `x-oss-forbid-overwrite` 在版本控制 Bucket 中不构成覆盖保护，因此通过内容指纹生成独立路径并在重试时先检查对象；极端并发的同内容上传仍可能产生额外历史版本。
 
 OSS 和 GitHub 没有共同事务：上传成功后，正文提交仍可能发生版本冲突或网络超时。草稿和待发布文件保留供重试；服务不会自动或批量删除 OSS 对象，移除正文中的链接也不会删除对象。上线前使用明确的测试媒体确认上传、永久链接和发布后的展示。
 
