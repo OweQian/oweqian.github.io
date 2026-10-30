@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createLocalStore } from './lib/local-store.mjs';
 import { createGitHubStore } from './lib/github-store.mjs';
+import { createOssMediaStore } from './lib/oss-media-store.mjs';
 import { validateMedia, MAX_MEDIA_SIZE } from './lib/media.mjs';
 import { fail, MAX_NOTE_SIZE } from './lib/store-common.mjs';
 
@@ -13,6 +14,9 @@ const PUBLIC_DIR = path.join(ROOT, 'tools', 'notes-editor', 'public');
 const MODE = process.env.NOTES_EDITOR_MODE || 'local';
 if (!['local', 'github'].includes(MODE)) throw new Error('NOTES_EDITOR_MODE 只支持 local 或 github');
 const ONLINE = MODE === 'github';
+const MEDIA_STORAGE = process.env.MEDIA_STORAGE || 'github';
+if (!['github', 'oss'].includes(MEDIA_STORAGE)) throw new Error('MEDIA_STORAGE 只支持 github 或 oss');
+if (MEDIA_STORAGE === 'oss' && !ONLINE) throw new Error('OSS 媒体存储仅支持 github 在线模式');
 const HOST = process.env.NOTES_EDITOR_HOST || (ONLINE ? '0.0.0.0' : '127.0.0.1');
 const PORT = Number(process.env.PORT || process.env.NOTES_EDITOR_PORT || 1314);
 const BLOG_URL = process.env.NOTES_EDITOR_BLOG_URL || 'http://192.168.102.113:1313/blog/';
@@ -45,6 +49,16 @@ const store = ONLINE
         ? path.resolve(process.env.NOTES_EDITOR_BACKUP_DIR)
         : path.join(ROOT, '.cache', 'notes-editor', 'backups'),
     });
+const mediaStore = ONLINE && MEDIA_STORAGE === 'oss'
+  ? createOssMediaStore({
+      bucket: process.env.OSS_BUCKET,
+      region: process.env.OSS_REGION,
+      accessKeyId: process.env.OSS_ACCESS_KEY_ID,
+      accessKeySecret: process.env.OSS_ACCESS_KEY_SECRET,
+      publicBaseUrl: process.env.OSS_PUBLIC_BASE_URL,
+      prefix: process.env.OSS_PREFIX,
+    })
+  : store;
 
 function headers(extra = {}) {
   return {
@@ -140,7 +154,7 @@ async function binaryBody(req, limit) {
 }
 
 function clientState(value) {
-  return { ...value, mode: MODE, blogUrl: BLOG_URL };
+  return { ...value, mode: MODE, blogUrl: BLOG_URL, mediaStorage: ONLINE ? MEDIA_STORAGE : 'local' };
 }
 
 function uploadedMedia(session, descriptors) {
@@ -217,6 +231,17 @@ const server = createServer(async (req, res) => {
     }
 
     const session = requireSession(req, res);
+    if (url.pathname === '/api/media/library') {
+      if (MEDIA_STORAGE !== 'oss' || !ONLINE) fail('当前未启用 OSS 媒体库', 404);
+      if (req.method !== 'GET') {
+        res.writeHead(405, headers({ allow: 'GET' }));
+        return res.end();
+      }
+      return json(res, 200, await mediaStore.listMedia({
+        prefix: url.searchParams.get('prefix') || '',
+        continuationToken: url.searchParams.get('continuationToken') || '',
+      }));
+    }
     if (url.pathname === '/api/notes') {
       if (req.method === 'GET') return json(res, 200, clientState(await store.state()));
       if (req.method === 'POST') {
@@ -230,12 +255,30 @@ const server = createServer(async (req, res) => {
       return res.end();
     }
     if (url.pathname === '/api/media' && req.method === 'POST') {
-      if (session.uploads.size >= 30) fail('一次最多暂存 30 个媒体文件，请先保存', 429);
+      const uploadId = MEDIA_STORAGE === 'oss' ? (url.searchParams.get('uploadId') || '').toLowerCase() : '';
+      if (MEDIA_STORAGE === 'oss' && !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(uploadId)) {
+        fail('媒体上传标识无效，请重新添加文件');
+      }
+      if (session.uploads.size >= 30 && !(MEDIA_STORAGE === 'oss' && session.uploads.has(uploadId))) {
+        fail('一次最多暂存 30 个媒体文件，请先保存', 429);
+      }
       const buffer = await binaryBody(req, MAX_MEDIA_SIZE);
-      const media = validateMedia(buffer, url.searchParams.get('type'), url.searchParams.get('date'));
-      const uploaded = await store.uploadMedia({ ...media, buffer });
+      const date = url.searchParams.get('date');
+      const media = validateMedia(buffer, url.searchParams.get('type'), date);
+      if (MEDIA_STORAGE === 'oss') {
+        media.id = uploadId;
+        media.uploadId = uploadId;
+        media.path = `static/uploads/notes/${date.slice(0, 4)}/${date.slice(5, 7)}/${date}-${uploadId}${path.extname(media.path)}`;
+      }
+      const uploaded = await mediaStore.uploadMedia({ ...media, buffer });
       session.uploads.set(uploaded.id, uploaded);
-      return json(res, 201, { id: uploaded.id, path: uploaded.path, kind: uploaded.kind });
+      return json(res, 201, {
+        id: uploaded.id,
+        path: uploaded.path,
+        kind: uploaded.kind,
+        ...(uploaded.storage ? { storage: uploaded.storage } : {}),
+        ...(uploaded.publicUrl ? { publicUrl: uploaded.publicUrl } : {}),
+      });
     }
     json(res, 404, { error: 'Not found' });
   } catch (error) {
