@@ -13,11 +13,11 @@ jobs:
     env:
       HUGO_VERSION: 0.141.0
       HUGO_ENVIRONMENT: production
-      HUGO_CACHEDIR: ${{ runner.temp }}/hugo-cache
-      HUGO_RESOURCEDIR: ${{ runner.temp }}/hugo-resources
-      SITE_DESTINATION: ${{ runner.temp }}/pr-site
       TZ: America/Los_Angeles
     steps:
+      - name: Set temporary build paths
+        run: |
+          printf '%s\n' "HUGO_CACHEDIR=$RUNNER_TEMP/hugo-cache" "HUGO_RESOURCEDIR=$RUNNER_TEMP/hugo-resources" "SITE_DESTINATION=$RUNNER_TEMP/pr-site" >> "$GITHUB_ENV"
       - name: Checkout proposed merge
         uses: actions/checkout@v4
         with:
