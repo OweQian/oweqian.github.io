@@ -18,7 +18,7 @@
 </div>
 
 > [!IMPORTANT]
-> **当前状态：代码审核中，尚未上线。** 原仓库主人需要完成 Secret、Render、DNS 配置并审核合并。本文既是配置手册，也是上线验收清单。
+> **在线编辑器：** [notes.oweqian.xyz](https://notes.oweqian.xyz/)。OSS 是可选的媒体存储后端，须完成下文服务端配置后启用。
 
 **文档导航** · [系统架构](#1-整体结构) · [编辑能力](#2-在线编辑功能) · [账号与密钥](#3-固定账号与-secret-配置) · [Render 部署](#5-部署在线编辑器到-render) · [AI 配置](#6-github-pages-与-ai-配置) · [验收与回滚](#8-保存冲突与回滚) · [故障排查](#9-常见问题)
 
@@ -31,7 +31,7 @@
 | **主站** | Hugo 0.141.0 Extended + LoveIt | 首页、时光轴、文章与媒体静态展示 |
 | **在线编辑器** | Node 24 · `tools/notes-editor` · Render | 固定账号认证、富文本、媒体上传与原子提交 |
 | **内容仓库** | `OweQian/oweqian.github.io` · `dev` | 唯一正文 `content/posts/blog/index.md` 与版本历史 |
-| **媒体存储** | `static/uploads/notes/YYYY/MM/` | 发布后映射为 `/uploads/notes/YYYY/MM/` |
+| **媒体存储** | 默认 GitHub；可选阿里云 OSS | GitHub 媒体映射为 `/uploads/notes/`；OSS 媒体保存永久 HTTPS 链接 |
 | **近期思绪** | Actions · `static/data/insights.json` | 构建期分析最近记录，主站读取同源静态 JSON |
 | **本地模式** | `127.0.0.1:1314` | 本机编辑与备份，不登录、不提交、不推送 |
 
@@ -68,7 +68,7 @@ flowchart LR
 | **富文本创作** | 富文本 / Markdown / 分屏，标题、粗体、斜体、引用、列表与链接 | 粘贴内容清理脚本、事件、样式和危险 URL |
 | **图片与视频** | 剪贴板、文件选择、拖放、媒体预览 | 服务端 MIME + 文件头双重校验，单文件最大 50 MB |
 | **草稿恢复** | localStorage 保存正文，IndexedDB 保存待上传媒体 | 登录失效、刷新或服务重启后仍可恢复 |
-| **原子发布** | 正文和新媒体写入同一 tree、同一 commit | 非强制 ref 更新，revision + head SHA 冲突检测 |
+| **保存与发布** | GitHub 模式下正文和新媒体同一 commit；OSS 模式先上传媒体再提交正文 | 非强制 ref 更新，revision + head SHA 冲突检测 |
 | **历史兼容** | 旧 iframe 与原始块保留，可在 Markdown 模式编辑 | 不主动重写历史正文或删除历史媒体 |
 
 支持的媒体为 **JPEG / PNG / GIF / WebP / MP4 / WebM / Ogg**，不接受 SVG。编辑器产生的提交信息末尾统一为 **`【———— 你的 emo小狗 留】`**。保存成功返回提交链接与“等待部署”状态；**提交成功不等于 Pages 已部署完成**。
@@ -122,6 +122,64 @@ flowchart LR
 8. 主站 `config.toml` 的 `params.notesEditor.url` 已指向该域名。若更换域名，同时修改此配置、Render Custom Domain 与 DNS。
 
 服务环境变量发生变化后，在 Render 保存并重启。不要把在线模式改成监听本地地址；Render 使用平台提供的 `PORT`。
+
+## 5.1 接入阿里云 OSS 媒体存储
+
+OSS 模式支持新增媒体上传和已有媒体库浏览、插入。正文仍保存到 GitHub `dev`，保存后的 Pages 发布流程不变。旧 `/uploads/notes/` 和已有 OSS 链接继续使用，不迁移历史文件。
+
+```mermaid
+flowchart LR
+    A[浏览器] -->|登录后上传，最大 50 MB| B[Render 校验格式与文件头]
+    B -->|HTTPS 上传| C[OSS notes/YYYY/MM/]
+    C -->|永久媒体 URL| B
+    B -->|正文包含媒体 URL| D[GitHub dev]
+    D --> E[Actions 与 Hugo Pages]
+```
+
+在已有 Render 服务的 **Environment** 中添加下列变量，全部填写后再把 `MEDIA_STORAGE` 改为 `oss` 并保存、重新部署：
+
+| 变量 | 此站点的值或配置方式 |
+| --- | --- |
+| `MEDIA_STORAGE` | `oss`；省略时仍使用 GitHub 媒体存储 |
+| `OSS_BUCKET` | `oweqian` |
+| `OSS_REGION` | `cn-hangzhou` |
+| `OSS_PREFIX` | `notes` |
+| `OSS_PUBLIC_BASE_URL` | `https://oweqian.oss-cn-hangzhou.aliyuncs.com` |
+| `OSS_ACCESS_KEY_ID` | 专用 RAM 用户的 AccessKey ID，仅填 Render |
+| `OSS_ACCESS_KEY_SECRET` | 同一用户的 AccessKey Secret，仅填 Render |
+
+不要使用阿里云主账号 AccessKey。为编辑器建立专用 RAM 用户，使用以下策略：只允许向 `oweqian/notes/*` 上传，并列举 `oweqian` 中的目录和文件用于媒体库。新对象路径包含稳定上传 ID 和文件内容 SHA-256；不同内容使用不同路径，重试先校验已存在的同内容文件。不授予删除对象、修改 ACL 或访问其他 Bucket 的能力。真实 AccessKey 不得写入 GitHub、浏览器前端或文档。
+
+```json
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["oss:PutObject"],
+      "Resource": ["acs:oss:*:*:oweqian/notes/*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["oss:ListObjects"],
+      "Resource": ["acs:oss:*:*:oweqian"]
+    }
+  ]
+}
+```
+
+启用后，编辑器中的 **OSS 媒体库** 可逐级浏览目录、加载下一页、预览并插入已有图片或视频。该操作把永久 URL 加入当前草稿，仍需点击保存才会发布正文；媒体库不提供删除或改名操作。
+
+
+浏览器只向同源 `/api/media` 上传，由 Render 用 OSS V4 签名发送请求。无需为该接入增加 OSS 跨域规则，也不需要把长期密钥或短期签名链接交给浏览器。正文写入永久 HTTPS 地址，不写会过期的下载签名 URL。
+
+此站点原有 Bucket 已为公共读，新增 `notes/` 媒体沿用该读取方式，因此上传后即可以通过 URL 访问，包括尚未保存正文的文件。不要上传私人文件。接入无需改动 Bucket ACL 或把 Bucket 设置为公共写。
+
+此站点的 Bucket 已开启版本控制，接入保持该设置。OSS 的 `x-oss-forbid-overwrite` 在版本控制 Bucket 中不构成覆盖保护，因此通过内容指纹生成独立路径并在重试时先检查对象；极端并发的同内容上传仍可能产生额外历史版本。
+
+OSS 和 GitHub 没有共同事务：上传成功后，正文提交仍可能发生版本冲突或网络超时。草稿和待发布文件保留供重试；服务不会自动或批量删除 OSS 对象，移除正文中的链接也不会删除对象。上线前使用明确的测试媒体确认上传、永久链接和发布后的展示。
+
+回滚时将 `MEDIA_STORAGE` 改回 `github` 并重新部署。正文内已保存的 OSS 链接仍需保留对象才能显示；切换存储不迁移或删除媒体。
 
 ## 6. GitHub Pages 与 AI 配置
 
@@ -196,7 +254,7 @@ hugo --gc --minify --baseURL https://www.oweqian.xyz/
 ## 8. 保存、冲突与回滚
 
 1. 编辑后可切换 Markdown 检查最终源码；未保存内容只存在当前浏览器。
-2. 点击 **保存并发布** 或按 `Cmd/Ctrl + S`。媒体先上传，随后正文和附件一次提交。
+2. 点击 **保存并发布** 或按 `Cmd/Ctrl + S`。媒体先上传；GitHub 媒体与正文一次提交，OSS 媒体则以永久 URL 写入正文后提交。
 3. 看到“已提交，等待部署”后，可点击“查看提交”，再到原仓库 Actions 查看 Pages 工作流。
 4. 若提示版本冲突，不要反复覆盖。先复制当前 Markdown 草稿，再重新载入；浏览器草稿和 IndexedDB 媒体会保留，可确认后恢复并重新保存。
 5. 若服务重启导致媒体会话失效，重新登录后保存，浏览器会重新上传待发布文件。
@@ -210,7 +268,7 @@ hugo --gc --minify --baseURL https://www.oweqian.xyz/
 - **502 / GitHub 鉴权失败**：检查 PAT 是否过期、是否仅限正确仓库，以及 Contents 是否为 Read and write。
 - **409**：仓库已有新提交或媒体会话失效；保留草稿并重新载入，不要强推。
 - **415**：文件格式不支持或文件头与声明不符。转换为支持的格式，不建议改扩展名绕过检查。
-- **媒体上传成功但保存失败**：Git 中可能有未引用 blob，但公开 Pages 不会出现附件；重新保存即可，无需清理仓库。
+- **媒体上传成功但保存失败**：GitHub 模式可能留下未引用 blob；OSS 模式可能留下尚未被正文引用的公开对象。保留草稿、确认仓库版本后重试，不能因为保存响应失败就删除媒体。
 - **AI Secret 缺失导致发布失败**：配置 `DEEPSEEK_API_KEY` 后重新运行失败的工作流。
 - **提交成功但主站未变化**：检查 Actions 是否完成、AI 步骤是否成功、Pages 是否使用 GitHub Actions，以及浏览器缓存。
 - **域名不可用**：检查 `notes.oweqian.xyz` 的 CNAME 是否指向 Render，而非 GitHub Pages；证书签发可能需要等待。
@@ -220,5 +278,5 @@ hugo --gc --minify --baseURL https://www.oweqian.xyz/
 
 - PR 中的部署配置不会自动创建 Render 服务、配置原仓库 Secret 或修改 DNS。
 - 功能分支只推送到贡献者 Fork，不直接推送原仓库；是否合并由主人决定。
-- 真实在线发布需要在主人环境完成一次端到端验证：登录 → 新建带图记录 → 保存 → 检查同一提交 → Actions 成功 → 主站与媒体均可访问。
+- 真实在线发布需要在主人环境完成一次端到端验证：登录 → 新建带图记录 → 保存 → 检查正文提交及媒体链接 → Actions 成功 → 主站与媒体均可访问。
 - 本地预览与模拟 GitHub 验证不代替上述线上验收。

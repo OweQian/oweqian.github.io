@@ -39,8 +39,8 @@ jobs:
           for script in assets/js/blog-enhancements.js assets/js/journal-home.js tools/notes-editor/server.mjs tools/notes-editor/lib/*.mjs tools/notes-editor/public/*.js tools/notes-insights/generate.mjs; do
             node --check "$script"
           done
-      - name: Check online editor authentication boundary
-        run: node --test tools/notes-editor/server.test.mjs
+      - name: Check online editor and media storage
+        run: node --test tools/notes-editor/*.test.mjs tools/notes-editor/lib/*.test.mjs tools/notes-editor/public/*.test.mjs
       - name: Build with committed insights
         run: hugo --minify --baseURL https://www.oweqian.xyz/ --destination "$SITE_DESTINATION"
       - name: Verify published notes and insights

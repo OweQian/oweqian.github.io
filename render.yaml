@@ -18,6 +18,9 @@ services:
         value: production
       - key: NOTES_EDITOR_MODE
         value: github
+      # Set to oss after adding the OSS variables documented in README.notes-online-editor.md.
+      - key: MEDIA_STORAGE
+        value: github
       - key: NOTES_EDITOR_HOST
         value: 0.0.0.0
       - key: NOTES_EDITOR_BLOG_URL
