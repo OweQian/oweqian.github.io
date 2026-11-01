@@ -16,13 +16,10 @@ aliases: ["/timeline/"]
 
 ## 2026
 
-### 2026-11
-#### 2026-11-01
-🤔你会写下什么呢？
-
-<iframe width="100%" height="560" src="https://www.youtube.com/embed/YEvJnt8lXB0?si=a70TcoC85-mUlkCD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 ### 2026-10
 
+#### 2026-10-31
+😭 废了，什么都不想干，暴饮暴食
 #### 2026-10-29
 
 我看谁敢说技术没用！！！      
