@@ -23,6 +23,7 @@
         <p class="login-error" id="login-error" role="alert" hidden></p>
         <button class="button primary login-button" id="login-submit" type="submit">登录并继续 <span aria-hidden="true">→</span></button>
       </form>
+      <button class="button subtle login-button" id="reconnect" type="button" hidden>重新连接</button>
       <a class="login-blog-link" id="login-blog-link" href="/">先回时光轴看看 <span aria-hidden="true">↗</span></a>
       <p class="login-footnote">密码仅提交到编辑器服务端，不会写入博客。</p>
     </section>
@@ -63,6 +64,10 @@
       </aside>
 
       <section class="editor-area">
+        <div class="connection-banner" id="connection-banner" role="alert" hidden>
+          <p id="connection-error"></p>
+          <button class="button subtle" id="reload-notes" type="button">重新载入</button>
+        </div>
         <div class="draft-banner" id="draft-banner" hidden>
           <p>发现这份文件的本地草稿，尚未保存。</p>
           <div><button class="button subtle" id="restore-draft" type="button">恢复草稿</button><button class="button text" id="discard-draft" type="button">放弃</button></div>

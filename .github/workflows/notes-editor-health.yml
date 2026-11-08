@@ -1,0 +1,29 @@
+name: Diagnose Notes Studio availability
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check login and service paths without signing in
+        run: node tools/notes-editor/check-deployment.mjs --output notes-editor-health.json
+      - name: Preserve request IDs and response timings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: notes-editor-health-${{ github.run_id }}
+          path: notes-editor-health.json
+          if-no-files-found: warn
+          retention-days: 14
