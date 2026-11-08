@@ -1,6 +1,6 @@
 ---
 title: "🌱 蠢 Q 碎碎念"
-date: 2026-10-30T00:30:00+08:00
+date: 2026-11-08T20:00:00+08:00
 weight: 1
 tags: ["碎碎念"]
 categories: ["碎碎念"]
@@ -17,6 +17,24 @@ aliases: ["/timeline/"]
 ## 2026
 
 ### 2026-11
+
+#### 2026-11-08
+
+「当一个人忘了自己还可以选择，他就从天使坠落成了恶魔」
+<iframe width="100%" height="560" src="//player.bilibili.com/player.html?isOutside=true&aid=117153453837467&bvid=BV1z7hu66Erj&cid=41236171952&p=1&autoplay=false" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+#### 2026-11-07
+
+😭 述职述成依托答辩。   
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_152.jpg" alt=""  width="40%" />
+
+#### 2026-11-06  
+
+😄 嘻嘻  
+
+<img src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/blog/img_151.jpg" alt=""  width="40%" />
+
 #### 2026-11-05
 🤔 或许吧。
 
