@@ -8,6 +8,34 @@ import { createGitHubStore } from './lib/github-store.mjs';
 import { createOssMediaStore } from './lib/oss-media-store.mjs';
 import { validateMedia, MAX_MEDIA_SIZE } from './lib/media.mjs';
 import { fail, MAX_NOTE_SIZE } from './lib/store-common.mjs';
+import { createStartupCheck } from './lib/startup-check.mjs';
+
+const instanceId = randomBytes(8).toString('hex');
+const commit = process.env.RENDER_GIT_COMMIT || process.env.GITHUB_SHA || '';
+const version = /^[a-f0-9]{7,64}$/i.test(commit) ? commit.toLowerCase() : 'unknown';
+
+function log(level, event, fields = {}) {
+  const record = { timestamp: new Date().toISOString(), level, event, version, instanceId, ...fields };
+  (level === 'error' ? console.error : console.log)(JSON.stringify(record));
+}
+
+// Only classify known failures. Raw exception text can include paths or other
+// request data and must never become an application log field.
+function failureDetails(error) {
+  const statusCode = Number.isInteger(error?.statusCode) && error.statusCode >= 400 && error.statusCode <= 599
+    ? error.statusCode : 500;
+  const message = typeof error?.message === 'string' ? error.message : '';
+  const githubStatus = /^GitHub 请求失败（(\d{3})）$/.exec(message);
+  let reason = 'internal_error';
+  if (githubStatus) reason = 'github_http_error';
+  else if (message === '无法连接 GitHub，请稍后重试') reason = 'github_unreachable';
+  else if (message === 'GitHub 鉴权失败或令牌权限不足，请检查服务端配置') reason = 'github_auth_failed';
+  else if (message.includes('解析校验失败')) reason = 'content_integrity_failed';
+  else if (statusCode < 500) reason = 'request_rejected';
+  return { statusCode, reason, ...(githubStatus ? { upstreamStatus: Number(githubStatus[1]) } : {}) };
+}
+
+log('info', 'process_starting', { nodeVersion: process.version });
 
 const ROOT = path.resolve(fileURLToPath(new URL('../..', import.meta.url)));
 const PUBLIC_DIR = path.join(ROOT, 'tools', 'notes-editor', 'public');
@@ -34,6 +62,7 @@ const STATIC_FILES = new Map([
   ['/rich-text.js', ['rich-text.js', 'text/javascript; charset=utf-8']],
   ['/media.js', ['media.js', 'text/javascript; charset=utf-8']],
 ]);
+const API_PATHS = new Set(['/api/health', '/api/session', '/api/login', '/api/logout', '/api/notes', '/api/media', '/api/media/library']);
 
 if (ONLINE && !PASSWORD) throw new Error('在线模式必须在服务端配置 EDITOR_PASSWORD');
 const store = ONLINE
@@ -59,6 +88,20 @@ const mediaStore = ONLINE && MEDIA_STORAGE === 'oss'
       prefix: process.env.OSS_PREFIX,
     })
   : store;
+let shuttingDown = false;
+const startupCheck = createStartupCheck({
+  check: () => store.state(),
+  onChange(check, error, current) {
+    if (error) {
+      log('error', 'storage_check_failed', { ...check, ...failureDetails(error) });
+    } else {
+      log('info', 'storage_check_ready', {
+        ...check, entries: current.entries.length,
+        message: `已载入 ${current.entries.length} 条记录，完整性校验通过`,
+      });
+    }
+  },
+});
 
 function headers(extra = {}) {
   return {
@@ -168,8 +211,32 @@ function uploadedMedia(session, descriptors) {
 }
 
 const server = createServer(async (req, res) => {
+  const requestId = randomBytes(8).toString('hex');
+  const startedAt = process.hrtime.bigint();
+  let requestPath = '/other';
+  let logRequest = false;
+  let requestLogged = false;
+  const rayHeader = req.headers['cf-ray'];
+  const cfRay = typeof rayHeader === 'string' && /^[a-f0-9]{16,32}(?:-[A-Z]{3})?$/i.test(rayHeader)
+    ? rayHeader.slice(0, 64) : undefined;
+  const method = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'].includes(req.method) ? req.method : 'OTHER';
+  const requestFields = () => ({ requestId, method, path: requestPath, ...(cfRay ? { cfRay } : {}) });
+  const complete = (outcome) => {
+    if (!logRequest || requestLogged) return;
+    requestLogged = true;
+    log('info', 'api_request', {
+      ...requestFields(), statusCode: res.statusCode, outcome,
+      durationMs: Math.round(Number(process.hrtime.bigint() - startedAt) / 1e6),
+    });
+  };
+  res.setHeader('x-request-id', requestId);
+  res.once('finish', () => complete('completed'));
+  res.once('close', () => complete('aborted'));
   try {
     const url = new URL(req.url, 'http://notes-editor.local');
+    logRequest = url.pathname.startsWith('/api/');
+    requestPath = API_PATHS.has(url.pathname) || STATIC_FILES.has(url.pathname) ? url.pathname : '/other';
+    if (logRequest) log('info', 'api_request_started', requestFields());
     if (!ONLINE) {
       let hostname;
       try {
@@ -182,7 +249,10 @@ const server = createServer(async (req, res) => {
     if (req.method === 'POST') assertSameOrigin(req);
 
     if (url.pathname === '/api/health' && req.method === 'GET') {
-      return json(res, 200, { ok: true, mode: MODE, file: 'content/posts/blog/index.md' });
+      return json(res, 200, {
+        ok: true, mode: MODE, file: 'content/posts/blog/index.md', version, instanceId,
+        uptimeSeconds: Math.floor(process.uptime()), startupStorageCheck: startupCheck.snapshot(),
+      });
     }
     if (url.pathname === '/api/session' && req.method === 'GET') {
       const session = ONLINE ? currentSession(req) : requireSession(req, res);
@@ -226,8 +296,9 @@ const server = createServer(async (req, res) => {
     }
     if (STATIC_FILES.has(url.pathname) && req.method === 'GET') {
       const [file, type] = STATIC_FILES.get(url.pathname);
+      const contents = await readFile(path.join(PUBLIC_DIR, file));
       res.writeHead(200, headers({ 'content-type': type }));
-      return res.end(await readFile(path.join(PUBLIC_DIR, file)));
+      return res.end(contents);
     }
 
     const session = requireSession(req, res);
@@ -282,23 +353,48 @@ const server = createServer(async (req, res) => {
     }
     json(res, 404, { error: 'Not found' });
   } catch (error) {
-    if ((error.statusCode || 500) >= 500) console.error(`编辑器请求失败：${error.message}`);
-    json(res, error.statusCode || 500, { error: error.message || '编辑器发生错误' });
+    const failure = failureDetails(error);
+    if (failure.statusCode >= 500) log('error', 'request_failed', { ...requestFields(), ...failure });
+    if (res.destroyed || res.writableEnded) return;
+    if (res.headersSent) return res.destroy();
+    try {
+      json(res, failure.statusCode, {
+        error: error?.statusCode && typeof error.message === 'string' ? error.message : '编辑器发生错误，请稍后重试',
+      });
+    } catch {
+      res.destroy();
+    }
   }
 });
 
 server.requestTimeout = 120000;
-server.listen(PORT, HOST, async () => {
-  try {
-    const current = await store.state();
-    console.log(`碎碎念编辑器：http://${HOST}:${PORT}/ (${MODE})`);
-    console.log(`已载入 ${current.entries.length} 条记录，完整性校验通过`);
-  } catch (error) {
-    console.error(error.message);
-    server.close(() => { process.exitCode = 1; });
-  }
+server.on('error', (error) => {
+  log('error', 'server_failed', failureDetails(error));
+  shutdown('server_error', 1);
+});
+server.listen(PORT, HOST, () => {
+  log('info', 'server_listening', { port: PORT, mode: MODE, mediaStorage: ONLINE ? MEDIA_STORAGE : 'local' });
+  void startupCheck.start();
 });
 
+function shutdown(reason, exitCode = 0) {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  startupCheck.stop();
+  log('info', 'shutdown_started', { reason, graceMs: 10000 });
+  const deadline = setTimeout(() => {
+    log('error', 'shutdown_forced', { reason });
+    server.closeAllConnections();
+    process.exit(exitCode);
+  }, 10000);
+  deadline.unref();
+  server.close(() => {
+    clearTimeout(deadline);
+    log('info', 'shutdown_complete', { reason });
+    process.exit(exitCode);
+  });
+}
+
 for (const signal of ['SIGINT', 'SIGTERM']) {
-  process.on(signal, () => server.close(() => process.exit(0)));
+  process.on(signal, () => shutdown(signal));
 }

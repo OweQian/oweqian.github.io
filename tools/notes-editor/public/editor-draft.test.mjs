@@ -38,7 +38,7 @@ async function boot(storage) {
     localStorage: { getItem: (key) => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: (key) => storage.delete(key) },
     renderMarkdown: element, markdownFromRich: () => '', sanitizePaste: element,
     createMediaManager: () => media, createMediaLibrary: () => ({ reset() {} }),
-    URL, URLSearchParams, Date, setTimeout: () => 0, clearTimeout() {}, confirm: () => true,
+    URL, URLSearchParams, Date, AbortController, setTimeout: () => 0, clearTimeout() {}, confirm: () => true,
     fetch: async (url, options) => {
       let value;
       if (url === '/api/session') value = { authenticated: true, mode: 'github', blogUrl: 'https://example.invalid/blog/' };

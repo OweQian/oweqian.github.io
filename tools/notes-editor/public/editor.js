@@ -5,13 +5,17 @@ const $ = (selector) => document.querySelector(selector);
 const DRAFT_KEY = 'oweqian-notes-editor-draft-v1';
 const state = {
   entries: [], revision: '', headSha: '', selectedId: null, dirty: false, snapshot: '',
-  blogUrl: '', mode: 'local', mediaStorage: '', view: 'rich', saving: false,
+  blogUrl: '', mode: 'local', mediaStorage: '', view: 'rich', saving: false, saveUncertain: false,
 };
 let draftTimer = null;
 let toastTimer = null;
 let pendingDraft = null;
 let savedRange = null;
 let sourceSelection = { start: 0, end: 0 };
+let connecting = null;
+let signingIn = false;
+let loggingOut = false;
+let connectionGeneration = 0;
 
 const serialize = (entries = state.entries) => JSON.stringify(entries.map(({ id, date, title, body }) => ({ id, date, title, body })));
 const selected = () => state.entries.find((entry) => String(entry.id) === String(state.selectedId));
@@ -48,14 +52,44 @@ const mediaLibrary = createMediaLibrary({
   },
 });
 
-async function request(url, options) {
-  const response = await fetch(url, options);
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    if (response.status === 401 && !url.includes('/api/login')) showLogin('登录已失效，草稿仍保留，请重新登录。');
-    throw Object.assign(new Error(data.error || '请求失败'), { status: response.status });
+async function request(url, options = {}) {
+  const generation = connectionGeneration;
+  const controller = new AbortController();
+  const method = options.method || 'GET';
+  const writingNotes = url === '/api/notes' && method === 'POST';
+  // Allow a sleeping instance time to start, but never leave the interface waiting indefinitely.
+  const timeout = writingNotes ? 180000 : url === '/api/logout' ? 10000 : 75000;
+  let timer;
+  let timedOut = false;
+  try {
+    return await Promise.race([
+      (async () => {
+        const response = await fetch(url, { ...options, signal: controller.signal });
+        const data = await response.json();
+        if (!response.ok) {
+          if (response.status === 401 && !url.includes('/api/login') && generation === connectionGeneration) showLogin('登录已失效，草稿仍保留，请重新登录。');
+          throw Object.assign(new Error(data.error || '请求失败'), { status: response.status, outcomeUnknown: writingNotes && response.status >= 500 });
+        }
+        return data;
+      })(),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => {
+          timedOut = true;
+          reject(new Error('服务响应超时，请重新连接后再试。'));
+          controller.abort();
+        }, timeout);
+      }),
+    ]);
+  } catch (error) {
+    if (timedOut || !error.status) {
+      throw Object.assign(new Error(timedOut ? '服务响应超时，请重新连接后再试。' : '服务连接中断，请重新连接后再试。'), {
+        code: timedOut ? 'REQUEST_TIMEOUT' : 'NETWORK_ERROR', outcomeUnknown: writingNotes,
+      });
+    }
+    throw error;
+  } finally {
+    clearTimeout(timer);
   }
-  return data;
 }
 
 function showLogin(message = '') {
@@ -69,6 +103,7 @@ function showLogin(message = '') {
   $('#login-blog-link').href = state.blogUrl || 'https://www.oweqian.xyz/blog/';
   $('#login-error').textContent = message;
   $('#login-error').hidden = !message;
+  $('#reconnect').hidden = !message;
   $('#login-password').value = '';
   setTimeout(() => $('#login-password').focus(), 0);
 }
@@ -161,24 +196,37 @@ function updateBody(body) {
 
 function setDirty() {
   state.dirty = serialize() !== state.snapshot;
-  $('#save').disabled = !state.dirty || state.saving;
+  $('#save').disabled = !state.dirty || state.saving || state.saveUncertain || Boolean(connecting) || signingIn || loggingOut;
   $('#save-state').textContent = state.dirty ? '有未保存修改' : (state.mode === 'github' ? '已与仓库同步' : '已与文件同步');
   $('#save-state').classList.toggle('is-dirty', state.dirty);
   clearTimeout(draftTimer);
   if (state.dirty) draftTimer = setTimeout(saveDraft, 350);
-  else if (!pendingDraft) localStorage.removeItem(DRAFT_KEY);
+  else if (!pendingDraft && !state.saving && !state.saveUncertain) localStorage.removeItem(DRAFT_KEY);
 }
 
 function saveDraft() {
-  if (!state.dirty) return;
+  if (!state.dirty) return true;
   try {
     localStorage.setItem(DRAFT_KEY, JSON.stringify({ revision: state.revision, selectedId: state.selectedId, entries: state.entries, savedAt: new Date().toISOString() }));
+    return true;
   } catch {
     notify('浏览器草稿空间不足，请先保存', true);
+    return false;
   }
 }
 
 function applyState(data, selectedDate) {
+  const validEntry = (entry) => entry && (typeof entry.id === 'string' || typeof entry.id === 'number')
+    && typeof entry.date === 'string' && typeof entry.title === 'string'
+    && Array.isArray(entry.body) && entry.body.every((line) => typeof line === 'string');
+  if (!data || !Array.isArray(data.entries) || !data.entries.every(validEntry)
+      || typeof data.revision !== 'string' || !data.revision
+      || !['local', 'github'].includes(data.mode) || typeof data.blogUrl !== 'string'
+      || (data.mode === 'github' && (typeof data.headSha !== 'string' || !data.headSha))
+      || (data.publication?.mode === 'github'
+        && (typeof data.publication.commitSha !== 'string' || typeof data.publication.commitUrl !== 'string'))) {
+    throw new Error('服务器返回的记录数据无效，请重新载入核对。');
+  }
   state.entries = data.entries.map((entry) => ({ id: entry.id, date: entry.date, title: entry.title, body: entry.body.join('\n') }));
   state.revision = data.revision;
   state.headSha = data.headSha || '';
@@ -198,6 +246,9 @@ function applyState(data, selectedDate) {
   showEditor();
   renderList();
   renderEditor();
+  state.saveUncertain = false;
+  $('#connection-banner').hidden = true;
+  $('#save').disabled = !state.dirty || state.saving || Boolean(connecting) || signingIn || loggingOut;
 }
 
 function readDraft() {
@@ -212,13 +263,19 @@ function readDraft() {
   }
 }
 
-async function load() {
-  pendingDraft = readDraft();
+async function load(generation = connectionGeneration) {
   try {
+    if (!saveDraft()) throw new Error('本地草稿空间不足，请先复制未保存内容，再重新载入。');
+    pendingDraft = readDraft();
     const data = await request('/api/notes');
+    if (generation !== connectionGeneration) return;
     const params = new URLSearchParams(window.location.search);
+    // Editing can continue while the read is in flight. Preserve those latest changes too.
+    if (!saveDraft()) throw new Error('本地草稿空间不足，请先复制未保存内容，再重新载入。');
+    pendingDraft = readDraft();
     applyState(data, params.get('date'));
     await media.prune(media.usedIds(pendingDraft?.entries || []));
+    if (generation !== connectionGeneration) return;
     const requestedNew = params.get('new');
     if (requestedNew) {
       const match = requestedNew.match(/^(\d{4})-(\d{2})-(\d{2})$/);
@@ -230,6 +287,7 @@ async function load() {
         createEntry(requestedNew);
       } else notify('新建记录的日期无效', true);
     }
+    $('#draft-banner').hidden = true;
     if (pendingDraft && serialize(pendingDraft.entries) !== state.snapshot) {
       $('#draft-banner p').textContent = pendingDraft.revision === state.revision
         ? '发现这份文件的本地草稿，尚未保存。'
@@ -237,13 +295,19 @@ async function load() {
       $('#draft-banner').hidden = false;
     }
   } catch (error) {
+    if (generation !== connectionGeneration) return;
     $('#save-state').textContent = '载入失败';
+    $('#connection-error').textContent = `${error.message} 当前内容未被替换，可稍后重新载入。`;
+    $('#connection-banner').hidden = false;
     notify(error.message, true);
   }
 }
 
 async function save() {
-  if (!state.dirty || state.saving) return;
+  if (!state.dirty || state.saving || state.saveUncertain || connecting || signingIn || loggingOut) return;
+  const generation = connectionGeneration;
+  let submitted = false;
+  let applied = false;
   const date = selected()?.date;
   state.saving = true;
   $('#save').disabled = true;
@@ -252,8 +316,10 @@ async function save() {
   try {
     const ids = media.usedIds(state.entries);
     await media.prune(ids);
+    if (generation !== connectionGeneration) return;
     if (ids.length) $('#save-state').textContent = `正在上传 ${ids.length} 个媒体文件…`;
     await media.uploadAll(ids);
+    if (generation !== connectionGeneration) return;
     $('#save-state').textContent = state.mode === 'github' ? '正在提交发布…' : '正在校验并保存…';
     const payload = {
       revision: state.revision,
@@ -261,22 +327,34 @@ async function save() {
       media: media.descriptors(ids),
     };
     if (state.mode === 'github') payload.headSha = state.headSha;
+    submitted = true;
     const data = await request('/api/notes', {
       method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload),
     });
+    if (generation !== connectionGeneration) return;
     applyState(data, date);
+    applied = true;
     await media.finalize(ids);
+    if (generation !== connectionGeneration) return;
     pendingDraft = null;
     localStorage.removeItem(DRAFT_KEY);
     $('#save-state').textContent = data.publication?.mode === 'github' ? '已提交，等待部署' : `已保存 ${new Date().toLocaleTimeString('zh-CN', { hour12: false })}`;
     $('#draft-banner').hidden = true;
     notify(data.publication?.mode === 'github' ? '正文已提交，媒体已就绪，GitHub Actions 将自动部署' : '已保存到碎碎念，原文件已备份');
   } catch (error) {
-    $('#save-state').textContent = '保存失败，草稿仍在';
-    notify(error.status === 409 ? `版本冲突：${error.message}` : `保存失败：${error.message}`, true);
+    if (generation !== connectionGeneration) return;
+    state.saveUncertain = state.saveUncertain || Boolean(error.outcomeUnknown) || (submitted && !applied && !error.status);
+    $('#save-state').textContent = state.saveUncertain ? '提交结果待核对，草稿仍在' : '保存失败，草稿仍在';
+    if (state.saveUncertain) {
+      $('#connection-error').textContent = '提交结果尚未确认，草稿已保留。请先重新载入核对，避免重复发布。';
+      $('#connection-banner').hidden = false;
+    }
+    notify(state.saveUncertain ? '提交结果尚未确认，请重新载入核对；草稿仍保留。' : error.status === 409 ? `版本冲突：${error.message}` : `保存失败：${error.message}`, true);
   } finally {
-    state.saving = false;
-    $('#save').disabled = !state.dirty;
+    if (generation === connectionGeneration) {
+      state.saving = false;
+      $('#save').disabled = !state.dirty || state.saveUncertain;
+    }
   }
 }
 
@@ -510,29 +588,66 @@ function createEntry(date) {
 
 $('#login-form').addEventListener('submit', async (event) => {
   event.preventDefault();
+  if (connecting || signingIn || loggingOut) return;
+  const generation = ++connectionGeneration;
+  signingIn = true;
   $('#login-submit').disabled = true;
+  $('#reconnect').disabled = true;
+  $('#reload-notes').disabled = true;
   $('#login-error').hidden = true;
   try {
     const data = await request('/api/login', {
       method: 'POST', headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ username: $('#login-username').value, password: $('#login-password').value }),
     });
+    if (generation !== connectionGeneration) return;
     state.mode = data.mode;
     state.blogUrl = data.blogUrl;
     media.resetUploadReceipts();
     showEditor();
-    await load();
+    await load(generation);
   } catch (error) {
+    if (generation !== connectionGeneration) return;
     $('#login-error').textContent = error.message;
     $('#login-error').hidden = false;
+    $('#reconnect').hidden = false;
   } finally {
-    $('#login-submit').disabled = false;
+    if (generation === connectionGeneration) {
+      signingIn = false;
+      $('#login-submit').disabled = false;
+      $('#reconnect').disabled = false;
+      $('#reload-notes').disabled = false;
+      $('#save').disabled = !state.dirty || state.saveUncertain;
+    }
   }
 });
+$('#reconnect').addEventListener('click', reconnect);
+$('#reload-notes').addEventListener('click', reconnect);
 $('#logout').addEventListener('click', async () => {
+  if (loggingOut) return;
+  const generation = ++connectionGeneration;
+  connecting = null;
+  signingIn = false;
+  if (state.saving) state.saveUncertain = true;
+  state.saving = false;
+  loggingOut = true;
   saveDraft();
-  await request('/api/logout', { method: 'POST' }).catch(() => {});
   showLogin();
+  $('#login-submit').disabled = true;
+  $('#reconnect').disabled = true;
+  $('#reload-notes').disabled = true;
+  $('#save').disabled = true;
+  try {
+    await request('/api/logout', { method: 'POST' });
+  } catch {
+    if (generation === connectionGeneration) showLogin('退出请求尚未确认，请重新连接后再次退出。');
+  }
+  if (generation !== connectionGeneration) return;
+  loggingOut = false;
+  $('#login-submit').disabled = false;
+  $('#reconnect').disabled = false;
+  $('#reconnect').textContent = '重新连接';
+  $('#reload-notes').disabled = false;
 });
 $('#entry-body').addEventListener('input', (event) => updateBody(event.target.value));
 $('#rich-editor').addEventListener('input', syncFromRich);
@@ -676,18 +791,44 @@ window.addEventListener('beforeunload', (event) => {
   }
 });
 
+function reconnect() {
+  if (signingIn || state.saving || loggingOut) return;
+  if (connecting) return connecting;
+  const generation = ++connectionGeneration;
+  $('#reconnect').disabled = true;
+  $('#reconnect').textContent = '正在连接…';
+  $('#reload-notes').disabled = true;
+  $('#login-submit').disabled = true;
+  $('#save').disabled = true;
+  connecting = (async () => {
+    try {
+      const session = await request('/api/session');
+      if (generation !== connectionGeneration) return;
+      state.mode = session.mode;
+      state.blogUrl = session.blogUrl;
+      if (!session.authenticated) return showLogin();
+      showEditor();
+      await load(generation);
+    } catch (error) {
+      if (generation !== connectionGeneration) return;
+      showLogin(`编辑器暂时不可用：${error.message}`);
+    } finally {
+      if (generation === connectionGeneration) {
+        connecting = null;
+        $('#reconnect').disabled = false;
+        $('#reconnect').textContent = '重新连接';
+        $('#reload-notes').disabled = false;
+        $('#login-submit').disabled = false;
+        $('#save').disabled = !state.dirty || state.saveUncertain;
+      }
+    }
+  })();
+  return connecting;
+}
+
 async function init() {
   await media.init();
-  try {
-    const session = await request('/api/session');
-    state.mode = session.mode;
-    state.blogUrl = session.blogUrl;
-    if (!session.authenticated) return showLogin();
-    showEditor();
-    await load();
-  } catch (error) {
-    showLogin(`编辑器暂时不可用：${error.message}`);
-  }
+  await reconnect();
 }
 
 init();
