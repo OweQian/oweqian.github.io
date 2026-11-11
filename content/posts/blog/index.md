@@ -18,6 +18,11 @@ aliases: ["/timeline/"]
 
 ### 2026-11
 
+#### 2026-11-10
+宣战！！！躲在资本家背后的 👩🏻。
+
+![Screenshot 2026-11-10 at 10.08.08 PM.png](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-10-7db1a5ba-3817-476f-bf63-4b52ad5cafc7-16390d754b394e4640018c31ac153e9bcec582d9b22a27976fe842b1c6be18e2.png)
+
 #### 2026-11-09
 🤔 哈哈哈，确定这是 "好得很"？
 
