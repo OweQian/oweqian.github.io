@@ -1,12 +1,5 @@
 {{- partial "init.html" . -}}
-{{- $moon := (resources.Get "images/ocean/moon.png").Resize "900x webp q88" -}}
-{{- $gold := (resources.Get "images/ocean/gold.png").Resize "700x webp q88" -}}
-{{- $silver := (resources.Get "images/ocean/silver.png").Resize "700x webp q88" -}}
-{{- $seabed := (resources.Get "images/ocean/seabed-real.png").Resize "2200x webp q90" -}}
-{{- $crab := (resources.Get "images/ocean/king-crab-live.png").Resize "480x webp q90" -}}
-{{- $whale := (resources.Get "images/ocean/beluga-body.jpg").Resize "1200x webp q88" -}}
-{{- $whaleCheek := (resources.Get "images/ocean/beluga-cheek.jpg").Resize "1000x webp q89" -}}
-{{- $whaleMelon := (resources.Get "images/ocean/beluga-melon.jpg").Resize "900x webp q87" -}}
+{{- $readingPage := and .IsPage (eq .Section "posts") -}}
 
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
@@ -22,9 +15,9 @@
         <link rel="stylesheet" href="{{ $oceanStyles.RelPermalink }}">
         {{- partial "head/seo.html" . -}}
     </head>
-    <body class="jellyfish-site" theme="dark" data-header-desktop="{{ .Site.Params.header.desktopMode }}" data-header-mobile="{{ .Site.Params.header.mobileMode }}"{{ if eq .Layout "notes" }} data-page="notes"{{ else if eq .Kind "home" }} data-page="journal"{{ end }}>
+    <body class="jellyfish-site" theme="dark" data-header-desktop="{{ .Site.Params.header.desktopMode }}" data-header-mobile="{{ .Site.Params.header.mobileMode }}"{{ if eq .Layout "notes" }} data-page="notes"{{ else if eq .Kind "home" }} data-page="journal"{{ end }}{{ if $readingPage }} data-ocean-motion="still"{{ end }}>
         <div class="reading-progress" aria-hidden="true"><span data-reading-progress></span></div>
-        {{- partial "jellyfish-background.html" (dict "moon" $moon.RelPermalink "gold" $gold.RelPermalink "silver" $silver.RelPermalink "seabed" $seabed.RelPermalink "crab" $crab.RelPermalink "whale" $whale.RelPermalink "whaleCheek" $whaleCheek.RelPermalink "whaleMelon" $whaleMelon.RelPermalink) -}}
+        {{- partial "jellyfish-background.html" (not $readingPage) -}}
         <div id="mask"></div>
 
         <div class="wrapper">
@@ -53,14 +46,16 @@
 
         {{- partial "site-navigation.html" . -}}
         {{- partial "assets.html" . -}}
-        {{- $jellies := resources.Get "js/jellyfish-ocean-renderer.js" | resources.Minify | resources.Fingerprint "sha256" -}}
-        <script src="{{ $jellies.RelPermalink }}" defer></script>
-        {{- $seabedScript := resources.Get "js/ocean-seabed.js" | resources.Minify | resources.Fingerprint "sha256" -}}
-        <script src="{{ $seabedScript.RelPermalink }}" defer></script>
-        {{- $whaleScript := resources.Get "js/ocean-whale.js" | resources.Minify | resources.Fingerprint "sha256" -}}
-        <script src="{{ $whaleScript.RelPermalink }}" defer></script>
-        {{- $ocean := resources.Get "js/jellyfish-atmosphere.js" | resources.Minify | resources.Fingerprint "sha256" -}}
-        <script src="{{ $ocean.RelPermalink }}" defer></script>
+        {{- if not $readingPage -}}
+            {{- $jellies := resources.Get "js/jellyfish-ocean-renderer.js" | resources.Minify | resources.Fingerprint "sha256" -}}
+            <script src="{{ $jellies.RelPermalink }}" defer></script>
+            {{- $seabedScript := resources.Get "js/ocean-seabed.js" | resources.Minify | resources.Fingerprint "sha256" -}}
+            <script src="{{ $seabedScript.RelPermalink }}" defer></script>
+            {{- $whaleScript := resources.Get "js/ocean-whale.js" | resources.Minify | resources.Fingerprint "sha256" -}}
+            <script src="{{ $whaleScript.RelPermalink }}" defer></script>
+            {{- $ocean := resources.Get "js/jellyfish-atmosphere.js" | resources.Minify | resources.Fingerprint "sha256" -}}
+            <script src="{{ $ocean.RelPermalink }}" defer></script>
+        {{- end -}}
         {{- $enhancements := resources.Get "js/blog-enhancements.js" | resources.Minify -}}
         <script src="{{ $enhancements.RelPermalink }}" defer></script>
         {{- if eq .Kind "home" -}}

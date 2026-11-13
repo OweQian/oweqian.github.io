@@ -180,22 +180,7 @@ body.jellyfish-site {
   }
 
   :is(.timeline-stream, .page.single > .content) {
-    --ocean-reading-tint: rgba(8, 22, 37, 0.36);
-    --ocean-reading-edge: clamp(1rem, 3vw, 2.75rem);
-    position: relative;
-    isolation: isolate;
     text-shadow: var(--ocean-text-shadow);
-
-    &::after {
-      position: absolute;
-      inset: -1rem calc(-1 * var(--ocean-reading-edge));
-      z-index: -1;
-      pointer-events: none;
-      content: "";
-      background: linear-gradient(90deg, transparent, var(--ocean-reading-tint) var(--ocean-reading-edge),
-        var(--ocean-reading-tint) calc(100% - var(--ocean-reading-edge)), transparent);
-      mask-image: linear-gradient(transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
-    }
 
     :is(pre, code) { text-shadow: none; }
   }
@@ -259,10 +244,6 @@ body[data-ocean-motion="still"] {
 }
 @media (max-width: 680px) {
   body.jellyfish-site .journal-thoughts { height: clamp(380px, 45vh, 400px); }
-  body.jellyfish-site :is(.timeline-stream, .page.single > .content) {
-    --ocean-reading-tint: rgba(8, 22, 37, 0.48);
-    --ocean-reading-edge: 0.625rem;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
   .ocean-haze, .ocean-sunbeam, .ocean-seabed-ground::after { animation: none; }

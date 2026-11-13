@@ -1,10 +1,26 @@
-<div class="site-atmosphere jellyfish-ocean" data-ocean-scene data-ocean-assets="{{ "ocean/" | relURL }}" data-ocean-moon="{{ .moon }}" data-ocean-gold="{{ .gold }}" data-ocean-silver="{{ .silver }}" data-ocean-crab="{{ .crab }}" data-ocean-whale-atlas="{{ .whale }}" data-ocean-whale-cheek="{{ .whaleCheek }}" data-ocean-whale-melon="{{ .whaleMelon }}" aria-hidden="true">
+{{- $showOceanLife := . -}}
+{{- $seabed := (resources.Get "images/ocean/seabed-real.png").Resize "2200x webp q90" -}}
+<div class="site-atmosphere jellyfish-ocean" data-ocean-scene aria-hidden="true"
+    {{- if $showOceanLife }}
+    data-ocean-assets="{{ "ocean/" | relURL }}"
+    data-ocean-moon="{{ ((resources.Get "images/ocean/moon.png").Resize "900x webp q88").RelPermalink }}"
+    data-ocean-gold="{{ ((resources.Get "images/ocean/gold.png").Resize "700x webp q88").RelPermalink }}"
+    data-ocean-silver="{{ ((resources.Get "images/ocean/silver.png").Resize "700x webp q88").RelPermalink }}"
+    data-ocean-crab="{{ ((resources.Get "images/ocean/king-crab-live.png").Resize "480x webp q90").RelPermalink }}"
+    data-ocean-whale-atlas="{{ ((resources.Get "images/ocean/beluga-body.jpg").Resize "1200x webp q88").RelPermalink }}"
+    data-ocean-whale-cheek="{{ ((resources.Get "images/ocean/beluga-cheek.jpg").Resize "1000x webp q89").RelPermalink }}"
+    data-ocean-whale-melon="{{ ((resources.Get "images/ocean/beluga-melon.jpg").Resize "900x webp q87").RelPermalink }}"
+    {{- end }}>
     <div class="ocean-haze"></div>
     <div class="ocean-sunbeam"></div>
+    {{- if $showOceanLife }}
     <canvas class="ocean-water" data-ocean-water></canvas>
     <canvas class="ocean-whale-life" data-ocean-whale-life></canvas>
     <canvas class="ocean-life" data-ocean-life></canvas>
+    {{- end }}
     <div class="ocean-depth"></div>
-    <div class="ocean-seabed-ground"><img class="ocean-sand" src="{{ .seabed }}" alt="" decoding="async" draggable="false"></div>
+    <div class="ocean-seabed-ground"><img class="ocean-sand" src="{{ $seabed.RelPermalink }}" alt="" decoding="async" draggable="false"></div>
+    {{- if $showOceanLife }}
     <canvas class="ocean-seabed-life" data-ocean-seabed-life></canvas>
+    {{- end }}
 </div>
