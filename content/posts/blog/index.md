@@ -18,6 +18,10 @@ aliases: ["/timeline/"]
 
 ### 2026-11
 
+#### 2026-11-13
+🤔 重刷 Top250    
+![Weixin Image_20261113030847_600_69.jpg](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-13-33b08765-fd88-4012-8657-b07be18eafb7-10c90e146eeb21f9c1b55246c6200e32187e21e50d1b25b67e4cca72e9f47b40.jpg)
+
 #### 2026-11-12
 
 海鸥 A："你觉得我们将去往何方？"     
