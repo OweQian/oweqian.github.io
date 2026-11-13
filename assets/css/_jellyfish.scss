@@ -1,0 +1,270 @@
+// Full-scene ocean. All original page content, typography and navigation remain in place.
+body.jellyfish-site {
+  --blog-accent: #68c5e9;
+  --blog-text: #dce7f2;
+  --blog-muted: #bfd1e1;
+  --ocean-control-surface: #132b40;
+  --ocean-content-edge: rgba(171, 215, 239, 0.25);
+  --ocean-action-ink: #082134;
+  --ocean-text-shadow: 0 0 1px #071827, 0 1px 3px rgba(4, 12, 22, 0.94);
+  background-color: #0a1d32;
+  background-image: linear-gradient(180deg, #102f49 0%, #0b223a 48%, #08192f 100%);
+  .wrapper { z-index: 1; }
+}
+
+.jellyfish-ocean {
+  isolation: isolate;
+  contain: strict;
+  pointer-events: none;
+  user-select: none;
+}
+.ocean-haze,
+.ocean-sunbeam,
+.ocean-water,
+.ocean-life,
+.ocean-depth,
+.ocean-seabed-life,
+.ocean-whale-life {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+:is(.ocean-life, .ocean-whale-life, .ocean-seabed-life) {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+[data-ocean-state="ready"] .ocean-life,
+[data-whale-state="ready"] .ocean-whale-life,
+[data-seabed-state="ready"] .ocean-seabed-life { opacity: 1; }
+.ocean-seabed-ground {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  --ocean-floor-depth: linear-gradient(to top, #000, #000 10%, rgba(0, 0, 0, 0.85) 17%, transparent 40%);
+  --ocean-floor-reading-mask: radial-gradient(ellipse 36% 24% at 50% 92%, rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.50) 55%, #000);
+  mask-image: var(--ocean-floor-depth);
+}
+@supports (mask-composite: intersect) {
+  .ocean-seabed-ground {
+    mask-image: var(--ocean-floor-depth), var(--ocean-floor-reading-mask);
+    mask-composite: intersect;
+  }
+  body.jellyfish-site:not([data-page="journal"]) .ocean-seabed-ground {
+    --ocean-floor-reading-mask: radial-gradient(ellipse 39% 30% at 50% 91%, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.38) 61%, #000);
+  }
+}
+.ocean-sand {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  min-width: 900px;
+  max-width: none;
+  height: auto;
+  transform: translateX(-50%);
+}
+.ocean-seabed-ground::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 180px;
+  background: url('/ocean/caustics.jpg') repeat;
+  background-size: 480px 240px;
+  mix-blend-mode: screen;
+  opacity: 0.045;
+  content: "";
+  animation: ocean-floor-light 28s linear infinite;
+}
+@keyframes ocean-floor-light {
+  to { background-position: 480px 240px; }
+}
+body.jellyfish-site {
+  .journal-hero { padding-bottom: 2rem; }
+
+  .journal-home {
+    --blog-muted: #d4e1ed;
+    --ocean-content-edge: rgba(171, 215, 239, 0.38);
+  }
+
+  .journal-thoughts { height: clamp(430px, 48vh, 460px); }
+
+  .journal-actions {
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    max-width: 100%;
+    padding: 0.35rem;
+    background: var(--ocean-control-surface);
+    border: 1px solid var(--ocean-content-edge);
+    border-radius: 12px;
+
+    > :is(.journal-primary, .journal-random) {
+      justify-content: center;
+      gap: 0.4rem;
+      min-height: 2.5rem;
+      padding: 0.45rem clamp(0.4rem, 2vw, 1rem);
+      border: 0;
+      border-radius: 8px;
+      font-size: clamp(0.78rem, 3.6vw, 0.92rem);
+      font-weight: 550;
+      white-space: nowrap;
+    }
+
+    > .journal-primary {
+      color: var(--ocean-action-ink);
+      background: var(--blog-accent);
+    }
+
+    > .journal-random {
+      color: var(--blog-heading);
+
+      &:hover { background: var(--notes-hover); }
+    }
+  }
+
+  .journal-insight-source {
+    font-size: 0.8rem;
+    text-shadow: var(--ocean-text-shadow);
+  }
+
+  .journal-bubbles:not(.is-static) .journal-thought { animation-name: ocean-thought-rise; }
+
+  .journal-thought .journal-thought-word {
+    color: var(--blog-heading);
+    background: var(--ocean-control-surface);
+    border-color: var(--ocean-content-edge);
+  }
+
+  .journal-thought:hover .journal-thought-word,
+  .journal-thought:focus-visible .journal-thought-word {
+    border-color: var(--blog-accent);
+  }
+
+  .journal-daybook {
+    padding-block: 1.35rem;
+    border-color: var(--ocean-content-edge);
+
+    > :is(div + div, .journal-numbers) { border-color: var(--ocean-content-edge); }
+
+    .journal-label {
+      color: var(--blog-heading);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+  }
+
+  .journal-recent { margin-top: 1.8rem; }
+
+  :is(.journal-daybook, .journal-recent) {
+    text-shadow: var(--ocean-text-shadow);
+
+    &::before { content: none; }
+  }
+
+  :is(.journal-insight-source, .journal-note-date, .journal-today-write,
+      .journal-today [data-journal-occasion], .journal-today-note a, .journal-memory span,
+      .journal-numbers small, .journal-numbers button, .journal-section-heading > a) {
+    font-weight: 500;
+  }
+
+  .journal-section-heading {
+    border-color: var(--ocean-content-edge);
+
+    > h2 { font-weight: 650; }
+    > a { font-size: 0.8rem; }
+  }
+
+  :is(.journal-note-list > article, .timeline-toolbar, .timeline-entry) {
+    border-color: var(--ocean-content-edge);
+  }
+
+  :is(.timeline-stream, .page.single > .content) {
+    --ocean-reading-tint: rgba(8, 22, 37, 0.36);
+    --ocean-reading-edge: clamp(1rem, 3vw, 2.75rem);
+    position: relative;
+    isolation: isolate;
+    text-shadow: var(--ocean-text-shadow);
+
+    &::after {
+      position: absolute;
+      inset: -1rem calc(-1 * var(--ocean-reading-edge));
+      z-index: -1;
+      pointer-events: none;
+      content: "";
+      background: linear-gradient(90deg, transparent, var(--ocean-reading-tint) var(--ocean-reading-edge),
+        var(--ocean-reading-tint) calc(100% - var(--ocean-reading-edge)), transparent);
+      mask-image: linear-gradient(transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
+    }
+
+    :is(pre, code) { text-shadow: none; }
+  }
+
+  .page.single > .content { color: var(--blog-text); }
+
+  :is(.timeline-heading, .page.single > .single-title, .page.single > .post-meta, .toc) {
+    text-shadow: var(--ocean-text-shadow);
+  }
+
+  .page.single > .post-meta { color: var(--blog-muted); }
+}
+
+@keyframes ocean-thought-rise {
+  0% { opacity: 0; transform: translate3d(var(--start-x), 8px, 0) scale(0.95); }
+  10%, 83% { opacity: 1; }
+  48% { transform: translate3d(var(--middle-x), var(--rise-half), 0); }
+  100% { opacity: 0; transform: translate3d(var(--end-x), var(--rise), 0); }
+}
+.ocean-haze {
+  inset: -12%;
+  width: 124%;
+  height: 124%;
+  background: radial-gradient(ellipse at 22% 0%, rgba(109, 211, 218, 0.17), transparent 58%), radial-gradient(ellipse at 92% 68%, rgba(116, 137, 211, 0.11), transparent 52%);
+  animation: ocean-current 38s ease-in-out infinite alternate;
+}
+.ocean-sunbeam {
+  --ocean-light-entry: clamp(1.25rem, 10vw, 12rem);
+  inset: -8% 0 0;
+  height: auto;
+  background:
+    radial-gradient(ellipse clamp(6rem, 14vw, 17rem) 30% at var(--ocean-light-entry) 3%, rgba(161, 229, 237, 0.23), transparent 94%),
+    conic-gradient(from 141deg at var(--ocean-light-entry) 0%,
+      transparent 0deg,
+      rgba(117, 201, 218, 0.08) 6deg,
+      rgba(166, 227, 239, 0.26) 13deg,
+      rgba(211, 247, 248, 0.38) 19deg,
+      rgba(150, 222, 231, 0.26) 24deg,
+      rgba(100, 187, 211, 0.06) 32deg,
+      transparent 39deg 360deg);
+  mask-image: linear-gradient(#000 6%, rgba(0, 0, 0, 0.72) 36%, transparent 88%);
+  filter: blur(clamp(4px, 0.55vw, 10px));
+  opacity: 0.86;
+  animation: ocean-sunlight 19s ease-in-out infinite alternate;
+}
+.ocean-water { opacity: 0.65; }
+.ocean-depth {
+  background: radial-gradient(ellipse at 50% 35%, transparent 28%, rgba(2, 9, 24, 0.24));
+}
+body[data-ocean-motion="paused"],
+body[data-ocean-motion="still"] {
+  .ocean-haze, .ocean-sunbeam, .ocean-seabed-ground::after { animation-play-state: paused; }
+}
+@keyframes ocean-current {
+  from { transform: translate3d(-1.2%, 0, 0); }
+  to { transform: translate3d(1.2%, -1%, 0); }
+}
+@keyframes ocean-sunlight {
+  from { opacity: 0.8; }
+  to { opacity: 0.94; }
+}
+@media (max-width: 680px) {
+  body.jellyfish-site .journal-thoughts { height: clamp(380px, 45vh, 400px); }
+  body.jellyfish-site :is(.timeline-stream, .page.single > .content) {
+    --ocean-reading-tint: rgba(8, 22, 37, 0.48);
+    --ocean-reading-edge: 0.625rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ocean-haze, .ocean-sunbeam, .ocean-seabed-ground::after { animation: none; }
+  :is(.ocean-life, .ocean-whale-life, .ocean-seabed-life) { transition: none; }
+}

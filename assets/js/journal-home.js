@@ -166,7 +166,7 @@
   let thoughtPool = [];
   let drawCount = 0;
   let timer = null;
-  let active = new Set();
+  let activeBubble = null;
   const sourceLabel = root.querySelector('[data-journal-insight-source]');
   const setSourceLabel = () => {
     if (sourceLabel) sourceLabel.textContent = `最近 ${recentNotes.length} 条记录 · 关键词与短句`;
@@ -201,16 +201,8 @@
   };
 
   const nextBubble = () => {
-    const activeWords = new Set([...active].map((bubble) => bubble.dataset.journalWord));
-    for (let attempt = 0; attempt < 14; attempt += 1) {
-      drawCount += 1;
-      const thoughtCount = [...active].filter((bubble) => bubble.dataset.kind === 'thought').length;
-      const canAddThought = insights.thoughts.length && thoughtCount < (compact.matches ? 1 : 2);
-      const kind = drawCount % 3 === 0 && canAddThought ? 'thought' : 'notes';
-      const candidate = takeCandidate(kind) || takeCandidate(kind === 'thought' ? 'notes' : 'thought');
-      if (candidate && !activeWords.has(candidate.word)) return candidate;
-    }
-    return null;
+    const kind = drawCount++ % 2 === 0 ? 'thought' : 'notes';
+    return takeCandidate(kind) || takeCandidate(kind === 'thought' ? 'notes' : 'thought');
   };
 
   const codePattern = /javascript|typescript|react|vue|python|pygame|electron|html|css|api|git|claude|code|代码|编程|函数|变量|接口|前端|后端|bug|终端|命令行/i;
@@ -262,7 +254,7 @@
   };
 
   const removeBubble = (bubble) => {
-    active.delete(bubble);
+    if (activeBubble === bubble) activeBubble = null;
     bubble.remove();
   };
 
@@ -287,15 +279,6 @@
     link.append(word);
     if (staticMode) return link;
 
-    const spread = compact.matches ? 112 : 154;
-    let startX = Math.round((Math.random() - 0.5) * spread * 1.35);
-    let endX = Math.round((Math.random() - 0.5) * spread * 2);
-    if (thought) {
-      const direction = drawCount % 2 === 0 ? -1 : 1;
-      startX = Math.round(direction * (compact.matches ? 32 : 110) + (Math.random() - 0.5) * 35);
-      endX = Math.round(direction * (compact.matches ? 45 : 125) + (Math.random() - 0.5) * 45);
-    }
-    const middleX = Math.round((startX + endX) / 2 + (Math.random() - 0.5) * 40);
     const bottom = compact.matches ? 200 : 245;
     const stageHeight = root.querySelector('[data-journal-thoughts]').clientHeight;
     const stageWidth = root.querySelector('[data-journal-thoughts]').clientWidth;
@@ -306,11 +289,15 @@
     link.style.setProperty('--word-size', `${baseSize + weightRatio * sizeRange}rem`);
     link.style.setProperty('--word-weight', thought ? '450' : String(450 + Math.round(weightRatio * 150)));
     bubbleLayer.append(link);
+    const center = -link.offsetWidth / 2;
+    const offset = compact.matches ? 0 : (Math.random() < 0.5 ? -85 : 85);
+    const startX = center + offset * 0.65;
+    const endX = center + offset;
     const minX = 12 - stageWidth / 2;
     const maxX = stageWidth / 2 - link.offsetWidth - 12;
     const clampX = (value) => Math.max(minX, Math.min(maxX, value));
     link.style.setProperty('--start-x', `${clampX(startX)}px`);
-    link.style.setProperty('--middle-x', `${clampX(middleX)}px`);
+    link.style.setProperty('--middle-x', `${clampX((startX + endX) / 2)}px`);
     link.style.setProperty('--end-x', `${clampX(endX)}px`);
     const rise = Math.max(thought ? 24 : 130, stageHeight - bottom - link.offsetHeight - 24);
     link.style.setProperty('--rise-half', `${-rise * 0.52}px`);
@@ -327,13 +314,9 @@
   const spawn = () => {
     timer = null;
     if (document.hidden || reducedMotion.matches || (!insights.keywords.length && !insights.thoughts.length)) return;
-    if (active.size < (compact.matches ? 4 : 8)) {
+    if (!activeBubble) {
       const candidate = nextBubble();
-      if (candidate) {
-        const bubble = makeBubble(candidate);
-        active.add(bubble);
-        bubbleLayer.append(bubble);
-      }
+      if (candidate) activeBubble = makeBubble(candidate);
     }
     timer = window.setTimeout(spawn, compact.matches ? 1800 : 1250);
   };
@@ -341,8 +324,7 @@
   const resetBubbles = () => {
     if (timer !== null) window.clearTimeout(timer);
     timer = null;
-    active.forEach((bubble) => bubble.remove());
-    active = new Set();
+    activeBubble = null;
     keywordPool = [];
     thoughtPool = [];
     drawCount = 0;
@@ -351,8 +333,8 @@
     bubbleLayer.classList.toggle('is-static', reducedMotion.matches);
     if (reducedMotion.matches) {
       const items = [
-        ...insights.keywords.slice(0, compact.matches ? 2 : 4),
-        ...insights.thoughts.slice(0, compact.matches ? 1 : 2),
+        ...insights.thoughts.slice(0, 1),
+        ...insights.keywords.slice(0, compact.matches ? 1 : 2),
       ];
       items.forEach((keyword) => bubbleLayer.append(makeBubble(keyword, true)));
     } else {

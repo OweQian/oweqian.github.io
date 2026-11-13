@@ -1,0 +1,63 @@
+Jellyfish ocean renderer credits
+
+The current renderer displays two generated photographic jellyfish materials:
+assets/images/ocean/moon.png and silver.png. Gold remains an unused earlier study.
+These were generated from the owner's shape references; Hugo supplies local WebP variants.
+The photographic bells breathe on their own meshes. Curved photographic oral arms
+use three separate ribbons on each jellyfish. Their geometry controls coverage
+and the source images supply the surface detail. Another 28 translucent
+filaments are independently modeled, each with its own frequency, phase, amplitude
+and traveling root-to-tip bend. The long tails no longer share a deforming sheet.
+Attachment points are sampled inside opaque tissue in each local texture and use
+the same bell deformation as the cap. During turns, successive tail sections lag
+behind the head using recent poses; the individual strand rhythms remain separate.
+
+The cohesive seabed scene and red king crab carapace are also original generated
+assets for this site. Rocks, shells, starfish and seagrass share one perspective
+and underwater light. The king crab has six visible walking legs and two unequal
+claws; a curved frontal shell surface and projected joints follow a two-dimensional
+seabed route with planted feet, diagonal motion, pauses and changes of direction.
+Morphology reference: https://www.fisheries.noaa.gov/species/red-king-crab
+
+Beluga texture:
+assets/images/ocean/beluga-cheek.jpg: Mystic Aquarium, Mystic, Connecticut.
+Library of Congress, Prints & Photographs Division, photograph by Carol M.
+Highsmith, LC-DIG-highsm-19161 (public domain). Used for cheek and pectoral skin.
+https://hdl.loc.gov/loc.pnp/highsm.19161
+https://wwws.loc.gov/rr/print/res/482_high.html
+assets/images/ocean/beluga-melon.jpg: White fish in close-up photo, Saanvi Vavilala (Unsplash License).
+https://unsplash.com/photos/white-fish-in-close-up-photo-kvTQEU3OuzA
+https://unsplash.com/license
+assets/images/ocean/beluga-body.jpg: Delphinapterus leucas 16, iwona_kellie (CC BY 2.0).
+https://commons.wikimedia.org/wiki/File:Delphinapterus_leucas_16.jpg
+https://creativecommons.org/licenses/by/2.0/
+These photographs are resized as local WebP images and sampled with adjusted
+exposure, color and projection. The previous generated skin is no longer used.
+The five owner-supplied photographs guided the head and fin geometry. The
+closed-mouth underwater views guided the melon, upper lip and lower jaw.
+Additional shape references: Greg Hume, Beluga03; ghewgill, Delphinapterus leucas 28.
+https://commons.wikimedia.org/wiki/File:Beluga03.jpg
+https://commons.wikimedia.org/wiki/File:Delphinapterus_leucas_28.jpg
+Anatomy reference: https://www.fisheries.noaa.gov/species/beluga-whale
+The three-dimensional body has paired pectoral fins and horizontal tail flukes.
+Swimming alternates strokes and glides. The neck leads a turn, the inside
+flipper draws in, and the body follows the recent swim path. The tail bends and
+its tips flex on each stroke.
+Turn and flipper reference: Frank E. Fish, Balancing Requirements for Stability
+and Maneuverability in Cetaceans. https://doi.org/10.1093/icb/42.1.85
+Motion reference: 白鲸游泳姿态展示, 关关在立夏
+https://www.bilibili.com/video/BV1Fq4y1o7im/
+Bubble behavior reference: George and Noonan, Underwater Bubbling in Beluga Whales.
+https://sicb.org/abstracts/underwater-bubbling-in-beluga-whales-delphinapterus-leucas-rates-of-production-as-a-function-of-age-sex-and-bubble-type/
+The crab uses desaturated live-animal shell colors across torso and limbs.
+
+Continuous swimming is adapted from:
+Source: https://github.com/arodic/jellyfish
+Author: Aleksandar Rodic
+Copyright © 2012–2020 Aleksandar Rodic
+License: MIT, full text in LICENSE.txt
+Retrieved: 2026-11-11
+caustics.jpg: images/caustics/caustics7.00.jpg (subtle water illumination)
+
+The site does not include the original demo's jQuery, social widgets, analytics,
+debug controls or global simulation variables. The background makes no external requests.

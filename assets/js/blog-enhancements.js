@@ -41,19 +41,6 @@
     const navCount = siteNav.querySelector('[data-site-nav-count]');
     const navEmpty = siteNav.querySelector('[data-site-nav-empty]');
     const navTriggers = [...document.querySelectorAll('[data-site-nav-open]')];
-    const themeToggle = document.querySelector('[data-site-theme-toggle]');
-    const syncThemeToggle = () => {
-      if (!themeToggle) return;
-      const dark = document.body.getAttribute('theme') === 'dark';
-      const label = dark ? '白天' : '黑夜';
-      const action = dark ? '切换到白天模式' : '切换到黑夜模式';
-      themeToggle.querySelector('i').className = dark ? 'fas fa-sun' : 'fas fa-moon';
-      themeToggle.querySelector('[data-site-theme-label]').textContent = label;
-      themeToggle.setAttribute('aria-label', action);
-      themeToggle.title = action;
-    };
-    new MutationObserver(syncThemeToggle).observe(document.body, { attributes: true, attributeFilter: ['theme'] });
-    syncThemeToggle();
     let navReturnFocus = null;
 
     const visibleNavItems = () => navItems.filter((item) => !item.hidden);
