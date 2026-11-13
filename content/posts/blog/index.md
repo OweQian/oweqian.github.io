@@ -18,6 +18,17 @@ aliases: ["/timeline/"]
 
 ### 2026-11
 
+#### 2026-11-12
+海鸥 A："你觉得我们将去往何方？"    
+海鸥 B："我想去码头整点薯条"    
+海鸥 A："你误会我了，我是说咱们一生的终极目标是什么，我们活着是为了什么？"    
+海鸥 B："为了去码头整点薯条"   
+-------------------------------------------------------------------    
+海鸥 B："我们去码头整点薯条吧"       
+小 🐷："好呀"       
+海鸥 B："难道还有比这更有意义的事情吗？"     
+小 🐷："没有了"     
+<iframe width="100%" height="560" src="//player.bilibili.com/player.html?isOutside=true&aid=603060619&bvid=BV1sB4y1n7iQ&cid=833858420&p=1&autoplay=false" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 #### 2026-11-11
 😭 对不起，我站到反革命的立场去了。     
 > 革命不是请客吃饭，不是做文章，不是绘画绣花，不能那样雅致，那样从容不迫，文质彬彬，那样温良恭俭让。     
