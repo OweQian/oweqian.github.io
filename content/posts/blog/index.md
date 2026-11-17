@@ -18,6 +18,18 @@ aliases: ["/timeline/"]
 
 ### 2026-11
 
+#### 2026-11-17
+总结：阿甘有位天使妈妈。
+![7a4477c6cb068228932f4c3fadf1ff7f.jpg](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-17-5a9c6c79-7b7b-45e2-8338-e5fa5a39c6ad-1d036a9c66696d31dde7a0decf1792570d12968f4972edb53bf09197ef27d644.jpg)
+#### 2026-11-16
+记忆++    
+![e8b22712967d5d59fc9243a3c3973b68.jpg](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-16-91e2e6ae-7900-4e93-8957-5f15c5226944-26cba51d33e1cf2b15f4377b456ff391fee2d49858dade19a94d93d04b183765.jpg)
+#### 2026-11-15
+时间静止。    
+![7a2e6e2528b28a8d43b2c9b1b0f82bea.jpg](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-15-8c3e2179-2e51-44f2-8855-5271b52435fb-d09854777626bb5348c76bd6d085a7b53cb2df78a169f54d84b70194af35e148.jpg)
+#### 2026-11-14
+虞姬是真虞姬，霸王是假霸王。     
+![816a2a73f8a0fa482e0c15a5955cbbc5.jpg](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-14-f2d3e2a8-b6be-465e-a4bf-d924fc1790ef-ccdf97a4685190484a1defa9ddaf7b38eda3824f11cc787f77641363e9aff2b3.jpg)
 #### 2026-11-13
 🤔 重刷 Top250    
 ![Weixin Image_20261113030847_600_69.jpg](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-13-33b08765-fd88-4012-8657-b07be18eafb7-10c90e146eeb21f9c1b55246c6200e32187e21e50d1b25b67e4cca72e9f47b40.jpg)
