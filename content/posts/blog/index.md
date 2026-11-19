@@ -18,8 +18,12 @@ aliases: ["/timeline/"]
 
 ### 2026-11
 
+#### 2026-11-19
+知道这两天我是怎么过的吗！     
+![6e4c57a12bec69165cbf83eb59b77e5f.png](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-19-9fc8052b-ca03-4fd6-95f4-18bd8470d6bb-81490a2d2b2f70179bcb0dd07146d7d3f9e43259b887a543c1a2e3de2fbd413f.png)
+
 #### 2026-11-18
-hhhhhhh，当了一次「坏人」。
+hhhhhhh，当了一次「坏人」。    
 ![ab40257f-51c9-431b-8808-09ee91736265.png](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-18-84054f08-7c84-40a3-bd01-9e8259823c02-bffda04c46f3bdb3e8fc98d114f5c2e29a43938b8725c26ee6a7ae8ffdc804cd.png)
 #### 2026-11-17
 总结：阿甘有位天使妈妈。
