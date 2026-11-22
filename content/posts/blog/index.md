@@ -18,6 +18,19 @@ aliases: ["/timeline/"]
 
 ### 2026-11
 
+#### 2026-11-22
+😭 靠！！办公室怎么冷嗖嗖的！！有被吓到！！                   
+<iframe width="100%" height="560" src="//player.bilibili.com/player.html?isOutside=true&aid=117632695017171&bvid=BV1rWs66LEGM&cid=43691803975&p=1&autoplay=false" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+#### 2026-11-21
+「夏天结束了」        
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/TK1Ij_-mank?si=lDx6ET9sbWDXvNMG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+#### 2026-11-20
+一副缺失的扑克牌   
+黑桃如同利剑   
+梅花如同炮枪   
+方块如同金钱   
+唯独缺少了红桃心❤️   
+<iframe width="100%" height="560" src="https://www.youtube.com/embed/_4RwZMverYo?si=3RtrK2xbb_6vmO2y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 #### 2026-11-19
 知道这两天我是怎么过的吗！     
 ![6e4c57a12bec69165cbf83eb59b77e5f.png](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-19-9fc8052b-ca03-4fd6-95f4-18bd8470d6bb-81490a2d2b2f70179bcb0dd07146d7d3f9e43259b887a543c1a2e3de2fbd413f.png)
