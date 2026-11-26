@@ -18,6 +18,11 @@ aliases: ["/timeline/"]
 
 ### 2026-11
 
+#### 2026-11-23
+🤔 以前 🧠 果然不太行，现在看懂了：All You Need Is Love!!!   
+
+![p2614988097.webp](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-23-18fe0fae-da00-4ebb-a41f-1360c07208e3-089b3950b905240f809173051895f0dcf28c177a53c9e150ae0232faf1a8a9a6.webp)
+
 #### 2026-11-22
 😭 靠！！办公室怎么冷嗖嗖的！！有被吓到！！                   
 <iframe width="100%" height="560" src="//player.bilibili.com/player.html?isOutside=true&aid=117632695017171&bvid=BV1rWs66LEGM&cid=43691803975&p=1&autoplay=false" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
