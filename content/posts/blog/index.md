@@ -18,6 +18,11 @@ aliases: ["/timeline/"]
 
 ### 2026-11
 
+#### 2026-11-25
+🤔 一个盛产 「老赖」 的地方。   
+
+![39de76ef45a06c61a4980a7f9b1ce891.png](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-25-aa955828-2507-4349-ad81-81652bcae6ba-7812dbb0a9b6965fd892be532e315a529c60c322207953cd56560411f70612bc.png)
+
 #### 2026-11-24
 「王小白，雨停了」   
 
