@@ -18,6 +18,11 @@ aliases: ["/timeline/"]
 
 ### 2026-11
 
+#### 2026-11-24
+「王小白，雨停了」   
+
+![1ea2b2389e0afe63cc31d1f72505f9ef.jpg](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-24-5869808a-16dc-4921-830a-f04a7b5b06a9-8bb0dc7553558f66602a0d68e61494b63617f615cc1ab4cabceee2dab4e15370.jpg)
+
 #### 2026-11-23
 🤔 以前 🧠 果然不太行，现在看懂了：All You Need Is Love!!!   
 
