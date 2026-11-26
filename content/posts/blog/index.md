@@ -18,6 +18,12 @@ aliases: ["/timeline/"]
 
 ### 2026-11
 
+#### 2026-11-26
+😏 哎嘿嘿，一份《领域大模型工作原理.pptx》PPT + 一篇《关于多智能体系统，你需要了解的一切》文章，我又进步了。
+
+
+![download.png](https://oweqian.oss-cn-hangzhou.aliyuncs.com/notes/2026/11/2026-11-26-c00f9997-3528-4f99-91df-89296ba0fba8-0f6d041ed4f91700c2b4ca0bc6879efe8bd17bcdaafce9a2a04f5a3f5a076e30.png)
+
 #### 2026-11-25
 🤔 一个盛产 「老赖」 的地方。   
 
